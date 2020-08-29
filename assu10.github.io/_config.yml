@@ -22,7 +22,7 @@ tipue_search:
     pages: false
     collections: []
   exclude:
-    files: [search.html, tags.html]
+    files: [search.html, index.html, tags.html]
     categories: []
     tags: []
 
