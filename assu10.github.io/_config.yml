@@ -1,0 +1,65 @@
+# Setup
+title:               ASSU BLOG.
+tagline:             'assu tech blog..'
+description:         >
+  Thanks! :)
+url:                 https://assu10.github.io
+baseurl:             ''
+paginate:            2
+permalink:           pretty
+
+# About/contact
+author:
+  name:              ASSU
+  email:             juhyun1010@naver.com
+
+# Custom vars
+version:             1.1.0
+google_analytics_id: #UA-XXXX-Y
+
+tipue_search:
+  include:
+    pages: false
+    collections: []
+  exclude:
+    files: [search.html, index.html, tags.html]
+    categories: []
+    tags: []
+
+#collections:
+#  featured_categories:
+#    permalink:       /category/:name/
+#    output:          true
+#  projects:
+#    permalink:       /projects/:path/
+#    output:          true
+
+# -----------------------------------------------------------------------------
+#  Advanced configuration
+# -----------------------------------------------------------------------------
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-redirect-from
+
+exclude:
+  - README.md
+  - LICENSE.md
+  - Gemfile
+  - Gemfile.lock
+
+kramdown:
+  footnote_backlink: '&#x21a9;&#xfe0e;'
+  math_engine:       mathjax
+  math_engine_opts:
+    preview:         true
+    preview_as_code: true
+
+compress_html:
+  comments:          ["<!-- ", " -->"]
+  clippings:         all
+  endings:           all
+  ignore:
+    envs:            [development]
