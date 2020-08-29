@@ -2,7 +2,11 @@
 layout: post
 title:  Springboot Actuator
 date:   2020-03-26
-tags:	[springboot-actuator,spring-monitoring,actuator,spring-admin-ui]
+tags:
+- springboot-actuator
+- spring-monitoring
+- actuator
+- spring-admin-ui
 ---
 
 

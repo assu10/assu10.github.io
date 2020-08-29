@@ -2,7 +2,10 @@
 layout: post
 title:  "Spring Cloud(3) - Netflix Zuul"
 date:   2020-08-26 10:00
-tags:	[MSA,spring-cloud-eureka,feign]
+tags:
+- MSA
+- spring-cloud-eureka
+- feign
 ---
 
 ### 시작하며

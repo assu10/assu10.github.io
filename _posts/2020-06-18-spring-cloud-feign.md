@@ -2,7 +2,10 @@
 layout: post
 title:  Spring Cloud Feign
 date:   2020-06-18 14:00
-tags:	[springcloud-feign,MSA,feign]
+tags:
+- springcloud-feign
+- MSA
+- feign
 ---
 
 

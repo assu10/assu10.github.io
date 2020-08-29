@@ -2,8 +2,12 @@
 layout: post
 title:  "Spring Cloud(2) - Spring Cloud Eureka"
 date:   2020-08-26 10:00
-tags:	MSA spring-cloud-eureka feign
+tags:
+- MSA
+- spring-cloud-eureka
+- feign
 categories: dev
+comments: true
 ---
 
 ## 시작하며
