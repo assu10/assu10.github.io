@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Spring Cloud(3) - Netflix Zuul"
+title:  "Spring Cloud(3) - Netflix Zuul(1/2)"
 date:   2020-08-26 10:00
 categories: dev
-tags: web MSA spring-cloud-eureka feign
+tags: web MSA hystrix zuul ribbon
 ---
 
 ## 시작하며
@@ -13,17 +13,15 @@ tags: web MSA spring-cloud-eureka feign
 >[1.Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
 >[2.Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)<br />
 >***3.Zuul - Proxy & API Gateway***<br />
->>   - Service Registry & Discovery (서비스 등록 및 발견)
- >       - 서비스 동적 등록 및 정보 공유
- >       - 서비스 동적 발견
- >       - 상태 모니터링
- >   - Eureka
- >   - 유레카 구축
- >       - 유레카 서버 구축
+>>   - 게이트 웨이
+ >   - Zuul Proxy
+ >   - 주울 구축
  >       - 유레카 클라이언트 구축 (유레카 서버에 서비스 동적 등록)
  >       - 서비스 검색 (Feign 사용)
- >   - 유레카 고가용성<br />
- >
+ >   - 주울 경로 구성
+ >       - 서비스 디스커버리를 이용한 자동 경로 매핑
+ >       - 서비스 디스커버리를 이용한 수동 경로 매핑
+ >   - 서비스 타임 아웃<br />
 > 4.Ribbon - Load Balancer<br />
 
 Spring Cloud Config Server 와 Eureka 에 대한 자세한 내용은 위 목차에 걸려있는 링크를 참고바란다.
@@ -250,8 +248,117 @@ eureka:
 
 
 ### 4.2. 서비스 디스커버리를 이용한 수동 경로 매핑
+유레카 서비스 ID로 자동 생성된 경로에 의존하지 않고 명시적으로 정의하여 더욱 세분화 할 수도 있다.
+서비스 ID가 `event-service`인 이벤트 서비스의 겨우 자동 경로 매핑 경로는 아래와 같았다.
+
+`http://localhost:5555/event-service/event/member/hyori`
+
+이제 수동으로 경로를 매핑해보자.
+
+```yaml
+# config-repo > zuulserver > application.yaml
+
+zuul:
+  routes:
+    event-service: /evt/**
+```
+
+이후 [POST http://localhost:5555/actuator/bus-refresh](http://localhost:5555/actuator/bus-refresh) 를 호출하여 경로 구성을 다시 적용할 수 있다. 
+
+[http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes) 경로로 접속하여 주울이 관리하고 있는 경로를 확인해보자.
+
+![수동 매핑](/assets/img/dev/20200826/event.png)
+
+`"/evt/**": "event-service"` 가 추가된 것을 확인할 수 있다.
+`/evt/**`로 요청되는 호출은 `event-service` 서비스 ID를 가진 마이크로서비스로 매핑한다는 의미이다.
+
+그리고 그 아래 주울에 의해 자동으로 매핑된 경로인 `"/event-service/**": "event-service"` 도 여전히 함께 있다.
+만일 수동으로 매핑한 경로만 사용하고 싶다면 아래와 같은 코드를 추가해주면 된다.
+
+```yaml
+# config-repo > zuulserver > application.yaml
+
+zuul:
+  ignored-services: 'event-service'   # 자동 경로 매핑 무시, 쉼표로 한번에 여러 서비스 제외 가능
+  routes:
+    event-service: /evt/**
+```
+
+만일 유레카 기반의 모든 경로를 제외하려면 `ignored-services` 속성을 `*`로 설정하면 된다.
+
+![수동 매핑](/assets/img/dev/20200826/event2.png)
+
+`"/event-service/**": "event-service"` 매핑 정보가 사라진 것을 확인할 수 있다.
+
+그럼 이제 수동 매핑된 경로로 라우팅이 되는지 [http://localhost:5555/**evt**/event/member/hyori](http://localhost:5555/evt/event/member/hyori)를 호출하여 확인해보자.
+
+![수동 매핑 호출](/assets/img/dev/20200826/event3.png)
+
+
+API 게이트웨이의 일반적인 패턴은 모든 서비스 호출 앞에 /api 처럼 레이블을 붙여 컨텐츠 경로를 구별한다.
+주울의 `prefix` 프로퍼티가 이러한 기능을 지원한다.
+
+```yaml
+# config-repo > zuulserver > application.yaml
+
+zuul:
+  ignored-services: '*'       # 유레카 기반 모든 경로 제외
+  prefix: /api                # 정의한 모든 서비스에 /api 접두어
+  routes:
+    event-service: /evt/**
+    member-service: /mb/**
+```
+
+[http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes)를 보면 모든 서비스 매핑 URL에 /api 가 추가된 것을 확인할 수 있다.
+
+```json
+{
+    "/api/evt/**": "event-service",
+    "/api/mb/**": "member-service"
+}
+```
+
+변경된 주소로 API를 호출해보자.
+
+```text
+// http://localhost:5555/api/evt/event/member/hyori 호출 결과
+
+[MEMBER] Your name is MEMBER DEFAULT... / nickname is hyori / port is 8090
+```
 
 ## 5. 서비스 타임 아웃
+주울은 넷플릭스 히스트릭스와 리본 라이브러리를 사용하여 오래 수행되는 서비스 호출이 게이트웨어 성능에 영향을 미치지 않도록 한다.
+
+- 히스트릭스 타임아웃 설정
+    - `hystrix.command.default.execution.isolation.thread.timeoutIn` : 기본 1초
+    - `hystrix.command.event-service.execution.isolation.thread.timeoutIn` : 특정 서비스만 별도의 히스트릭스 타임아웃 설정
+- 리본 타임아웃 설정
+    - `event-service.ribbon.ReadTimeout` : 기본 5초
+
+```yaml
+# config-repo > zuulserver > zuulserver.yaml
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000   # 히스트릭스 타임아웃 5초로 설정 (기본 1초)
+```
+
+이벤트 서비스의 특정 API를 8초 이후에 리턴값을 반환하도록 설정 후 호출하면 아래와 같이 504 오류가 반환된다.
+
+[http://localhost:5555/api/evt/event/name/hyori](http://localhost:5555/api/evt/event/name/hyori) 호출 시 반환값
+
+```json
+{
+    "timestamp": "2020-08-30T12:58:38.493+00:00",
+    "status": 504,
+    "error": "Gateway Timeout",
+    "message": ""
+}
+``` 
 
 ## 6. 필터
 ### 6.1. 사전 필터

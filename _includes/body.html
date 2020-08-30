@@ -16,6 +16,13 @@
 <div id="_yPushState">
   <div class="fade-in">
     <main id="_main" class="content" role="main" data-color="{{ color | escape }}" data-image="{{ image | escape }}">
+      <div style="text-align: center;"><!-- 조회수 노출 HITS -->
+        <a href="http://hits.dwyl.com/{{ site.url | remove_first: 'https://' | remove_first: 'http://' }}{{ page.url }}"
+           target="_blank">
+          <img
+                  src="http://hits.dwyl.com/{{ site.url | remove_first: 'https://' | remove_first: 'http://' }}{{ page.url }}.svg" />
+        </a>
+      </div>
       {{ content }}
 
       {% include footer.html %}
