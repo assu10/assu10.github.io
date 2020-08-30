@@ -6,6 +6,7 @@ categories: dev
 tags: web MSA hystrix zuul ribbon
 ---
 
+
 ## 시작하며
 이 포스트는 MSA를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고바란다.
@@ -364,5 +365,3 @@ hystrix:
 
 ## 참고 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
-* [https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/](https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/)
-* [https://coe.gitbook.io/guide/service-discovery/eureka_2](https://coe.gitbook.io/guide/service-discovery/eureka_2)
