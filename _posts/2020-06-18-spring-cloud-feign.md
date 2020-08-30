@@ -140,7 +140,7 @@ RestTemplate을 사용하게 될 경우 http client connection 설정, return �
 
 
 
-관련 소스는 [github/juhyun10](https://github.com/juhyun10/feign.git){:target="_blank"}  에서 확인하실 수 있습니다.
+관련 소스는 [github/assu10](https://github.com/assu10/feign.git){:target="_blank"}  에서 확인하실 수 있습니다.
 
 
 

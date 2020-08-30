@@ -343,7 +343,7 @@ public class ActuatorApplication {
 
 
 
-관련 소스는 [github/juhyun10](https://github.com/juhyun10/springboot-actuator){:target="_blank"}  에서 확인하실 수 있습니다.
+관련 소스는 [github/assu10](https://github.com/assu10/springboot-actuator){:target="_blank"}  에서 확인하실 수 있습니다.
 
 
 

@@ -8,9 +8,9 @@ tags: web MSA spring-cloud-eureka feign
 
 ## 시작하며
 이 포스트는 MSA를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Eureka 에 대해 기술한다.
-관련 소스는 [github/juhyun10](https://github.com/juhyun10/msa-springcloud) 를 참고바란다.
+관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고바란다.
 
->[1.Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://bravenamme.github.io/2020/08/16/spring-cloud-config-server/)<br />
+>[1.Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
 >***2.Eureka - Service Registry & Discovery***<br />
 >>   - Service Registry & Discovery (서비스 등록 및 발견)
 >       - 서비스 동적 등록 및 정보 공유
@@ -26,7 +26,7 @@ tags: web MSA spring-cloud-eureka feign
 > 3.Zuul - Proxy & API Gateway<br />
 > 4.Ribbon - Load Balancer<br />
 
-Spring Cloud Config Server 에 대한 자세한 내용은 [여기](https://bravenamme.github.io/2020/08/16/spring-cloud-config-server/)에서 확인이 가능하다.
+Spring Cloud Config Server 에 대한 자세한 내용은 [여기](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)에서 확인이 가능하다.
 
 
 ## 1. Service Registry & Discovery (서비스 등록 및 발견)
@@ -113,7 +113,7 @@ Eureka는 서버 컴포넌트(이하 유레카 서버)와 클라이언트 컴포
 
 
 ## 3. 유레카 구축
-이전 포스팅인 [컨피그 서버](https://bravenamme.github.io/2020/08/16/spring-cloud-config-server/)를 진행했다면
+이전 포스팅인 [컨피그 서버](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)를 진행했다면
 아래 구성도가 이미 로컬에 셋팅되어 있을 것이다.
 
 ![컨피그 서버](/assets/img/dev/20200808/config.png)
@@ -375,7 +375,7 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
 - 넷플릭스 Feign 클라이언트
     - `@EnagleFeignClients` 사용
 
-Feign의 자세한 내용은 이전 포스트인 [Spring Cloud Feign](https://bravenamme.github.io/2020/06/18/spring-cloud-feign/) 를 참고하면 된다.
+Feign의 자세한 내용은 이전 포스트인 [Spring Cloud Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 를 참고하면 된다.
 
 아래는 Feign을 이용하여 이벤트 서비스(=Consumer)에서 회원 서비스(=Provider)를 호출하는 방법이다.
 
