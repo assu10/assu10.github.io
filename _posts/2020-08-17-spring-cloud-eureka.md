@@ -128,7 +128,7 @@ Eureka는 서버 컴포넌트(이하 유레카 서버)와 클라이언트 컴포
 
 유레카 서버 구축에 앞서 다른 서비스 ID를 가진 마이크로서비스가 필요하니 회원 마이크로서비스를 만들었던 것과 동일한 방식으로
 이벤트 마이크로서비스를 미리 만들어두자.<br />
-잘 안되는 분들은 [여기](https://github.com/juhyun10/msa-springcloud/commit/57dfc09b2888b98e718502c0ddcb5195703fa7a4)를 참고하세요.
+잘 안되는 분들은 [여기](https://github.com/assu10/msa-springcloud/commit/57dfc09b2888b98e718502c0ddcb5195703fa7a4)를 참고하세요.
 
 ### 3.1. 유레카 서버 구축
 새로운 스트링부트 프로젝트 생성 후 Config Client, Eureka Server, Actuator Dependency 를 추가한다.
@@ -201,8 +201,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/juhyun10/config-repo.git
-          username: juhyun10
+          uri: https://github.com/assu10/config-repo.git
+          username: assu10
           password: '{cipher}f38ff3546220bbac52d81c132916b1b1fd7c3cfdcfdf408760d1c4bf0b4ee97c'
           search-paths: member-service, event-service, eurekaserver    ## 구성 파일을 찾을 폴더 경로
         encrypt:

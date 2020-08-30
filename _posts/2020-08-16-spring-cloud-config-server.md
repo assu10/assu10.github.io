@@ -537,8 +537,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/juhyun10/config-repo.git
-          username: juhyun10
+          uri: https://github.com/assu10/config-repo.git
+          username: assu10
           password: '{cipher}f38ff3546220bbac52d81c132916b1b1fd7cfsdfdsfds60d1c4bf0b4ee97c'
           search-paths: member-service    # 구성 파일을 찾을 폴더 경로
         encrypt:

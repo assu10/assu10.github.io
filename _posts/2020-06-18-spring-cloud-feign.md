@@ -55,7 +55,7 @@ public class ProviderController {
 }
 ```
 
-좀 더 자세한 소스는 [여기](https://github.com/juhyun10/feign.git)를 참고해주세요.
+좀 더 자세한 소스는 [여기](https://github.com/assu10/feign.git)를 참고해주세요.
 
 
 
