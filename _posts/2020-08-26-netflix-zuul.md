@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud(3) - Netflix Zuul"
+title:  "Spring Cloud(3) - Netflix Zuul(작성 중)"
 date:   2020-08-26 10:00
 categories: dev
 tags: web MSA spring-cloud-eureka feign
