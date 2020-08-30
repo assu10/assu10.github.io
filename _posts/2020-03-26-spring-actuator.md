@@ -2,11 +2,8 @@
 layout: post
 title:  Springboot Actuator
 date:   2020-03-26
-tags:
-- springboot-actuator
-- spring-monitoring
-- actuator
-- spring-admin-ui
+categories: dev
+tags: web springboot-actuator spring-monitoring actuator spring-admin-ui
 ---
 
 
@@ -331,16 +328,16 @@ public class ActuatorApplication {
 
 
 
-![Springadmin 첫 화면](/assets/img/20200326/adminui01.JPG)
+![Springadmin 첫 화면](/assets/img/dev/20200326/adminui01.JPG)
 
 
 
 
-![Springadmin 대시보드](/assets/img/20200326/adminui02.JPG)
+![Springadmin 대시보드](/assets/img/dev/20200326/adminui02.JPG)
 
 
 
-![Springadmin로 덤프파일도 받을 수 있어요!](/assets/img/20200326/adminui03.JPG)
+![Springadmin로 덤프파일도 받을 수 있어요!](/assets/img/dev/20200326/adminui03.JPG)
 
 
 

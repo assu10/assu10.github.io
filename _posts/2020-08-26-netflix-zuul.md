@@ -2,10 +2,8 @@
 layout: post
 title:  "Spring Cloud(3) - Netflix Zuul"
 date:   2020-08-26 10:00
-tags:
-- MSA
-- spring-cloud-eureka
-- feign
+categories: dev
+tags: web MSA spring-cloud-eureka feign
 ---
 
 ### 시작하며
@@ -76,7 +74,7 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 서비스 클라이언트는 개별 서비스의 URL을 직접 호출하지 않고 주울로 모든 요청을 보내고, (=애플리케이션의 모든 서비스 경로를 단일 URL로 매핑)
 주울은 받은 요청을 추려내서 호출하고자 하는 서비스로 라우팅한다.
 
-![주울 동작 흐름](/assets/img/20200826/zuul.png)
+![주울 동작 흐름](/assets/img/dev/20200826/zuul.png)
 
 >주울은 기동 시 유레카 서버에 주울 서비스 ID를 등록한다.<br /><br />
 >서비스 클라이언트이기도 한 이벤트 마이크로서비스는 주울 서비스 ID를 이용하여 유레카 서버로부터 주울 서버 목록을 얻는다.<br /><br />
@@ -95,11 +93,11 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 ### 3. 주울 구축
 이번 포스트인 [컨피그 서버](https://bravenamme.github.io/2020/08/16/spring-cloud-config-server/)와 [유레카](https://bravenamme.github.io/2020/08/26/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
 
-![컨피그 서버 + 유레카](/assets/img/20200816/config_eureka.png)
+![컨피그 서버 + 유레카](/assets/img/dev/20200816/config_eureka.png)
 
 위 설정에 주울을 추가하면 아래와 같은 구성도가 된다.
 
-![컨피그 서버 + 유레카 + 주울](/assets/img/20200826/config_eureka_zuul.png)
+![컨피그 서버 + 유레카 + 주울](/assets/img/dev/20200826/config_eureka_zuul.png)
 
 새로운 스트링부트 프로젝트 생성 후 Zuul, Config Client, Eureka Discovery, Actuator Dependency 를 추가한다.
 

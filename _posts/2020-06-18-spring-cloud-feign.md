@@ -2,10 +2,8 @@
 layout: post
 title:  Spring Cloud Feign
 date:   2020-06-18 14:00
-tags:
-- springcloud-feign
-- MSA
-- feign
+categories: dev
+tags: web springcloud-feign MSA feign
 ---
 
 
@@ -28,7 +26,7 @@ MSA (MicroService Architecture) 대해 검토를 하다 보면 분산 시스템�
 
 본 예제는 아래와 같은 흐름으로 진행이 됩니다.
 
-![그림으로 이해하는 API 호출 흐름](/assets/img/20200618/0618_1.jpg)
+![그림으로 이해하는 API 호출 흐름](/assets/img/dev/20200618/0618_1.jpg)
 
 
 
@@ -65,7 +63,7 @@ public class ProviderController {
 
 #### 프로젝트 생성
 
-![springboot project 생성 - Consumer](/assets/img/20200618/0618_2.jpg)
+![springboot project 생성 - Consumer](/assets/img/dev/20200618/0618_2.jpg)
 
 ```xml
  <dependency>
@@ -132,7 +130,7 @@ public class ConsumerController {
 
 
 
-![Consumer API 호출](/assets/img/20200618/0618_api.jpg)
+![Consumer API 호출](/assets/img/dev/20200618/0618_api.jpg)
 
 
 

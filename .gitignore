@@ -1,8 +1,8 @@
 # Ignore docs files
 _gh_pages
 _site
+_drafts
 .ruby-version
-.jekyll-cache
 
 # Numerous always-ignore extensions
 *.diff
@@ -39,5 +39,9 @@ validation-status.json
 validation-report.json
 
 # Folders to ignore
+_posts_ing
+assu10.github.io
 node_modules
-bower_components
+.sass-cache
+.jekyll-metadata
+*.gem
