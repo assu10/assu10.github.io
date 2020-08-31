@@ -22,7 +22,6 @@
     {% endunless %}
   {% endfor %}
 
-  <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
   {% unless include.excerpt %}
     <div class="markdown-body">
 
@@ -30,10 +29,6 @@
 <br/>{% elsif tag.header-img %}
 <div class="head-image"><img src="{{ site.url }}/assets/{{ tag.header-img }}"/></div>
 <br/>{% endif %}
-<style>
-.googleads { display:block; width:98%; height: 280px; }
-@media(min-width: 600px) { .googleads { display: none; } }
-</style>
 <br/>
       {{ post.content }}
       <br/>
