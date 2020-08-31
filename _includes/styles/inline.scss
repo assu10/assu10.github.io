@@ -1,5 +1,6 @@
 @import "variables";
 @import "mixins";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 @import "pooleparty/base-inline";
 // @import "pooleparty/base";
@@ -44,5 +45,5 @@
   {% assign font_heading = font_heading | split:',' | shift | join:',' %}
 {% endunless %}
 
-html { font-family: {{ font | default:"'Sans-serif'" }}; }
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .heading { font-family: {{ font_heading | default:"'Sans-serif'" }}; }
+html { font-family: 'Nanum Gothic', 'sans-serif'; }
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .heading { font-family: 'Nanum Gothic', 'sans-serif'; }
