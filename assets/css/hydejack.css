@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 ---
 ---
 {% capture include_to_scssify %}{% include styles/style.scss %}{% endcapture %}
@@ -65,20 +64,20 @@
 .markdown-body code,
 .markdown-body kbd,
 .markdown-body pre {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: monospace, monospace;
   font-size: 1em;
 }
 
 
 .markdown-body code {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
 }
 
 .markdown-body pre {
   margin-top: 0;
   margin-bottom: 0;
-  font: 12px "Nanum Gothic", sans-serif;
+  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
 .markdown-body img {
@@ -174,7 +173,7 @@
 .markdown-body kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px "Nanum Gothic", sans-serif;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
   line-height: 10px;
   color: #555;
   vertical-align: middle;
