@@ -111,7 +111,13 @@
 <!-- =============== -->
 <!-- STYLES          -->
 <!-- =============== -->
-<!--[if gt IE 8]><!---->
+<style>
+  {% capture include_to_scssify %}
+  {% include styles/inline.scss %}
+  {% endcapture %}
+  {{ include_to_scssify | scssify }}
+</style>
+<!--[if gt IE 8]>-->
 <style>
   {% capture include_to_scssify %}
   {% include styles/inline.scss %}
