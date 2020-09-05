@@ -7,7 +7,7 @@ tags: web MSA hystrix zuul ribbon
 ---
 
 ## 시작하며
-이 포스트는 MSA를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고바란다.
 
 >[1.Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -50,7 +50,7 @@ Spring Cloud Config Server 와 Eureka 에 대한 자세한 내용은 위 목차�
 ---
 
 ## 2. Zuul Proxy
-Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka 서버를 사용하고, 부하 분산을 위해 Ribbon을 사용한다.
+Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka 서버를 사용하고, 부하 분산을 위해 Ribbon 을 사용한다.
 
 주울 프록시는 특히 아래의 상황에서 더 유용하다.
 
@@ -69,19 +69,19 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 - 부하 스로틀링: 장비를 기동한 후 부하를 점진적으로 늘려나가는 것
 </details>
 <br />
-주울은 사전 필요, 라우팅 필터, 사후 필터, 에러 필터 등을 제공하여 서비스 호출의 서로 다른 여러 단계에 적용할 수 있도록 지원한다.
-또한 추상 클래스인 ZuulFilter를 상속하여 자체 필터를 작성할 수도 있다.
+주울은 사전 필터, 라우팅 필터, 사후 필터, 에러 필터 등을 제공하여 서비스 호출의 서로 다른 여러 단계에 적용할 수 있도록 지원한다.
+또한 추상 클래스인 ZuulFilter 를 상속하여 자체 필터를 작성할 수도 있다.
 
 주울의 동작 흐름을 살펴보면 아래와 같다.
 
-서비스 클라이언트는 개별 서비스의 URL을 직접 호출하지 않고 주울로 모든 요청을 보내고, (=애플리케이션의 모든 서비스 경로를 단일 URL로 매핑)
+서비스 클라이언트는 개별 서비스의 URL 을 직접 호출하지 않고 주울로 모든 요청을 보내고, (=애플리케이션의 모든 서비스 경로를 단일 URL 로 매핑)
 주울은 받은 요청을 추려내서 호출하고자 하는 서비스로 라우팅한다.
 
 ![주울 동작 흐름](/assets/img/dev/20200826/zuul.png)
 
 >주울은 기동 시 유레카 서버에 주울 서비스 ID를 등록한다.<br /><br />
 >서비스 클라이언트이기도 한 이벤트 마이크로서비스는 주울 서비스 ID를 이용하여 유레카 서버로부터 주울 서버 목록을 얻는다.<br /><br />
->URL을 통해 회원 마이크로서비스 물리적 위치를 찾아 라우팅한다.
+>URL 을 통해 회원 마이크로서비스 물리적 위치를 찾아 라우팅한다.
 
 ***주울은 서비스 호출에 대한 병목점이므로 주울의 코드는 최대한 가볍게 유지하는 것이 좋다.***
 
@@ -139,7 +139,7 @@ public class ZuulserverApplication {
 `@EnableZuulServer`는 유레카가 아닌 서비스 디스커버리 엔진(Consul 같은...)과 통합할 경우 사용한다.
 또한 자체 라우팅 서비스를 만들고 내장된 주울 기능을 사용하지 않을 때도 사용한다.
 
-주울은 자동으로 유레카를 사용해 서비스 ID로 서비스를 찾은 후 Ribbon으로 주울 내부에서 클라이언트 측 부하분산을 수행한다.
+주울은 자동으로 유레카를 사용해 서비스 ID로 서비스를 찾은 후 Ribbon 으로 주울 내부에서 클라이언트 측 부하분산을 수행한다.
 
 컨피그 서버 구성 경로 추가한다.
 
@@ -219,9 +219,9 @@ eureka:
 
 - 서비스 디스커버리를 이용한 자동 경로 매핑
 - 서비스 디스커버리를 이용한 수동 경로 매핑
-- 정적 URL을 이용한 수동 경로 매핑
+- 정적 URL 을 이용한 수동 경로 매핑
 
-여기서 정적 URL을 이용한 수동 경로 매핑은 유레카로 관리하지 않는 서비스를 라우팅할 때 사용하는데 이 포스팅에선 다루지 않을 예정이다.
+여기서 정적 URL 을 이용한 수동 경로 매핑은 유레카로 관리하지 않는 서비스를 라우팅할 때 사용하는데 이 포스팅에선 다루지 않을 예정이다.
 
 ---
 
@@ -250,7 +250,7 @@ eureka:
 
 
 실제로 매핑된대로 잘 호출이 되는지 확인해보자.
-이벤트 마이크로서비스의 API를 직접 호출하는 것이ㄴ 주울을 통해 호출해보자.
+이벤트 마이크로서비스의 API 를 직접 호출하는 것을 이제 주울을 통해 호출해보자.
 
 ![주울을 통해 API 호출](/assets/img/dev/20200826/routing.png)
 
@@ -318,7 +318,7 @@ zuul:
     member-service: /mb/**
 ```
 
-[http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes)를 보면 모든 서비스 매핑 URL에 /api 가 추가된 것을 확인할 수 있다.
+[http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes)를 보면 모든 서비스 매핑 URL 에 /api 가 추가된 것을 확인할 수 있다.
 
 ```json
 {
@@ -327,7 +327,7 @@ zuul:
 }
 ```
 
-변경된 주소로 API를 호출해보자.
+변경된 주소로 API 를 호출해보자.
 
 ```text
 // http://localhost:5555/api/evt/event/member/hyori 호출 결과
@@ -338,7 +338,7 @@ zuul:
 ---
 
 ## 5. 기존의 Feign Client 수정하여 서비스들간의 통신도 주울로 통신하도록 하기
-이제 기존에 이벤트 서비스에서 Feign 을 이용하여 회원 서비스의 REST API를 직접 호출하는 부분을 이제 주울을 통해 호출하도록 수정해보자.<br />
+이제 기존에 이벤트 서비스에서 Feign 을 이용하여 회원 서비스의 REST API 를 직접 호출하는 부분을 이제 주울을 통해 호출하도록 수정해보자.<br />
 (잘 기억이 나지 않는다면 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/) 의 *3.3. 서비스 검색 (Feign 사용)*과
 [Open Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 을 참고하세요) 
 
@@ -346,7 +346,7 @@ zuul:
 - 수정 : 이벤트 서비스 → 회원 서비스 (Feign 이용하여 **주울 통하여 호출**)
 
 수정은 간단하다.
-@FeignClient 에 들어가는 서비스 ID와 최종 URL만 수정해주면 된다.
+@FeignClient 에 들어가는 서비스 ID와 최종 URL 만 수정해주면 된다.
 
 컨피스 원격 저장소의 이벤트 서비스 설정 파일에 아래 내용을 추가한다.
 ```yaml
@@ -402,7 +402,7 @@ hystrix:
             timeoutInMilliseconds: 5000   # 히스트릭스 타임아웃 5초로 설정 (기본 1초)
 ```
 
-이벤트 서비스의 특정 API를 8초 이후에 리턴값을 반환하도록 설정 후 호출하면 아래와 같이 504 오류가 반환된다.
+이벤트 서비스의 특정 API 를 8초 이후에 리턴값을 반환하도록 설정 후 호출하면 아래와 같이 504 오류가 반환된다.
 
 [http://localhost:5555/api/evt/event/name/hyori](http://localhost:5555/api/evt/event/name/hyori) 호출 시 반환값
 
@@ -419,4 +419,5 @@ hystrix:
 
 ## 참고 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
+* [스프링 부트와 스프링 클라우드로 배우는 스프링 마이크로서비스](http://acornpub.co.kr/book/spring-microservices)
 * [https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/](https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/)
