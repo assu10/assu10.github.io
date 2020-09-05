@@ -21,10 +21,14 @@ tags: web MSA hystrix zuul ribbon
  >   - 주울 경로 구성
  >       - 서비스 디스커버리를 이용한 자동 경로 매핑
  >       - 서비스 디스커버리를 이용한 수동 경로 매핑
+ >   - 기존의 Feign Client 수정하여 서비스들간의 통신도 주울로 통신하도록 하기 
  >   - 서비스 타임 아웃<br />
+>
 > 4.Ribbon - Load Balancer<br />
 
 Spring Cloud Config Server 와 Eureka 에 대한 자세한 내용은 위 목차에 걸려있는 링크를 참고바란다.
+
+---
 
 ## 1. 게이트웨이
 대부분의 마이크로서비스 아키텍처에서 내부적인 마이크로서비스 종단점은 외부에 공개되지 않고 비공개 서비스로 남는다.
@@ -43,6 +47,7 @@ Spring Cloud Config Server 와 Eureka 에 대한 자세한 내용은 위 목차�
 - 비즈니스 로직과 같은 주요 기능을 핵심 관심사라고 하고, 보안/로깅/추적처럼 애플리케이션에 영향을 미치는 관심사를 횡단 관심사라고 함
 </details>
 
+---
 
 ## 2. Zuul Proxy
 Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka 서버를 사용하고, 부하 분산을 위해 Ribbon을 사용한다.
@@ -63,7 +68,7 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 - 부하 슈레딩: 장비를 닫기 위해 부하를 점진적으로 줄여나가는 것
 - 부하 스로틀링: 장비를 기동한 후 부하를 점진적으로 늘려나가는 것
 </details>
-
+<br />
 주울은 사전 필요, 라우팅 필터, 사후 필터, 에러 필터 등을 제공하여 서비스 호출의 서로 다른 여러 단계에 적용할 수 있도록 지원한다.
 또한 추상 클래스인 ZuulFilter를 상속하여 자체 필터를 작성할 수도 있다.
 
@@ -87,6 +92,7 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 3. 호출 시 생성된 상관관계 ID를 HTTP 응답에 삽입하여 클라이언트에 회신
 4. 대중이 사용중인 것과 다른 회원 서비스 인스턴스 엔드포인트로 라우팅하는 동적 라우팅 메커니즘 구축
 
+---
 
 ## 3. 주울 구축
 이번 포스트인 [컨피그 서버](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)와 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
@@ -206,6 +212,7 @@ eureka:
 [http://localhost:8761/](http://localhost:8761/) 유레카 콘솔로 접속하면 주울이 등록된 것을 확인할 수 있다.
 [http://localhost:5555/actuator/env](http://localhost:5555/actuator/env) 로 접속하면 주울이 잘 떴는지 확인 가능하다.
 
+---
 
 ## 4. 주울 경로 구성
 주울은 클라이언트와 자원 사이에 위치한 중개 서버로 클라이언트가 요청한 호출을 해당 자원으로 매핑을 하는데 이 때 매핑 메커니즘은 3가지가 있다.
@@ -216,6 +223,7 @@ eureka:
 
 여기서 정적 URL을 이용한 수동 경로 매핑은 유레카로 관리하지 않는 서비스를 라우팅할 때 사용하는데 이 포스팅에선 다루지 않을 예정이다.
 
+---
 
 ### 4.1. 서비스 디스커버리를 이용한 자동 경로 매핑
 주울은 application.yaml 에 경로를 정의하여 매핑하는데 유레카와 함께 사용하면 특별한 구성 없이 서비스 ID 기반으로 자동 라우팅을 지원한다.
@@ -246,6 +254,7 @@ eureka:
 
 ![주울을 통해 API 호출](/assets/img/dev/20200826/routing.png)
 
+---
 
 ### 4.2. 서비스 디스커버리를 이용한 수동 경로 매핑
 유레카 서비스 ID로 자동 생성된 경로에 의존하지 않고 명시적으로 정의하여 더욱 세분화 할 수도 있다.
@@ -326,12 +335,58 @@ zuul:
 [MEMBER] Your name is MEMBER DEFAULT... / nickname is hyori / port is 8090
 ```
 
-## 5. 서비스 타임 아웃
-주울은 넷플릭스 히스트릭스와 리본 라이브러리를 사용하여 오래 수행되는 서비스 호출이 게이트웨어 성능에 영향을 미치지 않도록 한다.
+---
+
+## 5. 기존의 Feign Client 수정하여 서비스들간의 통신도 주울로 통신하도록 하기
+이제 기존에 이벤트 서비스에서 Feign 을 이용하여 회원 서비스의 REST API를 직접 호출하는 부분을 이제 주울을 통해 호출하도록 수정해보자.<br />
+(잘 기억이 나지 않는다면 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/) 의 *3.3. 서비스 검색 (Feign 사용)*과
+[Open Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 을 참고하세요) 
+
+- 기존 : 이벤트 서비스 → 회원 서비스 (Feign 이용하여 **직접 호출**)
+- 수정 : 이벤트 서비스 → 회원 서비스 (Feign 이용하여 **주울 통하여 호출**)
+
+수정은 간단하다.
+@FeignClient 에 들어가는 서비스 ID와 최종 URL만 수정해주면 된다.
+
+컨피스 원격 저장소의 이벤트 서비스 설정 파일에 아래 내용을 추가한다.
+```yaml
+# config-repo > event-service > event-service.yaml
+
+service:
+  id:
+    member: member-service
+    zuul: zuulserver    # 주울 서비스 아이디 추가
+```
+
+이 후 이벤트 서비스 내에 있는 MemberFeignClient 파일을 아래와 같이 수정한다.
+
+```java
+// event-service > client > MemberFeignClient.java
+
+//@FeignClient("${service.id.member}")
+@FeignClient("${service.id.zuul}")      // 주울의 서비스 아이디로 수정
+public interface MemberFeignClient {
+    
+    String URL_PREFIX = "/api/mb/member/";      // 회원 서비스의 주울 라우팅경로와 회원 클래스 주소
+
+    /**
+     * 주울을 통해 호출할 경로 : http://localhost:5555/api/evt/event/member/{nick}
+     */
+    @GetMapping(value = URL_PREFIX + "name/{nick}")
+    String getYourName(@PathVariable("nick") String nick);
+}
+```
+
+![마이크로서비스 간 주울 통신 확인](/assets/img/dev/20200826/feignzuul.png)
+
+---
+
+## 6. 서비스 타임 아웃
+주울은 넷플릭스 히스트릭스와 리본 라이브러리를 사용하여 오래 수행되는 서비스 호출이 게이트웨이 성능에 영향을 미치지 않도록 한다.
 
 - 히스트릭스 타임아웃 설정
-    - `hystrix.command.default.execution.isolation.thread.timeoutIn` : 기본 1초
-    - `hystrix.command.event-service.execution.isolation.thread.timeoutIn` : 특정 서비스만 별도의 히스트릭스 타임아웃 설정
+    - `hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds` : 기본 1초
+    - `hystrix.command.event-service.execution.isolation.thread.timeoutInMilliseconds` : 특정 서비스만 별도의 히스트릭스 타임아웃 설정
 - 리본 타임아웃 설정
     - `event-service.ribbon.ReadTimeout` : 기본 5초
 
