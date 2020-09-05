@@ -7,7 +7,7 @@ tags: web MSA spring-cloud-config-server spring-cloud-bus rabbitmq
 ---
 
 ## 시작하며
-이 포스트는 MSA를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Config Server 에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Config Server 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고바란다.
 
 앞으로 연재 방식으로 아래 컴포넌트들에 대해 포스팅을 할 예정이다.
@@ -57,7 +57,7 @@ Spring Cloud Config Server(이하 컨피그 서버)는 애플리케이션과 서
 >컨피그 서버는 환경설정 정보가 변경되면 자신을 바라보는 모든 마이크로서비스에 변경 사항 전파<br /><br />
 >마이크로서비스는 변경 사항을 로컬 캐시에 반영<br />
 
-컨피그 서버는 환경설정 정보를 Git이나 SVN 같은 버전 관리 도구에 저장한다.<br />
+컨피그 서버는 환경설정 정보를 Git 이나 SVN 같은 버전 관리 도구에 저장한다.<br />
 원격 저장소가 아닌 파일 기반으로도 가능은 하지만 버전 관리, 운영상의 리스크 등을 고려하여 원격 저장소를 많이 이용한다.
 
 스프링 부트와는 다르게 스프링 클라우드는 부트스트랩 컨텍스트를 이용한다.<br />
@@ -68,19 +68,19 @@ Spring Cloud Config Server(이하 컨피그 서버)는 애플리케이션과 서
 <details markdown="1">
 <summary>application.* VS bootstrap.* (Click!)</summary>
 - 라이프사이클 상 application.* 이 로드되기 전에 bootstrap.* 이 로드됨<br />
-(application.* 을 사용하기 전에 부모 ApplicationContext가 로드되는데 bootstrap.* 은 이 부모 ApplicationContext에 의해 로드됨)
+(application.* 을 사용하기 전에 부모 ApplicationContext 가 로드되는데 bootstrap.* 은 이 부모 ApplicationContext 에 의해 로드됨)
 - bootstrap.* 에는 환경설정 정보를 조회하기 위한 정보만 기재하고, 그 외의 정보는 application.* 을 이용
 - bootstrap.*
    - 기본적으로 구성 서버의 위치(spring.cloud.config.uri)와 애플리케이션 이름(spring.application.name) 기재
    - 그 외 Eureka 서버 위치, 암호화/해독 관련 속성과 같은 다른 설정 포함 가능
    - 애플리케이션 기동 시 애플리케이션의 이름으로 컨피그 서버에 HTTP 호출을 하여 해당 애플리케이션 구성 정보검색
-   - Spring Cloud를 사용하고 애플리케이션 환경설정이 원격 구성 서버(컨피그 서버)에 저장되어 있는 경우에만 필요
+   - Spring Cloud 를 사용하고 애플리케이션 환경설정이 원격 구성 서버(컨피그 서버)에 저장되어 있는 경우에만 필요
    - application.* 과 마찬가지로 bootstrap-dev.* 이런 식의 프로파일별 구성 가능
 </details>
 
 <details markdown="1">
 <summary>*.properties VS *.yml VS *.yaml (Click!)</summary>
-- [yaml FAQ](https://yaml.org/faq.html)에선 *.yaml을 공식 확장자라고 이야기 함.
+- [yaml FAQ](https://yaml.org/faq.html)에선 *.yaml 을 공식 확장자라고 이야기 함.
 - *.yml 이 있는 이유는 *.html VS *.htm 과 비슷한 이유일 것이라 추측<br />
    (MS-Dos 시절엔 파일의 확장자가 길이가 3자로 제한되었다고 하는데
    그 시절의 영향인지 3글자 확장자 스타일을 고수하는 사람들때문에
@@ -88,16 +88,16 @@ Spring Cloud Config Server(이하 컨피그 서버)는 애플리케이션과 서
 - *.yaml 사용 시 특징
    - `--` 를 이용하여 한 파일에서 모든 프로파일별 설정 정보 관리 가능<br />
      (하지만 설정 정보가 많아질 경우 오히려 더 불편하므로 개인적으론 프로파일별로 개별 파일 관리 선호)
-   - 동일 key를 허용하지 않기 때문에 동일한 부모를 가진 key 끼리 모여있으므로 흐름 파악에 용이
+   - 동일 key 를 허용하지 않기 때문에 동일한 부모를 가진 key 끼리 모여있으므로 흐름 파악에 용이
 
-![*.properties와 *.yaml 차이](/assets/img/dev/20200808/yaml.png)
+![*.properties 와 *.yaml 차이](/assets/img/dev/20200808/yaml.png)
 </details>
 
 ## 2. 컨피그 서버 구축
 ### 2-1. 컨피그 서버 셋업
 새로운 스트링부트 프로젝트 생성 후 Config Server Dependency 를 추가한다.
-actuator는 서버 구동 확인용으로 사용할 예정이다.
-actuator에 대한 간단한 설명은 이전 포스트인 [여기](https://assu10.github.io/dev/2020/03/26/spring-actuator/)를 참고하길 바란다.
+actuator 는 서버 구동 확인용으로 사용할 예정이다.
+actuator 에 대한 간단한 설명은 이전 포스트인 [여기](https://assu10.github.io/dev/2020/03/26/spring-actuator/)를 참고하길 바란다.
 
 스트링부트의 버전은 2.3.2 이고, 스프링 클라우드의 버전은 Hoxton.SR6 이다.
 스프링 클라우드 버전에 따른 스프링 부트 버전 선택은 [여기](https://spring.io/projects/spring-cloud)를 참고한다.
@@ -127,8 +127,8 @@ actuator에 대한 간단한 설명은 이전 포스트인 [여기](https://assu
 ### 2-2. 저장소(Git or File) 구현 - File
 지금은 로컬 파일 시스템 기반의 저장소로 연결하고 원격 저장소로의 연결은 마지막에 구현할 예정이다.
 저장소로 사용할 폴더 생성 후 컨피그 서버가 방금 만든 저장소를 사용하도록 설정한다.
-application.properties의 이름을 bootstrap.yaml 으로 변경 후 아래와 같이 설정한다.
-윈도우 환경에서는 URL의 맨 끝에 `/` 를 추가해준다.
+application.properties 의 이름을 bootstrap.yaml 으로 변경 후 아래와 같이 설정한다.
+윈도우 환경에서는 URL 의 맨 끝에 `/` 를 추가해준다.
 
 ```yaml
 # configserver > bootstrap.yaml
@@ -174,8 +174,8 @@ mvn spring-boot:run
 접근하도록 한다.
 
 새로운 스트링 부트 프로젝트를 생성한다.
-이 때 Config Client와 Actuator Dependency를 추가한다.
-Actuator은 환경설정 정보 갱신 후 확인용도로 필요하다.
+이 때 Config Client 와 Actuator Dependency 를 추가한다.
+Actuator 은 환경설정 정보 갱신 후 확인용도로 필요하다.
 
 ```xml
 <dependency>
@@ -188,8 +188,8 @@ Actuator은 환경설정 정보 갱신 후 확인용도로 필요하다.
 </dependency>
 ```
 
-위에 언급했다시피 bootstrap.yaml 은 서비스 애플리케이션 이름, 애플리케이션 프로파일과 컨피그 서버에 접속할 수 있는 URI를 기입하고
-application.yaml엔 로컬에 유지하고 싶은 구성정보를 기입한다.
+위에 언급했다시피 bootstrap.yaml 은 서비스 애플리케이션 이름, 애플리케이션 프로파일과 컨피그 서버에 접속할 수 있는 URI 를 기입하고
+application.yaml 엔 로컬에 유지하고 싶은 구성정보를 기입한다.
 
 ```yaml
 # member-service > bootstrap.yaml
@@ -351,7 +351,7 @@ RabbitMQ 매니지먼트 사이트인 http://localhost:15672/ 에 접속하여 �
 
 
 ### 5-2. 환경설정 변경 전파 적용
-클라우드 버스 Dependency를 추가한다.
+클라우드 버스 Dependency 를 추가한다.
 
 ```xml
 <dependency>
@@ -360,7 +360,7 @@ RabbitMQ 매니지먼트 사이트인 http://localhost:15672/ 에 접속하여 �
 </dependency>
 ```
 
-컨피그 서버 내 member-service.yaml에 rabbitMQ 접속 정보를 셋팅한다.
+컨피그 서버 내 member-service.yaml 에 rabbitMQ 접속 정보를 셋팅한다.
 ```yaml
 # configserver > member-service.yaml
 your.name: "ASSU ASSU DEFAULT"
@@ -418,14 +418,14 @@ port 8091 인스턴스까지 변경된 환경설정값이 갱신되는 것을 �
 암호화에 필요한 오라클 JCE jar 파일을 내려받아 설치<br /> → 암호화 키 설정<br /> → 프로퍼티를 암호화 및 복호화<br /> → 클라이언트 측에서 암호화하도록 마이크로서비스 구성
 
 ### 6.1. 암호화에 필요한 오라클 JCE(Unlimited Stength Java cryptography Extension) jar 파일을 내려받아 설치
-오라클 JCE는 메이븐으로 할 수 없으므로 [오라클 사이트](https://www.oracle.com/java/technologies/javase-jce-all-downloads.html)에 접속하여 직접 내려받은 후
+오라클 JCE 는 메이븐으로 할 수 없으므로 [오라클 사이트](https://www.oracle.com/java/technologies/javase-jce-all-downloads.html)에 접속하여 직접 내려받은 후
 $JAVA_HOME/lib/security 디렉터리로 local_policy.jar 와 US_export_policy.jar 로 복사한다.
 
 
 ### 6.2. 암호화 키 설정
 대칭 암호화키는 암호화/복호화에 사용되는 공유된 비밀키이다.
 컨피그 서버에서 사용되는 대칭 암호화키는 ENCRYPT_KEY 라는 운영 체제의 환경 변수를 사용하여 텍스트 파일에서 제외시킬수도 있고,
-encrypt.key를 문자열로 설정하여 사용할 수도 있다.
+encrypt.key 를 문자열로 설정하여 사용할 수도 있다.
 
 여기에서는 실무에서 많이 사용되는 방식인 운영 체제의 환경 변수를 사용하여 대칭 암호화키를 설정할 것이다.
 아래 그림처럼 환경 변수 설정 후엔 PC를 재시작해야 한다.
@@ -442,11 +442,11 @@ encrypt.key를 문자열로 설정하여 사용할 수도 있다.
 컨피그 서버 인스턴스가 실행될 때 ENCRYPT_KEY 환경 변수가 설정되었음을 감지하면 2개의 새로운 종단점 `/encrypt`와 `decrypt` 가 컨피그 서비스에 자동으로 추가된다.
 `/encrypt` 종담점을 사용해 평문 패스워드를 암호화한다.
 
-![환경변수 ENCRYPT_KEY가 없는 경우](/assets/img/dev/20200808/before_encrypt_key.png)
+![환경변수 ENCRYPT_KEY 가 없는 경우](/assets/img/dev/20200808/before_encrypt_key.png)
 
 
 
-![환경변수 ENCRYPT_KEY가 있는 경우 패스워드 암호화 결과](/assets/img/dev/20200808/encrypt.png)
+![환경변수 ENCRYPT_KEY 가 있는 경우 패스워드 암호화 결과](/assets/img/dev/20200808/encrypt.png)
 
 
 암호화된 패스워드는 아래와 같이 `/decrypt` 종단점을 호출하여 복호화한다.

@@ -15,7 +15,7 @@ MSA (MicroService Architecture) 대해 검토를 하다 보면 분산 시스템�
 
 - Feign 은 REST 기반 서비스 호출을 추상화해주는 Spring cloud Netflix 라이브러리
 
-- Feign을 사용하면 웹 서비스 클라이언트를 보다 쉽게 작성 가능 (코드의 복잡성이 낮아짐)
+- Feign 을 사용하면 웹 서비스 클라이언트를 보다 쉽게 작성 가능 (코드의 복잡성이 낮아짐)
 - 선언적 방식으로 동작 (아래 예제를 통해 Feign 클라이언트 인터페이스 작성 및 호출 방법을 알 수 있습니다.)
   - 선언적 REST 서비스 인터페이스를 클라이언트 측에 작성
   - 이 인터페이스를 통해 REST api 호출
@@ -32,7 +32,7 @@ MSA (MicroService Architecture) 대해 검토를 하다 보면 분산 시스템�
 
 Provider (localhost:9090) 는 `member/{id}` 말고도 여러 API 들을 제공하는 API 서버입니다.
 
-Consumer (localhost:8080) 는 그 API 들을 이용하는 입장으로서 회원 id 와 함께 Provider 의 `member/{id}` 를 호출하면 Provider는 해당 id 에 해당하는 회원의 이름을 return 합니다.
+Consumer (localhost:8080) 는 그 API 들을 이용하는 입장으로서 회원 id 와 함께 Provider 의 `member/{id}` 를 호출하면 Provider 는 해당 id 에 해당하는 회원의 이름을 return 합니다.
 
 
 
@@ -76,7 +76,7 @@ public class ProviderController {
 
 #### 어노테이션 추가 (`@EnableFeignclients`)
 
-main class에 `@EnableFeignclients` 어노테이션을 선언하여 Feign Client를 사용할 것을 알려줍니다.
+main class 에 `@EnableFeignclients` 어노테이션을 선언하여 Feign Client 를 사용할 것을 알려줍니다.
 
 ```java
 @EnableFeignClients
@@ -92,7 +92,7 @@ public class DemoApplication {
 
 #### Client 작성 (인터페이스)
 
-`@FeignClient` 안의 url 은 요청할(=Provider)의 url 을 넣어주고, 호출하고자 하는 API를 선언해줍니다.
+`@FeignClient` 안의 url 은 요청할(=Provider)의 url 을 넣어주고, 호출하고자 하는 API 를 선언해줍니다.
 
 
 
@@ -110,7 +110,7 @@ public interface ConsumerClient {
 
 #### Feign Client 호출
 
-이제 위에서 선언한 feign client를 통해 Provider의 GET member/{id} 를 호출해봅시다.
+이제 위에서 선언한 feign client 를 통해 Provider 의 GET member/{id} 를 호출해봅시다.
 
 ```java
 @RestController
@@ -136,7 +136,7 @@ public class ConsumerController {
 
 
 
-RestTemplate을 사용하게 될 경우 http client connection 설정, return 값에 대한 파싱 등 비즈니스 로직 외 셋팅해줘야 하는 것들이 많은 반면에 Feign을 사용하면 dependency 추가, 어노테이션 선언 그리고 호출하고자 하는 api를 인터페이스로 선언해주는 것만으로 REST API 호출이 가능합니다.
+RestTemplate 을 사용하게 될 경우 http client connection 설정, return 값에 대한 파싱 등 비즈니스 로직 외 셋팅해줘야 하는 것들이 많은 반면에 Feign 을 사용하면 dependency 추가, 어노테이션 선언 그리고 호출하고자 하는 API 를 인터페이스로 선언해주는 것만으로 REST API 호출이 가능합니다.
 
 
 
