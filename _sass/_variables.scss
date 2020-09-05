@@ -26,3 +26,15 @@ $break-point-dynamic: 102em;
 $break-point-font-large: 125em;
 
 $dynamic-width: calc(50% - 28rem);
+
+$mobile: "only screen and (max-width: 400px)";
+$tablet: "only screen and (min-width: 400px) and (max-width: 1050px)";
+$above: "only screen and (min-width: 780px)";
+$below: "only screen and (max-width: 780px)";
+
+$alpha: #222831;
+$beta: #393E46;
+$gama: #aaa;
+$delta: #1FC489;
+$epsilon: #ECECEB;
+$codebackground: #F8F1D0;
