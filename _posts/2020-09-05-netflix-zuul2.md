@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud(3) - Netflix Zuul(2/2)"
+title:  "Spring Cloud(3) - Netflix Zuul(2/2) 작성 중..."
 date:   2020-09-05 10:00
 categories: dev
 tags: web MSA hystrix zuul ribbon
