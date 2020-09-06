@@ -356,10 +356,10 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
 위에선 유레카 서버 구성 파일의 `wait-time-in-ms-when-sync-empt`를 5ms로 설정하여 서비스 시작 즉시 유레카 서버에 등록이 되지만 운영 시엔 30초 정도 기다려야 서비스 검색이 가능하다.
 
 
-### 3.3. 서비스 검색 (Feign 사용)
+### 3.4. 서비스 검색
 이제 유레카 서버에 모든 마이크로서비스가 등록되었기 때문에 회원 서비스는 이벤트 서비스 위치를 직접 알지 못해도 호출이 가능하다.
-각 다른 마이크로서비스를 검색하여 호출하는 방법은 3가지가 있는데 이 포스팅에선 넷플릭스 Feign 클라이언트로 호출하는 방법으로 진행할 예정이다.
-나머지 2가지에 대해선 간략하게 내용만 보도록 하겠다.
+각 다른 마이크로서비스를 검색하여 호출하는 방법은 3가지가 있는데 이 포스팅에선 넷플릭스 Feign 클라이언트와 RestTemplate 로 호출하는 방법으로 진행할 예정이다.
+스프링 디스커버리 클라이언트에 대해선 간략하게 내용만 보도록 하겠다.
 
 - 스프링 디스커버리 클라이언트
     - 디스커버리 클라이언트와 표준 스프링 RestTemplate 클래스를 사용
@@ -369,12 +369,109 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
     - 서비스 호출에 사용할 URL 을 직접 생성해야 함
 - RestTemplate 이 활성화된 스프링 디스커버리 클라이언트
     - `@LoadBalanced`로 RestTemplate bean 생성 메서드 정의
-    - 스프링 RestTeamplate 를 사용해 리본 기반의 서비스 호출
-    - 스프링 클랄우드 초기 릴리스에 리본은 자동으로 RestTemplate 클래스를 지원했지만 스프링 클라우드 Angel 릴리스 이후 RestTemplate 는
+    - 스프링 RestTemplate 를 사용해 리본 기반의 서비스 호출
+    - 스프링 클라우드 초기 릴리스에 리본은 자동으로 RestTemplate 클래스를 지원했지만 스프링 클라우드 Angel 릴리스 이후 RestTemplate 는
       더 이상 리본에서 지원되지 않음. (=`@LoadBalanced` 직접 추가해야 함)
 - 넷플릭스 Feign 클라이언트
     - `@EnagleFeignClients` 사용
 
+#### 3.4.1 RestTemplate 으로 서비스 검색
+리본 지원의 RestTemplate 를 사용하여 회원 서비스에서 이벤트 서비스의 REST API 를 호출해보도록 하자.
+
+리본 지원 RestTemplate 를 사용하려면 부트스트랩 클래스에 `@LoadBalanced` 로 RestTemplate 빈 생성 메서드를 정의해야 한다.
+
+>스프링 클라우드 버전 Angel 이후 RestTemplate 은 더 이상 리본에서 지원되지 않는다.
+>RestTemplate 에서 리본을 사용하려면 `@LoadBalanced` 를 직접 추가해야 한다.
+
+이벤트 서비스 컨트롤러에 회원 서비스에서 호출할 메서드를 만든다.
+ 
+```java
+// event-service > EventController.java
+
+/**
+ * 회원 서비스에서 호출할 메서드
+ */
+@GetMapping(value = "gift/{name}")
+public String gift(@PathVariable("name") String gift) {
+    return "[EVENT] Gift is " + gift;
+}
+```
+
+회원 서비스 부트스트랩 클래스에 RestTemplate 빈을 생성한다.
+
+```java
+// member-service > MemberServiceApplication.java
+
+@SpringBootApplication
+@EnableEurekaClient
+public class MemberServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MemberServiceApplication.class, args);
+    }
+
+    @LoadBalanced       // 스프링 클라우드가 리본이 지원하는 RestTemplate 클래스 생성하도록 지시
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+
+RestTemplate Client 를 생성한다.
+
+여기서 주의깊게 볼 부분은 바로 URL 이다.
+
+http://**event-service**/event/gift/{name} 에서 **event-service** 는 유레카에 등록된 이벤트 서비스 ID 이다.
+실제 서비스 위치와 포트는 완전히 감춰져있는 상태이다.
+리본은 RestTemplate 클래스를 사용하는 모든 요청을 라운드 로빈 방식으로 부하 분산한다. 
+
+```java
+// member-service > EventRestTemplateClient.java
+
+@Component
+public class EventRestTemplateClient {
+
+    RestTemplate restTemplate;
+
+    public EventRestTemplateClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public String gift(String name) {
+        ResponseEntity<String> restExchange =
+                restTemplate.exchange(
+                        "http://event-service/event/gift/{name}",
+                        HttpMethod.GET,
+                        null, String.class, name
+                );
+
+        return restExchange.getBody();
+    }
+}
+```
+
+이제 실제 호출하는 부분을 보자.
+
+```java
+// member-service > MemberController.java
+
+/**
+ * RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출
+ */
+@GetMapping(value = "gift/{name}")
+public String gift(ServletRequest req, @PathVariable("name") String name) {
+    return "[MEMBER] " + eventRestTemplateClient.gift(name) + " / port is " + req.getServerPort();
+}
+```
+
+[http://localhost:8090/member/gift/flower](http://localhost:8090/member/gift/flower) 를 호출해보면 정상적으로 RestTemplate 를 사용하여 
+회원 서비스가 이벤트 서비스의 REST API 를 호출하여 응답받는 부분을 확인할 수 있다.
+
+
+![RestTemplate 를 이용한 호출](/assets/img/dev/20200816/resttemplate.png)
+
+
+#### 3.4.2 Feign 으로 서비스 검색
 Feign 의 자세한 내용은 이전 포스트인 [Spring Cloud Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 를 참고하면 된다.
 
 아래는 Feign 을 이용하여 이벤트 서비스(=Consumer)에서 회원 서비스(=Provider)를 호출하는 방법이다.
@@ -481,6 +578,7 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 ![회원 서비스의 8090 인스턴스 호출](/assets/img/dev/20200816/8090.png)
 
 ![회원 서비스의 8091 인스턴스 호출](/assets/img/dev/20200816/8091.png)
+
 
 ## 4. 유레카 고가용성
 유레카 클라이언트는 유레카 레지스트리 정보를 받아와 로컬 캐싱하여 캐싱된 내용 기반으로 동작하고,

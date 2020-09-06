@@ -262,20 +262,223 @@ public class PreFilter extends ZuulFilter {
 }
 ```
 
-실제 주울을 통해 API 를 호출하여 상관관계 ID 가 정상적으로 생성 및 확인되는지 확인해보자
-[http://localhost:5555/api/evt/event/name/hyori](http://localhost:5555/api/evt/event/name/hyori) (이벤트 서비스 호출)
+실제 주울을 통해 API 를 호출하여 상관관계 ID 가 정상적으로 생성되는지 확인해보자.
+
+- 회원 서비스 API 호출 : [http://localhost:5555/api/mb/member/name/hyori](http://localhost:5555/api/mb/member/name/hyori) 
 
 ```text
-2020-09-06 00:49:38.130 DEBUG 253736 --- [nio-5555-exec-9] c.a.cloud.zuulserver.filters.PreFilter   : ============ assu-correlation-id generated in pre filter: 40cd5e88-2b1d-454d-af87-02ce74b022f2.
-2020-09-06 00:49:38.146 DEBUG 253736 --- [nio-5555-exec-9] c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/evt/event/name/hyori.
+2020-09-06 20:40:12.467 DEBUG 23336 --- [io-5555-exec-10] c.a.cloud.zuulserver.filters.PreFilter   : ============ assu-correlation-id generated in pre filter: 3edcd250-7f1c-4459-9aa3-7190d62f3c52.
+2020-09-06 20:40:12.468 DEBUG 23336 --- [io-5555-exec-10] c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/mb/member/name/hyori.
 ```
+
+- 회원 서비스 중 이벤트 서비스의 API 를 조회하는 API 호출 : [http://localhost:5555/api/mb/member/gift/flower](http://localhost:5555/api/mb/member/gift/flower) 
+
+```text
+2020-09-06 20:40:50.566 DEBUG 23336 --- [nio-5555-exec-2] c.a.cloud.zuulserver.filters.PreFilter   : ============ assu-correlation-id generated in pre filter: 2c965f0d-58d6-4797-a9bd-75cd7b6efb51.
+2020-09-06 20:40:50.566 DEBUG 23336 --- [nio-5555-exec-2] c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/mb/member/gift/flower.
+2020-09-06 20:40:50.587 DEBUG 23336 --- [nio-5555-exec-3] c.a.cloud.zuulserver.filters.PreFilter   : ============ assu-correlation-id generated in pre filter: 86ca377e-9246-48ce-a25f-409723458227.
+2020-09-06 20:40:50.587 DEBUG 23336 --- [nio-5555-exec-3] c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/evt/event/gift/flower.
+
+```
+
+하나의 API 를 호출했지만 실제로 주울엔 2번의 요청이 오게 된다.
+- 이벤트 서비스의 */api/evt/event/member/{nick}* 호출 시 주울 통과
+- 위 API 내에서 회원 서비스의 */api/mb/member/name/{nick}* API 호출 시 주울 통과
+
+하나의 트랜잭션이므로 동일한 상관관계 ID가 나와야 할 것 같지만 다른 상관관계 ID 가 생성됨을 알 수 있다.<br />
+이 부분은 다음 단계에서 알아보도록 한다. (마이크로서비스가 호출하는 하위 서비스 호출에도 상관관계 ID 전파)
 
 ---
 
 ### 2.2. 서비스 호출 시 상관관계 ID 사용
- 
 
- 
+이제 실제 상관관계 ID를 활용하기 위해서 아래 2개의 기능이 필요하다.
+
+- 호출되는 마이크로서비스(=회원 서비스)에서 상관관계 ID 에 접근
+- 마이크로서비스가 호출하는 하위 서비스 호출에도 상관관계 ID 전파
+
+위 작업을 위해 총 4개의 클래스를 작성할텐데 해당 클래스들은 HTTP 요청에서 상관관계 ID 를 읽어와 접근할 수 있는 클래스에 매핑한 후
+하위 서비스에 전파하는데 사용된다.
+
+![사전필터 내의 상관관계 ID 흐름](/assets/img/dev/20200905/prefilter2.png)
+
+
+CustomContextFilter 는 HTTP ServletFilter 이고, 상관관계 ID 를 CustomContext 클래스에 매핑한다.
+여기서 CustomContext 클래스는 나중에 사용할 수 있도록 ThreadLocal 에 저장된 값이다.<br />
+RestTemplate 는 사용자 정의된 Spring 인터셉터 클래스 (CustomContextInterceptor) 로 상관관계 ID 를 아웃바운드 호출의 HTTP 헤더에 삽입한다.
+
+
+> **공통의 라이브러리**<br /><br />
+> 마이크로서비스는 본래 서비스 간의 의존성이 없는 것을 추구하기 때문에 서비스 전반에 걸쳐 영향을 미치는 공통 기능은 없어야한다는 의견도
+> 맞지만, 실제 실무를 하다보면 모든 서비스가 공유해야 하는 기능이 반드시 존재하고 각각 마이크로서비스에 각각 구현하기엔 코드 중복 및
+> 수정사항 발생 시 모든 마이크로서비스의 동일한 부분을 수정해주어야 하는 운영상의 편의성도 고려를 해야한다.<br /><br />
+> 공통의 라이브러리는 모두 사용할 수 있도록 하되 비즈니스 로직이 들어가는 기능은 분리하는 것이 좋을 것 같다.  
+
+- 클래스에 대한 설명
+    - **CustomContextFilter**<br />
+      유입되는 HTTP 요청을 가로채서 필요한 헤더값을 CustomContext 에 매핑<br />
+      REST 서비스에 대한 모든 HTTP 요청을 가로채서 컨텍스트 정보(상관관계 ID 등)를 추출해 CustomContext 클래스에 매핑하는 HTTP 서블릿 필터<br />
+      REST 서비스 호출 시 코드에서 CustomContext 액세스가 필요할 때마다 ThreadLocal 변수에서 검색해 읽어올 수 있음
+      
+    - **CustomContext**<br />
+      서비스가 쉽게 액세스할 수 있는 HTTP 헤더를 만들어 저장하는 클래스<br />
+      HTTP 요청에서 추출한 값을 보관하는 POJO
+
+    - **CustomContextHolder**<br />
+      ThreadLocal 저장소에 CustomContext 를 저장하는 클래스<br />
+      CustomContext 가 ThreadLocal 저장소에 저장되면 요청으로 실행된 모든 코드에서 CustomContextHolder 의 CustomContext 객체 사용 가능<br />
+      
+    - **CustomContextInterceptor**<br />
+      RestTemplate 인스턴스에서 실행되는 모든 HTTP 기반 서비스 발신 요청에 상관관계 ID 삽입
+
+>**ThreadLocal 변수**<br />
+>사용자 요청을 처리하는 해당 스레드에서 호출되는 모든 메서드에서 액세스 가능한 변수
+
+
+위 클래스들은 모든 마이크로 서비스에서 사용되어야 하므로 각각의 마이크로 서비스에 구현하지 않고 `common` 이라는 모듈로 분리한 후 각 마이크로 서비스 빌드 시 함께 컴파일되도록 구성하였다.
+
+```java
+// common > CustomContextFilter.java
+
+/**
+ * 유입되는 HTTP 요청을 가로채서 필요한 헤더값을 CustomContext 에 매핑
+ * 
+ * REST 서비스에 대한 모든 HTTP 요청을 가로채서 컨텍스트 정보(상관관계 ID 등)를 추출해 CustomContext 클래스에 매핑하는 HTTP 서블릿 필터
+ * REST 서비스 호출 시 코드에서 CustomContext 액세스가 필요할 때마다 ThreadLocal 변수에서 검색해 읽어올 수 있음
+ */
+@Component
+public class CustomContextFilter implements Filter {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomContextFilter.class);
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+
+        // HTTP 호출 헤더에서 상관관계 ID 를 검색하여 CustomContextHolder 의 CustomContext 클래스에 설정
+        CustomContextHolder.getContext().setCorrelationId(httpServletRequest.getHeader(CustomContext.CORRELATION_ID));
+        // 그 외 필요한 항목 넣을 수 있음 (인증 토큰 등...)
+
+        logger.debug("상관관계 ID {} 로 실행된 동적 라우팅", CustomContextHolder.getContext().getCorrelationId());
+
+        filterChain.doFilter(httpServletRequest, servletResponse);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) {}
+
+    @Override
+    public void destroy() {}
+}
+```
+
+```java
+// common > CustomContext.java
+
+/**
+ * 서비스가 쉽게 액세스할 수 있는 HTTP 헤더를 만들어 저장하는 클래스
+ * HTTP 요청에서 추출한 값을 보관하는 POJO
+ */
+@Component
+public class CustomContext {
+    public static final String CORRELATION_ID = "assu-correlation-id";
+
+    private String correlationId = new String();
+
+    // 그 외 필요한 항목 넣을 수 있음 (인증 토큰 등...)
+
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
+    }
+}
+```
+
+```java
+// common > CustomContextHolder.java
+
+/**
+ * ThreadLocal 저장소에 CustomContext 를 저장하는 클래스
+ *      * ThreadLocal 변수: 사용자 요청을 처리하는 해당 스레드에서 호출되는 모든 메서드에서 액세스 가능한 변수
+ *
+ * CustomContext 가 ThreadLocal 저장소에 저장되면 요청으로 실행된 모든 코드에서 CustomContextHolder 의 CustomContext 객체 사용 가능
+ */
+public class CustomContextHolder {
+
+    /** 정적 ThreadLocal 변수에 저장되는 CustomContext */
+    private static final ThreadLocal<CustomContext> customContext = new ThreadLocal<>();
+
+    /**
+     * CustomContext 객체를 사용하기 위해 조회해오는 메서드
+     */
+    public static final CustomContext getContext() {
+        CustomContext ctx = customContext.get();
+
+        if (ctx == null) {
+            ctx = createEmptyContext();
+            customContext.set(ctx);
+        }
+        return customContext.get();
+    }
+
+    public static final void setContext(CustomContext ctx) {
+        Assert.notNull(ctx, "customcontxt is null.");
+        customContext.set(ctx);
+    }
+
+    public static final CustomContext createEmptyContext() {
+        return new CustomContext();
+    }
+}
+```
+
+```java
+// common > CustomContextInterceptor.java
+
+/**
+ * RestTemplate 인스턴스에서 실행되는 모든 HTTP 기반 서비스 발신 요청에 상관관계 ID 삽입
+ */
+public class CustomContextInterceptor implements ClientHttpRequestInterceptor {
+    /**
+     * RestTemplate 로 실제 HTTP 서비스 호출 전 intercept 메서드 호출
+     */
+    @Override
+    public ClientHttpResponse intercept(HttpRequest httpRequest, byte[] bytes, ClientHttpRequestExecution clientHttpRequestExecution) throws IOException {
+        HttpHeaders headers = httpRequest.getHeaders();
+
+        headers.add(CustomContext.CORRELATION_ID, CustomContextHolder.getContext().getCorrelationId());
+        // 그 외 필요한 항목 넣을 수 있음 (인증 토큰 등...)
+
+        return clientHttpRequestExecution.execute(httpRequest, bytes);
+    }
+}
+```
+
+CustomContextInterceptor 를 사용하려면 RestTemplate 빈 생성 시 함께 설정을 해주어야 한다.
+
+```java
+// member-service > MemberServiceApplication.java
+
+@LoadBalanced       // 스프링 클라우드가 리본이 지원하는 RestTemplate 클래스 생성하도록 지시
+@Bean
+public RestTemplate getRestTemplate() {
+    // return new RestTemplate();
+    RestTemplate template = new RestTemplate();
+    List interceptors = template.getInterceptors();
+
+    if (interceptors == null) {
+        template.setInterceptors(Collections.singletonList(new CustomContextInterceptor()));
+    } else {
+        interceptors.add(new CustomContextInterceptor());
+        template.setInterceptors(interceptors);
+    }
+    return template;
+}
+```
+
 ## 참고 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
 * [스프링 부트와 스프링 클라우드로 배우는 스프링 마이크로서비스](http://acornpub.co.kr/book/spring-microservices)
