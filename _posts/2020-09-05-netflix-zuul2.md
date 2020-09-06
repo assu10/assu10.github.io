@@ -334,11 +334,8 @@ RestTemplate 는 사용자 정의된 Spring 인터셉터 클래스 (CustomContex
 >**ThreadLocal 변수**<br />
 >사용자 요청을 처리하는 해당 스레드에서 호출되는 모든 메서드에서 액세스 가능한 변수
 
-
-위 클래스들은 모든 마이크로 서비스에서 사용되어야 하므로 각각의 마이크로 서비스에 구현하지 않고 `common` 이라는 모듈로 분리한 후 각 마이크로 서비스 빌드 시 함께 컴파일되도록 구성하였다.
-
 ```java
-// common > CustomContextFilter.java
+// 각 마이크로서비스 > CustomContextFilter.java
 
 /**
  * 유입되는 HTTP 요청을 가로채서 필요한 헤더값을 CustomContext 에 매핑
@@ -373,7 +370,7 @@ public class CustomContextFilter implements Filter {
 ```
 
 ```java
-// common > CustomContext.java
+// 각 마이크로서비스 > CustomContext.java
 
 /**
  * 서비스가 쉽게 액세스할 수 있는 HTTP 헤더를 만들어 저장하는 클래스
@@ -398,7 +395,7 @@ public class CustomContext {
 ```
 
 ```java
-// common > CustomContextHolder.java
+// 각 마이크로서비스 > CustomContextHolder.java
 
 /**
  * ThreadLocal 저장소에 CustomContext 를 저장하는 클래스
@@ -436,7 +433,7 @@ public class CustomContextHolder {
 ```
 
 ```java
-// common > CustomContextInterceptor.java
+// 각 마이크로서비스 > CustomContextInterceptor.java
 
 /**
  * RestTemplate 인스턴스에서 실행되는 모든 HTTP 기반 서비스 발신 요청에 상관관계 ID 삽입
@@ -478,6 +475,29 @@ public RestTemplate getRestTemplate() {
     return template;
 }
 ```
+
+이제 하나의 트랜잭션이 같은 상관관계 ID를 갖는지 확인해보자.<br />
+회원 서비스 내의 메서드(내부적으로 이벤트 REST API 호출) : [http://localhost:5555/api/mb/member/gift/flower](http://localhost:5555/api/mb/member/gift/flower)
+
+위 API 호출 후 주울의 로그를 보면 아래와 같이 상관관계 ID 가 *216c365d-7842-45b9-a300-51f6272a5e4b* 로 두 번의 호출 모두 동일한 것을 알 수 있다.
+ 
+```text
+2020-09-06 23:24:47.730 DEBUG 52636 --- [nio-5555-exec-1] c.a.c.z.utils.CustomContextFilter        : 상관관계 ID null 로 실행된 동적 라우팅
+2020-09-06 23:24:47.761 DEBUG 52636 --- [nio-5555-exec-1] c.a.cloud.zuulserver.filters.PreFilter   : ============ assu-correlation-id generated in pre filter: 216c365d-7842-45b9-a300-51f6272a5e4b.
+2020-09-06 23:24:47.761 DEBUG 52636 --- [nio-5555-exec-1] c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/mb/member/gift/flower.
+2020-09-06 23:24:48.459 DEBUG 52636 --- [nio-5555-exec-2] c.a.c.z.utils.CustomContextFilter        : 상관관계 ID 216c365d-7842-45b9-a300-51f6272a5e4b 로 실행된 동적 라우팅
+2020-09-06 23:24:48.460 DEBUG 52636 --- [nio-5555-exec-2] c.a.cloud.zuulserver.filters.PreFilter   : ============ assu-correlation-id found in pre filter: 216c365d-7842-45b9-a300-51f6272a5e4b. 
+2020-09-06 23:24:48.460 DEBUG 52636 --- [nio-5555-exec-2] c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/evt/event/gift/flower.
+```
+
+이제 상관관계 ID 가 각 서비스에 전달되기 때문에 호출과 연관된 모든 서비스를 관통하는 트랜잭션 추적이 가능하다.
+좀 더 원활한 추적을 위해선 중앙 집중식 로그 지점으로 모든 로그를 보내야 한다.
+나중에 알아보긴 할텐데 스프링 클라우드 슬루스는 PreFilter 를 사용하진 않아도 상관관계 ID 를 추적하고 모든 호출에 삽입 여부를 확인하는데 동일한 개념을 사용한다.
+
+---
+
+## 3. 사후 필터
+ 
 
 ## 참고 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)

@@ -20,7 +20,7 @@ tags: web MSA spring-cloud-eureka feign
 >   - 유레카 구축
 >       - 유레카 서버 구축
 >       - 유레카 클라이언트 구축 (유레카 서버에 서비스 동적 등록)
->       - 서비스 검색 (Feign 사용)
+>       - 서비스 검색 (RestTemplate, Feign 사용)
 >   - 유레카 고가용성<br />
 >
 > 3.Zuul - Proxy & API Gateway<br />
@@ -356,7 +356,7 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
 위에선 유레카 서버 구성 파일의 `wait-time-in-ms-when-sync-empt`를 5ms로 설정하여 서비스 시작 즉시 유레카 서버에 등록이 되지만 운영 시엔 30초 정도 기다려야 서비스 검색이 가능하다.
 
 
-### 3.4. 서비스 검색
+### 3.3. 서비스 검색
 이제 유레카 서버에 모든 마이크로서비스가 등록되었기 때문에 회원 서비스는 이벤트 서비스 위치를 직접 알지 못해도 호출이 가능하다.
 각 다른 마이크로서비스를 검색하여 호출하는 방법은 3가지가 있는데 이 포스팅에선 넷플릭스 Feign 클라이언트와 RestTemplate 로 호출하는 방법으로 진행할 예정이다.
 스프링 디스커버리 클라이언트에 대해선 간략하게 내용만 보도록 하겠다.
@@ -375,7 +375,7 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
 - 넷플릭스 Feign 클라이언트
     - `@EnagleFeignClients` 사용
 
-#### 3.4.1 RestTemplate 으로 서비스 검색
+#### 3.3.1 RestTemplate 으로 서비스 검색
 리본 지원의 RestTemplate 를 사용하여 회원 서비스에서 이벤트 서비스의 REST API 를 호출해보도록 하자.
 
 리본 지원 RestTemplate 를 사용하려면 부트스트랩 클래스에 `@LoadBalanced` 로 RestTemplate 빈 생성 메서드를 정의해야 한다.
@@ -471,7 +471,7 @@ public String gift(ServletRequest req, @PathVariable("name") String name) {
 ![RestTemplate 를 이용한 호출](/assets/img/dev/20200816/resttemplate.png)
 
 
-#### 3.4.2 Feign 으로 서비스 검색
+#### 3.3.2 Feign 으로 서비스 검색
 Feign 의 자세한 내용은 이전 포스트인 [Spring Cloud Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 를 참고하면 된다.
 
 아래는 Feign 을 이용하여 이벤트 서비스(=Consumer)에서 회원 서비스(=Provider)를 호출하는 방법이다.
