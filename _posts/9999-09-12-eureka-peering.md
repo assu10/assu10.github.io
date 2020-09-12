@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Eureka Server Peering"
-date:   2022-09-12 10:00
+date:   9999-09-12 10:00
 categories: dev
 tags: web MSA eureka peering
 ---
