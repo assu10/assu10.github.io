@@ -3,7 +3,7 @@ layout: post
 title:  Spring Cloud - Springboot Actuator
 date:   2020-03-26
 categories: dev
-tags: web springboot-actuator spring-monitoring actuator spring-admin-ui
+tags: msa springboot-actuator spring-monitoring actuator spring-admin-ui
 ---
 
 ## Springboot Actuator란?

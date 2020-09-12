@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Cloud - OAuth2, Security (작성 중...)"
 date:   2020-09-12 10:00
 categories: dev
-tags: web MSA oauth2 spring-cloud-security security-oauth2 spring-security-jwt 
+tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt 
 ---
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Security OAuth2 와 Spring Cloud Security 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
@@ -79,7 +79,7 @@ OAuth2 명세에는 4가지 Grant Type 이 있는데 여기선 `OAuth2 패스워
 OAuth2 패스워드 그랜트 타입을 구현하기 위해 아래와 같은 절차로 진행한다.
 
 1. 스프링 클라우드 기반의 **OAuth2 인증 서버 설정**
-2. OAuth2 서비스와 사용자를 인증/인가할 수 있도록 인가된 애플리케이션 역할을 하는 임시 UI 애플리케이션 등록 (**클라이언트 애플리케이션을 OAuth2 서버에 등록**)
+2. OAuth2 서비스와 사용자를 인증/인가할 수 있도록 인가된 애플리케이션 역할을 하는 임시 UI 애플리케이션 등록 (**OAuth2 인증 서버에 클라이언트 애플리케이션 등록**)
 3. OAuth2 패스워드 그랜트 타입을 사용하여 회원 서비스 보호(**사용자 인증**)<br />
 (임시 UI 애플리케이션은 만들지 않고 REST API 호출 어플을 이용해 사용자 로그인 시뮬레이션)
 4. 인증된 사용자만 호출할 수 있도록 이벤트 서비스 보호
@@ -145,6 +145,10 @@ OAuth2 인증 과정에서 사용될 여러 REST 엔드포인트를 추가할 �
 이 엔드포인트는 보호 서비스로 호출되어 OAuth2 액세스 토큰 유효성을 검증하고, 사용자의 권한을 확인한다.
 
 ---
+
+## 2.2. OAuth2 인증 서버에 클라이언트 애플리케이션 등록
+
+이제 인증 서버가 준비되었으니 인증 서버에 애플리케이션을 등록해보자.
 
 
 

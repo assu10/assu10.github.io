@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Cloud - Spring Cloud Config Server"
 date:   2020-08-16 10:00
 categories: dev
-tags: web MSA spring-cloud-config-server spring-cloud-bus rabbitmq
+tags: msa spring-cloud-config-server spring-cloud-bus rabbitmq
 ---
 
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Config Server 에 대해 기술한다.
@@ -158,8 +158,8 @@ management:
       enabled: true
 ```
 
-부트스트랩 클래스에 `@EnableConfigServer` 애노테이션을 추가한다.
-`@EnableConfigServer` 애노테이션은 서비스를 컨피스 서버 서비스로 사용 가능하게 한다.
+부트스트랩 클래스에 `@EnableConfigServer` 을 추가한다.
+`@EnableConfigServer` 은 서비스를 컨피스 서버 서비스로 사용 가능하게 한다.
 
 아래 명령어를 통해 컨피그 서버를 시작한다.
 ```shell
@@ -273,7 +273,7 @@ Actuator 를 이용하여 현재 실행 중인 환경 정보를 확인할 수 �
 하지만 애플리케이션은 기동 시에만 프로퍼티를 읽어오는데 이때 actuator 의 `@RefreshScope` 를 사용하여
 `/actuator/refresh` 엔드 포인트를 호출함으로써 애플리케이션 재기동 없이 프로퍼티를 다시 읽어올 수 있다.
 
-`@RefreshScope` 애노테이션은 실제 프로퍼티를 받아오는 클래스에 달아준다.
+`@RefreshScope` 은 실제 프로퍼티를 받아오는 클래스에 달아준다.
 ```java
 // member-service > CustomConfig
 @Component

@@ -3,7 +3,7 @@ layout: post
 title:  Spring Cloud - Spring Cloud Feign
 date:   2020-06-18 14:00
 categories: dev
-tags: web springcloud-feign MSA feign
+tags: msa springcloud-feign MSA feign
 ---
 
 ## SpringCloud Feign 이란

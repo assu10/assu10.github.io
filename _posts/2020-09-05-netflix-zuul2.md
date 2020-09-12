@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Cloud - Netflix Zuul(2/2)"
 date:   2020-09-05 10:00
 categories: dev
-tags: web MSA hystrix zuul ribbon
+tags: msa hystrix zuul ribbon
 ---
 
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.

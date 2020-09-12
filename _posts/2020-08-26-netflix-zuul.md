@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Cloud - Netflix Zuul(1/2)"
 date:   2020-08-26 10:00
 categories: dev
-tags: web MSA hystrix zuul ribbon
+tags: msa hystrix zuul ribbon
 ---
 
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.
@@ -126,7 +126,7 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 </dependency>
 ```
 
-주울 서비스 구현을 위해 부트스트랩 클래스에 `@EnableZuulProxy` 애노테이션을 추가한다.
+주울 서비스 구현을 위해 부트스트랩 클래스에 `@EnableZuulProxy` 을 추가한다.
 
 ```java
 @SpringBootApplication

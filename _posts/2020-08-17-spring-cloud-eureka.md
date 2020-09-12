@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Cloud - Spring Cloud Eureka"
 date:   2020-08-26 10:00
 categories: dev
-tags: web MSA spring-cloud-eureka feign
+tags: msa spring-cloud-eureka feign
 ---
 
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Eureka 에 대해 기술한다.
@@ -175,7 +175,7 @@ spring:
       uri: http://localhost:8889  ## 컨피그 서버 위치
 ```
 
-유레카 서버로 지정하기 위해 부트스트래핑 클래스에 `@EnableEurekaServer` 애노테이션을 추가한다.
+유레카 서버로 지정하기 위해 부트스트래핑 클래스에 `@EnableEurekaServer` 을 추가한다.
 
 ```java
 @EnableEurekaServer
@@ -335,7 +335,7 @@ eureka:   ## 추가
     - 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 2초 기다림 (디폴트 90초)
     
     
-부트스트랩 클래스에 `@EnableEurekaClient` 애노테이션을 추가한다.
+부트스트랩 클래스에 `@EnableEurekaClient` 을 추가한다.
 
 ```java
 // member-service > MemberServiceApplication.java
