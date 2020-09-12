@@ -1,18 +1,16 @@
 ---
 layout: post
-title:  "Spring Cloud(1) - Spring Cloud Config Server"
+title:  "Spring Cloud - Spring Cloud Config Server"
 date:   2020-08-16 10:00
 categories: dev
 tags: web MSA spring-cloud-config-server spring-cloud-bus rabbitmq
 ---
 
-## 시작하며
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Config Server 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고바란다.
 
-앞으로 연재 방식으로 아래 컴포넌트들에 대해 포스팅을 할 예정이다.
 >***1.Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화***<br />
->>   - Spring Cloud Config Server
+>   - Spring Cloud Config Server
 >   - 컨피그 서버 구축
 >       - 컨피그 서버 셋업
 >       - 저장소(Git or File) 구현 - File
@@ -26,28 +24,26 @@ tags: web MSA spring-cloud-config-server spring-cloud-bus rabbitmq
 >       - 암호화 키 설정
 >       - 프로퍼티를 암호화 및 복호화
 >       - 클라이언트 측에서 암호화하도록 마이크로서비스 구성
->   - 저장소(Git or File) 구현 - Git<br />
->
-> 2.Eureka - Service Registry & Discovery<br />
-> 3.Zuul - Proxy & API Gateway<br />
-> 4.Ribbon - Load Balancer<br />
+>   - 저장소(Git or File) 구현 - Git
+>   - 컨피그 서버 상태 모니터링
 
 다양한 요청을 처리하는 마이크로서비스를 관리하기 위해서 스프링 부트 프레임워크가 제공하는 기능만으로는 충분하지 않다.
-스프링 클라우드 프로젝트는 마이크로서비스 개발에 필요한 공통적인 패턴들을 모아서 사용하기 쉬운 스프링 라이브러리형태로 구현해서 제공한다.
+스프링 클라우드 프로젝트는 마이크로서비스 개발에 필요한 공통적인 패턴들을 모아서 사용하기 쉬운 스프링 라이브러리 형태로 구현해서 제공한다.
 
 스프링 클라우드 프로젝트(Netflix OSS)에 대한 전체적인 설명은
 [여기](https://bravenamme.github.io/2020/07/21/msa-netflix/)에서 개념 확인이 가능하다.
 
+---
 
 ## 1. Spring Cloud Config Server
 Spring Cloud Config Server(이하 컨피그 서버)는 애플리케이션과 서비스의 모든 환경설정 속성 정보를 저장, 조회, 관리할 수 있게 해주는 외부화된 환경설정 서버이다.
 * 환경 설정 속성 정보 : 데이터베이스, 미들웨어 접속 정보, 애플리케이션의 행동 양식을 정하는 메타데이터 등...<br />
-이전 그리고 아직도 많은 방식으로 운영되고 있는 환경설정방식은 아래와 같다.
+이전 그리고 아직도 많은 방식으로 운영되고 있는 환경설정 방식은 아래와 같다.
 >모든 환경설정 파라미터를 프로젝트에 함께 패키징되는 application.properties 혹은 application.yaml 파일로 관리
 
 이러한 방식의 단점은 환경설정 속성 정보가 변경되면 환경설정 파일이 애플리케이션에 함께 패키징되어 있기 때문에 애플리케이션 전체를 다시 빌드해야 한다는 점이다.
 
-컨피그 서버는 애플리케이션의 빌드없이 환경 설정의 변경을 적용할 수 있도록 해준다.<br />
+컨피그 서버는 애플리케이션의 빌드 없이 환경 설정의 변경을 적용할 수 있도록 해준다.<br />
 아래 컨피그 서버의 동작 흐름을 보자. (오늘 구현할 내용이다)
 
 ![컨피그서버 동작 흐름](/assets/img/dev/20200808/config.png)
@@ -93,11 +89,14 @@ Spring Cloud Config Server(이하 컨피그 서버)는 애플리케이션과 서
 ![*.properties 와 *.yaml 차이](/assets/img/dev/20200808/yaml.png)
 </details>
 
+---
+
 ## 2. 컨피그 서버 구축
+
 ### 2-1. 컨피그 서버 셋업
 새로운 스트링부트 프로젝트 생성 후 Config Server Dependency 를 추가한다.
 actuator 는 서버 구동 확인용으로 사용할 예정이다.
-actuator 에 대한 간단한 설명은 이전 포스트인 [여기](https://assu10.github.io/dev/2020/03/26/spring-actuator/)를 참고하길 바란다.
+`actuator` 에 대한 간단한 설명은 이전 포스트인 [여기](https://assu10.github.io/dev/2020/03/26/spring-actuator/)를 참고하길 바란다.
 
 스트링부트의 버전은 2.3.2 이고, 스프링 클라우드의 버전은 Hoxton.SR6 이다.
 스프링 클라우드 버전에 따른 스프링 부트 버전 선택은 [여기](https://spring.io/projects/spring-cloud)를 참고한다.
@@ -124,8 +123,11 @@ actuator 에 대한 간단한 설명은 이전 포스트인 [여기](https://ass
     <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
 ```
+
+---
+
 ### 2-2. 저장소(Git or File) 구현 - File
-지금은 로컬 파일 시스템 기반의 저장소로 연결하고 원격 저장소로의 연결은 마지막에 구현할 예정이다.
+지금은 로컬 파일 시스템 기반의 저장소로 연결하고 원격 저장소로의 연결은 마지막에 구현할 예정이다.<br />
 저장소로 사용할 폴더 생성 후 컨피그 서버가 방금 만든 저장소를 사용하도록 설정한다.
 application.properties 의 이름을 bootstrap.yaml 으로 변경 후 아래와 같이 설정한다.
 윈도우 환경에서는 URL 의 맨 끝에 `/` 를 추가해준다.
@@ -163,19 +165,20 @@ management:
 ```shell
 mvn spring-boot:run
 ```
-아래 주소로 접속하여 컨피그 서버가 구동중인지 확인할 수 있다.<br />
+아래 주소로 접속하여 컨피그 서버가 구동 중인지 확인할 수 있다.<br />
 [http://localhost:8889/actuator](http://localhost:8889/actuator)
 
 ![컨피그 서버 구동 확인](/assets/img/dev/20200808/actuator.png)
 
+---
 
 ## 3. 클라이언트에서 컨피그 서버 접근
 위에서 컨피그 서버를 구성 후 웹 브라우저를 통해 접근하는 방법을 보았으니, 이제 마이크로서비스가 컨피그 클라이언트로서 컨피그 서버에
 접근하도록 한다.
 
 새로운 스트링 부트 프로젝트를 생성한다.
-이 때 Config Client 와 Actuator Dependency 를 추가한다.
-Actuator 은 환경설정 정보 갱신 후 확인용도로 필요하다.
+이때 Config Client 와 Actuator Dependency 를 추가한다.
+Actuator 은 환경설정 정보 갱신 후 확인 용도로 필요하다.
 
 ```xml
 <dependency>
@@ -209,9 +212,9 @@ server:
 
 컨피그 서버와 정상적으로 통신하는지 확인하기 위하여 저장소를 아래와 같이 구성하여 확인해보자.
 
-![회원서비스 컨피그 저장소](/assets/img/dev/20200808/memberconfig.png)
+![회원 서비스 컨피그 저장소](/assets/img/dev/20200808/memberconfig.png)
 
-![회원서비스 환경설정 파일](/assets/img/dev/20200808/memberyaml.png)
+![회원 서비스 환경설정 파일](/assets/img/dev/20200808/memberyaml.png)
 
 ```java
 // member-service > CustomConfig
@@ -253,8 +256,8 @@ public class MemberController {
 
 ![dev 설정 파일](/assets/img/dev/20200808/memberdev.png)
 
-Actuator 를 이용하여 현재 실행중인 환경 정보를 확인할 수 있다.
-단, /env 엔 많은 정보가 노출되므로 운영시엔 비활성화하도록 한다.
+Actuator 를 이용하여 현재 실행 중인 환경 정보를 확인할 수 있다.
+단, /env 엔 많은 정보가 노출되므로 운영 시엔 비활성화하도록 한다.
 
 [http://localhost:8090/actuator/env](http://localhost:8090/actuator/env)
 
@@ -263,11 +266,12 @@ Actuator 를 이용하여 현재 실행중인 환경 정보를 확인할 수 있
 이제 컨피그 서버를 통해 전달받은 설정값이 마이크로서비스에서 정상적으로 사용되고 있는지 확인해보자.
 ![컨피그 서버로부터 전달받은 설정값](/assets/img/dev/20200808/membername.png)
 
+---
 
 ## 4. 컨피그 서버에서 환경설정 변경값 갱신
-저장소의 프로퍼티를 변경하면 컨피그 서버는 항상 최신 버전의 프로퍼티를 제공한다.
-하지만 애플리케이션은 기동시에만 프로퍼티를 읽어오는데 이 때 actuator 의 `@RefreshScope` 를 사용하여
-`/actuator/refresh` 엔드 포인트를 호출함으로써 애플리케이션 재기동없이 프로퍼티를 다시 읽어올 수 있다.
+저장소의 프로퍼티를 변경하면 컨피그 서버는 항상 최신 버전의 프로퍼티를 제공한다.<br />
+하지만 애플리케이션은 기동 시에만 프로퍼티를 읽어오는데 이때 actuator 의 `@RefreshScope` 를 사용하여
+`/actuator/refresh` 엔드 포인트를 호출함으로써 애플리케이션 재기동 없이 프로퍼티를 다시 읽어올 수 있다.
 
 `@RefreshScope` 애노테이션은 실제 프로퍼티를 받아오는 클래스에 달아준다.
 ```java
@@ -300,8 +304,9 @@ your.name: "ASSU ASSU DEFAULT Modify"
 
 
 
-![회원서비스에서의 확인](/assets/img/dev/20200808/refresh2.png)
+![회원 서비스에서의 확인](/assets/img/dev/20200808/refresh2.png)
 
+---
 
 ## 5. 환경설정 변경 전파
 위에 기술한 것처럼 `/actuator/refresh` 종단점을 호출하여 환경설정값을 갱신해도 되지만 인스턴스가 수가 많아지면
@@ -325,8 +330,10 @@ Spring Cloud Bus (이하 클라우드 버스) 는 현재 실행되고 있는 인
 
 가장 많이 사용되고 있다는 RabbitMQ를 [AMQP(Advanced Message Queuing Protocol)](https://ko.wikipedia.org/wiki/AMQP) 메시지 브로커로 사용할 예정이다.
 
+---
+
 ### 5-1. RabbitMQ 설치
-[여기](http://www.rabbitmq.com/download.html) 에서 RabbitMQ를 다운로드 받은 후 관리자 모드로 명령창을 열어 아래와 같이 입력한다.
+[여기](http://www.rabbitmq.com/download.html) 에서 RabbitMQ를 다운로드받은 후 관리자 모드로 명령창을 열어 아래와 같이 입력한다.
 
 ![RabbitMQ 서비스 실행](/assets/img/dev/20200808/rabbitmq.png)
 
@@ -349,6 +356,7 @@ RabbitMQ 매니지먼트 사이트인 http://localhost:15672/ 에 접속하여 �
 
 ![RabbitMQ 매니지먼트](/assets/img/dev/20200808/rabbitmq_mng.png)
 
+---
 
 ### 5-2. 환경설정 변경 전파 적용
 클라우드 버스 Dependency 를 추가한다.
@@ -408,14 +416,16 @@ your.name: "ASSU ASSU DEFAULT Modify!!"
 위에서 보다시피 port 8090의 `/actuator/bus-refresh` 종단점만 호출하면 같은 클라우드 버스에 연결되어 있는
 port 8091 인스턴스까지 변경된 환경설정값이 갱신되는 것을 확인할 수 있다.
 
+---
+
 ## 6. 컨피스 저장소의 중요 정보 보호(암호화)
-컨피그 저장소에는 데이터베이스 자격 증명과 같은 중요 정보도 함께 저장이 되는데 이를 평문으로 저장하는 것은 매우 위험하다.
+컨피그 저장소에는 데이터베이스 자격 증명과 같은 중요 정보도 함께 저장되는데 이를 평문으로 저장하는 것은 매우 위험하다.
 컨피그 서버는 중요한 프로퍼티를 쉽게 암호화할 수 있는 대칭 암호화(공유 비밀키 사용), 비대칭 암호화(공개, 비공개 키 사용)를 모두 지원한다.
 여기서는 대칭 키를 사용해 암호화하는 컨피그 서버 설정 방법을 알아볼 것이다.
 
 전체적인 순서는 아래와 같다.
 
-암호화에 필요한 오라클 JCE jar 파일을 내려받아 설치<br /> → 암호화 키 설정<br /> → 프로퍼티를 암호화 및 복호화<br /> → 클라이언트 측에서 암호화하도록 마이크로서비스 구성
+암호화에 필요한 오라클 JCE jar 파일을 내려받아 설치<br /> -> 암호화 키 설정<br /> -> 프로퍼티를 암호화 및 복호화<br /> -> 클라이언트 측에서 암호화하도록 마이크로서비스 구성
 
 ### 6.1. 암호화에 필요한 오라클 JCE(Unlimited Stength Java cryptography Extension) jar 파일을 내려받아 설치
 오라클 JCE 는 메이븐으로 할 수 없으므로 [오라클 사이트](https://www.oracle.com/java/technologies/javase-jce-all-downloads.html)에 접속하여 직접 내려받은 후
@@ -434,13 +444,14 @@ encrypt.key 를 문자열로 설정하여 사용할 수도 있다.
 
 ***암호화키는 환경별로 다른 암호화키를 사용하고 랜덤 문자열을 키로 사용하는 것을 권장한다.***
 
+---
 
 ### 6.3. 프로퍼티를 암호화 및 복호화
 위 과정을 하면 컨피그 서버에 사용되는 프로퍼티를 암호화할 준비가 된 것이다.
 이제 rabbitMQ의 패스워드를 암호화할 것이다.
 
 컨피그 서버 인스턴스가 실행될 때 ENCRYPT_KEY 환경 변수가 설정되었음을 감지하면 2개의 새로운 종단점 `/encrypt`와 `decrypt` 가 컨피그 서비스에 자동으로 추가된다.
-`/encrypt` 종담점을 사용해 평문 패스워드를 암호화한다.
+`/encrypt` 종단점을 사용해 평문 패스워드를 암호화한다.
 
 ![환경변수 ENCRYPT_KEY 가 없는 경우](/assets/img/dev/20200808/before_encrypt_key.png)
 
@@ -492,6 +503,8 @@ management:
 기본적으로 컨피그 서버에서는 모든 프로퍼티의 복호화를 수행하고, 그 결과를 프로퍼티를 사용하는 애플리케이션에 평문으로 전달한다.
 안전하게 컨피그 서버가 복호화하지 않고 애플리케이션이 암호화된 프로퍼티를 복호화하도록 설정해보자.
 
+---
+
 ### 6.4. 클라이언트 측에서 암호화하도록 마이크로서비스 구성
 
 컨피그 서버의 bootstrap.yaml 에 아래 내용을 추가한다.
@@ -523,9 +536,10 @@ spring-security-rsa 는 컨피그 서버에서 전달된 암호화된 프로퍼�
 
 ![암호화된 값으로 전달](/assets/img/dev/20200808/cipher2.png)
 
+---
 
 ## 7. 저장소(Git or File) 구현 - Git
-이제 로컬 파일기반의 저장소를 원격 저장소로 변경해볼 것이다.
+이제 로컬 파일 기반의 저장소를 원격 저장소로 변경해볼 것이다.
 원격 저장소를 만든 후 컨피그 서버의 bootstrap.yaml 을 아래와 같이 변경해준다.
 
 ```yaml
@@ -562,12 +576,14 @@ spring:
 실제 잘 동작하는지는 저장소 설정값을 변경한 후 [http://localhost:8090/actuator/bus-refresh](http://localhost:8090/actuator/bus-refresh) 를 호출하여
 환경 설정 변경값을 전파하여 변경된 값이 잘 전파되었는지 확인하면 된다.
 
+---
 
+## 8. 컨피그 서버 상태 모니터링
+컨피그 서버도 사실 일반적인 스프링부트 애플리케이션이며, 기본값으로 actuator 을 사용할 수 있도록 설정되어 있다.
+따라서 actuator 종단점인 [http://localhost:8889/actuator/health](http://localhost:8889/actuator/health) 에 접속하여 컨피그 서버의 상태를
+모니터링 할 수 있다.
 
-## 마치며
-컨피그 서버를 사용하여 애플리케이션 구성 데이터를 애플리케이션과 완전히 분리하는 방법을 알아보았다.
-다음엔 서비스 등록 및 발견을 지원하는 Service Discovery Eureka 에 대해 알아보도록 하겠다.
-
+---
 
 ## 덧붙임
 실제로 각 마이크로서비스가 환경설정 정보를 로컬 캐싱하여 사용하고 있는지 확인해보기 위해 컨피그 서버와 마이크로서비스가 동작하고 있는 도중
@@ -577,6 +593,7 @@ spring:
 컨피그 서버가 멈춘 상태이기 때문에 마이크로서비스는 여전히 변경되기 전(=로컬 캐싱된 값)의 값을 참조하고 있는 부분을 확인하였다.<br />
 컨피그 서버가 중단되는 일은 없어야겠지만 결과적으로 컨피그 서버는 높은 수준의 고가용성을 유지할 필요는 없는 것 같다.
 
+---
 
 ## 참고 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)

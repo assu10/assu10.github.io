@@ -1,17 +1,14 @@
 ---
 layout: post
-title:  Spring Cloud Feign
+title:  Spring Cloud - Spring Cloud Feign
 date:   2020-06-18 14:00
 categories: dev
 tags: web springcloud-feign MSA feign
 ---
 
-
 ## SpringCloud Feign 이란
 
 MSA (MicroService Architecture) 대해 검토를 하다 보면 분산 시스템에 최적화된 여러 가지 라이브러리들이 소개가 되는데 그 중 하나인 Feign 에 대해 다룹니다.
-
-
 
 - Feign 은 REST 기반 서비스 호출을 추상화해주는 Spring cloud Netflix 라이브러리
 
@@ -22,20 +19,13 @@ MSA (MicroService Architecture) 대해 검토를 하다 보면 분산 시스템�
 - Spring 이 런타임에 인터페이스의 구현체 제공
   - 개발자는 이 인터페이스의 구현 신경쓰지 않아도 됨
 
-
-
 본 예제는 아래와 같은 흐름으로 진행이 됩니다.
 
 ![그림으로 이해하는 API 호출 흐름](/assets/img/dev/20200618/0618_1.jpg)
 
-
-
 Provider (localhost:9090) 는 `member/{id}` 말고도 여러 API 들을 제공하는 API 서버입니다.
 
 Consumer (localhost:8080) 는 그 API 들을 이용하는 입장으로서 회원 id 와 함께 Provider 의 `member/{id}` 를 호출하면 Provider 는 해당 id 에 해당하는 회원의 이름을 return 합니다.
-
-
-
 
 ## SpringCloud Feign 적용해보기
 ### [Provider]
@@ -57,8 +47,6 @@ public class ProviderController {
 
 좀 더 자세한 소스는 [여기](https://github.com/assu10/feign.git)를 참고해주세요.
 
-
-
 ### [Consumer]
 
 #### 프로젝트 생성
@@ -71,8 +59,6 @@ public class ProviderController {
      <artifactId>spring-cloud-starter-openfeign</artifactId>
 </dependency>
 ```
-
-
 
 #### 어노테이션 추가 (`@EnableFeignclients`)
 
@@ -88,13 +74,9 @@ public class DemoApplication {
 }
 ```
 
-
-
 #### Client 작성 (인터페이스)
 
 `@FeignClient` 안의 url 은 요청할(=Provider)의 url 을 넣어주고, 호출하고자 하는 API 를 선언해줍니다.
-
-
 
 ```java
 @FeignClient(name = "member-client", url = "http://localhost:9090/api/v1/provider/")
@@ -103,10 +85,6 @@ public interface ConsumerClient {
     String member(@PathVariable("id") int id);
 }
 ```
-
-
-
-
 
 #### Feign Client 호출
 
@@ -128,25 +106,14 @@ public class ConsumerController {
 }
 ```
 
-
-
 ![Consumer API 호출](/assets/img/dev/20200618/0618_api.jpg)
-
-
-
-
 
 RestTemplate 을 사용하게 될 경우 http client connection 설정, return 값에 대한 파싱 등 비즈니스 로직 외 셋팅해줘야 하는 것들이 많은 반면에 Feign 을 사용하면 dependency 추가, 어노테이션 선언 그리고 호출하고자 하는 API 를 인터페이스로 선언해주는 것만으로 REST API 호출이 가능합니다.
 
-
-
 관련 소스는 [github/assu10](https://github.com/assu10/feign.git){:target="_blank"}  에서 확인하실 수 있습니다.
-
-
 
 ### 참고사이트
 
-- https://spring.io/projects/spring-cloud-openfeign
-- https://woowabros.github.io/experience/2019/05/29/feign.html
-- https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html
-
+- [https://spring.io/projects/spring-cloud-openfeign](https://spring.io/projects/spring-cloud-openfeign)
+- [https://woowabros.github.io/experience/2019/05/29/feign.html](https://woowabros.github.io/experience/2019/05/29/feign.html)
+- [https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html](https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html)
