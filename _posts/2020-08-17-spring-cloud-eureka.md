@@ -250,8 +250,11 @@ eureka:
     - registry 를 갱신할 수 없을 때 재시도를 기다리는 시간
     - 테스트 시 짧은 시간으로 등록해놓으면 유레카 서비스의 시작 시간과 등록된 서비스를 보여주는 시간 단축 가능
     - 유레카는 등록된 서비스에서 10초 간격으로 연속 3회의 상태 정보(heartbeat)를 받아야 하므로 등록된 개별 서비스를 보여주는데 30초 소요
-
-
+    
+- **wait-time-in-ms-when-sync-empty**
+    - 일시적인 네트워크 장애로 인한 서비스 해제 막기 위한 보호모드 설정 (디폴트 60초, 운영에선 반드시 true 로 설정 필요)
+    - 원래는 해당 시간안에 하트비트가 일정 횟수 이상 들어오지 않아야 서비스 해제하는데 false 설정 시 하트비트 들어오지 않으면 바로 서비스 제거
+    
 ```shell
 C:\> mvn clean install
 C:\configserver\target>java -jar configserver-0.0.1-SNAPSHOT.jar
@@ -301,6 +304,8 @@ management:
 eureka:   ## 추가
   instance:
     prefer-ip-address: true       ## 서비스 이름 대신 IP 주소 등록
+    lease-renewal-interval-in-seconds: 3  # 디스커버리한테 1초마다 하트비트 전송 (디폴트 30초)
+    lease-expiration-duration-in-seconds: 2 # 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 2초 기다림 (디폴트 90초)
   client:
     register-with-eureka: true    ## 유레카 서버에 서비스 등록
     fetch-registry: true          ## 레지스트리 정보를 로컬에 캐싱
@@ -320,6 +325,16 @@ eureka:   ## 추가
     - true 로 설정 시 검색할 때마다 유레카 서버를 호출하는 대신 레지스트리가 로컬로 캐싱됨
     - 30초마다 유레카 클라이언트가 유레카 레지스트리 변경 사항 여부 재확인함
 
+- **lease-renewal-interval-in-seconds**
+    - 유레카한테 1초마다 하트비트 전송 (디폴트 30초)
+
+- **lease-renewal-interval-in-seconds**
+    - 유레카한테 1초마다 하트비트 전송 (디폴트 30초)
+
+-**lease-expiration-duration-in-seconds**
+    - 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 2초 기다림 (디폴트 90초)
+    
+    
 부트스트랩 클래스에 `@EnableEurekaClient` 애노테이션을 추가한다.
 
 ```java
