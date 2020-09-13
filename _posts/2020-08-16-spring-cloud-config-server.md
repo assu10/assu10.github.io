@@ -595,7 +595,7 @@ spring:
 
 ---
 
-## 참고 사이트
+## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
 * [https://cloud.spring.io/spring-cloud-config/reference/html/](https://cloud.spring.io/spring-cloud-config/reference/html/)
 * [암호화 키 설정 1](https://cloud.spring.io/spring-cloud-config/reference/html/#_key_management)

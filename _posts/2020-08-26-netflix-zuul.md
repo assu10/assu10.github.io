@@ -421,7 +421,7 @@ hystrix:
 
 ---
 
-## 참고 사이트
+## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
 * [스프링 부트와 스프링 클라우드로 배우는 스프링 마이크로서비스](http://acornpub.co.kr/book/spring-microservices)
 * [https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/](https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/)

@@ -251,7 +251,7 @@ eureka:
     - 테스트 시 짧은 시간으로 등록해놓으면 유레카 서비스의 시작 시간과 등록된 서비스를 보여주는 시간 단축 가능
     - 유레카는 등록된 서비스에서 10초 간격으로 연속 3회의 상태 정보(heartbeat)를 받아야 하므로 등록된 개별 서비스를 보여주는데 30초 소요
     
-- **wait-time-in-ms-when-sync-empty**
+- **enable-self-preservation**
     - 일시적인 네트워크 장애로 인한 서비스 해제 막기 위한 보호모드 설정 (디폴트 60초, 운영에선 반드시 true 로 설정 필요)
     - 원래는 해당 시간안에 하트비트가 일정 횟수 이상 들어오지 않아야 서비스 해제하는데 false 설정 시 하트비트 들어오지 않으면 바로 서비스 제거
     
@@ -613,7 +613,7 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 
 ---
 
-## 참고 사이트
+## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
 * [https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/](https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/)
 * [https://coe.gitbook.io/guide/service-discovery/eureka_2](https://coe.gitbook.io/guide/service-discovery/eureka_2)
