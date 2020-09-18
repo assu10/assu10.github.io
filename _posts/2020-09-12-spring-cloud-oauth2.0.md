@@ -12,7 +12,7 @@ tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt
 >[2.Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)<br />
 >[3.Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
 >[4.Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br /><br />
->***4.OAuth2, Security - 보안***<br />
+>***5.OAuth2, Security - 보안***<br />
 >- OAuth2
 >- OAuth2 로 인증 구현
 >   - OAuth2 인증 서버 설정
@@ -417,6 +417,10 @@ GET - [http://localhost:8901/auth/user](http://localhost:8901/auth/user)
 GET - [http://localhost:8901/auth/user](http://localhost:8901/auth/user)
 
 ![액세스 토큰을 이용하여 사용자 정보 조회](/assets/img/dev/20200912/userinfo.png)
+
+
+!!!!!!!!!!!!!!!!!중요!!!!!!!!!!!!!!!!!!!
+뒤에 내용 보고 하지만 엔드포인트롤 호출할때마다 토큰을 전달해야 한다는 부분이 반전되는지 보고 추가 설명 적을 것
 
 ---
 ## 3. OAuth2 를 이용하여 회원 서비스 보호
