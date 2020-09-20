@@ -19,6 +19,8 @@ tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt
 >   - OAuth2 인증 서버에 클라이언트 애플리케이션 등록
 >   - 개별 사용자에 대한 자격 증명(인증)과 역할(인가) 설정
 >   - OAuth2 패스워드 그랜트 타입을 사용하여 사용자 인증
+>- OAuth2 를 이용하여 회원 서비스 보호
+>- OAuth2 액세스 토큰 전파
 
 이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
 
@@ -418,10 +420,6 @@ GET - [http://localhost:8901/auth/user](http://localhost:8901/auth/user)
 
 ![액세스 토큰을 이용하여 사용자 정보 조회](/assets/img/dev/20200912/userinfo.png)
 
-
-!!!!!!!!!!!!!!!!!중요!!!!!!!!!!!!!!!!!!!
-뒤에 내용 보고 하지만 엔드포인트롤 호출할때마다 토큰을 전달해야 한다는 부분이 반전되는지 보고 추가 설명 적을 것
-
 ---
 
 ## 3. OAuth2 를 이용하여 회원 서비스 보호
@@ -504,6 +502,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 이제 회원 서비스의 모든 URL 은 인증된 사용자만 접근하도록 제한되었으니 확인해보도록 하자.
 
 HTTP 헤더에 Authorization 액세스 토큰없이 회원 서비스의 API 를 호출하면 아래처럼 401 HTTP 응답 코드가 출력된다.
+[http://localhost:8090/member/name/rinda](http://localhost:8090/member/name/rinda)
 
 ![액세스 토큰없이 호출한 경우](/assets/img/dev/20200912/401.png)
 
@@ -585,6 +584,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 마지막 부분인 `.anyRequest().authenticated()` 을 통해서 서비스의 모든 엔드포인트도 인증된 사용자만 접근 가능하도록 설정한다.
 
 이제 ADMIN 권한이 없는 사용자 *assuUser* 로 PUT 메서드 API 를 호출해보도록 하자.
+[http://localhost:8090/member/rinda](http://localhost:8090/member/rinda)
 
 ![권한없는 사용자가 PUT API 호출 시 403](/assets/img/dev/20200912/403.png)
 
@@ -596,6 +596,132 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 ## 4. OAuth2 액세스 토큰 전파
 
+MSA 환경에서는 단일 트랜잭션을 수행하는데 여러 마이크로 서비스를 호출하는 경우가 많기 때문에 다른 마이크로서비스로 OAuth2 액세스 토큰을
+전파할 수 있어야 한다.
+
+다른 마이크로서비스로 액세스 토큰을 전달하는 흐름을 보면 아래와 같다.
+
+![OAuth2 액세스 토큰 전체 흐름](/assets/img/dev/20200912/access_token.png)
+
+OAuth2 액세스 토큰은 사용자 세션에 저장되고, 이벤트 서비스를 호출할 때 HTTP Authorization 헤더에 OAuth2 액세스 토큰을 추가한다.<br />
+주울은 유입되는 호출의 HTTP Authorization 헤더를 복사하여 회원 서비스의 엔드포인트로 전달한다.<br />
+이벤트 서비스는 보호 자원이기 때문에 OAuth2 서버에서 토큰의 유효성을 확인하고, 사용자의 권한을 확인한다.<br />
+회원 서비스는 호출을 받으면 HTTP Authorization 헤더에서 토큰을 가져와 토큰의 유효성을 검증한다.
+
+우선 주울이 OAuth2 토큰을 마이크로서비스에 전달하도록 수정해야 한다.
+기본적으로 주울은 Cookie, Set-Cookie, Authorization 과 같은 민감한 HTTP 헤더는 하위 서비스에 전달하지 않기 때문에
+주울에서 Authorization HTTP 헤더를 전파하게 하려면 application.yaml 에 아래 내용을 추가해야 한다.
+
+아래 내용을 추가하지 않으면 주울은 자동으로 세 가지 값 (Cookie, Set-Cookie, Authorization) 을 전달하지 않는다.
+
+```yaml
+# config-repo > zuulserver
+
+zuul:
+  sensitive-headers: Cookie,Set-Cookie    # 주울이 하위 서비스에 전파하지 않는 헤더 차단 목록 (디폴트는 Cookie, Set-Cookie, Authorization)
+```
+
+이제 이벤트 서비스가 OAuth2 자원 서비스가 되도록 구성한 후 인가 규칙을 설정해야 한다.
+
+(바로 위에서 설정한 *3. OAuth2 를 이용하여 회원 서비스 보호* 를 그대로 이벤트 서비스에 적용하시면 됩니다.)
+
+마지막으로 이벤트 서비스에서 회원 서비스를 호출할 때 HTTP Authorization 헤더가 회원 서비스에 주입되었는지 확인하도록 호출하는 방법을 수정해야 한다.
+
+스프링 OAuth2 는 OAuth2 호출을 지원하는 새로운 RestTemplate 인 `OAuth2RestTemplate` 를 제공하는데, 
+이 `OAuth2RestTemplate` 를 사용하려면 다른 OAuth2 보호 서비스를 호출하는 서비스에 auto-wired 될 수 있도록 빈으로 노출해야 한다.
+
+```java
+// event-service
+
+@EnableEurekaClient
+@SpringBootApplication
+@EnableFeignClients
+@EnableResourceServer       // 추가
+public class EventServiceApplication {
+
+    @Bean
+    public OAuth2RestTemplate restTemplate(UserInfoRestTemplateFactory factory) {
+        List interceptors = factory.getUserInfoRestTemplate().getInterceptors();
+
+        if (interceptors == null) {
+            factory.getUserInfoRestTemplate().setInterceptors(Collections.singletonList(new CustomContextInterceptor()));
+        } else {
+            interceptors.add(new CustomContextInterceptor());
+            factory.getUserInfoRestTemplate().setInterceptors(interceptors);
+        }
+        return factory.getUserInfoRestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(EventServiceApplication.class, args);
+    }
+}
+```
+
+이제 빈으로 노출시켰으니 OAuth2RestTemplate Client 를 작성해보자.
+
+```java
+// event-service > security > MemberRestTemplate.java
+
+@Component
+public class MemberRestTemplateClient {
+
+    private final OAuth2RestTemplate restTemplate;
+
+    public MemberRestTemplateClient(OAuth2RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    private static final Logger logger = LoggerFactory.getLogger(MemberRestTemplateClient.class);
+
+    public String userInfo(String name) {
+        logger.debug("===== In Member Service.userInfo: {}", CustomContext.getCorrelationId());
+
+        ResponseEntity<String> restExchange =
+                restTemplate.exchange(
+                        //"http://" + customConfig.getServiceIdZuul() + URL_PREFIX + "userInfo/{name}",   // http://localhost:5555/api/mb/member/userInfo/rinda
+                        "http://localhost:5555/api/mb/member/userInfo/{name}",   // http://localhost:5555/api/mb/member/userInfo/rinda
+                        HttpMethod.GET,
+                        null, String.class, name
+                );
+
+        return restExchange.getBody();
+    }
+}
+```
+
+>유레카 클라이언트이니 서비스 ID 로 호출하고 싶은데 그건 아직 해결 전...
+
+이제 회원 서비스와 이벤트 서비스에 테스트할 API 를 아래처럼 각각 만들어보자.
+
+```java
+// member-service > MemberController.java
+
+/**
+ * 이벤트 서비스에서 OAuth2 로 호출 테스트
+ */
+@GetMapping("userInfo/{name}")
+public String userInfo(@PathVariable("name") String name) {
+    return "[MEMBER] " + name;
+}
+```
+
+```java
+// event-service > EventController.java
+
+private final MemberRestTemplateClient memberRestTemplateClient;
+
+@GetMapping("userInfo/{name}")
+public String userInfo(@PathVariable("name") String name) {
+    return "[EVENT-MEMBER] " + memberRestTemplateClient.userInfo(name);
+}
+```
+
+이제 [http://localhost:5555/api/evt/event/userInfo/rinda](http://localhost:5555/api/evt/event/userInfo/rinda) 를 호출하여
+이벤트 서비스에서 회원 서비스로 호출이 잘 되는지 확인해보자.
+
+![OAuth2 전파](/assets/img/dev/20200912/oauth2.png)
+
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
 * [SSO with OAuth2: Angular JS and Spring Security Part V](https://spring.io/blog/2015/02/03/sso-with-oauth2-angular-js-and-spring-security-part-v)
@@ -604,3 +730,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 * [SpringBoot 2.0 Migration Guide](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide#authenticationmanager-bean)
 * [SpringBoot 2.x 에서 AuthenticationManage not @Autowired](https://newvid.tistory.com/entry/spring-boot-20-%EC%97%90%EC%84%9C-security-%EC%82%AC%EC%9A%A9%EC%8B%9C-AuthenticationManager-Autowired-%EC%95%88%EB%90%A0%EB%95%8C)
 * [Default Password Encoder in Spring Security 5](https://www.baeldung.com/spring-security-5-default-password-encoder)
+* [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
+* [Spring Cloud Security](https://cloud.spring.io/spring-cloud-security/reference/html/)
