@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - OAuth2, Security(1/2)"
-date:   2020-09-12 10:00
+date:   2020-09-20 10:00
 categories: dev
 tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt 
 ---
@@ -12,6 +12,7 @@ tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt
 >[2.Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)<br />
 >[3.Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
 >[4.Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br /><br />
+>[5.OAuth2, Security - 보안](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br /><br />
 >***5.OAuth2, Security - 보안***<br />
 >- OAuth2
 >- OAuth2 로 인증 구현
@@ -26,22 +27,18 @@ tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt
 
 ---
 
-애플리케이션 보안의 여러 가지 측면으로 바라볼 수 있다.
+이전 포스팅에 이어서 포스팅에선 아래의 내용을 다룰 예정이다.
 
-- **본인 인증(authenticate)** 후 요청한 작업을 수행할 수 있는 **권한(authorized)** 여부 검증 -> 이 포스팅에서 다룰 내용
-- 인프라 스트럭처의 꾸준한 패치
-- 정의된 포트로만 접근 허용, 인가된 서버만 접근할 수 있도록 네트워크 접근 통제
-
-이 포스팅에선 아래의 내용을 다룰 예정이다.
-
-- 스프링 기반 서비스의 보안을 위해 `스프링 클라우드 보안(security)` 과 `OAuth2 표준`을 사용하여 **본인 인증**과 **권한**을 확인
-- OAuth2 를 이용하여 사용자가 호출할 수 있는 엔드포인트와 HTTP verb 정의
-- `OAuth2 패스워드 그랜트 타입`을 이용하여 인증 구현
+- ~~스프링 기반 서비스의 보안을 위해 `스프링 클라우드 보안(security)` 과 `OAuth2 표준`을 사용하여 **본인 인증**과 **권한**을 확인~~
+- ~~OAuth2 를 이용하여 사용자가 호출할 수 있는 엔드포인트와 HTTP verb 정의~~
+- ~~OAuth2 패스워드 그랜트 타입을 이용하여 인증 구현~~
 - `JWT` 를 사용하여 더 견고한 OAuth2 구현, OAuth2 토큰 정보를 인코딩하는 표준 수립
 
 --- 
 
-## 1. OAuth2
+## 1. JWT 과 OAuth2
+
+dsfsd
 `OAuth2` 는 토큰 기반 보안 프레임워크로 사용자가 제 3자 (third-party) 서비스에서 자신을 인증할 수 있도록 해준다.
 OAuth2 의 주요 목적은 사용자 요청을 수행하기 위해 여러 서비스들을 호출할 때 이 요청을 처리할 서비스에 일일이 자격증명을 제시하지 않고도
 사용자를 인증하는 것이다.
