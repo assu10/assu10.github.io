@@ -423,8 +423,179 @@ GET - [http://localhost:8901/auth/user](http://localhost:8901/auth/user)
 뒤에 내용 보고 하지만 엔드포인트롤 호출할때마다 토큰을 전달해야 한다는 부분이 반전되는지 보고 추가 설명 적을 것
 
 ---
+
 ## 3. OAuth2 를 이용하여 회원 서비스 보호
+
+이제 개별 사용자 계정의 역할을 설정했으니 실제로 OAuth2 를 이용하여 자원을 보호해보자.
+OAuth2 액세스 토큰의 생성과 관리는 OAuth2 인증 서버가 담당하지만, 사용자 역할 및 작업 수행의 권한 여부는
+각 서비스에서 정의한다.
+
+회원 서비스에 아래 의존성을 추가한다.
+
+```xml
+<!-- member-service > pom.xml -->
+<dependency>
+    <groupId>org.springframework.security.oauth.boot</groupId>
+    <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+</dependency>
+```
+
+회원 서비스를 보호 자원으로 설정하면 회원 서비스를 호출할 때마다 엑세스 토큰을 Authorization HTTP 에 추가해야 한다.
+
+회원 서비스의 컨피그 서버 원격 저장소에 OAuth2 콜백 URL 을 설정해주자.
+
+```yaml
+# config-repo > member-service
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8901/auth/user    # OAuth2 콜백 URL
+```
+
+회원 서비스 부트스트랩 클래스에 `@EnableResourceServer` 를 추가하여 회원 서비스를 보호 자원으로 지정한다.
+
+`@EnableResourceServer` 는 서비스로 유입되는 모든 호출을 가로채서 HTTP 헤더에 OAuth2 액세스 토큰 여부를 확인한 후 
+토큰의 유효성을 확인하기 위해 `security.oauth2.resource.user-info-uri` 에 정의된 콜백 URL 을 호출한다.
  
+```java
+@SpringBootApplication
+@EnableEurekaClient
+@EnableResourceServer       // 보호 자원으로 설정
+public class MemberServiceApplication {
+...
+```
+
+이제 서비스 접근 대상을 정의해보도록 하자.
+접근 제어 규칙 정의는 `ResourceServerConfigurerAdapter` 클래스를 상속받아 `configure()` 메서드를 재정의하여 설정할 수 있다.
+
+>***접근 규칙***
+>
+>인증된 사용자는 모든 서비스에 접근할 수 있도록 설정할 수도 있고,<br />
+>특정 역할을 가진 사용자만 PUT URL 로 접근할 수 있게 세세한 설정도 가능하다. 
+
+우선 인증된 사용자는 모든 서비스에 접근 가능하도록 설정해 본다.
+
+```java
+// member-service > security > ResourceServerConfig.java
+
+/**
+ * 접근 제어 규칙 정의
+ *      인증된 사용자는 모든 서비스에 접근 가능하거나,
+ *      특정 역할을 가진 애플리케이션만 PUT URL 로 접근하는 등 세밀하기 정의 가능
+ */
+@Configuration
+public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+    /**
+     * 모든 접근 규칙을 재정의한 configure()
+     * @param http
+     * @throws Exception
+     */
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        // 매서드로 전달된 HttpSecurity 객체로 모든 접근 규칙 구성
+
+        // 회원 서비스의 모든 URL 에 대해 인증된 사용자만 접근하도록 제한
+        http.authorizeRequests().anyRequest().authenticated();
+    }
+}
+```
+
+이제 회원 서비스의 모든 URL 은 인증된 사용자만 접근하도록 제한되었으니 확인해보도록 하자.
+
+HTTP 헤더에 Authorization 액세스 토큰없이 회원 서비스의 API 를 호출하면 아래처럼 401 HTTP 응답 코드가 출력된다.
+
+![액세스 토큰없이 호출한 경우](/assets/img/dev/20200912/401.png)
+
+이제 액세스 토큰과 함께 호출해보면 아래와 같이 정상적으로 API 호출이 가능한 것을 확인할 수 있다.
+
+![액세스 토큰과 함께 호출한 경우](/assets/img/dev/20200912/200.png)
+
+
+좀 더 나가아서 특정 역할을 가진 사용자만 특정 서비스를 이용할 수 있도록 설정해보자.
+여기서는 ADMIN 접근 권한이 있는 사용자만 회원 서비스의 PUT 메서드 API 를 호출할 수 있도록 제한해 볼 것이다.
+
+사용자 역할은 위에서 설정했던 `WebSecurityConfigurer.java` 를 참고하면 된다.
+
+```java
+// auth-service > WebSecurityConfigurer.java
+...
+@Override
+protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    auth.inMemoryAuthentication()
+            .passwordEncoder(passwordEncoder)
+            .withUser("assuUser").password(passwordEncoder.encode("user1234")).roles("USER")
+            .and()
+            .withUser("assuAdmin").password(passwordEncoder.encode("admin1234")).roles("USER", "ADMIN");
+}
+...
+``` 
+
+그리고 회원 서비스에 아래와 같은 PUT 메서드의 테스트 API 를 추가한다.
+
+```java
+// member-service > MemberController.java
+/**
+ * ADMIN 권한 소유자만 PUT METHOD API 호출 가능하도록 설정 후 테스트
+ */
+@PutMapping("{name}")
+public String member(@PathVariable("name") String name) {
+    return "[MEMBER-DELETE] " + name + " is deleted.";
+}
+```
+
+위에서 생성한 ResourceServerConfig.java 를 수정하여 접근 규칙을 수정한다.
+
+```java
+// member-service > ResourceServerConfig.java
+
+/**
+ * 접근 제어 규칙 정의
+ *      인증된 사용자는 모든 서비스에 접근 가능하거나,
+ *      특정 역할을 가진 애플리케이션만 PUT URL 로 접근하는 등 세밀하기 정의 가능
+ */
+@Configuration
+public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+    /**
+     * 모든 접근 규칙을 재정의한 configure()
+     * @param http
+     * @throws Exception
+     */
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        // 매서드로 전달된 HttpSecurity 객체로 모든 접근 규칙 구성
+
+        // 회원 서비스의 모든 URL 에 대해 인증된 사용자만 접근하도록 제한
+        //http.authorizeRequests().anyRequest().authenticated();
+
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.PUT, "/member/**")  // 쉼표로 구분하여 엔드 포인트 목록 받음
+                .hasRole("ADMIN")   // ADMIN 권한을 가진 사용자만 PUT 호출 가능
+                .anyRequest()       // 서비스의 모든 엔드포인트도 인증된 사용자만 접근 가능하도록 설정
+                .authenticated();
+    }
+}
+```
+
+`antMatchers()` 에 엔드포인트 정의할 때 * 스타일 표기법을 사용할 수 있는데 아래와 같은 표기도 가능하다.
+
+`"/*/member/**`
+
+마지막 부분인 `.anyRequest().authenticated()` 을 통해서 서비스의 모든 엔드포인트도 인증된 사용자만 접근 가능하도록 설정한다.
+
+이제 ADMIN 권한이 없는 사용자 *assuUser* 로 PUT 메서드 API 를 호출해보도록 하자.
+
+![권한없는 사용자가 PUT API 호출 시 403](/assets/img/dev/20200912/403.png)
+
+이제 다시 ADMIN 권한이 있는 사용자인 *assuAdmin* 으로 액세스 토큰을 구한 뒤 PUT 메서드 API 를 호출해보자.
+
+![권한있는 사용자가 PUT API 호출 시 200](/assets/img/dev/20200912/200-1.png)
+
+---
+
+## 4. OAuth2 액세스 토큰 전파
+
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
 * [SSO with OAuth2: Angular JS and Spring Security Part V](https://spring.io/blog/2015/02/03/sso-with-oauth2-angular-js-and-spring-security-part-v)
