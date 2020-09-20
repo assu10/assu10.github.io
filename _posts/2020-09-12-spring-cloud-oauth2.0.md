@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud - OAuth2, Security (작성 중...)"
+title:  "Spring Cloud - OAuth2, Security(1/2)"
 date:   2020-09-12 10:00
 categories: dev
 tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt 
