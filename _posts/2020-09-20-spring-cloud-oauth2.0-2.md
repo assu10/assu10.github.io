@@ -38,7 +38,6 @@ tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt
 
 ## 1. JWT 과 OAuth2
 
-dsfsd
 `OAuth2` 는 토큰 기반 보안 프레임워크로 사용자가 제 3자 (third-party) 서비스에서 자신을 인증할 수 있도록 해준다.
 OAuth2 의 주요 목적은 사용자 요청을 수행하기 위해 여러 서비스들을 호출할 때 이 요청을 처리할 서비스에 일일이 자격증명을 제시하지 않고도
 사용자를 인증하는 것이다.
