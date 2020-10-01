@@ -1,5 +1,5 @@
 ---
-layout: tag-blog
+layout: list
 title: MSA
 slug: msa
 category: dev

@@ -1,5 +1,5 @@
 ---
-layout: tag-blog
+layout: list
 title: WEB
 slug: web
 category: dev
