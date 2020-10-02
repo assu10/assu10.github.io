@@ -378,9 +378,146 @@ private final CustomConfig customConfig;
 >메시지의 상태 전달 시엔 메시지에 시간 스탬프를 넣거나 버전 번호를 포함시켜 데이터를 소비하는 서비스가 가진 데이터보다 이전 데이터인지
 >확인하여야 한다.
  
+---
+
+### 3.2. 카프카 설치
+
+[Apache Kafka](https://kafka.apache.org/downloads) 에 접속하여 Binary downloads 에서 카프카를 다운로드 받은 후 압축을 푼다.
+이 때 저장 경로가 너무 길면 실행 시 오류가 나니 C 나 D 드라이브 바로 아래에 두도록 한다.
+
+압축을 푼 후 config 폴더 내 zookeeper.properties 와 server.properties 파일을 각각 아래와 같이 수정해준다.
+
+```properties
+# zookeeper.properties
+
+dataDir=C:\\myhome\\03_Study\\kafka_2.13-2.6.0\\zkdata
+
+# server.properties
+
+log.dirs=C:\\myhome\\03_Study\\kafka_2.13-2.6.0\\logs
+```
+
+카프카는 Zookeeper 를 사용하기 때문에 주키퍼부터 실행한 후 카프카를 실행한다.
+
+```shell script
+--  주키퍼 실행
+C:\kafka_2.13-2.6.0\bin\windows>.\zookeeper-server-start.bat ..\..\config\zookeeper.properties
+
+-- 카프카 실행
+C:\kafka_2.13-2.6.0\bin\windows>.\kafka-server-start.bat ..\..\config\server.properties
+
+-- 카프카 토픽 리스트 조회
+C:\kafka_2.13-2.6.0\bin\windows>.\kafka-topics.bat --list --zookeeper localhost:2181
+__consumer_offsets
+mbChangeTopic
+springCloudBus
+```
+
+아직까지는 딱히 눈으로 확인할만한 요소가 없다. 
+아래 메시지 소비자 구현 후 제대로 메시지 수신이 이루어지는지 확인해보도록 하자.
+
+---
+
+### 3.3. 메시지 소비자 구현 (이벤트 서비스)
+
+![메시지 소비 프로세스 (카프카의 mbChangeTopic 으로 메시지가 들어오면 응답)](/assets/img/dev/20201001/consumer.jpg)
+
+이벤트 서비스에 스프링 클라우드 스트림과 스프링 클라우드 스트림 카프카 의존성을 추가한다.
+
+```xml
+<!-- member-service -->
+<!-- 스프링 클라우드 스트림 -->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-stream</artifactId>
+</dependency>
+
+<!-- 스프링 클라우드 카프카 (메시지 브로커) -->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+</dependency>
+``` 
+
+이제 애플리케이션이 스프링 클라우드 스트림의 메시지 브로커와 바인딩하도록 부트스트랩 클래스에 `@EnableBinding(Sink.class)` 를 추가한다.
+`Sink.class` 를 사용하면 해당 애플리케이션이 Sink 클래스에 정의된 채널들을 이용하여 메시지 브로커와 통신한다.
+
+`@EnableBinding(Sink.class)` 은 Sink 인터페이스에 기본 채널을 노출한다.
+Sink 인터페이스의 채널은 input 이라고 하며, 채널로 들어오는 메시지를 수신한다.
+
+Sink input 채널에 들어오는 메시지를 처리하기 위해 `@StreamListener` 애너테이션을 사용한다.<br />
+`@StreamListener` 은 input 채널에 메시지가 수신될 때마다 해당 매서드가 실행되도록 스트림을 설정한다.
+스트림은 채널에서 받은 메시지를 *MemberChangeModel* POJO 로 자동 역직렬화한다.
+
+```java
+// event-service
+
+@SpringBootApplication
+@EnableEurekaClient
+@EnableResourceServer           // 보호 자원으로 설정
+@EnableBinding(Sink.class)      // 이 애플리케이션을 메시지 브로커와 바인딩하도록 스프링 클라우드 스트림 설정
+                                // Sink.class 로 지정 시 해당 서비스가 Sink 클래스에 정의된 채널들을 이용해 메시지 브로커와 통신
+public class EventServiceApplication {
+    // ... 생략
+    
+    /**
+     * 채널에서 받은 메시지를 MemberChangeModel 이라는 POJO 로 자동 역직렬화
+     * @param mbChange
+     */
+    @StreamListener(Sink.INPUT)     // 메시지가 입력 채널에서 수신될 때마다 이 메서드 실행
+    public void loggerSink(MemberChangeModel mbChange) {
+        logger.info("======= Received an event for organization id {}", mbChange.getUserId());
+    }
+
+}
+```
+
+이제 메시지 브로커의 토픽을 input 채널에 매핑한다.
+
+```yaml
+# config-repo > event-service.yaml
+
+# 스프링 클라우드 스트림 설정
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:   # input 은 채널명, EventServiceApplication 의 Sink.INPUT 채널에 매핑되고, input 채널을 mgChangeTopic 큐에 매핑함
+          destination: mbChangeTopic       # 메시지를 넣은 메시지 큐(토픽) 이름
+          content-type: application/json
+          group: eventGroup   # 메시지를 소비할 소비자 그룹의 이름
+      kafka:    # stream.kafka 는 해당 서비스를 카프카에 바인딩
+        binder:
+          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 카프카와 주키퍼의 네트워크 위치 전달
+          brokers: localhost
+```
+
+위에 보면 `input` 이라는 채널이있는데 이 채널은 부트스트랩 클래스에서 작성한 `Sink.INPUT` 채널에 매핑한다.
+
+`bindings.input.group` 은 메시지를 소비할 소비자의 그룹명이다.<br />
+동일한 메시지 큐를 수신하는 여러 서비스 모두 많은 인스턴스를 갖고 있는데 서비스 인스턴스 그룹 안에서는 하나의 서비스 인스턴스만
+메시지를 사용하고 처리해야 한다.  
+group 프로퍼티는 서비스 인스턴스 그룹에서 메시지 복사본 하나만 소비할 것을 보장한다.
+
+---
+
+### 3.4. 메시지 서비스 확인
+
+이제 회원 서비스와 이벤트 서비서, 주키퍼, 카프카를 모두 실행한 후 메시지 이벤트가 잘 발행/소비되는지 확인해보도록 하자.
+
+[POST] [http://localhost:8090/member/assu](http://localhost:8090/member/assu)
+
+이벤트 서비스 로그에 아래와 같이 출력되는 것을 확인할 수 있다.
+
+```shell script
+INFO 25304 --- [container-0-C-1] c.a.c.e.EventServiceApplication  : ======= Received an event for organization id assu
+```
+
 
 ---
 
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
+* [카프카 설치 1](https://blusky10.tistory.com/366)
+* [카프카 설치 2](https://man-tae.tistory.com/5)
