@@ -9,8 +9,8 @@ tags: msa spring-cloud-eureka feign
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Eureka 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1.Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br /><br />
->***2.Eureka - Service Registry & Discovery***<br />
+>[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br /><br />
+>***2. Eureka - Service Registry & Discovery***<br />
 >   - Service Registry & Discovery (서비스 등록 및 발견)
 >       - 서비스 동적 등록 및 정보 공유
 >       - 서비스 동적 발견

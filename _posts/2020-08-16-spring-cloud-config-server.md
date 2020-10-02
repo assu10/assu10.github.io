@@ -9,7 +9,7 @@ tags: msa spring-cloud-config-server spring-cloud-bus rabbitmq
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Config Server 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고바란다.
 
->***1.Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화***<br />
+>***1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화***<br />
 >   - Spring Cloud Config Server
 >   - 컨피그 서버 구축
 >       - 컨피그 서버 셋업
