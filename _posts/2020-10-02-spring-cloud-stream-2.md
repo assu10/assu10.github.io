@@ -5,7 +5,7 @@ date:   2020-10-02 10:00
 categories: dev
 tags: msa eda event-driven-architecture mda message-driven-architecture spring-cloud-stream redis caching  
 ---
-이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 와 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -14,8 +14,8 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 >[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
 >[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
 >[6. OAuth2, Security - 보안 (2/2)](https://assu10.github.io/dev/2020/09/30/spring-cloud-oauth2.0-2/)<br />
->[7. Spring Cloud - Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br /><br />
->***8. Spring Cloud - Stream, 분산 캐싱 (2/2)***<br />
+>[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br /><br />
+>***8. Spring Cloud Stream, 분산 캐싱 (2/2)***<br />
 >- 스프링 클라우드 스트림을 사용한 분산 캐싱
 >- 분산 캐싱 구현
 >   - 스프링 데이터 레디스 의존성 추가
