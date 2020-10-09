@@ -6,7 +6,8 @@ categories: dev
 tags: devops gitlab gitlab-runner ci cd  
 ---
 
-이 글은 CI/CD 적용을 위한 GitLab + GitLab Runner 적용 과정을 설명하기 전에 알아야 할 기본 내용에 대해 설명합니다.
+이 글은 CI/CD 구성을 위한 GitLab + GitLab Runner 적용 과정을 설명하기 전에 알아야 할 기본 내용과 
+GitLab-Runner 설치에 대해 설명합니다.
 
 *온프레미스가 아닌 gitlab.com 을 이용하여 GitLab 을 구성하였습니다*
 
@@ -147,7 +148,7 @@ Runner 가 정상적으로 연동이 되어있다면 Runners activated for this 
 * [Gitlab 소개](https://www.opentutorials.org/course/785/4933)
 * [GitLab 설치](https://www.tutorialspoint.com/gitlab/gitlab_installation.htm)
 * [GitLab 설치 (Windows)](https://docs.gitlab.com/runner/install/windows.html)
-* [GitLab-Runner 등록](https://docs.gitlab.com/runner/register/index.html)
-* [GitLab-Runner 설치 (설명 잘 되어있음)](https://forgiveall.tistory.com/553)
-* [GitLab-Runner 등록 1](https://microcode.tistory.com/4?category=779702)
-* [GitLab-Runner 등록 2](https://www.popit.kr/gitlab-runner-windows-spring-%EC%97%B0%EB%8F%99/)
+* [GitLab-Runner 등록 1](https://forgiveall.tistory.com/553)
+* [GitLab-Runner 등록 2](https://docs.gitlab.com/runner/register/index.html)
+* [GitLab-Runner 등록 3](https://microcode.tistory.com/4?category=779702)
+* [GitLab-Runner 등록 4](https://www.popit.kr/gitlab-runner-windows-spring-%EC%97%B0%EB%8F%99/)
