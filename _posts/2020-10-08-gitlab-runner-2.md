@@ -639,6 +639,8 @@ MB 단위이며, 기본값은 job 당 100 MB 이다.
 
 그 외 Settings > CI/CD 메뉴에 대한 설명은 [CI/CD Settings](https://docs.gitlab.com/ee/ci/pipelines/settings.html) 를 참고해주세요.
 
+---
+
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [GitLab CI/CD](https://docs.gitlab.com/ee/ci/README.html)
 * [CI/CD pipelines](https://docs.gitlab.com/ee/ci/pipelines/index.html)
