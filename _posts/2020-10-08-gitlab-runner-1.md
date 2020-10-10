@@ -11,11 +11,11 @@ GitLab-Runner 설치에 대해 설명합니다.
 
 *온프레미스가 아닌 gitlab.com 을 이용하여 GitLab 을 구성하였습니다*
 
-## 이 글의 순서
-- DevOps 란?
-- GitLab 이란?
-- GitLab-Runner 다운로드 (Windows)
-- GitLab-Runner 등록
+>***GitLab-Runner 설치 & 등록(Windows)***<br />
+>- DevOps 란?
+>- GitLab 이란?
+>- GitLab-Runner 다운로드 (Windows)
+>- GitLab-Runner 등록
 
 ---
 
@@ -119,7 +119,7 @@ Please enter the gitlab-ci description for this runner:
 
 ```shell
 Please enter the gitlab-ci tags for this runner (comma separated):
-hotfix-tag
+ci-tag
 
 Registering runner... succeeded                     runner=
 ```
@@ -138,6 +138,13 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 Runner 가 정상적으로 연동이 되어있다면 Runners activated for this project 로 설정이 되어있을 것이다.
  
 ![연동된 Runner 확인](/assets/img/dev/20201009/runner.jpg)
+
+GitLab-Runner 실행
+
+```shell
+C:\Gitlab-Runner>gitlab-runner.exe install
+C:\Gitlab-Runner>gitlab-runner.exe start
+```
 
 지금까지 GitLab Runner 가 동작하기 위한 사전 작업을 마쳤다.  
 
