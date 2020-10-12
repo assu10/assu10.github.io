@@ -11,6 +11,27 @@ tags: devops gitlab gitlab-runner ci cd
 >[GitLab-Runner 설치 & 등록(Windows)](https://assu10.github.io/dev/2020/10/08/gitlab-runner-1/)<br />
 >[GitLab CI/CD Pipeline 구성](https://assu10.github.io/dev/2020/10/09/gitlab-runner-2/)<br /><br />
 >***.gitlab-ci.yml 에 대하여***<br />
+>- .gitlab-ci.yml
+>- job 구성 요소
+>- 전역 파라미터
+>   - stages
+>   - include
+>       - include:local
+>   - script
+>       - script: before_script, after_script
+>       - script:  Multi-line commands
+>   - stage
+>   - extends
+>   - rules
+>   - needs
+>   - allow_failure
+>   - when
+>   - environment
+>   - artifacts
+>       - artifacts:path
+>   - trigger
+>       - trigger:strategy
+>   - pages
 
 이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
 
@@ -72,14 +93,14 @@ job 의 동작을 정의하는 파라미터들은 아래와 같다.
 | `image` | 도커 이미지 사용/<br />`image:name`, `image:entrypoint` |
 | `include` | 외부 yaml 파일 포함. <br />`include:local`, `include:file`, `include:template`, `include:remote` |
 | `interruptible` | 새로운 실행으로 인해 중복 실행이 될 때 해당 job 을 취소할 수 있는지 여부 |
-| `only` | ★Limit when jobs are created |
+| `only` | job 생성 제한, `rules` 가 더 유연하고 강력함 |
 | `pages` | GitLab 사이트에서 사용할 job 의 결과 업로드 |
 | `parallel` | 병렬로 실행할 job 인스턴스의 갯수 |
 | `release` | Instructs the runner to generate a Release object. |
-| `resource_group` | ★작업의 동시성 제한 |
+| `resource_group` | Limit job concurrency. |
 | `retry` | 실행 실패 시 job 의 재시도 할 수 있는 시기와 횟수 |
-| `rules` | ★List of conditions to evaluate and determine selected attributes of a job, and whether or not it’s created. <br />`only/except` 와 함께 사용할 수 없음 |
-| `services` | 도커 이미지 사용.<br/ >`services:name`, `services:alias`, `services:entrypoint`, `services:command`  |
+| `rules` | job 을 생성할 지 말지에 대한 조건 <br />`only/except` 와 함께 사용할 수 없음 |
+| `services` | 도커 이미지 사용.<br />`services:name`, `services:alias`, `services:entrypoint`, `services:command`  |
 | `stage` | job 이 실행되는 단계. 디폴트는 test |
 | `tags` | Runner 선택 시 사용되는 태그 목록 |
 | `timeout` | job 레벨에서의 타임 아웃 |
@@ -215,7 +236,8 @@ job:
     - execute this after my script
 ```
 
-★[YAML anchors for before_script and after_script](https://docs.gitlab.com/ee/ci/yaml/README.html#yaml-anchors-for-before_script-and-after_script)
+좀 더 자세한 내용은 [YAML anchors for before_script and after_script](https://docs.gitlab.com/ee/ci/yaml/README.html#yaml-anchors-for-before_script-and-after_script)
+을 참고하세요.
 
 ---
 
@@ -651,13 +673,6 @@ deploy to production:
 
 ---
 
-### cache
-
-추후 확인 예정
-★[cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
-
----
-
 ### artifacts
 
 `artifacts` 는 job 이 완료된 후 (성공, 실패, 혹은 항상) 첨부되는 파일 혹은 디렉토리 목록 지정 시 사용된다.
@@ -680,7 +695,7 @@ default-job:
   except:
     - tags
 
-release-job:
+release-job:interruptible
   script:
     - mvn package -U
   artifacts:
@@ -694,9 +709,57 @@ release-job:
 
 ---
 
+### trigger
+
+자식 파이프라인 생성은 하위 파이프라인 ci 구성이 포함된 yaml 파일의 경로를 지정하면 된다.<br />
+단일 저장소이면서 특정 파일이 변경될 때만 파이프라인을 트리거하는 경우 `only: change` 가 유용하다.
+
+좀 더 자세한 사항은 [Parent-child pipelines](https://docs.gitlab.com/ee/ci/parent_child_pipelines.html) 을 참고하세요.
 
 
+#### trigger:strategy
 
+기본적으로 trigger job 은 다운스트림 파이프라인이 생성되는 즉시 성공 상태로 완료된다.<br />
+다운스트림 파이프라인이 완료될 때까지 trigger job 이 기다리게 하려면 `strategy: depend` 를 사용하면 된다. 
+
+`strategy: depend` 는 트리거된 파이프라인이 완료될 때까지 trigger job 이 *running* 상태로 대기하도록 한다.
+
+```yaml
+microservice_a:
+  trigger:
+    include: path/to/microservice_a.yml
+    strategy: depend
+```
+
+---
+
+### pages
+
+pages 는 static 컨텐츠 업로드 시 사용한다.
+
+- 모든 static contents 는 public/ 디렉토리 아래 있어야 함
+- public/ 디렉터리에 대한 경로가 있는 아티팩트가 정의되어야 함
+
+
+아래 예는 단순히 프로젝트 루트에서 public/ 디렉토리로 모든 파일을 이동하는 스크립트이다.
+
+```shell
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+```
+
+좀 더 자세한 내용은 [GitLab Pages](https://docs.gitlab.com/ee/user/project/pages/index.html) 를 참고하세요.
+
+---
 
 
 [inherit](https://docs.gitlab.com/ee/ci/yaml/README.html#inherit)
@@ -705,19 +768,17 @@ release-job:
 [only/except (basic)](https://docs.gitlab.com/ee/ci/yaml/README.html#onlyexcept-basic)
 [only/except (advanced)](https://docs.gitlab.com/ee/ci/yaml/README.html#onlyexcept-advanced)
 [when:delayed](https://docs.gitlab.com/ee/ci/yaml/README.html#whendelayed)
-[(특정 환경 배포 시)environment](https://docs.gitlab.com/ee/ci/yaml/README.html#environment)
+[(특정 환경 배포 시) environment](https://docs.gitlab.com/ee/ci/yaml/README.html#environment)
 [coverage](https://docs.gitlab.com/ee/ci/yaml/README.html#coverage)
 [retry](https://docs.gitlab.com/ee/ci/yaml/README.html#retry)
 [timeout](https://docs.gitlab.com/ee/ci/yaml/README.html#timeout)
 [parallel](https://docs.gitlab.com/ee/ci/yaml/README.html#parallel)
+[interruptible](https://docs.gitlab.com/ee/ci/yaml/README.html#interruptible)
+[resource_group](https://docs.gitlab.com/ee/ci/yaml/README.html#resource_group)
+[secrets](https://docs.gitlab.com/ee/ci/yaml/README.html#secrets)
+[(향후 없어지거나 변경) Git strategy](https://docs.gitlab.com/ee/ci/yaml/README.html#git-strategy)
+[(extends 로 사용 예정) Anchors](https://docs.gitlab.com/ee/ci/yaml/README.html#anchors)
 
-
----
-
-# 추후 확인 예정
-
-★[cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
-[job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html)
 
 ---
 
@@ -746,6 +807,10 @@ release-job:
 * [only/except (basic)](https://docs.gitlab.com/ee/ci/yaml/README.html#onlyexcept-basic)
 * [only/except (advanced)](https://docs.gitlab.com/ee/ci/yaml/README.html#onlyexcept-advanced)
 * [Artifact downloads with needs](https://docs.gitlab.com/ee/ci/yaml/README.html#artifact-downloads-with-needs)
-* [(프로덕션 환경에서의 배포)Configuring manual deployments](https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)
+* [(프로덕션 환경에서의 배포) Configuring manual deployments](https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)
 * [when:delayed](https://docs.gitlab.com/ee/ci/yaml/README.html#whendelayed)
-* [(특정 환경 배포 시)environment](https://docs.gitlab.com/ee/ci/yaml/README.html#environment)
+* [(특정 환경 배포 시) environment](https://docs.gitlab.com/ee/ci/yaml/README.html#environment)
+* [resource_group](https://docs.gitlab.com/ee/ci/yaml/README.html#resource_group)
+* [Deployment safety](https://docs.gitlab.com/ee/ci/environments/deployment_safety.html)
+* [cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
+* [job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html)
