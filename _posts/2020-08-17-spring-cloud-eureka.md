@@ -609,7 +609,133 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 따라서 유레카 서버가 멈추어도 마이크로서비스들은 영향도없이 동작한다.
 하지만 이렇게 되면 유레카 클라이언트들이 최신 정보를 반영하지 않음으로 일관성에 문제가 생길 수 있기 때문에 유레카 서버는 항상 고가용성을 유지해야 한다.
 
-유레카 고가용성에 대한 부분은 따로 포스팅을 할 예정이다.
+우선 같은 도메인(localhost)으로는 defaultZone 셋팅이 안되므로 호스트 파일을 아래와 같이 수정해준다.
+
+```shell
+-- C:\Windows\System32\drivers\etc\hosts
+
+127.0.0.1 peer1
+127.0.0.1 peer2
+```
+
+아래는 유레카 서버의 application-*.yaml 파일이다.
+
+파일명은 각각 application-peer1.yaml, application-peer2.yaml 이다.
+
+> intellij 에서 작성 시 `eureka.client.serviceUrl.defaultZone` 는 자동완성으로 안 뜨는데 IDE 이슈이므로 무시하도록 한다.
+
+`eureka.client.serviceUrl.defaultZone` 를 보면 peer1.yaml 에선 peer2 유레카를 바라보게 하고, peer2.yaml 에선 peer1 유레카를 바라보도록 설정해놓았다.
+
+이 설정으로 인해 두 유레카 서버는 서로 peering 이 가능하게 된다.
+
+```yaml
+# eurekaserver > applicatoin-peer1.yaml
+
+spring:
+  application:
+    name: eurekaserver-peer1
+  profiles: peer1
+server:
+  port: 8762          # 유레카 서버가 수신 대기할 포트
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+eureka:
+  client:
+    register-with-eureka: false           # 유레카 서비스에 (자신을) 등록하지 않는다. (클러스터 모드가 아니므로) -> false 로 해도 피어링이 된다.
+    fetch-registry: false                 # 레지스트리 정보를 로컬에 캐싱하지 않는다. (클러스터 모드가 아니므로)
+    serviceUrl:
+      defaultZone: http://peer2:8763/eureka/
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.assu.cloud: DEBUG
+```
+
+```yaml
+# eurekaserver > applicatoin-peer2.yaml
+
+spring:
+  application:
+    name: eurekaserver-peer2
+  profiles: peer2
+server:
+  port: 8763          # 유레카 서버가 수신 대기할 포트
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+eureka:
+  client:
+    register-with-eureka: false           # 유레카 서비스에 (자신을) 등록하지 않는다. (클러스터 모드가 아니므로)
+    fetch-registry: false                 # 레지스트리 정보를 로컬에 캐싱하지 않는다. (클러스터 모드가 아니므로)
+    serviceUrl:
+      defaultZone: http://peer1:8762/eureka/
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.assu.cloud: DEBUG
+```
+
+이제 각 유레카 클라이언트를 아래와 같이 셋팅해준다.
+
+`eureka.client.serviceUrl.defaultZone` 은 유레카 1대만 (peer1) 바라보도록 설정한다. 유레카 peer1 과 peer2 는 서로 피어링 관계이므로 
+유레카 peer1 에만 서비스를 등록하여도 유레카 peer2 에 자동 갱신된다.
+
+여기선 이벤트 서비스를 예로 들어 설명한다.
+
+```yaml
+# event-service > application.yaml
+
+server:
+  port: 8070
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+eureka:
+  instance:
+    prefer-ip-address: true   # 서비스 이름 대신 IP 주소 등록
+    lease-renewal-interval-in-seconds: 3  # 디스커버리한테 1초마다 하트비트 전송 (디폴트 30초)
+    lease-expiration-duration-in-seconds: 2 # 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 2초 기다림 (디폴트 90초)
+  client:
+    register-with-eureka: true    # 유레카 서버에 서비스 등록
+    fetch-registry: true          # 레지스트리 정보를 로컬에 캐싱
+    serviceUrl:
+      defaultZone: http://peer1:8762/eureka/
+    registry-fetch-interval-seconds: 3    # 서비스 목록을 3초마다 캐싱
+```
+
+이제 유레카를 띄운 후 서로 피어링이 되는지 확인해보도록 하자.
+
+```shell
+C:\eurekaserver\target>java -DSpring.profiles.active=peer1 -jar eurekaserver-0.0.1-SNAPSHOT.jar
+C:\eurekaserver\target>java -DSpring.profiles.active=peer2 -jar eurekaserver-0.0.1-SNAPSHOT.jar
+```
+
+이 후 이벤트 서비스를 띄운 후 각 유레카 콘솔에 접속해보자.
+
+![peer1 유레카 콘솔](/assets/img/dev/20200816/peering1.png)
+
+![peer2 유레카 콘솔](/assets/img/dev/20200816/peering2.png)
+
+peer1 은 peer2 를, peer2 는 peer1 을 피어링하고 있는 것을 확인할 수 있다.
+또한 이벤트 서비스는 peer1 유레카 서버에만 서비스 등록을 하고 있지만 peer2 유레카 서버에도 등록된 것을 확인할 수 있다.
 
 ---
 
@@ -620,3 +746,10 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 * [eureka client service-url-defaultzone](https://github.com/spring-cloud/spring-cloud-netflix/issues/2541)
 * [스프링 클라우드 - 마이크로서비스 간 통신이란](https://happyer16.tistory.com/entry/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4%EA%B0%84-%ED%86%B5%EC%8B%A0%EC%9D%B4%EB%9E%80-Ribbon)
 * [유레카 고가용성(클러스터링 모드)](https://supawer0728.github.io/2018/03/11/Spring-Cloud-Ribbon-And-Eureka/)
+
+## 피어링 관련
+* [https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-Hoxton-Release-Notes](https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-Hoxton-Release-Notes)
+* [https://stackoverflow.com/questions/30288959/eureka-peers-not-synchronized](https://stackoverflow.com/questions/30288959/eureka-peers-not-synchronized)
+* [https://medium.com/swlh/spring-cloud-high-availability-for-eureka-b5b7abcefb32](https://medium.com/swlh/spring-cloud-high-availability-for-eureka-b5b7abcefb32)
+* [https://develop-yyg.tistory.com/5](https://develop-yyg.tistory.com/5)
+* [https://github.com/spring-cloud/spring-cloud-netflix/issues/838](https://github.com/spring-cloud/spring-cloud-netflix/issues/838)
