@@ -729,7 +729,6 @@ release-job:
 * [yaml-multiline](https://yaml-multiline.info/)
 * [사전 정의된 환경 변수](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
 * [$CI_PIPELINE_SOURCE value 종류](https://docs.gitlab.com/ee/ci/yaml/README.html#common-if-clauses-for-rules)
-* []()
 
 ---
 
