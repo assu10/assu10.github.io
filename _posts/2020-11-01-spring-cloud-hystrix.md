@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud - Hystrix (회복성 패턴)"
+title:  "Spring Cloud - Hystrix (회복성 패턴) - 작성 중"
 date:   2020-11-01 10:00
 categories: dev
 tags: msa hystrix  
@@ -51,7 +51,7 @@ tags: msa hystrix
 하여 이 포스트에선 위와 같은 상황을 방지할 수 있도록 아래와 같은 순서로 **Spring Cloud Netflix Hystrix** 를 사용하여 **클라이언트 회복성 패턴**에 대해 알아본다.
 
 - Hystrix 애너테이션을 사용하여 Circuit Breaker (회로 차단기) 패턴으로 원격 호출 실행
-- 개별 회로 차단기를 사용자 정의하여 호출별 타임아웃 설정 (회로 차단기가 작동하기 전에 발생할 실패 횟수 조절)
+- 개별 회로 차단기를 사용자 정의하여 호출별 타임아웃 설정 (★회로 차단기가 작동하기 전에 발생할 실패 횟수 조절)
 - 회로 차단기가 작동할 경우 폴백 전략 구현
 - 서비스 내 개별 스레드 풀을 사용하여 서비스 호출을 격리하고, 호출되는 원격 자원 간에 벌크헤드 구축
 
@@ -172,6 +172,7 @@ public class MemberServiceApplication {
 
 회원 서비스 임의의 메서드에 회로 차단기 패턴을 적용해보도록 하자.
 
+★
 아래 코드에선 단순히 `@HystrixCommand` 만 적용했지만 `@HystrixCommand` 엔 더 많은 속성들이 있다. (이 포스트 뒷부분에 설명)
 
 별도 속성 정의없이 `@HystrixCommand` 애너테이션만 사용한다면 모두 기본값을 사용한다는 의미이다.
@@ -180,7 +181,7 @@ public class MemberServiceApplication {
 // member-service > MemberController.java
 
 /**
- * Hystrix 테스트 (RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출)
+ * Hystrix 기본 테스트 (RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출)
  */
 @HystrixCommand     // 모두 기본값으로 셋팅한다는 의미
 @GetMapping(value = "hys/{name}")
@@ -212,12 +213,104 @@ private void sleep() {
 com.netflix.hystrix.exception.HystrixRuntimeException: hys timed-out and fallback failed.] with root cause
 ``` 
 
+★
+***`@HystrixCommand` 애너테이션의 구성 설정없이 기본 `@HystrixCommand` 를 사용하는 것은 주의가 많이 필요하다.<br />
+프로퍼티없이 `@HystrixCommand` 애너테이션을 지정하면 모든 원격 서비스 호출에 동일한 스레드 풀을 사용하므로 애플리케이션에서 문제가 발생할 수 있다.***
 
+이 포스팅 뒷부분(벌크헤드)에 원격 서비스 호출을 자체 스레드 풀로 분리하는 방법과 스레드 풀을 독립적으로 동작시키는 구성 방법을 설명한다.
 
 ---
 
+## 5. 개별 회로 차단기를 사용자 정의하여 호출별 타임아웃 설정
 
-## 3. 개별 회로 차단기를 사용자 정의하여 호출별 타임아웃 설정 (회로 차단기가 작동하기 전에 발생할 실패 횟수 조절)
+히스트릭스가 호출을 중단하기 전 시간을 사용자 정의하여 보자.
+히스트릭스는 기본적으로 1초 후에 호출을 타임아웃을 하지만 각 서비스에 맞게 사용자 정의할 수 있다.
+
+java 로 설정하는 방법은 아래와 같다.
+
+```java
+// member-service > MemberController.java
+
+/**
+ * Circuit Breaker 타임아웃 설정 (RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출)
+ */
+@HystrixCommand(
+        commandProperties = {
+                @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",
+                                 value="5000")})   // 회로차단기의 타임아웃 시간을 5초로 설정
+@GetMapping(value = "timeout/{name}")
+public String timeout(ServletRequest req, @PathVariable("name") String name) {
+    logger.debug("LicenseService.getLicensesByOrg  Correlation id: {}", CustomContextHolder.getContext().getCorrelationId());
+    return "[MEMBER] " + eventRestTemplateClient.gift(name) + " / port is " + req.getServerPort();
+}
+``` 
+
+여기선 메서드 별로 타임아웃을 설정하지 않고 주울에 서비스별 호출 타임아웃을 설정해보도록 하겠다.<br />
+우선 회원 서비스가 호출할 이벤트 서비스 메서드에 의도적으로 결과값을 늦게 리턴하도록 설정한다.
+
+```java
+// event-service > EventController.java
+
+/**
+ * 회원 서비스에서 호출할 메서드
+ */
+@GetMapping(value = "gift/{name}")
+public String gift(@PathVariable("name") String gift) {
+    sleep();
+    return "[EVENT] Gift is " + gift;
+}
+
+private void sleep() {
+    try {
+        Thread.sleep(7000);        // 7,000 ms (7초), 기본적으로 히스트릭스는 1초 후에 호출을 타임아웃함
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+``` 
+
+주울의 application.yml 파일을 아래와 같이 수정한다.
+
+아래 내용은 [Spring Cloud - Netflix Zuul(1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/) 의 *서비스 타임아웃* 에서 한번 언급한 내용이므로
+자세한 설명은 생략한다.
+
+```yaml
+// zuulserver
+
+hystrix:
+  command:
+    default:    # 유레카 서비스 ID
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000  # 히스트릭스 타임아웃 5초로 설정 (기본 1초, ribbon 의 타임아웃보다 커야 기대하는 대로 동작함)
+event-service:
+  ribbon:
+    ReadTimeout: 5000       # 리본 타임아웃 5초로 설정 (기본 5초)
+```
+
+```java
+// member-service > MemberController.java
+
+@GetMapping(value = "timeout/{name}")
+public String timeout(ServletRequest req, @PathVariable("name") String name) {
+    logger.debug("LicenseService.getLicensesByOrg  Correlation id: {}", CustomContextHolder.getContext().getCorrelationId());
+    return "[MEMBER] " + eventRestTemplateClient.gift(name) + " / port is " + req.getServerPort();
+}
+```
+
+이제 회원서비스의 *[http://localhost:8090/member/timeout/assu](http://localhost:8090/member/timeout/assu)* 을 호출해보도록 하자.
+
+![원격 호출이 오래 걸리면 HystrixRuntimeException 발생](/assets/img/dev/20201101/hystrixcommandError2.png)
+
+주울 서비스의 로그를 보면 아래와 같은 로그가 나오는 것을 확인할 수 있다.
+
+```shell
+com.netflix.hystrix.exception.HystrixRuntimeException: event-service timed-out and no fallback available.
+``` 
+
+---
+
 ## 3. 회로 차단기가 작동할 경우 폴백 전략 구현
 ## 3. 서비스 내 개별 스레드 풀을 사용하여 서비스 호출을 격리하고, 호출되는 원격 자원 간에 벌크헤드 구축
 
@@ -264,3 +357,5 @@ com.netflix.hystrix.exception.HystrixRuntimeException: hys timed-out and fallbac
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
+* [타임아웃 1](https://supawer0728.github.io/2018/03/11/Spring-Cloud-Zuul/)
+* [타임아웃 2](https://supawer0728.github.io/2018/03/11/Spring-Cloud-Hystrix/)
