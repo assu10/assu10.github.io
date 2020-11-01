@@ -142,17 +142,10 @@ tags: msa hystrix
 </dependency>
 ``` 
 
->유레카 클라이언트 의존성이 있다면 따로 추가할 필요없다.
-
-```xml
-<!-- 유레카 클라이언트 -->
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-</dependency>
-```
-
 히스트릭스 의존성 추가 후 부트스트랩 클래스에 `@EnableCircuitBraker` 애너테이션을 추가한다.
+
+>유레카 클라이언트 의존성이 있다면 `@EnableCircuitBraker` 추가 시엔 오류가 나지 않지만 서버 기동 시 오류가 나므로
+>유레카 클라이언트 의존성이 추가되어 있어도 히스트릭스 의존성을 추가해주어야 한다.
 
 ```java
 // member-service
@@ -170,8 +163,60 @@ public class MemberServiceApplication {
 
 ---
 
+## 4. Hystrix 애너테이션을 사용하여 Circuit Breaker (회로 차단기) 패턴으로 원격 호출 실행
 
-## 3. Hystrix 애너테이션을 사용하여 Circuit Breaker (회로 차단기) 패턴으로 원격 호출 실행
+히스트릭스와 스프링 클라우드는 `@HystrixCommand` 애너테이션을 사용하여 히스트릭스 회로 차단기가 관리하는 자바 클래스 메서드라고 표시한다.
+
+스프링 프레임워크가 `@HystrixCommand` 애너테이션을 만나면 메서드를 감싸는 프록시를 동적으로 생성하고 원격 호출을 처리하기 위해 확보한 스레드가 있는
+스레드 풀로 해당 메서드에 대한 모든 호출을 관리한다.
+
+회원 서비스 임의의 메서드에 회로 차단기 패턴을 적용해보도록 하자.
+
+아래 코드에선 단순히 `@HystrixCommand` 만 적용했지만 `@HystrixCommand` 엔 더 많은 속성들이 있다. (이 포스트 뒷부분에 설명)
+
+별도 속성 정의없이 `@HystrixCommand` 애너테이션만 사용한다면 모두 기본값을 사용한다는 의미이다.
+  
+```java
+// member-service > MemberController.java
+
+/**
+ * Hystrix 테스트 (RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출)
+ */
+@HystrixCommand     // 모두 기본값으로 셋팅한다는 의미
+@GetMapping(value = "hys/{name}")
+public String hys(ServletRequest req, @PathVariable("name") String name) {
+    logger.debug("LicenseService.getLicensesByOrg  Correlation id: {}", CustomContextHolder.getContext().getCorrelationId());
+    sleep();
+    return "[MEMBER] " + eventRestTemplateClient.gift(name) + " / port is " + req.getServerPort();
+}
+
+private void sleep() {
+    try {
+        Thread.sleep(3000);        // 3,000 ms (3초), 기본적으로 히스트릭스는 1초 후에 호출을 타임아웃함
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+```
+
+위 *hys/{name}* 메서드는 해당 메서드가 호출될 때마다 히스트릭스 회로 차단기와 해당 호출이 연결된다.
+히스트릭스는 기본적으로 1초 후에 호출을 타임아웃하므로 의도적으로 3초 뒤에 호출이 완료되도록 해본 후 메서드를 호출해보도록 하자.
+
+[http://localhost:8090/member/hys/assu](http://localhost:8090/member/hys/assu)
+
+![원격 호출이 오래 걸리면 HystrixRuntimeException 발생](/assets/img/dev/20201101/hystrixcommandError.png)
+
+호출 타임아웃이 되는 경우 로그를 보면 아래와 같은 오류가 발생하는 것을 확인할 수 있다.
+
+```shell
+com.netflix.hystrix.exception.HystrixRuntimeException: hys timed-out and fallback failed.] with root cause
+``` 
+
+
+
+---
+
+
 ## 3. 개별 회로 차단기를 사용자 정의하여 호출별 타임아웃 설정 (회로 차단기가 작동하기 전에 발생할 실패 횟수 조절)
 ## 3. 회로 차단기가 작동할 경우 폴백 전략 구현
 ## 3. 서비스 내 개별 스레드 풀을 사용하여 서비스 호출을 격리하고, 호출되는 원격 자원 간에 벌크헤드 구축
