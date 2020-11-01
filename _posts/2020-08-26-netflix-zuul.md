@@ -384,6 +384,10 @@ public interface MemberFeignClient {
 ---
 
 ## 6. 서비스 타임아웃
+
+>[Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/08/26/spring-cloud-hystrix/) 의 
+>*개별 회로 차단기를 사용자 정의하여 호출별 타임아웃 설정* 과 함께 보면 도움이 됩니다. 
+
 주울은 넷플릭스 히스트릭스와 리본 라이브러리를 사용하여 오래 수행되는 서비스 호출이 게이트웨이 성능에 영향을 미치지 않도록 한다.
 
 - 히스트릭스 타임아웃 설정
@@ -397,7 +401,7 @@ public interface MemberFeignClient {
 
 hystrix:
   command:
-    default:
+    default:    // 우레마 서비스 ID
       execution:
         isolation:
           thread:
@@ -416,6 +420,8 @@ hystrix:
     "message": ""
 }
 ``` 
+
+히스트릭스 타임아웃을 재정의했지만 리본 역시 5초 이상 수행되는 호출을 타임아웃하므로 5초 이상 수행되는 타임아웃 구성은 히스트릭스와 리본 모두 설정해야 한다.
 
 다음 포스트엔 주울의 필터에 관해 다루도록 하겠다.
 
