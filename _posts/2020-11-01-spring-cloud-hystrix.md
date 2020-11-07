@@ -51,9 +51,9 @@ tags: msa hystrix
 하여 이 포스트에선 위와 같은 상황을 방지할 수 있도록 아래와 같은 순서로 **Spring Cloud Netflix Hystrix** 를 사용하여 **클라이언트 회복성 패턴**에 대해 알아본다.
 
 - Hystrix 애너테이션을 사용하여 Circuit Breaker (서킷 브레이커) 패턴으로 원격 호출 실행
-- 개별 서킷 브레이커를 사용자 정의하여 호출별 타임아웃 설정 (★서킷 브레이커가 작동하기 전에 발생할 실패 횟수 조절)
+- 개별 서킷 브레이커를 사용자 정의하여 호출별 타임아웃 설정 
 - 서킷 브레이커가 작동할 경우 폴백 전략 구현
-- 서비스 내 개별 스레드 풀을 사용하여 서비스 호출을 격리하고, 호출되는 원격 자원 간에 벌크헤드 구축
+- 서비스 내 개별 스레드 풀을 사용하여 서비스 호출을 격리하고, 호출되는 원격 자원 간에 벌크헤드 구축 (서킷 브레이커가 작동하기 전에 발생할 실패 횟수 조절)
 
 --- 
 
@@ -172,7 +172,6 @@ public class MemberServiceApplication {
 
 회원 서비스 임의의 메서드에 서킷 브레이커 패턴을 적용해보도록 하자.
 
-★
 아래 코드에선 단순히 `@HystrixCommand` 만 적용했지만 `@HystrixCommand` 엔 더 많은 속성들이 있다. (이 포스트 뒷부분에 설명)
 
 별도 속성 정의없이 `@HystrixCommand` 애너테이션만 사용한다면 모두 기본값을 사용한다는 의미이다.
@@ -212,7 +211,6 @@ private void sleep() {
 com.netflix.hystrix.exception.HystrixRuntimeException: hys timed-out and fallback failed.] with root cause
 ``` 
 
-★
 ***`@HystrixCommand` 애너테이션의 구성 설정없이 기본 `@HystrixCommand` 를 사용하는 것은 주의가 많이 필요하다.<br />
 프로퍼티없이 `@HystrixCommand` 애너테이션을 지정하면 모든 원격 서비스 호출에 동일한 스레드 풀을 사용하므로 애플리케이션에서 문제가 발생할 수 있다.***
 
