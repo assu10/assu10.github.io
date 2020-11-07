@@ -309,17 +309,94 @@ com.netflix.hystrix.exception.HystrixRuntimeException: event-service timed-out a
 ---
 
 ## 3. 회로 차단기가 작동할 경우 폴백 전략 구현
+
+회로 차단기 패턴의 장점은 원격 자원의 소비자와 제공자 사이에서 실패를 가로채고 다른 대안을 선택할 기회는 주는 것인데 이것이 바로 **폴백 전략** 이다.
+
+히스트릭스 폴백 전략 구현 시엔 아래 두 가지만 설정하면 된다.
+
+- 폴백 메서드 정의 (히스트릭스를 차단할 때 호출될 메서드)
+- `@HystrixCommand` 에 `fallbackMethod` 속성 추가
+
+바로 위에서 사용했던 회원 서비스 메서드에 폴백 메서드를 적용해보도록 하자.
+
+폴백 메서드는 `@HystrixCommand` 가 보호하려는 메서드와 같은 클래스에 있어야 하고, 보호하려는 메서드에 전달되는 모든 매개 변수를
+폴백이 받으므로 파라미터도 완전히 동일해야 한다.
+
+```java
+@HystrixCommand(fallbackMethod = "timeoutFallback")     // 폴백 메서드
+@GetMapping(value = "timeout/{name}")
+public String timeout(ServletRequest req, @PathVariable("name") String name) {
+    return "[MEMBER] " + eventRestTemplateClient.gift(name) + " / port is " + req.getServerPort();
+}
+
+/**
+ * timeout 메서드의 폴백 메서드
+ */
+public String timeoutFallback(ServletRequest req, @PathVariable("name") String name) {
+    return "This is timeoutFallback test.";
+}
+```
+
+위에선 주울에 히스트릭스를 설정했지만 폴백 메서드에 대한 설정은 폴백 메서드가 위치한 서비스에 위치해야 하므로 
+회원 서비스의 application.yml 파일에 타임아웃 시간을 설정한다.
+
+```yaml
+# member-service > application.yaml
+hystrix:
+  command:
+    default:    # 유레카 서비스 ID
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000  # 히스트릭스 타임아웃 3초로 설정 (기본 1초, ribbon 의 타임아웃보다 커야 기대하는 대로 동작함)
+```
+
+이제 [http://localhost:8090/member/timeout/assu](http://localhost:8090/member/timeout/assu) 를 다시 호출하면 3초가 지난 후 
+폴백 함수가 실행되는 것을 확인할 수 있다.
+이 때 별도 로그는 남지 않는다.
+
+![타임아웃 후 폴백 함수 실행](/assets/img/dev/20201101/fallback.png) 
+
+>**폴백 전략 구현 시 주의할 점**
+>
+>폴백은 호출하려는 자원이 타임아웃되거나 실패할 때 실행할 함수를 제공하는 메커니즘이다.
+>폴백을 사용하여 타임아웃 예외를 잡아내어 에러 로깅만 한다면 이는 try~catch 블록에 로깅 로직을 넣어도 된다.
+>
+>폴백 서비스에서 다른 분산 서비스를 호출할 때는 매우 주의해야 한다.
+>1차 폴백을 겪은 후 동일한 장애가 2차 폴백 시도시에도 영향을 줄 수 있다는 것을 기억하고 방어적으로 코딩해야 한다.
+
+---
+
 ## 3. 서비스 내 개별 스레드 풀을 사용하여 서비스 호출을 격리하고, 호출되는 원격 자원 간에 벌크헤드 구축
 
+MSA 환경에서 벌크헤드 패턴을 적용하지 않으면 기본적으로 전체 자바 컨테이너에 대한 요청을 처리하는 스레드에서 호출이 이루어진다.<br />
+이럴 경우 한 서비스에서 발생한 성능 문제로 자바 컨테이너의 모든 스레드가 최대치에 도달하면 새로운 요청들은 적체되고 결국 자바 컨테이너는 비정상 종료된다.
+
+**벌크헤드 패턴은 원격 자원 호출을 자신의 스레드 풀에 격리하기 때문에 오작동하는 서비스를 차단하여 컨테이너의 비정상 종료를 방지**한다.
+
+히스트릭스는 스레드 풀을 사용해 원격 서비스에 대한 모든 요청을 위임하는데 기본적으로 Hystrix Command 는 동일한 스레드 풀을 공유한다.
+이러한 방법은 원격 자원이 적요 균등하게 각 서비스를 호출하는 환경에서는 적합하지만, 호출량이 많고 호출 완료까지 걸리는 시간이 오래 걸리는 서비스에는 적합하지 않다.<br />
+히스트릭스의 기본 스레드 풀에 있는 모든 스레드를 차지하므로 결국 모든 스레드가 고갈된다.
+
+히스트릭스는 이러한 상황을 방지하기 위해 **서로 다른 원격 자원 호출간에 벌크헤드를 생성하는 메커니즘**을 제공한다.<br />
+즉, 성능이 나쁜 서비스는 동일 서비스 풀 안에 있는 서비스 호출에만 영향을 미치므로 호출에서 발생할 수 있는 피해를 제한시키는 것이다.
+
+분리된 스레드 풀 구현시엔 아래 단계의 순서로 진행이 필요하다.
+
+- 별도 스레드 풀 설정
+- 스레드 풀의 스레드 숫자 설정
+- 스레드가 꽉 차 있을 경우 큐에 들어갈 요청 수에 해당하는 큐의 크기 설정
+
+이제 벌크헤드 패턴을 직접 구현해보도록 하자.
 
 ---
 
-
+### 3-1. 벌크헤드 패턴 기본 구성
 
 
 ---
 
-
+### 3-1. 벌크헤드 패턴 상세 구성
 
 
 ---
@@ -356,3 +433,4 @@ com.netflix.hystrix.exception.HystrixRuntimeException: event-service timed-out a
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
 * [타임아웃 1](https://supawer0728.github.io/2018/03/11/Spring-Cloud-Zuul/)
 * [타임아웃 2](https://supawer0728.github.io/2018/03/11/Spring-Cloud-Hystrix/)
+* [벌크헤드](https://pjh3749.tistory.com/284)
