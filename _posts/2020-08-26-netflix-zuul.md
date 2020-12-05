@@ -401,11 +401,11 @@ public interface MemberFeignClient {
 
 hystrix:
   command:
-    default:    // 우레마 서비스 ID
+    default:    // 유레카 서비스 ID
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 5000   # 히스트릭스 타임아웃 5초로 설정 (기본 1초)
+            timeoutInMilliseconds: 5000   # 히스트릭스 타임아웃 5초로 설정 (기본 1초, ribbon 의 타임아웃보다 커야 기대하는 대로 동작함)
 ```
 
 이벤트 서비스의 특정 API 를 8초 이후에 리턴값을 반환하도록 설정 후 호출하면 아래와 같이 504 오류가 반환된다.

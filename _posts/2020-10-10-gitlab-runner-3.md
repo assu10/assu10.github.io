@@ -716,7 +716,7 @@ release-job:
 
 # 추후 확인 예정
 
-★[cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
+[cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
 [job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html)
 
 ---
