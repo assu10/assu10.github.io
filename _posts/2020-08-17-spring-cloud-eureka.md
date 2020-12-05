@@ -229,32 +229,23 @@ management:
   endpoint:
     shutdown:
       enabled: true
+
 eureka:
-  client:
-    register-with-eureka: false           ## 유레카 서비스에 (자신을) 등록하지 않는다. (클러스터 모드가 아니므로)
-    fetch-registry: false                 ## 레지스트리 정보를 로컬에 캐싱하지 않는다. (클러스터 모드가 아니므로)
   server:
-    wait-time-in-ms-when-sync-empty: 5    ## 서버가 요청을 받기 전 대기할 초기 시간 (5ms, 운영 환경에선 삭제 필요)
+    wait-time-in-ms-when-sync-empty: 5    # 유레카 서버가 시작되고 Peer nodes 로부터 Instance 들을 가져올 수 없을 때 얼마나 기다릴 것인가? (디폴트 3000ms, 운영 환경에선 삭제 필요)
+      # 일시적인 네트워크 장애로 인한 서비스 해제 막기 위한 보호모드 해제 (디폴트 60초, 운영에선 삭제 필요)
+      # 원래는 해당 시간안에 하트비트가 일정 횟수 이상 들어오지 않아야 서비스 해제하는데 false 설정 시 하트비트 들어오지 않으면 바로 서비스 제거
+    enable-self-preservation: false
+  client:
+    register-with-eureka: false           # 유레카 서비스에 (자신을) 등록하지 않는다. (클러스터 모드가 아니므로) -> false 로 해도 피어링이 된다.
+    fetch-registry: false                 # 레지스트리 정보를 로컬에 캐싱하지 않는다. (클러스터 모드가 아니므로)
+    serviceUrl:
+      defaultZone: http://peer1:8762/eureka/
 ```
 
-- **register-with-eureka**
-    - 레지스트리에 자신을 등록할지에 대한 여부
-    - 클러스터링 모드의 유레카 서버 구성은 서로 peering 구성이 가능.
-      (유레카 서버 설정에 정의된 peering 노드를 찾아서 레지스트리 정보의 sync 를 맞춤)
-    - 독립 실행형 모드(standalone)에서는 peering 실패가 발생하므로 유레카 클라이언트 측 동작을 끔
+유레카 서버/클라이언트 각 설정값에 대한 설명은 
+[Spring Cloud - Spring Cloud Eureka (상세 설정편)](https://assu10.github.io/dev/2020/12/05/spring-cloud-eureka-configuration/) 을 참고해주세요.
 
-- **fetch-registry**
-    - 레지스트리에 있는 정보를 가져올지에 대한 여부
-
-- **wait-time-in-ms-when-sync-empty**
-    - registry 를 갱신할 수 없을 때 재시도를 기다리는 시간
-    - 테스트 시 짧은 시간으로 등록해놓으면 유레카 서비스의 시작 시간과 등록된 서비스를 보여주는 시간 단축 가능
-    - 유레카는 등록된 서비스에서 10초 간격으로 연속 3회의 상태 정보(heartbeat)를 받아야 하므로 등록된 개별 서비스를 보여주는데 30초 소요
-    
-- **enable-self-preservation**
-    - 일시적인 네트워크 장애로 인한 서비스 해제 막기 위한 보호모드 설정 (디폴트 60초, 운영에선 반드시 true 로 설정 필요)
-    - 원래는 해당 시간안에 하트비트가 일정 횟수 이상 들어오지 않아야 서비스 해제하는데 false 설정 시 하트비트 들어오지 않으면 바로 서비스 제거
-    
 ```shell
 C:\> mvn clean install
 C:\configserver\target>java -jar configserver-0.0.1-SNAPSHOT.jar
@@ -283,7 +274,10 @@ C:\eurekaserver\target>java -jar eurekaserver-0.0.1-SNAPSHOT.jar
 </dependency>
 ```
 
+---
+
 컨피스 서버 원격 저장소 각 환경설정 파일에 아래 구성 내용을 추가한다.
+
 ```yaml
 ## conf-repo > member-service.yaml, event-service.yaml
 your.name: "MEMBER DEFAULT..."
@@ -304,8 +298,8 @@ management:
 eureka:   ## 추가
   instance:
     prefer-ip-address: true       ## 서비스 이름 대신 IP 주소 등록
-    lease-renewal-interval-in-seconds: 3  # 디스커버리한테 1초마다 하트비트 전송 (디폴트 30초)
-    lease-expiration-duration-in-seconds: 2 # 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 2초 기다림 (디폴트 90초)
+    lease-renewal-interval-in-seconds: 3  # 디스커버리한테 3초마다 하트비트 전송 (디폴트 30초)
+    lease-expiration-duration-in-seconds: 2 # 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 설정된 시간(second) 기다린 후 서비스 등록 해제 (디폴트 90초)
   client:
     register-with-eureka: true    ## 유레카 서버에 서비스 등록
     fetch-registry: true          ## 레지스트리 정보를 로컬에 캐싱
@@ -315,26 +309,6 @@ eureka:   ## 추가
 애플리케이션 ID(`spring.application.name`)는 서비스 인스턴스 그룹을 의미하고,
 인스턴스 ID는 개별 서비스 인스턴스를 인식하는 임의의 숫자이다.
 
-- **eureka.instance.prefer-ip-address**
-    - 서비스의 호스트 이름이 아닌 IP 주소를 유레카 서버에 등록하도록 지정
-    - 기본적으로 유레카는 호스트 이름으로 접속하는 서비스를 등록하는데 DNS 가 지원된 호스트 이름을 할당하는 서버 기반 환경에서는 잘 동작하지만,
-      컨테이너 기반의 배포에서 컨테이너는 DNS 엔트리가 없는 임의의 생성된 호스트 이름을 부여받아 시작하므로
-      컨테이너 기반 배포에서는 해당 설정값을 false 로 하는 경우 호스트 이름 위치를 정상적으로 얻지 못함
-
-- **fetch-registry**
-    - true 로 설정 시 검색할 때마다 유레카 서버를 호출하는 대신 레지스트리가 로컬로 캐싱됨
-    - 30초마다 유레카 클라이언트가 유레카 레지스트리 변경 사항 여부 재확인함
-
-- **lease-renewal-interval-in-seconds**
-    - 유레카한테 1초마다 하트비트 전송 (디폴트 30초)
-
-- **lease-renewal-interval-in-seconds**
-    - 유레카한테 1초마다 하트비트 전송 (디폴트 30초)
-
--**lease-expiration-duration-in-seconds**
-    - 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 2초 기다림 (디폴트 90초)
-    
-    
 부트스트랩 클래스에 `@EnableEurekaClient` 을 추가한다.
 
 ```java
@@ -751,5 +725,5 @@ peer1 은 peer2 를, peer2 는 peer1 을 피어링하고 있는 것을 확인할
 * [https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-Hoxton-Release-Notes](https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-Hoxton-Release-Notes)
 * [https://stackoverflow.com/questions/30288959/eureka-peers-not-synchronized](https://stackoverflow.com/questions/30288959/eureka-peers-not-synchronized)
 * [https://medium.com/swlh/spring-cloud-high-availability-for-eureka-b5b7abcefb32](https://medium.com/swlh/spring-cloud-high-availability-for-eureka-b5b7abcefb32)
-* [https://develop-yyg.tistory.com/5](https://develop-yyg.tistory.com/5)
+* [유레카 설정값](https://develop-yyg.tistory.com/5)
 * [https://github.com/spring-cloud/spring-cloud-netflix/issues/838](https://github.com/spring-cloud/spring-cloud-netflix/issues/838)

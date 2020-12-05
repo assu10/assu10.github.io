@@ -695,7 +695,7 @@ default-job:
   except:
     - tags
 
-release-job:interruptible
+release-job:
   script:
     - mvn package -U
   artifacts:
@@ -779,6 +779,12 @@ pages:
 [(향후 없어지거나 변경) Git strategy](https://docs.gitlab.com/ee/ci/yaml/README.html#git-strategy)
 [(extends 로 사용 예정) Anchors](https://docs.gitlab.com/ee/ci/yaml/README.html#anchors)
 
+---
+
+# 추후 확인 예정
+
+[cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
+[job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html)
 
 ---
 
@@ -806,10 +812,6 @@ pages:
 * [only/except (basic)](https://docs.gitlab.com/ee/ci/yaml/README.html#onlyexcept-basic)
 * [only/except (advanced)](https://docs.gitlab.com/ee/ci/yaml/README.html#onlyexcept-advanced)
 * [Artifact downloads with needs](https://docs.gitlab.com/ee/ci/yaml/README.html#artifact-downloads-with-needs)
-* [(프로덕션 환경에서의 배포) Configuring manual deployments](https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)
+* [(프로덕션 환경에서의 배포)Configuring manual deployments](https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)
 * [when:delayed](https://docs.gitlab.com/ee/ci/yaml/README.html#whendelayed)
-* [(특정 환경 배포 시) environment](https://docs.gitlab.com/ee/ci/yaml/README.html#environment)
-* [resource_group](https://docs.gitlab.com/ee/ci/yaml/README.html#resource_group)
-* [Deployment safety](https://docs.gitlab.com/ee/ci/environments/deployment_safety.html)
-* [cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
-* [job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html)
+* [(특정 환경 배포 시)environment](https://docs.gitlab.com/ee/ci/yaml/README.html#environment)
