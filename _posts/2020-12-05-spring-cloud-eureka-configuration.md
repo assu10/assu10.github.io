@@ -31,7 +31,7 @@ tags: msa spring-cloud-eureka
 
 ### 2.1. 서버 측 설정
 
-- **eureka.server.enable-self-preservation**
+- **`eureka.server.enable-self-preservation`**
     - 일시적인 네트워크 장애로 인한 서비스 해제 막기 위한 자기 보호 모드 (디폴트 true, 운영에선 반드시 true 로 설정 필요)
     - 원래는 해당 시간안에 하트비트가 일정 횟수 이상 들어오지 않아야 서비스 해제하는데 false 설정 시 하트비트가 들어오지 않으면 바로 서비스 제거
 
@@ -46,13 +46,13 @@ eureka:
 
 ### 3.1. 서버/클라이언트 측 모두 설정
 
-- **eureka.client.register-with-eureka**
+- **`eureka.client.register-with-eureka`**
     - 레지스트리에 자신을 등록할지에 대한 여부 (디폴트 true)
     - 클러스터링 모드의 유레카 서버 구성은 서로 peering 구성이 가능.
       (유레카 서버 설정에 정의된 peering 노드를 찾아서 레지스트리 정보의 sync 를 맞춤)
     - 독립 실행형 모드(standalone)에서는 peering 실패가 발생하므로 유레카 클라이언트 측 동작을 끔
 
-- **eureka.client.fetch-registry**
+- **`eureka.client.fetch-registry`**
     - 레지스트리에 있는 정보를 가져올지에 대한 여부  (디폴트 true)
     - true 로 설정 시 검색할 때마다 유레카 서버를 호출하는 대신 레지스트리가 로컬로 캐싱됨
     - 30초마다 유레카 클라이언트가 유레카 레지스트리 변경 사항 여부 재확인함
@@ -155,10 +155,10 @@ com.netflix.discovery.DiscoveryClient    : Completed cache refresh task for disc
 
 ### 4.1. 클라이언트 측 설정
 
-- **eureka.client.registry-fetch-interval-seconds**
+- **`eureka.client.registry-fetch-interval-seconds`**
     - 서비스 목록을 설정한 시간마다 캐싱 (디폴트 30초)
     
-- **eureka.client.disable-delta**
+- **`eureka.client.disable-delta`**
     - 캐싱 시 변경된 부분만 업데이트할 지 여부 (디폴트 false)
     - false 로 설정 서 대역폭 낭비이므로 true 로 설정할 것   
         
@@ -196,7 +196,7 @@ com.netflix.discovery.DiscoveryClient    : Completed cache refresh task for disc
         
 ### 4.2. 서버 측 설정
 
-- **eureka.server.response-cache-update-interval-ms**
+- **`eureka.server.response-cache-update-interval-ms`**
     - 유레카 서버의 캐싱 업데이트 주기 (디폴트 30,000ms)
     - 유레카 서버 실행 후 /eureka/apps API 실행 시 아무것도 나오지 않음
       클라이언트 인스턴스 실행 수 /eureka/apps 실행 시 여전히 아무것도 나오지 않음
@@ -238,10 +238,10 @@ c.n.eureka.registry.ResponseCacheImpl    : Updating the client cache from respon
 
 ### 5.1. 클라이언트 측 설정
 
-- **eureka.instance.lease-renewal-interval-in-seconds**
+- **`eureka.instance.lease-renewal-interval-in-seconds`**
     - 유레카 서버로 설정된 시간(second)마다 하트비트 전송 (디폴트 30초)
 
-- **eureka.instance.lease-expiration-duration-in-seconds**
+- **`eureka.instance.lease-expiration-duration-in-seconds`**
     - 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 설정된 시간(second) 동안 하트비트가 수신되지 않으면 
       서비스 등록 해제 (디폴트 90초)
     - 단, 유레카 인스턴스가 정상적으로 종료된 경우는 레지스트리에서 바로 제거
@@ -301,7 +301,7 @@ com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ZUULSERVER/xx.xx.xx.x
 클라이언트로부터 하트비트가 계속 수신되는지 점검을 하는 태스크인데 기본값인 60초 마다 실행되기 때문에
 클라이언트 측 위의 두 값을 작은 값으로 설정해도 서비스 인스턴스를 제거하는데 최대 60초가 소요된다.
 
-- **eureka.server.eviction-interval-timer-in-ms**
+- **`eureka.server.eviction-interval-timer-in-ms`**
     - 클라이언트로부터 하트비트가 계속 수신 되는지 점검 (디폴트 60초)
       
 ```yaml
@@ -325,16 +325,16 @@ eureka:
 
 ### 6.1. 클라이언트 측 설정
 
-- **eureka.instance.prefer-ip-address**
+- **`eureka.instance.prefer-ip-address`**
     - 서비스의 호스트 이름이 아닌 IP 주소를 유레카 서버에 등록하도록 지정 (디폴트 false)
     - 기본적으로 유레카는 호스트 이름으로 접속하는 서비스를 등록하는데 DNS 가 지원된 호스트 이름을 할당하는 서버 기반 환경에서는 잘 동작하지만,
       컨테이너 기반의 배포에서 컨테이너는 DNS 엔트리가 없는 임의의 생성된 호스트 이름을 부여받아 시작하므로
       컨테이너 기반 배포에서는 해당 설정값을 false 로 하는 경우 호스트 이름 위치를 정상적으로 얻지 못함
 
-- **spring.cloud.inetutils.ignored-interfaces**
+- **`spring.cloud.inetutils.ignored-interfaces`**
     - 해당 인터페이스 무시
 
-- **spring.cloud.inetutils.preferred-networks**
+- **`spring.cloud.inetutils.preferred-networks`**
     - 선호하는 IP 주소 설정
     
 ```yaml
@@ -356,13 +356,13 @@ eureka:
 해당 설정은 유레카 서버를 피어링하여 사용하는 경우에만 설정한다.
 
 ### 7.1. 서버 측 설정
-- **eureka.server.wait-time-in-ms-when-sync-empty**
+- **`eureka.server.wait-time-in-ms-when-sync-empty`**
     - 유레카 서버가 시작되고 유레카 피어링 노드로부터 Instance 들을 가져올 수 없을 때 기다릴 시간 (디폴트 3000ms, 운영 환경에선 삭제 필요)
     - registry 를 갱신할 수 없을 때 재시도를 기다리는 시간
     - 테스트 시 짧은 시간으로 등록해놓으면 유레카 서비스의 시작 시간과 등록된 서비스를 보여주는 시간 단축 가능
     - 유레카는 등록된 서비스에서 10초 간격으로 연속 3회의 상태 정보(heartbeat)를 받아야 하므로 등록된 개별 서비스를 보여주는데 30초 소요
     
--  **eureka.server.registry-sync-retries**
+- **`eureka.server.registry-sync-retries`**
     - 유레카 피어 노드로부터 registry 를 갱신할 수 없을 때 재시도 횟수 (디폴트 5)
         
 ```yaml

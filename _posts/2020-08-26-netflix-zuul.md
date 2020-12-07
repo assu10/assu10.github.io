@@ -390,18 +390,21 @@ public interface MemberFeignClient {
 
 주울은 넷플릭스 히스트릭스와 리본 라이브러리를 사용하여 오래 수행되는 서비스 호출이 게이트웨이 성능에 영향을 미치지 않도록 한다.
 
+기본적으로 주울은 요청을 처리하는데 1초 이상 걸리는 모든 호출을 종료하고 HTTP 500 에러를 반환한다. (히스트릭스 기본 동작)
+
 - 히스트릭스 타임아웃 설정
     - `hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds` : 기본 1초
     - `hystrix.command.event-service.execution.isolation.thread.timeoutInMilliseconds` : 특정 서비스만 별도의 히스트릭스 타임아웃 설정
+    
 - 리본 타임아웃 설정
-    - `event-service.ribbon.ReadTimeout` : 기본 5초
+    - `event-service.ribbon.ReadTimeout`
 
 ```yaml
 # config-repo > zuulserver > zuulserver.yaml
 
 hystrix:
   command:
-    default:    // 유레카 서비스 ID
+    default:    # 유레카 서비스 ID
       execution:
         isolation:
           thread:
@@ -421,7 +424,7 @@ hystrix:
 }
 ``` 
 
-히스트릭스 타임아웃을 재정의했지만 리본 역시 5초 이상 수행되는 호출을 타임아웃하므로 5초 이상 수행되는 타임아웃 구성은 히스트릭스와 리본 모두 설정해야 한다.
+~~히스트릭스 타임아웃을 재정의했지만 리본 역시 5초 이상 수행되는 호출을 타임아웃하므로 5초 이상 수행되는 타임아웃 구성은 히스트릭스와 리본 모두 설정해야 한다.~~
 
 다음 포스트엔 주울의 필터에 관해 다루도록 하겠다.
 
