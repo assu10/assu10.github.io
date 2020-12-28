@@ -7,13 +7,11 @@ tags: msa zuul hystrix-timeout ribbon-timeout
 ---
 이 포스트는 Zuul (Ribbon) Retry 와 Zuul 타임아웃에 대해 기술한다.
 
-> - 유레카 설정 구분
-> - 자기 보호 모드
-> - 레지스트리 등록 여부/캐싱 여부
-> - 레지스트리 갱신 - 서비스 등록 관련
-> - 레지스트리 갱신 - 서비스 해제 관련
-> - IP 주소 우선하기
-> - 유레카 피어링 설정
+> - Retry
+> - Zuul (Ribbon) Retryable 설정
+> - Ribbon 설정
+> - Hystrix 설정
+> - Zuul, Ribbon, Hystrix 의 타임아웃 관계
 
 ---
 
@@ -71,6 +69,17 @@ zuul:
 ## 3. Ribbon 설정
 
 이제 Zuul 내의 Ribbon 설정을 진행한다.
+
+`spring-retry` dependency 를 추가해주는데 다른 라이브러리에 이미 포함되어 있는 경우도 있으니 확인해 본 후 추가하도록 한다.
+
+```xml
+<dependency>
+    <groupId>org.springframework.retry</groupId>
+    <artifactId>spring-retry</artifactId>
+    <version>1.3.0</version>
+</dependency>
+
+```
 
 > 속성 이름은 대소문자를 구분하며, 이 속성들 중 일부는 Netflix Ribbon Project 에 정의되어 있기 때문에 [Pascal Case 표기법](https://zetawiki.com/wiki/%EC%B9%B4%EB%A9%9C%ED%91%9C%EA%B8%B0%EB%B2%95_camelCase,_%ED%8C%8C%EC%8A%A4%EC%B9%BC%ED%91%9C%EA%B8%B0%EB%B2%95_PascalCase)을 사용하고,
 > Spring Cloud 에 속하는 속성은 Camel Case 를 사용한다.
