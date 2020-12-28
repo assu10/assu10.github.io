@@ -520,6 +520,7 @@ public String bulkheadEvtPool(ServletRequest req, @PathVariable("name") String n
     - 그 시간대에 발생한 호출 횟수가 최소 호출 횟수 이하라면 히스트릭스는 호출이 다소 실패하더라도 아무런 조치를 하지 않음
     - 예를 들어 10초 동안 호출 횟수가 15번이고 15번 모두 실패하더라도 서킷 브레이커는 열리지 않음
 - **circuitBreaker.errorThresholdPercentage**
+    - 서킷 브레이커가 열린 후 requestVolumeThreshold 값만큼 호출한 후 타임아웃, 예외, HTTP 500 반환등으로 실패해야 하는 호출 비율 (디폴트 50)
     - 디폴트 50
     - 반복 시간 간격 중 서킷 브레이커를 차단하는데 필요한 실패 비율
     - 10초 시간대 동안 호출이 최소 호출 횟수를 넘으면 히스트릭스는 전체 실패 비율을 조사하기 시작함
@@ -536,7 +537,7 @@ public String bulkheadEvtPool(ServletRequest req, @PathVariable("name") String n
 - **metrics.rollingStats.numBuckets**
     - 디폴트 10
     - 모니터할 시간 간격에서 유지할 측정 지표의 버킷 수
-    - 히스트릭스는 해당 시간 동안 버킷에 측정 비표를 수집하고 통계를 바탕으로 서킷 브레이터 차단 여부 결정
+    - 히스트릭스는 해당 시간 동안 버킷에 측정 비표를 수집하고 통계를 바탕으로 서킷 브레이커 차단 여부 결정
     - 버킷 수는 metrics.rollingStats.timeInMilliseconds 에 설정된 밀리초에 균등하게 분할되어야 함
     - 예를 들어 metrics.rollingStats.timeInMilliseconds 는 15초이고 버킷 수 5인 경우 
       히스트릭스는 15초 시간 간격을 사용하고 3초 길이의 5개 버킷에 통계 데이터 수집

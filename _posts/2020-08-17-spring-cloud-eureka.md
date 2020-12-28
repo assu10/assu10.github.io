@@ -24,6 +24,9 @@ tags: msa spring-cloud-eureka feign
 
 Spring Cloud Config Server 에 대한 자세한 내용은 [여기](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)에서 확인이 가능하다.
 
+*[Spring Cloud - Spring Cloud Eureka (상세 설정편)](https://assu10.github.io/dev/2020/12/05/spring-cloud-eureka-configuration/)* 과
+함께 보면 도움이 됩니다.
+
 ---
 
 ## 1. Service Registry & Discovery (서비스 등록 및 발견)

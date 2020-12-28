@@ -91,13 +91,12 @@
 }
 
 .markdown-body code {
-  color: #E53A40;
-  padding: 0;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
+  color: #009;
+  padding: 3px 4px;
   margin: 0;
   font-size: 85%;
   background-color: rgba(0,0,0,0.04);
+  border: 1px solid #e1e1e8;
   border-radius: 3px;
 }
 
