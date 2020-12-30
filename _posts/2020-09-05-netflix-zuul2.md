@@ -22,6 +22,8 @@ tags: msa hystrix zuul ribbon
 
 Spring Cloud Config Server 와 Eureka, Zuul(1) 에 대한 자세한 내용은 위 목차에 걸려있는 링크를 참고 바란다.
 
+*[Spring Cloud - Netflix Zuul(Ribbon) Retry](https://assu10.github.io/dev/2020/12/06/netflix-zuul-retryable/)* 와 함께 보면 도움이 됩니다.
+
 ---
 
 ## 1. 필터
