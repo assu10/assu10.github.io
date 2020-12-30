@@ -49,7 +49,7 @@ tags: devops gitlab gitlab-runner ci cd
 >**staging stage** - deploy-to-stage<br />
 >**production stage** - deploy-to-prod
 
-파이프 라인과 구성 job 과 stage 는 각 프로젝트의 CI/CD 파이프라인 구성 파일인 .`gitlab-ci.yml` 에 정의된다.
+파이프 라인과 구성 job 과 stage 는 각 프로젝트의 CI/CD 파이프라인 구성 파일인 `.gitlab-ci.yml` 에 정의된다.
 
 ---
 
