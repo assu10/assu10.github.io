@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Spring Cloud - Sleuth, papertrail, Zipkin 을 이용한 분산 추적"
+title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/3) - 이론"
 date:   2020-12-30 10:00
 categories: dev
-tags: msa sleuth papertrail zipkin msa-tracker logging-tracker monitoring hystrix turbine
+tags: msa centralized-log elasticsearch sleuth zipkin msa-tracker logging-tracker monitoring
 ---
-이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Sleuth, Twitter Zipkin 에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Sleuth, Open Zipkin 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -17,8 +17,13 @@ tags: msa sleuth papertrail zipkin msa-tracker logging-tracker monitoring hystri
 >[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
 >[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br /><br />
 >[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br /><br />
->***10. Spring Cloud - Sleuth, papertrail, Zipkin 을 이용한 분산 추적***<br />
->- 클라이언트 회복성 패턴
+>***10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/3) - 이론***<br />
+>- 로그 관리의 난제
+>- 중앙 집중식 로깅
+>- 로깅 솔루션 종류
+>   - 클라우드 서비스
+>   - 내장 가능 (=사내 구축형)한 로깅 솔루션
+>   - 컴포넌트들의 조합
 
 이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
 
@@ -29,17 +34,20 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
 이러한 특징 때문에 MSA 에 대한 **로깅과 모니터링**은 큰 고민거리이다.<br />
 **서로 다른 개별 마이크로서비스에서 발생하는 로그를 연결지어 트랜잭션의 처음부터 끝까지 순서대로 추적**해내는 것은 매우 어렵다.
 
+이러한 문제점을 해결하기 위해선 **로그 데이터를 인덱싱**하고, **검색할 수 있는 중앙 수집 지점**을 만들어 **전체 서비스 인스턴스의 모든 로그를 실시간 스트리밍**하는 것이다.
+
 이 포스팅에선 **마이크로서비스의 로깅과 모니터링의 필요성**에 대해 알아본 후 **다양한 아키텍쳐와 기술**을 살펴보며 **로깅과 모니터링 관련 문제를 해결**할 수 있는
 방법에 대해 기술한다.
 
+>개인적으로 MSA 로 구성된 시스템에서 로그 관리는 정말 중요하다고 생각한다.
+>운영 시 이슈가 발생했을 때 각 서버에 접속해서 그 순서대로 이슈 추적을 하려고 한다면... 정말 너무 생각하기도 싫다. ㅠㅠ
+
 이 글을 읽고나면 **중앙 집중식 로그관리**, **모니터링 및 대시보드** 외 아래와 같은 내용을 알게 될 것이다.
 
-- 로그 관리를 위한 다양한 옵션, 도구 및 기술 
+- 로그 관리를 위한 다양한 옵션, 도구 및 기술
+- 여러 로그 데이터를 검색 가능한 단일 소스로 수집 
 - 마이크로서비스의 추적성 확보를 위한 Spring Cloud Sleuth 의 사용법
-- 마이크로서비스의 전 구간 모니터링에 사용되는 다양한 도구
-- 서킷(circuit) 모니터링을 위한 Spring Cloud Hystrix 와 Turbine 의 사용법
-
-★사용 기술 (책 318페이지)
+- 마이크로서비스의 전 구간 모니터링에 사용되어 트랜잭션의 흐름을 시각화하는 Open Zipkin 의 사용법
 
 ---
 
@@ -48,7 +56,7 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
 로그는 실행 중인 프로세스에서 발생하는 이벤트의 흐름이다.
 
 전통적인 비클라우드 환경에서 클라우드 환경으로 옮겨오면 애플리케이션은 더 이상 미리 정의한 사양의 특정 장비에 종속되지 않는다.<br />
-배포에 사용되는 장비를 그때마다 다를 수 있고, 도커 같은 컨테이너는 본질적으로 짧은 수명을 전제로 한다.<br />
+배포에 사용되는 장비는 그때마다 다를 수 있고, 도커 같은 컨테이너는 본질적으로 짧은 수명을 전제로 한다.<br />
 즉, 결국 디스크의 저장 상태에 더 이상 의존할 수 없음을 의미한다.
 
 **<u>디스크에 기록된 로그는 컨테이너가 재기동되면 사라질 수 있다.</u>**<br />
@@ -92,39 +100,63 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
 
 ## 3. 로깅 솔루션 종류
 
-중앙 집중식 로깅 솔루션을 구현하는데 사용할 수 있는 옵션은 여러 가지가 있다.<br />
+중앙 집중식 로깅 아키텍처을 구현하는데 사용할 수 있는 옵션은 여러 가지가 있다.<br />
+오픈 소스 및 상용 제품이 이미 많이 나와있고, 사내 구축형, 로컬 관리형, 클라우드 기반 등 여러 가지 구현 모델별로 존재한다.<br />
 필요한 기능을 이해하고 그에 맞는 올바른 솔루션을 선택하는 것이 중요하다.
+
+[스프링 부트와 사용할 수 있는 로그 수집 솔루션]<br />
+(좀 더 자세한 내용은 표 바로 아래에 설명이 있습니다.)
+
+| 제품명 | 구현 모델 | 비고 |
+|---|---|---|
+| `Papertail` | - 프리미엄 모델 <br />- 상용 <br />- 클라우드 기반 | - [https://www.papertrail.com/](https://www.papertrail.com/) <br />- 프리미엄/계층형 가격 모델 <br />- 클라우드 서비스만 지원 |
+| `Sumo Logic` | - 프리미엄 모델 <br />- 상용 <br />- 클라우드 기반 | - [https://www.sumologic.com/](https://www.sumologic.com/) <br />- 프리미엄/계층형 가격 모델 <br />- 클라우드 서비스만 지원 <br />- 기업용 계정으로 등록 가능 (Gmail 이나 Yahoo 계정 불가) |
+| `Splunk` | - 상용만 지원 <br />- 사내 구축형과 클라우드 기반 | - [https://www.splunk.com/](https://www.splunk.com/) <br />- 가장 오래되고 포괄적인 로그 관리 및 수집 도구 <br />-원래는 사내 구축형 솔루션이었으나 이후 클라우드 제공 |
+| `Graylog` | - 상용 <br />- 오픈 소스 <br />- 사내 구축형| - [https://www.graylog.org/](https://www.graylog.org/) <br />- 사내 구축형으로 설계된 오픈 소스 플랫폼 |
+| `ELK` | - 상용 <br />- 오픈 소스 <br />- 일반적으로 사내 구축형으로 구현 | - [https://www.elastic.co/kr/](https://www.elastic.co/kr/)  <br />- 범용 검색 엔진 <br />- ELK 스택을 이용한 로그 수집 |
+
+>**상용**<br />
+>일정의 사용료를 지불하고 구입해서 사용하는 소프트웨어
+
+>**프리미엄 모델**<br />
+>기존 서비스는 무상으로 제공하고 추가적인 기능은 비용을 추가 부과
 
 ### 3.1. 클라우드 서비스
 
 첫 번째 방법은 SaaS 솔루션과 같은 다양한 클라우드 로깅 서비스 사용이다.
 
->SaaS 솔루션는 *[클라우드 컴퓨팅, IaaS, PaaS, SaaS](https://assu10.github.io/dev/2020/12/30/cloud-service-platform/)* 를 참고하세요.
+>SaaS 솔루션은 *[클라우드 컴퓨팅, IaaS, PaaS, SaaS](https://assu10.github.io/dev/2020/12/30/cloud-service-platform/)* 를 참고하세요.
 
 - `Loggly` 
     - 가장 많이 사용되는 클라우드 기반 로깅 서비스 중 하나
     - 스프링부트 마이크로서비스는 `Loggly` 의 `Log4j`, `Logback appenders` 를 사용하여 로그 메시지를 `Loggly` 서비스로 직접 스트리밍 가능
 
+- `Papertrail`
+    - 프리미엄/계층형 가격 모델
+    - 월간 무료로 100MB 의 로그 수집 (첫 달은 보너스 16GB 추가)<br />
+      48시간 동안 로그 검색이 가능하고, 7일간 로그 기록됨
+    - 유료인 경우 한 달에 1GB 의 저장 용량과 1년 간 보관하는 것을 기준으로 월 7달러부터 시작한다.<br />
+      맞춤형 용량과 보존 기간에 따라 월 230달러까지 다양하다.
+      
 애플리케이션이 AWS 에 배포된 경우에는 로그 분석을 위해 `AWS CloudTrail` 을 `Loggly` 와 통합할 수 있다.
-
-그 외 `Papertrail`, `Logsene`, `Sumo Logic`, `Google Cloud Logging`, `Logentries` 가 있다. 
+`Splunk` 는 클라우드 서비스와 사내 구축형 모두 지원한다.<br />
+그 외 `Logsene`, `Sumo Logic`, `Google Cloud Logging`, `Logentries` 가 있다. 
 
 ---
 
-### 3.2. 내장 가능한 로깅 솔루션
+### 3.2. 내장 가능(=사내 구축형)한 로깅 솔루션
 
 두 번째 방법은 사내 데이터 센터 또는 클라우드에 설치되어 전 구간을 아우르는 로그 관리 기능을 제공하는 도구들을 사용하는 것이다.
 
 - `Graylog`
     - 인기있는 오픈소스 로그 관리 솔루션 중 하나
     - 로그 저장소로 `ElasticSearch` 를 사용하고, 메타데이터 저장소로 `MongoDB` 사용
-    -`Log4j` 로그 스트리밍을 위해 `GELF` 라이브러리 사용
+    - `Log4j` 로그 스트리밍을 위해 `GELF` 라이브러리 사용
 - `Splunk`
     - 로그 관리 및 분석에 사용하는 상용 도구 중 하나
     - 로그를 수집하는 다른 솔루션은 로그 스트리밍 방식을 사용하는데 `Splunk` 는 로그 파일 적재 방식 사용
 
 ---
-
 
 ### 3.3. 컴포넌트들의 조합
 
@@ -137,8 +169,8 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
     - 로그 생산자는 마이크로서비스, 네트워크 장비일 수도 있음
     - `Loggly` 의 `Log4j`, `Logback appenders`
 - **로그 적재기 (log shipper)**
-    - 서로 다른 로그 생산자나 종단점에서 나오는 로그 메시지 수집
-    - 수집된 로그는 DB 에 쓰거나, 대시보드에 푸시하거나, 실시간 처리를 담당하는 스트림 처리 종단점으로 보내는 등 여러 다른 종담점으로 메시지 보냄
+    - <u>서로 다른 로그 생산자나 종단점에서 나오는 로그 메시지 수집</u>
+    - <u>수집된 로그는 DB 에 쓰거나, 대시보드에 푸시하거나, 실시간 처리를 담당하는 스트림 처리 종단점으로 보내는 등 여러 다른 종담점으로 메시지 보냄</u>
     - `Logstash`
         - 로그 파일을 수집하고 적재하는데 사용할 수 있는 강력한 데이터 파이프라인 도구
         - 서로 다른 소스에서 스티리밍 데이터를 받아 다른 대상과 동기화하는 메커니즘을 제공하는 브로커 역할
@@ -156,7 +188,8 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
       이러한 메시지는 분산된 `Kafka` 메시지 큐에 푸시되고, 스트림 처리기는 `Kafka` 에서 데이터를 수집하고 `ElasticSearch` 혹은
       기타 로그 저장소로 보내기 전에 즉시 처리함
 - **로그 저장소 (log store)**
-    - 모든 로그 메시지 저장
+    - <u>모든 로그 메시지 저장</u>
+    - <u>로그 저장소로 들어오는 데이터는 인덱싱되어 검색 가능한 형식으로 저장됨</u>
     - 실시간 로그 메시지는 일반적으로 `ElasticSearch` 에 저장됨
       `ElasticSearch` 사용 시 클라이언트가 텍스트 기반 인덱스를 기반으로 쿼리 가능
     - 대용량 데이터를 처리할 수 있는 `HDFS` 와 같은 NoSQL DB 은 일반적으로 아카이브된 로그 메시지를 저장
@@ -170,37 +203,13 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
     
 ---
 
-
-### 3.1. 클라우드 서비스
-
----
-
-
-### 3.1. 클라우드 서비스
+지금까지 분산 로그 추적에 관한 전반적인 내용을 살펴보았다.<br />
+이 후엔 중앙 집중형 로그와 분산 로그 추적을 직접 구현해보는 예제를 포스팅하도록 하겠다.
 
 ---
-
-
----
-## 1. Retry
-
-
----
-## 1. Retry
-
-
----
-## 1. Retry
-
-
----
-## 1. Retry
-
-
----
-
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
 * [스프링 부트와 스프링 클라우드로 배우는 스프링 마이크로서비스](http://acornpub.co.kr/book/spring-microservices)
 * [Lambda Architecture](http://lambda-architecture.net/)
+* [Zipkin을 이용한 MSA 환경에서 분산 트렌젝션의 추적 #1](https://bcho.tistory.com/1243)
