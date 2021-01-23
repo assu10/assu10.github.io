@@ -32,6 +32,7 @@ Consumer (localhost:8080) 는 그 API 들을 이용하는 입장으로서 회원
 
 Provider 는 일반적인 API Application 으로 생성해주시면 됩니다.
 
+**ProviderController.java**
 ```java
 @RestController
 @RequestMapping(value="/api/v1/provider", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,6 +54,7 @@ public class ProviderController {
 
 ![springboot project 생성 - Consumer](/assets/img/dev/20200618/0618_2.jpg)
 
+**pom.xml**
 ```xml
  <dependency>
      <groupId>org.springframework.cloud</groupId>
@@ -64,6 +66,7 @@ public class ProviderController {
 
 main class 에 `@EnableFeignclients` 어노테이션을 선언하여 Feign Client 를 사용할 것을 알려줍니다.
 
+**DemoApplication.java**
 ```java
 @EnableFeignClients
 @SpringBootApplication
@@ -78,6 +81,7 @@ public class DemoApplication {
 
 `@FeignClient` 안의 url 은 요청할(=Provider)의 url 을 넣어주고, 호출하고자 하는 API 를 선언해줍니다.
 
+**ConsumerClient.java**
 ```java
 @FeignClient(name = "member-client", url = "http://localhost:9090/api/v1/provider/")
 public interface ConsumerClient {
@@ -90,6 +94,7 @@ public interface ConsumerClient {
 
 이제 위에서 선언한 feign client 를 통해 Provider 의 GET member/{id} 를 호출해봅시다.
 
+**ConsumerController.java**
 ```java
 @RestController
 @RequestMapping(value="/api/v1/consumer", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -68,8 +68,8 @@ tags: msa oauth2 jwt spring-cloud-security security-oauth2 spring-security-jwt
 
 JWT OAuth2 의존성인 `spring-security-jwt` 을 추가하고 사용할 서명키를 컨피그 서버의 원격 저장소에 설정한다.
 
+**auth-service > pom.xml**
 ```xml
-<!-- auth-service > pom.xml -->
 <!--<dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-security</artifactId>
@@ -82,9 +82,8 @@ JWT OAuth2 의존성인 `spring-security-jwt` 을 추가하고 사용할 서명�
 </dependency>
 ```
 
+**auth-service > application.yaml**
 ```yaml
-# auth-service > application.yaml
-
 signing:
   key: assusingkey
 ```
@@ -101,10 +100,9 @@ signing:
     - JWTTokenStoreConfig 에서 서명하고 생성한 JWT 토큰을 OAuth2 인증 서버로 연결
 - *JWTTokenStoreConfig.java*
     - 인증 서버가 JWT 토큰을 생성, 서명, 해석하는 방법 지정
-    
-```java
-// auth-service > CustomConfig.java
 
+**auth-service > CustomConfig.java**    
+```java
 @Component
 @Configuration
 public class CustomConfig {
@@ -118,9 +116,8 @@ public class CustomConfig {
 }
 ```    
 
+**auth-service > JWTTokenEnhancer.java**
 ```java
-// auth-service > JWTTokenEnhancer.java
-
 /**
  * 액세스 토큰에 추가 정보 삽입
  */
@@ -155,9 +152,8 @@ public class JWTTokenEnhancer implements TokenEnhancer {
 >스프링 클라우드 시큐리티는 **대칭 키 암호화** 와 **공개/시크릿 키를 사용한 비대칭 암호화**를 모두 지원하지만
 >하지만 JWT 와 스프링 시큐리티, 공개/시크릿 키에 대한 공식 문서는 거의 없는 상황이다.
 
+**auth-service > JWTTokenStoreConfig.java**
 ```java
-// auth-service > JWTTokenStoreConfig.java
-
 /**
  * 인증 서버가 JWT 토큰을 생성, 서명, 해석하는 방법 지정
  */
@@ -214,9 +210,8 @@ public class JWTTokenStoreConfig {
 
 아래 *JWTOAuth2Config.java* 는 이전 포스트의 *OAuth2Config.java* 와 동일한 역할을 한다.
 
+**auth-service > JWTOAuth2Config.java**
 ```java
-// auth-service > JWTOAuth2Config.java
-
 /**
  * JWTTokenStoreConfig 에서 서명하고 생성한 JWT 토큰을 OAuth2 인증 서버로 연결
  *
@@ -322,9 +317,8 @@ POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth
 
 `spring-security-jwt` 의존성을 추가한 JWT 토큰에서 사용자 정의 필드 파싱다.
 
+**event-service > pom.xml**
 ```xml
-<!-- event-service -->
-
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-jwt</artifactId>
@@ -342,9 +336,8 @@ POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth
     - *CustomContextHolder.java* (수정하지 않음): ThreadLocal 저장소에 CustomContext 를 저장하는 클래스
     - *CustomContextInterceptor.java* : RestTemplate 인스턴스에서 실행되는 모든 HTTP 기반 서비스 발신 요청에 상관관계 ID 삽입
 
+**event-service > CustomContext.java**
 ```java
-// event-service > CustomContext.java
-
 /**
  * 서비스가 쉽게 액세스할 수 있는 HTTP 헤더를 만들어 저장하는 클래스
  * HTTP 요청에서 추출한 값을 보관하는 POJO
@@ -378,9 +371,8 @@ public class CustomContext {
 }
 ```
 
+**event-service > CustomContextFilter.java**
 ```java
-// event-service > CustomContextFilter.java
-
 /**
  * 유입되는 HTTP 요청을 가로채서 필요한 헤더값을 CustomContext 에 매핑
  * 
@@ -417,9 +409,8 @@ public class CustomContextFilter implements Filter {
 }
 ```
 
+**event-service > CustomContextInterceptor.java**
 ```java
-// event-service > CustomContextInterceptor.java
-
 /**
  * RestTemplate 인스턴스에서 실행되는 모든 HTTP 기반 서비스 발신 요청에 상관관계 ID 삽입 + 토큰
  */
@@ -457,9 +448,8 @@ public class CustomContextInterceptor implements ClientHttpRequestInterceptor {
 >
 >함수 호출, 메시지, 이벤트 등을 중간에서 바꾸거나 가로채는 명령, 방법, 기술이나 행위
 
+**event-service > EventServiceApplication.java**
 ```java
-// event-service
-
 /**
  * 사용자 정의 RestTemplate 빈을 생성하여 토큰 삽입
  * RestTemplate 기반 호출이 수행되기 전 후킹되는 메서드
@@ -486,9 +476,8 @@ public RestTemplate getCustomRestTemplate() {
 
 회원 서비스에서 이벤트 서비스의 REST API 를 호출할텐데 기존에 만들어 둔 API 를 그대로 활용하여 호출한다.
 
+**event-service > EventController.java**
 ```java
-// event-service > EventController.java
-
 /**
  * 회원 서비스에서 호출할 메서드
  */
@@ -498,9 +487,8 @@ public String gift(@PathVariable("name") String gift) {
 }
 ```
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 /**
  * RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출
  */
@@ -510,9 +498,8 @@ public String gift(ServletRequest req, @PathVariable("name") String name) {
 }
 ```
 
+**member-service > EventRestTemplateClient.java**
 ```java
-// member-service > EventRestTemplateClient.java
-
 @Component
 public class EventRestTemplateClient {
 
@@ -567,7 +554,7 @@ JWT 토큰에서 사용자 정의 필드를 파싱하는 방법을 확인해보�
 
 참고로 기본 필드들은 아래와 같다.
 
-```
+```json
 {user_name=assuAdmin, scope=[mobileclient], exp=1601582137, authorities=[ROLE_ADMIN, ROLE_USER], 
 jti=595aa7f9-7887-4263-85b1-20aa3555ffd2, client_id=assuapp}
 ```
@@ -578,9 +565,8 @@ jti=595aa7f9-7887-4263-85b1-20aa3555ffd2, client_id=assuapp}
 `jjwt` 와 `jaxb-api` 의존성을 추가한다.
 `jaxb-api` 의존성은 코드에서 직접 사용하고 있지는 않지만 **parseClaimsJws()** 에서 데이터 파싱 시 내부적으로 사용한다.
 
+**zuul-service > pom.xml**
 ```xml
-<!-- zuul-service -->
-
 <!-- JWT Parser -->
 <dependency>
     <groupId>io.jsonwebtoken</groupId>
@@ -598,9 +584,8 @@ jti=595aa7f9-7887-4263-85b1-20aa3555ffd2, client_id=assuapp}
 이제 기존의 *PreFilter.java* 에 *getUserId()* 메서드를 추가한 후 *run()* 에서 *userId* 를 출력해준다.<br />
 *getUserId()* 메서드는 HTTP Authorization 헤더에서 JWT 토큰을 파싱한다.
 
+**zuul-service > FilterUtils.java**
 ```java
-// zuul-service > FilterUtils.java
-
 // ... 이전 내용 생략
 public static final String AUTH_TOKEN = "Authorization";
 
@@ -610,9 +595,8 @@ public final String getAuthToken() {
 }
 ```
 
+**zuul-service > PreFilter.java**
 ```java
-// zuul-service > PreFilter.java
-
 // ... 이전 내용 생략
 /**
  * 필터의 비즈니스 로직 구현

@@ -37,6 +37,7 @@ HTTP Request 를 생성하는 방법에 관계없이 Request 는 항상 실패�
 이전 [Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/) 에선 회원 서비스에 히스트릭스를 적용해보았는데,<br />
 이번엔 Zuul 에 적용할 예정이므로 Zuul pom 파일에 `spring-cloud-starter-netflix-hystrix` dependency 를 추가한다.
 
+**zuulserver > pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -52,7 +53,7 @@ HTTP Request 를 생성하는 방법에 관계없이 Request 는 항상 실패�
 > *위 속성 외 다른 속성은 [Spring Cloud - Netflix Zuul(1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/) 과
 > [Spring Cloud - OAuth2, Security(1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/) 를 참고하세요.*
     
-    
+**zuulserver > application.yml**    
 ```yaml
 zuul:
   ignored-services: '*'       # 유레카 기반 모든 경로 제외
@@ -72,6 +73,7 @@ zuul:
 
 `spring-retry` dependency 를 추가해주는데 다른 라이브러리에 이미 포함되어 있는 경우도 있으니 확인해 본 후 추가하도록 한다.
 
+**zuulserver > pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.retry</groupId>
@@ -97,7 +99,8 @@ zuul:
     
 -  **`{service-id}.ribbon.ReadTimeout`**
     - HttpClient 의 Read Timeout (디폴트 1,000 ms, 데이터를 읽어오는 과정의 Timeout 시간)
-    
+
+**zuulserver > application.yml**
 ```yaml
 event-service:
   ribbon:
@@ -114,6 +117,7 @@ event-service:
 이전 포스트인 [Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/) 에선 java 코드를 통해 hystrix 를 설정했는데
 여기선 yaml 을 통해 hystrix 설정을 진행해보도록 한다.
 
+**zuulserver > pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -157,7 +161,7 @@ event-service:
     - 서킷 브레이커의 타임아웃 시간 (디폴트 1초)
     - Ribbon 의 타임아웃보다 커야 정상적으로 동작함
 
-
+**zuulserver > application.yml**
 ```yaml
 hystrix:
   command:
@@ -182,6 +186,7 @@ hystrix:
 
 [http://localhost:5555/api/evt/event/name/hyori](http://localhost:5555/api/evt/event/name/hyori)
 
+**event-service > EventController.java**
 ```java
 @GetMapping(value = "name/{nick}")
 public String getYourName(ServletRequest req, @PathVariable("nick") String nick) {

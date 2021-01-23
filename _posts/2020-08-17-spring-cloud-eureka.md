@@ -137,6 +137,7 @@ Eureka 는 서버 컴포넌트(이하 유레카 서버)와 클라이언트 컴�
 ### 3.1. 유레카 서버 구축
 새로운 스트링부트 프로젝트 생성 후 Config Client, Eureka Server, Actuator Dependency 를 추가한다.
 
+**pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -162,6 +163,7 @@ Eureka 는 서버 컴포넌트(이하 유레카 서버)와 클라이언트 컴�
 
 유레카 서버도 컨피그 서버를 사용하므로 bootstrap.yaml 을 생성해 준 후 아래와 같이 구성을 설정한다.
 
+**eurekaserver > application.yaml, bootstrap.yaml**
 ```yaml
 ## eurekaserver > application.yaml
 server:
@@ -180,6 +182,7 @@ spring:
 
 유레카 서버로 지정하기 위해 부트스트래핑 클래스에 `@EnableEurekaServer` 을 추가한다.
 
+**EurekaserverApplication.java**
 ```java
 @EnableEurekaServer
 @SpringBootApplication
@@ -196,8 +199,8 @@ public class EurekaserverApplication {
 
 컨피그 서버의 bootstrap.yaml 에 유레카 구성정보 폴더 경로를 추가한다.
 
+**configserver > bootstrap.yaml**
 ```yaml
-## configserver > bootstrap.yaml
 spring:
   application:
     name: configserver
@@ -215,8 +218,8 @@ spring:
 
 컨피그 저장소의 유레카 서버 설정을 한다.
 
+**config-repo > eurekaserver.yaml**
 ```yaml
-## config-repo > eurekaserver.yaml
 your.name: "EUREKA DEFAULT"
 spring:
   rabbitmq:
@@ -270,6 +273,7 @@ C:\eurekaserver\target>java -jar eurekaserver-0.0.1-SNAPSHOT.jar
 ### 3.2. 유레카 클라이언트 구축 (유레카 서버에 서비스 동적 등록)
 유레카 서버에 마이크로서비스(회원 서비스, 이벤트 서비스)를 등록하기 위해 각 마이크로서비스에 Eureka Client Dependency 를 추가한다.
 
+**pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -281,6 +285,7 @@ C:\eurekaserver\target>java -jar eurekaserver-0.0.1-SNAPSHOT.jar
 
 컨피스 서버 원격 저장소 각 환경설정 파일에 아래 구성 내용을 추가한다.
 
+**conf-repo > member-service.yaml, event-service.yaml**
 ```yaml
 ## conf-repo > member-service.yaml, event-service.yaml
 your.name: "MEMBER DEFAULT..."
@@ -314,6 +319,7 @@ eureka:   ## 추가
 
 부트스트랩 클래스에 `@EnableEurekaClient` 을 추가한다.
 
+**member-service > MemberServiceApplication.java, event-service > EventServiceApplication.java**
 ```java
 // member-service > MemberServiceApplication.java
 // event-service > EventServiceApplication.java
@@ -382,10 +388,9 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
 >RestTemplate 에서 리본을 사용하려면 `@LoadBalanced` 를 직접 추가해야 한다.
 
 이벤트 서비스 컨트롤러에 회원 서비스에서 호출할 메서드를 만든다.
- 
-```java
-// event-service > EventController.java
 
+**event-service > EventController.java** 
+```java
 /**
  * 회원 서비스에서 호출할 메서드
  */
@@ -397,9 +402,8 @@ public String gift(@PathVariable("name") String gift) {
 
 회원 서비스 부트스트랩 클래스에 RestTemplate 빈을 생성한다.
 
+**member-service > MemberServiceApplication.java**
 ```java
-// member-service > MemberServiceApplication.java
-
 @SpringBootApplication
 @EnableEurekaClient
 public class MemberServiceApplication {
@@ -423,9 +427,8 @@ http://**event-service**/event/gift/{name} 에서 **event-service** 는 유레�
 실제 서비스 위치와 포트는 완전히 감춰져 있는 상태이다.
 리본은 RestTemplate 클래스를 사용하는 모든 요청을 라운드 로빈 방식으로 부하 분산한다. 
 
+**member-service > EventRestTemplateClient.java**
 ```java
-// member-service > EventRestTemplateClient.java
-
 @Component
 public class EventRestTemplateClient {
 
@@ -450,9 +453,8 @@ public class EventRestTemplateClient {
 
 이제 실제 호출하는 부분을 보자.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 /**
  * RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출
  */
@@ -477,8 +479,8 @@ Feign 의 자세한 내용은 이전 포스트인 [Spring Cloud Feign](https://a
 
 Eureka 내 Ribbon 기능이 정상적으로 동작하는지 확인하기 위해 호출하고자 하는 메소드 리턴값에 포트값을 함께 넣어주었다.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
 // 이벤트 서비스에서 호출할 회원 서비스 내 메소드
 
 @GetMapping(value = "name/{nick}")
@@ -488,8 +490,8 @@ public String getYourName(ServletRequest req, @PathVariable("nick") String nick)
 ```
 
 이벤트 서비스에 open-feign Dependency 를 추가한다.
+**event-service > pom.xml**
 ```xml
-<!-- event-service > pom xml -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -498,8 +500,8 @@ public String getYourName(ServletRequest req, @PathVariable("nick") String nick)
 
 이벤트 서비스 부트스트랩 클래스에 `@EnableFeignClients` 를 추가한다.
 
+**event-service > EventServiceApplication**
 ```java
-// event-service
 @EnableEurekaClient
 @SpringBootApplication
 @EnableFeignClients     // 추가
@@ -515,8 +517,8 @@ public class EventServiceApplication {
 이벤트 서비스에 회원 Feign Client 인터페이스를 만들어준다.
 `@FeignClient("${member.service.id}")`는 회원 서비스의 서비스 ID로 유레카 서버에 등록된 서비스 ID를 넣어준다.
 
+***event-service > client > MemberFeignClient.java*
 ```java
-// event-service > client > MemberFeignClient.java
 package com.assu.cloud.eventservice.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -532,8 +534,9 @@ public interface MemberFeignClient {
 ```
 
 실제 호출하는 로직은 아래와 같다.
+
+**event-service > EventController.java**
 ```java
-// event-service > EventController.java
 public class EventController {
 
     private CustomConfig customConfig;
@@ -605,9 +608,8 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 
 이 설정으로 인해 두 유레카 서버는 서로 peering 이 가능하게 된다.
 
+**eurekaserver > applicatoin-peer1.yaml**
 ```yaml
-# eurekaserver > applicatoin-peer1.yaml
-
 spring:
   application:
     name: eurekaserver-peer1
@@ -635,9 +637,8 @@ logging:
     com.assu.cloud: DEBUG
 ```
 
+**eurekaserver > applicatoin-peer2.yaml**
 ```yaml
-# eurekaserver > applicatoin-peer2.yaml
-
 spring:
   application:
     name: eurekaserver-peer2
@@ -672,9 +673,8 @@ logging:
 
 여기선 이벤트 서비스를 예로 들어 설명한다.
 
+**event-service > application.yaml**
 ```yaml
-# event-service > application.yaml
-
 server:
   port: 8070
 management:

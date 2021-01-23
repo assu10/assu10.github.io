@@ -101,6 +101,7 @@ actuator 는 서버 구동 확인용으로 사용할 예정이다.
 스트링부트의 버전은 2.3.2 이고, 스프링 클라우드의 버전은 Hoxton.SR6 이다.
 스프링 클라우드 버전에 따른 스프링 부트 버전 선택은 [여기](https://spring.io/projects/spring-cloud)를 참고한다.
 
+**pom.xml**
 ```xml
 <parent>
     <groupId>org.springframework.boot</groupId>
@@ -132,6 +133,7 @@ actuator 는 서버 구동 확인용으로 사용할 예정이다.
 application.properties 의 이름을 bootstrap.yaml 으로 변경 후 아래와 같이 설정한다.
 윈도우 환경에서는 URL 의 맨 끝에 `/` 를 추가해준다.
 
+**configserver > bootstrap.yaml, applicaton.yaml**
 ```yaml
 # configserver > bootstrap.yaml
 spring:
@@ -180,6 +182,7 @@ mvn spring-boot:run
 이때 Config Client 와 Actuator Dependency 를 추가한다.
 Actuator 은 환경설정 정보 갱신 후 확인 용도로 필요하다.
 
+**pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -194,6 +197,7 @@ Actuator 은 환경설정 정보 갱신 후 확인 용도로 필요하다.
 위에 언급했다시피 bootstrap.yaml 은 서비스 애플리케이션 이름, 애플리케이션 프로파일과 컨피그 서버에 접속할 수 있는 URI 를 기입하고
 application.yaml 엔 로컬에 유지하고 싶은 구성정보를 기입한다.
 
+**member-service > bootstrap.yaml, application.yaml**
 ```yaml
 # member-service > bootstrap.yaml
 spring:
@@ -216,6 +220,7 @@ server:
 
 ![회원 서비스 환경설정 파일](/assets/img/dev/20200808/memberyaml.png)
 
+**member-service > CustomConfig.java, MemberController.java**
 ```java
 // member-service > CustomConfig
 @Component
@@ -274,8 +279,9 @@ Actuator 를 이용하여 현재 실행 중인 환경 정보를 확인할 수 �
 `/actuator/refresh` 엔드 포인트를 호출함으로써 애플리케이션 재기동 없이 프로퍼티를 다시 읽어올 수 있다.
 
 `@RefreshScope` 은 실제 프로퍼티를 받아오는 클래스에 달아준다.
+
+**member-service > CustomConfig.java**
 ```java
-// member-service > CustomConfig
 @Component
 @RefreshScope
 public class CustomConfig {
@@ -289,8 +295,9 @@ public class CustomConfig {
 ```
 
 이제 `member-service.yaml`의 프로퍼티 속성을 변경해보자.
+
+**configserver > member-service.yaml**
 ```yaml
-# configserver > member-service.yaml
 your.name: "ASSU ASSU DEFAULT Modify"
 ```
 
@@ -361,6 +368,7 @@ RabbitMQ 매니지먼트 사이트인 http://localhost:15672/ 에 접속하여 �
 ### 5-2. 환경설정 변경 전파 적용
 클라우드 버스 Dependency 를 추가한다.
 
+**pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -369,8 +377,9 @@ RabbitMQ 매니지먼트 사이트인 http://localhost:15672/ 에 접속하여 �
 ```
 
 컨피그 서버 내 member-service.yaml 에 rabbitMQ 접속 정보를 셋팅한다.
+
+**configserver > member-service.yaml**
 ```yaml
-# configserver > member-service.yaml
 your.name: "ASSU ASSU DEFAULT"
 spring:
   rabbitmq:
@@ -395,6 +404,7 @@ C:\member-service\target>java -Dserver.port=8090 -jar member-service-0.0.1-SNAPS
 C:\member-service\target>java -Dserver.port=8091 -jar member-service-0.0.1-SNAPSHOT.jar
 ```
 
+**configserver > member-service.yaml**
 ```yaml
 your.name: "ASSU ASSU DEFAULT Modify!!"
 ```
@@ -474,8 +484,9 @@ encrypt.key 를 문자열로 설정하여 사용할 수도 있다.
 `{cipher}` 는 컨피그 서버에 암호화된 값을 처리하도록 지시한다.
 
 컨피그 저장소의 member-service.yaml 내용을 아래와 같이 변경한다.
-```properties
-# configserver > member-service.yaml
+
+**configserver > member-service.yaml**
+```yaml
 your.name: "ASSU ASSU DEFAULT Modify"
 spring:
   rabbitmq:
@@ -508,8 +519,9 @@ management:
 ### 6.4. 클라이언트 측에서 암호화하도록 마이크로서비스 구성
 
 컨피그 서버의 bootstrap.yaml 에 아래 내용을 추가한다.
+
+***configserver > bootstrap.yaml*
 ```yaml
-# configserver > bootstrap.yaml
 spring:
   application:
     name: configserver
@@ -527,6 +539,7 @@ spring:
 회원 마이크로서비스에 spring-security-rsa Dependency 를 추가한다.
 spring-security-rsa 는 컨피그 서버에서 전달된 암호화된 프로퍼티를 복호화할 수 있도록 해준다.
 
+**pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.security</groupId>
@@ -542,8 +555,8 @@ spring-security-rsa 는 컨피그 서버에서 전달된 암호화된 프로퍼�
 이제 로컬 파일 기반의 저장소를 원격 저장소로 변경해볼 것이다.
 원격 저장소를 만든 후 컨피그 서버의 bootstrap.yaml 을 아래와 같이 변경해준다.
 
+**configserver > bootstrap.yaml**
 ```yaml
-# configserver > bootstrap.yaml
 spring:
   application:
     name: configserver

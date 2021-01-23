@@ -109,6 +109,7 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 
 새로운 스트링부트 프로젝트 생성 후 Zuul, Config Client, Eureka Discovery, Actuator Dependency 를 추가한다.
 
+**pom.xml**
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -130,6 +131,7 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 
 주울 서비스 구현을 위해 부트스트랩 클래스에 `@EnableZuulProxy` 을 추가한다.
 
+**ZuulserverApplication**
 ```java
 @SpringBootApplication
 @EnableZuulProxy        // 주울 서버로 사용
@@ -147,9 +149,8 @@ public class ZuulserverApplication {
 
 컨피그 서버 구성 경로 추가한다.
 
+**configserver > bootstrap.yaml**
 ```yaml
-# configserver > bootstrap.yaml
-
 spring:
   application:
     name: configserver
@@ -166,6 +167,8 @@ spring:
 ```
 
 주울과 컨피그 서버가 통신할 수 있도록 설정한다.
+
+**zuulserver > application.yaml, bootstrap.yaml**
 ```yaml
 # zuulserver > application.yaml
 server:
@@ -185,6 +188,7 @@ spring:
 
 컨피그 서버 원격 저장소에 zuulserver(서비스 ID) 폴더 생성 후 유레카 사용을 위한 설정을 해준다.
 
+**config-repo > zuulserver > zuulserver.yaml**
 ```yaml
 # config-repo > zuulserver > zuulserver.yaml
 
@@ -268,9 +272,8 @@ eureka:
 
 이제 수동으로 경로를 매핑해보자.
 
+**config-repo > zuulserver > application.yaml**
 ```yaml
-# config-repo > zuulserver > application.yaml
-
 zuul:
   routes:
     event-service: /evt/**
@@ -288,9 +291,8 @@ zuul:
 그리고 그 아래 주울에 의해 자동으로 매핑된 경로인 `"/event-service/**": "event-service"` 도 여전히 함께 있다.
 만일 수동으로 매핑한 경로만 사용하고 싶다면 아래와 같은 코드를 추가해주면 된다.
 
+**config-repo > zuulserver > application.yaml**
 ```yaml
-# config-repo > zuulserver > application.yaml
-
 zuul:
   ignored-services: 'event-service'   # 자동 경로 매핑 무시, 쉼표로 한 번에 여러 서비스 제외 가능
   routes:
@@ -311,9 +313,8 @@ zuul:
 API 게이트웨이의 일반적인 패턴은 모든 서비스 호출 앞에 /api 처럼 레이블을 붙여 컨텐츠 경로를 구별한다.
 주울의 `prefix` 프로퍼티가 이러한 기능을 지원한다.
 
+**config-repo > zuulserver > application.yaml**
 ```yaml
-# config-repo > zuulserver > application.yaml
-
 zuul:
   ignored-services: '*'       # 유레카 기반 모든 경로 제외
   prefix: /api                # 정의한 모든 서비스에 /api 접두어
@@ -353,9 +354,9 @@ zuul:
 @FeignClient 에 들어가는 서비스 ID와 최종 URL 만 수정해주면 된다.
 
 컨피스 원격 저장소의 이벤트 서비스 설정 파일에 아래 내용을 추가한다.
-```yaml
-# config-repo > event-service > event-service.yaml
 
+**config-repo > event-service > event-service.yaml**
+```yaml
 service:
   id:
     member: member-service
@@ -364,9 +365,8 @@ service:
 
 이후 이벤트 서비스 내에 있는 MemberFeignClient 파일을 아래와 같이 수정한다.
 
+**event-service > client > MemberFeignClient.java**
 ```java
-// event-service > client > MemberFeignClient.java
-
 //@FeignClient("${service.id.member}")
 @FeignClient("${service.id.zuul}")      // 주울의 서비스 아이디로 수정
 public interface MemberFeignClient {
@@ -401,9 +401,8 @@ public interface MemberFeignClient {
 - 리본 타임아웃 설정
     - `event-service.ribbon.ReadTimeout`
 
+**config-repo > zuulserver > zuulserver.yaml**
 ```yaml
-# config-repo > zuulserver > zuulserver.yaml
-
 hystrix:
   command:
     default:    # 유레카 서비스 ID

@@ -67,9 +67,8 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 
 `jedis`, `common-pool2`, `spring-data-redis` 의존성을 추가한다.
 
+**event-service > pom.xml**
 ```xml
-<!-- event-service -->
-
 <!-- 분산 캐싱 -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -98,9 +97,8 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 레디스와 연결이 되면 `JedisConnectionFactory` 커넥션을 사용하여 `RedisTemplate` 객체를 생성한다.
 `RedisTemplate` 객체는 레디스 서비스에 회원 데이터에 대한 쿼리를 수행한 후 스프링 데이터 레포지토리 클래스(*MemberRedisRepositoryImpl.java*)에서 사용된다.
 
+**event-service > EventServiceApplication.java**
 ```java
-// event-service
-
 @EnableEurekaClient
 @SpringBootApplication
 @EnableFeignClients
@@ -135,9 +133,8 @@ public class EventServiceApplication {
 }
 ```
 
+**config-repo > event-service.yaml**
 ```yaml
-# config-repo > event-service.yaml
-
 #redis
 redis:
   server: localhost
@@ -160,8 +157,8 @@ redis:
 
 이제 레디스 repository 를 정의해보도록 하자.
 
+**event-service > MemberRedisRepository.java**
 ```java
-// event-service > MemberRedisRepository.java
 /**
  * 레디스에 액세스해야 하는 클래스에 주입된 인터페이스
  */
@@ -173,9 +170,8 @@ public interface MemberRedisRepository {
 }
 ```
 
+**event-service > MemberRedisRepositoryImpl.java**
 ```java
-// event-service > MemberRedisRepositoryImpl.java
-
 /**
  * 부트스트랩 클래스에서 정의한 RedisTemplate 빈을 사용하여 레디스 서버와 통신
  */
@@ -233,9 +229,8 @@ public class MemberRedisRepositoryImpl implements MemberRedisRepository {
 위 작업까지 진행했으면 이제 레디스 작업을 수행할 준비가 되었으니 회원 데이터가 필요할 때 레디스 캐시를 먼저 확인하도록
 이벤트 서비스를 수정해보도록 하자.
 
+**event-service > MemberCacheRestTemplateClient.java**
 ```java
-// event-service > MemberCacheRestTemplateClient.java
-
 /**
  * 회원 데이터 필요 시 회원 서비스 호출 전 레디스 캐시 먼저 확인
  */
@@ -320,12 +315,9 @@ public class MemberCacheRestTemplateClient {
 
 레디스 캐싱 데이터 사용 API 는 아래와 같이 구성하였다.
 
+**event-service > EventController.java**
 ```java
-// event-service > EventController.java
-
 // ... 생략
-
-
 private final MemberCacheRestTemplateClient memberCacheRestTemplateClient;
 
 /**
@@ -401,9 +393,8 @@ DEBUG MemberCacheRestTemplateClient  : ======= Successfully retrieved an Member 
 
 사용자 정의 input 채널 인터페이스는 아래와 같다.
 
+**event-service > CustomChannels.java**
 ```java
-// event-service > CustomChannels.java
-
 /**
  * 사용자 정의 input 채널 (SINK.INPUT 같은...), Consumer
  */
@@ -419,9 +410,8 @@ output 채널 정의 시엔 호출할 메서드에 `@Output` 애너테이션을 
 
 사용자 정의 input 채널을 정의했으니 이 채널을 카프카 토픽에 매핑하는 작업을 하자.
 
+**config-repo > event-service.yaml**
 ```yaml
-# config-repo > event-service.yaml
-
 # 스프링 클라우드 스트림 설정
 spring:
   cloud:
@@ -454,9 +444,8 @@ spring.cloud.stream.bindings.**inboundMemberChanges** 처럼 새로 추가한 in
 
 사용자 정의 input 채널을 사용하려면 메시지를 처리할 클래스에 *CustomChannels* 인터페이스를 바인딩해 주어야 한다.
 
+**event-service > MemberChangeHandler.java**
 ```java
-// event-service > MemberChangeHandler.java
-
 /**
  * 사용자 정의 채널을 사용하여 메시지 수신
  * 이 애플리케이션을 메시지 브로커와 바인딩하도록 스프링 클라우드 스트림 설정
@@ -504,8 +493,8 @@ public class MemberChangeHandler {
 따라서 부트스트랩 클래스에 작업했던 위 두 작업은 주석 처리하도록 한다.
 
 아래 부분을 잘 보면서 이전 내용과 비교하여 떠올려보세요.
+**event-service > MemberChangeHandler.java**
 ```java
-
 // 부트스트랩에 작업했었던 채널 매핑
 @StreamListener(Sink.INPUT)     // 메시지가 입력 채널에서 수신될 때마다 이 메서드 실행
 
@@ -519,9 +508,8 @@ public class MemberChangeHandler {
 
 회원 서비스는 이미 아래처럼 데이터 변경 시 마다 메시지를 발행하도록 되어 있기 때문에 별도 수정할 내용은 없다.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 /**
  * 단순 메시지 발행
  */
@@ -539,9 +527,8 @@ public void saveUserId(@PathVariable("userId") String userId) {
 
 확인을 위해 회원 서비스에 아래와 같은 API 를 추가한다.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 /**
  * 이벤트 서비스에서 캐시 제거를 위한 메서드
  */

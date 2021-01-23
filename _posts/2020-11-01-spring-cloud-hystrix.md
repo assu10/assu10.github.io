@@ -141,9 +141,8 @@ tags: msa hystrix
 
 회원 서비스에 아래와 같이 히스트릭스 의존성을 추가한다.
 
+**member-service > pom.xml**
 ```xml
-<!-- member-service -->
-
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
@@ -155,9 +154,8 @@ tags: msa hystrix
 >유레카 클라이언트 의존성이 있다면 `@EnableCircuitBraker` 추가 시엔 오류가 나지 않지만 서버 기동 시 오류가 나므로
 >유레카 클라이언트 의존성이 추가되어 있어도 히스트릭스 의존성을 추가해주어야 한다.
 
+**member-service > MemberServiceApplication.java**
 ```java
-// member-service
-
 @SpringBootApplication
 @EnableEurekaClient
 @EnableResourceServer           // 보호 자원으로 설정
@@ -184,9 +182,8 @@ public class MemberServiceApplication {
 
 별도 속성 정의없이 `@HystrixCommand` 애너테이션만 사용한다면 모두 기본값을 사용한다는 의미이다.
   
+**member-service > MemberController.java**  
 ```java
-// member-service > MemberController.java
-
 /**
  * Hystrix 기본 테스트 (RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출)
  */
@@ -233,9 +230,8 @@ com.netflix.hystrix.exception.HystrixRuntimeException: hys timed-out and fallbac
 
 java 로 설정하는 방법은 아래와 같다.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 /**
  * Circuit Breaker 타임아웃 설정 (RestTemplate 를 이용하여 이벤트 서비스의 REST API 호출)
  */
@@ -252,9 +248,8 @@ public String timeout(ServletRequest req, @PathVariable("name") String name) {
 여기선 메서드 별로 타임아웃을 설정하지 않고 주울에 서비스별 호출 타임아웃을 설정해보도록 하겠다.<br />
 우선 회원 서비스가 호출할 이벤트 서비스 메서드에 의도적으로 결과값을 늦게 리턴하도록 설정한다.
 
+**event-service > EventController.java**
 ```java
-// event-service > EventController.java
-
 /**
  * 회원 서비스에서 호출할 메서드
  */
@@ -278,9 +273,8 @@ private void sleep() {
 아래 내용은 [Spring Cloud - Netflix Zuul(1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/) 의 *서비스 타임아웃* 에서 한번 언급한 내용이므로
 자세한 설명은 생략한다.
 
+**zuulserver > application.yml**
 ```yaml
-// zuulserver
-
 hystrix:
   command:
     default:    # 유레카 서비스 ID
@@ -293,9 +287,8 @@ event-service:
     ReadTimeout: 5000       # 리본 타임아웃 5초로 설정 (기본 5초)
 ```
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 @GetMapping(value = "timeout/{name}")
 public String timeout(ServletRequest req, @PathVariable("name") String name) {
     return "[MEMBER] " + eventRestTemplateClient.gift(name) + " / port is " + req.getServerPort();
@@ -328,6 +321,7 @@ com.netflix.hystrix.exception.HystrixRuntimeException: event-service timed-out a
 폴백 메서드는 `@HystrixCommand` 가 보호하려는 메서드와 같은 클래스에 있어야 하고, 보호하려는 메서드에 전달되는 모든 매개 변수를
 폴백이 받으므로 파라미터도 완전히 동일해야 한다.
 
+**member-service > MemberController.java**
 ```java
 @HystrixCommand(fallbackMethod = "timeoutFallback")     // 폴백 메서드
 @GetMapping(value = "timeout/{name}")
@@ -346,8 +340,8 @@ public String timeoutFallback(ServletRequest req, @PathVariable("name") String n
 위에선 주울에 히스트릭스를 설정했지만 폴백 메서드에 대한 설정은 폴백 메서드가 위치한 서비스에 위치해야 하므로 
 회원 서비스의 application.yml 파일에 타임아웃 시간을 설정한다.
 
+**member-service > application.yaml**
 ```yaml
-# member-service > application.yaml
 hystrix:
   command:
     default:    # 유레카 서비스 ID
@@ -407,9 +401,8 @@ MSA 환경에서 벌크헤드 패턴을 적용하지 않으면 기본적으로 �
 
 회원 서비스에서 이벤트 서비스를 호출하는 REST API 에 분리된 스레드 풀을 적용해보도록 하자.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 /**
  * eventThreadPool 을 사용하면서 sleep() 이 있는 이벤트 서비스를 호출하는 함수
  */
@@ -454,9 +447,8 @@ public String bulkheadEvtSleep(@PathVariable("name") String name) {
 
 회원 서비스에 서킷 브레이커를 적용해보도록 하자.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 /**
  * eventThreadPool 을 사용하면서 sleep() 이 있는 이벤트 서비스를 호출하는 함수
  */

@@ -18,6 +18,7 @@ tags: msa springboot-actuator spring-monitoring actuator spring-admin-ui
 ## Actuator 설정
 스프링부트 액추에이터는 메이븐과 application.properties 추가만으로  간단히 설정이 가능하다.
 
+**pom.xml**
 ```xml
  <dependency>
      <groupId>org.springframework.boot</groupId>
@@ -25,6 +26,7 @@ tags: msa springboot-actuator spring-monitoring actuator spring-admin-ui
 </dependency>
 ```
 
+**application.properties**
 ```properties
 management.endpoints.web.exposure.include=*
 management.endpoint.shutdown.enabled=true
@@ -69,7 +71,7 @@ management.endpoint.shutdown.enabled=true
 
 가장 간단한 health check 링크에 접속해보면 아래와 같이 인스턴스가 정상 구동중임을 알려주고 있다.
 
-**http://localhost:8080/actuator/health**
+[http://localhost:8080/actuator/health](http://localhost:8080/actuator/health)
 
 ```json
 {"status":"UP"}
@@ -77,7 +79,7 @@ management.endpoint.shutdown.enabled=true
 
 아무래도 metrics 에 우리가 관심있어 하는 정보들이 많이 들어있다.
 
-**http://localhost:8080/actuator/metrics** 에서 제공하는 지표들은 아래와 같다.
+[http://localhost:8080/actuator/metrics](http://localhost:8080/actuator/metrics) 에서 제공하는 지표들은 아래와 같다.
 
 ```json
 {
@@ -124,7 +126,7 @@ management.endpoint.shutdown.enabled=true
 
 예를 들어 현재 JVM의 활성화된 Thread 정보는 아래와 같이 확인할 수 있다.
 
-**http://localhost:8080/actuator/metrics/jvm.memory.used**
+[http://localhost:8080/actuator/metrics/jvm.memory.used](http://localhost:8080/actuator/metrics/jvm.memory.used)
 
 ```json
 {"name":"jvm.memory.used",
@@ -158,7 +160,7 @@ management.endpoint.shutdown.enabled=true
 }
 ```
 
-**http://localhost:8080/actuator/heapdump , http://localhost:8080/actuator/threaddump** 를 통해 덤프 파일도 제공받을 수 있다.
+[http://localhost:8080/actuator/heapdump](http://localhost:8080/actuator/heapdump), [http://localhost:8080/actuator/threaddump](http://localhost:8080/actuator/threaddump) 를 통해 덤프 파일도 제공받을 수 있다.
 
 이러한 애플케이션의 상태 정보가 함부로 노출되면 안되니 두 가지 방법으로 확인된 사용자에게만 노출해줄 수 있다.
 
@@ -175,6 +177,7 @@ management.endpoint.shutdown.enabled=true
 
 아래는 처리중인 동시 요청 수에 대한 예이다.
 
+**ConcurrentTransactionCountInterceptor.java**
 ```java
 @Component
 public class ConcurrentTransactionCountInterceptor extends HandlerInterceptorAdapter {
@@ -229,6 +232,7 @@ springboot admi UI는 일종의 대시보드 기능이라고 생각하면 좋을
 
 ## Springboot admin UI 설정
 
+**pom.xml**
 ```xml
 <dependency>
     <groupId>de.codecentric</groupId>
@@ -241,6 +245,7 @@ springboot admi UI는 일종의 대시보드 기능이라고 생각하면 좋을
 </dependency>
 ```
 
+**application.properties**
 ```properties
 server.port=8080
 
@@ -248,6 +253,7 @@ spring.boot.admin.client.url=http://localhost:8080
 spring.boot.admin.client.instance.service-url=http://localhost:8080
 ```
 
+**ActuatorApplication.java**
 ```java
 @EnableAdminServer  // 어노테이션 추가
 @SpringBootApplication

@@ -201,8 +201,8 @@ EDA 에 대해 알아보기 전에 먼저 캐싱 솔루션에 대해 알아본�
 
 회원 서비스에 스프링 클라우드 스트림과 스프링 클라우드 스트림 카프카 의존성을 추가한다.
 
+**member-service > pom.xml**
 ```xml
-<!-- member-service -->
 <!-- 스프링 클라우드 스트림 -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -219,9 +219,8 @@ EDA 에 대해 알아보기 전에 먼저 캐싱 솔루션에 대해 알아본�
 이제 애플리케이션이 스프링 클라우드 스트림의 메시지 브로커와 바인딩하도록 부트스트랩 클래스에 `@EnableBinding(Source.class)` 를 추가한다.
 `Source.class` 를 사용하면 해당 애플리케이션이 Source 클래스에 정의된 채널들을 이용하여 메시지 브로커와 통신한다.
 
+**member-service > MemberServiceApplication.java**
 ```java
-// member-service
-
 @SpringBootApplication
 @EnableEurekaClient
 @EnableResourceServer           // 보호 자원으로 설정
@@ -234,9 +233,8 @@ public class MemberServiceApplication {
 
 발행될 메시지를 담을 POJO 를 만든다.
 
+**member-service > MemberChangeModel.java**
 ```java
-// member-service > MemberChangeModel.java
-
 /**
  * 발행될 메시지를 표현하는 POJO
  */
@@ -258,9 +256,8 @@ public class MemberChangeModel {
 
 이제 메시지를 발행할 코드를 구현해보자.
 
+**member-service > SimpleSourceBean.java**
 ```java
-// member-service > SimpleSourceBean.java
-
 /**
  * 메시지 브로커에 메시지 발행
  */
@@ -298,6 +295,7 @@ public class SimpleSourceBean {
 
 스프링 클라우드의 Source 인터페이스를 주입받아 사용하는데 이 Source 는 아래와 같은 구조이다.
 
+**Source**
 ```java
 // Source interface
 public interface Source {
@@ -325,9 +323,8 @@ public interface Source {
 각 설명은 주석을 참고하도록 한다.<br />
 (기존에 설정한 rabbitMQ 관련 설정과 의존성은 주석처리 필요)
 
+**config-repo > member-service.yaml**
 ```yaml
-# config-repo > member-service.yaml
-
 # 스프링 클라우드 스트림 설정
 spring:
   cloud:
@@ -346,9 +343,8 @@ spring:
 
 실제 메시지를 발행하는 엔드포인트는 아래와 같이 구성하면 된다.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 private final CustomConfig customConfig;
     private final EventRestTemplateClient eventRestTemplateClient;
     private final SimpleSourceBean simpleSourceBean;
@@ -392,6 +388,7 @@ private final CustomConfig customConfig;
 
 압축을 푼 후 config 폴더 내 zookeeper.properties 와 server.properties 파일을 각각 아래와 같이 수정해준다.
 
+**zookeeper.properties, server.properties**
 ```properties
 # zookeeper.properties
 
@@ -429,8 +426,8 @@ springCloudBus
 
 이벤트 서비스에 스프링 클라우드 스트림과 스프링 클라우드 스트림 카프카 의존성을 추가한다.
 
+**member-service > pom.xml**
 ```xml
-<!-- member-service -->
 <!-- 스프링 클라우드 스트림 -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -454,9 +451,8 @@ Sink input 채널에 들어오는 메시지를 처리하기 위해 `@StreamListe
 `@StreamListener` 은 input 채널에 메시지가 수신될 때마다 해당 매서드가 실행되도록 스트림을 설정한다.
 스트림은 채널에서 받은 메시지를 *MemberChangeModel* POJO 로 자동 역직렬화한다.
 
+**event-service > EventServiceApplication.java**
 ```java
-// event-service
-
 @SpringBootApplication
 @EnableEurekaClient
 @EnableResourceServer           // 보호 자원으로 설정
@@ -479,9 +475,8 @@ public class EventServiceApplication {
 
 이제 메시지 브로커의 토픽을 input 채널에 매핑한다.
 
+**config-repo > event-service.yaml**
 ```yaml
-# config-repo > event-service.yaml
-
 # 스프링 클라우드 스트림 설정
 spring:
   cloud:

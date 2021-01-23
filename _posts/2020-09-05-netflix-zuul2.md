@@ -97,9 +97,8 @@ HTTP 헤더에 *'assu-correlation-id'* 가 없다면 이 사전 필터는 상관
 
 우선 로그 확인을 위해 컨피그 원격 저장소에 로그 레벨을 셋팅한다.
 
+**config-repo > zuulserver > zuulserver.yaml**
 ```yaml
-# config-repo > zuulserver > zuulserver.yaml
-
 logging:
   level:
     com.netflix: WARN
@@ -110,9 +109,8 @@ logging:
 아래 2개의 클래스는 주울 서비스에 생성되는 클래스이다.
 자세한 설명은 각 소스의 주석을 참고하기 바란다.
 
+**zuulserver > utils > FilterUtils.java**
 ```java
-// zuulserver > utils > FilterUtils.java
-
 package com.assu.cloud.zuulserver.utils;
 
 import com.netflix.zuul.context.RequestContext;
@@ -160,9 +158,8 @@ public class FilterUtils {
 ```
 <br />
 
+**zuulserver > filters > PreFilter.java**
 ```java
-// zuulserver > filters > PreFilter.java
-
 package com.assu.cloud.zuulserver.filters;
 
 import com.assu.cloud.zuulserver.utils.FilterUtils;
@@ -274,7 +271,6 @@ public class PreFilter extends ZuulFilter {
 2020-09-06 20:40:50.566 DEBUG 23336 --- [nio-5555-exec-2] c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/mb/member/gift/flower.
 2020-09-06 20:40:50.587 DEBUG 23336 --- [nio-5555-exec-3] c.a.cloud.zuulserver.filters.PreFilter   : ============ assu-correlation-id generated in pre filter: 86ca377e-9246-48ce-a25f-409723458227.
 2020-09-06 20:40:50.587 DEBUG 23336 --- [nio-5555-exec-3] c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/evt/event/gift/flower.
-
 ```
 
 하나의 API 를 호출했지만 실제로 주울엔 2번의 요청이 오게 된다.
@@ -330,9 +326,8 @@ RestTemplate 는 사용자 정의된 Spring 인터셉터 클래스 (CustomContex
 >**ThreadLocal 변수**<br />
 >사용자 요청을 처리하는 해당 스레드에서 호출되는 모든 메서드에서 액세스 가능한 변수
 
+**각 마이크로서비스 > CustomContextFilter.java**
 ```java
-// 각 마이크로서비스 > CustomContextFilter.java
-
 /**
  * 유입되는 HTTP 요청을 가로채서 필요한 헤더값을 CustomContext 에 매핑
  * 
@@ -365,9 +360,8 @@ public class CustomContextFilter implements Filter {
 }
 ```
 
+**각 마이크로서비스 > CustomContext.java**
 ```java
-// 각 마이크로서비스 > CustomContext.java
-
 /**
  * 서비스가 쉽게 액세스할 수 있는 HTTP 헤더를 만들어 저장하는 클래스
  * HTTP 요청에서 추출한 값을 보관하는 POJO
@@ -390,9 +384,8 @@ public class CustomContext {
 }
 ```
 
+**각 마이크로서비스 > CustomContextHolder.java**
 ```java
-// 각 마이크로서비스 > CustomContextHolder.java
-
 /**
  * ThreadLocal 저장소에 CustomContext 를 저장하는 클래스
  *      * ThreadLocal 변수: 사용자 요청을 처리하는 해당 스레드에서 호출되는 모든 메서드에서 액세스 가능한 변수
@@ -428,9 +421,8 @@ public class CustomContextHolder {
 }
 ```
 
+**각 마이크로서비스 > CustomContextInterceptor.java**
 ```java
-// 각 마이크로서비스 > CustomContextInterceptor.java
-
 /**
  * RestTemplate 인스턴스에서 실행되는 모든 HTTP 기반 서비스 발신 요청에 상관관계 ID 삽입
  */
@@ -452,9 +444,8 @@ public class CustomContextInterceptor implements ClientHttpRequestInterceptor {
 
 CustomContextInterceptor 를 사용하려면 RestTemplate 빈 생성 시 함께 설정을 해주어야 한다.
 
+**member-service > MemberServiceApplication.java**
 ```java
-// member-service > MemberServiceApplication.java
-
 @LoadBalanced       // 스프링 클라우드가 리본이 지원하는 RestTemplate 클래스 생성하도록 지시
 @Bean
 public RestTemplate getRestTemplate() {
@@ -496,9 +487,8 @@ public RestTemplate getRestTemplate() {
 주울은 사후 필터를 이용하여 대상 서비스 호출에 대한 응답을 검사한 후 수정하거나 추가 정보를 삽입할 수 있다.
 여기선 서비스 호출자에게 다시 전달될 HTTP 응답 헤더에 상관관계 ID 를 삽입하여 사용자 트랜잭션과 연관된 로깅을 연결 지을 것이다.
 
+zuulserver > filters > PostFilter.java****
 ```java
-// zuulserver > filters > PostFilter.java
-
 /**
  * 사후 필터
  *      서비스 호출자에게 다시 전달될 HTTP 응답 헤더에 상관관계 ID 를 삽입하여 사용자 트랜잭션과 연관된 로깅을 연결 지음

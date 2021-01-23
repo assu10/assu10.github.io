@@ -102,8 +102,8 @@ OAuth2 패스워드 그랜트 타입을 구현하기 위해 아래와 같은 절
 
 인증 서버 설정을 위해 스프링 부트 애플리케이션 모듈을 생성한 후 `spring-cloud-security` 와 `spring-cloud-starter-oauth2` Dependency 설정 및 부트스트랩 클래스 설정을 해준다.
 
+**auth-service > pom.xml**
 ```xml
-<!-- auth-service > pom.xml -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-security</artifactId>
@@ -116,9 +116,8 @@ OAuth2 패스워드 그랜트 타입을 구현하기 위해 아래와 같은 절
 
 `spring-cloud-security` 의존성은 일반적인 스프링과 스프링 클라우드 보안 라이브러리를 모두 가져온다.
 
+**auth-service > AuthServiceApplication.java**
 ```java
-// auth-service > AuthServiceApplication.java
-
 @SpringBootApplication
 @RestController
 @EnableEurekaClient
@@ -163,9 +162,8 @@ OAuth2 서버에 등록된 애플리케이션과 자격 증명을 정의하는 �
 >아래 코드에서 `@Qualifier("userDetailsServiceBean")` 이 부분은 바로 다음에 진행할 **WebSecurityConfigurer** 클래스
 >구현 후 사용 가능합니다.
  
+**auth-service > OAuth2Config.java** 
 ```java
-// auth-service > OAuth2Config.java
-
 /**
  * OAuth2 인증 서버에 등록될 애플리케이션 정의
  *      AuthorizationServerConfigurerAdapter: 스프링 시큐리티 핵심부, 핵심 인증 및 인가 기능 수행하는 기본 메커니즘 제공
@@ -227,9 +225,8 @@ Bean 으로 등록 후 사용해야 한다고 설명되어 있다.
 
 **WebSecurityConfigurer** 를 구현해보자.
 
+**auth-service > WebSecurityConfigurer.java**
 ```java
-// auth-service > WebSecurityConfigurer.java
-
 @Configuration
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Bean
@@ -251,10 +248,11 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 >자격 증명을 제공하여 본인을 증명하는 것
 >
 **인가(Authorization)**<br />
->수행하려는 작업의 혀용 여부를 결정
+>수행하려는 작업의 허용 여부를 결정
   
 위 클래스에서 오버라이드하는 함수 중 첫 번째 함수를 살펴보자.
 
+**auth-service > OAuth2Config.java** 
 ```java
 /**
  * 인증 서버에 등록될 클라이언트 정의
@@ -309,9 +307,8 @@ public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 이 2개의 빈을 정의한다.<br />
 이 2개의 빈은 위에서 구현한 **OAuth2Config** 클래스의 `configure(AuthorizationServerEndpointsConfigurer endpoints)` 메서드에서 사용된다.
 
+**auth-service > WebSecurityManager.java**
 ```java
-// auth-service > WebSecurityManager.java
-
 /**
  * 사용자 ID, 패스워드, 역할 정의
  */
@@ -347,6 +344,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 ### 2.4. OAuth2 패스워드 그랜트 타입을 사용하여 사용자 인증
 
 application.yaml 파일에 아래와 같이 설정한다.
+**application.yaml**
 ```yaml
 server:
   port: 8901
@@ -430,8 +428,8 @@ OAuth2 액세스 토큰의 생성과 관리는 OAuth2 인증 서버가 담당하
 
 회원 서비스에 아래 의존성을 추가한다.
 
+**member-service > pom.xml**
 ```xml
-<!-- member-service > pom.xml -->
 <dependency>
     <groupId>org.springframework.security.oauth.boot</groupId>
     <artifactId>spring-security-oauth2-autoconfigure</artifactId>
@@ -442,9 +440,8 @@ OAuth2 액세스 토큰의 생성과 관리는 OAuth2 인증 서버가 담당하
 
 회원 서비스의 컨피그 서버 원격 저장소에 OAuth2 콜백 URL 을 설정해주자.
 
+**config-repo > member-service**
 ```yaml
-# config-repo > member-service
-
 security:
   oauth2:
     resource:
@@ -455,7 +452,8 @@ security:
 
 `@EnableResourceServer` 는 서비스로 유입되는 모든 호출을 가로채서 HTTP 헤더에 OAuth2 액세스 토큰 여부를 확인한 후 
 토큰의 유효성을 확인하기 위해 `security.oauth2.resource.user-info-uri` 에 정의된 콜백 URL 을 호출한다.
- 
+
+**MemberServiceApplication.java** 
 ```java
 @SpringBootApplication
 @EnableEurekaClient
@@ -474,9 +472,8 @@ public class MemberServiceApplication {
 
 우선 인증된 사용자는 모든 서비스에 접근 가능하도록 설정해 본다.
 
+**member-service > security > ResourceServerConfig.java**
 ```java
-// member-service > security > ResourceServerConfig.java
-
 /**
  * 접근 제어 규칙 정의
  *      인증된 사용자는 모든 서비스에 접근 가능하거나,
@@ -516,8 +513,8 @@ HTTP 헤더에 Authorization 액세스 토큰없이 회원 서비스의 API 를 
 
 사용자 역할은 위에서 설정했던 `WebSecurityConfigurer.java` 를 참고하면 된다.
 
+**auth-service > WebSecurityConfigurer.java**
 ```java
-// auth-service > WebSecurityConfigurer.java
 ...
 @Override
 protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -533,8 +530,8 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 그리고 회원 서비스에 아래와 같은 PUT 메서드의 테스트 API 를 추가한다.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
 /**
  * ADMIN 권한 소유자만 PUT METHOD API 호출 가능하도록 설정 후 테스트
  */
@@ -546,9 +543,8 @@ public String member(@PathVariable("name") String name) {
 
 위에서 생성한 ResourceServerConfig.java 를 수정하여 접근 규칙을 수정한다.
 
+**member-service > ResourceServerConfig.java**
 ```java
-// member-service > ResourceServerConfig.java
-
 /**
  * 접근 제어 규칙 정의
  *      인증된 사용자는 모든 서비스에 접근 가능하거나,
@@ -614,9 +610,8 @@ OAuth2 액세스 토큰은 사용자 세션에 저장되고, 이벤트 서비스
 
 아래 내용을 추가하지 않으면 주울은 자동으로 세 가지 값 (Cookie, Set-Cookie, Authorization) 을 전달하지 않는다.
 
+**config-repo > zuulserver**
 ```yaml
-# config-repo > zuulserver
-
 zuul:
   sensitive-headers: Cookie,Set-Cookie    # 주울이 하위 서비스에 전파하지 않는 헤더 차단 목록 (디폴트는 Cookie, Set-Cookie, Authorization)
 ```
@@ -630,9 +625,8 @@ zuul:
 스프링 OAuth2 는 OAuth2 호출을 지원하는 새로운 RestTemplate 인 `OAuth2RestTemplate` 를 제공하는데, 
 이 `OAuth2RestTemplate` 를 사용하려면 다른 OAuth2 보호 서비스를 호출하는 서비스에 auto-wired 될 수 있도록 빈으로 노출해야 한다.
 
+**event-service > EventServiceApplication.java**
 ```java
-// event-service
-
 @EnableEurekaClient
 @SpringBootApplication
 @EnableFeignClients
@@ -660,9 +654,8 @@ public class EventServiceApplication {
 
 이제 빈으로 노출시켰으니 OAuth2RestTemplate Client 를 작성해보자.
 
+**event-service > security > MemberRestTemplate.java**
 ```java
-// event-service > security > MemberRestTemplate.java
-
 @Component
 public class MemberRestTemplateClient {
 
@@ -694,9 +687,8 @@ public class MemberRestTemplateClient {
 
 이제 회원 서비스와 이벤트 서비스에 테스트할 API 를 아래처럼 각각 만들어보자.
 
+**member-service > MemberController.java**
 ```java
-// member-service > MemberController.java
-
 /**
  * 이벤트 서비스에서 OAuth2 로 호출 테스트
  */
@@ -706,9 +698,8 @@ public String userInfo(@PathVariable("name") String name) {
 }
 ```
 
+**event-service > EventController.java**
 ```java
-// event-service > EventController.java
-
 private final MemberRestTemplateClient memberRestTemplateClient;
 
 @GetMapping("userInfo/{name}")
