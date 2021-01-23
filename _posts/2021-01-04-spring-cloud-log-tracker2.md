@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/3) - ELK 스택"
 date:   2021-01-04 10:00
 categories: dev
-tags: msa centralized-log elasticsearch sleuth zipkin msa-tracker logging-tracker monitoring
+tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack 
 ---
 
 이 포스트는 중앙 집중형 로깅 솔루션 중 하나인 ELK (ElasticSearch, Logstash, Kibana) 스택에 대해 기술한다.
