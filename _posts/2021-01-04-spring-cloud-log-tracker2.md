@@ -18,8 +18,8 @@ tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack
 >[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
 >[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br />
 >[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br />
->[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/3) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br />
->***12. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/3) - ELK 스택***<br />
+>[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/3) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br /><br />
+>***11. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/3) - ELK 스택***<br />
 >- ELK 스택이란?
 >- Elastic Stack 이란?
 >- ElasticSearch, Kibana, Logstash 설치
