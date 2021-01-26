@@ -20,7 +20,7 @@ tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack
 >[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br />
 >[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/3) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br /><br />
 >***11. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/3) - ELK 스택***<br />
->- ELK 스택이란?
+>- ELK Stack 이란?
 >- Elastic Stack 이란?
 >- ElasticSearch, Kibana, Logstash 설치
 >   - ElasticSearch 설치
@@ -45,7 +45,7 @@ tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack
 
 ---
 
-## 1. ELK 스택이란?
+## 1. ELK Stack 이란?
 
 ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스 프로젝트의 머릿글자이다.<br />
 로그를 위해 `Elasticsearch` 를 사용하는데 이것을 손쉽게 수집해서 시각화할 수 있도록 해주는 것이 수집 파이프라인 `Logstash`와
