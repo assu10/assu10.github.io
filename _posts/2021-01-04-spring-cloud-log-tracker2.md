@@ -39,7 +39,7 @@ tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack
 인메모리인 경우 별도 스토리지 설치가 필요없기 때문에 로컬 테스트 시 사용하면 좋고, MySQL 은 소규모 서비스에 적절하다.<br />
 실제 운영 시엔 Cassandra 나 ElasticSearch 를 저장소로 사용하는 것이 바람직하다.
 
-이 글을 읽고나면 아래와 같은 내용을 알게 될 것이다.
+이 글을 읽고 나면 아래와 같은 내용을 알게 될 것이다.
 
 - ELK 스택을 통해 여러 로그 데이터를 검색 가능한 단일 소스로 수집 
 
