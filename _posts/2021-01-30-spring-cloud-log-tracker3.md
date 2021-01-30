@@ -40,7 +40,6 @@ tags: msa centralized-log sleuth open-zipkin
 이 글을 읽고나면 아래와 같은 내용을 알게 될 것이다.
 
 - 마이크로서비스의 추적성 확보를 위한 Spring Cloud Sleuth 의 사용법
-- 마이크로서비스의 전 구간 모니터링에 사용되어 트랜잭션의 흐름을 시각화하는 Open Zipkin 의 사용법
 
 ---
 
