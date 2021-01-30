@@ -21,16 +21,9 @@ tags: msa centralized-log sleuth open-zipkin
 >[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br /><br />
 >[11. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker2/)<br /><br />
 >***12. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/4) - 로그 추적을 위한 Sleuth 사용***<br />
->- ELK 스택이란?
->- Elastic Stack 이란?
->- ElasticSearch, Kibana, Logstash 설치
->   - ElasticSearch 설치
->   - Kibana 설치
->   - Logstash 설치
->- Springboot에 Logging 설정
->- Kibana 를 통해 여러 마이크로서비스의 로그를 통합하여 조회
->   - Index 생성
->   - 로그 조회
+>- Spring Cloud Sleuth 와 Open Zipkin 
+>- 슬루스
+>   - 마이크로서비스에 슬루스 추가
 
 이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
 
