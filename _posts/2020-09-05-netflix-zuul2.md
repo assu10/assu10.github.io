@@ -92,6 +92,10 @@ HTTP 헤더에 *'assu-correlation-id'* 가 없다면 이 사전 필터는 상관
 
 ### 2.1. 주울로 통신하는 모든 마이크로서비스 호출에 상관관계 ID 확인 및 생성
 
+>상관관계 ID 로 로그를 추적하는 방법은 나중에 Spring Cloud Sleuth 와 Open Zipkin 으로 대체하여 사용 예정입니다.<br />
+>[Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/3) - 로그 추적](https://assu10.github.io/dev/2021/01/04/spring-cloud-log-tracker3/) 에
+>포스팅되어 있지만 아래 내용도 한번씩 해보세요~
+
 ![사전필터 디렉토리 구조](/assets/img/dev/20200905/prefilter.png)
 
 

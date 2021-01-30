@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/3) - 이론"
+title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론"
 date:   2020-12-30 10:00
 categories: dev
 tags: msa centralized-log elasticsearch sleuth zipkin msa-tracker logging-tracker monitoring
@@ -17,7 +17,7 @@ tags: msa centralized-log elasticsearch sleuth zipkin msa-tracker logging-tracke
 >[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
 >[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br />
 >[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br /><br />
->***10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/3) - 이론***<br />
+>***10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론***<br />
 >- 로그 관리의 난제
 >- 중앙 집중식 로깅
 >- 로깅 솔루션 종류

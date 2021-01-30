@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/3) - ELK 스택"
+title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택"
 date:   2021-01-04 10:00
 categories: dev
 tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack 
@@ -18,9 +18,9 @@ tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack
 >[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
 >[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br />
 >[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br />
->[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/3) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br /><br />
->***11. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/3) - ELK 스택***<br />
->- ELK Stack 이란?
+>[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br /><br />
+>***11. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택***<br />
+>- ELK 스택이란?
 >- Elastic Stack 이란?
 >- ElasticSearch, Kibana, Logstash 설치
 >   - ElasticSearch 설치
@@ -39,13 +39,13 @@ tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack
 인메모리인 경우 별도 스토리지 설치가 필요없기 때문에 로컬 테스트 시 사용하면 좋고, MySQL 은 소규모 서비스에 적절하다.<br />
 실제 운영 시엔 Cassandra 나 ElasticSearch 를 저장소로 사용하는 것이 바람직하다.
 
-이 글을 읽고 나면 아래와 같은 내용을 알게 될 것이다.
+이 글을 읽고나면 아래와 같은 내용을 알게 될 것이다.
 
 - ELK 스택을 통해 여러 로그 데이터를 검색 가능한 단일 소스로 수집 
 
 ---
 
-## 1. ELK Stack 이란?
+## 1. ELK 스택이란?
 
 ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스 프로젝트의 머릿글자이다.<br />
 로그를 위해 `Elasticsearch` 를 사용하는데 이것을 손쉽게 수집해서 시각화할 수 있도록 해주는 것이 수집 파이프라인 `Logstash`와

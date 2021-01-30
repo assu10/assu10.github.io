@@ -6,10 +6,6 @@ categories: cooking
 tags: cooking 시레기감자탕 감자탕
 ---
 
-![감자탕](/assets/img/cooking/2021/gamjatang.jpg)
-
----
-
 # 재료
 
 돼지 등뼈 1kg, 감자 4알<br />
@@ -39,3 +35,7 @@ tags: cooking 시레기감자탕 감자탕
 함께 등뼈를 넣어준 뒤 1시간 정도 푹 끓여준다.
 
 5. 중간에 맛을 보고 싱거우면 다시다 넣어주세요. 끝!
+
+---
+
+![감자탕](/assets/img/cooking/2021/gamjatang.jpg)
