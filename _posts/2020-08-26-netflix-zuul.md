@@ -14,13 +14,13 @@ tags: msa hystrix zuul ribbon
 >***3. Zuul - Proxy & API Gateway***<br />
 >   - 게이트 웨이
 >   - Zuul Proxy
->   - 주울 구축
->       - 유레카 클라이언트 구축 (유레카 서버에 서비스 동적 등록)
+>   - Zuul 구축
+>       - Eureka Client 구축 (Eureka Server 에 서비스 동적 등록)
 >       - 서비스 검색 (Feign 사용)
->   - 주울 경로 구성
+>   - Zuul 경로 구성
 >       - 서비스 디스커버리를 이용한 자동 경로 매핑
 >       - 서비스 디스커버리를 이용한 수동 경로 매핑
->   - 기존의 Feign Client 수정하여 서비스들 간의 통신도 주울로 통신하도록 하기 
+>   - 기존의 Feign Client 수정하여 서비스들 간의 통신도 Zuul로 통신하도록 하기 
 >   - 서비스 타임아웃
 
 Spring Cloud Config Server 와 Eureka 에 대한 자세한 내용은 위 목차에 걸려있는 링크를 참고 바란다.
@@ -49,9 +49,9 @@ Spring Cloud Config Server 와 Eureka 에 대한 자세한 내용은 위 목차�
 ---
 
 ## 2. Zuul Proxy
-Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka 서버를 사용하고, 부하 분산을 위해 Ribbon 을 사용한다.
+Zuul Proxy 는 내부적으로 서비스 발견을 위해 Eureka 서버를 사용하고, 부하 분산을 위해 Ribbon 을 사용한다.
 
-주울 프록시는 특히 아래의 상황에서 더 유용하다.
+Zuul Proxy 는 특히 아래의 상황에서 더 유용하다.
 
 >   - 인증이나 보안을 모든 마이크로서비스 종단점에 적용하는 대신 게이트웨이 한곳에 적용
 >       - 요청을 서비스에 전달하기 전에 보안 정책 적용, 토큰 처리 등을 수행
@@ -68,21 +68,21 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 - 부하 스로틀링: 장비를 기동한 후 부하를 점진적으로 늘려나가는 것
 </details>
 <br />
-주울은 사전 필터, 라우팅 필터, 사후 필터, 에러 필터 등을 제공하여 서비스 호출의 서로 다른 여러 단계에 적용할 수 있도록 지원한다.
+Zuul 은 사전 필터, 라우팅 필터, 사후 필터, 에러 필터 등을 제공하여 서비스 호출의 서로 다른 여러 단계에 적용할 수 있도록 지원한다.
 또한 추상 클래스인 ZuulFilter 를 상속하여 자체 필터를 작성할 수도 있다.
 
-주울의 동작 흐름을 살펴보면 아래와 같다.
+Zuul 의 동작 흐름을 살펴보면 아래와 같다.
 
-서비스 클라이언트는 개별 서비스의 URL 을 직접 호출하지 않고 주울로 모든 요청을 보내고, (=애플리케이션의 모든 서비스 경로를 단일 URL 로 매핑)
-주울은 받은 요청을 추려내서 호출하고자 하는 서비스로 라우팅한다.
+서비스 클라이언트는 개별 서비스의 URL 을 직접 호출하지 않고 Zuul 로 모든 요청을 보내고, (=애플리케이션의 모든 서비스 경로를 단일 URL 로 매핑)
+Zuul 은 받은 요청을 추려내서 호출하고자 하는 서비스로 라우팅한다.
 
-![주울 동작 흐름](/assets/img/dev/20200826/zuul.png)
+![Zuul동작 흐름](/assets/img/dev/20200826/zuul.png)
 
->주울은 기동 시 유레카 서버에 주울 서비스 ID를 등록한다.<br /><br />
->서비스 클라이언트이기도 한 이벤트 마이크로서비스는 주울 서비스 ID를 이용하여 유레카 서버로부터 주울 서버 목록을 얻는다.<br /><br />
+>Zuul 은 기동 시 Eureka Server 에 Zuul 서비스 ID를 등록한다.<br /><br />
+>서비스 클라이언트이기도 한 이벤트 마이크로서비스는 Zuul 서비스 ID를 이용하여 Eureka Server 로부터 Zuul 서버 목록을 얻는다.<br /><br />
 >URL 을 통해 회원 마이크로서비스 물리적 위치를 찾아 라우팅한다.
 
-***주울은 서비스 호출에 대한 병목점이므로 주울의 코드는 최대한 가볍게 유지하는 것이 좋다.***
+***Zuul 은 서비스 호출에 대한 병목점이므로 Zuul 의 코드는 최대한 가볍게 유지하는 것이 좋다.***
 
 이 포스팅은 아래의 순서로 진행될 예정이다.
 
@@ -93,19 +93,19 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 
 ---
 
-## 3. 주울 구축
-이번 포스트인 [컨피그 서버](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)와 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
+## 3. Zuul 구축
+이번 포스트인 [Config Server](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)와 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
 
-![컨피그 서버 + 유레카](/assets/img/dev/20200816/config_eureka.png)
+![Config Server + 유레카](/assets/img/dev/20200816/config_eureka.png)
 
-위 설정에 주울을 추가하면 아래와 같은 구성도가 된다.
+위 설정에 Zuul 을 추가하면 아래와 같은 구성도가 된다.
 
-![컨피그 서버 + 유레카 + 주울](/assets/img/dev/20200826/config_eureka_zuul.png)
+![Config Server + 유레카 + Zuul](/assets/img/dev/20200826/config_eureka_zuul.png)
 
-주울도 자신의 서비스 ID 로 유레카 서버에 자신을 등록한다.<br />
-그리고 주울을 호출하는 클라이언트도 유레카 클라이언트라면 유레카 레지스트리에 등록된 주울의 서비스 ID를 통해 주울에 접근하므로
-주울의 이중화 구성 시 별도의 로드밸런서는 필요 없다.
-(유레카 클라이언트는 유레카 서버로부터 받아온 주울 서버 목록 중 하나를 선택하여 호출)<br />
+Zuul 도 자신의 서비스 ID 로 Eureka Server 에 자신을 등록한다.<br />
+그리고 Zuul 을 호출하는 클라이언트도 Eureka Client 라면 유레카 레지스트리에 등록된 Zuul 의 서비스 ID를 통해 Zuul 에 접근하므로
+Zuul 의 이중화 구성 시 별도의 로드밸런서는 필요 없다.
+(Eureka Client 는 Eureka Server 로부터 받아온 Zuul 서버 목록 중 하나를 선택하여 호출)<br />
 
 새로운 스트링부트 프로젝트 생성 후 Zuul, Config Client, Eureka Discovery, Actuator Dependency 를 추가한다.
 
@@ -129,12 +129,12 @@ Zuul Proxy(이하 주울)는 내부적으로 서비스 발견을 위해 Eureka �
 </dependency>
 ```
 
-주울 서비스 구현을 위해 부트스트랩 클래스에 `@EnableZuulProxy` 을 추가한다.
+Zuul 서비스 구현을 위해 부트스트랩 클래스에 `@EnableZuulProxy` 을 추가한다.
 
 **ZuulserverApplication**
 ```java
 @SpringBootApplication
-@EnableZuulProxy        // 주울 서버로 사용
+@EnableZuulProxy        // Zuul 서버로 사용
 public class ZuulserverApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZuulserverApplication.class, args);
@@ -143,11 +143,11 @@ public class ZuulserverApplication {
 ```
 
 `@EnableZuulServer`는 유레카가 아닌 서비스 디스커버리 엔진(Consul 같은...)과 통합할 경우 사용한다.
-또한 자체 라우팅 서비스를 만들고 내장된 주울 기능을 사용하지 않을 때도 사용한다.
+또한 자체 라우팅 서비스를 만들고 내장된 Zuul 기능을 사용하지 않을 때도 사용한다.
 
-주울은 자동으로 유레카를 사용해 서비스 ID로 서비스를 찾은 후 Ribbon 으로 주울 내부에서 클라이언트 측 부하 분산을 수행한다.
+Zuul 은 자동으로 유레카를 사용해 서비스 ID로 서비스를 찾은 후 Ribbon 으로 Zuul 내부에서 클라이언트 측 부하 분산을 수행한다.
 
-컨피그 서버 구성 경로 추가한다.
+Config Server 구성 경로 추가한다.
 
 **configserver > bootstrap.yaml**
 ```yaml
@@ -166,7 +166,7 @@ spring:
           enabled: false
 ```
 
-주울과 컨피그 서버가 통신할 수 있도록 설정한다.
+Zuul 과 Config Server가 통신할 수 있도록 설정한다.
 
 **zuulserver > application.yaml, bootstrap.yaml**
 ```yaml
@@ -183,10 +183,10 @@ spring:
     active: default         # 서비스가 실행할 기본 프로파일
   cloud:
     config:
-      uri: http://localhost:8889  # 컨피그 서버 위치
+      uri: http://localhost:8889  # Config Server 위치
 ```
 
-컨피그 서버 원격 저장소에 zuulserver(서비스 ID) 폴더 생성 후 유레카 사용을 위한 설정을 해준다.
+Config Server 원격 저장소에 zuulserver(서비스 ID) 폴더 생성 후 유레카 사용을 위한 설정을 해준다.
 
 **config-repo > zuulserver > zuulserver.yaml**
 ```yaml
@@ -211,19 +211,19 @@ eureka:
   instance:
     prefer-ip-address: true   # 서비스 이름 대신 IP 주소 등록
   client:
-    register-with-eureka: true    # 유레카 서버에 서비스 등록
+    register-with-eureka: true    # Eureka Server 에 서비스 등록
     fetch-registry: true          # 레지스트리 정보를 로컬에 캐싱
     service-url:
       dafaultZone: http://localhost:8761/eureka/
 ```
 
-[http://localhost:8761/](http://localhost:8761/) 유레카 콘솔로 접속하면 주울이 등록된 것을 확인할 수 있다.
-[http://localhost:5555/actuator/env](http://localhost:5555/actuator/env) 로 접속하면 주울이 잘 떴는지 확인할 수 있다.
+[http://localhost:8761/](http://localhost:8761/) 유레카 콘솔로 접속하면 Zuul 이 등록된 것을 확인할 수 있다.
+[http://localhost:5555/actuator/env](http://localhost:5555/actuator/env) 로 접속하면 Zuul 이 잘 떴는지 확인할 수 있다.
 
 ---
 
-## 4. 주울 경로 구성
-주울은 클라이언트와 자원 사이에 위치한 중개 서버로 클라이언트가 요청한 호출을 해당 자원으로 매핑을 하는데 이때 매핑 메커니즘은 3가지가 있다.
+## 4. Zuul 경로 구성
+Zuul 은 클라이언트와 자원 사이에 위치한 중개 서버로 클라이언트가 요청한 호출을 해당 자원으로 매핑을 하는데 이때 매핑 메커니즘은 3가지가 있다.
 
 - 서비스 디스커버리를 이용한 자동 경로 매핑
 - 서비스 디스커버리를 이용한 수동 경로 매핑
@@ -234,33 +234,33 @@ eureka:
 ---
 
 ### 4.1. 서비스 디스커버리를 이용한 자동 경로 매핑
-주울은 application.yaml 에 경로를 정의하여 매핑하는데 유레카와 함께 사용하면 특별한 구성 없이 서비스 ID 기반으로 자동 라우팅을 지원한다.
+Zuul 은 application.yaml 에 경로를 정의하여 매핑하는데 유레카와 함께 사용하면 특별한 구성 없이 서비스 ID 기반으로 자동 라우팅을 지원한다.
 아래의 주소를 보자.
 
 `http://localhost:5555/event-service/event/member/hyori`
 
-- http://localhost:5555 - 주울 주소
+- http://localhost:5555 - Zuul 주소
 - event-service - 서비스 ID
 - event/member/hyori - 실제 호출될 URL 엔드포인트
 
 서비스의 엔드포인트 경로 첫 부분에 서비스 ID를 기입하는 것만으로 간편하게 라우팅이 가능하다.
 
-유레카와 주울을 함께 사용하면 호출할 수 있는 단일 엔드포인트를 제공할 뿐 아니라
-유레카에 새로운 서비스 추가 시 주울은 자동으로 해당 서비스 인스턴스로 라우팅하기 때문에 주울 수정 없이 인스턴스를 추가/제거가 가능하다.
+유레카와 Zuul 을 함께 사용하면 호출할 수 있는 단일 엔드포인트를 제공할 뿐 아니라
+유레카에 새로운 서비스 추가 시 Zuul 은 자동으로 해당 서비스 인스턴스로 라우팅하기 때문에 Zuul 수정 없이 인스턴스를 추가/제거가 가능하다.
 
-주울이 관리하는 경로는 `/routes` 엔드포인트로 접근하여 확인할 수 있다.
+Zuul 이 관리하는 경로는 `/routes` 엔드포인트로 접근하여 확인할 수 있다.
 
-아래 그림에서 주울에 등록된 서비스들의 매핑은 "event-service/**" 이고, 유레카에 등록된 서비스 아이디는 "event-service" 이다. 
+아래 그림에서 Zuul 에 등록된 서비스들의 매핑은 "event-service/**" 이고, 유레카에 등록된 서비스 아이디는 "event-service" 이다. 
 
 [http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes)
 
-![주울 매핑 경로](/assets/img/dev/20200826/routes.png)
+![Zuul 매핑 경로](/assets/img/dev/20200826/routes.png)
 
 
 실제로 매핑된 대로 잘 호출이 되는지 확인해보자.
-이벤트 마이크로서비스의 API 를 직접 호출하는 것을 이제 주울을 통해 호출해보자.
+이벤트 마이크로서비스의 API 를 직접 호출하는 것을 이제 Zuul 을 통해 호출해보자.
 
-![주울을 통해 API 호출](/assets/img/dev/20200826/routing.png)
+![Zuul 을 통해 API 호출](/assets/img/dev/20200826/routing.png)
 
 ---
 
@@ -281,14 +281,14 @@ zuul:
 
 이후 [POST http://localhost:5555/actuator/bus-refresh](http://localhost:5555/actuator/bus-refresh) 를 호출하여 경로 구성을 다시 적용할 수 있다. 
 
-[http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes) 경로로 접속하여 주울이 관리하고 있는 경로를 확인해보자.
+[http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes) 경로로 접속하여 Zuul 이 관리하고 있는 경로를 확인해보자.
 
 ![수동 매핑](/assets/img/dev/20200826/event.png)
 
 `"/evt/**": "event-service"` 가 추가된 것을 확인할 수 있다.
 `/evt/**`로 요청되는 호출은 `event-service` 서비스 ID를 가진 마이크로서비스로 매핑한다는 의미이다.
 
-그리고 그 아래 주울에 의해 자동으로 매핑된 경로인 `"/event-service/**": "event-service"` 도 여전히 함께 있다.
+그리고 그 아래 Zuul 에 의해 자동으로 매핑된 경로인 `"/event-service/**": "event-service"` 도 여전히 함께 있다.
 만일 수동으로 매핑한 경로만 사용하고 싶다면 아래와 같은 코드를 추가해주면 된다.
 
 **config-repo > zuulserver > application.yaml**
@@ -311,7 +311,7 @@ zuul:
 
 
 API 게이트웨이의 일반적인 패턴은 모든 서비스 호출 앞에 /api 처럼 레이블을 붙여 컨텐츠 경로를 구별한다.
-주울의 `prefix` 프로퍼티가 이러한 기능을 지원한다.
+Zuul 의 `prefix` 프로퍼티가 이러한 기능을 지원한다.
 
 **config-repo > zuulserver > application.yaml**
 ```yaml
@@ -342,13 +342,13 @@ zuul:
 
 ---
 
-## 5. 기존의 Feign Client 수정하여 서비스들 간의 통신도 주울로 통신하도록 하기
-이제 기존에 이벤트 서비스에서 Feign 을 이용하여 회원 서비스의 REST API 를 직접 호출하는 부분을 이제 주울을 통해 호출하도록 수정해보자.<br />
+## 5. 기존의 Feign Client 수정하여 서비스들 간의 통신도 Zuul 로 통신하도록 하기
+이제 기존에 이벤트 서비스에서 Feign 을 이용하여 회원 서비스의 REST API 를 직접 호출하는 부분을 이제 Zuul 을 통해 호출하도록 수정해보자.<br />
 (잘 기억이 나지 않는다면 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/) 의 *3.3. 서비스 검색 (Feign 사용)*과
 [Open Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 을 참고하세요) 
 
 - 기존 : 이벤트 서비스 → 회원 서비스 (Feign 이용하여 **직접 호출**)
-- 수정 : 이벤트 서비스 → 회원 서비스 (Feign 이용하여 **주울 통하여 호출**)
+- 수정 : 이벤트 서비스 → 회원 서비스 (Feign 이용하여 **Zuul 통하여 호출**)
 
 수정은 간단하다.
 @FeignClient 에 들어가는 서비스 ID와 최종 URL 만 수정해주면 된다.
@@ -360,7 +360,7 @@ zuul:
 service:
   id:
     member: member-service
-    zuul: zuulserver    # 주울 서비스 아이디 추가
+    zuul: zuulserver    # Zuul 서비스 아이디 추가
 ```
 
 이후 이벤트 서비스 내에 있는 MemberFeignClient 파일을 아래와 같이 수정한다.
@@ -368,20 +368,20 @@ service:
 **event-service > client > MemberFeignClient.java**
 ```java
 //@FeignClient("${service.id.member}")
-@FeignClient("${service.id.zuul}")      // 주울의 서비스 아이디로 수정
+@FeignClient("${service.id.zuul}")      // Zuul 의 서비스 아이디로 수정
 public interface MemberFeignClient {
     
-    String URL_PREFIX = "/api/mb/member/";      // 회원 서비스의 주울 라우팅 경로와 회원 클래스 주소
+    String URL_PREFIX = "/api/mb/member/";      // 회원 서비스의 Zuul 라우팅 경로와 회원 클래스 주소
 
     /**
-     * 주울을 통해 호출할 경로 : http://localhost:5555/api/evt/event/member/{nick}
+     * Zuul 을 통해 호출할 경로 : http://localhost:5555/api/evt/event/member/{nick}
      */
     @GetMapping(value = URL_PREFIX + "name/{nick}")
     String getYourName(@PathVariable("nick") String nick);
 }
 ```
 
-![마이크로서비스 간 주울 통신 확인](/assets/img/dev/20200826/feignzuul.png)
+![마이크로서비스 간 Zuul 통신 확인](/assets/img/dev/20200826/feignzuul.png)
 
 ---
 
@@ -390,9 +390,9 @@ public interface MemberFeignClient {
 >[Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/08/26/spring-cloud-hystrix/) 의 
 >*개별 회로 차단기를 사용자 정의하여 호출별 타임아웃 설정* 과 함께 보면 도움이 됩니다. 
 
-주울은 넷플릭스 히스트릭스와 리본 라이브러리를 사용하여 오래 수행되는 서비스 호출이 게이트웨이 성능에 영향을 미치지 않도록 한다.
+Zuul 은 넷플릭스 히스트릭스와 리본 라이브러리를 사용하여 오래 수행되는 서비스 호출이 게이트웨이 성능에 영향을 미치지 않도록 한다.
 
-기본적으로 주울은 요청을 처리하는데 1초 이상 걸리는 모든 호출을 종료하고 HTTP 500 에러를 반환한다. (히스트릭스 기본 동작)
+기본적으로 Zuul 은 요청을 처리하는데 1초 이상 걸리는 모든 호출을 종료하고 HTTP 500 에러를 반환한다. (히스트릭스 기본 동작)
 
 - 히스트릭스 타임아웃 설정
     - `hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds` : 기본 1초
@@ -427,7 +427,7 @@ hystrix:
 
 ~~히스트릭스 타임아웃을 재정의했지만 리본 역시 5초 이상 수행되는 호출을 타임아웃하므로 5초 이상 수행되는 타임아웃 구성은 히스트릭스와 리본 모두 설정해야 한다.~~
 
-다음 포스트엔 주울의 필터에 관해 다루도록 하겠다.
+다음 포스트엔 Zuul 의 필터에 관해 다루도록 하겠다.
 
 ---
 

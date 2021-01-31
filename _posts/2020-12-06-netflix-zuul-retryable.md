@@ -61,7 +61,7 @@ zuul:
   routes:
     event-service: /evt/**
     member-service: /mb/**
-  sensitive-headers: Cookie,Set-Cookie    # 주울이 하위 서비스에 전파하지 않는 헤더 차단 목록 (디폴트는 Cookie, Set-Cookie, Authorization)
+  sensitive-headers: Cookie,Set-Cookie    # Zuul 이 하위 서비스에 전파하지 않는 헤더 차단 목록 (디폴트는 Cookie, Set-Cookie, Authorization)
   retryable: true   # 디폴트 false
 ```
         
@@ -181,7 +181,7 @@ hystrix:
             timeoutInMilliseconds: 5000
 ```
 
-이제 유레카 클라이언트 인스턴스를 2개 띄운 후 호출 시 라운드 로빈 방식으로 각 인스턴스를 번갈아가며 호출하는 것을 확인할 수 있다.<br />
+이제 Eureka Client 인스턴스를 2개 띄운 후 호출 시 라운드 로빈 방식으로 각 인스턴스를 번갈아가며 호출하는 것을 확인할 수 있다.<br />
 아래와 같이 포트를 함께 리턴하도록 하면 좀 더 확실한 확인이 가능하다.
 
 [http://localhost:5555/api/evt/event/name/hyori](http://localhost:5555/api/evt/event/name/hyori)

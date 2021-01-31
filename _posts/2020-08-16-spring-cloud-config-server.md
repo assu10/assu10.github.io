@@ -11,11 +11,11 @@ tags: msa spring-cloud-config-server spring-cloud-bus rabbitmq
 
 >***1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화***<br />
 >   - Spring Cloud Config Server
->   - 컨피그 서버 구축
->       - 컨피그 서버 셋업
+>   - Config Server 구축
+>       - Config Server 셋업
 >       - 저장소(Git or File) 구현 - File
->   - 클라이언트에서 컨피그 서버 접근
->   - 컨피그 서버에서 환경설정 변경값 갱신
+>   - 클라이언트에서 Config Server 접근
+>   - Config Server에서 환경설정 변경값 갱신
 >   - 환경설정 변경 전파
 >       - RabbitMQ 설치
 >       - 환경설정 변경 전파 적용
@@ -25,7 +25,7 @@ tags: msa spring-cloud-config-server spring-cloud-bus rabbitmq
 >       - 프로퍼티를 암호화 및 복호화
 >       - 클라이언트 측에서 암호화하도록 마이크로서비스 구성
 >   - 저장소(Git or File) 구현 - Git
->   - 컨피그 서버 상태 모니터링
+>   - Config Server 상태 모니터링
 
 다양한 요청을 처리하는 마이크로서비스를 관리하기 위해서 스프링 부트 프레임워크가 제공하는 기능만으로는 충분하지 않다.
 스프링 클라우드 프로젝트는 마이크로서비스 개발에 필요한 공통적인 패턴들을 모아서 사용하기 쉬운 스프링 라이브러리 형태로 구현해서 제공한다.
@@ -36,28 +36,28 @@ tags: msa spring-cloud-config-server spring-cloud-bus rabbitmq
 ---
 
 ## 1. Spring Cloud Config Server
-Spring Cloud Config Server(이하 컨피그 서버)는 애플리케이션과 서비스의 모든 환경설정 속성 정보를 저장, 조회, 관리할 수 있게 해주는 외부화된 환경설정 서버이다.
+Spring Cloud Config Server 는 애플리케이션과 서비스의 모든 환경설정 속성 정보를 저장, 조회, 관리할 수 있게 해주는 외부화된 환경설정 서버이다.
 * 환경 설정 속성 정보 : 데이터베이스, 미들웨어 접속 정보, 애플리케이션의 행동 양식을 정하는 메타데이터 등...<br />
 이전 그리고 아직도 많은 방식으로 운영되고 있는 환경설정 방식은 아래와 같다.
 >모든 환경설정 파라미터를 프로젝트에 함께 패키징되는 application.properties 혹은 application.yaml 파일로 관리
 
 이러한 방식의 단점은 환경설정 속성 정보가 변경되면 환경설정 파일이 애플리케이션에 함께 패키징되어 있기 때문에 애플리케이션 전체를 다시 빌드해야 한다는 점이다.
 
-컨피그 서버는 애플리케이션의 빌드 없이 환경 설정의 변경을 적용할 수 있도록 해준다.<br />
-아래 컨피그 서버의 동작 흐름을 보자. (오늘 구현할 내용이다)
+Config Server는 애플리케이션의 빌드 없이 환경 설정의 변경을 적용할 수 있도록 해준다.<br />
+아래 Config Server의 동작 흐름을 보자. (오늘 구현할 내용이다)
 
 ![컨피그서버 동작 흐름](/assets/img/dev/20200808/config.png)
 
->마이크로서비스 인스턴스가 시작하면 필요한 환경설정 정보를 읽기 위해 컨피그 서버에 접근<br /><br />
->마이크로서비스는 성능 향상을 위해 컨피그 서버에서 읽어온 환경설정 정보를 로컬에 캐시<br /><br />
->컨피그 서버는 환경설정 정보가 변경되면 자신을 바라보는 모든 마이크로서비스에 변경 사항 전파<br /><br />
+>마이크로서비스 인스턴스가 시작하면 필요한 환경설정 정보를 읽기 위해 Config Server에 접근<br /><br />
+>마이크로서비스는 성능 향상을 위해 Config Server에서 읽어온 환경설정 정보를 로컬에 캐시<br /><br />
+>Config Server는 환경설정 정보가 변경되면 자신을 바라보는 모든 마이크로서비스에 변경 사항 전파<br /><br />
 >마이크로서비스는 변경 사항을 로컬 캐시에 반영<br />
 
-컨피그 서버는 환경설정 정보를 Git 이나 SVN 같은 버전 관리 도구에 저장한다.<br />
+Config Server는 환경설정 정보를 Git 이나 SVN 같은 버전 관리 도구에 저장한다.<br />
 원격 저장소가 아닌 파일 기반으로도 가능은 하지만 버전 관리, 운영상의 리스크 등을 고려하여 원격 저장소를 많이 이용한다.
 
 스프링 부트와는 다르게 스프링 클라우드는 부트스트랩 컨텍스트를 이용한다.<br />
-부트스트랩 컨텍스트는 메인 애플리케이션의 부모 컨텍스트 역할을 담당하며, 컨피그 서버에서 환경설정 정보를 읽어온다.<br />
+부트스트랩 컨텍스트는 메인 애플리케이션의 부모 컨텍스트 역할을 담당하며, Config Server에서 환경설정 정보를 읽어온다.<br />
 부트스트랩 컨텍스트는 환경설정 정보를 bootstrap.yaml 또는 bootstrap.properties 에서 읽어오는데 application.* 파일을 bootstrap.* 로 이름 변경만 해주면 된다.
 <br /><br />
 
@@ -69,8 +69,8 @@ Spring Cloud Config Server(이하 컨피그 서버)는 애플리케이션과 서
 - bootstrap.*
    - 기본적으로 구성 서버의 위치(spring.cloud.config.uri)와 애플리케이션 이름(spring.application.name) 기재
    - 그 외 Eureka 서버 위치, 암호화/해독 관련 속성과 같은 다른 설정 포함 가능
-   - 애플리케이션 기동 시 애플리케이션의 이름으로 컨피그 서버에 HTTP 호출을 하여 해당 애플리케이션 구성 정보검색
-   - Spring Cloud 를 사용하고 애플리케이션 환경설정이 원격 구성 서버(컨피그 서버)에 저장되어 있는 경우에만 필요
+   - 애플리케이션 기동 시 애플리케이션의 이름으로 Config Server에 HTTP 호출을 하여 해당 애플리케이션 구성 정보검색
+   - Spring Cloud 를 사용하고 애플리케이션 환경설정이 원격 구성 서버(Config Server)에 저장되어 있는 경우에만 필요
    - application.* 과 마찬가지로 bootstrap-dev.* 이런 식의 프로파일별 구성 가능
 </details>
 
@@ -91,9 +91,9 @@ Spring Cloud Config Server(이하 컨피그 서버)는 애플리케이션과 서
 
 ---
 
-## 2. 컨피그 서버 구축
+## 2. Config Server 구축
 
-### 2-1. 컨피그 서버 셋업
+### 2-1. Config Server 셋업
 새로운 스트링부트 프로젝트 생성 후 Config Server Dependency 를 추가한다.
 actuator 는 서버 구동 확인용으로 사용할 예정이다.
 `actuator` 에 대한 간단한 설명은 이전 포스트인 [여기](https://assu10.github.io/dev/2020/03/26/spring-actuator/)를 참고하길 바란다.
@@ -129,7 +129,7 @@ actuator 는 서버 구동 확인용으로 사용할 예정이다.
 
 ### 2-2. 저장소(Git or File) 구현 - File
 지금은 로컬 파일 시스템 기반의 저장소로 연결하고 원격 저장소로의 연결은 마지막에 구현할 예정이다.<br />
-저장소로 사용할 폴더 생성 후 컨피그 서버가 방금 만든 저장소를 사용하도록 설정한다.
+저장소로 사용할 폴더 생성 후 Config Server가 방금 만든 저장소를 사용하도록 설정한다.
 application.properties 의 이름을 bootstrap.yaml 으로 변경 후 아래와 같이 설정한다.
 윈도우 환경에서는 URL 의 맨 끝에 `/` 를 추가해준다.
 
@@ -149,7 +149,7 @@ spring:
 
 # configserver > applicaton.yaml
 server:
-  port: 8889    # 컨피그 서버가 수신 대기하는 포트
+  port: 8889    # Config Server가 수신 대기하는 포트
 management:
   endpoints:
     web:
@@ -163,19 +163,19 @@ management:
 부트스트랩 클래스에 `@EnableConfigServer` 을 추가한다.
 `@EnableConfigServer` 은 서비스를 컨피스 서버 서비스로 사용 가능하게 한다.
 
-아래 명령어를 통해 컨피그 서버를 시작한다.
+아래 명령어를 통해 Config Server를 시작한다.
 ```shell
 mvn spring-boot:run
 ```
-아래 주소로 접속하여 컨피그 서버가 구동 중인지 확인할 수 있다.<br />
+아래 주소로 접속하여 Config Server가 구동 중인지 확인할 수 있다.<br />
 [http://localhost:8889/actuator](http://localhost:8889/actuator)
 
-![컨피그 서버 구동 확인](/assets/img/dev/20200808/actuator.png)
+![Config Server 구동 확인](/assets/img/dev/20200808/actuator.png)
 
 ---
 
-## 3. 클라이언트에서 컨피그 서버 접근
-위에서 컨피그 서버를 구성 후 웹 브라우저를 통해 접근하는 방법을 보았으니, 이제 마이크로서비스가 컨피그 클라이언트로서 컨피그 서버에
+## 3. 클라이언트에서 Config Server 접근
+위에서 Config Server를 구성 후 웹 브라우저를 통해 접근하는 방법을 보았으니, 이제 마이크로서비스가 컨피그 클라이언트로서 Config Server에
 접근하도록 한다.
 
 새로운 스트링 부트 프로젝트를 생성한다.
@@ -194,7 +194,7 @@ Actuator 은 환경설정 정보 갱신 후 확인 용도로 필요하다.
 </dependency>
 ```
 
-위에 언급했다시피 bootstrap.yaml 은 서비스 애플리케이션 이름, 애플리케이션 프로파일과 컨피그 서버에 접속할 수 있는 URI 를 기입하고
+위에 언급했다시피 bootstrap.yaml 은 서비스 애플리케이션 이름, 애플리케이션 프로파일과 Config Server에 접속할 수 있는 URI 를 기입하고
 application.yaml 엔 로컬에 유지하고 싶은 구성정보를 기입한다.
 
 **member-service > bootstrap.yaml, application.yaml**
@@ -207,14 +207,14 @@ spring:
     active: default         # 서비스가 실행할 기본 프로파일
   cloud:
     config:
-      uri: http://localhost:8889  # 컨피그 서버 위치
+      uri: http://localhost:8889  # Config Server 위치
 
 # member-service > application.yaml
 server:
   port: 8090
 ```
 
-컨피그 서버와 정상적으로 통신하는지 확인하기 위하여 저장소를 아래와 같이 구성하여 확인해보자.
+Config Server와 정상적으로 통신하는지 확인하기 위하여 저장소를 아래와 같이 구성하여 확인해보자.
 
 ![회원 서비스 컨피그 저장소](/assets/img/dev/20200808/memberconfig.png)
 
@@ -251,7 +251,7 @@ public class MemberController {
 }
 ```
 
-`mvn spring-boot:run` 으로 컨피그 서버 기동 후 각각 아래의 주소로 접속하면 각 프로파일에 맞는 JSON 페이로드가 반환되는 것을 알 수 있다.
+`mvn spring-boot:run` 으로 Config Server 기동 후 각각 아래의 주소로 접속하면 각 프로파일에 맞는 JSON 페이로드가 반환되는 것을 알 수 있다.
 
 [http://localhost:8889/member-service/default/](http://localhost:8889/member-service/default/)
 
@@ -268,13 +268,13 @@ Actuator 를 이용하여 현재 실행 중인 환경 정보를 확인할 수 �
 
 ![Actuator](/assets/img/dev/20200808/actuator2.png)
 
-이제 컨피그 서버를 통해 전달받은 설정값이 마이크로서비스에서 정상적으로 사용되고 있는지 확인해보자.
-![컨피그 서버로부터 전달받은 설정값](/assets/img/dev/20200808/membername.png)
+이제 Config Server를 통해 전달받은 설정값이 마이크로서비스에서 정상적으로 사용되고 있는지 확인해보자.
+![Config Server로부터 전달받은 설정값](/assets/img/dev/20200808/membername.png)
 
 ---
 
-## 4. 컨피그 서버에서 환경설정 변경값 갱신
-저장소의 프로퍼티를 변경하면 컨피그 서버는 항상 최신 버전의 프로퍼티를 제공한다.<br />
+## 4. Config Server에서 환경설정 변경값 갱신
+저장소의 프로퍼티를 변경하면 Config Server는 항상 최신 버전의 프로퍼티를 제공한다.<br />
 하지만 애플리케이션은 기동 시에만 프로퍼티를 읽어오는데 이때 actuator 의 `@RefreshScope` 를 사용하여
 `/actuator/refresh` 엔드 포인트를 호출함으로써 애플리케이션 재기동 없이 프로퍼티를 다시 읽어올 수 있다.
 
@@ -301,7 +301,7 @@ public class CustomConfig {
 your.name: "ASSU ASSU DEFAULT Modify"
 ```
 
-[http://localhost:8889/member-service/default/](http://localhost:8889/member-service/default/) 컨피그 서버엔 변경된 프로퍼티값이 바로 반영된 것을 확인할 수 있다.
+[http://localhost:8889/member-service/default/](http://localhost:8889/member-service/default/) Config Server엔 변경된 프로퍼티값이 바로 반영된 것을 확인할 수 있다.
 
 하지만 [http://localhost:8090/member/name?nick=JU](http://localhost:8090/member/name?nick=JU) 을 호출해보면 변경 전 프로퍼티값이 노출되고 있다.
 
@@ -321,11 +321,11 @@ your.name: "ASSU ASSU DEFAULT Modify"
 이에 대한 해결 방법으로는 두 가지가 있다.
 
 > 1. Eureka 엔진으로 모든 서비스 인스턴스를 조회한 후 `/actuator/refresh` 종단점을 직접 호출하는 간단한 스크립트 작성
-> 2. 스프링 클라우드 버스와 RabbitMQ(메시지 브로커)를 통해 변경 내용을 broadcasting
+> 2. Spring Cloud Bus 와 RabbitMQ(메시지 브로커)를 통해 변경 내용을 broadcasting
 
 1의 방법이 간단해 보이지만 여기선 2번의 내용으로 진행해 볼 것이다.
 
-Spring Cloud Bus (이하 클라우드 버스) 는 현재 실행되고 있는 인스턴스의 수나 위치에 관계없이 환경설정 변경 내용이 모든 마이크로서비스, 모든 인스턴스에 적용되게 할 수 있다.
+Spring Cloud Bus 는 현재 실행되고 있는 인스턴스의 수나 위치에 관계없이 환경설정 변경 내용이 모든 마이크로서비스, 모든 인스턴스에 적용되게 할 수 있다.
 모든 인스턴스를 하나의 메시지 브로커에 연결하면 가능하다.
 
 동작 흐름은 아래와 같다.
@@ -376,7 +376,7 @@ RabbitMQ 매니지먼트 사이트인 http://localhost:15672/ 에 접속하여 �
 </dependency>
 ```
 
-컨피그 서버 내 member-service.yaml 에 rabbitMQ 접속 정보를 셋팅한다.
+Config Server 내 member-service.yaml 에 rabbitMQ 접속 정보를 셋팅한다.
 
 **configserver > member-service.yaml**
 ```yaml
@@ -430,8 +430,8 @@ port 8091 인스턴스까지 변경된 환경설정값이 갱신되는 것을 �
 
 ## 6. 컨피스 저장소의 중요 정보 보호(암호화)
 컨피그 저장소에는 데이터베이스 자격 증명과 같은 중요 정보도 함께 저장되는데 이를 평문으로 저장하는 것은 매우 위험하다.
-컨피그 서버는 중요한 프로퍼티를 쉽게 암호화할 수 있는 대칭 암호화(공유 비밀키 사용), 비대칭 암호화(공개, 비공개 키 사용)를 모두 지원한다.
-여기서는 대칭 키를 사용해 암호화하는 컨피그 서버 설정 방법을 알아볼 것이다.
+Config Server는 중요한 프로퍼티를 쉽게 암호화할 수 있는 대칭 암호화(공유 비밀키 사용), 비대칭 암호화(공개, 비공개 키 사용)를 모두 지원한다.
+여기서는 대칭 키를 사용해 암호화하는 Config Server 설정 방법을 알아볼 것이다.
 
 전체적인 순서는 아래와 같다.
 
@@ -444,7 +444,7 @@ $JAVA_HOME/lib/security 디렉터리로 local_policy.jar 와 US_export_policy.ja
 
 ### 6.2. 암호화 키 설정
 대칭 암호화키는 암호화/복호화에 사용되는 공유된 비밀키이다.
-컨피그 서버에서 사용되는 대칭 암호화키는 ENCRYPT_KEY 라는 운영 체제의 환경 변수를 사용하여 텍스트 파일에서 제외시킬수도 있고,
+Config Server에서 사용되는 대칭 암호화키는 ENCRYPT_KEY 라는 운영 체제의 환경 변수를 사용하여 텍스트 파일에서 제외시킬수도 있고,
 encrypt.key 를 문자열로 설정하여 사용할 수도 있다.
 
 여기에서는 실무에서 많이 사용되는 방식인 운영 체제의 환경 변수를 사용하여 대칭 암호화키를 설정할 것이다.
@@ -457,10 +457,10 @@ encrypt.key 를 문자열로 설정하여 사용할 수도 있다.
 ---
 
 ### 6.3. 프로퍼티를 암호화 및 복호화
-위 과정을 하면 컨피그 서버에 사용되는 프로퍼티를 암호화할 준비가 된 것이다.
+위 과정을 하면 Config Server에 사용되는 프로퍼티를 암호화할 준비가 된 것이다.
 이제 rabbitMQ의 패스워드를 암호화할 것이다.
 
-컨피그 서버 인스턴스가 실행될 때 ENCRYPT_KEY 환경 변수가 설정되었음을 감지하면 2개의 새로운 종단점 `/encrypt`와 `decrypt` 가 컨피그 서비스에 자동으로 추가된다.
+Config Server 인스턴스가 실행될 때 ENCRYPT_KEY 환경 변수가 설정되었음을 감지하면 2개의 새로운 종단점 `/encrypt`와 `decrypt` 가 컨피그 서비스에 자동으로 추가된다.
 `/encrypt` 종단점을 사용해 평문 패스워드를 암호화한다.
 
 ![환경변수 ENCRYPT_KEY 가 없는 경우](/assets/img/dev/20200808/before_encrypt_key.png)
@@ -480,8 +480,8 @@ encrypt.key 를 문자열로 설정하여 사용할 수도 있다.
 ![잘못된 패스워드 복호화 결과](/assets/img/dev/20200808/decrypt2.png)
 
 
-컨피그 서버에서는 모든 암호화된 프로퍼티 값 앞에 `{cipher}` prefix 를 붙여준다.
-`{cipher}` 는 컨피그 서버에 암호화된 값을 처리하도록 지시한다.
+Config Server에서는 모든 암호화된 프로퍼티 값 앞에 `{cipher}` prefix 를 붙여준다.
+`{cipher}` 는 Config Server에 암호화된 값을 처리하도록 지시한다.
 
 컨피그 저장소의 member-service.yaml 내용을 아래와 같이 변경한다.
 
@@ -511,14 +511,14 @@ management:
 
 프로퍼티를 암호화 하여 보안을 강화했지만 화면을 보면 http://localhost:8889/member-service/default/ 종단점 호출 시엔 평문으로 나타난다.
 
-기본적으로 컨피그 서버에서는 모든 프로퍼티의 복호화를 수행하고, 그 결과를 프로퍼티를 사용하는 애플리케이션에 평문으로 전달한다.
-안전하게 컨피그 서버가 복호화하지 않고 애플리케이션이 암호화된 프로퍼티를 복호화하도록 설정해보자.
+기본적으로 Config Server에서는 모든 프로퍼티의 복호화를 수행하고, 그 결과를 프로퍼티를 사용하는 애플리케이션에 평문으로 전달한다.
+안전하게 Config Server가 복호화하지 않고 애플리케이션이 암호화된 프로퍼티를 복호화하도록 설정해보자.
 
 ---
 
 ### 6.4. 클라이언트 측에서 암호화하도록 마이크로서비스 구성
 
-컨피그 서버의 bootstrap.yaml 에 아래 내용을 추가한다.
+Config Server의 bootstrap.yaml 에 아래 내용을 추가한다.
 
 ***configserver > bootstrap.yaml*
 ```yaml
@@ -533,11 +533,11 @@ spring:
         native:
           search-locations: file:C:/myhome/03_Study/13_SpringCloud/assucloud/config-repo/member-service
         encrypt:
-          enabled: false        # 컨피그 서버 측 복호화 프로퍼티 비활성화
+          enabled: false        # Config Server 측 복호화 프로퍼티 비활성화
 ```
 
 회원 마이크로서비스에 spring-security-rsa Dependency 를 추가한다.
-spring-security-rsa 는 컨피그 서버에서 전달된 암호화된 프로퍼티를 복호화할 수 있도록 해준다.
+spring-security-rsa 는 Config Server에서 전달된 암호화된 프로퍼티를 복호화할 수 있도록 해준다.
 
 **pom.xml**
 ```xml
@@ -553,7 +553,7 @@ spring-security-rsa 는 컨피그 서버에서 전달된 암호화된 프로퍼�
 
 ## 7. 저장소(Git or File) 구현 - Git
 이제 로컬 파일 기반의 저장소를 원격 저장소로 변경해볼 것이다.
-원격 저장소를 만든 후 컨피그 서버의 bootstrap.yaml 을 아래와 같이 변경해준다.
+원격 저장소를 만든 후 Config Server의 bootstrap.yaml 을 아래와 같이 변경해준다.
 
 **configserver > bootstrap.yaml**
 ```yaml
@@ -591,20 +591,20 @@ spring:
 
 ---
 
-## 8. 컨피그 서버 상태 모니터링
-컨피그 서버도 사실 일반적인 스프링부트 애플리케이션이며, 기본값으로 actuator 을 사용할 수 있도록 설정되어 있다.
-따라서 actuator 종단점인 [http://localhost:8889/actuator/health](http://localhost:8889/actuator/health) 에 접속하여 컨피그 서버의 상태를
+## 8. Config Server 상태 모니터링
+Config Server도 사실 일반적인 스프링부트 애플리케이션이며, 기본값으로 actuator 을 사용할 수 있도록 설정되어 있다.
+따라서 actuator 종단점인 [http://localhost:8889/actuator/health](http://localhost:8889/actuator/health) 에 접속하여 Config Server의 상태를
 모니터링 할 수 있다.
 
 ---
 
 ## 덧붙임
-실제로 각 마이크로서비스가 환경설정 정보를 로컬 캐싱하여 사용하고 있는지 확인해보기 위해 컨피그 서버와 마이크로서비스가 동작하고 있는 도중
-컨피그 서버를 중단시켜 보았다.
-예상대로 컨피그 서버가 중단되어도 마이크로서비스는 로컬 캐싱한 정보를 참조하고 있기 때문에 영향받지 않고 잘 동작한다.<br />
+실제로 각 마이크로서비스가 환경설정 정보를 로컬 캐싱하여 사용하고 있는지 확인해보기 위해 Config Server와 마이크로서비스가 동작하고 있는 도중
+Config Server를 중단시켜 보았다.
+예상대로 Config Server가 중단되어도 마이크로서비스는 로컬 캐싱한 정보를 참조하고 있기 때문에 영향받지 않고 잘 동작한다.<br />
 환경설정 정보 변경 후 [http://localhost:8090/actuator/bus-refresh](http://localhost:8090/actuator/bus-refresh) 종단점을 호출하여도
-컨피그 서버가 멈춘 상태이기 때문에 마이크로서비스는 여전히 변경되기 전(=로컬 캐싱된 값)의 값을 참조하고 있는 부분을 확인하였다.<br />
-컨피그 서버가 중단되는 일은 없어야겠지만 결과적으로 컨피그 서버는 높은 수준의 고가용성을 유지할 필요는 없는 것 같다.
+Config Server가 멈춘 상태이기 때문에 마이크로서비스는 여전히 변경되기 전(=로컬 캐싱된 값)의 값을 참조하고 있는 부분을 확인하였다.<br />
+Config Server가 중단되는 일은 없어야겠지만 결과적으로 Config Server는 높은 수준의 고가용성을 유지할 필요는 없는 것 같다.
 
 ---
 

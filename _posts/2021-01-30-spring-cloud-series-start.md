@@ -28,17 +28,17 @@ tags: msa centralized-log sleuth open-zipkin
 
 ## 2. 사전 기동 서비스들
 
-카프카는 Zookeeper 를 사용하기 때문에 주키퍼부터 실행한 후 카프카를 실행한다.<br />
+Kafka 는 Zookeeper 를 사용하기 때문에 주키퍼부터 실행한 후 Kafka 를 실행한다.<br />
 (윈도우 환경이라면 C:\myhome\03_Study\kafka_2.13-2.6.0\logs 의 log 먼저 모두 삭제)
 
 ```shell
 --  주키퍼 실행
 C:\myhome\03_Study\kafka_2.13-2.6.0\bin\windows> .\zookeeper-server-start.bat ..\..\config\zookeeper.properties
 
--- 카프카 실행
+-- Spring Cloud Stream Kafka 실행
 C:\myhome\03_Study\kafka_2.13-2.6.0\bin\windows> .\kafka-server-start.bat ..\..\config\server.properties
 
--- 카프카 토픽 리스트 조회
+-- Spring Cloud Stream Kafka 토픽 리스트 조회
 C:\kafka_2.13-2.6.0\bin\windows>.\kafka-topics.bat --list --zookeeper localhost:2181
 __consumer_offsets
 mbChangeTopic

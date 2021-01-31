@@ -66,7 +66,7 @@ tags: msa oauth2 jwt spring-cloud-security security-oauth2 spring-security-jwt
 
 ## 2. JWT 발행을 위해 인증 서버를 수정 및 JWT 토큰 확장
 
-JWT OAuth2 의존성인 `spring-security-jwt` 을 추가하고 사용할 서명키를 컨피그 서버의 원격 저장소에 설정한다.
+JWT OAuth2 의존성인 `spring-security-jwt` 을 추가하고 사용할 서명키를 Config Server의 원격 저장소에 설정한다.
 
 **auth-service > pom.xml**
 ```xml
@@ -511,7 +511,7 @@ public class EventRestTemplateClient {
         this.customConfig = customConfig;
     }
 
-    String URL_PREFIX = "/api/evt/event/";      // 이벤트 서비스의 주울 라우팅경로와 이벤트 클래스 주소
+    String URL_PREFIX = "/api/evt/event/";      // 이벤트 서비스의 Zuul 라우팅경로와 이벤트 클래스 주소
 
     public String gift(String name) {
         /*ResponseEntity<EventGift> restExchange =
@@ -560,7 +560,7 @@ jti=595aa7f9-7887-4263-85b1-20aa3555ffd2, client_id=assuapp}
 ```
 
 여기선 이전 포스팅인 [Spring Cloud - Netflix Zuul(2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/) 의 *2. 사전 필터* 에서 구성한 *PreFilter.java* 를
-수정하여 주울로 전달되는 JWT 토큰에서 사용자 정의 필드인 *userId* (위의 *JWTTokenEnhancer.java* 에서 추가함) 필드를 파싱해 볼 예정이다.
+수정하여 Zuul 로 전달되는 JWT 토큰에서 사용자 정의 필드인 *userId* (위의 *JWTTokenEnhancer.java* 에서 추가함) 필드를 파싱해 볼 예정이다.
 
 `jjwt` 와 `jaxb-api` 의존성을 추가한다.
 `jaxb-api` 의존성은 코드에서 직접 사용하고 있지는 않지만 **parseClaimsJws()** 에서 데이터 파싱 시 내부적으로 사용한다.
@@ -653,7 +653,7 @@ private String getUserId() {
 } 
 ```
 
-이제 주울을 통과하는 아무 REST API 를 호출해보면 아래와 같이 JWT 토큰 내 userId 가 출력되는 것을 확인할 수 있다.
+이제 Zuul 을 통과하는 아무 REST API 를 호출해보면 아래와 같이 JWT 토큰 내 userId 가 출력되는 것을 확인할 수 있다.
 
 ```text
 c.a.cloud.zuulserver.filters.PreFilter   : ============ Processing incoming request for /api/evt/event/gift/manok.

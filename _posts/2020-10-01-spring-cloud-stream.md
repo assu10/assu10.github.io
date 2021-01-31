@@ -22,7 +22,7 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 >- 스프링 클라우드 스트림
 >- 메시지 발행자와 소비자 구현
 >   - 메시지 발행자 구현 (회원 서비스)
->   - 카프카 설치
+>   - Spring Cloud Stream Kafka 설치
 >   - 메시지 소비자 구현 (이벤트 서비스)
 >   - 메시지 서비스 확인
 
@@ -154,9 +154,9 @@ EDA 에 대해 알아보기 전에 먼저 캐싱 솔루션에 대해 알아본�
 스프링 클라우드 스트림은 애플리케이션에 메시지 발행자와 소비자를 쉽게 구축할 수 있는 애너테이션 기반 프레임워크다.<br />
 스프링 클라우드 스트림은 메시징 플랫폼의 구현 세부 사항(소스, 채널, 바인더)을 추상화하고, 여러 메시지 플랫폼 (Kafka, RabbitMQ 등) 과 사용될 수 있다.
 
-이 포스트에선 [Kafka (이하 카프카)](https://kafka.apache.org/) 메시지 버스(메시지 브로커)를 사용할 것이다.
+이 포스트에선 [Kafka](https://kafka.apache.org/) 메시지 버스(메시지 브로커)를 사용할 것이다.
 
->카프카는 비동기적으로 메시지 스트림을 보낼 수 있는 경량의 고성능 메시지 버스이다.
+>Kafka 는 비동기적으로 메시지 스트림을 보낼 수 있는 경량의 고성능 메시지 버스이다.
 
 이제 스프링 클라우드 스트림 아키텍처에 대해 알아보도록 하자.
 
@@ -177,7 +177,7 @@ EDA 에 대해 알아보기 전에 먼저 캐싱 솔루션에 대해 알아본�
     - 채널명은 항상 큐의 이름과 관련이 있지만 코드에서는 큐 이름을 사용하는 것이 아니라 채널명을 사용함<br />
     따라서 채널이 읽거나 쓰는 큐 전환 시 코드가 아닌 구성 정보 (*.yaml) 변경
 - **BINDER (바인더)**
-    - 특정 메시지 플랫폼 (카프카와 같은) 과 통신
+    - 특정 메시지 플랫폼 (Kafka 와 같은) 과 통신
 - **SINK (싱크)**
     - 서비스는 싱크를 사용하여 큐에서 메시지를 수신
     - 수신되는 메시지를 위해 채널을 수신 대기하고, 메시지를 다시 POJO 로 역직렬화함
@@ -192,14 +192,14 @@ EDA 에 대해 알아보기 전에 먼저 캐싱 솔루션에 대해 알아본�
 
 ### 3.1. 메시지 발행자 구현 (회원 서비스)
 
-회원 데이터가 추가/수정/삭제될 때마다 회원 서비스가 카프카 토픽에 메시지를 발행해서 토픽으로 회원 데이터 변경 이벤트가 발생했음을
+회원 데이터가 추가/수정/삭제될 때마다 회원 서비스가 Spring Cloud Stream Kafka 토픽에 메시지를 발행해서 토픽으로 회원 데이터 변경 이벤트가 발생했음을
 알려주도록 수정할 것이다.
 
-![메시지 발행 프로세스 (데이터 변경 시 카프카에 메시지 발행)](/assets/img/dev/20201001/publish.jpg)
+![메시지 발행 프로세스 (데이터 변경 시 Kafka 에 메시지 발행)](/assets/img/dev/20201001/publish.jpg)
 
 발행되는 메시지 안에는 사용자 아이디, 액션 정보 (Add, Update, Delete) 가 포함된다.
 
-회원 서비스에 스프링 클라우드 스트림과 스프링 클라우드 스트림 카프카 의존성을 추가한다.
+회원 서비스에 스프링 클라우드 스트림과 Spring Cloud Stream Kafka 의존성을 추가한다.
 
 **member-service > pom.xml**
 ```xml
@@ -209,7 +209,7 @@ EDA 에 대해 알아보기 전에 먼저 캐싱 솔루션에 대해 알아본�
     <artifactId>spring-cloud-stream</artifactId>
 </dependency>
 
-<!-- 스프링 클라우드 카프카 (메시지 브로커) -->
+<!-- 스프링 클라우드 Spring Cloud Stream Kafka (메시지 브로커) -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-stream-kafka</artifactId>
@@ -319,7 +319,7 @@ public interface Source {
 메시지 발행 준비가 되면 `source.output()` 메서드가 반환한 `MessageChannel` 클래스의 `send()` 메서드를 사용한다.<br />
 `send()` 메서드는 스프링 Message 클래스를 매개 변수로 받는데 `MessageBuilder` 헬퍼 클래스를 사용하여 POJO 를 스프링 message 클래스로 변환한다.
 
-이제 스프링 클라우드 스트림의 `Source` 가 카프카 메시지 브로커와 카프카 메시지 토픽에 매핑되도록 구성한다.<br />
+이제 스프링 클라우드 스트림의 `Source` 가 Spring Cloud Stream Kafka 메시지 브로커와 Spring Cloud Stream Kafka 메시지 토픽에 매핑되도록 구성한다.<br />
 각 설명은 주석을 참고하도록 한다.<br />
 (기존에 설정한 rabbitMQ 관련 설정과 의존성은 주석처리 필요)
 
@@ -333,13 +333,13 @@ spring:
         output:   # output 은 채널명, SimpleSourceBean.publishMemberChange() 의 source.output() 채널에 매핑됨
           destination: mbChangeTopic       # 메시지를 넣은 메시지 큐(토픽) 이름
           content-type: application/json  # 스트림에 송수신할 메시지 타입의 정보 (JSON 으로 직렬화)
-      kafka:    # stream.kafka 는 해당 서비스를 카프카에 바인딩
+      kafka:    # stream.kafka 는 해당 서비스를 Kafka 에 바인딩
         binder:
-          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 카프카와 주키퍼의 네트워크 위치 전달
+          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 Kafka 와 주키퍼의 네트워크 위치 전달
           brokers: localhost
 ```
 
-지금까지 스프링 클라우드 스트림으로 메시지를 발행하는 코드와 카프카를 메시지 브로커로 구성하였다.
+지금까지 스프링 클라우드 스트림으로 메시지를 발행하는 코드와 Kafka 를 메시지 브로커로 구성하였다.
 
 실제 메시지를 발행하는 엔드포인트는 아래와 같이 구성하면 된다.
 
@@ -381,9 +381,9 @@ private final CustomConfig customConfig;
  
 ---
 
-### 3.2. 카프카 설치
+### 3.2. Spring Cloud Stream Kafka 설치
 
-[Apache Kafka](https://kafka.apache.org/downloads) 에 접속하여 Binary downloads 에서 카프카를 다운로드 받은 후 압축을 푼다.
+[Apache Kafka](https://kafka.apache.org/downloads) 에 접속하여 Binary downloads 에서 Kafka 를 다운로드 받은 후 압축을 푼다.
 이 때 저장 경로가 너무 길면 실행 시 오류가 나니 C 나 D 드라이브 바로 아래에 두도록 한다.
 
 압축을 푼 후 config 폴더 내 zookeeper.properties 와 server.properties 파일을 각각 아래와 같이 수정해준다.
@@ -399,16 +399,16 @@ dataDir=C:\\myhome\\03_Study\\kafka_2.13-2.6.0\\zkdata
 log.dirs=C:\\myhome\\03_Study\\kafka_2.13-2.6.0\\logs
 ```
 
-카프카는 Zookeeper 를 사용하기 때문에 주키퍼부터 실행한 후 카프카를 실행한다.
+Kafka 는 Zookeeper 를 사용하기 때문에 주키퍼부터 실행한 후 Kafka 를 실행한다.
 
 ```shell
 --  주키퍼 실행
 C:\kafka_2.13-2.6.0\bin\windows>.\zookeeper-server-start.bat ..\..\config\zookeeper.properties
 
--- 카프카 실행
+-- Spring Cloud Stream Kafka 실행
 C:\kafka_2.13-2.6.0\bin\windows>.\kafka-server-start.bat ..\..\config\server.properties
 
--- 카프카 토픽 리스트 조회
+-- Spring Cloud Stream Kafka 토픽 리스트 조회
 C:\kafka_2.13-2.6.0\bin\windows>.\kafka-topics.bat --list --zookeeper localhost:2181
 __consumer_offsets
 mbChangeTopic
@@ -422,9 +422,9 @@ springCloudBus
 
 ### 3.3. 메시지 소비자 구현 (이벤트 서비스)
 
-![메시지 소비 프로세스 (카프카의 mbChangeTopic 으로 메시지가 들어오면 응답)](/assets/img/dev/20201001/consumer.jpg)
+![메시지 소비 프로세스 (Kafka 의 mbChangeTopic 으로 메시지가 들어오면 응답)](/assets/img/dev/20201001/consumer.jpg)
 
-이벤트 서비스에 스프링 클라우드 스트림과 스프링 클라우드 스트림 카프카 의존성을 추가한다.
+이벤트 서비스에 스프링 클라우드 스트림과 Spring Cloud Stream Kafka 의존성을 추가한다.
 
 **member-service > pom.xml**
 ```xml
@@ -434,7 +434,7 @@ springCloudBus
     <artifactId>spring-cloud-stream</artifactId>
 </dependency>
 
-<!-- 스프링 클라우드 카프카 (메시지 브로커) -->
+<!-- 스프링 클라우드 Spring Cloud Stream Kafka (메시지 브로커) -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-stream-kafka</artifactId>
@@ -486,9 +486,9 @@ spring:
           destination: mbChangeTopic       # 메시지를 넣은 메시지 큐(토픽) 이름
           content-type: application/json
           group: eventGroup   # 메시지를 소비할 소비자 그룹의 이름
-      kafka:    # stream.kafka 는 해당 서비스를 카프카에 바인딩
+      kafka:    # stream.kafka 는 해당 서비스를 Kafka 에 바인딩
         binder:
-          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 카프카와 주키퍼의 네트워크 위치 전달
+          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 Kafka 와 주키퍼의 네트워크 위치 전달
           brokers: localhost
 ```
 
@@ -503,7 +503,7 @@ group 프로퍼티는 서비스 인스턴스 그룹에서 메시지 복사본 �
 
 ### 3.4. 메시지 서비스 확인
 
-이제 회원 서비스와 이벤트 서비서, 주키퍼, 카프카를 모두 실행한 후 메시지 이벤트가 잘 발행/소비되는지 확인해보도록 하자.
+이제 회원 서비스와 이벤트 서비서, 주키퍼, Kafka 를 모두 실행한 후 메시지 이벤트가 잘 발행/소비되는지 확인해보도록 하자.
 
 [POST] [http://localhost:8090/member/assu](http://localhost:8090/member/assu)
 
@@ -519,5 +519,5 @@ INFO 25304 --- [container-0-C-1] c.a.c.e.EventServiceApplication  : ======= Rece
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [스프링 마이크로서비스 코딩공작소](https://thebook.io/006962/)
-* [카프카 설치 1](https://blusky10.tistory.com/366)
-* [카프카 설치 2](https://man-tae.tistory.com/5)
+* [Spring Cloud Stream Kafka 설치 1](https://blusky10.tistory.com/366)
+* [Spring Cloud Stream Kafka 설치 2](https://man-tae.tistory.com/5)

@@ -438,7 +438,7 @@ OAuth2 액세스 토큰의 생성과 관리는 OAuth2 인증 서버가 담당하
 
 회원 서비스를 보호 자원으로 설정하면 회원 서비스를 호출할 때마다 엑세스 토큰을 Authorization HTTP 에 추가해야 한다.
 
-회원 서비스의 컨피그 서버 원격 저장소에 OAuth2 콜백 URL 을 설정해주자.
+회원 서비스의 Config Server 원격 저장소에 OAuth2 콜백 URL 을 설정해주자.
 
 **config-repo > member-service**
 ```yaml
@@ -600,20 +600,20 @@ MSA 환경에서는 단일 트랜잭션을 수행하는데 여러 마이크로 �
 ![OAuth2 액세스 토큰 전체 흐름](/assets/img/dev/20200912/access_token.png)
 
 OAuth2 액세스 토큰은 사용자 세션에 저장되고, 이벤트 서비스를 호출할 때 HTTP Authorization 헤더에 OAuth2 액세스 토큰을 추가한다.<br />
-주울은 유입되는 호출의 HTTP Authorization 헤더를 복사하여 회원 서비스의 엔드포인트로 전달한다.<br />
+Zuul 은 유입되는 호출의 HTTP Authorization 헤더를 복사하여 회원 서비스의 엔드포인트로 전달한다.<br />
 이벤트 서비스는 보호 자원이기 때문에 OAuth2 서버에서 토큰의 유효성을 확인하고, 사용자의 권한을 확인한다.<br />
 회원 서비스는 호출을 받으면 HTTP Authorization 헤더에서 토큰을 가져와 토큰의 유효성을 검증한다.
 
-우선 주울이 OAuth2 토큰을 마이크로서비스에 전달하도록 수정해야 한다.
-기본적으로 주울은 Cookie, Set-Cookie, Authorization 과 같은 민감한 HTTP 헤더는 하위 서비스에 전달하지 않기 때문에
-주울에서 Authorization HTTP 헤더를 전파하게 하려면 application.yaml 에 아래 내용을 추가해야 한다.
+우선 Zuul 이 OAuth2 토큰을 마이크로서비스에 전달하도록 수정해야 한다.
+기본적으로 Zuul 은 Cookie, Set-Cookie, Authorization 과 같은 민감한 HTTP 헤더는 하위 서비스에 전달하지 않기 때문에
+Zuul 에서 Authorization HTTP 헤더를 전파하게 하려면 application.yaml 에 아래 내용을 추가해야 한다.
 
-아래 내용을 추가하지 않으면 주울은 자동으로 세 가지 값 (Cookie, Set-Cookie, Authorization) 을 전달하지 않는다.
+아래 내용을 추가하지 않으면 Zuul 은 자동으로 세 가지 값 (Cookie, Set-Cookie, Authorization) 을 전달하지 않는다.
 
 **config-repo > zuulserver**
 ```yaml
 zuul:
-  sensitive-headers: Cookie,Set-Cookie    # 주울이 하위 서비스에 전파하지 않는 헤더 차단 목록 (디폴트는 Cookie, Set-Cookie, Authorization)
+  sensitive-headers: Cookie,Set-Cookie    # Zuul 이 하위 서비스에 전파하지 않는 헤더 차단 목록 (디폴트는 Cookie, Set-Cookie, Authorization)
 ```
 
 이제 이벤트 서비스가 OAuth2 자원 서비스가 되도록 구성한 후 인가 규칙을 설정해야 한다.
@@ -683,7 +683,7 @@ public class MemberRestTemplateClient {
 }
 ```
 
->유레카 클라이언트이니 서비스 ID 로 호출하고 싶은데 그건 아직 해결 전...
+>Eureka Client 이니 서비스 ID 로 호출하고 싶은데 그건 아직 해결 전...
 
 이제 회원 서비스와 이벤트 서비스에 테스트할 API 를 아래처럼 각각 만들어보자.
 
