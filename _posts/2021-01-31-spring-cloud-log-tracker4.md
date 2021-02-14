@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (4/4) - 로그 시각화를 위한 Open Zipkin 사용"
-date:   2021-01-30 10:00
+date:   2021-01-31 10:00
 categories: dev
 tags: msa centralized-log sleuth open-zipkin
 ---
