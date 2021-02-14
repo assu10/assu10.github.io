@@ -6,7 +6,7 @@ categories: dev
 tags: msa centralized-log sleuth open-zipkin
 ---
 
-이 포스트는 중앙 집중형 로깅 솔루션 중 하나인 ELK (ElasticSearch, Logstash, Kibana) 스택에 대해 기술한다.
+이 포스트는 로그 추적을 할 수 있도록 지원하는 Sleuth 사용법에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -156,6 +156,7 @@ kibana 상의 로그를 보면 추적 ID 와 스팬 ID 가 함께 로깅되는 �
 ---
 
 지금까지 마이크로 서비스의 추적성 확보를 위해 Sleuth를 사용하여 로그에 추적 ID 와 스팬 ID 를 넣어 활용하는 방법에 대해 알아보았다.
+ 
 이 후엔 전 구간 모니터링에 사용되어 트랜잭션의 흐름을 시각화하는 Open Zipkin에 대해 알아보도록 하겠다.
 
 ---

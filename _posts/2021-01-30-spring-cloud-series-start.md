@@ -45,6 +45,10 @@ mbChangeTopic
 springCloudBus
 ```
 
+---
+
+## 3. 로그 서비스들
+
 logstash, elasticsearch, kibana 를 각각 기동한다.
 
 (ElasticSearch 는 관리자 모드로 실행)
@@ -53,3 +57,15 @@ C:\Program Files\Elastic\Elasticsearch\7.10.1> ./bin/elasticsearch
 C:\myhome\03_Study\13_SpringCloud\kibana-7.10.1-windows-x86_64> ./bin/kibana.bat
 C:\myhome\03_Study\13_SpringCloud\logstash-7.10.2> ./bin/logstash -f ./config/logstash.conf
 ```
+[http://localhost:5601/](http://localhost:5601/) 로 Kibana 콘솔 화면에 접속하여 확인한다.
+
+Zipkin 실행
+
+```shell
+C:\myhome\03_Study\13_SpringCloud> java -jar .\zipkin-server-2.23.2-exec.jar
+```
+
+[http://localhost:9411](http://localhost:9411) 에 접속하면 집킨 서버의 첫 화면을 볼 수 있다.
+
+---
+
