@@ -44,7 +44,7 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 >- 이벤트 서비스는 회원 데이터에 대한 분산 레디스 캐시를 항상 확인한다.<br />
 >- 회원 데이터가 캐시에 있다면 캐시 데이터를 반환하고,<br />
 >캐시 데이터가 없다면 회원 서비스를 호출하여 호출 결과를 레디스 해시(hash)에 캐싱한다.<br />
->- 회원 데이터가 업데이트되면 회원 서비스는 카프카에 메시지를 보낸다.<br />
+>- 회원 데이터가 업데이트되면 회원 서비스는 Kafka 에 메시지를 보낸다.<br />
 >- 이벤트 서비스가 캐시를 무효화하려면 메시지를 수신하여 캐시 삭제를 위해 레디스에 삭제 호출을 한다.
 
 ---
@@ -249,7 +249,7 @@ public class MemberCacheRestTemplateClient {
         this.customConfig = customConfig;
     }
 
-    String URL_PREFIX = "/api/mb/member/";      // 회원 서비스의 주울 라우팅경로와 회원 클래스 주소
+    String URL_PREFIX = "/api/mb/member/";      // 회원 서비스의 Zuul 라우팅경로와 회원 클래스 주소
 
     /**
      * 회원 아이디로 레디스에 저장된 Member 클래스 조회
@@ -372,7 +372,7 @@ DEBUG MemberCacheRestTemplateClient  : ======= Successfully retrieved an Member 
 >*- 이벤트 서비스는 회원 데이터에 대한 분산 레디스 캐시를 항상 확인한다.<br />*
 >*- 회원 데이터가 캐시에 있다면 캐시 데이터를 반환하고,<br />
 >캐시 데이터가 없다면 회원 서비스를 호출하여 호출 결과를 레디스 해시(hash)에 캐싱한다.<br />*
->- 회원 데이터가 업데이트되면 회원 서비스는 카프카에 메시지를 보낸다.<br />
+>- 회원 데이터가 업데이트되면 회원 서비스는 Kafka 에 메시지를 보낸다.<br />
 >- 이벤트 서비스가 캐시를 무효화하려면 메시지를 수신하여 캐시 삭제를 위해 레디스에 삭제 호출을 한다. 
 
 ---
@@ -408,7 +408,7 @@ public interface CustomChannels {
 노출하려는 사용자 정의 input 채널마다 `SubscribableChannel` 클래스를 반환하는 메서드를 만들고, `@Input` 애너테이션을 추가한다.<br />
 output 채널 정의 시엔 호출할 메서드에 `@Output` 애너테이션을 추가하고, `MessageChannel` 클래스를 반환하도록 하면 된다.
 
-사용자 정의 input 채널을 정의했으니 이 채널을 카프카 토픽에 매핑하는 작업을 하자.
+사용자 정의 input 채널을 정의했으니 이 채널을 Spring Cloud Stream Kafka 토픽에 매핑하는 작업을 하자.
 
 **config-repo > event-service.yaml**
 ```yaml
@@ -421,9 +421,9 @@ spring:
           destination: mbChangeTopic       # 메시지를 넣은 메시지 큐(토픽) 이름
           content-type: application/json
           group: eventGroup   # 메시지를 소비할 소비자 그룹의 이름
-      kafka:    # stream.kafka 는 해당 서비스를 카프카에 바인딩
+      kafka:    # stream.kafka 는 해당 서비스를 Kafka 에 바인딩
         binder:
-          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 카프카와 주키퍼의 네트워크 위치 전달
+          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 Kafka 와 주키퍼의 네트워크 위치 전달
           brokers: localhost
 #spring:
 #  cloud:
@@ -433,13 +433,13 @@ spring:
 #          destination: mbChangeTopic       # 메시지를 넣은 메시지 큐(토픽) 이름
 #          content-type: application/json
 #          group: eventGroup   # 메시지를 소비할 소비자 그룹의 이름
-#      kafka:    # stream.kafka 는 해당 서비스를 카프카에 바인딩
+#      kafka:    # stream.kafka 는 해당 서비스를 Kafka 에 바인딩
 #        binder:
-#          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 카프카와 주키퍼의 네트워크 위치 전달
+#          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 Kafka 와 주키퍼의 네트워크 위치 전달
 #          brokers: localhost
 ```
 
-기존엔 Sink.INPUT 채널을 사용했기 때문에 spring.cloud.stream.bindings.**input** 에 카프카 토픽을 매핑했지만
+기존엔 Sink.INPUT 채널을 사용했기 때문에 spring.cloud.stream.bindings.**input** 에 Spring Cloud Stream Kafka 토픽을 매핑했지만
 spring.cloud.stream.bindings.**inboundMemberChanges** 처럼 새로 추가한 input 채널명으로 수정한다.
 
 사용자 정의 input 채널을 사용하려면 메시지를 처리할 클래스에 *CustomChannels* 인터페이스를 바인딩해 주어야 한다.
@@ -578,7 +578,7 @@ DEBUG 24632 MemberCacheRestTemplateClient  : ======= Successfully retrieved an M
 ![레디스 캐싱 데이터 삭제 메서드 호출](/assets/img/dev/20201001/redis2.jpg)
 
 ```shell
--- 회원 서비스 로그 (카프카에 DELETE 상태 변화 메시지를 발행)
+-- 회원 서비스 로그 (Kafka 에 DELETE 상태 변화 메시지를 발행)
 DEBUG 11448 MemberController    : ====== 회원 삭제 후 DELETE 메시지 발생
 DEBUG 11448 SimpleSourceBean    : ======= Sending kafka message DELETE for User Id : 1234
 DEBUG 11448 SimpleSourceBean    : ======= MemberChangeModel.class.getTypeName() : com.assu.cloud.memberservice.event.model.MemberChangeModel

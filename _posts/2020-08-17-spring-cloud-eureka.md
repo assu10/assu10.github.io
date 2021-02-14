@@ -17,8 +17,8 @@ tags: msa spring-cloud-eureka feign
 >       - 상태 모니터링
 >   - Eureka
 >   - 유레카 구축
->       - 유레카 서버 구축
->       - 유레카 클라이언트 구축 (유레카 서버에 서비스 동적 등록)
+>       - Eureka Server 구축
+>       - Eureka Client 구축 (Eureka Server 에 서비스 동적 등록)
 >       - 서비스 검색 (RestTemplate, Feign 사용)
 >   - 유레카 고가용성<br />
 
@@ -88,53 +88,53 @@ MSA 로 설계된 환경에서 중앙 집중식 인프라 스트럭처는 확장
 Eureka 는 자가 등록, 동적 발견 및 부하 분산을 담당하며 위의 서비스 디스커버리 패턴을 구현할 수 있도록 도와준다.
 클라이언트 측 부하 분산을 위해 내부적으로 Ribbon 을 사용하므로 이미 Ribbon 을 사용하고 있다면 Ribbon 은 제거해도 좋다.
 
-Eureka 는 서버 컴포넌트(이하 유레카 서버)와 클라이언트 컴포넌트(이하 유레카 클라이언트)로 이루어져 있다.
+Eureka 는 서버 컴포넌트와 클라이언트 컴포넌트로 이루어져 있다.
 
-- 유레카 서버
+- Eureka Server
     - 모든 마이크로서비스가 자신의 가용성을 등록하는 레지스트리
-    - 등록되는 정보는 서비스 ID와 URL 이 포함되는데 마이크로서비스는 유레카 클라이언트를 이용해서 이 정보를 유레카 서버에 등록
+    - 등록되는 정보는 서비스 ID와 URL 이 포함되는데 마이크로서비스는 Eureka Client 를 이용해서 이 정보를 Eureka Server 에 등록
 
 
-- 유레카 클라이언트
-    - 등록된 마이크로서비스를 호출해서 사용할 때 유레카 클라이언트를 이용해서 필요한 서비스를 발견
-    - 유레카 서버는 유레카 서버인 동시에 서로의 상태를 동기화하기 서로를 바라보는 유레카 클라이언트이기도 함 (=다른 유레카 서버와 상태를 동기화함)<br />
-      이 점은 유레카 서버의 고가용성을 위해 여러 대의 유레카 서버 운영 시 유용함
+- Eureka Client 
+    - 등록된 마이크로서비스를 호출해서 사용할 때 Eureka Client 를 이용해서 필요한 서비스를 발견
+    - Eureka Server 는 Eureka Server 인 동시에 서로의 상태를 동기화하기 서로를 바라보는 Eureka Client 이기도 함 (=다른 Eureka Server 와 상태를 동기화함)<br />
+      이 점은 Eureka Server 의 고가용성을 위해 여러 대의 Eureka Server  운영 시 유용함
 
 아래 Eureka 동작 흐름을 살펴보자.
 
 ![유레카 동작 흐름](/assets/img/dev/20200816/eureka.png)
 
 
->서비스 부트스트래핑 시점에 각 마이크로 서비스는 유레카 서버에 서비스 ID와 URL 등의 정보를 등록한 후 30초 간격으로 ping 을 날려 자신의 가용성을 알림<br />
+>서비스 부트스트래핑 시점에 각 마이크로 서비스는 Eureka Server 에 서비스 ID와 URL 등의 정보를 등록한 후 30초 간격으로 ping 을 날려 자신의 가용성을 알림<br />
 >이때 ping 요청이 몇 번 오지 않으면 가용 불가한 서비스로 간주되어 레지스트리에서 제외됨<br /><br />
->유레카 클라이언트는 유레카 서버로부터 레지스트리 정보를 읽어와 로컬에 캐싱하고, 이 캐싱된 정보는 30초마다 갱신됨
+>Eureka Client 는 Eureka Server 로부터 레지스트리 정보를 읽어와 로컬에 캐싱하고, 이 캐싱된 정보는 30초마다 갱신됨
 >(새로 가져온 정보와 현재 캐싱된 정보의 차이를 가져오는 방식)<br /><br />
->다른 마이크로서비스 종단점 접속 시도 시 유레카 클라이언트는 요청된 서비스 ID를 기준으로 현재 사용 가능한 서비스 목록을 제공하고,
+>다른 마이크로서비스 종단점 접속 시도 시 Eureka Client 는 요청된 서비스 ID를 기준으로 현재 사용 가능한 서비스 목록을 제공하고,
 >리본은 해당 서비스 인스턴스들에게 요청을 분산함<br />
 
 ---
 
 ## 3. 유레카 구축
-이전 포스팅인 [컨피그 서버](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)를 진행했다면
+이전 포스팅인 [Config Server](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)를 진행했다면
 아래 구성도가 이미 로컬에 셋팅되어 있을 것이다.
 
-![컨피그 서버](/assets/img/dev/20200808/config.png)
+![Config Server](/assets/img/dev/20200808/config.png)
 
-기존에 진행한 컨피그 서버에 유레카를 추가하면 아래와 같은 구성도가 된다.
-언뜻 보면 복잡해 보이지만 회색 음영된 부분은 컨피그 서버 구축 시 이미 구성된 부분으로 더 이상 신경 쓰지 않아도 된다.
+기존에 진행한 Config Server에 유레카를 추가하면 아래와 같은 구성도가 된다.
+언뜻 보면 복잡해 보이지만 회색 음영된 부분은 Config Server 구축 시 이미 구성된 부분으로 더 이상 신경 쓰지 않아도 된다.
 
-![컨피그 서버 + 유레카](/assets/img/dev/20200816/config_eureka.png)
+![Config Server + 유레카](/assets/img/dev/20200816/config_eureka.png)
 
-이 포스팅은 내용을 이해하기 위한 것이기 때문에 유레카 서버를 클러스터 모드가 아닌 독립 설치형 모드로 진행할 것이다.
-따라서 위 구성도에선 유레카 서버 != 유레카 클라이언트 이다.
+이 포스팅은 내용을 이해하기 위한 것이기 때문에 Eureka Server 를 클러스터 모드가 아닌 독립 설치형 모드로 진행할 것이다.
+따라서 위 구성도에선 Eureka Server != Eureka Client이다.
 
-유레카 서버 구축에 앞서 다른 서비스 ID를 가진 마이크로서비스가 필요하니 회원 마이크로서비스를 만들었던 것과 동일한 방식으로
+Eureka Server 구축에 앞서 다른 서비스 ID를 가진 마이크로서비스가 필요하니 회원 마이크로서비스를 만들었던 것과 동일한 방식으로
 이벤트 마이크로서비스를 미리 만들어두자.<br />
 잘 안되는 분들은 [여기](https://github.com/assu10/msa-springcloud/commit/57dfc09b2888b98e718502c0ddcb5195703fa7a4)를 참고하세요.
 
 ---
 
-### 3.1. 유레카 서버 구축
+### 3.1. Eureka Server 구축
 새로운 스트링부트 프로젝트 생성 후 Config Client, Eureka Server, Actuator Dependency 를 추가한다.
 
 **pom.xml**
@@ -161,13 +161,13 @@ Eureka 는 서버 컴포넌트(이하 유레카 서버)와 클라이언트 컴�
 </dependency>
 ```
 
-유레카 서버도 컨피그 서버를 사용하므로 bootstrap.yaml 을 생성해 준 후 아래와 같이 구성을 설정한다.
+Eureka Server도 Config Server를 사용하므로 bootstrap.yaml 을 생성해 준 후 아래와 같이 구성을 설정한다.
 
 **eurekaserver > application.yaml, bootstrap.yaml**
 ```yaml
 ## eurekaserver > application.yaml
 server:
-  port: 8761          ## 유레카 서버가 수신 대기할 포트
+  port: 8761          ## Eureka Server 가 수신 대기할 포트
 
 ## eurekaserver > bootstrap.yaml
 spring:
@@ -177,10 +177,10 @@ spring:
     active: default         ## 서비스가 실행할 기본 프로파일
   cloud:
     config:
-      uri: http://localhost:8889  ## 컨피그 서버 위치
+      uri: http://localhost:8889  ## Config Server 위치
 ```
 
-유레카 서버로 지정하기 위해 부트스트래핑 클래스에 `@EnableEurekaServer` 을 추가한다.
+Eureka Server 로 지정하기 위해 부트스트래핑 클래스에 `@EnableEurekaServer` 을 추가한다.
 
 **EurekaserverApplication.java**
 ```java
@@ -193,11 +193,11 @@ public class EurekaserverApplication {
 }
 ```
 
-컨피그 저장소에 유레카 서버에 대한 설정 정보를 셋팅한다.
+컨피그 저장소에 Eureka Server 에 대한 설정 정보를 셋팅한다.
 
 ![컨피그 저장소 디렉토리 구조](/assets/img/dev/20200816/folder.png)
 
-컨피그 서버의 bootstrap.yaml 에 유레카 구성정보 폴더 경로를 추가한다.
+Config Server의 bootstrap.yaml 에 유레카 구성정보 폴더 경로를 추가한다.
 
 **configserver > bootstrap.yaml**
 ```yaml
@@ -216,7 +216,7 @@ spring:
           enabled: false
 ```
 
-컨피그 저장소의 유레카 서버 설정을 한다.
+컨피그 저장소의 Eureka Server 설정을 한다.
 
 **config-repo > eurekaserver.yaml**
 ```yaml
@@ -238,7 +238,7 @@ management:
 
 eureka:
   server:
-    wait-time-in-ms-when-sync-empty: 5    # 유레카 서버가 시작되고 Peer nodes 로부터 Instance 들을 가져올 수 없을 때 얼마나 기다릴 것인가? (디폴트 3000ms, 운영 환경에선 삭제 필요)
+    wait-time-in-ms-when-sync-empty: 5    # Eureka Server 가 시작되고 Peer nodes 로부터 Instance 들을 가져올 수 없을 때 얼마나 기다릴 것인가? (디폴트 3000ms, 운영 환경에선 삭제 필요)
       # 일시적인 네트워크 장애로 인한 서비스 해제 막기 위한 보호모드 해제 (디폴트 60초, 운영에선 삭제 필요)
       # 원래는 해당 시간안에 하트비트가 일정 횟수 이상 들어오지 않아야 서비스 해제하는데 false 설정 시 하트비트 들어오지 않으면 바로 서비스 제거
     enable-self-preservation: false
@@ -249,7 +249,7 @@ eureka:
       defaultZone: http://peer1:8762/eureka/
 ```
 
-유레카 서버/클라이언트 각 설정값에 대한 설명은 
+Eureka Server/Client 각 설정값에 대한 설명은 
 [Spring Cloud - Spring Cloud Eureka (상세 설정편)](https://assu10.github.io/dev/2020/12/05/spring-cloud-eureka-configuration/) 을 참고해주세요.
 
 ```shell
@@ -258,20 +258,20 @@ C:\configserver\target>java -jar configserver-0.0.1-SNAPSHOT.jar
 C:\eurekaserver\target>java -jar eurekaserver-0.0.1-SNAPSHOT.jar
 ```
 
-컨피그 서버와 유레카 서버를 띄웠다면 [http://localhost:8761/](http://localhost:8761/) 에 접속하여 유레카 콘솔 화면을 확인해보자.
+Config Server 와 Eureka Server 를 띄웠다면 [http://localhost:8761/](http://localhost:8761/) 에 접속하여 유레카 콘솔 화면을 확인해보자.
 
 ![유레카 콘솔화면](/assets/img/dev/20200816/eureka_console.png)
 
 
 콘솔의 "Instances currently registered with Eureka"를 보면 아직 아무런 인스턴스도 등록되어 있지 않다고 나오는데
-아직 아무런 유레카 클라이언트가 실행되지 않았기 때문이다.
+아직 아무런 Eureka Client 가 실행되지 않았기 때문이다.
 
-이제 유레카 서버에 서비스를 동적으로 등록해보자.
+이제 Eureka Server 에 서비스를 동적으로 등록해보자.
 
 ---
 
-### 3.2. 유레카 클라이언트 구축 (유레카 서버에 서비스 동적 등록)
-유레카 서버에 마이크로서비스(회원 서비스, 이벤트 서비스)를 등록하기 위해 각 마이크로서비스에 Eureka Client Dependency 를 추가한다.
+### 3.2. Eureka Client 구축 (Eureka Server 에 서비스 동적 등록)
+Eureka Server 에 마이크로서비스(회원 서비스, 이벤트 서비스)를 등록하기 위해 각 마이크로서비스에 Eureka Client Dependency 를 추가한다.
 
 **pom.xml**
 ```xml
@@ -309,7 +309,7 @@ eureka:   ## 추가
     lease-renewal-interval-in-seconds: 3  # 디스커버리한테 3초마다 하트비트 전송 (디폴트 30초)
     lease-expiration-duration-in-seconds: 2 # 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 설정된 시간(second) 기다린 후 서비스 등록 해제 (디폴트 90초)
   client:
-    register-with-eureka: true    ## 유레카 서버에 서비스 등록
+    register-with-eureka: true    ## Eureka Server 에 서비스 등록
     fetch-registry: true          ## 레지스트리 정보를 로컬에 캐싱
 ```
 
@@ -332,7 +332,7 @@ public class MemberServiceApplication {
 }
 ```
 
-이제 컨피그 서버, 유레카 서버, 회원/이벤트 마이크로서비스 기동 후 각 마이크로서비스들이 유레카 서버에 등록이 되는지 확인해보자.
+이제 Config Server, Eureka Server, 회원/이벤트 마이크로서비스 기동 후 각 마이크로서비스들이 Eureka Server 에 등록이 되는지 확인해보자.
 
 ```shell
 C:\> mvn clean install
@@ -343,23 +343,23 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
 ```
 
 [http://localhost:8761/](http://localhost:8761/) 에 접속하여 유레카 콘솔 화면을 보자.
-이벤트 서비스 2개의 인스턴스, 회원 서비스 1개의 인스턴스가 각각 유레카 서버에 등록되어 있는 부분을 확인할 수 있다.
+이벤트 서비스 2개의 인스턴스, 회원 서비스 1개의 인스턴스가 각각 Eureka Server 에 등록되어 있는 부분을 확인할 수 있다.
 
 ![유레카 콘솔](/assets/img/dev/20200816/eureka_console2.png)
 
-[http://localhost:8761/eureka/apps/](http://localhost:8761/eureka/apps/) 에 접속하면 유레카 서버에 등록된 레지스트리 내용을 볼 수 있다.
+[http://localhost:8761/eureka/apps/](http://localhost:8761/eureka/apps/) 에 접속하면 Eureka Server 에 등록된 레지스트리 내용을 볼 수 있다.
 
 ![유레카 콘솔](/assets/img/dev/20200816/eureka_all.png)
 
 또한 [http://localhost:8761/eureka/apps/event-service](http://localhost:8761/eureka/apps/event-service) 이런 식으로 주소 뒤에 애플리케이션 ID를 붙이면 해당 애플리케이션의 정보만 노출된다.
 
-참고로 서비스를 유레카 서버에 등록하면 서비스가 가용하다고 확인될 때까지 유레카 서버는 30초간 연속 세 번의 상태 정보를 확인하며 대기한다.
-위에선 유레카 서버 구성 파일의 `wait-time-in-ms-when-sync-empt`를 5ms로 설정하여 서비스 시작 즉시 유레카 서버에 등록이 되지만 운영 시엔 30초 정도 기다려야 서비스 검색이 가능하다.
+참고로 서비스를 Eureka Server 에 등록하면 서비스가 가용하다고 확인될 때까지 Eureka Server 는 30초간 연속 세 번의 상태 정보를 확인하며 대기한다.
+위에선 Eureka Server 구성 파일의 `wait-time-in-ms-when-sync-empt`를 5ms로 설정하여 서비스 시작 즉시 Eureka Server 에 등록이 되지만 운영 시엔 30초 정도 기다려야 서비스 검색이 가능하다.
 
 ---
 
 ### 3.3. 서비스 검색
-이제 유레카 서버에 모든 마이크로서비스가 등록되었기 때문에 회원 서비스는 이벤트 서비스 위치를 직접 알지 못해도 호출이 가능하다.
+이제 Eureka Server 에 모든 마이크로서비스가 등록되었기 때문에 회원 서비스는 이벤트 서비스 위치를 직접 알지 못해도 호출이 가능하다.
 각 다른 마이크로서비스를 검색하여 호출하는 방법은 3가지가 있는데 이 포스팅에선 넷플릭스 Feign 클라이언트와 RestTemplate 로 호출하는 방법으로 진행할 예정이다.
 스프링 디스커버리 클라이언트에 대해선 간략하게 내용만 보도록 하겠다.
 
@@ -515,7 +515,7 @@ public class EventServiceApplication {
 ```
 
 이벤트 서비스에 회원 Feign Client 인터페이스를 만들어준다.
-`@FeignClient("${member.service.id}")`는 회원 서비스의 서비스 ID로 유레카 서버에 등록된 서비스 ID를 넣어준다.
+`@FeignClient("${member.service.id}")`는 회원 서비스의 서비스 ID로 Eureka Server 에 등록된 서비스 ID를 넣어준다.
 
 ***event-service > client > MemberFeignClient.java*
 ```java
@@ -584,10 +584,10 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 ---
 
 ## 4. 유레카 고가용성
-유레카 클라이언트는 유레카 레지스트리 정보를 받아와 로컬 캐싱하여 캐싱된 내용 기반으로 동작하고,
+Eureka Client 는 유레카 레지스트리 정보를 받아와 로컬 캐싱하여 캐싱된 내용 기반으로 동작하고,
 30초 간격으로 변경 사항을 로컬 캐시에 다시 반영한다.
-따라서 유레카 서버가 멈추어도 마이크로서비스들은 영향도없이 동작한다.
-하지만 이렇게 되면 유레카 클라이언트들이 최신 정보를 반영하지 않음으로 일관성에 문제가 생길 수 있기 때문에 유레카 서버는 항상 고가용성을 유지해야 한다.
+따라서 Eureka Server 가 멈추어도 마이크로서비스들은 영향도없이 동작한다.
+하지만 이렇게 되면 Eureka Client 들이 최신 정보를 반영하지 않음으로 일관성에 문제가 생길 수 있기 때문에 Eureka Server 는 항상 고가용성을 유지해야 한다.
 
 우선 같은 도메인(localhost)으로는 defaultZone 셋팅이 안되므로 호스트 파일을 아래와 같이 수정해준다.
 
@@ -598,7 +598,7 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 127.0.0.1 peer2
 ```
 
-아래는 유레카 서버의 application-*.yaml 파일이다.
+아래는 Eureka Server 의 application-*.yaml 파일이다.
 
 파일명은 각각 application-peer1.yaml, application-peer2.yaml 이다.
 
@@ -606,7 +606,7 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 
 `eureka.client.serviceUrl.defaultZone` 를 보면 peer1.yaml 에선 peer2 유레카를 바라보게 하고, peer2.yaml 에선 peer1 유레카를 바라보도록 설정해놓았다.
 
-이 설정으로 인해 두 유레카 서버는 서로 peering 이 가능하게 된다.
+이 설정으로 인해 두 Eureka Server 는 서로 peering 이 가능하게 된다.
 
 **eurekaserver > applicatoin-peer1.yaml**
 ```yaml
@@ -615,7 +615,7 @@ spring:
     name: eurekaserver-peer1
   profiles: peer1
 server:
-  port: 8762          # 유레카 서버가 수신 대기할 포트
+  port: 8762          # Eureka Server 가 수신 대기할 포트
 management:
   endpoints:
     web:
@@ -644,7 +644,7 @@ spring:
     name: eurekaserver-peer2
   profiles: peer2
 server:
-  port: 8763          # 유레카 서버가 수신 대기할 포트
+  port: 8763          # Eureka Server 가 수신 대기할 포트
 management:
   endpoints:
     web:
@@ -666,7 +666,7 @@ logging:
     com.assu.cloud: DEBUG
 ```
 
-이제 각 유레카 클라이언트를 아래와 같이 셋팅해준다.
+이제 각 Eureka Client 를 아래와 같이 셋팅해준다.
 
 `eureka.client.serviceUrl.defaultZone` 은 유레카 1대만 (peer1) 바라보도록 설정한다. 유레카 peer1 과 peer2 는 서로 피어링 관계이므로 
 유레카 peer1 에만 서비스를 등록하여도 유레카 peer2 에 자동 갱신된다.
@@ -691,7 +691,7 @@ eureka:
     lease-renewal-interval-in-seconds: 3  # 디스커버리한테 1초마다 하트비트 전송 (디폴트 30초)
     lease-expiration-duration-in-seconds: 2 # 디스커버리는 서비스 등록 해제 하기 전에 마지막 하트비트에서부터 2초 기다림 (디폴트 90초)
   client:
-    register-with-eureka: true    # 유레카 서버에 서비스 등록
+    register-with-eureka: true    # Eureka Server 에 서비스 등록
     fetch-registry: true          # 레지스트리 정보를 로컬에 캐싱
     serviceUrl:
       defaultZone: http://peer1:8762/eureka/
@@ -712,7 +712,7 @@ C:\eurekaserver\target>java -DSpring.profiles.active=peer2 -jar eurekaserver-0.0
 ![peer2 유레카 콘솔](/assets/img/dev/20200816/peering2.png)
 
 peer1 은 peer2 를, peer2 는 peer1 을 피어링하고 있는 것을 확인할 수 있다.
-또한 이벤트 서비스는 peer1 유레카 서버에만 서비스 등록을 하고 있지만 peer2 유레카 서버에도 등록된 것을 확인할 수 있다.
+또한 이벤트 서비스는 peer1 Eureka Server 에만 서비스 등록을 하고 있지만 peer2 Eureka Server 에도 등록된 것을 확인할 수 있다.
 
 ---
 

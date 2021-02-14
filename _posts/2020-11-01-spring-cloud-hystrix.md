@@ -151,8 +151,8 @@ tags: msa hystrix
 
 히스트릭스 의존성 추가 후 부트스트랩 클래스에 `@EnableCircuitBraker` 애너테이션을 추가한다.
 
->유레카 클라이언트 의존성이 있다면 `@EnableCircuitBraker` 추가 시엔 오류가 나지 않지만 서버 기동 시 오류가 나므로
->유레카 클라이언트 의존성이 추가되어 있어도 히스트릭스 의존성을 추가해주어야 한다.
+>Eureka Client 의존성이 있다면 `@EnableCircuitBraker` 추가 시엔 오류가 나지 않지만 서버 기동 시 오류가 나므로
+>Eureka Client 의존성이 추가되어 있어도 히스트릭스 의존성을 추가해주어야 한다.
 
 **member-service > MemberServiceApplication.java**
 ```java
@@ -245,7 +245,7 @@ public String timeout(ServletRequest req, @PathVariable("name") String name) {
 }
 ``` 
 
-여기선 메서드 별로 타임아웃을 설정하지 않고 주울에 서비스별 호출 타임아웃을 설정해보도록 하겠다.<br />
+여기선 메서드 별로 타임아웃을 설정하지 않고 Zuul 에 서비스별 호출 타임아웃을 설정해보도록 하겠다.<br />
 우선 회원 서비스가 호출할 이벤트 서비스 메서드에 의도적으로 결과값을 늦게 리턴하도록 설정한다.
 
 **event-service > EventController.java**
@@ -268,7 +268,7 @@ private void sleep() {
 }
 ``` 
 
-주울의 application.yml 파일을 아래와 같이 수정한다.
+Zuul 의 application.yml 파일을 아래와 같이 수정한다.
 
 아래 내용은 [Spring Cloud - Netflix Zuul(1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/) 의 *서비스 타임아웃* 에서 한번 언급한 내용이므로
 자세한 설명은 생략한다.
@@ -299,7 +299,7 @@ public String timeout(ServletRequest req, @PathVariable("name") String name) {
 
 ![원격 호출이 오래 걸리면 HystrixRuntimeException 발생](/assets/img/dev/20201101/hystrixcommandError2.png)
 
-주울 서비스의 로그를 보면 아래와 같은 로그가 나오는 것을 확인할 수 있다.
+Zuul 서비스의 로그를 보면 아래와 같은 로그가 나오는 것을 확인할 수 있다.
 
 ```shell
 com.netflix.hystrix.exception.HystrixRuntimeException: event-service timed-out and no fallback available.
@@ -337,7 +337,7 @@ public String timeoutFallback(ServletRequest req, @PathVariable("name") String n
 }
 ```
 
-위에선 주울에 히스트릭스를 설정했지만 폴백 메서드에 대한 설정은 폴백 메서드가 위치한 서비스에 위치해야 하므로 
+위에선 Zuul 에 히스트릭스를 설정했지만 폴백 메서드에 대한 설정은 폴백 메서드가 위치한 서비스에 위치해야 하므로 
 회원 서비스의 application.yml 파일에 타임아웃 시간을 설정한다.
 
 **member-service > application.yaml**
