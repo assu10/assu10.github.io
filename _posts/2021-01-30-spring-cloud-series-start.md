@@ -57,6 +57,7 @@ C:\Program Files\Elastic\Elasticsearch\7.10.1> ./bin/elasticsearch
 C:\myhome\03_Study\13_SpringCloud\kibana-7.10.1-windows-x86_64> ./bin/kibana.bat
 C:\myhome\03_Study\13_SpringCloud\logstash-7.10.2> ./bin/logstash -f ./config/logstash.conf
 ```
+[http://localhost:9200/](http://localhost:9200/) 로 ElasticSearch 가 실행되었는지 확인한다.<br />
 [http://localhost:5601/](http://localhost:5601/) 로 Kibana 콘솔 화면에 접속하여 확인한다.
 
 Zipkin 실행

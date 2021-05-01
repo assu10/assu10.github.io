@@ -108,8 +108,14 @@ spring:
 
 [Open Zipkin jar download](https://jar-download.com/artifact-search/zipkin) 에서 jar 파일을 다운로드 받은 후 아래처럼 기동하여 준다.
 
+인메모리로 연동하여 open zipkin 실행
 ```shell
 C:\myhome\03_Study\13_SpringCloud> java -jar .\zipkin-server-2.23.2-exec.jar
+```
+
+elasticsearch 로 연동하여 open zipkin 실행
+```shell
+C:\myhome\03_Study\13_SpringCloud> java -DSTORAGE_TYPE=elasticsearch -DES_HOSTS=http://127.0.0.1:9200 -jar .\zipkin-server-2.23.2-exec.jar
 ```
 
 ![Open Zipkin 서버 구동](/assets/img/dev/20210131/zipkin.png)
@@ -132,7 +138,7 @@ Open Zipkin 은 아래 4 가지 저장소를 지원한다.<br />
 기본적으로 Open Zipkin 은 추적 데이터를 저장하는데 인메모리 데이터 저장소를 하용하지만 인메모리 데이터베이스는 보유가능한 데이터의 양이 제한되어 있고,
 Open Zipkin 서버가 종료되거나 고장나면 저장된 데이터가 유실되기 때문에 실제 운영 시스템에는 적합하지 않다.
 
-이 포스팅에선 편의상 인메모리 데이터 저장소와 함께 Open Zipkin 을 사용한다.
+이 포스팅에선 인메모리 데이터 저장소와 함께 Open Zipkin 을 사용한다. (ElasticSearch 로 Zipkin 연동하여 보는 법도 있습니다.)
 
 ---
 
@@ -245,8 +251,6 @@ ANNOTATIONS 부분만 따로 분석해보자.
 통합된 로깅 플랫폼도 중요하지만 마이크로서비스 사이의 트랜잭션을 시각적으로 추적할 수 있는 기능도 운영상 매우 소중한 도구이다.<br />
 Open Zipkin 은 서비스 호출이 이루어질 때 서비스 사이에 존재하는 의존성을 확인할 수 있고, 스프링 기반이 아닌 레디스 같은 데이터베이스 서버의 성능을 파악할 수 있도록
 사용자 정의 스팬도 재정의하여 사용할 수 있다.
-
-사용자 정의 스팬은 다음 포스팅에서 번외편으로 다루도록 할 예정이다.
 
 ---
 
