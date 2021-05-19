@@ -206,6 +206,9 @@ setter 메서드에 적용해주면 빈 생성시 필수 프로퍼티 임을 알
 ### @Qualifier("id123")
 @Autowired 와 같이 쓰이며, 같은 타입의 빈 객체가 있을 때 해당 아이디를 적어 원하는 빈이 주입될 수 있도록 함
 
+### @ConditionalOnProperty
+@ConditionalOnProperty(name="use.db.event", havingValue = "true") 와 같이 사용
+
 ---
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
