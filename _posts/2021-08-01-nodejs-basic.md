@@ -33,6 +33,8 @@ Node.js (이하 노드) 는 Javascript 런타임이며,<br />
 노드는 V8 과 더불어 `libuv` 라이브러리를 사용하는데<br />
 `libuv` 라이브러리는 Node.js 의 특징인 Event-driven, Non-Blocking I/O 모델을 구현하고 있다.
 
+개발환경: `macOS`, `node 16.6.0`
+
 ---
 
 ### 1.1. Event-driven (이벤트 기반)
