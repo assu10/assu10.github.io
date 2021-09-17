@@ -206,7 +206,7 @@ tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 
 
 - **include, exclude**
   - 컴파일 할 때 포함할 파일명의 배열이나 패턴을 명시
-  - 패턴은 [glob pattern](https://en.wikipedia.org/wiki/Glob_(programming) 을 사용
+  - 패턴은 [glob pattern](https://en.wikipedia.org/wiki/Glob_(programming)) 을 사용
   - 파일명의 패스는 tsconfig.json 이 있는 곳으로부터 상대 경로로 표시
   - include 의 디폴트 값은 `[**/*]`
   - exclude 의 디폴트 값은 `["node_modules", "bower_components", "jspm_packages"]`
@@ -593,7 +593,7 @@ npm run dev
 *본 포스트는 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
-* [Do it! 타입스크립트 프로그밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)
+* [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)
 * [tsconfig Reference](https://www.typescriptlang.org/tsconfig)
 * [Typescript, tsconfig.json 주요 설정](https://kay0426.tistory.com/69)
 * [nodejs가 지원하는 ES 버전 확인](https://node.green/)
