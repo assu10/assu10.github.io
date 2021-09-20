@@ -197,7 +197,8 @@ tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 
     "baseUrl": ".",
     "sourceMap": true,
     "downlevelIteration": true,
-    "noImplicitAny": true,
+    "strict": true,
+    "noImplicitThis": false,
     "paths": { "*": ["node_modules/*"] }
   },
   "include": ["src/**/*"]
@@ -396,9 +397,9 @@ export function testMakePerson() {
 
 index.ts
 ```ts
-import {testMakePerson} from "./utils/makePerson";
+import {testMakePerson} from "./utils/makePerson"
 
-testMakePerson();
+testMakePerson()
 ```
 
 이제 index.ts 를 실행해보자.
@@ -499,7 +500,7 @@ export const makePerson = (name: string, age: number = makeRandomNumber()) => ({
 
 index.ts
 ```ts
-import {IPerson, makePerson} from "./person/Person";
+import {IPerson, makePerson} from "./person/Person"
 
 const testMakePerson = (): void => {
     let assu: IPerson = makePerson('assu')
@@ -542,14 +543,14 @@ export default interface IPerson {
 Person.ts
 ```ts
 import * as U from "../utils/makeRandomNumber"
-import IPerson from "./IPerson";
+import IPerson from "./IPerson"
 ...
 ```
 
 index.ts
 ```ts
-import IPerson from "./person/IPerson";
-import Person, {makePerson} from "./person/Person";     // Person 은 export default, makePerson 은 export
+import IPerson from "./person/IPerson"
+import Person, {makePerson} from "./person/Person"     // Person 은 export default, makePerson 은 export
 ```
 
 외부 패키지를 사용할 때 `import` 문을 알아보기 위해 아래와 같이 `chance` 와 `ramda` 패키지를 설치해보자.
@@ -562,8 +563,8 @@ import Person, {makePerson} from "./person/Person";     // Person 은 export def
 `chance` 는 fake data 를 만들어주는 패키지이고, `ramda` 는 함수형 유틸리티 패키지인데 지금은 이 정도만 알고 넘어가자.
 
 ```ts
-import IPerson from "./person/IPerson";
-import Person, {makePerson} from "./person/Person";     // Person 은 export default, makePerson 은 export
+import IPerson from "./person/IPerson"
+import Person, {makePerson} from "./person/Person"     // Person 은 export default, makePerson 은 export
 import Chance from 'chance'
 import * as R from 'ramda'
 
