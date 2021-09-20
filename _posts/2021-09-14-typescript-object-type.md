@@ -44,7 +44,7 @@ categories: dev
 타입스크립트는 자바스크립트와의 호환을 위해 `any` 타입을 제공하는데 아래 코드를 보자.
 
 ```ts
-let a: any = 0;
+let a: any = 0 
 a = 'hello'     // 오류 아님
 a = true        // 오류 아님
 a = {}          // 오류 아님
@@ -91,7 +91,7 @@ interface IPerson {
 }
 ```
 
-인터페이스 속성들을 여러 개 나열할 때는 쉼표 `,` 대신 세미콜론 `;` 을 구분자로 쓰거나 아무것도 쓰지 않고 단순히 줄바꿈만 해도 된다. 
+인터페이스 속성들을 여러 개 나열할 때는 쉼표 `,` 대신 세미콜론 ` ` 을 구분자로 쓰거나 아무것도 쓰지 않고 단순히 줄바꿈만 해도 된다. 
 
 아래 인터페이스의 목적은 IPerson 에 name, age 속성이 둘 다 있는 객체만 유효하도록 객체의 타입을 좁히는 것이다.
 ```ts
@@ -164,9 +164,9 @@ class Person1 {
     age?: number
 }
 
-let assu1: Person1 = new Person1();
+let assu1: Person1 = new Person1() 
 assu1.name = 'assu'
-assu1.age = 20;
+assu1.age = 20 
 
 console.log(assu1)      // Person1 { name: 'assu', age: 20 }
 ```
@@ -223,7 +223,7 @@ abstract class AbstractPerson {
 
 class Person extends AbstractPerson {
     constructor(public name: string, age?: number) {
-        super(age);
+        super(age) 
     }
 }
 
@@ -332,8 +332,8 @@ console.log(merged) // { name: 'reAssu', age: 20, city: 'suwon', country: 'kr' }
 아래 코드를 보자.
 ```ts
 // 타입 변환
-let person: object = {name: 'assu', age: 20};
-person.name = 'assu2';  // TS2339: Property 'name' does not exist on type 'object'.
+let person: object = {name: 'assu', age: 20} 
+person.name = 'assu2'   // TS2339: Property 'name' does not exist on type 'object'.
 ```
 
 person 의 타입은 object 인데 object 타입은 name 속성을 가지지 않기 때문에 아래와 같은 오류가 발생한다.
@@ -341,10 +341,10 @@ person 의 타입은 object 인데 object 타입은 name 속성을 가지지 않
 
 이럴 때는 person 변수를 일시적으로 name 속성이 있는 타입, 즉 `{name: string}` 으로 변환하여 person.name 속성값을 갖도록 할 수 있다.
 ```ts
-let person: object = {name: 'assu', age: 20};
-(<{name: string}>person).name = 'assu2';
+let person: object = {name: 'assu', age: 20} 
+(<{name: string}>person).name = 'assu2' 
 
-console.log(person);    // { name: 'assu2', age: 20 }
+console.log(person)     // { name: 'assu2', age: 20 }
 ```
 
 ---
@@ -363,19 +363,17 @@ interface INameable {
     name: string
 }
 
-let obj: object = {name: 'assu'};
+let obj: object = {name: 'assu'} 
 
-let name1 = (<INameable>obj).name;
-let name2 = (obj as INameable).name;
+let name1 = (<INameable>obj).name 
+let name2 = (obj as INameable).name 
 
-console.log(name1, name2);  // assu assu
+console.log(name1, name2)   // assu assu
 ```
+
 ---
 
 *본 포스트는 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)
-* [tsconfig Reference](https://www.typescriptlang.org/tsconfig)
-* [Typescript, tsconfig.json 주요 설정](https://kay0426.tistory.com/69)
-* [nodejs가 지원하는 ES 버전 확인](https://node.green/)
