@@ -14,7 +14,7 @@ categories: dev
 > - 배열
 >   - split, join
 >   - 배열의 비구조화 (잔여 연산자와 전개 연산자, `...`)
->   - for...in, for...of
+>   - `for...in`, `for...of`
 >   - 제네릭 방식 타입
 >   - 제네릭 방식 타입 추론
 >   - 전개 연산자를 사용하여 range 함수 구현
@@ -24,7 +24,7 @@ categories: dev
 >   - reduce 메서드
 > - 순수 함수와 배열
 >   - 순수 함수
->   - 타입 수정자 readonly
+>   - 타입 수정자 `readonly`
 >   - 깊은 복사, 얕은 복사
 >   - 순수 함수로 splice 메서드 구현 (원본 배열 유지하면서 특정 아이템 삭제)
 >   - 순수 함수로 가변 인수 함수 구현
@@ -110,10 +110,15 @@ console.log(mergedArr)  // [ 1, 1, 2, 3, 4 ]
 
 ---
 
-### 1.3. for...in, for...of
+### 1.3. `for...in`, `for...of`
 
 ESNext 자바스크립트와 타입스크립트에서 제공하는 반복문이다.<br />
-`for...in` 은 배열의 인덱스값을 대상으로 순회하는 반면 `for...of` 는 배열의 아이템값을 대상으로 순회한다.
+- `for...in`
+  - 배열의 인덱스값을 대상으로 순회
+- `for...of`
+  - 배열의 아이템값을 대상으로 순회<br />
+    즉, 타입에 무관하에 배열에 담긴 값을 차례로 얻음
+  
 
 ```ts
 for (let 변수 in 객체) {
@@ -355,7 +360,7 @@ function impure(array: number[]): void {
 
 ---
 
-### 3.1. 타입 수정자 readonly
+### 3.1. 타입 수정자 `readonly`
 
 타입스크립트는 순수 함수 구현을 위해 `readonly` 키워드를 제공한다.
 
@@ -594,7 +599,6 @@ console.log(result, errorMsg)   // false Error occurs...
 ```
 
 ---
-
 
 *본 포스트는 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

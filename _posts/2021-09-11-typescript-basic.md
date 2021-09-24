@@ -150,8 +150,8 @@ tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 
 
 ## 4. 타입스크립트 프로젝트 생성
 
-타입스크립트로 개발은 nodejs 프로젝트를 만든 후 개발 언어를 타입스크립트로 설정하는 방식으로 진행된다.
-따라서 nodejs 프로젝트를 먼저 생성해야 한다.
+타입스크립트로 개발은 node.js 프로젝트를 만든 후 개발 언어를 타입스크립트로 설정하는 방식으로 진행된다.
+따라서 node.js 프로젝트를 먼저 생성해야 한다.
 
 ```shell
 # 프로젝트 폴더로 이동
@@ -169,7 +169,7 @@ tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 
 타입스크립트는 ESNext 자바스크립트 문법을 포함하고는 있지만 자바스크립트와는 완전히 다른 언어이다.<br />
 따라서 예를 들어 자바스크립트로 개발된 chance 같은 라이브러리들은 추가로 `@types/chance` 와 같은 라이브러리들을 제공해야 한다.
 
-타입스크립트는 웹브라우저나 nodejs 에서 기본적으로 제공하는 타입들도 인식을 못하기 때문에 Promise 와 같은 타입을 사용하려면 `@types/node` 라는 패키지를 설치해야 한다.
+타입스크립트는 웹브라우저나 node.js 에서 기본적으로 제공하는 타입들도 인식을 못하기 때문에 Promise 와 같은 타입을 사용하려면 `@types/node` 라는 패키지를 설치해야 한다.
 
 ```shell
 > npm i -D @types/node
@@ -235,17 +235,17 @@ tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 
 ```
   
 - **module**
-  - 타입스크립트 소스가 컴파일되어 만들어진 ES5 자바스크립트 코드는 웹 브라우저와 nodejs 양쪽에서 모두 동작해야 하는데 이 둘은 동작 방식이 다름
-  - 자바스크립트는 웹 브라우저에서는 `AMD (Asynchronous Module Definition)`, nodejs 에서는 `CommonJS` 방식으로 동작함
-  - 따라서 동작 대상 플랫폼이 웹 브라우저면 `amd` 로 설정하고, nodejs 이면 `commonjs`로 설정
+  - 타입스크립트 소스가 컴파일되어 만들어진 ES5 자바스크립트 코드는 웹 브라우저와 node.js 양쪽에서 모두 동작해야 하는데 이 둘은 동작 방식이 다름
+  - 자바스크립트는 웹 브라우저에서는 `AMD (Asynchronous Module Definition)`, node.js 에서는 `CommonJS` 방식으로 동작함
+  - 따라서 동작 대상 플랫폼이 웹 브라우저면 `amd` 로 설정하고, node.js 이면 `commonjs`로 설정
   
 - **moduleResolution**
-  - module 키 값이 commonjs 이면 nodejs 에서 동작하는 것이므로 `node` 로 설정
+  - module 키 값이 commonjs 이면 node.js 에서 동작하는 것이므로 `node` 로 설정
   - module 키 값이 amd 이면 웹 브라우저 에서 동작하는 것이므로 `classic` 로 설정
   
 - **target**
   - 트랜스파일할 대상 자바스크립트의 버전
-  - [nodejs 가 지원하는 버전의 ES 버전](https://node.green/)에 맞게 지정
+  - [node.js 가 지원하는 버전의 ES 버전](https://node.green/)에 맞게 지정
 
 - **allowJs**
   - 자바스크립트를 타입스크립트로 점차적으로 변환하여 사용할 수도 있는데 이 때 .ts 파일에서 .js 파일도 import 할 수 있게 해야하는 경우가 있음
@@ -278,8 +278,9 @@ tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 
   - 배포 사이즈를 줄여야 하는 배포 환경에서는 false 로 설정
   
 - **downlevelIteration**
-  - 생성기 (generator) `functoin*` 라는 타입스크립트 구문이 정상 동작하려면 `true` 로 설정
-    생성기에 대한 설명은 [ES2015+ (ES6+) 기본](https://assu10.github.io/dev/2021/08/01/js-basic/) 의 1.10. generator (생성기) functoin* 를 참고하세요.
+  - 생성기 (generator) `function*` 라는 타입스크립트 구문이 정상 동작하려면 `true` 로 설정
+  - target 이 `ES5` 이하일 때에도 `for...of`, `전개 연산자`, `비구조화 할당` 등의 문법 지원     
+    > 생성기에 대한 설명은 [ES2015+ (ES6+) 기본](https://assu10.github.io/dev/2021/08/01/js-basic/) 의 1.10. generator (생성기) function* 를 참고하세요.
 
 - **strict 체크**
   - 타입을 얼마나 엄격하게 검사할지에 대한 옵션으로 총 8개가 있음
@@ -588,7 +589,6 @@ npm run dev
 ]
 ```
 
-
 ---
 
 *본 포스트는 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
@@ -597,4 +597,5 @@ npm run dev
 * [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)
 * [tsconfig Reference](https://www.typescriptlang.org/tsconfig)
 * [Typescript, tsconfig.json 주요 설정](https://kay0426.tistory.com/69)
-* [nodejs가 지원하는 ES 버전 확인](https://node.green/)
+* [tsconfig.json 컴파일 옵션 정리](https://geonlee.tistory.com/214)
+* [node.js가 지원하는 ES 버전 확인](https://node.green/)
