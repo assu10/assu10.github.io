@@ -86,7 +86,7 @@ printMe('assu', 20)
 변수에 타입이 있듯이 함수도 타입이 있는데 함수의 타입을 `함수 시그니처(function signatrue)` 라고 한다.
 
 ```ts
-(매개변수: 타입, 매개변수: 타입[,...]) => 반환값 타입 
+(매개변수: 타입, 매개변수: 타입[,...]) => 반환값 타입
 ```
 
 ```ts
@@ -397,7 +397,8 @@ calc(30, (result: number) => console.log(`result is ${result}`))    // 90
 `고차 함수(high-order function)` 는 또 다른 함수를 반환하는 함수를 말한다.<br />
 함수형 언어에서 함수는 단순히 함수 표현식이라는 값이므로 다른 함수를 반환할 수 있다.
 
-*고차 함수는 추후 다른 포스팅에서 자세히 설명 예정입니다.*
+> (update!) 고차 함수는 추후 다른 포스팅에서 자세히 설명 예정입니다.<br />
+> [Typescript - 함수 조합](https://assu10.github.io//dev/2021/09/29/typescript-function-composition/) 의 *3. 고차 함수와 커리 (curry)* 를 참고하세요.
 
 일반 함수와 고차 함수의 일반적인 형태는 아래와 같다.
 ```ts
