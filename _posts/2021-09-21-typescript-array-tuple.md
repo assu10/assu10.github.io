@@ -18,10 +18,10 @@ categories: dev
 >   - 제네릭 방식 타입
 >   - 제네릭 방식 타입 추론
 >   - 전개 연산자를 사용하여 range 함수 구현
-> - 배열의 filter, map, reduce 메서드
->   - filter 메서드
->   - map 메서드
->   - reduce 메서드
+> - 배열의 `filter`, `map`, `reduce` 메서드
+>   - `filter` 메서드
+>   - `map` 메서드
+>   - `reduce` 메서드
 > - 순수 함수와 배열
 >   - 순수 함수
 >   - 타입 수정자 `readonly`
@@ -226,9 +226,9 @@ console.log(numbers)    // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 ---
 
-## 2. 배열의 filter, map, reduce 메서드
+## 2. 배열의 `filter`, `map`, `reduce` 메서드
 
-### 2.1. filter 메서드
+### 2.1. `filter` 메서드
 
 배열의 타입이 T 일 때 배열의 filter 메서드는 아래 형태로 설계되어있다.
 ```ts
@@ -271,7 +271,7 @@ console.log(belowHalf, overHalf)    // [ 1, 2, 3, 4, 5 ] [ 6, 7, 8, 9, 10 ]
 
 ---
 
-### 2.2. map 메서드
+### 2.2. `map` 메서드
 
 배열의 타입이 `T[]` 일 때 배열의 `map` 메서드는 아래의 형태이다.
 ```ts
@@ -302,7 +302,7 @@ console.log(names)  // [ '[0]: 1', '[1]: 2', '[2]: 3', '[3]: 4', '[4]: 5' ]
 
 ---
 
-### 2.3. reduce 메서드
+### 2.3. `reduce` 메서드
 
 배열의 타입이 `T[]` 일 때 `reduce` 메서드는 아래의 형태이다.
 ```ts
