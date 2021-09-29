@@ -503,7 +503,7 @@ const mergeArray = (...arrays) => { }
 ```
 
 위에서 매개변수 arrays 앞의 `...` 은 잔여나 전개 연산자가 아니라 가변 인수를 표현하는 구문이다.<br />
->잔여 연산자와 전개 연산자의 상세 내용은 [Typescript - 객체, 타입](http://localhost:4000/dev/2021/09/14/typescript-object-type/) 의 *4.2. 잔여 연산자와 전개 연산자 (`...`)* 를 참고하세요.
+>잔여 연산자와 전개 연산자의 상세 내용은 [Typescript - 객체, 타입](https://assu10.github.io/dev/2021/09/14/typescript-object-type/) 의 *4.2. 잔여 연산자와 전개 연산자 (`...`)* 를 참고하세요.
 
 string[], number[] 타입 배열을 모두 받으려면 제네릭 타입으로 구현해야 하므로 아래와 같이 수정한다.
 ```ts
