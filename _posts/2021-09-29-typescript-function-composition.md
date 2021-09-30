@@ -21,7 +21,7 @@ categories: dev
     "outDir": "dist",
     "baseUrl": ".",
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "noImplicitThis": false,
     "paths": { "*": ["node_modules/*"] }
   },
