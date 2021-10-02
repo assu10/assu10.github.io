@@ -87,7 +87,7 @@ number[] 에서 number 와 같은 타입을 타입 변수 `T` 로 표기할 때 
 ```ts
 // 1. function 키워드로 만든 함수에 제네릭 타입 적용
 function g1<T>(a: T): void { }
-functio g2<T, Q>(a: T, b: Q): void { }  // a, b 매개변수를 각각 다른 제네릭 타입으로 지정
+function g2<T, Q>(a: T, b: Q): void { }  // a, b 매개변수를 각각 다른 제네릭 타입으로 지정
 
 // 2. 화살표 함수에 제네릭 타입 적용
 const g3 = <T>(a: T): void => { }
