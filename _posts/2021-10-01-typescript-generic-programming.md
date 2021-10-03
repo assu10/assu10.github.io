@@ -1082,5 +1082,3 @@ console.log(value); // {}
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)
-* [Ramda Documentation](https://ramdajs.com/docs/) (함수를 알파벳 순서로 분류)
-* [Ramda Documentation-DevDocs](https://devdocs.io/ramda/) (함수를 기능 위주로 분류)
