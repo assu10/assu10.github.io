@@ -30,7 +30,7 @@ categories: dev
 >   - async 함수 특징
 >   - async 함수가 반환하는 값 의미
 >   - async 함수 예외 처리
->   - async 함수와 Promise.all
+>   - async 함수와 `Promise.all`
 
 ---
 
@@ -449,7 +449,7 @@ awaitReject()
 
 ---
 
-### 3.6. async 함수와 Promise.all
+### 3.6. async 함수와 `Promise.all`
 
 *2.1. resolve, reject 함수* 에서 *readFilePromise.ts* 를 만들고, `Promise`, `then` 구문을 이용하여 비동기로 package.json 과 tsconfig.json 파일을 읽었다.
 이번엔 `async`, `Promise.all` 를 사용하여 파일을 읽어보도록 한다.
