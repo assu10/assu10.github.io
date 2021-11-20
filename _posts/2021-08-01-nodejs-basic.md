@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Node.js 기본 개념"
+title:  "Node.js - 기본 개념"
 date:   2021-08-01 10:00
 categories: dev
 tags: nodejs
