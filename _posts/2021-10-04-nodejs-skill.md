@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Node.js - 기본 개념 + eslint/prettier 셋팅"
+title:  "eslint/prettier 셋팅 + Node.js - 기본 개념 (1)"
 date:   2021-10-04 10:00
 categories: dev
 tags: nodejs
@@ -9,7 +9,26 @@ tags: nodejs
 이 포스트는 노드가 기본적으로 제공하는 객체와 모듈 사용법에 대해 알아본다.<br />
 모듈을 사용하면서 버퍼와 스트림, 동기와 비동기, 이벤트, 예외 처리에 대해서도 알아본다.
 
->- Node.js 개념
+*소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
+
+
+> - eslint 설정
+> - REPL 사용
+> - 모듈 생성
+> - 노드 내장 객체
+>   - global
+>   - console
+>   - console
+>   - `__filename`, `__dirname`
+>   - module, exports, require
+>   - `process`
+> - 노드 내장 모듈 사용
+>   - `os`
+>   - `path`
+>   - `url`
+>   - `querystring`
+>   - `crypto`
+> - util
 
 ---
 
@@ -629,7 +648,7 @@ NODE_OPTIONS=8
 
 `UV_THREADPOOL_SIZE` 은 노드에서 기본적으로 사용하는 스레드풀의 스레드 갯수를 조절하는 변수이다.
 
-> `UV_THREADPOOL_SIZE` 에 대해선 추후 포스팅할 예정입니다.
+*`UV_THREADPOOL_SIZE` 에 대해선 추후 포스팅할 예정입니다.*
 
 시스템 환경 변수 외에도 임의로 환경 변수를 저장할 수 있다.<br />
 `process.env` 는 서비스의 중요한 키를 저장하는 공간으로도 사용한다. 예를 들어 서버나 DB 의 비밀번호나 각종 API 의 키를 코드에 입력하는 것은 위험하므로
@@ -640,7 +659,7 @@ const secretId = process.env.SECRET_ID;
 const secretCode = process.env.SECRET_CODE;
 ```
 
-`process.env` 에 임의의 환경 변수를 넣는 방법은 추후 `dotenv` 와 함께 포스팅 예정입니다. 
+*`process.env` 에 임의의 환경 변수를 넣는 방법은 추후 `dotenv` 와 함께 포스팅 예정입니다.* 
 
 ---
 
@@ -935,13 +954,150 @@ console.log(
 
 ### 4.3. `url`
 
+url 처리 방식에는 크게 두 가지 방식이 있다.
 
+노드 버전 7 에서 추가된 `WHATWG` 방식의 url 과 예전부터 노드에서 사용하던 방식의 url 인데, 두 가지 방법 다 알아두는 것이 좋다.
+
+url.js
+```js
+const url = require('url');
+
+const { URL } = url;
+const myURL = new URL('http://www.assu.co.kr/node/study.js?q1=haha#anchor');
+console.log('new URL(): ', myURL);  // WHATWG 방식의 url
+console.log('url.format(): ', url.format(myURL));
+
+console.log('----------');
+
+// 기존 노드 방식
+const parsedUrl = url.parse(
+  'http://www.assu.co.kr/node/study.js?q1=haha#anchor',
+);
+console.log('url.parse(): ', parsedUrl);
+console.log('url.format(): ', url.format(parsedUrl));
+```
+
+```shell
+new URL():  URL {
+  href: 'http://www.assu.co.kr/node/study.js?q1=haha#anchor',
+  origin: 'http://www.assu.co.kr',
+  protocol: 'http:',
+  username: '',
+  password: '',
+  host: 'www.assu.co.kr',
+  hostname: 'www.assu.co.kr',
+  port: '',
+  pathname: '/node/study.js',
+  search: '?q1=haha',
+  searchParams: URLSearchParams { 'q1' => 'haha' },
+  hash: '#anchor'
+}
+url.format():  http://www.assu.co.kr/node/study.js?q1=haha#anchor
+----------
+url.parse():  Url {
+  protocol: 'http:',
+  slashes: true,
+  auth: null,
+  host: 'www.assu.co.kr',
+  port: null,
+  hostname: 'www.assu.co.kr',
+  hash: '#anchor',
+  search: '?q1=haha',
+  query: 'q1=haha',
+  pathname: '/node/study.js',
+  path: '/node/study.js?q1=haha',
+  href: 'http://www.assu.co.kr/node/study.js?q1=haha#anchor'
+}
+url.format():  http://www.assu.co.kr/node/study.js?q1=haha#anchor
+```
+
+URL 객체에 주소를 넣어 객체로 만들면 주소가 부분별로 정리된다.<br />
+이 방법은 `WHATWG` 의 방식으로 `username`, `password`, `origin`, `searchParams` 속성이 있다.
+
+기존 노드 방식은 아래 두 메서드를 주로 사용한다.
+- `url.parse(url 주소)` : 주소 분해, `WHATWG` 에 있는 `username`, `password` 대신 auth 속성이 있고, `searchParams` 대신 `query` 가 있다.
+- `url.format(객체)` : 분해된 url 객체를 다시 원래 상태로 조립, `WHATWG` 방식의 url 과 기존 노드의 url 모두 사용 가능
+
+*/node/study.js* 처럼 host 부분 없이 pathname 만 오는 경우는 WHATWG 방식으로 처리할 수 없으므로 기존 노드 url 형식을 사용해야 한다.
+
+WHATWG 방식은 search 부분을 searchParams 객체로 반환하므로 파라미터 처리 시 유용하게 사용할 수 있다.
+
+searchParams.js
+```js
+const { URL } = require('url');
+
+const myURL = new URL(
+  'http://www.assu.co.kr/?page=3&limit=10&category=nodejs&category=javascript',
+);
+console.log('searchParams: ', myURL.searchParams);
+console.log('searchParams.getAll(): ', myURL.searchParams.getAll('category')); // 키에 해당하는 모든 값 조회
+console.log('searchParams.get(): ', myURL.searchParams.get('limit')); // 키에 해당하는 첫 번째 값만 조회
+console.log('searchParams.has(): ', myURL.searchParams.has('page'));
+
+console.log('searchParams.keys(): ', myURL.searchParams.keys()); // 모든 키를 반복기 객체로 가져옴
+console.log('searchParams.values(): ', myURL.searchParams.values()); // 모든 값을 반복기 객체로 가져옴
+
+myURL.searchParams.append('estype', 'es3'); // 키 추가, 같은 키가 있으면 유지하고 하나 더 추가
+myURL.searchParams.append('estype', 'es5');
+console.log('searchParams.getAll(): ', myURL.searchParams.getAll('estype'));
+
+myURL.searchParams.set('estype', 'es6'); // 키 추가, 같은 키가 있으면 모두 삭제하고 새로 추가
+console.log('searchParams.getAll(): ', myURL.searchParams.getAll('estype'));
+
+myURL.searchParams.delete('estype'); // 해당 키 모두 제거
+console.log('searchParams.getAll(): ', myURL.searchParams.getAll('estype'));
+
+console.log('myURL.searchParams.toString(): ', myURL.searchParams.toString()); // searchParams 객체를 문자열로 만듦, search 에 대입하면 주소 객체에 반영됨
+myURL.search = myURL.searchParams.toString();
+```
+
+```shell
+searchParams:  URLSearchParams {
+  'page' => '3',
+  'limit' => '10',
+  'category' => 'nodejs',
+  'category' => 'javascript' }
+searchParams.getAll():  [ 'nodejs', 'javascript' ]
+searchParams.get():  10
+searchParams.has():  true
+searchParams.keys():  URLSearchParams Iterator { 'page', 'limit', 'category', 'category' }
+searchParams.values():  URLSearchParams Iterator { '3', '10', 'nodejs', 'javascript' }
+searchParams.getAll():  [ 'es3', 'es5' ]
+searchParams.getAll():  [ 'es6' ]
+searchParams.getAll():  []
+myURL.searchParams.toString():  page=3&limit=10&category=nodejs&category=javascript
+```
+
+query 같은 문자열보다 searchParams 가 유용한 이유는 query 의 경우 querystring 모듈을 한번 더 사용해야 하기 때문이다.
 
 ---
 
 ### 4.4. `querystring`
 
+`querystring` 은 WHATWG 방식의 url 대신 기존 노드의 url 사용 시, `search` 부분을 사용하기 쉽게 객체로 만들어 주는 모듈이다.
 
+```javascript
+const url = require('url');
+const querystring = require('querystring');
+
+const parsedUrl = url.parse(
+  'http://www.assu.co.kr/?page=3&limit=10&category=nodejs&category=javascript',
+);
+
+// url 의 쿼리 부분을 자바스크립트 객체로 분해
+const query = querystring.parse(parsedUrl.query);
+console.log('querystring.parse(): ', query);
+console.log('querystring.stringify(): ', querystring.stringify(query));
+```
+
+```shell
+querystring.parse():  [Object: null prototype] {
+  page: '3',
+  limit: '10',
+  category: [ 'nodejs', 'javascript' ]
+}
+querystring.stringify():  page=3&limit=10&category=nodejs&category=javascript
+```
 
 ---
 
@@ -949,52 +1105,220 @@ console.log(
 
 #### 4.5.1. 단방향 암호화
 
+비밀번호는 보통 단방향 암호화 알고리즘을 사용하여 암호화한다.
+
+> **단방향 암호화**<br />
+> 복호화할 수 없는 암호화 방식<br />
+> 복호화할 수 없기 때문에 암호화 라고 표현하는 대신 **해시 함수**라고 하기도 함
+
+단방향 암호화 알고리즘은 주로 해시 기법을 사용한다.
+
+> **해시 기법**<br />
+> 어떠한 문자열을 고정된 길이의 다른 문자열로 바꿔버리는 방식<br />
+> 예) abcdedsafds 라는 문자열을 poiu 문자열로 바꿔버리고, dfcvd 문자열을 dkfd 문자열로 바꿔버림<br />
+> 입력 문자열의 길이는 다르지만, 출력 문자열의 길이는 고정되어 있음
+
+hash.js
+```javascript
+const crypto = require('crypto');
+
+console.log(
+  'base64: ',
+  crypto.createHash('sha512').update('password').digest('base64'),
+);
+
+console.log(
+  'hex: ',
+  crypto.createHash('sha512').update('password').digest('hex'),
+);
+
+console.log(
+  'other base64: ',
+  crypto.createHash('sha512').update('other_password').digest('base64'),
+);
+```
+
+```shell
+base64:  sQnzu7wkTrgkQZF+0G1hi5AI3Qmzvv0bXgc5THBqi7mAsdd4Xll27ASbRt9fEyavWi6m0QP9B8lThf+rDKy8hg==
+hex:  b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86
+other base64:  fAfMKoTZE5e4OFpTuPzWoL4zWUG0Oyl8z4bETLx1/sbPXObY6yPuoBnPo+jlg8s22TWaVVz14u8SD520uC6MAg==
+```
+
+- **createHash(알고리즘)**
+  - 사용할 해시 알고리즘을 넣음
+  - `sha256`, `sha512` (md5, sha1 은 취약점이 발견되었음)
+- **update(문자열)**
+  - 변환할 문자열을 넣음
+- **digest(인코딩)**
+  - 인코딩할 알고리즘을 넣음
+  - `base64`, `hex`, `latin1` 이 주로 사용되고, base64 가 결과 문자열이 가장 짧아서 많이 사용됨
+  
+주로 `pbkdf2`, `bcrypt`, `scrypt` 알고리즘으로 비밀번호를 암호화 하는데 아래는 노드에서 지원하는 pbkdf2 에 대해 알아본다.
+
+- `pbkdf2`
+ - 기존 문자열에 salt 문자열을 붙인 후 해시 알고리즘을 반복하여 적용하는 방식
+
+```javascript
+const crypto = require('crypto');
+
+crypto.randomBytes(64, (err, buf) => {
+  const salt = buf.toString('base64');
+  console.log('salt: ', salt);
+  crypto.pbkdf2('password', salt, 100000, 6, 'sha512', (err, key) => {
+    console.log('password: ', key.toString('base64'));
+  });
+});
+```
+
+```shell
+salt:  JUSoX18d6csKqCjYe8ypzvMOZ/JnVl0I2tN3JC00tBewVZh476bn7w/8ewPkZC6B1Zcf2rPuTNY+ryE0zM1tyA==
+password:  gOLeI/3g
+```
+
+randomBytes() 메서드로 64바이트 길이의 문자열을 만드는 게 이것이 salt 가 된다.<br />
+randomBytes 이므로 매번 결과가 달라지므로 salt 를 DB 에 저장하고 있어야 비밀번호를 찾을 수 있다.
+
+*crypto.pbkdf2('password', salt, 100000, 6, 'sha512' ...)* 는 각각 비밀번호, salt, 반복 횟수, 출력 바이트, 해시 알고리즘이다.<br />
+즉, sha512 로 변환된 결과값을 다시 sha512 로 변환하는 과정을 10만번 반복하는 것이다. (약 1초 소요)
+
+싱글 스레드 프로그래밍할 때 그 1초 동안 블로킹이 되는 것에 대한 우려가 있을 수 있지만 `crypto.randomBytes` 와 `crypto.pbkdf2` 메서드는
+내부적으로 스레드풀을 사용하여 멀티 스레딩으로 동작한다.
+
+*비슷하게 동작하는 메서드들에 대해선 추후 다룰 예정입니다.*
+
+pbkdf2 는 간단하지만 bcrypt, scrypt 보다는 취약하므로 더 나은 보안을 위해선 bcrypt 나 scrypt 를 사용하면 된다.
+
+*bcrypt 를 사용하는 내용은 추후 다를 예정이다.*
 
 ---
 
-#### 4.5.2. 양방향 암호화
+#### 4.5.2. 양방향 대칭형 암호화
 
+양방향 대칭형 암호화는 암호화된 문자열을 key 를 사용하여 복호화 가능한 암호화를 말한다.
 
+cipher.js
+```javascript
+const crypto = require('crypto');
+
+const algorithm = 'aes-256-cbc';
+const key = 'abcdefghijklmnopqrstuvwxyz123456';
+const iv = '1234567890123456';
+
+const cipher = crypto.createCipheriv(algorithm, key, iv);
+let result = cipher.update('암호화할 문장', 'utf8', 'base64');
+result += cipher.final('base64');
+console.log('암호화: ', result);
+
+const decipher = crypto.createDecipheriv(algorithm, key, iv);
+let result2 = decipher.update(result, 'base64', 'utf8');
+result2 += decipher.final('utf8');
+console.log('복호화: ', result2);
+
+console.log('사용가능한 알고리즘: ', crypto.getCiphers());
+```
+
+```shell
+암호화:  iiopeG2GsYlk6ccoBoFvEH2EBDMWv1kK9bNuDjYxiN0=
+복호화:  암호화할 문장
+사용가능한 알고리즘:  [
+  'aes-128-cbc',
+  'aes-128-cbc-hmac-sha1',
+  'aes-128-cbc-hmac-sha256',
+  'aes-128-ccm',
+  'aes-128-cfb',
+  'aes-128-cfb1',
+  'aes-128-cfb8',
+  'aes-128-ctr',
+  'aes-128-ecb',
+  'aes-128-gcm',
+  'camellia-256-cfb1',
+  'camellia-256-cfb8',
+  'camellia-256-ctr',
+  'camellia-256-ecb',
+  'camellia-256-ofb',
+  'camellia128',
+  ... more items
+]
+```
+
+- **crypto.createCipheriv(알고리즘, 키, iv)**
+  - 암호화 알고리즘, 키, iv 를 넣음
+  - 암호화 알고리즘은 `aes-256-cbc` 를 사용했고, 해당 알고리즘의 경우 `키는 32 bytes`, `iv 는 16 bytes` 이어야 함
+  - iv 는 암호화할 때 사용하는 초기화 벡터를 의미
+  - 사용가능한 알고리즘은 crypto.getCiphers() 를 통해 알 수 있음
+- **cipher.update(문자열, 인풋 인코딩, 출력 인코딩)**
+  - 암호화 대상과 대상의 인코딩, 출력 결과물의 인코딩을 넣음
+  - 보통 문자열은 utf8 인코딩, 암호는 base64 인코딩을 주로 사용함
+- **cipher.final(출력 인코딩)**
+  - 출력 결과물의 인코딩을 넣으면 암호화가 완료됨
+- **crypto.createDecipheriv(알고리즘, 키, iv)**
+  - 복호화 시 사용
+  - 암호화할 때 사용한 알고리즘, 키, iv 를 그대로 넣어야 함
+- **decipher.update(문자열, 인풋 인코딩, 출력 인코딩)**
+  - 암호화된 문장, 그 문장의 인코딩, 복호화할 인코딩을 넣음 
+  - cipher.update() 인자의 역순으로 넣으면 됨
+- **decipher.final(출력 인코딩)**
+  -  복호화 결과물의 인코딩을 넣음
+
+이 외에도 crypto 모듈은 양방향 비대칭형 암호화, HMAC 등 다양한 암호화를 제공하고 있다. 
+
+[node crypto 공식문서](https://nodejs.org/api/crypto.html) 를 참고하여 좀 더 상세히 확인이 가능하다.<br />
+좀 더 간단하게 암호화를 하고 싶으면 npm 패키지인 [crypto-js (간단한 암호화)](https://www.npmjs.com/package/crypto-js) 를 사용하는 것도 좋다.
 
 ---
 
 ### 4.6. `util`
 
+아래는 util 모듈에서 자주 사용되는 2 가지 모듈이다.
 
+util.js
+```javascript
+const util = require('util');
+const crypto = require('crypto');
 
----
+const dontUserMe = util.deprecate((a, b) => {
+  console.log(a + b);
+}, 'dontUseMe 함수는 deprecated 되었으니 더 이상 사용 금지');
 
-### 4.7. `worker_threads`
+dontUserMe(1, 2);
 
+const randomBytesPromise = util.promisify(crypto.randomBytes);
+randomBytesPromise(64)
+  .then(buf => {
+    console.log(buf.toString('base64'));
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
 
+```shell
+3
+(node:71167) DeprecationWarning: dontUseMe 함수는 deprecated 되었으니 더 이상 사용 금지
+(Use `node --trace-deprecation ...` to show where the warning was created)
+fJQ27C7o8pfeANEvsCx2jlHVQx8graotM6m8WwoZKwHYeN8hDEuvIm/tfeYB44VMM4zIXYO1bG7ah5kfZnCkKw==
+```
 
----
+- **util.deprecate**
+  - 함수가 deprecated 처리 되었음을 알림
+- **util.promisify**
+  - 콜백 패턴을 프로미스 패턴으로 바꿔줌
+  - 바꿀 함수를 인수로 제공하면 됨
+  - 바뀐 함수는 async/await 패턴으로 사용할 수 있음
 
-### 4.8. `child_process`
+*4.5.1. 단방향 암호화* 에서 나온 randomBytes 와 비교해보도록 하자.
 
+```javascript
+const crypto = require('crypto');
 
-
----
-
-### 4.9. 기타 모듈들
-
-
----
-
-## 5. 파일 시스템 접근
-
-
----
-
-## 6. 이벤트의 이해
-
-
----
-
-## 7. 예외 처리
-
-
-
+crypto.randomBytes(64, (err, buf) => {
+  const salt = buf.toString('base64');
+  console.log('salt: ', salt);
+  crypto.pbkdf2('password', salt, 100000, 6, 'sha512', (err, key) => {
+    console.log('password: ', key.toString('base64'));
+  });
+});
+```
 
 ---
 
@@ -1009,3 +1333,5 @@ console.log(
 * [UV_THREADPOOL_SIZE](https://nodejs.org/dist/latest-v16.x/docs/api/cli.html#cli_uv_threadpool_size_size)
 * [node.js 에러 코드](https://nodejs.org/dist/latest-v16.x/docs/api/errors.html#errors_node_js_error_codes)
 * [uncaughtException](https://nodejs.org/dist/latest-v16.x/docs/api/process.html#process_event_uncaughtexception)
+* [node crypto 공식문서](https://nodejs.org/api/crypto.html)
+* [crypto-js (간단한 암호화)](https://www.npmjs.com/package/crypto-js)
