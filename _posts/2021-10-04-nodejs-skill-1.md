@@ -9,8 +9,7 @@ tags: nodejs
 이 포스트는 노드가 기본적으로 제공하는 객체와 모듈 사용법에 대해 알아본다.<br />
 모듈을 사용하면서 버퍼와 스트림, 동기와 비동기, 이벤트, 예외 처리에 대해서도 알아본다.
 
-*소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
-
+*소스는 [assu10/nodejs.git](https://github.com/assu10/nodejs.git) 에 있습니다.*
 
 > - eslint 설정
 > - REPL 사용
