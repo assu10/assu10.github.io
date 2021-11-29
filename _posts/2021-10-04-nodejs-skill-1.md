@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "eslint/prettier 셋팅 + Node.js - 기본 개념 (1)"
+title:  "eslint/prettier 셋팅 + Node.js - 기본 개념 (1): 내장 객체, 내장 모듈, util"
 date:   2021-10-04 10:00
 categories: dev
 tags: nodejs
@@ -647,7 +647,7 @@ NODE_OPTIONS=8
 
 `UV_THREADPOOL_SIZE` 은 노드에서 기본적으로 사용하는 스레드풀의 스레드 갯수를 조절하는 변수이다.
 
->`UV_THREADPOOL_SIZE` 에 는 [Node.js - 파일시스템](https://assu10.github.io/dev/2021/11/28/nodejs-filesystem/) 의
+>`UV_THREADPOOL_SIZE` 에 는 [Node.js - 파일시스템](https://assu10.github.io/dev/2021/11/28/nodejs-skill-3/) 의
 > *5. 스레드풀* 을 참고하세요.
 
 시스템 환경 변수 외에도 임의로 환경 변수를 저장할 수 있다.<br />
@@ -1184,7 +1184,7 @@ randomBytes 이므로 매번 결과가 달라지므로 salt 를 DB 에 저장하
 싱글 스레드 프로그래밍할 때 그 1초 동안 블로킹이 되는 것에 대한 우려가 있을 수 있지만 `crypto.randomBytes` 와 `crypto.pbkdf2` 메서드는
 내부적으로 스레드풀을 사용하여 멀티 스레딩으로 동작한다.
 
-> 비슷하게 동작하는 메서드들에 대해선 [Node.js - 파일시스템](https://assu10.github.io/dev/2021/11/28/nodejs-filesystem/) 의 *5. 스레드풀* 을 참고하세요
+> 비슷하게 동작하는 메서드들에 대해선 [Node.js - 파일시스템](https://assu10.github.io/dev/2021/11/28/nodejs-skill-3/) 의 *5. 스레드풀* 을 참고하세요
 
 pbkdf2 는 간단하지만 bcrypt, scrypt 보다는 취약하므로 더 나은 보안을 위해선 bcrypt 나 scrypt 를 사용하면 된다.
 

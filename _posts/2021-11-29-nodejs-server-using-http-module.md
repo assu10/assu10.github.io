@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Node.js - 이벤트, 예외처리"
+title:  "Node.js - http 모듈로 서버 생성"
 date:   2021-11-29 10:00
 categories: dev
-tags: nodejs event exception
+tags: nodejs
 ---
 
 *소스는 [assu10/nodejs.git](https://github.com/assu10/nodejs.git) 에 있습니다.*
@@ -16,7 +16,7 @@ tags: nodejs event exception
 
 ## 1. 이벤트 (중요)
 
-[Node.js - 파일시스템](https://assu10.github.io/dev/2021/11/28/nodejs-filesystem/) 에서 스트림에 대해 볼 때 `on('data', callback)` 과
+[Node.js - 파일시스템](https://assu10.github.io/dev/2021/11/28/nodejs-skill-3/) 에서 스트림에 대해 볼 때 `on('data', callback)` 과
 같은 코드를 사용하였다.
 
 `on('data', callback)` 는 data, end 라는 이벤트가 발생할 때 콜백 함수를 호출하도록 이벤트를 등록한 것이다.
