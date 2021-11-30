@@ -6,268 +6,404 @@ categories: dev
 tags: nodejs
 ---
 
+이 포스트는 실제 서버 동작에 필요한 쿠키와 세션 처리, 요청 주소별 라우팅 방법에 대해 알아본다.
+
 *소스는 [assu10/nodejs.git](https://github.com/assu10/nodejs.git) 에 있습니다.*
 
-> - 이벤트(중요)
-> - 예외 처리
-> - 자주 발생하는 에러들
+> - 요청과 응답
+> - REST 와 라우팅
+> - 쿠키와 세션
+> - https 와 http2
+> - cluster
 
 ---
 
-## 1. 이벤트 (중요)
+## 1. 요청과 응답
 
-[Node.js - 파일시스템](https://assu10.github.io/dev/2021/11/28/nodejs-skill-3/) 에서 스트림에 대해 볼 때 `on('data', callback)` 과
-같은 코드를 사용하였다.
+서버는 요청을 받는 부분과 응답을 보내는 부분이 있어야 한다.<br />
+요청과 응답은 이벤트 방식이라고 생각하면 된다.<br />
+클라이언트로부터 요청이 왔을 때 어떤 작업을 수행할 지 이벤트 리스터를 미리 등록해두어야 한다.
 
-`on('data', callback)` 는 data, end 라는 이벤트가 발생할 때 콜백 함수를 호출하도록 이벤트를 등록한 것이다.
+이제 이벤트 리스너를 가진 노드 서버를 만들어보도록 하자.
 
+createServer.js
 ```javascript
-readStream.on('data', chunk => {
-data.push(chunk);
-console.log('data: ', chunk, chunk.length);
+const http = require('http');
+
+http.createServer((req, res) => {
+  // 응답 콜백
 });
 ```
 
-`createReadStream` 의 경우 내부적으로 알아서 `data`, `end` 이벤트를 호출하지만 직접 이벤트를 만들 수도 있다.
+http 서버가 있어야 웹 브라우저의 요청을 처리할 수 있으므로 http 모듈을 사용한다.<br />
+http 모듈에는 createServer 메서드가 있는데 인수로 요청에 대한 콜백 함수를 넣을 수 있으며, 요청이 올 때마다
+콜백 함수가 실행된다.
 
-event.js
+이제 응답을 보내는 부분과 서버에 연결하는 부분을 추가해보자.
+
+server1-1.js
 ```javascript
-const EventEmitter = require('events');
+const http = require('http');
 
-const myEvent = new EventEmitter();
-myEvent.addListener('event1', () => {
-  console.log('이벤트1');
-});
-// event2 에 여러 개의 이벤트 리스너 등록
-myEvent.on('event2', () => {
-  console.log('이벤트2');
-});
-myEvent.on('event2', () => {
-  console.log('이벤트2 추가');
-});
-// 한 번만 실행됨
-myEvent.once('event3', () => {
-  console.log('이벤트3');
-});
-
-myEvent.emit('event1'); // 이벤트 호출
-myEvent.emit('event2');
-
-myEvent.emit('event3');
-myEvent.emit('event3'); // 실행 안 됨
-
-myEvent.on('event4', () => {
-  console.log('이벤트4');
-});
-myEvent.removeAllListeners('event4');
-myEvent.emit('event4'); // 실행 안 됨
-
-const listener = () => {
-  console.log('event5');
-};
-myEvent.on('event5', listener);
-myEvent.removeListener('event5', listener);
-myEvent.emit('event5'); // 실행 안 됨
-
-console.log(myEvent.listenerCount('event2'));
-```
-
-```shell
-이벤트1
-이벤트2
-이벤트2 추가
-이벤트3
-2
-```
-
-- `on(이벤트명, 콜백)`
-  - 이벤트명과 이벤트 발생 시의 콜백을 연결하는데 이러한 동작을 **이벤트 리스닝**이라고 함
-  - event2 처럼 이벤트 하나에 여러 개의 리스너를 연결할 수도 있음  
-- `addListener(이벤트명, 콜백)`
-  - on 과 같은 기능
-- `emit(이벤트명)`
-  - 이벤트 호출
-  - 이벤트명을 인수로 넣으면 미리 등록해두었던 콜백이 실행됨
-- `once(이벤트명, 콜백)`
-  - 한 번만 실행되는  이벤트
-- `removeAllListeners(이벤트명)`
-  - 이벤트에 연결된 모든 이벤트 리스너 제거
-- `removeListener(이벤트명, 리스너)`
-  - 이벤트에 연결된 리스터를 하나씩 제거
-- `off(이벤트명, 콜백)`
-  - 노드 10 에서 추가된 메서드로 removeListener 와 같은 기능
-- `listenerCount(이벤트명)`
-    - 등록된 리스터의 개수 조회
-
-`on('data')` 도 겉으론 이벤트를 호출하지 않지만 내부적으로 chunk 를 전달할 때마다 data 이벤트를 emit 하고 있고, 완료되었을 경우 end 이벤트를 emit 한 것이다.
-
-직접 이벤트를 만들 수 있어서 다양한 동작을 구현할 수 있으므로 실무에서 많이 사용된다.
-
----
-
-## 2. 예외 처리
-
-멀티 스레드 프로그램에서는 스레드 하나가 멈추면 그 일은 다른 스레드가 대신 하지만 노드의 메인 스레드는 하나뿐이므로 메인 스레드가 에러로 인해 멈추면
-스레드를 갖고 있는 프로세스가 멈춘다는 뜻이고, 전체 서버도 멈춘다는 뜻이다.
-
-에러가 발생하면 에러 로그가 기록되더라도 작업은 계속 진행될 수 있어야 한다.
-
-아래는 `try/catch` 로 에러를 처리하는 예시이다.
-
-error1.js
-```javascript
-setInterval(() => {
-  console.log('START');
-  try {
-    throw new Error('ERROR');
-  } catch (err) {
-    console.error(err);
-  }
-}, 1000);
-```
-
-```shell
-START
-Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
-START
-Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
-    // 계속 반복
-```
-
-아래는 노드 자체에서 잡아주는 에러 처리이다.
-
-error2.js
-```javascript
-const fs = require('fs');
-
-setInterval(() => {
-  fs.unlink('./ddd.js', err => {
-    if (err) {
-      console.error(err);
-    }
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write('hello');
+    res.end('END');
+  })
+  .listen(8080, () => {
+    // 서버 연결
+    console.log('waiting 8080 port...');
   });
-}, 1000);
 ```
 
 ```shell
-[Error: ENOENT: no such file or directory, unlink './ddd.js'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'unlink',
-  path: './ddd.js'
-}
-[Error: ENOENT: no such file or directory, unlink './ddd.js'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'unlink',
-  path: './ddd.js'
-}
-// 계속 반복
+waiting 8080 port...
 ```
 
-아래는 프로미스의 에러이다.
+![localhost:8080](/assets/img/dev/20211129/localhost.png)
 
-error3.js
+createServer 메서드 뒤에 listen 메서드를 붙여 클라이언트에 공개할 포트 번호와 포트 연결 완료 후 실행될 콜백 함수를 넣는다.
+
+- `res.writeHead`
+    - 헤더에 기록되는 정보
+- `res.write`
+    - body 에 기록되는 정보
+    - 클라이언트에 보낼 데이터
+- `res.end`
+    - 응답을 종료하는 메서드
+    - 인수가 있다면 그 데이터도 클라이언트로 보내고 응답을 종료
+
+> 80 포트를 사용하면 주소에서 포트 생략이 가능하다.<br />
+> https 의 경우 443 포트 생략이 가능하다.<br />
+> 리눅스/맥의 경우 1024번 이하의 포트에 연결 시엔 관리자 권한이 필요하기 때문에 1024 이하의 포트 사용 시 sudo node server1 로 실행하여야 한다.
+
+위의 listen 메서드에 콜백 함수를 넣는 대신 서버에 listening 이벤트 리스너를 붙여서 사용할 수도 있다.
+
+server1-2.js
 ```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.write('hello');
+  res.end('END');
+});
+server.listen(8080);
+
+server.on('listening', () => {
+  console.log('waiting 8080 port...');
+});
+
+server.on('error', err => {
+  console.error(err);
+});
+```
+
+한 번에 여러 서버를 실행할 수도 있다.
+
+server1-3.js
+```javascript
+const http = require('http');
+
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write('hello');
+    res.end('END');
+  })
+  .listen(8080, () => {
+    // 서버 연결
+    console.log('waiting 8080 port...');
+  });
+
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.write('hello');
+    res.end('END');
+  })
+  .listen(8081, () => {
+    // 서버 연결
+    console.log('waiting 8081 port...');
+  });
+```
+
+```shell
+waiting 8080 port...
+waiting 8081 port...
+```
+
+res.write, res.end 에 일일이히 HTML 을 적는 대신 HTML 을 미리 만들어 두고 그 파일을 fs 모듈로 읽어서 전송하도록 해보자.
+
+server2.js
+```javascript
+const http = require('http');
 const fs = require('fs').promises;
 
-setInterval(() => {
-  fs.unlink('./ddd.js');
-}, 1000);
+http
+  .createServer(async (req, res) => {
+    try {
+      const data = await fs.readFile('server2.html');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(data); // 저장된 버퍼를 그대로 클라이언트로 전달
+    } catch (err) {
+      console.error(err);
+      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end(err.message);
+    }
+  })
+  .listen(8080, () => {
+    console.log('wait 8080 port...');
+  });
 ```
-
-```shell
-node:internal/process/promises:246
-          triggerUncaughtException(err, true /* fromPromise */);
-          ^
-
-[Error: ENOENT: no such file or directory, unlink './ddd.js'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'unlink',
-  path: './ddd.js'
-}
-// 프로세스 멈춤
-```
-
-아래는 예측이 불가능한 에러 처리 방법이다.
-
-error4.js
-```javascript
-process.on('uncaughtException', err => {
-  console.error('예측치 못한 에러', err);
-});
-
-setInterval(() => {
-  throw new Error('ERROR');
-}, 1000);
-
-setTimeout(() => {
-  console.log('실행됨');
-}, 2000);
-```
-
-```shell
-예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
-실행됨
-예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
-예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
-// 계속 반복
-```
-
-언뜻보면 `uncaughtException` 이벤트 리스너가 모든 에러를 처리할 수 있을 것처럼 보이지만 노드 공식 문서에서는 `uncaughtException` 이벤트를
-최후의 수단으로 사용할 것을 명시하고 있다.<br />
-노드는 `uncaughtException` 이벤트 발생 수 다음 동작이 제대로 동작하는지를 보증하지 않기 때문에 복구 작업 코드를 넣었더라도 그것이 동작하는지 확신할 수 없다.
-
-따라서 `uncaughtException` 는 단순히 에러 내용을 기록하는 정도로 사용하고, 에러를 기록한 후 process.exit() 로 프로세스를 종료하는 것이 좋다.
 
 ---
 
-## 3. 자주 발생하는 에러들
+## 2. REST 와 라우팅
 
-- `node: command not found`
-  - 노드를 설치했지만 이 에러가 발생하면 환경 변수가 제대로 설정되지 않은 것
-- `ReferenceError: 모듈 is not defined`
-  - 모듈을 require 했는지 확인
-- `Error: Cannot find module 모듈명`
-  - 해당 모듈을 require 했지만 설치는 하지 않은 상태, npm i 로 설치 필요
-- `Error: Can't set headers after they are sent`
-  - 요청에 대한 응답을 보낼 때 응답을 두 번 이상 보낸 경우, 요청에 대한 응답은 한 번만 보내야 함
-- `FATAL ERROR: CALL_END_REPLY_LAST Allocation failed - JavaScript heap out of memory`
-  - 코드 실행 시 메모리가 부족하여 스크립트가 정상 작동하지 않은 경우
-  - 코드가 잘못되었을 확률이 높으므로 코드 점검 필요
-  - 코드가 정상이라면 노드 실행 시 `node --max-old-space-size=4096 파일명` 으로 노드 메모리 늘려서 해결 (4096 은 4GB)
-- `UnhandledPromiseRejectionWarning: Unhandled promise rejection`
-  - 프로미스 사용 시 catch 메서드 붙이지 않은 경우 발생
-- `EACCESS 혹은 EPERM`
-  - 노드가 작업을 수행하는데 권한이 충분하지 않음
-  - 파일/폴더 수정/삭제/생성 권한 확인 필요
-  - 맥/리눅스면 명령어 앞에 sudo 붙이는 것도 방법
-- `ECONNREFUSED`
-  - 요청을 보냈으나 연결이 성립하지 않은 경우
-  - 요청을 받는 서버의 주소가 올바른지, 서버가 내려가있지는 않은지 확인 필요
-- `ETARGET`
-  - package.json 에 기록한 패키지 버전이 존재하지 않을 때 발생
-- `ETIMEOUT`
-  - 요청을 보냈으나 응답이 일정 시간 이내에 오지 않은 경우 발생
-  - 요청을 받는 서버의 상태 점검 필요
-- `ENOENT: no such file or directory`
-  - 지정한 폴더나 파일이 존재하지 않는 경우
+REST 에 관한 내용은 따로 구글링하여 찾아보세요. ^^
+
+> GET 메서드의 경우 브라우저에서 캐싱할 수도 있으므로 같은 주소로 GET 요청을 할 때 서버에서 가져오는 것이 아니라 캐시에서 갸져올 수도 있다.
+
+`res.end()` 를 호출한다고 해서 함수가 종료되는 것은 아니다.
+
+노드도 일반적인 자바스크립트 문법을 따르므로 return 을 붙이지 않는 한 함수가 종료되지 않는다.<br />
+return 을 붙이지 않아서 res.end 같은 메서드가 여러 번 실행되면 `Error: Can't set headers after they are sent to the client.` 에러가 발생한다.
+
+```javascript
+const data = await fs.readFile('restFront.html');
+res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+return res.end(data);
+```
+
+req, res 모두 내부적으로는 Stream (readStream, writeStream) 으로 되어있기 때문에 요청/응답의 데이터가 Stream 형식으로 전달된다.
+
+```javascript
+// 요청 body 를 stream 형식으로 받음
+req.on('data', data => {
+  body += data;
+});
+// 요청 body 다 받은 후 실행
+return req.on('end', () => {
+  console.log('POST body: ', body);
+  const { name } = JSON.parse(body);
+  const id = Date.now();
+  users[id] = name;
+  res.writeHead(201, { 'Content-Type': 'text/plain; charset=utf-8' });
+  res.end('ok');
+});
+```
+
+---
+
+## 3. 쿠키와 세션
+
+쿠키는 요청의 헤더(Cookie) 에 담겨 전송되고, 브라우저는 응답의 헤더(Set-Cookie) 에 따라 쿠키를 저장한다.
+
+```javascript
+const http = require('http');
+
+http
+  .createServer((req, res) => {
+    console.log(req.url, req.headers.cookie);
+    res.writeHead(200, { 'Set-Cookie': 'mycookie=test' });
+    res.end('쿠키 완료');
+  })
+  .listen(8080, () => {
+    console.log('8080...');
+  });
+```
+
+```shell
+8080...
+/ undefined
+/ mycookie=test
+```
+
+쿠키는 *name=assu;age=20* 처럼 세미콜론으로 구분된 문자열이다.
+
+또한 응답의 헤더에 쿠키를 기록해야 하므로 *res.writeHead* 메서드를 사용한다.
+
+아래는 쿠키와 세션을 사용한 예이다.
+
+cookie2.js
+```javascript
+const http = require('http');
+const fs = require('fs').promises;
+const url = require('url');
+const qs = require('querystring');
+
+// 문자열의 쿠키를 { aa: bb } 형태의 객체 형식으로 변환
+const parseCookies = (cookie = '') =>
+  cookie
+    .split(';')
+    .map(v => v.split('='))
+    .reduce((acc, [k, v]) => {
+      acc[k.trim()] = decodeURIComponent(v);
+      return acc;
+    }, {});
+
+const session = {};
+
+http
+  .createServer(async (req, res) => {
+    const cookies = parseCookies(req.headers.cookie); // {mycookie: 'test}
+
+    if (req.url.startsWith('/login')) {
+      const { query } = url.parse(req.url);
+      const { name } = qs.parse(query);
+      const expires = new Date();
+      // 쿠키 유효 시간을 현재시간 + 5분으로 설정
+      expires.setMinutes(expires.getMinutes() + 5);
+
+      const uniqueInt = Date.now();
+      session[uniqueInt] = {
+        name,
+        expires,
+      };
+      res.writeHead(302, {
+        Location: '/',
+        'Set-Cookie': `session=${uniqueInt}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
+      });
+      res.end();
+      // 세션 쿠키가 존재하고, 만료 기간 전인 경우
+    } else if (
+      cookies.session &&
+      session[cookies.session].expires > new Date()
+    ) {
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end(`${session[cookies.session].name} 님~`);
+    } else {
+      try {
+        const data = await fs.readFile('cookie2.html');
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(data);
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end(err.message);
+      }
+    }
+  })
+  .listen(8080, () => {
+    console.log('waiting 8080...');
+  });
+```
+
+아래 부분을 보면 HTTP 응답 코드를 302 로 보낸다.<br />
+브라우저는 이 응답 코드를 보고 이 페이지를 해당 주소로 리다이렉트 한다.<br />
+헤더에는 한글을 설정할 수 없으므로 한글이 있다면 encodeURIComponent 메서드로 인코딩해야 한다.<br />
+Set-Cookie 의 값으로는 제한된 ASCII 코드만 들어가야 하므로 줄바꿈은 넣으면 안된다.
+
+```javascript
+res.writeHead(302, {
+  Location: '/',
+  'Set-Cookie': `session=${uniqueInt}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
+});
+
+// 한글이 있는 경우는
+es.writeHead(302, {
+  Location: '/',
+  'Set-Cookie': `name=${encodeURIComponent(
+          name,
+  )}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
+});
+```
+
+- `쿠키명=쿠키값`
+- `Expires=날짜`
+  - 기본값은 클라이언트가 종료될 때 까지임
+- `Max-age=초`
+  - Expires 와 비슷하지만 날짜 대신 초를 입력, Expires 보다 우선함
+- `Domain=도메인명`
+  - 쿠키가 전송될 도메인을 특정함, 기본값은 현재 도메인.
+- `Path=URL`
+  - 쿠키가 전송될 URL 을 특정함, 기본값은 `/` 이고, 이 경우 모든 URL 에서 쿠키 전송 가능
+- `Secure`
+  - HTTPS 일 경우에만 쿠키가 전송됨
+- `HttpOnly`
+  - 설정 시 자바스크립트에서 쿠키에 접근할 수 없음, 쿠키 조작 방지를 위해 설정하는 것이 좋음
+
+위처럼 하는 방식이 `세션`이다.<br />
+서버에 사용자 정보를 저장하지 않고 클라이언트와는 세션 아이디로만 소통한다.<br />
+세션을 위해 사용하는 쿠키를 `세션 쿠키` 라고 한다.
+
+실제 운영 서버에서는 세션을 위처럼 변수에 저장하지 않는다.<br />
+서버가 멈추거나 재시작되면 메모리에 저장된 변수가 초기화되고, 서버의 메모리가 부족하면 세션을  저장하지 못하는 문제도 생긴다.<br />
+따라서 보통은 레디스나 맴캐시  드 같은 DB 에 저장한다.
+
+위의 코드는 쿠키를 악용한 여러 위협에 방어하지 못하므로 개념만 익혀두는 용도로 보고 절대 실제 서비스에 사용해서는 안된다.
+
+실제 서비스에 사용할 수 있는 쿠키와 세션은 추후 다를 예정이다.
+
+---
+
+## 4. https 와 http2
+
+https 모듈은 웹 서버에 SSL 암호화를 추가한다.
+
+http2 모듈은 SSL 암호화와 더불어 최신 HTTP 프로토콜인 http/2 를 사용할 수 있게 한다.<br />
+http/2 는 요청 및 응답 방식이 기존 http/1.1 보다 개선되어 훨씬 효율적으로 요청을 보내어 웹의 속도도 많이 개선된다. (한번에 여러 리소스 요청 가능)
+
+
+---
+
+## 5. cluster
+
+cluster 모듈은 기본적으로 싱글 프로세스로 동작하는 노드가 CPU 코어를 모두 사용할 수 있도록 해주는 모듈이다.
+
+포트를 공유하는 노드 프로세스를 여러 개 둘 수 있으므로 요청이 많이 들어왔을 대 병렬로 실행된 서버의 개수만큼 요청이 분산되게 할 수 있다.
+
+메모리를 공유하지 못하는 단점이 있으므로, 세션을 메모리에 저장하고 있다면 레디스 등의 서버를 도입하는 방식을 고려해보아야 한다.
+
+직접 cluster 모듈로 클러스터링을 구현할 수도 있지만 실무에서는 pm2 등의 모듈로 cluster 기능을 사용한다.<br />
+아래 예시는 기본 노드 문법을 보는 정도로만 가볍게 보도록 하자.
+
+cluster.js
+```javascript
+const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster) {
+  console.log(`마스터 프로세스 아이디: ${process.pid}`);
+  // CPU 개수만큼 워커를 생산
+  for (let i = 0; i < numCPUs; i += 1) {
+    cluster.fork();
+  }
+  // 워커가 종료되었을 때
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`${worker.process.pid}번 워커가 종료되었습니다.`);
+    console.log('code', code, 'signal', signal);
+    cluster.fork();
+  });
+} else {
+  // 워커들이 포트에서 대기
+  http
+    .createServer((req, res) => {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.write('<h1>Hello Node!</h1>');
+      res.end('<p>Hello Cluster!</p>');
+      setTimeout(() => {
+        // 워커 존재를 확인하기 위해 1초마다 강제 종료
+        process.exit(1);
+      }, 1000);
+    })
+    .listen(8086);
+
+  console.log(`${process.pid}번 워커 실행`);
+}
+```
+
+```shell
+마스터 프로세스 아이디: 70017
+70020번 워커 실행
+70018번 워커 실행
+70019번 워커 실행
+70021번 워커 실행
+70022번 워커 실행
+70026번 워커 실행
+```
 
 ---
 
@@ -278,5 +414,9 @@ setTimeout(() => {
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)
 * [Node.js (v16.11.0) 공홈](https://nodejs.org/dist/latest-v16.x/docs/api/)
-* [node.js 에러 코드](https://nodejs.org/dist/latest-v16.x/docs/api/errors.html#errors_node_js_error_codes)
-* [uncaughtException](https://nodejs.org/dist/latest-v16.x/docs/api/process.html#process_event_uncaughtexception)
+* [쿠키](https://developer.mozilla.org/ko/docs/Web/HTTP/Cookies)
+* [세션](https://developer.mozilla.org/ko/docs/Web/HTTP/Session)
+* [http 모듈 설명](https://nodejs.org/dist/latest-v16.x/docs/api/http.html)
+* [https 모듈 설명](https://nodejs.org/dist/latest-v16.x/docs/api/https.html)
+* [http2 모듈 설명](https://nodejs.org/dist/latest-v16.x/docs/api/http2.html)
+* [cluster 모듈 설명](https://nodejs.org/dist/latest-v16.x/docs/api/cluster.html)
