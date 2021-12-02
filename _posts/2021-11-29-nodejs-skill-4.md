@@ -129,12 +129,12 @@ setInterval(() => {
 ```shell
 START
 Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
+    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
     at listOnTimeout (node:internal/timers:557:17)
     at processTimers (node:internal/timers:500:7)
 START
 Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
+    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
     at listOnTimeout (node:internal/timers:557:17)
     at processTimers (node:internal/timers:500:7)
     // 계속 반복
@@ -215,16 +215,16 @@ setTimeout(() => {
 
 ```shell
 예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
+    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
     at listOnTimeout (node:internal/timers:557:17)
     at processTimers (node:internal/timers:500:7)
 실행됨
 예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
+    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
     at listOnTimeout (node:internal/timers:557:17)
     at processTimers (node:internal/timers:500:7)
 예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/juhyunlee/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
+    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
     at listOnTimeout (node:internal/timers:557:17)
     at processTimers (node:internal/timers:500:7)
 // 계속 반복
