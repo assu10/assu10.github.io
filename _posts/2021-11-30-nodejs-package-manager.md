@@ -362,4 +362,5 @@ npm WARN using --force Recommended protections disabled.
 * [yarn 공홈](https://yarnpkg.com/)
 * [npm 명령어 설명서](https://docs.npmjs.com/cli/v8)
 * [패키지 간 비교 사이트](https://npmcompare.com/)
+* [패키지 다운로드 추이 확인](https://www.npmtrends.com/)
 * [패키지명에 네임스페이스 설정하기](https://docs.npmjs.com/cli/v8/using-npm/scope)

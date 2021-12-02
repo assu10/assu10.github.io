@@ -141,7 +141,7 @@ process.argv.forEach((val: string, index: number) => {
 ```shell
 > ts-node src/index.ts data/aa.csv 500000
 0:  /usr/local/bin/ts-node
-1:  /Users/juhyunlee/myhome/02_Study/03_typescript/mytypescript/chap12-big-data-batch/src/index.ts
+1:  /Users/assu/myhome/02_Study/03_typescript/mytypescript/chap12-big-data-batch/src/index.ts
 2:  data/aa.csv
 3:  500000
 ```
