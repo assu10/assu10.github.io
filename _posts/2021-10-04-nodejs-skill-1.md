@@ -659,7 +659,9 @@ const secretId = process.env.SECRET_ID;
 const secretCode = process.env.SECRET_CODE;
 ```
 
-*`process.env` 에 임의의 환경 변수를 넣는 방법은 추후 `dotenv` 와 함께 포스팅 예정입니다.* 
+> `process.env` 에 임의의 환경 변수를 넣는 방법은
+> [Node.js - Express (1): 미들웨어](https://assu10.github.io/dev/2021/12/01/nodejs-express-1/) 의 *2. 미들웨어* 중 `dotenv` 를
+> 참고하세요.
 
 ---
 
