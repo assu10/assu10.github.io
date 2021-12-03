@@ -91,7 +91,9 @@ app.listen(app.get('port'), () => {
 
 express 내부에 http 모듈이 내장되어 있으므로 서버의 역할을 할 수 있다.
 
-express 에서는 res.write, res.end 대신 `res.send` 를 사용한다.
+express 에서는 `res.write`, `res.end` 대신 `res.send` 를 사용한다.<br />
+`res.writeHead`, `res.write`, `res.end` 등의 메서드는 http 모듈의 기능이고, <br />
+`res.send`, `res.sendFile` 은 express 가 추가한 메서드이다.
 
 app.get 외에도 app.post, app.put, app.patch, app.delete, app.options 메서드가 존재한다.
 
