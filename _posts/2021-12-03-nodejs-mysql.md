@@ -34,6 +34,8 @@ tags: nodejs mysql sequelize
 
 MySQL 의 기본 개념과 워크벤치 사용법은 따로 찾아보세요. ^^
 
+포스팅 기준일 mysql 설치버전은 8.0.27 입니다.
+
 mysql 설치 및 접속
 ```shell
 > brew install mysql  # mysql 설치
@@ -46,6 +48,8 @@ mysql 설치 및 접속
 ```shell
 > brew install --cask mysqlworkbench
 ```
+
+> 저는 워크벤치 대신 jetBrain 의 datagrip 을 사용합니다.
 
 ---
 
@@ -443,7 +447,7 @@ sequelize.define('foo', {
   - static init 메서드의 매개변수와 연결되는 옵션으로 db.sequelize 객체를 넣어야 함
   - models/index.js 에서 연결
 - `timestamps`
-  - true 면 시퀄라이즈가 자동으로 createdAt, updatedAt 컬럼 추
+  - true 면 시퀄라이즈가 자동으로 createdAt, updatedAt 컬럼 추가
 - `underscored`
   - 시퀄라이즈는 기본적으로 테이블명과 컬럼명을 Camel Case 로 만드는데 true 로 설정 시 이를 Snake case 로 바꿔줌
 - `modelName`
@@ -454,7 +458,6 @@ sequelize.define('foo', {
 - `charset, collate`
   - 각각 utf8, utf8_general_ci 로 설정해야 한글 입력 가능
   - 이모지까지 입력해야 할 경우 utf8mb4 와 utf8mb4_general_ci 로 설정
-
 
 ---
 
@@ -556,34 +559,146 @@ MySQL 에서는 `join` 기능으로 여러 테이블 간의 관계를 파악하�
 
 ### 5.1. 1:N (`hasMany`, `belongsTo`)
 
+먼저 아래 만들 테이블의 ERD 와 Schema 는 아래와 같다.
+
+![user, comments](/assets/img/dev/2021/1203/1-n.png)
+
+![user, comments ERD](/assets/img/dev/2021/1203/erd.png)
+
+```mysql
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `age` int unsigned NOT NULL,
+  `married` tinyint NOT NULL,
+  `comment` text,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='사용자 정보'
+```
+
+```mysql
+CREATE TABLE `comments` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `commenter` int NOT NULL,
+  `comment` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `commenter_idx` (`commenter`),
+  CONSTRAINT `commenter` FOREIGN KEY (`commenter`) REFERENCES `users` (`id`) 
+      ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='댓글'
+```
+
 시퀄라이즈는 1:N 관계를 `hasMany` 와 `belongsTo` 메서드로 표현한다.
 
 `hasMany` 메서드로 users 테이블의 row 조회 시 연결된 comments 테이블의 row 들도 함께 조회할 수 있다.
 
 `belongsTo` 메서드로 comments 테이블의 row 조회 시 연결된 users 테이블의 row 도 함께 조회할 수 있다.  
-다른 모델의 정보가 들어가는 테이블에 belongsTo 를 사용한다.
+<u>다른 모델의 정보가 들어가는 테이블에 belongsTo 를 사용</u>한다.
+
+```javascript
+db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id' });
+db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' });
+```
 
 models/user.js
 ```javascript
-...
+const Sequelize = require('sequelize');
 
-// 다른 모델과의 관계
-static associate(db) {
-  db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id' });
-}
+module.exports = class User extends Sequelize.Model {
+  // 테이블에 대한 설정
+  static init(sequelize) {
+    return super.init(
+            // 테이블 컬럼에 대한 설정
+            {
+              name: {
+                type: Sequelize.STRING(20),
+                allowNull: false,
+                unique: true,
+              },
+              age: {
+                type: Sequelize.INTEGER.UNSIGNED,
+                allowNull: false,
+              },
+              married: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+              },
+              comment: {
+                type: Sequelize.TEXT,
+                allowNull: true,
+              },
+              created_at: {
+                type: Sequelize.DATE,
+                allowNull: false,
+                defaultValue: Sequelize.NOW,
+              },
+            },
+            // 테이블 자체에 대한 설정
+            {
+              sequelize,
+              timestamps: false,
+              underscored: false,
+              modelName: 'User',
+              tableName: 'users',
+              paranoid: false,
+              charset: 'utf8',
+              collate: 'utf8_general_ci',
+            },
+    );
+  }
+  // 다른 모델과의 관계
+  static associate(db) {
+    db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id' });
+  }
+};
 ```
 
 models/comment.js
 ```javascript
-...
+const Sequelize = require('sequelize');
 
-// 다른 모델과의 관계
-static associate(db) {
-  db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' });
-}
+module.exports = class Comment extends Sequelize.Model {
+  // 테이블에 대한 설정
+  static init(sequelize) {
+    // 테이블 컬럼에 대한 설정
+    return super.init(
+            {
+              comment: {
+                type: Sequelize.STRING(100),
+                allowNull: false,
+              },
+              created_at: {
+                type: Sequelize.DATE,
+                allowNull: true,
+                defaultValue: Sequelize.NOW,
+              },
+            },
+            // 테이블 자체에 대한 설정
+            {
+              sequelize,
+              timestamps: false,
+              modelName: 'Comment',
+              tableName: 'comments',
+              paranoid: false,
+              charset: 'utf8mb4',
+              collate: 'utf8mb4_general_ci',
+            },
+    );
+  }
+  // 다른 모델과의 관계, commenter 라는 FK 컬럼 생성
+  // foreignKey 를 설정하지 않으면 UserId (모델명+기본키) 로 FK 컬럼 생성
+  static associate(db) {
+    db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' });
+  }
+};
 ```
 
-Comment 모델에 foreignKey 인 commenter 컬럼을 추가한다. Commenter 모델의 외래 키 컬럼은 commenter 이고, User 모델의 id 컬럼을 가리킨다.  
+Comment 모델에 foreignKey 인 commenter 컬럼을 추가한다.  
+Commenter 모델의 외래 키 컬럼은 commenter 이고, User 모델의 id 컬럼을 가리킨다.
+
 만일 foreignKey 를 따로 지정하지 않으면 기본적으로 모델명+기본키인 컬럼이 외래키로 모델에 생성된다. 예) user + id = UserId
 
 `npm start` 를 서버를 재실행하면 아래와 같은 쿼리가 실행이 되는 것을 확인할 수 있다.
@@ -600,14 +715,178 @@ Executing (default): SHOW INDEX FROM `comments` FROM `nodejs`
 
 ### 5.2. 1:1 (`hasOne`, `belongsTo`)
 
+![users1, infos](/assets/img/dev/2021/1203/1-1.png)
+
+![users1, infos ERD](/assets/img/dev/2021/1203/erd1.png)
+
+```mysql
+CREATE TABLE `users1` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `age` int unsigned NOT NULL,
+  `married` tinyint(1) NOT NULL,
+  `comment` text,
+  `created_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
+```
+
+```mysql
+CREATE TABLE `infos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `address` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `User1Id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `address` (`address`),
+  KEY `User1Id` (`User1Id`),
+  CONSTRAINT `infos_ibfk_1` FOREIGN KEY (`User1Id`) REFERENCES `users1` (`id`) 
+      ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
+```
+
+
 ```javascript
 db.User.hasOne(db.Info, { foreignKey: 'UserId', sourceKey: 'id' });
 db.Info.belongsTo(db.User, { foreignKey: 'UserId', targetKey: 'id' });
 ```
 
+models/user1.js
+```javascript
+const Sequelize = require('sequelize');
+
+module.exports = class User1 extends Sequelize.Model {
+  // 테이블에 대한 설정
+  static init(sequelize) {
+    return super.init(
+      // 테이블 컬럼에 대한 설정
+      {
+        name: {
+          type: Sequelize.STRING(20),
+          allowNull: false,
+          unique: true,
+        },
+        age: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          allowNull: false,
+        },
+        married: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+        },
+        comment: {
+          type: Sequelize.TEXT,
+          allowNull: true,
+        },
+        created_at: {
+          type: Sequelize.DATE,
+          allowNull: false,
+          defaultValue: Sequelize.NOW,
+        },
+      },
+      // 테이블 자체에 대한 설정
+      {
+        sequelize,
+        timestamps: false,
+        underscored: false,
+        modelName: 'User1',
+        tableName: 'users1',
+        paranoid: false,
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
+      },
+    );
+  }
+  // 다른 모델과의 관계
+  static associate(db) {
+    db.User1.hasOne(db.Info);
+  }
+};
+```
+
+models/info.js
+```javascript
+const Sequelize = require('sequelize');
+
+module.exports = class Info extends Sequelize.Model {
+  // 테이블에 대한 설정
+  static init(sequelize) {
+    return super.init(
+      // 테이블 컬럼에 대한 설정
+      {
+        address: {
+          type: Sequelize.STRING(100),
+          allowNull: false,
+          unique: true,
+        },
+        created_at: {
+          type: Sequelize.DATE,
+          allowNull: false,
+          defaultValue: Sequelize.NOW,
+        },
+      },
+      // 테이블 자체에 대한 설정
+      {
+        sequelize,
+        timestamps: false,
+        underscored: false,
+        modelName: 'Info',
+        tableName: 'infos',
+        paranoid: false,
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
+      },
+    );
+  }
+  // 다른 모델과의 관계
+  // foreignKey 를 설정하지 않으면 User1Id (모델명+기본키) 로 FK 컬럼 생성
+  static associate(db) {
+    db.Info.belongsTo(db.User1);
+  }
+};
+```
+
 ---
 
 ### 5.3. N:M (`belongsToMany`, `belongsToMany`)
+
+![posts, hashtags, posthashtag](/assets/img/dev/2021/1203/n-m.png)
+
+![posts, hashtags, posthashtag ERD](/assets/img/dev/2021/1203/erd2.png)
+
+```mysql
+CREATE TABLE `posts` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `contents` varchar(100) NOT NULL,
+   `created_at` datetime NOT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
+```
+
+```mysql
+CREATE TABLE `hashtags` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `title` varchar(100) NOT NULL,
+    `created_at` datetime NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
+```
+
+```mysql
+CREATE TABLE `PostHashtag` (
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `PostId` int NOT NULL,
+  `HashtagId` int NOT NULL,
+  PRIMARY KEY (`PostId`,`HashtagId`),
+  KEY `HashtagId` (`HashtagId`),
+  CONSTRAINT `posthashtag_ibfk_1` FOREIGN KEY (`PostId`) REFERENCES `posts` (`id`) 
+      ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `posthashtag_ibfk_2` FOREIGN KEY (`HashtagId`) REFERENCES `hashtags` (`id`) 
+      ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
+```
 
 ```javascript
 db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag' });
@@ -619,6 +898,88 @@ N:M 관계 특성상 새로운 모델이 생성되는데 위 예시로 보면 po
 
 ```javascript
 db.sequelize.models.PostHashtag
+```
+
+models/post.js
+```javascript
+const Sequelize = require('sequelize');
+
+module.exports = class Post extends Sequelize.Model {
+  // 테이블에 대한 설정
+  static init(sequelize) {
+    return super.init(
+      // 테이블 컬럼에 대한 설정
+      {
+        contents: {
+          type: Sequelize.STRING(100),
+          allowNull: false,
+        },
+        created_at: {
+          type: Sequelize.DATE,
+          allowNull: false,
+          defaultValue: Sequelize.NOW,
+        },
+      },
+      // 테이블 자체에 대한 설정
+      {
+        sequelize,
+        timestamps: false,
+        underscored: false,
+        modelName: 'Post',
+        tableName: 'posts',
+        paranoid: false,
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
+      },
+    );
+  }
+  // 다른 모델과의 관계
+  // belongsToMany 인 경우 through 필수
+  static associate(db) {
+    db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag' });
+  }
+};
+```
+
+models/hashtags.js
+```javascript
+const Sequelize = require('sequelize');
+
+module.exports = class Hashtag extends Sequelize.Model {
+  // 테이블에 대한 설정
+  static init(sequelize) {
+    return super.init(
+      // 테이블 컬럼에 대한 설정
+      {
+        title: {
+          type: Sequelize.STRING(100),
+          allowNull: false,
+        },
+        created_at: {
+          type: Sequelize.DATE,
+          allowNull: false,
+          defaultValue: Sequelize.NOW,
+        },
+      },
+      // 테이블 자체에 대한 설정
+      {
+        sequelize,
+        timestamps: false,
+        underscored: false,
+        modelName: 'Hashtag',
+        tableName: 'hashtags',
+        paranoid: false,
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
+      },
+    );
+  }
+  // 다른 모델과의 관계
+  // belongsToMany 인 경우 through 필수
+  static associate(db) {
+    db.Hashtag.belongsToMany(db.Post, { through: 'PostHashtag' });
+  }
+};
 ```
 
 ---

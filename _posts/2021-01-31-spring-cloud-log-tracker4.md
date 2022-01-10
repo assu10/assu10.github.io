@@ -118,11 +118,11 @@ elasticsearch 로 연동하여 open zipkin 실행
 C:\myhome\03_Study\13_SpringCloud> java -DSTORAGE_TYPE=elasticsearch -DES_HOSTS=http://127.0.0.1:9200 -jar .\zipkin-server-2.23.2-exec.jar
 ```
 
-![Open Zipkin 서버 구동](/assets/img/dev/20210131/zipkin.png)
+![Open Zipkin 서버 구동](/assets/img/dev/2021/0131/zipkin.png)
 
 [http://localhost:9411](http://localhost:9411) 에 접속하면 Open Zipkin 서버의 첫 화면을 볼 수 있다.
 
-![Open Zipkin 첫 화면](/assets/img/dev/20210131/zipkin_console.png)
+![Open Zipkin 첫 화면](/assets/img/dev/2021/0131/zipkin_console.png)
 
 
 Open Zipkin 은 아래 4 가지 저장소를 지원한다.<br />
@@ -203,16 +203,16 @@ public String getYourName(ServletRequest req, @PathVariable("nick") String nick)
 }
 ```
 
-![API 호출](/assets/img/dev/20210131/apicall.png)
+![API 호출](/assets/img/dev/2021/0131/apicall.png)
 
 이제 Open Zipkin 웹콘솔인 [http://localhost:9411/zipkin/](http://localhost:9411/zipkin/) 로 접속하여 Open Zipkin 이 추적한 트랜잭션을 살펴보자.  
 
 상단 쿼리 필터 조건에서 *serviceName* 을 선택하면 Open Zipkin 으로 트랜잭션이 수집된 서비스들의 목록이 리스트업되는데 추적하고자 하는 서비스를 선택 후 
 좌측의 *RUN QUERY* 를 눌러 수집된 트랜잭션을 검색한다.
   
-![Open Zipkin 웹콘솔 (1)](/assets/img/dev/20210131/zipkin1.png)
-![Open Zipkin 웹콘솔 (2)](/assets/img/dev/20210131/zipkin2.png)
-![Open Zipkin 웹콘솔 (3)](/assets/img/dev/20210131/zipkin3.png)
+![Open Zipkin 웹콘솔 (1)](/assets/img/dev/2021/0131/zipkin1.png)
+![Open Zipkin 웹콘솔 (2)](/assets/img/dev/2021/0131/zipkin2.png)
+![Open Zipkin 웹콘솔 (3)](/assets/img/dev/2021/0131/zipkin3.png)
 
 위 그림에서 Open Zipkin 이 수집한 1개의 트랜잭션을 볼 수 있다.<br />
 위의 1개의 트랜잭션은 Zuul 게이트웨이에서 2개의 스팬, 회원 서비스에서 1개의 스팬 총 3개의 스팬이 수집되었다.<br /> 
@@ -232,14 +232,14 @@ Trace ID 는 893ca45eb57ed8a0 이고, 총 11.736ms 가 소요된 것을 알 수 
 아래 화면처럼 트랜잭션 내 각 스팬에 소요된 시간과 순서를 볼 수 있다.<br />
 Zuul 관점에서 전체 트랜잭션은 총 11.736 ms 가 소요되었고, Zuul 에서 호출된 회원 서비스의 처리 시간이 전체 호출 시간인 11.736 ms 에서 8.675 ms 를 차지한다.
 
-![Open Zipkin 트랜잭션 분석](/assets/img/dev/20210131/zipkin4.png)
+![Open Zipkin 트랜잭션 분석](/assets/img/dev/2021/0131/zipkin4.png)
 
 좌측 상단의 *SHOW ALL ANNOTATIONS* 를 클릭하면 좀 더 상세한, 사실 제일 중요한 정보를 알 수 있다.
 
-![Open Zipkin 트랜잭션 분석](/assets/img/dev/20210131/zipkin5.png)
+![Open Zipkin 트랜잭션 분석](/assets/img/dev/2021/0131/zipkin5.png)
 
 ANNOTATIONS 부분만 따로 분석해보자.
-![Open Zipkin 트랜잭션 분석](/assets/img/dev/20210131/zipkin6.png)
+![Open Zipkin 트랜잭션 분석](/assets/img/dev/2021/0131/zipkin6.png)
 
 위 내용엔 클라이언트(Zuul)가 회원 서비스를 호출한 시점, 회원 서비스가 호출을 받은 시점과 회원 서비스가 응답한 시점의 정보가 기록되어 있다.<br />
 이 정보는 네트워크 지연 문제를 식별하는데 매우 중요한 정보이다.

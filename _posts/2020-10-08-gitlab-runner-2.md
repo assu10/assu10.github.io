@@ -94,12 +94,12 @@ deploy_prod:
     - master
 ```
 
-![프로덕션 환경에서는 수동 배포하도록 구성된 파이프라인<br />(출처 : https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)](/assets/img/dev/20201009/manual.jpg)
+![프로덕션 환경에서는 수동 배포하도록 구성된 파이프라인<br />(출처 : https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)](/assets/img/dev/2020/1009/manual.jpg)
 
 
 그 외에도 아래와 같은 `when:` 옵션이 있다. (default 는 on_success)
 
-![job 실행 조건 when](/assets/img/dev/20201009/when.jpg)
+![job 실행 조건 when](/assets/img/dev/2020/1009/when.jpg)
 
 좀 더 상세한 설명은 [Configuring manual deployments](https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments) 를
 참고하세요.
@@ -259,9 +259,9 @@ deploy-phase:      # 임의의 job 이름
     - echo 'deploy-phase after_script, except dev'
 ```
 
-![수동 job 페이지 위치)](/assets/img/dev/20201009/job.jpg)
+![수동 job 페이지 위치)](/assets/img/dev/2020/1009/job.jpg)
 
-![수동 job 페이지에서 변수 설정)](/assets/img/dev/20201009/job2.jpg)
+![수동 job 페이지에서 변수 설정)](/assets/img/dev/2020/1009/job2.jpg)
 
 
 ```shell
@@ -304,7 +304,7 @@ Job succeeded
 
 비슷한 job 이 많은 경우 파이프라인 그래프가 길어져 보기 힘들어지는데 아래와 같은 방식으로 설정하면 비슷한 job 을 자동으로 그룹화할 수 있다.
 
-![그룹화된 파이프라인<br />(출처 : https://docs.gitlab.com/ee/ci/pipelines/index.html)](/assets/img/dev/20201009/group1.jpg)
+![그룹화된 파이프라인<br />(출처 : https://docs.gitlab.com/ee/ci/pipelines/index.html)](/assets/img/dev/2020/1009/group1.jpg)
 
 - 슬래쉬 (/) 사용 : test 1/3, test 2/3, test 3/3
 - 콜론 (:) 사용 : test 1:3, test 2:3, test 3:3
@@ -329,7 +329,7 @@ build ruby 3/3:
     - echo "ruby3"
 ```
 
-![그룹화된 파이프라인<br />(출처 : https://docs.gitlab.com/ee/ci/pipelines/index.html)](/assets/img/dev/20201009/group2.jpg)
+![그룹화된 파이프라인<br />(출처 : https://docs.gitlab.com/ee/ci/pipelines/index.html)](/assets/img/dev/2020/1009/group2.jpg)
 
 ---
 
@@ -352,7 +352,7 @@ GitLab 에서 가장 간단한 구조의 파이프라인으로 빌드 stage 의 
 모든 작업이 완료되면 테스트 stage 의 모든 항목을 동일한 방식으로 실행한다.<br />
 유지 관리는 쉽지만, 가장 효율적인 방법은 아니며 단계가 많아질수록 상당히 복잡해진다.
 
-![파이프라인 - 기본 아키텍처](/assets/img/dev/20201009/pipeline.jpg)
+![파이프라인 - 기본 아키텍처](/assets/img/dev/2020/1009/pipeline.jpg)
 
 ```yaml
 stages:
@@ -421,7 +421,7 @@ GitLab 은 deploy_a 를 시작한다.
 
 좀 더 자세한 사항은 [Directed Acyclic Graph](https://docs.gitlab.com/ee/ci/directed_acyclic_graph/index.html) 를 참고하세요.
 
-![파이프라인 - DAG 아키텍처](/assets/img/dev/20201009/dag.jpg) 
+![파이프라인 - DAG 아키텍처](/assets/img/dev/2020/1009/dag.jpg) 
 
 ```yaml
 stages:
@@ -495,7 +495,7 @@ deploy_b:
 [include](https://docs.gitlab.com/ee/ci/yaml/README.html#include) 를 참고하세요.
 
 
-![파이프라인 - Child/Parent Pipelines 아키텍처 (a 디렉토리 안의 내용이 변경된 경우)](/assets/img/dev/20201009/trigger.jpg)
+![파이프라인 - Child/Parent Pipelines 아키텍처 (a 디렉토리 안의 내용이 변경된 경우)](/assets/img/dev/2020/1009/trigger.jpg)
 
 .gitlab-ci.yml 의 내용은 아래와 같다.
 a 디렉토리 안의 내용이 변경되면 a 디렉토리에 위한 gitlab-ci.yml 을 실행한다. 

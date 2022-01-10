@@ -68,7 +68,7 @@ ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스
 
 `Elastic Stack` 은 위의 `ELK Stack` 에서 한 단계 발전한 형태이다.<br />
 
-![Elastic Stack](/assets/img/dev/20210104/elasticstack.png)
+![Elastic Stack](/assets/img/dev/2021/0104/elasticstack.png)
 
 사용자들은 파일을 추적하고 싶어했고 2015년에 기존 `ELK Stack` 에 경량의 단일 목적 데이터 수집기 제품군을 도입했는데 이것을 `Beats` 이다.<br />
 이 한 단계 발전된 형태를 BELK? BLEK? 등 앞글자를 따서 만들까했지만 머릿글자를 확장이 쉽지 않아 이름을 `Elastic Stack` 으로 지었다고 한다.
@@ -93,7 +93,7 @@ ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스
 이제 ELK 스택을 사용하기 위해 각 오픈 소스를 설치해보도록 하자.<br />
 로그 데이터의 전체적인 흐름은 아래와 같다.
 
-![로그 데이터의 흐름](/assets/img/dev/20210104/log.png)
+![로그 데이터의 흐름](/assets/img/dev/2021/0104/log.png)
 
 ---
 
@@ -136,7 +136,7 @@ C:\Program Files\Elastic\Elasticsearch\7.10.1> ./bin/elasticsearch
 ``` 
 
 
-![엘라스틱서치 기동](/assets/img/dev/20210104/elasticsearch.png)
+![엘라스틱서치 기동](/assets/img/dev/2021/0104/elasticsearch.png)
 
 ---
 
@@ -151,11 +151,11 @@ C:\Program Files\Elastic\Elasticsearch\7.10.1> ./bin/elasticsearch
 C:\myhome\03_Study\13_SpringCloud\kibana-7.10.1-windows-x86_64> ./bin/kibana.bat
 ```
 
-![Kibana 기동](/assets/img/dev/20210104/kibana.png)
+![Kibana 기동](/assets/img/dev/2021/0104/kibana.png)
 
 이제 [http://localhost:5601/](http://localhost:5601/) 로 Kibana 콘솔 화면에 접속해보자.
 
-![Kibana 콘솔](/assets/img/dev/20210104/kibana2.png)
+![Kibana 콘솔](/assets/img/dev/2021/0104/kibana2.png)
 
 ---
 
@@ -192,7 +192,7 @@ output {
 C:\myhome\03_Study\13_SpringCloud\logstash-7.10.2> ./bin/logstash -f ./config/logstash.conf
 ```
 
-![Logstash 기동](/assets/img/dev/20210104/logstash.png)
+![Logstash 기동](/assets/img/dev/2021/0104/logstash.png)
 
 ---
 
@@ -255,18 +255,18 @@ Elasticsearch와 Kibana가 제대로 기동되었는지 확인한다.
 [http://localhost:5601/app/home#/](http://localhost:5601/app/home#/) 로 접속하여 우측 상단의 *Manage* 로 들어간 후 
 좌측의 *Kinaba > Index Patterns* 에 들어가 *Create index pattern* 버튼을 클릭한다.
 
-![Index 생성 1](/assets/img/dev/20210104/kibana3.png)
-![Index 생성 2](/assets/img/dev/20210104/kibana4.png)
-![Index 생성 3](/assets/img/dev/20210104/kibana5.png)
+![Index 생성 1](/assets/img/dev/2021/0104/kibana3.png)
+![Index 생성 2](/assets/img/dev/2021/0104/kibana4.png)
+![Index 생성 3](/assets/img/dev/2021/0104/kibana5.png)
 
 *logstash.conf* 에서 인덱스를 *index => "logstash-%{+YYYY.MM.dd}"* 로 설정하였으므로 logstash-* 로 인덱스명을 입력한 후 다음 단계로 넘어간다.<br />
 (저는 이미 해당 인덱스를 생성하여 Next Step 버튼이 활성화되지 않은 상태로 보입니다)
 
-![Index 생성 4](/assets/img/dev/20210104/kibana6.png)
+![Index 생성 4](/assets/img/dev/2021/0104/kibana6.png)
 
 이제 로그 시간으로 사용할 필드를 지정하는데 logstash appender 가 자동으로 생성해준 timestamp 값을 지정한다.
 
-![Index 생성 5](/assets/img/dev/20210104/kibana7.png)
+![Index 생성 5](/assets/img/dev/2021/0104/kibana7.png)
 
 ---
 
@@ -310,17 +310,17 @@ public class EventController {
 
 logstash 콘솔에 아래와 같이 로그가 찍히는 것을 확인할 수 있다.
 
-![logstash에서 로그 확인](/assets/img/dev/20210104/logstash2.png)
+![logstash에서 로그 확인](/assets/img/dev/2021/0104/logstash2.png)
 
 이제 kibana 에서 로그를 확인해보자.
 
 Kibana 콘솔인 [http://localhost:5601/app/home#/](http://localhost:5601/app/home#/) 로 접속하여 *Kibana > Discover* 로 들어간다.
 
-![Kibana에서 로그 확인 1](/assets/img/dev/20210104/kibana8.png)
+![Kibana에서 로그 확인 1](/assets/img/dev/2021/0104/kibana8.png)
 
 원하는 로그를 필터링하여 보려면 상단 필터링 조건을 이용하면 된다.
 
-![Kibana에서 로그 확인 2](/assets/img/dev/20210104/kibana9.png)
+![Kibana에서 로그 확인 2](/assets/img/dev/2021/0104/kibana9.png)
 
 ---
 

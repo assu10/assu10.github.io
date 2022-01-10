@@ -19,6 +19,10 @@ tags: nodejs express middleware morgan static body-parser cookie-parser express-
 >   - `express-session`
 >   - 미들웨어 내용 정리
 >   - `multer`
+>     - `upload.single('img')` - req.file 객에체 하나의 파일만 업로드
+>     - `upload.array('imgs')` - req.files 객체에 input 태그의 name 이 동일한 여러 개의 파일을 업로드
+>     - `upload.fields([{ name: 'imagename1' }, { name: 'imagename2' }])` - req.files 객체에 input 태그의 name 이 다른 여러 개의 파일을 업로드 
+>     - `upload.none()` - 파일 업로드 없이 텍스트 데이터만 multipart 형식으로 전송
 
 ---
 
@@ -26,7 +30,7 @@ npm 에는 **서버를 제작하는 과정에서의 불편함을 해소하고 �
 
 웹 서버 프레임워크에 Express 외에도 koa, hapi 같은 프레임워크가 있지만 아래 그래프를 보면 express 가 npm 패키지 다운로드 수가 월등히 높은 것을 알 수 있다. 
 
-![https://www.npmtrends.com/express-vs-hapi-vs-koa](/assets/img/dev/20211201/express-hapi-koa.png)
+![https://www.npmtrends.com/express-vs-hapi-vs-koa](/assets/img/dev/2021/1201/express-hapi-koa.png)
 
 ---
 
@@ -542,7 +546,7 @@ req.session.destroy();  // 세션 모두 제거
 
 세션을 강제로 저장하기 위해 `req.session.save()` 가 있긴한데, 일반적으로 요청이 끝날 때 자동으로 호출되기 때문에 직접 호출할 일은 거의 없다.
 
-`express-session` 에서 서명한 세션 쿠기의 모양은 약간 특이한데 쿠키 앞에 `s:` 가 붙는다.<br />
+`express-session` 에서 서명한 세션 쿠키의 모양은 약간 특이한데 쿠키 앞에 `s:` 가 붙는다.<br />
 실제로는 encodeURIComponent 함수가 실행되어 `s%3A` 가 된다.<br />
 따라서 앞에 `s%3A` 가 붙은 경우 이 쿠키가 `express-session` 미들웨어에 의해 암호화된 것으로 생각하면 된다.
 
@@ -733,11 +737,11 @@ try {
 
 ---
 
-여기까지 설정하고 나면 upload 변수가 생기는데 이 변수엔 어려 종류의 미들웨어가 들어있다.<br />
+여기까지 설정하고 나면 upload 변수가 생기는데 이 변수엔 여러 종류의 미들웨어가 들어있다.<br />
 여기서는 3가지로 나누어 살펴보도록 한다.
 
 
-#### 2.7.1. `multer` - 하나의 파일만 업로드하는 경우
+#### 2.7.1. `upload.single('img')` - req.file 객에체 하나의 파일만 업로드
 
 하나의 파일만 업로드하는 경우 `single 미들웨어` 를 사용한다.
 
@@ -764,7 +768,7 @@ app.post('/upload', upload.single('imagename'), (req, res) => {
 
 localhost:3000/upload 로 접속하여 파일을 업로드해보자.
 
-![하나의 파일만 업로드하는 경우](/assets/img/dev/20211202/single.png)
+![하나의 파일만 업로드하는 경우](/assets/img/dev/2021/1202/single.png)
 
 ```shell
 npm start
@@ -796,7 +800,7 @@ POST /upload 200 14.596 ms - 2
 
 ---
 
-#### 2.7.2. `multer` - input 태그의 name 이 동일한 여러 개의 파일을 업로드하는 경우
+#### 2.7.2. `upload.array('imgs')` - req.files 객체에 input 태그의 name 이 동일한 여러 개의 파일을 업로드
 
 `upload.single 미들웨어` 가 아닌 `upload.array 미들웨어` 를 사용하며,
 업로드 결과가 `req.file` 이 아닌 `req.files` 배열에 들어간다.
@@ -821,7 +825,7 @@ app.post('/upload', upload.array('imagename'), (req, res) => {
 });
 ```
 
-![input 태그의 name 이 동일한 여러 개의 파일을 업로드하는 경우](/assets/img/dev/20211202/multi1.png)
+![input 태그의 name 이 동일한 여러 개의 파일을 업로드하는 경우](/assets/img/dev/2021/1202/multi1.png)
 
 ```shell
 req.file:  undefined
@@ -854,7 +858,7 @@ POST /upload 200 15.289 ms - 2
 
 ---
 
-#### 2.7.3. `multer` - input 태그의 name 이 다른 여러 개의 파일을 업로드하는 경우
+#### 2.7.3. `upload.fields([{ name: 'imagename1' }, { name: 'imagename2' }])` - req.files 객체에 input 태그의 name 이 다른 여러 개의 파일을 업로드
 
 파일을 여러 개 업로드하지만 input 태그나 폼 데이터의 키가 다른 경우 `upload.fields 미들웨어` 를 사용한다.
 
@@ -911,6 +915,12 @@ req.files:  [Object: null prototype] {
 }
 req.body:  [Object: null prototype] { title: '' }
 ```
+
+---
+
+#### 2.7.4. `upload.none()` - 파일 업로드 없이 텍스트 데이터만 multipart 형식으로 전송
+
+이미지를 미리 업로드하고 req.body 에 이미지 데이터가 아닌 이미지 URL (텍스트) 만 있는 경우 사용한다.
 
 ---
 

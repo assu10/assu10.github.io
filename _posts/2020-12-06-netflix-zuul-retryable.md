@@ -194,7 +194,7 @@ public String getYourName(ServletRequest req, @PathVariable("nick") String nick)
 }
 ```
 
-![리턴값에 포트값 노출](/assets/img/dev/20201206/port.png)
+![리턴값에 포트값 노출](/assets/img/dev/2020/1206/port.png)
 
 이제 인스턴스 하나를 강제로 종료 후 [http://localhost:5555/api/evt/event/name/hyori](http://localhost:5555/api/evt/event/name/hyori) 을 지속적으로 호출하여 
 다운된 인스턴스 호출 시 자동으로 정상적인 인스턴스로 호출하는지 확인해보도록 하자.

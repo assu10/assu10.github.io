@@ -76,7 +76,7 @@ Zuul 의 동작 흐름을 살펴보면 아래와 같다.
 서비스 클라이언트는 개별 서비스의 URL 을 직접 호출하지 않고 Zuul 로 모든 요청을 보내고, (=애플리케이션의 모든 서비스 경로를 단일 URL 로 매핑)
 Zuul 은 받은 요청을 추려내서 호출하고자 하는 서비스로 라우팅한다.
 
-![Zuul동작 흐름](/assets/img/dev/20200826/zuul.png)
+![Zuul동작 흐름](/assets/img/dev/2020/0826/zuul.png)
 
 >Zuul 은 기동 시 Eureka Server 에 Zuul 서비스 ID를 등록한다.<br /><br />
 >서비스 클라이언트이기도 한 이벤트 마이크로서비스는 Zuul 서비스 ID를 이용하여 Eureka Server 로부터 Zuul 서버 목록을 얻는다.<br /><br />
@@ -96,11 +96,11 @@ Zuul 은 받은 요청을 추려내서 호출하고자 하는 서비스로 라�
 ## 3. Zuul 구축
 이번 포스트인 [Config Server](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)와 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
 
-![Config Server + 유레카](/assets/img/dev/20200816/config_eureka.png)
+![Config Server + 유레카](/assets/img/dev/2020/0816/config_eureka.png)
 
 위 설정에 Zuul 을 추가하면 아래와 같은 구성도가 된다.
 
-![Config Server + 유레카 + Zuul](/assets/img/dev/20200826/config_eureka_zuul.png)
+![Config Server + 유레카 + Zuul](/assets/img/dev/2020/0826/config_eureka_zuul.png)
 
 Zuul 도 자신의 서비스 ID 로 Eureka Server 에 자신을 등록한다.<br />
 그리고 Zuul 을 호출하는 클라이언트도 Eureka Client 라면 유레카 레지스트리에 등록된 Zuul 의 서비스 ID를 통해 Zuul 에 접근하므로
@@ -254,13 +254,13 @@ Zuul 이 관리하는 경로는 `/routes` 엔드포인트로 접근하여 확인
 
 [http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes)
 
-![Zuul 매핑 경로](/assets/img/dev/20200826/routes.png)
+![Zuul 매핑 경로](/assets/img/dev/2020/0826/routes.png)
 
 
 실제로 매핑된 대로 잘 호출이 되는지 확인해보자.
 이벤트 마이크로서비스의 API 를 직접 호출하는 것을 이제 Zuul 을 통해 호출해보자.
 
-![Zuul 을 통해 API 호출](/assets/img/dev/20200826/routing.png)
+![Zuul 을 통해 API 호출](/assets/img/dev/2020/0826/routing.png)
 
 ---
 
@@ -283,7 +283,7 @@ zuul:
 
 [http://localhost:5555/actuator/routes](http://localhost:5555/actuator/routes) 경로로 접속하여 Zuul 이 관리하고 있는 경로를 확인해보자.
 
-![수동 매핑](/assets/img/dev/20200826/event.png)
+![수동 매핑](/assets/img/dev/2020/0826/event.png)
 
 `"/evt/**": "event-service"` 가 추가된 것을 확인할 수 있다.
 `/evt/**`로 요청되는 호출은 `event-service` 서비스 ID를 가진 마이크로서비스로 매핑한다는 의미이다.
@@ -301,13 +301,13 @@ zuul:
 
 만일 유레카 기반의 모든 경로를 제외하려면 `ignored-services` 속성을 `*`로 설정하면 된다.
 
-![수동 매핑](/assets/img/dev/20200826/event2.png)
+![수동 매핑](/assets/img/dev/2020/0826/event2.png)
 
 `"/event-service/**": "event-service"` 매핑 정보가 사라진 것을 확인할 수 있다.
 
 그럼 이제 수동 매핑된 경로로 라우팅이 되는지 [http://localhost:5555/**evt**/event/member/hyori](http://localhost:5555/evt/event/member/hyori)를 호출하여 확인해보자.
 
-![수동 매핑 호출](/assets/img/dev/20200826/event3.png)
+![수동 매핑 호출](/assets/img/dev/2020/0826/event3.png)
 
 
 API 게이트웨이의 일반적인 패턴은 모든 서비스 호출 앞에 /api 처럼 레이블을 붙여 컨텐츠 경로를 구별한다.
@@ -381,7 +381,7 @@ public interface MemberFeignClient {
 }
 ```
 
-![마이크로서비스 간 Zuul 통신 확인](/assets/img/dev/20200826/feignzuul.png)
+![마이크로서비스 간 Zuul 통신 확인](/assets/img/dev/2020/0826/feignzuul.png)
 
 ---
 

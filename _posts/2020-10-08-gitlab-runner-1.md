@@ -103,7 +103,7 @@ xxxxxxxxxxxxxxxxxxxx
 
 GitLab CI Token 확인은 해당 GitLab Project > Settings > CI/CD 로 들어가 Runners 를 Expand 하면 확인할 수 있다.
 
-![Get GitLab CI Token](/assets/img/dev/20201009/token.jpg)
+![Get GitLab CI Token](/assets/img/dev/2020/1009/token.jpg)
 
 Runner 이름을 적는다. 
 정상적으로 연동되면 CI/CD 확인 시 아래 기재한 Runner 의 이름이 노출된다.<br />
@@ -137,7 +137,7 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 
 Runner 가 정상적으로 연동이 되어있다면 Runners activated for this project 로 설정이 되어있을 것이다.
  
-![연동된 Runner 확인](/assets/img/dev/20201009/runner.jpg)
+![연동된 Runner 확인](/assets/img/dev/2020/1009/runner.jpg)
 
 GitLab-Runner 실행
 

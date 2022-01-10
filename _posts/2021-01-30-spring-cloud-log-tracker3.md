@@ -71,7 +71,7 @@ tags: msa centralized-log sleuth open-zipkin
     
 아마 위의 설명만으론 잘 이해가 되지 않을 수 있는데 아래 그림을 보면 이해하는데 도움이 될 것이다.
 
-![추적 아이디(Trace ID)와 구간 아이디(Span ID)](/assets/img/dev/20210130/trace-spanid.png)
+![추적 아이디(Trace ID)와 구간 아이디(Span ID)](/assets/img/dev/2021/0130/trace-spanid.png)
 
 위 다이어그램처럼 동일한 추적 아이디가 모든 마이크로서비스에 전달되어 트랜잭션의 전 구간을 추적할 수 있게 된다.
 
@@ -147,7 +147,7 @@ INFO 다음에 이상한 문구가 찍힌 것이 보일텐데 각 항목의 의�
 
 그럼 [Kibana](http://localhost:5601/app/) 에 접속하여 로그를 확인해보자.
 
-![Kibana 에서 로그 확인](/assets/img/dev/20210130/kibana.png)
+![Kibana 에서 로그 확인](/assets/img/dev/2021/0130/kibana.png)
 
 kibana 상의 로그를 보면 추적 ID 와 스팬 ID 가 함께 로깅되는 것을 확인할 수 있다.
 다른 서비스에 의해 호출당한 로깅의 경우 `ParentSpanId`, `parentId` 항목이 있는데 이는 해당 서비스를 호출한 서비스의 `SpanId`를 의미한다.

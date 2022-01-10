@@ -71,12 +71,12 @@ eureka:
 Eureka Server/Client 모두 `eureka.client.register-with-eureka` 와 `eureka.client.fetch-registry` 를 false 로 설정 후 
 [http://peer1:8762/eureka/apps](http://peer1:8762/eureka/apps) 호출 시 아무런 클라이언트도 등록되지 않은 것을 확인할 수 있다.
 
-![http://peer1:8762/eureka/apps 으로 등록된 클라이언트 확인](/assets/img/dev/20201205/registry.png)
+![http://peer1:8762/eureka/apps 으로 등록된 클라이언트 확인](/assets/img/dev/2020/1205/registry.png)
 
 이제 Eureka Client측의 `eureka.client.register-with-eureka` 와 `eureka.client.fetch-registry` 를 true 로 설정 후
 [http://peer1:8762/eureka/apps](http://peer1:8762/eureka/apps) 호출 시 해당 클라이언트가 등록된 것을 확인할 수 있다.
 
-![http://peer1:8762/eureka/apps 으로 등록된 클라이언트 확인](/assets/img/dev/20201205/registry2.png)
+![http://peer1:8762/eureka/apps 으로 등록된 클라이언트 확인](/assets/img/dev/2020/1205/registry2.png)
 
 Eureka Server 로그
 ```text

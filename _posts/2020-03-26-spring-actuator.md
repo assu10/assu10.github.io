@@ -268,12 +268,12 @@ public class ActuatorApplication {
 
 이제 http://localhost:8080/applications 로 접속하면 Springboot Admin UI를 볼 수 있다.
 
-![Springadmin 첫 화면](/assets/img/dev/20200326/adminui01.JPG)
+![Springadmin 첫 화면](/assets/img/dev/2020/0326/adminui01.JPG)
 
 
-![Springadmin 대시보드](/assets/img/dev/20200326/adminui02.JPG)
+![Springadmin 대시보드](/assets/img/dev/2020/0326/adminui02.JPG)
 
-![Springadmin로 덤프파일도 받을 수 있어요!](/assets/img/dev/20200326/adminui03.JPG)
+![Springadmin로 덤프파일도 받을 수 있어요!](/assets/img/dev/2020/0326/adminui03.JPG)
 
 관련 소스는 [github/assu10](https://github.com/assu10/springboot-actuator){:target="_blank"}  에서 확인하실 수 있습니다.
 

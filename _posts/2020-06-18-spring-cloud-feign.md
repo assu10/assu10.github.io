@@ -21,7 +21,7 @@ MSA (MicroService Architecture) 대해 검토를 하다 보면 분산 시스템�
 
 본 예제는 아래와 같은 흐름으로 진행이 됩니다.
 
-![그림으로 이해하는 API 호출 흐름](/assets/img/dev/20200618/0618_1.jpg)
+![그림으로 이해하는 API 호출 흐름](/assets/img/dev/2020/0618/0618_1.jpg)
 
 Provider (localhost:9090) 는 `member/{id}` 말고도 여러 API 들을 제공하는 API 서버입니다.
 
@@ -52,7 +52,7 @@ public class ProviderController {
 
 #### 프로젝트 생성
 
-![springboot project 생성 - Consumer](/assets/img/dev/20200618/0618_2.jpg)
+![springboot project 생성 - Consumer](/assets/img/dev/2020/0618/0618_2.jpg)
 
 **pom.xml**
 ```xml
@@ -111,7 +111,7 @@ public class ConsumerController {
 }
 ```
 
-![Consumer API 호출](/assets/img/dev/20200618/0618_api.jpg)
+![Consumer API 호출](/assets/img/dev/2020/0618/0618_api.jpg)
 
 RestTemplate 을 사용하게 될 경우 http client connection 설정, return 값에 대한 파싱 등 비즈니스 로직 외 셋팅해줘야 하는 것들이 많은 반면에 Feign 을 사용하면 dependency 추가, 어노테이션 선언 그리고 호출하고자 하는 API 를 인터페이스로 선언해주는 것만으로 REST API 호출이 가능합니다.
 
