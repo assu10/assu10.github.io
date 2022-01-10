@@ -74,7 +74,7 @@ tags: msa hystrix
 클라이언트 회복성 패턴은 아래와 같다.
 아래와 같은 패턴은 원격 자원을 호출하는 클라이언트에서 구현한다.
 
-![클라이언트 회복성 패턴](/assets/img/dev/20201101/overall.png)
+![클라이언트 회복성 패턴](/assets/img/dev/2020/1101/overall.png)
 
 ---
 
@@ -208,7 +208,7 @@ private void sleep() {
 
 [http://localhost:8090/member/hys/assu](http://localhost:8090/member/hys/assu)
 
-![원격 호출이 오래 걸리면 HystrixRuntimeException 발생](/assets/img/dev/20201101/hystrixcommandError.png)
+![원격 호출이 오래 걸리면 HystrixRuntimeException 발생](/assets/img/dev/2020/1101/hystrixcommandError.png)
 
 호출 타임아웃이 되는 경우 로그를 보면 아래와 같은 오류가 발생하는 것을 확인할 수 있다.
 
@@ -297,7 +297,7 @@ public String timeout(ServletRequest req, @PathVariable("name") String name) {
 
 이제 회원서비스의 *[http://localhost:8090/member/timeout/assu](http://localhost:8090/member/timeout/assu)* 을 호출해보도록 하자.
 
-![원격 호출이 오래 걸리면 HystrixRuntimeException 발생](/assets/img/dev/20201101/hystrixcommandError2.png)
+![원격 호출이 오래 걸리면 HystrixRuntimeException 발생](/assets/img/dev/2020/1101/hystrixcommandError2.png)
 
 Zuul 서비스의 로그를 보면 아래와 같은 로그가 나오는 것을 확인할 수 있다.
 
@@ -355,7 +355,7 @@ hystrix:
 폴백 함수가 실행되는 것을 확인할 수 있다.
 이 때 별도 로그는 남지 않는다.
 
-![타임아웃 후 폴백 함수 실행](/assets/img/dev/20201101/fallback.png) 
+![타임아웃 후 폴백 함수 실행](/assets/img/dev/2020/1101/fallback.png) 
 
 >**폴백 전략 구현 시 주의할 점**
 >
@@ -543,7 +543,7 @@ public String bulkheadEvtPool(ServletRequest req, @PathVariable("name") String n
 [http://localhost:8090/member/bulkheadEvtSleep/assu](http://localhost:8090/member/bulkheadEvtSleep/assu) 를 연속적으로 호출하는 경우
 회원 서비스의 서킷 브레이커가 차단되는 것을 확인할 수 있다. (원격 자원 호출에 대한 타임아웃이 발생하기 전에 실패)
 
-![서킷 브레이커 차단](/assets/img/dev/20201101/circuit1.png)
+![서킷 브레이커 차단](/assets/img/dev/2020/1101/circuit1.png)
 
 ```shell
 java.lang.RuntimeException: Hystrix circuit short-circuited and is OPEN

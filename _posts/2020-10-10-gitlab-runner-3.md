@@ -341,7 +341,7 @@ $ echo "3First command line is split over two lines." # collapsed multi-line com
 
 Runner 는 기본적으로 한 번에 하나의 job 만 처리한다.
 
-![하나의 stage 안의 여러 job 은 한 번에 하나씩 실행](/assets/img/dev/20201009/parallel.jpg)
+![하나의 stage 안의 여러 job 은 한 번에 하나씩 실행](/assets/img/dev/2020/1009/parallel.jpg)
 
 job 은 아래와 같은 상황에서 병렬적으로 실행된다.
 

@@ -90,7 +90,7 @@ signing:
 
 이제 아래 4개의 클래스를 생성할 예정이다.
 
-![JWT 설정 클래스](/assets/img/dev/20200930/directories.jpg)
+![JWT 설정 클래스](/assets/img/dev/2020/0930/directories.jpg)
 
 - *CustomConfig.java*
     - *.properties 설정값 매핑
@@ -282,7 +282,7 @@ POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth
 
 POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth/token) 호출 시 아래와 같은 형식의 페이로드가 반환된다.
 
-![JWT 토큰 내용](/assets/img/dev/20200930/jwt_encoding.jpg)
+![JWT 토큰 내용](/assets/img/dev/2020/0930/jwt_encoding.jpg)
 
 ```json
 {
@@ -301,7 +301,7 @@ POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth
 
 디코딩 툴로는 [https://www.jsonwebtoken.io/](https://www.jsonwebtoken.io/), [https://jwt.io/](https://jwt.io/) 등이 있다.
 
-![JWT 토큰 내용 decoding](/assets/img/dev/20200930/jwt_decoding.jpg)
+![JWT 토큰 내용 decoding](/assets/img/dev/2020/0930/jwt_decoding.jpg)
 
 ***JWT 토큰을 서명은 했지만 암호화는 하지 않는다.<br />
 모든 JWT 토큰은 디코딩하여 토큰 내용을 노출할 수 있다.<br />
@@ -534,7 +534,7 @@ public class EventRestTemplateClient {
 
 우선 JWT 토큰을 헤더에 넣지 않은 상태로 회원 서비스의 REST API 를 호출하면 아래와 같이 `unauthorized` 오류가 리턴된다.
 
-![JWT 없이 REST API 호출](/assets/img/dev/20200930/no_jwt.jpg)
+![JWT 없이 REST API 호출](/assets/img/dev/2020/0930/no_jwt.jpg)
 
 
 이제 JWT 토큰을 획득한 후 헤더에 토큰을 추가한 후 회원 서비스의 REST API 를 호출해보도록 하자.
@@ -542,7 +542,7 @@ public class EventRestTemplateClient {
 **토큰 획득**
 POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth/token)
 
-![JWT 토큰과 함께 REST API 호출](/assets/img/dev/20200930/ok_jwt.jpg)
+![JWT 토큰과 함께 REST API 호출](/assets/img/dev/2020/0930/ok_jwt.jpg)
 
 REST API 호출 시 Base64 로 인코딩된 JWT 토큰을 HTTP Authorization 헤더의 Bearer [JWT 토큰값] 으로 전달하면
 서비스가 정상적으로 호출된다.

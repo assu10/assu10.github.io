@@ -238,9 +238,9 @@ app.use((err, req, res, next) => {
 
 404 응답 미들웨어가 없다면 404 상태 코드와 함께 아래와 같은 화면이 노출된다.
 
-![404 미들웨어가 없는 경우](/assets/img/dev/20211202/404.png)
+![404 미들웨어가 없는 경우](/assets/img/dev/2021/1202/404.png)
 
-![404 미들웨어가 있는 경우](/assets/img/dev/20211202/404-2.png)
+![404 미들웨어가 있는 경우](/assets/img/dev/2021/1202/404-2.png)
 
 ---
 
@@ -724,7 +724,7 @@ app.listen(app.get('port'), () => {
 });
 ```
 
-![localhost:3000](/assets/img/dev/20211202/nunjucks.png)
+![localhost:3000](/assets/img/dev/2021/1202/nunjucks.png)
 
 ---
 
@@ -756,7 +756,7 @@ app.use((err, req, res, next) => {
 
 위 코드처럼 res.render 에 변수를 대입하는 것 외에도 `res.locals` 속성에 값을 대입하여 템플릿 엔진에 변수를 주입할 수 있다.
 
-![localhost:3000/ddd](/assets/img/dev/20211202/error.png)
+![localhost:3000/ddd](/assets/img/dev/2021/1202/error.png)
 
 ---
 

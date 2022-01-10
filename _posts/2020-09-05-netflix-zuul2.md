@@ -50,7 +50,7 @@ Zuul 은 4가지 타입의 필터를 지원한다.
 - **ERROR Filter (이후 에러 필터)**
     - 에러 발생 시 실행되는 필터
 
-![Zuul 라이프사이클](/assets/img/dev/20200905/lifecycle.png)
+![Zuul 라이프사이클](/assets/img/dev/2020/0905/lifecycle.png)
 
 - 요청이 Zuul 로 들어오면 사전 필터가 실행된다.
 - 라우팅 필터는 서비스가 향하는 목적지를 라우팅한다.
@@ -61,7 +61,7 @@ Zuul 은 4가지 타입의 필터를 지원한다.
     
 이번 포스팅에서는 아래와 같은 필터를 구성할 예정이다.
 
-![구현할 필터 역할과 흐름](/assets/img/dev/20200905/filters.png)
+![구현할 필터 역할과 흐름](/assets/img/dev/2020/0905/filters.png)
 
 ---
 
@@ -96,7 +96,7 @@ Zuul 에서 필터를 구현하려면 `ZuulFilter` 클래스를 상속받은 후
 >[Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/3) - 로그 추적](https://assu10.github.io/dev/2021/01/04/spring-cloud-log-tracker3/) 에
 >포스팅되어 있지만 아래 내용도 한번씩 해보세요~
 
-![사전필터 디렉토리 구조](/assets/img/dev/20200905/prefilter.png)
+![사전필터 디렉토리 구조](/assets/img/dev/2020/0905/prefilter.png)
 
 
 우선 로그 확인을 위해 컨피그 원격 저장소에 로그 레벨을 셋팅한다.
@@ -296,7 +296,7 @@ public class PreFilter extends ZuulFilter {
 위 작업을 위해 총 4개의 클래스를 작성할 텐데 해당 클래스들은 HTTP 요청에서 상관관계 ID 를 읽어와 접근할 수 있는 클래스에 매핑한 후
 하위 서비스에 전파하는데 사용된다.
 
-![사전필터 내의 상관관계 ID 흐름](/assets/img/dev/20200905/prefilter2.png)
+![사전필터 내의 상관관계 ID 흐름](/assets/img/dev/2020/0905/prefilter2.png)
 
 
 CustomContextFilter 는 HTTP ServletFilter 이고, 상관관계 ID 를 CustomContext 클래스에 매핑한다.
@@ -570,7 +570,7 @@ public class PostFilter extends ZuulFilter {
 2020-09-11 23:29:26.752 DEBUG 71032 --- [nio-5555-exec-9] c.a.cloud.zuulserver.filters.PostFilter  : ============ Completing outgoing request for /api/mb/member/gift/flower.
 ```
 
-![사후필터를 통해 응답 헤더에 상관관계 ID 삽입](/assets/img/dev/20200905/postfilter.png)
+![사후필터를 통해 응답 헤더에 상관관계 ID 삽입](/assets/img/dev/2020/0905/postfilter.png)
  
 ---
 

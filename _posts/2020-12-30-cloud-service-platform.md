@@ -35,7 +35,7 @@ tags: web network cloud-computing packaged-software iaas paas saas
 
 ## 3. Packaged Software
 
-![Packaged Software](/assets/img/dev/20201230/packagedsw.png)
+![Packaged Software](/assets/img/dev/2020/1230/packagedsw.png)
 
 인프라와 플랫폼, 애플리케이션까지 모두 직접 구성/관리하는 모델.<br />
 하드웨어, OS 설치, 네트워크 환경 구성, 서버 관리 등을 사용자가 다 준비해야 하기 때문에 큰 시간과 돈 소비.
@@ -44,7 +44,7 @@ tags: web network cloud-computing packaged-software iaas paas saas
 
 ## 4. IaaS (Infrastructure as a Service)
 
-![IaaS](/assets/img/dev/20201230/iaas.png)
+![IaaS](/assets/img/dev/2020/1230/iaas.png)
 
 Infrastructure 레벨을 제공하는 서비스.<br />
 사용자는 OS 를 직접 올리고 그 상위 계층만 구성.
@@ -62,7 +62,7 @@ IaaS 는 기업이 준비해놓은 환경에서 사용자가 선택.
 
 ## 5. PaaS (Platform as a Service)
 
-![PaaS](/assets/img/dev/20201230/paas.png)
+![PaaS](/assets/img/dev/2020/1230/paas.png)
 
 개발자가 응용 프로그램을 작성할 수 있도록 플랫폼 제공.
 
@@ -82,7 +82,7 @@ PaaS 는 기본적으로 애플리케이션과 플랫폼이 함께 제공되기 
 
 ## 6. SaaS (Software as a Service)
 
-![PaaS](/assets/img/dev/20201230/saas.png)
+![PaaS](/assets/img/dev/2020/1230/saas.png)
 
 설치할 필요도 없이 클라우드를 통해 제공되는 소프트웨어.
 

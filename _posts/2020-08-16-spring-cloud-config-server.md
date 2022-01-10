@@ -46,7 +46,7 @@ Spring Cloud Config Server 는 애플리케이션과 서비스의 모든 환경�
 Config Server는 애플리케이션의 빌드 없이 환경 설정의 변경을 적용할 수 있도록 해준다.<br />
 아래 Config Server의 동작 흐름을 보자. (오늘 구현할 내용이다)
 
-![컨피그서버 동작 흐름](/assets/img/dev/20200808/config.png)
+![컨피그서버 동작 흐름](/assets/img/dev/2020/0808/config.png)
 
 >마이크로서비스 인스턴스가 시작하면 필요한 환경설정 정보를 읽기 위해 Config Server에 접근<br /><br />
 >마이크로서비스는 성능 향상을 위해 Config Server에서 읽어온 환경설정 정보를 로컬에 캐시<br /><br />
@@ -86,7 +86,7 @@ Config Server는 환경설정 정보를 Git 이나 SVN 같은 버전 관리 도�
      (하지만 설정 정보가 많아질 경우 오히려 더 불편하므로 개인적으론 프로파일별로 개별 파일 관리 선호)
    - 동일 key 를 허용하지 않기 때문에 동일한 부모를 가진 key 끼리 모여있으므로 흐름 파악에 용이
 
-![*.properties 와 *.yaml 차이](/assets/img/dev/20200808/yaml.png)
+![*.properties 와 *.yaml 차이](/assets/img/dev/2020/0808/yaml.png)
 </details>
 
 ---
@@ -170,7 +170,7 @@ mvn spring-boot:run
 아래 주소로 접속하여 Config Server가 구동 중인지 확인할 수 있다.<br />
 [http://localhost:8889/actuator](http://localhost:8889/actuator)
 
-![Config Server 구동 확인](/assets/img/dev/20200808/actuator.png)
+![Config Server 구동 확인](/assets/img/dev/2020/0808/actuator.png)
 
 ---
 
@@ -216,9 +216,9 @@ server:
 
 Config Server와 정상적으로 통신하는지 확인하기 위하여 저장소를 아래와 같이 구성하여 확인해보자.
 
-![회원 서비스 컨피그 저장소](/assets/img/dev/20200808/memberconfig.png)
+![회원 서비스 컨피그 저장소](/assets/img/dev/2020/0808/memberconfig.png)
 
-![회원 서비스 환경설정 파일](/assets/img/dev/20200808/memberyaml.png)
+![회원 서비스 환경설정 파일](/assets/img/dev/2020/0808/memberyaml.png)
 
 **member-service > CustomConfig.java, MemberController.java**
 ```java
@@ -255,21 +255,21 @@ public class MemberController {
 
 [http://localhost:8889/member-service/default/](http://localhost:8889/member-service/default/)
 
-![디폴트 설정 파일](/assets/img/dev/20200808/memberdefault.png)
+![디폴트 설정 파일](/assets/img/dev/2020/0808/memberdefault.png)
 
 [http://localhost:8889/member-service/dev](http://localhost:8889/member-service/dev)
 
-![dev 설정 파일](/assets/img/dev/20200808/memberdev.png)
+![dev 설정 파일](/assets/img/dev/2020/0808/memberdev.png)
 
 Actuator 를 이용하여 현재 실행 중인 환경 정보를 확인할 수 있다.
 단, /env 엔 많은 정보가 노출되므로 운영 시엔 비활성화하도록 한다.
 
 [http://localhost:8090/actuator/env](http://localhost:8090/actuator/env)
 
-![Actuator](/assets/img/dev/20200808/actuator2.png)
+![Actuator](/assets/img/dev/2020/0808/actuator2.png)
 
 이제 Config Server를 통해 전달받은 설정값이 마이크로서비스에서 정상적으로 사용되고 있는지 확인해보자.
-![Config Server로부터 전달받은 설정값](/assets/img/dev/20200808/membername.png)
+![Config Server로부터 전달받은 설정값](/assets/img/dev/2020/0808/membername.png)
 
 ---
 
@@ -307,11 +307,11 @@ your.name: "ASSU ASSU DEFAULT Modify"
 
 `/actuator/refresh` 종단점을 호출(POST 호출)하여 변경된 프로퍼티값으로 갱신 후 다시 확인해보면 마이크로서비스에서 변경된 프로퍼티값이 전달되고 있는 것을 확인할 수 있다.
 
-![프로퍼티값 갱신](/assets/img/dev/20200808/refresh.png)
+![프로퍼티값 갱신](/assets/img/dev/2020/0808/refresh.png)
 
 
 
-![회원 서비스에서의 확인](/assets/img/dev/20200808/refresh2.png)
+![회원 서비스에서의 확인](/assets/img/dev/2020/0808/refresh2.png)
 
 ---
 
@@ -342,7 +342,7 @@ Spring Cloud Bus 는 현재 실행되고 있는 인스턴스의 수나 위치에
 ### 5-1. RabbitMQ 설치
 [여기](http://www.rabbitmq.com/download.html) 에서 RabbitMQ를 다운로드받은 후 관리자 모드로 명령창을 열어 아래와 같이 입력한다.
 
-![RabbitMQ 서비스 실행](/assets/img/dev/20200808/rabbitmq.png)
+![RabbitMQ 서비스 실행](/assets/img/dev/2020/0808/rabbitmq.png)
 
 ```shell
 -- rabbitMQ 플러그인 활성화
@@ -361,7 +361,7 @@ C:\rabbitmq_server-3.8.6\sbin>rabbitmq-service.bat start
 RabbitMQ 매니지먼트 사이트인 http://localhost:15672/ 에 접속하여 잘 기동되었는지 확인할 수 있다.
 참고로 guest 계정은 로컬호스트에서만 동작한다.
 
-![RabbitMQ 매니지먼트](/assets/img/dev/20200808/rabbitmq_mng.png)
+![RabbitMQ 매니지먼트](/assets/img/dev/2020/0808/rabbitmq_mng.png)
 
 ---
 
@@ -411,15 +411,15 @@ your.name: "ASSU ASSU DEFAULT Modify!!"
 
 이후 특정 한 인스턴스의 `/actuator/bus-refresh` 종단점을 호출하여 변경된 환경설정값이 모든 인스턴스에 적용되는지 확인해보자.
 
-![port 8090의 /actuator/bus-refresh 호출](/assets/img/dev/20200808/bus.png)
+![port 8090의 /actuator/bus-refresh 호출](/assets/img/dev/2020/0808/bus.png)
 
 
 
-![port 8090 확인](/assets/img/dev/20200808/8090.png)
+![port 8090 확인](/assets/img/dev/2020/0808/8090.png)
 
 
 
-![port 8091 확인](/assets/img/dev/20200808/8091.png)
+![port 8091 확인](/assets/img/dev/2020/0808/8091.png)
 
 클라우드 버스 종단점(`/actuator/bus-refresh`) 은 메시지 브로커에게 내부적으로 메시지를 전송하는데,
 이 메시지는 결국 모든 인스턴스가 각자의 환경설정 정보를 최신 내용으로 갱신할 수 있게 한다.<br />
@@ -450,7 +450,7 @@ encrypt.key 를 문자열로 설정하여 사용할 수도 있다.
 여기에서는 실무에서 많이 사용되는 방식인 운영 체제의 환경 변수를 사용하여 대칭 암호화키를 설정할 것이다.
 아래 그림처럼 환경 변수 설정 후엔 PC를 재시작해야 한다.
 
-![환경변수로 암호화키 설정](/assets/img/dev/20200808/encrypt_key.png)
+![환경변수로 암호화키 설정](/assets/img/dev/2020/0808/encrypt_key.png)
 
 ***암호화키는 환경별로 다른 암호화키를 사용하고 랜덤 문자열을 키로 사용하는 것을 권장한다.***
 
@@ -463,21 +463,21 @@ encrypt.key 를 문자열로 설정하여 사용할 수도 있다.
 Config Server 인스턴스가 실행될 때 ENCRYPT_KEY 환경 변수가 설정되었음을 감지하면 2개의 새로운 종단점 `/encrypt`와 `decrypt` 가 컨피그 서비스에 자동으로 추가된다.
 `/encrypt` 종단점을 사용해 평문 패스워드를 암호화한다.
 
-![환경변수 ENCRYPT_KEY 가 없는 경우](/assets/img/dev/20200808/before_encrypt_key.png)
+![환경변수 ENCRYPT_KEY 가 없는 경우](/assets/img/dev/2020/0808/before_encrypt_key.png)
 
 
 
-![환경변수 ENCRYPT_KEY 가 있는 경우 패스워드 암호화 결과](/assets/img/dev/20200808/encrypt.png)
+![환경변수 ENCRYPT_KEY 가 있는 경우 패스워드 암호화 결과](/assets/img/dev/2020/0808/encrypt.png)
 
 
 암호화된 패스워드는 아래와 같이 `/decrypt` 종단점을 호출하여 복호화한다.
 
-![패스워드 복호화 결과](/assets/img/dev/20200808/decrypt.png)
+![패스워드 복호화 결과](/assets/img/dev/2020/0808/decrypt.png)
 
 
 `/decrypt` 종단점을 호출 시 잘못된 암호화된 패스워드를 넣으면 아래와 같은 결과를 리턴한다.
 
-![잘못된 패스워드 복호화 결과](/assets/img/dev/20200808/decrypt2.png)
+![잘못된 패스워드 복호화 결과](/assets/img/dev/2020/0808/decrypt2.png)
 
 
 Config Server에서는 모든 암호화된 프로퍼티 값 앞에 `{cipher}` prefix 를 붙여준다.
@@ -507,7 +507,7 @@ management:
 
 제대로 반영이 되었는지 http://localhost:8889/member-service/default/ 를 호출하여 확인할 수 있다.
 
-![평문 전달](/assets/img/dev/20200808/cipher.png)
+![평문 전달](/assets/img/dev/2020/0808/cipher.png)
 
 프로퍼티를 암호화 하여 보안을 강화했지만 화면을 보면 http://localhost:8889/member-service/default/ 종단점 호출 시엔 평문으로 나타난다.
 
@@ -547,7 +547,7 @@ spring-security-rsa 는 Config Server에서 전달된 암호화된 프로퍼티�
 </dependency>
 ```
 
-![암호화된 값으로 전달](/assets/img/dev/20200808/cipher2.png)
+![암호화된 값으로 전달](/assets/img/dev/2020/0808/cipher2.png)
 
 ---
 

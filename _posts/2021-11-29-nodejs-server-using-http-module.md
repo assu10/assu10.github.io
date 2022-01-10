@@ -61,7 +61,7 @@ http
 waiting 8080 port...
 ```
 
-![localhost:8080](/assets/img/dev/20211129/localhost.png)
+![localhost:8080](/assets/img/dev/2021/1129/localhost.png)
 
 createServer 메서드 뒤에 listen 메서드를 붙여 클라이언트에 공개할 포트 번호와 포트 연결 완료 후 실행될 콜백 함수를 넣는다.
 

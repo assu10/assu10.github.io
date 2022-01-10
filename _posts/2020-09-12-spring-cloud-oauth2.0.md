@@ -209,7 +209,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 *Could not autowire. No beans of 'AuthenticationManager' type found.<br /> 
   Inspection info:Checks autowiring problems in a bean class.*
 
-![AuthenticationManager의 Constructor Injection Error](/assets/img/dev/20200912/constructorInjectionError.png)
+![AuthenticationManager의 Constructor Injection Error](/assets/img/dev/2020/0912/constructorInjectionError.png)
 
 [springboot wiki](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide#authenticationmanager-bean)를 보면 아래와 같이 설명되어 있다.
 
@@ -369,9 +369,9 @@ GET - [http://localhost:8901/auth/user](http://localhost:8901/auth/user)
 
 *POST MAN* 을 켠 후 아래와 같이 셋팅한다.
 
-![애플리케이션명과 시크릿키로 기본 인증 설정](/assets/img/dev/20200912/token1.png)
+![애플리케이션명과 시크릿키로 기본 인증 설정](/assets/img/dev/2020/0912/token1.png)
 
-![사용자 자격 증명 정보 설정](/assets/img/dev/20200912/token2.png)
+![사용자 자격 증명 정보 설정](/assets/img/dev/2020/0912/token2.png)
 
 사용자 자격 증명 정보로 아래 4가지 정보를 전달해야 한다.
 
@@ -416,7 +416,7 @@ GET - [http://localhost:8901/auth/user](http://localhost:8901/auth/user)
 
 GET - [http://localhost:8901/auth/user](http://localhost:8901/auth/user)
 
-![액세스 토큰을 이용하여 사용자 정보 조회](/assets/img/dev/20200912/userinfo.png)
+![액세스 토큰을 이용하여 사용자 정보 조회](/assets/img/dev/2020/0912/userinfo.png)
 
 ---
 
@@ -501,11 +501,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 HTTP 헤더에 Authorization 액세스 토큰없이 회원 서비스의 API 를 호출하면 아래처럼 401 HTTP 응답 코드가 출력된다.
 [http://localhost:8090/member/name/rinda](http://localhost:8090/member/name/rinda)
 
-![액세스 토큰없이 호출한 경우](/assets/img/dev/20200912/401.png)
+![액세스 토큰없이 호출한 경우](/assets/img/dev/2020/0912/401.png)
 
 이제 액세스 토큰과 함께 호출해보면 아래와 같이 정상적으로 API 호출이 가능한 것을 확인할 수 있다.
 
-![액세스 토큰과 함께 호출한 경우](/assets/img/dev/20200912/200.png)
+![액세스 토큰과 함께 호출한 경우](/assets/img/dev/2020/0912/200.png)
 
 
 좀 더 나가아서 특정 역할을 가진 사용자만 특정 서비스를 이용할 수 있도록 설정해보자.
@@ -582,11 +582,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 이제 ADMIN 권한이 없는 사용자 *assuUser* 로 PUT 메서드 API 를 호출해보도록 하자.
 [http://localhost:8090/member/rinda](http://localhost:8090/member/rinda)
 
-![권한없는 사용자가 PUT API 호출 시 403](/assets/img/dev/20200912/403.png)
+![권한없는 사용자가 PUT API 호출 시 403](/assets/img/dev/2020/0912/403.png)
 
 이제 다시 ADMIN 권한이 있는 사용자인 *assuAdmin* 으로 액세스 토큰을 구한 뒤 PUT 메서드 API 를 호출해보자.
 
-![권한있는 사용자가 PUT API 호출 시 200](/assets/img/dev/20200912/200-1.png)
+![권한있는 사용자가 PUT API 호출 시 200](/assets/img/dev/2020/0912/200-1.png)
 
 ---
 
@@ -597,7 +597,7 @@ MSA 환경에서는 단일 트랜잭션을 수행하는데 여러 마이크로 �
 
 다른 마이크로서비스로 액세스 토큰을 전달하는 흐름을 보면 아래와 같다.
 
-![OAuth2 액세스 토큰 전체 흐름](/assets/img/dev/20200912/access_token.png)
+![OAuth2 액세스 토큰 전체 흐름](/assets/img/dev/2020/0912/access_token.png)
 
 OAuth2 액세스 토큰은 사용자 세션에 저장되고, 이벤트 서비스를 호출할 때 HTTP Authorization 헤더에 OAuth2 액세스 토큰을 추가한다.<br />
 Zuul 은 유입되는 호출의 HTTP Authorization 헤더를 복사하여 회원 서비스의 엔드포인트로 전달한다.<br />
@@ -711,7 +711,7 @@ public String userInfo(@PathVariable("name") String name) {
 이제 [http://localhost:5555/api/evt/event/userInfo/rinda](http://localhost:5555/api/evt/event/userInfo/rinda) 를 호출하여
 이벤트 서비스에서 회원 서비스로 호출이 잘 되는지 확인해보자.
 
-![OAuth2 전파](/assets/img/dev/20200912/oauth2.png)
+![OAuth2 전파](/assets/img/dev/2020/0912/oauth2.png)
 
 ---
 
