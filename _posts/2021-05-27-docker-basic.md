@@ -3,7 +3,7 @@ layout: post
 title:  "Docker 개요"
 date:   2021-05-27 10:00
 categories: dev
-tags: docker container
+tags: devops docker container
 ---
 
 이 포스트는 Docker 를 알아보기 전 알아야 할 컨테이너와 Docker 의 개요에 대해 기술한다.

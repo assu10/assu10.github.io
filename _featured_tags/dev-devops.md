@@ -1,8 +1,8 @@
 ---
 layout: list
-title: Docker
-slug: docker
+title: DevOps
+slug: devops
 category: dev
 menu: false
-order: 4
+order: 3
 ---

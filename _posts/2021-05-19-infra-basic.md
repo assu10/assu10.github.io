@@ -3,7 +3,7 @@ layout: post
 title:  "시스템과 인프라 기초 지식"
 date:   2021-05-19 10:00
 categories: dev
-tags: docker system infra os middleware
+tags: devops docker system infra os middleware
 ---
 
 이 포스트는 Docker 를 알아보기 전 알아야 할 시스템/인프라 기초 지식에 대해 기술한다. (아주 간략히)
