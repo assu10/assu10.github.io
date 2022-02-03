@@ -14,7 +14,7 @@ tags: nodejs mongoDB mongoose
 > - NoSQL vs SQL
 > - 몽고디비 설치
 > - 컴퍼스 설치 및 커넥션 생성
-> - 데이터베이스, 컬렉션 생성
+> - 데이터베이스, collection 생성
 > - CRUD 작업
 > - 몽구스
 >   - 몽고디비 연결
@@ -107,17 +107,17 @@ module.exports = {
 | SQL(MySQL) | NoSQL(몽고디비) |
 |---|:---:|
 | 규칙에 맞는 데이터 입력 | 자유로운 데이터 입력 |
-| 테이블 간 join 지원 | 컬렉션 간 join 미지원 |
+| 테이블 간 join 지원 | collection 간 join 미지원 |
 | 안정성, 일관성 | 확장성, 가용성 |
-| 테이블, 로우, 컬럼 | 컬렉션, 다큐먼트, 필드 |
+| 테이블, 로우, 컬럼 | collection, document, 필드 |
 
 **NoSQL 에는 고정된 테이블이 없다.**  
-테이블에 상응하는 **컬렉션** 개념이 있지만 컬럼을 따로 정의하지는 않는다.  
+테이블에 상응하는 **collection** 개념이 있지만 컬럼을 따로 정의하지는 않는다.  
 예를 들어 MySQL 은 user 테이블 생성 시 name, age 등의 컬럼과 자료형 등을 정의하지만,  
-몽고디비는 그냥 user 컬렉션을 만들고 끝이다.
+몽고디비는 그냥 user collection 을 만들고 끝이다.
 
-user 컬렉션에는 어떠한 데이터든 들어갈 수 있다.  
-로우에 해당하는 어떤 아큐먼트에는 name, age 가 들어가고, 어떤 다큐먼트에는 name, comment 가 들어갈 수 있다.
+user collection 에는 어떠한 데이터든 들어갈 수 있다.  
+로우에 해당하는 어떤 아큐먼트에는 name, age 가 들어가고, 어떤 document 에는 name, comment 가 들어갈 수 있다.
 
 **몽고디비에는 join 기능이 없다.**  
 join 을 흉내낼 수는 있지만 항상 가능한 것은 아니다.
@@ -125,7 +125,7 @@ join 을 흉내낼 수는 있지만 항상 가능한 것은 아니다.
 이러한 단점들에도 불구하고 몽고디비를 사용하는 이유는 **확장성** 과 **가용성** 때문이다.  
 데이터의 일관성을 보장해주는 기능이 약한 대신 <u>데이터를 빠르게 넣을 수 있고 여러 서버에 데이터를 분산</u> 할 수 있다.
 
-용어도 **테이블 = 컬렉션**, **로우 = 다큐먼트**, **컬럼 = 필드** 라고 부른다. 
+용어도 **테이블 = collection**, **로우 = document**, **컬럼 = 필드** 라고 부른다. 
 
 빅데이터, 메시징, 세션 관리 등에는 확장성과 가용성을 위해 몽고디비를 사용할 수 있다.
 
@@ -241,9 +241,9 @@ security:
 
 ---
 
-## 5. 데이터베이스, 컬렉션 생성
+## 5. 데이터베이스, collection 생성
 
-이제 몽고디비 실행 및 프롬프트에 접속하여 데이터베이스, 컬렉션을 생성한다.
+이제 몽고디비 실행 및 프롬프트에 접속하여 데이터베이스, collection 을 생성한다.
 
 ```shell
 > brew services start mongodb-community
@@ -270,7 +270,7 @@ nodejs
 현재 사용중인 DB 를 확인하는 명령어는 `db` 이다.
 
 
-다큐먼트를 넣는 순간 컬렉션도 자동으로 생성되므로 컬렉션은 따로 생성하지 않아도 되지만 아래처러 직접 컬렉션을 생성하는 명령어도 있긴 하다.
+document 를 넣는 순간 collection 도 자동으로 생성되므로 collection 은 따로 생성하지 않아도 되지만 아래처러 직접 collection 을 생성하는 명령어도 있긴 하다.
 
 ```shell
 > db.createCollection('users')
@@ -288,7 +288,7 @@ users
 
 ## 6. CRUD 작업
 
-컬렉션에 컬럼을 정의하지 않아도 컬렉션에는 아무 데이터나 넣을 수 있다.
+collection 에 컬럼을 정의하지 않아도 collection 에는 아무 데이터나 넣을 수 있다.
 
 몽고디비는 기본적으로 자바스크립트 문법을 사용하므로 자바스크립트의 자료형을 따르는데 추가로 아래와 같은 자료형이 더 있다.
 
@@ -296,13 +296,13 @@ users
 `Binary Data`, `ObjectId`, `Timestamp` 외엔 잘 사용되지 않는다.  
 참고로 `Undefined` 와 `Symbol` 은 몽고디비에서 자료형으로 사용되지 않는다.
 
-`ObjectId` 는 고유한 값을 갖기 때문에 다큐먼트 조회 시 사용하며, MySQL 에서 기본키와 같은 역할을 한다. 
+`ObjectId` 는 고유한 값을 갖기 때문에 document 조회 시 사용하며, MySQL 에서 기본키와 같은 역할을 한다. 
 
 ---
 
 ### 6.1. 데이터 생성
 
-생성은 `db.컬렉션명.save(다큐먼트)` 로 다큐먼트를 생성할 수 있다.
+생성은 `db.컬렉션명.save(document)` 로 document 를 생성할 수 있다.
 
 생성
 ```shell
@@ -313,7 +313,7 @@ WriteResult({ "nInserted" : 1 })
 WriteResult({ "nInserted" : 1 })
 ```
 
-이제 comments 컬렉션에도 데이터를 넣어볼텐데 그러려면 위의 *assu* 의 ObjectId 를 먼저 조회해야 한다.
+이제 comments collection 에도 데이터를 넣어볼텐데 그러려면 위의 *assu* 의 ObjectId 를 먼저 조회해야 한다.
 
 ObjectId 조회 후 데이터 생성
 ```shell
@@ -335,7 +335,7 @@ WriteResult({ "nInserted" : 1 })
 
 ### 6.2. 데이터 조회
 
-**컬렉션 내의 모든 다큐먼트 조회** - `find({})`
+**collection 내의 모든 document 조회** - `find({})`
 ```shell
 > db.users.find({})
 { "_id" : ObjectId("61d002b021d524d5ca7fa3ca"), "name" : "assu", "age" : 20, "married" : false, "comment" : "안녕? 나야 나", "createdAt" : ISODate("2022-01-01T07:28:48.670Z") }
@@ -415,12 +415,12 @@ _id 는 기본적으로 가져오게 되어있으므로 0 또는 false 를 넣�
 WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 ```
 
-첫 번째 객체는 수정할 다큐먼트를 지정하는 객체이고, 두 번째 객체는 수정할 내용을 입력하는 객체이다.
+첫 번째 객체는 수정할 document 를 지정하는 객체이고, 두 번째 객체는 수정할 내용을 입력하는 객체이다.
 
-`$set` 연잔사를 통해 어떤 필드를 수정할 지 정하는데 이 연산자를 사용하지 않고 일반 객체를 넣으면 다큐먼트가 
+`$set` 연잔사를 통해 어떤 필드를 수정할 지 정하는데 이 연산자를 사용하지 않고 일반 객체를 넣으면 document 가 
 통째로 두 번째 객체로 수정되니 유의해야 한다.
 
-수정이 성공하면 첫 번째 객체에 해당하는 다큐먼트의 수(nMatched)와 수정된 다큐먼트의 수(nModified) 가 리턴된다.
+수정이 성공하면 첫 번째 객체에 해당하는 document 의 수(nMatched)와 수정된 document 의 수(nModified) 가 리턴된다.
 
 ---
 
@@ -446,14 +446,14 @@ MySQL 에 시퀄라이즈가 있다면 몽고디비에는 `몽구스 (mongoose)`
 ![몽구스 로고](/assets/img/dev/2021/1230/mongoose.png)
 
 몽구스는 시퀄라이즈와 달리 ODB (Object Document Mapping) 이라고 불린다.  
-몽고디비는 릴레이션이 아니라 다큐먼트를 사용하므로 ORM 이 아니라 ODM 이다.
+몽고디비는 릴레이션이 아니라 document 를 사용하므로 ORM 이 아니라 ODM 이다.
 
 몽고디비 자체가 이미 자바스크립트인데도 굳이 자바스크립트 객체와 매핑하는 이유는 바로 몽고디비에 없어서 불편한 기능들을
 몽구스가 보완해주기 때문이다.
 
 - **스키마**
     - 몽고디비에는 테이블이 없어서 자유롭게 데이터를 넣을 수 있지만 때로는 이 자유로움이 불편함을 초래한다.  
-      실수로 잘못된 자료형의 데이터를 넣거나, 다른 다큐먼트에는 없는 필드의 데이터를 넣을 수도 있다.  
+      실수로 잘못된 자료형의 데이터를 넣거나, 다른 document 에는 없는 필드의 데이터를 넣을 수도 있다.  
       **몽구스는 몽고디비에 데이터를 넣기 전에 노드 서버단에서 데이터를 한번 필터링**하는 역할을 해준다.
 - **populate**
     - MySQL 의 JOIN 기능을 보완해주는 기능이다.  
@@ -624,18 +624,18 @@ module.exports = mongoose.model('Comment', commentSchema);
 *commenter* 의 속성을 보면 ref 에 User 값이 있고, 자료형은 ObjectId 이다.  
 commenter 필드에는 User 스키마의 사용자 ObjectId 가 들어간다는 의미이다.
 
-몽구스는 model 메서드의 첫 번째 인수로 컬렉션 이름을 만든다.  
-첫 번째 인수가 *User* 라면 첫 글자를 소문자로 만들고 복수형으로 바꿔서 *users* 컬렉션을 생성한다.
+몽구스는 model 메서드의 첫 번째 인수로 collection 이름을 만든다.  
+첫 번째 인수가 *User* 라면 첫 글자를 소문자로 만들고 복수형으로 바꿔서 *users* collection 을 생성한다.
 
-아래의 경우 *comments* 라는 컬렉션이 생성된다.
+아래의 경우 *comments* 라는 collection 이 생성된다.
 
 ```javascript
 module.exports = mongoose.model('Comment', commentSchema);
 ```
 
-만일 컬렉션명을 변경하고 싶다면 세 번째 인수로 컬렉션명을 설정하면 된다.
+만일 collection 명을 변경하고 싶다면 세 번째 인수로 collection 명을 설정하면 된다.
 
-아래는 *comments* 컬렉션이 아닌 *commentTbl* 컬렉션이 생성되는 예시이다.
+아래는 *comments* collection 이 아닌 *commentTbl* collection 이 생성되는 예시이다.
 ```javascript
 module.exports = mongoose.model('Comment', commentSchema, 'commentTbl');
 ```
@@ -732,7 +732,7 @@ router.get('/:id/comments', async (req, res, next) => {
 module.exports = router;
 ```
 
-위 코드에서 댓글 다큐먼트를 조회하는 부분을 보자.
+위 코드에서 댓글 document 를 조회하는 부분을 보자.
 ```javascript
 // 몽구스
 const comments = await Comment.find({ commenter: req.params.id }).populate(
@@ -781,10 +781,10 @@ commenter: {
   },
 ```
 
-먼저 댓글을 쓴 유저의 아이디로 댓글을 조회한 뒤 populate 메서드로 고나련되어 있는 컬렉션의 다큐먼트를 불러온다.  
-Comment 스키마 commenter 필드의 ref 가 User 로 설정되어 있으므로 알아서 users 컬렉션에서 사용자 다큐먼트를 찾아 합쳐서 commenter 필드가 사용자 다큐먼트로
+먼저 댓글을 쓴 유저의 아이디로 댓글을 조회한 뒤 populate 메서드로 고나련되어 있는 collection 의 document 를 불러온다.  
+Comment 스키마 commenter 필드의 ref 가 User 로 설정되어 있으므로 알아서 users collection 에서 사용자 document 를 찾아 합쳐서 commenter 필드가 사용자 document 로
 치환된다.  
-이제 commenter 필드는 ObjectId 가 아니라 그 ObjectId 를 가진 사용자 다큐먼트가 된다.
+이제 commenter 필드는 ObjectId 가 아니라 그 ObjectId 를 가진 사용자 document 가 된다.
 
 routes/comments.js
 ```javascript
@@ -860,7 +860,7 @@ const result = await Comment.populate(comment, { path: 'commenter' });
 console.log('result', result);
 ```
 
-Comment.create 메서드로 댓글을 저장한 후 populate 메서드로 프로미스의 결과로 반환된 comment 객체에 다른 컬렉션 다큐먼트를 불러온다.  
+Comment.create 메서드로 댓글을 저장한 후 populate 메서드로 프로미스의 결과로 반환된 comment 객체에 다른 collection document 를 불러온다.  
 path 옵션으로 어떤 필드를 합칠지 설정한 후 합쳐진 결과를 클라이언트로 응답한다.
 
 각각 console.log 는 아래와 같다.
@@ -890,7 +890,7 @@ result {
 
 ```
 
-다큐먼트를 수정하는 PATCH 를 보자.  
+document 를 수정하는 PATCH 를 보자.  
 몽고디비와 다르게 `$set` 연산자를 사용하지 않아도 기입한 필드만 변경한다.
 ```javascript
 const result = await Comment.update(
@@ -903,7 +903,7 @@ const result = await Comment.update(
 );
 ```
 
-마지막으로 다큐먼트를 삭제하는 로직을 보자.
+마지막으로 document 를 삭제하는 로직을 보자.
 ```javascript
 // 몽구스
 const result = await Comment.remove({ _id: req.params.id });
