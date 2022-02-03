@@ -3,7 +3,7 @@ layout: post
 title:  "GitLab CI/CD Pipeline 구성"
 date:   2020-10-09 10:00
 categories: dev
-tags: gitlab devops gitlab-runner ci cd  
+tags: devops gitlab gitlab-runner ci cd  
 ---
 
 이 글은 GitLab CI/CD Pipeline 에 대해 설명합니다.

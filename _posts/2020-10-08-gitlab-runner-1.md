@@ -3,7 +3,7 @@ layout: post
 title:  "GitLab-Runner 설치 & 등록(Windows)"
 date:   2020-10-08 10:00
 categories: dev
-tags: gitlab devops gitlab-runner ci cd  
+tags: devops gitlab gitlab-runner ci cd  
 ---
 
 이 글은 CI/CD 구성을 위한 GitLab + GitLab Runner 적용 과정을 설명하기 전에 알아야 할 기본 내용과 
