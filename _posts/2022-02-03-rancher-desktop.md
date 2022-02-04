@@ -12,7 +12,7 @@ tags: devops rancher-desktop
 
 > - Kubernetes 와 Docker 비교
 > - Docker Desktop 대체 방안들
->   - VM + minikube
+    >   - VM + minikube
 >   - Rancher Desktop
 > - Rancher Desktop 설치 및 mysql docker container 띄우기
 
@@ -60,7 +60,7 @@ Docker 는 **기술적인 개념, 도구** 이고, Kubernetes 는 **Docker 를 �
 (쿠버네티스와 비교하자면 쿠버네티스는 컨테이너의 클러스터를 단일 시스템으로 관리하는 것)
 
 쿠버네티스는 마스터 노드와 하나 이상의 워커 노드로 구성되어 있는데  
-단순 개발 테스트를 위해 플랫폼 구성이 어려운 상황에서 마스터 노드의 일부 기능과 개발/배포를 위한 단일 워커 노드를 제공해주는 
+단순 개발 테스트를 위해 플랫폼 구성이 어려운 상황에서 마스터 노드의 일부 기능과 개발/배포를 위한 단일 워커 노드를 제공해주는
 간단한 쿠버네티스 플랫폼 환경을 제공해준다.
 
 즉, 로컬 머신에 VM 을 만들고 하나의 노드로 구성된 간단한 클러스터를 배포하는 가벼운 쿠버네티스 구현체라고 보면 된다.
@@ -80,7 +80,7 @@ Docker 는 **기술적인 개념, 도구** 이고, Kubernetes 는 **Docker 를 �
 ---
 
 보통 하나의 컨테이너만 띄울 거라 Rancher Desktop 이 오버 스펙같지만...  
-별도로 VM 을 설치하기 번거롭고, 여러 개의 컨테이너를 띄울 때 프로필 변경 등 좀 불편할 것 같아서 Rancher Desktop 을 설치하여 테스트해보기로 했다.  
+별도로 VM 을 설치하기 번거롭고, 여러 개의 컨테이너를 띄울 때 프로필 변경 등 좀 불편할 것 같아서 Rancher Desktop 을 설치하여 테스트해보기로 했다.
 
 ---
 
@@ -115,15 +115,41 @@ docker run --name mysql-container \
 ![mysql 연결](/assets/img/dev/2022/0202/mysql_connection1.png)
 ![mysql 연결](/assets/img/dev/2022/0202/mysql_connection2.png)
 
+
+`docker-compose` 로 띄울 때는 docker-compose 설치 후 기존에 사용하던 방식 그대로 띄우면 된다.
+
+```shell
+> brew install docker-compose
+```
+
+docker-compose.yml
+```yaml
+version: "3" # 파일 규격 버전
+services: # 이 항목 밑에 실행하려는 컨테이너 들을 정의
+   db: # 서비스 명
+      #    image: mysql:5.7 # 사용할 이미지
+      image: mysql:latest
+      container_name: mysql-container # 컨테이너 이름 설정
+      ports:
+         - "3306:3306" # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+      environment: # -e 옵션
+         MYSQL_ROOT_PASSWORD: "password"  # MYSQL 패스워드 설정 옵션
+         #      - TZ=Asia/Seoul
+      command: # 명령어 실행
+         - --sql_mode=
+      volumes:
+         - ~//Developer/Volumes/mysql8:/var/lib/mysql --user 1000
+```
+
+```shell
+> docker-compose up -d
+```
+
 ---
 
 쓰고 보니 엄청 간단한데.. Rancher Desktop 으로 docker 를 어떻게 사용한다는 건지 이해가 잘 안가서 많이 헤맸다.
 
-`docker-compose` 로 띄우는 것도 해보고 싶었는데 공홈을 보니  
-Mac 에선 Docker Desktop 설치 시 함께 설치된다는 안내문만 있고 따로 설치 가이드가 없다.  
-
-따로 구글링하여 docker-compose 를 설치해서 진행해보았는데 잘 되지 않아서 일단은 패쓰...
-
+뿌듯 ^^
 
 ---
 
