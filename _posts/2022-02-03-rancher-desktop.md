@@ -12,7 +12,7 @@ tags: devops rancher-desktop
 
 > - Kubernetes 와 Docker 비교
 > - Docker Desktop 대체 방안들
-    >   - VM + minikube
+>   - VM + minikube
 >   - Rancher Desktop
 > - Rancher Desktop 설치 및 mysql docker container 띄우기
 
