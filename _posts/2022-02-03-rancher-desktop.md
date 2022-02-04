@@ -72,7 +72,7 @@ Docker 는 **기술적인 개념, 도구** 이고, Kubernetes 는 **Docker 를 �
 `Rancher Desktop` 은 데스크탑 쿠버네티스 및 컨테이너 관리를 위한 오픈 소스 앱으로 쿠버네티스용 GUI 라고 볼 수 있다.  
 (쿠버네티스 컨테이너를 관리할 수 있는 오픈소스 프로그램)
 
-내부적으로 컨테이너 엔진으로 `containerd` or `dockerd` 를 사용하여 `netdctl` or `docker cli` 가  사용 가능하다.  
+내부적으로 컨테이너 엔진으로 `containerd` or `dockerd` 를 사용하여 `nerdctl` or `docker cli` 가  사용 가능하다.  
 어느 컨테이너 엔진을 사용할지는 설치 후에도 변경 가능하다.
 
 ![Rancher Desktop](/assets/img/dev/2022/0202/rancher_desktop.png)
