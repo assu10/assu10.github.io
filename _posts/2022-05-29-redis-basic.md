@@ -6,15 +6,14 @@ categories: dev
 tags: redis
 ---
 
-이 포스트는 Docker Desktop 유료화에 따라 Docker Desktop 을 대체할 수 있는 `Rancher Desktop` 에 대해 알아보고,
-최종적으로 Rancher Desktop 에서 관리하는 Docker 를 이용하여 mysql 을 띄워본다.
+이 포스트는 NoSQL 의 종류와 그 중 Key-Value DB 인 Redis 에 대해 알아본다.
 
-
-> - 
-> - Docker Desktop 대체 방안들
->   - VM + minikube
->   - Rancher Desktop
-> - Rancher Desktop 설치 및 mysql docker container 띄우기
+> - NoSQL 종류
+> - Key-Value DB 특징
+>   - In-Memory 기반의 데이터 저장 구조
+>   - 하나의 Key 와 데이터 값으로 구성
+>   - 가공처리가 요구되는 비즈니스 환경에서 적합
+> - Redis
 
 ---
 
@@ -69,6 +68,17 @@ Redis 와 Memcached DB 를 운영하고 있는 환경을 보면 대부분 Redis/
 
 ---
 
+## 3. Redis
+
+Redis 는 Remote Directory System 의 약어로 아래는 **Redis 의 주요 특징**들은 아래와 같다.
+
+- 대표적인 인메모리 기반의 데이터 처리 및 저장 기술을 제공하기 때문에 다른 NoSQL 제품에 비해 상대적으로 빠른 Read/Write 가능
+- `String`, `Set`, `Sorted Set`, `Hash`, `List`, `HyperLogLog` 유형의 데이터 저장 가능
+- Dump 파일과 AOF (Append Of File) 방식으로 메모리 상의 데이터를 디스크에 저장
+- Master/Slave Replication 기능을 통해 데이터의 분산, 복제 기능 제공  
+  `Query Off Loading` 기능을 통해 Master 는 Read/Write 를 수행하고, Slave 는 Read 만 수행
+- 파티셔닝을 통해 동적인 스케일 아웃인 수평 확장 가능
+- Expiration 기능을 통해 메모리 상의 데이터 자동 삭제 가능
 
 
 ---
