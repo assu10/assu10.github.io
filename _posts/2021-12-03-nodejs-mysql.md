@@ -25,7 +25,7 @@ tags: nodejs mysql sequelize
 
 ---
 
-## 1. MySQL
+# 1. MySQL
 
 지금까지는 모든 데이터를 변수에 저장했는데 변수에 저장했다는 것은 컴퓨터 메모리에 저장했다는 의미이고,  
 이 의미는 서버가 종료되면 메모리가 정리되면서 저장했던 데이터도 모두 사라진다는 의미이다.
@@ -53,7 +53,7 @@ mysql 설치 및 접속
 
 ---
 
-## 2. 시퀄라이즈
+# 2. 시퀄라이즈
 
 시퀄라이즈는 MySQL 작업을 쉽게 할 수 있도록 도와주는 ORM 라이브러리 이다.
 
@@ -193,7 +193,7 @@ module.exports = db;
 
 ---
 
-## 3. MySQL 연결
+# 3. MySQL 연결
 
 시퀄라이즈를 통해 express 앱과 MySQL 을 연결한다.
 
@@ -293,7 +293,7 @@ Executing (default): SELECT 1+1 AS result
 
 ---
 
-## 4. 모델 정의
+# 4. 모델 정의
 
 users 테이블을 생성한 후 그에 연결될 모델을 만든다.
 
@@ -549,7 +549,7 @@ module.exports = db;
 
 ---
 
-## 5. 관계 정의
+# 5. 관계 정의
 
 MySQL 에서는 `join` 기능으로 여러 테이블 간의 관계를 파악하여 결과를 도출한다.
 
@@ -557,7 +557,7 @@ MySQL 에서는 `join` 기능으로 여러 테이블 간의 관계를 파악하�
 
 ---
 
-### 5.1. 1:N (`hasMany`, `belongsTo`)
+## 5.1. 1:N (`hasMany`, `belongsTo`)
 
 먼저 아래 만들 테이블의 ERD 와 Schema 는 아래와 같다.
 
@@ -713,7 +713,7 @@ Executing (default): SHOW INDEX FROM `comments` FROM `nodejs`
 
 ---
 
-### 5.2. 1:1 (`hasOne`, `belongsTo`)
+## 5.2. 1:1 (`hasOne`, `belongsTo`)
 
 ![users1, infos](/assets/img/dev/2021/1203/1-1.png)
 
@@ -849,7 +849,7 @@ module.exports = class Info extends Sequelize.Model {
 
 ---
 
-### 5.3. N:M (`belongsToMany`, `belongsToMany`)
+## 5.3. N:M (`belongsToMany`, `belongsToMany`)
 
 ![posts, hashtags, posthashtag](/assets/img/dev/2021/1203/n-m.png)
 
@@ -984,7 +984,7 @@ module.exports = class Hashtag extends Sequelize.Model {
 
 ---
 
-## 6. 쿼리
+# 6. 쿼리
 
 시퀄라이즈 쿼리는 프로미스를 반환하므로 then 을 붙여 결과값을 받을 수 있고, async/await 문법과 같이 사용할 수도 있다.
 
@@ -1147,9 +1147,9 @@ User.destroy({
 
 ---
 
-### 6.1. 관계 쿼리
+## 6.1. 관계 쿼리
 
-#### 6.1.1. 관계 쿼리 조회
+### 6.1.1. 관계 쿼리 조회
 
 관계쿼리는 MySQL 로 치면 join 의 기능이다.
 
@@ -1226,7 +1226,7 @@ const comments = await user.getComments({
 
 ---
 
-#### 6.1.2. 관계 쿼리 생성, 수정, 삭제
+### 6.1.2. 관계 쿼리 생성, 수정, 삭제
 
 관계 쿼리의 생성, 수정, 삭제는 관계 쿼리 조회와는 약간 다르다.
 
@@ -1255,7 +1255,7 @@ await user.addComment([comment1, comment2]);
 
 ---
 
-### 6.2. SQL 쿼리
+## 6.2. SQL 쿼리
 
 시퀄라이즈 쿼리 대신 직접 SQL 문을 통해 쿼리할 수도 있다.
 
@@ -1266,7 +1266,7 @@ console.log(result);
 
 ---
 
-## 7. 쿼리 수행
+# 7. 쿼리 수행
 
 [git](https://github.com/assu10/nodejs/tree/main/chap07) 에서 public/sequelize.js, view/error.html, view/sequelize.html 파일을 복사해두세요.
 
@@ -1470,7 +1470,7 @@ app.listen(app.get('port'), () => {
 
 *본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)

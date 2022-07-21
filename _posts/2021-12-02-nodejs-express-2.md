@@ -29,7 +29,7 @@ tags: nodejs express router template-engine
 
 ---
 
-## 1. Router 객체로 라우팅 분리
+# 1. Router 객체로 라우팅 분리
 
 앞의 [Node.js - http 모듈로 서버 생성](https://assu10.github.io/dev/2021/11/29/nodejs-server-using-http-module/) 의 *3. 쿠키와 세션* 의
 코드 일부를 보면 아래와 같이 요청 메서드와 주소별로 분기 처리를 하느라 코드가 매우 복잡하다.
@@ -47,7 +47,7 @@ app.js 의 *app.get* 같은 메서드가 바로 라우터 부분이다.<br />
 
 ---
 
-### 1.1. Router 기본 이용
+## 1.1. Router 기본 이용
 
 routes 폴더를 만들고 그 안에 index.js 와 user.js 를 작성해보자.
 
@@ -113,7 +113,7 @@ userRouter 는 use 의 '/user' 와 get 의 '/' 가 합쳐져서 *GET /user* 라�
 
 ---
 
-### 1.2. next('route') 
+## 1.2. next('route') 
 
 [Node.js - Express (1): 미들웨어](https://assu10.github.io/dev/2021/12/01/nodejs-express-1/) 의 *2.6. 미들웨어 내용 정리* 에서
 `next('route')` 호출 시 다음 미들웨어가 아닌 다음 라우터의 미들웨어로 이동한다고 했는데 이는 라우터에 연결된 나머지 미들웨어들을 건너뛰고 싶을 때 사용한다.
@@ -169,7 +169,7 @@ Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the cli
 
 ---
 
-### 1.3. 라우터 주소 표현
+## 1.3. 라우터 주소 표현
 
 라우터 주소는 정규표현식을 비롯해서 특수 패턴을 사용할 수 있는데 **라우트 매개변수** 라고 불리는 자주 쓰이는 패턴 하나만 보도록 한다.
 
@@ -217,7 +217,7 @@ GET /me/2?aa=bb&cc=dd 200 0.646 ms - 3
 
 ---
 
-### 1.4. 404 처리
+## 1.4. 404 처리
 
 app.js 에서 에러 처리 미들웨어 위에 넣어둔 미들웨어는 일치하는 라우터가 없을 때 404 상태 코드를 응답하는 역할을 한다.
 
@@ -244,7 +244,7 @@ app.use((err, req, res, next) => {
 
 ---
 
-### 1.5. `router.route` 혹은 `app.route`
+## 1.5. `router.route` 혹은 `app.route`
 
 `router.route` 는 라우터에서 자주 활용되는 방법으로 **주소가 같지만 메서드가 다른 코드가 있을 때 이를 하나의 코드로 묶어주는 기능**이다.
 
@@ -273,7 +273,7 @@ router
 
 ---
 
-## 2. req, res 객체
+# 2. req, res 객체
 
 express 의 req, res 객체는 http 모듈의 req, res 객체를 확장한 것이다.<br />
 즉, http 모듈의 메서드도 사용할 수 있고, express 가 추가한 메서드나 속성을 사용할 수도 있다.
@@ -285,7 +285,7 @@ res.send, res.sendFile 과 같은 추가된 메서드도 사용할 수 있다.
 
 ---
 
-### 2.1. req 객체의 자주 사용되는 속성/메서드 
+## 2.1. req 객체의 자주 사용되는 속성/메서드 
 
 - `req.app`
   - req 객체를 통해 app 객체에 접근
@@ -308,7 +308,7 @@ res.send, res.sendFile 과 같은 추가된 메서드도 사용할 수 있다.
 
 ---
 
-### 2.2. res 객체의 자주 사용되는 속성/메서드
+## 2.2. res 객체의 자주 사용되는 속성/메서드
 
 - `res.app`
   - req.app 처럼 res 객체를 통해 app 객체에 접근
@@ -336,7 +336,7 @@ res.send, res.sendFile 과 같은 추가된 메서드도 사용할 수 있다.
 ---
 
 
-## 3. 템플릿 엔진 - Nunjucks
+# 3. 템플릿 엔진 - Nunjucks
 
 템플릿 엔진은 자바스크립트를 사용해서 HTML 을 렌더링할 수 있게 한다.
 
@@ -448,7 +448,7 @@ app.listen(app.get('port'), () => {
 
 ---
 
-### 3.1. 변수
+## 3.1. 변수
 
 res.render 호출 시 보내는 변수를 넌적스가 처리한다.
 
@@ -496,7 +496,7 @@ nunjucks
 
 ---
 
-### 3.2. 반복문
+## 3.2. 반복문
 
 넌적스에서 특수한 구문은 <!-- {% raw %} --> `{% %}` <!-- {% endraw %} --> 안에 쓰는데 반복문도 이 안에 넣으면 된다.
 
@@ -516,7 +516,7 @@ nunjucks
 
 ---
 
-### 3.3. 조건문
+## 3.3. 조건문
 
 조건문은 <!-- {% raw %} -->`{% if 변수 %}`, `{% elif %}`, `{% else %}`, `{% endif %}`<!-- {% endraw %} --> 로 이루어져 있다.
 
@@ -550,7 +550,7 @@ nunjucks
 
 ---
 
-### 3.4. include
+## 3.4. include
 
 다른 HTML 파일을 넣을 때 `include 파일 경로` 로 사용한다.  
 모든 페이지에 동일한 HTML 을 넣어야하는 번거로움을 없앤다.
@@ -565,7 +565,7 @@ nunjucks
 
 ---
 
-### 3.5. extends 와 block
+## 3.5. extends 와 block
 
 레이아웃을 정할 수 있다.  
 레이아웃이 될 파일에는 공통된 마크업을 넣되, 페이지마다 달라지는 부분을 `block` 으로 비워둔다.  
@@ -728,7 +728,7 @@ app.listen(app.get('port'), () => {
 
 ---
 
-## 4. 에러 처리 미들웨어
+# 4. 에러 처리 미들웨어
 
 앞에서 res.send 로 텍스트만 보냈던 404 응답 미들웨어와 에러 처리 미들웨어를 수정하여 아래와 같이 error.html 에 에러를 표시하도록 해보자.
 
@@ -762,7 +762,7 @@ app.use((err, req, res, next) => {
 
 *본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)

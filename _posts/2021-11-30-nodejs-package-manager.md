@@ -18,7 +18,7 @@ tags: nodejs npm package-manager
 
 ---
 
-## 1. npm (Node Package Manager)
+# 1. npm (Node Package Manager)
 
 `npm` 은 말 그대로 노드 패키지 매니저이다.
 
@@ -32,7 +32,7 @@ tags: nodejs npm package-manager
 
 ---
 
-## 2. package.json
+# 2. package.json
 
 사용할 패키지는 각각 고유한 버전이 있는데 이러한 **설치 버전을 관리하는 파일**이 바로 `package.json` 이다.
 
@@ -139,7 +139,7 @@ found 0 vulnerabilities
 
 ---
 
-## 3. 패키지 버전 이해
+# 3. 패키지 버전 이해
 
 노드 패키지들의 버전은 항상 세 자리로 이루어져있다.<br />
 그 이뉴는 `SemVer` 방식의 버전 넘버링을 따르기 때문이다.
@@ -181,7 +181,7 @@ package.json 에는 SemVer 식 세 자리 버전 외에도 `^`, `~`, `>`, `<` �
 
 ---
 
-## 4. 그 외 npm 명령어
+# 4. 그 외 npm 명령어
 
 `npm outdated`<br />
 업데이트할 수 있는 패키지가 있는지 확인해보는 명령어이다.
@@ -265,7 +265,7 @@ package.json 대신 package-lock.json 에 기반하여 패키지를 설치하는
 
 ---
 
-## 5. 패키지 배포
+# 5. 패키지 배포
 
 본인이 만든 패키지를 배포하기 위해선 npm 계정을 먼저 만들어야 한다.
 
@@ -353,7 +353,7 @@ npm WARN using --force Recommended protections disabled.
 
 *본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)

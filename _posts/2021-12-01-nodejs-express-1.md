@@ -34,7 +34,7 @@ npm 에는 **서버를 제작하는 과정에서의 불편함을 해소하고 �
 
 ---
 
-## 1. Express 사용
+# 1. Express 사용
 
 `npm init --y` 명령어로 package.json 을 생성한 후 express 와 nodemon 패키지를 설치한다.
 
@@ -147,7 +147,7 @@ app.listen(app.get('port'), () => {
 
 ---
 
-## 2. 미들웨어
+# 2. 미들웨어
 
 미들웨어는 express 의 핵심이다.<br />
 요청과 응답의 중간에 위치하여 미들웨어라고 부른다. 라우터와 에러 핸들러 또한 미들웨어의 일종이다.
@@ -328,7 +328,7 @@ dotenv 패키지로 비밀 키를 로딩하는 방식으로 관리하면 소스 
 
 ---
 
-### 2.1. `morgan`
+## 2.1. `morgan`
 
 ```javascript
 app.use(morgan('dev'));
@@ -355,7 +355,7 @@ morgan 미들웨어는 요청과 응답에 대한 정보를 콘솔에 기록하�
 
 ---
 
-### 2.2. `static`
+## 2.2. `static`
 
 ```javascript
 app.use('/', express.static(path.join(__dirname, 'public')));
@@ -377,7 +377,7 @@ static 미들웨어는 정적인 파일들을 제공하는 라우터 역할을 �
 
 ---
 
-### 2.3. `body-parser`
+## 2.3. `body-parser`
 
 ```javascript
 app.use(express.json());
@@ -422,7 +422,7 @@ URL-encoded 형식인 name=assu&age=30 으로 본문을 보내면 req.body 에 {
 
 ---
 
-### 2.4. `cookie-parser`
+## 2.4. `cookie-parser`
 
 ```javascript
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -484,7 +484,7 @@ const expires = new Date();
 
 ---
 
-### 2.5. `express-session`
+## 2.5. `express-session`
 
 ```javascript
 app.use(
@@ -552,7 +552,7 @@ req.session.destroy();  // 세션 모두 제거
 
 ---
 
-### 2.6. 미들웨어 내용 정리
+## 2.6. 미들웨어 내용 정리
 
 지금까지 미들웨어를 직접 만들기도 하고, 미들웨어 패키지를 설치해 사용해보기도 하였다.
 
@@ -649,7 +649,7 @@ app.use((req, res, next) => {
 
 ---
 
-### 2.7. `multer`
+## 2.7. `multer`
 
 `multer` 는 **이미지, 동영상, 파일 등을 멀티파트 형식으로 업로드할 때 사용하는 미들웨어** 이다.
 
@@ -741,7 +741,7 @@ try {
 여기서는 3가지로 나누어 살펴보도록 한다.
 
 
-#### 2.7.1. `upload.single('img')` - req.file 객에체 하나의 파일만 업로드
+### 2.7.1. `upload.single('img')` - req.file 객에체 하나의 파일만 업로드
 
 하나의 파일만 업로드하는 경우 `single 미들웨어` 를 사용한다.
 
@@ -800,7 +800,7 @@ POST /upload 200 14.596 ms - 2
 
 ---
 
-#### 2.7.2. `upload.array('imgs')` - req.files 객체에 input 태그의 name 이 동일한 여러 개의 파일을 업로드
+### 2.7.2. `upload.array('imgs')` - req.files 객체에 input 태그의 name 이 동일한 여러 개의 파일을 업로드
 
 `upload.single 미들웨어` 가 아닌 `upload.array 미들웨어` 를 사용하며,
 업로드 결과가 `req.file` 이 아닌 `req.files` 배열에 들어간다.
@@ -858,7 +858,7 @@ POST /upload 200 15.289 ms - 2
 
 ---
 
-#### 2.7.3. `upload.fields([{ name: 'imagename1' }, { name: 'imagename2' }])` - req.files 객체에 input 태그의 name 이 다른 여러 개의 파일을 업로드
+### 2.7.3. `upload.fields([{ name: 'imagename1' }, { name: 'imagename2' }])` - req.files 객체에 input 태그의 name 이 다른 여러 개의 파일을 업로드
 
 파일을 여러 개 업로드하지만 input 태그나 폼 데이터의 키가 다른 경우 `upload.fields 미들웨어` 를 사용한다.
 
@@ -918,7 +918,7 @@ req.body:  [Object: null prototype] { title: '' }
 
 ---
 
-#### 2.7.4. `upload.none()` - 파일 업로드 없이 텍스트 데이터만 multipart 형식으로 전송
+### 2.7.4. `upload.none()` - 파일 업로드 없이 텍스트 데이터만 multipart 형식으로 전송
 
 이미지를 미리 업로드하고 req.body 에 이미지 데이터가 아닌 이미지 URL (텍스트) 만 있는 경우 사용한다.
 
@@ -1034,7 +1034,7 @@ app.listen(app.get('port'), () => {
 
 *본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)

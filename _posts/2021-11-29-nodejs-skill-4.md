@@ -14,7 +14,7 @@ tags: nodejs event exception
 
 ---
 
-## 1. 이벤트 (중요)
+# 1. 이벤트 (중요)
 
 [Node.js - 파일시스템](https://assu10.github.io/dev/2021/11/28/nodejs-skill-3/) 에서 스트림에 대해 볼 때 `on('data', callback)` 과
 같은 코드를 사용하였다.
@@ -105,7 +105,7 @@ console.log(myEvent.listenerCount('event2'));
 
 ---
 
-## 2. 예외 처리
+# 2. 예외 처리
 
 멀티 스레드 프로그램에서는 스레드 하나가 멈추면 그 일은 다른 스레드가 대신 하지만 노드의 메인 스레드는 하나뿐이므로 메인 스레드가 에러로 인해 멈추면
 스레드를 갖고 있는 프로세스가 멈춘다는 뜻이고, 전체 서버도 멈춘다는 뜻이다.
@@ -238,7 +238,7 @@ setTimeout(() => {
 
 ---
 
-## 3. 자주 발생하는 에러들
+# 3. 자주 발생하는 에러들
 
 - `node: command not found`
   - 노드를 설치했지만 이 에러가 발생하면 환경 변수가 제대로 설정되지 않은 것
@@ -273,7 +273,7 @@ setTimeout(() => {
 
 *본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)

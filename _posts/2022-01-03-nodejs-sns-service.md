@@ -33,7 +33,7 @@ SNS 서비스를 구축해본다.
 
 ---
 
-## 1. 프로젝트 세팅
+# 1. 프로젝트 세팅
 
 ```shell
 > npm init --y
@@ -247,9 +247,9 @@ render 함수 안의 twits 도 지금은 빈 배열이지만 나중에 값을 �
 
 ---
 
-## 2. 데이터베이스 세팅
+# 2. 데이터베이스 세팅
 
-### 2.1. 사용할 테이블의 ERD, Schema
+## 2.1. 사용할 테이블의 ERD, Schema
 
 이제 MySQL 과 시퀄라이즈로 데이터베이스를 설정한다.
 
@@ -362,7 +362,7 @@ Database sns created.
 
 ---
 
-### 2.2. 모델 정의
+## 2.2. 모델 정의
 
 models/user.js
 ```javascript
@@ -520,7 +520,7 @@ module.exports = db;
 
 ---
 
-### 2.3. 관계 정의
+## 2.3. 관계 정의
 
 이제 관계를 설정해보자.
 
@@ -672,7 +672,7 @@ db.sequelize.models.Follow
 
 ---
 
-### 2.4. 모델과 서버 연결
+## 2.4. 모델과 서버 연결
 
 app.js
 ```javascript
@@ -704,7 +704,7 @@ app.use(morgan('dev'));
 
 ---
 
-## 3. Passport 모듈로 로그인 구현
+# 3. Passport 모듈로 로그인 구현
 
 회원 가입과 로그인을 직접 구현할 수도 있지만 세션, 쿠키 처리 등 복잡한 작업이 많기 때문에 검증된 모듈을 사용하는 것이 좋다.  
 `Passport` 가 바로 그러한 역할을 해주는 모듈이다.
@@ -716,7 +716,7 @@ app.use(morgan('dev'));
 
 ---
 
-### 3.1. 기본 구조 셋팅
+## 3.1. 기본 구조 셋팅
 
 ```shell
 > npm i passport passport-local passport-kakao bcrypt
@@ -850,9 +850,9 @@ module.exports = () => {
 
 ---
 
-### 3.2. 로컬 로그인 구현
+## 3.2. 로컬 로그인 구현
 
-#### 3.2.1. 로그인 여부 확인 미들웨어 
+### 3.2.1. 로그인 여부 확인 미들웨어 
 
 로컬 로그인은 다른 SNS 서비스를 통해 로그인하지 않고 자체적으로 회원가입 후 로그인하는 것을 의미한다.  
 `Passport` 에서 이를 구현하려면 `passport-local` 모듈이 필요하다.
@@ -926,7 +926,7 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 
 ---
 
-#### 3.2.2. 로컬 로그인 - 회원가입, 로그인, 로그아웃 라우터
+### 3.2.2. 로컬 로그인 - 회원가입, 로그인, 로그아웃 라우터
 
 routes/auth.js
 ```javascript
@@ -1103,7 +1103,7 @@ DB 에서 일치하는 이메일이 있는지 조회한 후 `bcrypt` 의 `compar
 
 ---
 
-### 3.3. 카카오 로그인 구현
+## 3.3. 카카오 로그인 구현
 
 SNS 로그인은 로그인 인증 과정을 SNS 서비스에 맡기는 것을 의미한다.
 
@@ -1247,7 +1247,7 @@ app.use('/auth', authRouter);
 
 ```
 
-#### 3.3.1. 카카오 clientID 발급
+### 3.3.1. 카카오 clientID 발급
 
 [Kakao Developers](https://developers.kakao.com/) 로 가서 회원 가입 및 카카오 로그인용 애플리케이션 등록을 한다.
 
@@ -1284,9 +1284,9 @@ KAKAO_ID=165988452ef5a14602f269c34d1cddd6
 
 ---
 
-## 4. multer 패키지로 이미지 업로드 구현
+# 4. multer 패키지로 이미지 업로드 구현
 
-### 4.1. 이미지 업로드 구현
+## 4.1. 이미지 업로드 구현
 
 [Node.js - Express (1): 미들웨어](https://assu10.github.io/dev/2021/12/01/nodejs-express-1/) 의 *2.7. `multer`* 에서 본 내용으로
 이미지 업로드를 구현한다.
@@ -1385,7 +1385,7 @@ module.exports = router;
 
 ---
 
-### 4.2. 메인 페이지 로딩 시 게시글도 함께 로딩
+## 4.2. 메인 페이지 로딩 시 게시글도 함께 로딩
 
 routes/page.js
 ```javascript
@@ -1440,7 +1440,7 @@ ORDER BY `Post`.`createdAt` DESC;
 
 ---
 
-## 5. 그 외 라우터
+# 5. 그 외 라우터
 
 아래는 다른 사용자를 팔로우하는 라우터이다.
 
@@ -1671,7 +1671,7 @@ app.use('/user', userRouter);
 
 *본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)

@@ -18,7 +18,7 @@ tags: devops rancher-desktop
 
 ---
 
-## 1. Kubernetes 와 Docker 비교
+# 1. Kubernetes 와 Docker 비교
 
 > 아주 간단하게만 비교한 글입니다. 자세한 내용은 구글링 해보세요.
 
@@ -48,13 +48,13 @@ Docker 는 **기술적인 개념, 도구** 이고, Kubernetes 는 **Docker 를 �
 
 ---
 
-## 2. Docker Desktop 대체 방안들
+# 2. Docker Desktop 대체 방안들
 
 구글링을 좀 해보니 Docker Desktop 의 대체 방안으로 `VM + minikube` or `Rancher Desktop` 이렇게 크게 2가지로 나뉘는 것 같다.
 
 ---
 
-### 2.1. VM + minikube
+## 2.1. VM + minikube
 
 `minikube` 는 가벼운 쿠버네티스 구현체이며, 로컬 머신에 VM 을 만들어 하나의 노드로 구성된 간단한 클러스터를 생성하는 로컬 쿠버네티스 엔진이다.  
 (쿠버네티스와 비교하자면 쿠버네티스는 컨테이너의 클러스터를 단일 시스템으로 관리하는 것)
@@ -67,7 +67,7 @@ Docker 는 **기술적인 개념, 도구** 이고, Kubernetes 는 **Docker 를 �
 
 ---
 
-### 2.2. Rancher Desktop
+## 2.2. Rancher Desktop
 
 `Rancher Desktop` 은 데스크탑 쿠버네티스 및 컨테이너 관리를 위한 오픈 소스 앱으로 쿠버네티스용 GUI 라고 볼 수 있다.  
 (쿠버네티스 컨테이너를 관리할 수 있는 오픈소스 프로그램)
@@ -84,7 +84,7 @@ Docker 는 **기술적인 개념, 도구** 이고, Kubernetes 는 **Docker 를 �
 
 ---
 
-## 3. Rancher Desktop 설치 및 mysql docker container 띄우기
+# 3. Rancher Desktop 설치 및 mysql docker container 띄우기
 
 [https://rancherdesktop.io/](https://rancherdesktop.io/) 에 접속하여 각 OS 에 맞는 install 파일을 다운로드 받아 설치한다.
 
@@ -153,7 +153,7 @@ services: # 이 항목 밑에 실행하려는 컨테이너 들을 정의
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Rancher Desktop 공홈](https://rancherdesktop.io/)
 * [Rancher Doc](https://rancher.com/docs/rancher/v2.6/en/)

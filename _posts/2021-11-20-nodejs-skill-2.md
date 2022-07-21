@@ -16,9 +16,9 @@ tags: nodejs
 
 ---
 
-### 4.7. `worker_threads`
+## 4.7. `worker_threads`
 
-#### 4.7.1  간단한 worker_threads 사용 방식 
+### 4.7.1  간단한 worker_threads 사용 방식 
 
 아래는 노드에서 멀티 스레드 방식으로 작업하는 간단한 예시이다.
 
@@ -61,7 +61,7 @@ worker exit
 
 ---
 
-#### 4.7.2  workerData 사용
+### 4.7.2  workerData 사용
 
 아래는 2개의 워커 스레드에 데이터를 남기는 예시이다. 위에선 worker.postMessage 로 데이터를 전달했는데 아래는 다른 방식으로
 데이터를 전달한다.
@@ -116,7 +116,7 @@ new Worker 호출 시 두 번째 인수의 `workerData` 속성으로 데이터�
 
 ---
 
-#### 4.7.3  복잡한 worker_threads 사용 방식 (소수 갯수 구하기)
+### 4.7.3  복잡한 worker_threads 사용 방식 (소수 갯수 구하기)
 
 아래는 2 ~ 1,000 만 사이의 소수의 갯수를 구하는 작업을 워커 스레드를 사용하지 않은 코드이다.
 
@@ -247,7 +247,7 @@ prime: 1.516s
 
 ---
 
-### 4.8. `child_process`
+## 4.8. `child_process`
 
 `child_process` 는 다른 프로그램을 실행하고 싶거나, 명령어를 수행하고 싶을 때 사용하는 모듈이다.<br />
 `child_process` 모둘을 통해 다른 언어의 코드를 실행 후 결과값을 받을 수 있다.<br />
@@ -309,7 +309,7 @@ hello~
 
 ---
 
-### 4.9. 기타 모듈들
+## 4.9. 기타 모듈들
 
 - `assert`
 - `dns`
@@ -334,7 +334,7 @@ hello~
 
 *본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)

@@ -27,7 +27,7 @@ tags: nodejs filesystem
 
 ---
 
-## 1. 파일 시스템 접근
+# 1. 파일 시스템 접근
 
 readme.txt
 ```text
@@ -100,7 +100,7 @@ fs.writeFile('./writeme.txt', '글 입력')
 ---
 
 
-## 2. 동기 메서드와 비동기 메서드
+# 2. 동기 메서드와 비동기 메서드
 
 노드는 대부분의 메서드를 비동기로 처리하지만 동기 방식으로도 사용이 가능한 메서드들도 있다.
 
@@ -233,9 +233,9 @@ END
 
 ---
 
-## 3. Buffer 와 스트림
+# 3. Buffer 와 스트림
 
-### 3.1. Buffer
+## 3.1. Buffer
 
 영상을 로딩할 때는 버퍼링한다고 하고, 영상을 실시간으로 송출할때는 스트리밍한다고 한다.
 
@@ -279,7 +279,7 @@ alloc():  <Buffer 00 00 00 00 00>
 
 ---
 
-### 3.2. Stream
+## 3.2. Stream
 
 readFile 방식의 Buffer 가 편리하기는 하지만 만약 용량이 100MB 인 파일 10개를 동시에 처리하면 1GB 의 메모리가 사용된다.<br />
 또한 모든 내용을 Buffer 에 다 쓴 후에 다음 동작으로 넘어가기 때문에 파일 읽기, 압축, 파일 쓰기 등 여러 조작이 연달아 발생할 때
@@ -355,7 +355,7 @@ createWriteStream 의 `write 메서드`로 데이터를 다 쓰면 `end 메서�
 
 ---
 
-### 3.3. Piping
+## 3.3. Piping
 
 Stream 끼리 연결하는 것을 **파이핑한다**고 표현하는데 아래의 예를 보도록 하자.
 
@@ -389,7 +389,7 @@ readStream.pipe(zlibStream).pipe(writeStream);
 
 ---
 
-### 3.4. Buffer vs Stream 메모리 사용량 비교
+## 3.4. Buffer vs Stream 메모리 사용량 비교
 
 createWriteStream 을 이용하여 약 1GB 의 파일을 생성해보자.
 
@@ -466,9 +466,9 @@ Buffer 를 이용할 때 1GB 까지 사용했던 것에 비하면 매우 적게 
 
 ---
 
-## 4. 기타 fs 메서드
+# 4. 기타 fs 메서드
 
-### 4.1. `fs.access`, `fs.mkdir`, `fs.open`, `fs.rename`
+## 4.1. `fs.access`, `fs.mkdir`, `fs.open`, `fs.rename`
 
 fsCreate.js
 ```javascript
@@ -564,7 +564,7 @@ fs.access('./folder', CONSTANTS.F_OK | CONSTANTS.W_OK | CONSTANTS.R_OK)
 
 ---
 
-### 4.2. `fs.readdir`, `fs.unlink`, `fs.rmdir`
+## 4.2. `fs.readdir`, `fs.unlink`, `fs.rmdir`
 
 fsDelete.js
 ```javascript
@@ -612,7 +612,7 @@ fs.readdir('./folder')
 
 ---
 
-### 4.3. `fs.copyFile`
+## 4.3. `fs.copyFile`
 
 *3.3. Piping* 에서 Stream 을 파이핑하여 파일을 복사하는 방법에 대해 보았었다.
 
@@ -642,7 +642,7 @@ fs.copyFile('readme.txt', 'writeme4.txt')
 
 ---
 
-### 4.4. `fs.watch`
+## 4.4. `fs.watch`
 
 `fs.watch` 는 파일/폴더의 변경 사항을 감지하는 메서드이다.
 
@@ -678,7 +678,7 @@ change 이벤트는 두 번씩 발생하기도 하므로 실무에서는 사용�
 
 ---
 
-## 5. 스레드 풀
+# 5. 스레드 풀
 
 비동기 메서드들은 백그라운드에서 실행되고, 실행된 후엔 다시 메인 스레드의 콜백 함수나 프로미스의 then 부분이 실행된다.<br />
 이 때 **비동기 메서드를 여러 번 실행해도 백그라운드에서는 동시에 처리가 되는데 바로 스레드풀이 있기 때문**이다.
@@ -752,7 +752,7 @@ crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
 
 *본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)
 * [Node.js 공홈](https://nodejs.org/ko/)
