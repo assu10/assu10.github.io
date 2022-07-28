@@ -1287,8 +1287,8 @@ OK
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)
-* [https://redis.io/commands/](https://redis.io/commands/)
-* [https://redis.io/commands/ - string](https://redis.io/commands/?group=string)
+* [https://redis.io/commands](https://redis.io/commands/)
+* [https://redis.io/commands - string](https://redis.io/commands/?group=string)
 * [Redis 언어별 관련 드라이브](https://redis.io/docs/clients/)
 * [Redis 데이터 입력, 수정, 삭제, 조회](https://sungwookkang.com/1313)
 * [Redis 자료 구조 - String](https://luran.me/362)

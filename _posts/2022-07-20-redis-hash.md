@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - Hash"
-date:   2022-07-21 10:00
+date:   2022-07-20 10:00
 categories: dev
 tags: redis hash
 ---
@@ -493,7 +493,8 @@ cursor 값을 0(default 10) 으로 지정한 `SCAN`/`SSCAN`/`ZSCAN`/`HSCAN` 명�
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)
-* [https://redis.io/commands/](https://redis.io/commands/)
+* [https://redis.io/commands](https://redis.io/commands/)
+* [https://redis.io/commands - hash](https://redis.io/commands/?group=hash)
 * [Redis 자료구조 - Hash](https://luran.me/376)
 * [Redis의 SCAN은 어떻게 동작하는가?](https://tech.kakao.com/2016/03/11/redis-scan/)
 * [성능을 위해 Redis keys 대신 scan 이용하기](https://tjdrnr05571.tistory.com/11)
