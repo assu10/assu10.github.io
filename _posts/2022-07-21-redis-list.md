@@ -6,9 +6,9 @@ categories: dev
 tags: redis list
 ---
 
-이 포스트는 NoSQL 의 종류와 그 중 Key-Value DB 인 Redis 에 대해 알아본다.
+이 포스트는 Redis 의 데이터 타입 중 하나인 `List` 타입에 대해 알아본다.
 
-> - List
+> - `List`
 >   - `LPUSH`, `RPUSH`
 >   - `LRANGE`
 >   - `LPOP`, `RPOP`
