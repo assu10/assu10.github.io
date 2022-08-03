@@ -26,8 +26,8 @@ tags: redis
 >   - `INFO`
 > -`String`
 >   -  `SET`, `GET`
->      - `SET` - `NX`,`XX`
->      - `SET` - `EX seconds`,`PX milliseconds`,`EXAT unix-time-seconds`,`PXAT unix-time-milliseconds`,`KEEPTTL`
+>      - `SET` - [`NX`|`XX`]
+>      - `SET` - [`EX seconds`|`PX milliseconds`|`EXAT unix-time-seconds`|`PXAT unix-time-milliseconds`|`KEEPTTL`]
 >   - `MSET`, `MGET`
 >   - `STRLEN`
 >   - `SETEX`
@@ -879,7 +879,7 @@ OK
 "assu"
 ```
 
-### 3.1.1 `SET` - [`NX` | `XX`]
+### 3.1.1 `SET` - [`NX`|`XX`]
 
 `NX` 는 key 가 존재하지 않을 때만 insert 하는 명령어이다. 
 
