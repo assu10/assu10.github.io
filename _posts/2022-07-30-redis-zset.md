@@ -101,8 +101,8 @@ $ redis-cli
 
 ### 1.1.1. [`NX`|`XX`]
 
-- `NX`: member 가 존재하지 않을 경우에만 추가하도록 하는 옵션
-- `XX`: member 가 존재하는 경우에만 추가 (Update) 하도록 하는 옵션
+- `NX`: member 가 존재하지 않을 경우에만 추가하도록 하는 옵션, 기존 member 를 수정하지는 않음
+- `XX`: member 가 존재하는 경우에만 추가 (Update) 하도록 하는 옵션, 새로운 member 를 추가하지는 않음
 
 `NX`
 
@@ -225,10 +225,11 @@ $ redis-cli
 
 추가된 새 elements 갯수에서 **변경된 총 elements 의 갯수**로 반환 값을 수정한다.
 
-> 변경된 elements: 새로 추가된 elements + 기존에 존재하는데 score 가 업데이트된 elements  
+> 변경된 elements: **새로 추가된 elements** + **기존에 존재하는데 score 가 업데이트된 elements**  
 > (기존과 동일한 score 를 가진 elements 는 포함되지 않음)  
-> 
-> 일반적으로 `ZADD` 의 반환 값은 추가된 새로운 elements 의 갯수만 계산한다.
+>
+> 일반적으로 `ZADD` 의 반환 값은 추가된 새로운 elements 의 갯수만 계산하며,  
+> `CH` 옵션을 사용하지 않으면 수정된 갯수는 리턴하지 않는다.
 
 ```shell
 127.0.0.1:6379> zadd user:userNumber 10 user1 20 user2 30 user3
