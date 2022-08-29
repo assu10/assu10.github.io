@@ -26,8 +26,8 @@ tags: redis
 >   - `INFO`
 > -`String`
 >   -  `SET`, `GET`
->      - `SET` - [`NX`|`XX`]
->      - `SET` - [`EX seconds`|`PX milliseconds`|`EXAT unix-time-seconds`|`PXAT unix-time-milliseconds`|`KEEPTTL`]
+>      - `SET` - `NX`/`XX`
+>      - `SET` - `EX seconds`/`PX milliseconds`/`EXAT unix-time-seconds`/`PXAT unix-time-milliseconds`/`KEEPTTL`
 >   - `MSET`, `MGET`
 >   - `STRLEN`
 >   - `SETEX`
@@ -354,7 +354,7 @@ OK
 K-V DB 에서의 용어는 아래와 같다.
 
 - `Table`
-- `Data SETs`: Row
+- `Data Sets`: Row
 - `Key`: PK
 - `Field/Element`: Column
 
