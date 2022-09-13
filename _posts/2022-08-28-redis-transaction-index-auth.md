@@ -6,7 +6,7 @@ categories: dev
 tags: redis transaction index authentication
 ---
 
-이 포스트는 Redis 의 확장 모듈 중 하나인 `RedisJSON` 에 대해 알아본다.  
+이 포스트는 Redis 의 Transaction 관리 방법과 보안/인증에 대해 알아본다.  
 
 > - Transaction & Isolation/Lock
 > - CAS (Check And Set)
