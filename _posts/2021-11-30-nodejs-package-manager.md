@@ -331,7 +331,7 @@ dist
 .unpackedSize: 1.5 kB
 
 maintainers:
-- assu <juhyun1010@naver.com>
+- assu <xxxxx@naver.com>
 
 dist-tags:
 latest: 1.0.0  

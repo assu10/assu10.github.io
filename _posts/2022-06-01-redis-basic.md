@@ -573,7 +573,7 @@ $ pwd
 
 $ ll
 total 8
--rw-r--r--  1 juhyunlee  admin   108B  7 21 15:10 dump.rdb
+-rw-r--r--  1 assu  admin   108B  7 21 15:10 dump.rdb
 ```
 
 ```shell
