@@ -41,6 +41,7 @@ categories: dev
 <br />
 <details markdown="1">
 <summary>ESNext 자바스크립트 (Click!)</summary>
+
 자바스크립트 공식 표준은 ECMAScript (ES) 인데 2015년도에 발표된 ES6 버전에서 큰 변화가 있었다.<br />
 그래서 ES6 이후 버전을 통틀어 ESNext 라고 한다.<br />
 </details>

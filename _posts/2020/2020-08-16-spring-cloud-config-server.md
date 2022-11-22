@@ -63,6 +63,7 @@ Config Server는 환경설정 정보를 Git 이나 SVN 같은 버전 관리 도�
 
 <details markdown="1">
 <summary>application.* VS bootstrap.* (Click!)</summary>
+
 - 라이프사이클 상 application.* 이 로드되기 전에 bootstrap.* 이 로드됨<br />
 (application.* 을 사용하기 전에 부모 ApplicationContext 가 로드되는데 bootstrap.* 은 이 부모 ApplicationContext 에 의해 로드됨)
 - bootstrap.* 에는 환경설정 정보를 조회하기 위한 정보만 기재하고, 그 외의 정보는 application.* 을 이용
@@ -76,6 +77,7 @@ Config Server는 환경설정 정보를 Git 이나 SVN 같은 버전 관리 도�
 
 <details markdown="1">
 <summary>*.properties VS *.yml VS *.yaml (Click!)</summary>
+
 - [yaml FAQ](https://yaml.org/faq.html)에선 *.yaml 을 공식 확장자라고 이야기 함.
 - *.yml 이 있는 이유는 *.html VS *.htm 과 비슷한 이유일 것이라 추측<br />
    (MS-Dos 시절엔 파일의 확장자가 길이가 3자로 제한되었다고 하는데

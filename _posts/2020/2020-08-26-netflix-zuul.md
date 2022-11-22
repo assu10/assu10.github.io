@@ -43,6 +43,7 @@ Spring Cloud Config Server 와 Eureka 에 대한 자세한 내용은 위 목차�
 
 <details markdown="1">
 <summary>횡단 관심사들 (Click!)</summary>
+
 - 비즈니스 로직과 같은 주요 기능을 핵심 관심사라고 하고, 보안/로깅/추적처럼 애플리케이션에 영향을 미치는 관심사를 횡단 관심사라고 함
 </details>
 
@@ -64,6 +65,7 @@ Zuul Proxy 는 특히 아래의 상황에서 더 유용하다.
 
 <details markdown="1">
 <summary>부하 슈레딩과 부하 스로틀링 (Click!)</summary>
+
 - 부하 슈레딩: 장비를 닫기 위해 부하를 점진적으로 줄여나가는 것
 - 부하 스로틀링: 장비를 기동한 후 부하를 점진적으로 늘려나가는 것
 </details>
