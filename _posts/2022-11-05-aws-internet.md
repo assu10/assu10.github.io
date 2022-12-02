@@ -535,7 +535,7 @@ curl: (28) Failed to connect to checkip.amazonaws.com port 80 after 2988 ms: Con
 NAT Instance 동작을 위해 IPv4 라우팅 처리와 IP masquerade 동작을 확인한다.
 
 ```shell
-$ ssh -i sandbox-jh.pem ec2-user@13.124.178.83
+$ ssh -i sandbox-jh.pem ec2-user@13.124.178.xx
 
 
 # 아래 값이 1이면 IPv4 라우팅 처리 가능
