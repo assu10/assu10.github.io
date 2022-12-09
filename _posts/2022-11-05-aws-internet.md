@@ -473,12 +473,12 @@ Resources:
 - **Security Group**
   - ***jhVPC1-NATInstance-SecurityGroup***
     - inbound rule
-      - SSH/ICMP - 0.0.0.0/0
-      - HTTP(S) - 10.10.0.0/16
+      - SSH/ICMP(Source) - 0.0.0.0/0
+      - HTTP(S)(Source) - 10.10.0.0/16
   - ***jhVPC1-PrivateEC2-SecurityGroup***
     - inbound rule
-      - SSH - 10.10.0.0/16
-      - ICMP - 0.0.0..0/0
+      - SSH(Source) - 10.10.0.0/16
+      - ICMP(Source) - 0.0.0.0.0/0
 
 ![CF Stack 생성 - 도식화](/assets/img/dev/2022/1105/nat-2.png)
 
