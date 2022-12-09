@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "AWS - Load Balancing (1)"
+title:  "AWS - Load Balancing (1): ELB"
 date:   2022-11-13 10:00
 categories: dev
 tags: devops aws load-balancing elb alb nlb 경로기반라우팅
 ---
 
-이 포스트는 
+이 포스트는 ELB 종류 중 ALB 와 NLB 에 대해 알아본다.
 
 > - ELB (Elastic Load Balancing)
 > - ALB 와 NLB 를 통한 로드 밸런싱 테스트
@@ -96,10 +96,9 @@ ELB 의 3가지 유형의 Load Balancer 중 `ALB` 와 `NLB` 를 이용하여 부
 
 ## 2.1. 기본 환경 구성
 
-- 기본 환경 구성
-  - CloudFormation 적용
-  - CloudFormation 을 통해 생성된 자원 확인
-  - 기본 통신 환경 검증
+- CloudFormation 적용
+- CloudFormation 을 통해 생성된 자원 확인
+- 기본 통신 환경 검증
 
 ![기본 환경 구성도](/assets/img/dev/2022/1113/alb_nlb_1.png)
 
@@ -107,7 +106,7 @@ ELB 의 3가지 유형의 Load Balancer 중 `ALB` 와 `NLB` 를 이용하여 부
 
 *[CloudFormation] - [Stacks]*
 
-[CloudFormation Template Download](http://bit.ly/cnbl0501)
+[CloudFormation Template Download](http://bit.ly/cnbl0502)
 
 <details markdown="1">
 <summary>CloudFormation Template (펼쳐보기)</summary>
@@ -416,10 +415,10 @@ Resources:
 - **Security Group**
   - ***jhELB-SG***
     - 프로토콜(inbound): SSH, HTTP, SNMP
-    - 대상: 0.0.0.0/0
+    - 대상(Source): 0.0.0.0/0
   - ***jhMy-SG***
     - 프로토콜(inbound): TCP
-    - 대상: 0.0.0.0/0
+    - 대상(Source): 0.0.0.0/0
 
 ![CF Stack 생성 - 도식화](/assets/img/dev/2022/1113/alb_nlb_1.png)
 
