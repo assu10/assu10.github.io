@@ -430,7 +430,7 @@ Resources:
 # jhMy-EC2 에 SSH 접근
 $ ssh -i sandbox-jh.pem ec2-user@13.125.xx.xx
 
-# jhELB-EC2-1 서비스 확인 (13.125.xx.xx = jhELB-EC2-1 public IP)
+# jhELB-EC2-1 서비스 확인 (13.125.xx.xx = jhELBEC2-1 public IP)
 
 # HTTP 서비스 확인
 [ec2-user@ip-20-20-0-xx ~]$ curl 13.125.xx.xx/index.html
