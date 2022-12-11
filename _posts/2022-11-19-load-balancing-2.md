@@ -578,7 +578,14 @@ Record 생성 화면에서 *Switch to wizard* 클릭 → *Simple Routing* 선택
 
 ![단순 라우팅 레코드 생성 - Google DNS 서버 IP](/assets/img/dev/2022/1119/route53_16.png)
 
-> 원래 로컬에서 ping test3.jhjhtest.com 을 날리면 통신이 되어야하는데 안된다... 왜지..
+> 중간에 jhtesttest.com 으로 새로 도메인 취득했음
+
+```shell
+$ ping qqq.jhtesttest.com
+PING qqq.jhtesttest.com (8.8.8.8): 56 data bytes
+64 bytes from 8.8.8.8: icmp_seq=0 ttl=116 time=32.486 ms
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=116 time=32.644 ms
+```
 
 ---
 
