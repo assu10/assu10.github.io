@@ -287,7 +287,7 @@ Route 53 A Record 를 생성하여 ***jhSA-EC2*** Instance 의 Public IP 와 연
 
 ![Route 53 Simple Record 정의 (jhSA-EC2 의 Public IP 와 연결)](/assets/img/dev/2022/1126/cloudfront_4.png)
 
-> 중도에 jhjhtest.com 에서 jhtesttest.com 으로 도메인 재취득했음
+> 중도에 *jhjhtest.com* 에서 *jhtesttest.com* 으로 도메인 재취득했음
 
 ---
 
@@ -421,7 +421,7 @@ Edge Location 이 아닌 Origin 을 통해 응답을 주었다는 것을 의미�
 
 아래의 순서대로 Resource 를 삭제한다.
 
-- Distribution 삭제 (*[CloudFront] - [Distributions] - [선택] - [Disable] - [대기] - []*)
+- Distribution 삭제 (*[CloudFront] - [Distributions] - [선택] - [Disable] - [대기] - [Delete]*)
 - ACM 삭제 (N.Virginia) (*[Certificate Manager]*)
 - 호스팅 영역 Record 삭제 (*[Route 53] - [Hosted zones] - [Records]*)
 - CloudFormation Stack 삭제 (*[CloudFormation] - [Stacks] - [Delete]*)

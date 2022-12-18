@@ -4,7 +4,7 @@ title: SILBY
 slug: dogs
 menu: true
 submenu: false
-order: 4
+order: 2
 description: >
   I LOVE SILBY💋
 ---
