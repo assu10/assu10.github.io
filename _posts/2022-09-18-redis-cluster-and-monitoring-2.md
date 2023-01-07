@@ -51,7 +51,7 @@ Redis Cluster 시스템을 구축하는 방법은 2가지가 있다.
     - 첫 번째 서버는 0~5,460 slot 정보가 분산
     - 두 번째 서버는 5,461~10,922 slot 정보가 분산
     - 세 번째 서버는 10,923~16,384 slot 정보가 분산
-  - Hash Partition 을 통해 데이터를 분산 저장할 수 있음, 이 때 해시 함수는 CRC16(Cycle Redundancy Check) 함수 ㅅ용
+  - Hash Partition 을 통해 데이터를 분산 저장할 수 있음, 이 때 해시 함수는 CRC16(Cycle Redundancy Check) 함수 사용
 
 > Hash Partition 에 대한 내용은 [Redis - Redis Cluster & Monitoring (1)](https://assu10.github.io/dev/2022/09/17/redis-cluster-and-monitoring-1/) 의
 > *1.1. 파티션 유형* 을 참고하세요.
