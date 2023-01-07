@@ -67,7 +67,7 @@ Redis 서버는 **Master-Slave**, **Master-Slave-Sentinel**, **Partition Cluster
 
 ### Hash Partition
 
-Range Partition 은 사용자가 지정한 서버로 특정 붐위의 값을 저장할 수 있다는 장점이 있지만, 사용자가 직접 설계하다보니 각 분산 서버에 저장되는 데이터 분산 정도가 떨어지는 경우가 있다.
+Range Partition 은 사용자가 지정한 서버로 특정 부위의 값을 저장할 수 있다는 장점이 있지만, 사용자가 직접 설계하다보니 각 분산 서버에 저장되는 데이터 분산 정도가 떨어지는 경우가 있다.
 
 Hash Partition 은 Hash 알고리즘에 의해 데이터를 각 분산 서버로 골고루 분산 저장해준다.
 
@@ -88,7 +88,7 @@ Master-Slave, Redis Cluster Data Sharding 기능을 통해 구현할 수 있다.
 
 ### Proxy Assisted Partitioning
 
-위의 Client Side Partitioning 은 모든 것을 사용자가 설계,구현해가 하기 때문에 결코 쉬운 방법이 아니다.  
+위의 Client Side Partitioning 은 모든 것을 사용자가 설계,구현하기 때문에 결코 쉬운 방법이 아니다.  
 
 Proxy Assisted Partitioning 방식은 분산 서버 이외의 별도의 Proxy Server 가 필요한데,  
 Proxy Server 는 현재 분산 서버의 모든 상태 정보를 수집/저장하여
