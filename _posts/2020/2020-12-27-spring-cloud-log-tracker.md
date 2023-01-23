@@ -104,13 +104,13 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
 [스프링 부트와 사용할 수 있는 로그 수집 솔루션]<br />
 (좀 더 자세한 내용은 표 바로 아래에 설명이 있습니다.)
 
-| 제품명 | 구현 모델 | 비고 |
-|---|---|---|
-| `Papertail` | - 프리미엄 모델 <br />- 상용 <br />- 클라우드 기반 | - [https://www.papertrail.com/](https://www.papertrail.com/) <br />- 프리미엄/계층형 가격 모델 <br />- 클라우드 서비스만 지원 |
-| `Sumo Logic` | - 프리미엄 모델 <br />- 상용 <br />- 클라우드 기반 | - [https://www.sumologic.com/](https://www.sumologic.com/) <br />- 프리미엄/계층형 가격 모델 <br />- 클라우드 서비스만 지원 <br />- 기업용 계정으로 등록 가능 (Gmail 이나 Yahoo 계정 불가) |
-| `Splunk` | - 상용만 지원 <br />- 사내 구축형과 클라우드 기반 | - [https://www.splunk.com/](https://www.splunk.com/) <br />- 가장 오래되고 포괄적인 로그 관리 및 수집 도구 <br />-원래는 사내 구축형 솔루션이었으나 이후 클라우드 제공 |
-| `Graylog` | - 상용 <br />- 오픈 소스 <br />- 사내 구축형| - [https://www.graylog.org/](https://www.graylog.org/) <br />- 사내 구축형으로 설계된 오픈 소스 플랫폼 |
-| `ELK` | - 상용 <br />- 오픈 소스 <br />- 일반적으로 사내 구축형으로 구현 | - [https://www.elastic.co/kr/](https://www.elastic.co/kr/)  <br />- 범용 검색 엔진 <br />- ELK 스택을 이용한 로그 수집 |
+|      제품명      | 구현 모델                                        | 비고                                                                                                                                                   |
+|:-------------:|:---------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
+|  `Papertail`  | - 프리미엄 모델 <br />- 상용 <br />- 클라우드 기반         | - [https://www.papertrail.com/](https://www.papertrail.com/) <br />- 프리미엄/계층형 가격 모델 <br />- 클라우드 서비스만 지원                                             |
+| `Sumo Logic`  | - 프리미엄 모델 <br />- 상용 <br />- 클라우드 기반         | - [https://www.sumologic.com/](https://www.sumologic.com/) <br />- 프리미엄/계층형 가격 모델 <br />- 클라우드 서비스만 지원 <br />- 기업용 계정으로 등록 가능 (Gmail 이나 Yahoo 계정 불가) |
+|   `Splunk`    | - 상용만 지원 <br />- 사내 구축형과 클라우드 기반             | - [https://www.splunk.com/](https://www.splunk.com/) <br />- 가장 오래되고 포괄적인 로그 관리 및 수집 도구 <br />-원래는 사내 구축형 솔루션이었으나 이후 클라우드 제공                         |
+|   `Graylog`   | - 상용 <br />- 오픈 소스 <br />- 사내 구축형            | - [https://www.graylog.org/](https://www.graylog.org/) <br />- 사내 구축형으로 설계된 오픈 소스 플랫폼                                                                |
+|     `ELK`     | - 상용 <br />- 오픈 소스 <br />- 일반적으로 사내 구축형으로 구현 | - [https://www.elastic.co/kr/](https://www.elastic.co/kr/)  <br />- 범용 검색 엔진 <br />- ELK 스택을 이용한 로그 수집                                               |
 
 >**상용**<br />
 >일정의 사용료를 지불하고 구입해서 사용하는 소프트웨어

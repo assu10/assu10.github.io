@@ -30,10 +30,10 @@ image:               /assets/img/main_left.jpg
 color:               '#4f86aa'
 
 # The font used for headings. Expects a string that is a valid CSS font-family value.
-font_heading:        "'Nanum Gothic', 'sans-serif'"
+font_heading:        "'Noto Sans KR', 'sans-serif'"
 
 # The text font. Expects a string that is a valid CSS font-family value.
-font:                "'Nanum Gothic', 'sans-serif'"
+font:                "'Noto Sans KR', 'sans-serif'"
 
 # The string encoding what fonts to fetch from Google Fonts.
 # See: https://qwtel.com/hydejack/docs/configuration/
