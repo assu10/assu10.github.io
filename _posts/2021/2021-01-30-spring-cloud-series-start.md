@@ -15,14 +15,14 @@ tags: msa centralized-log sleuth open-zipkin
 
 ## 1. 인스턴스 포트 정리
 
-| 마이크로서비스명 | 사용 포트 |
-|---|---|
-| Eureka | 8762, 8763 |
-| Zuul | 5555 |
-| Config Server | 8889 |
-| Event MicroService | 8070, 8071 |
-| Member MicroService | 8090, 8091 |
-| Auth | 8901 |
+|       마이크로서비스명       | 사용 포트      |
+|:--------------------:|:-----------|
+|        Eureka        | 8762, 8763 |
+|         Zuul         | 5555       |
+|    Config Server     | 8889       |
+|  Event MicroService  | 8070, 8071 |
+| Member MicroService  | 8090, 8091 |
+|         Auth         | 8901       |
 
 ---
 

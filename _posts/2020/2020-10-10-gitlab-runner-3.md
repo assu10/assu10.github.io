@@ -77,36 +77,36 @@ job 의 동작을 정의하는 파라미터들은 아래와 같다.
 
 (너무 기본적인 내용이거나 큰 의미가 없는 파라미터는 공란으로 두고, 해석이 애매한 파라미터는 원본 그대로 처리)
 
-| 키워드 | 동작 |
-|---|:---:|
-| `script` |  |
-| `after_script` | job 이 종료된 후 실행되는 커맨드 집합 |
-| `allow_failure` | job 의 실패 허용, <br />실패한 job 은 커밋 상태에 영향을 주지 않음 |
-| `artifacts` | job 성공 시 첨부할 파일, 디렉토리 리스트<br />`artifacts:paths`, `artifacts:exclude`, `artifacts:expose_as`, `artifacts:name`, `artifacts:untracked`, `artifacts:when`, `artifacts:expire_in`, `artifacts:reports` |
-| `before_script` |  |
-| `cache` | 후속(?) 실행들 간 캐시되어야 할 파일 리스트<br />`cache:paths`, `cache:key`, `cache:untracked`, `cache:policy` |
-| `coverage` |  |
-| `dependencies` | Restrict which artifacts are passed to a specific job by providing a list of jobs to fetch artifacts from. |
-| `environment` | job deploy 환경의 이름<br />`environment:name`, `environment:url`, `environment:on_stop`, `environment:auto_stop_in`, `environment:action` |
-| `except` |  |
-| `extends` | 해당 job 이 상속받은 구성 항목 |
-| `image` | 도커 이미지 사용/<br />`image:name`, `image:entrypoint` |
-| `include` | 외부 yaml 파일 포함. <br />`include:local`, `include:file`, `include:template`, `include:remote` |
-| `interruptible` | 새로운 실행으로 인해 중복 실행이 될 때 해당 job 을 취소할 수 있는지 여부 |
-| `only` | job 생성 제한, `rules` 가 더 유연하고 강력함 |
-| `pages` | GitLab 사이트에서 사용할 job 의 결과 업로드 |
-| `parallel` | 병렬로 실행할 job 인스턴스의 갯수 |
-| `release` | Instructs the runner to generate a Release object. |
-| `resource_group` | Limit job concurrency. |
-| `retry` | 실행 실패 시 job 의 재시도 할 수 있는 시기와 횟수 |
-| `rules` | job 을 생성할 지 말지에 대한 조건 <br />`only/except` 와 함께 사용할 수 없음 |
-| `services` | 도커 이미지 사용.<br />`services:name`, `services:alias`, `services:entrypoint`, `services:command`  |
-| `stage` | job 이 실행되는 단계. 디폴트는 test |
-| `tags` | Runner 선택 시 사용되는 태그 목록 |
-| `timeout` | job 레벨에서의 타임 아웃 |
-| `trigger` |  |
-| `variables` | job 레벨 에서의 변수 |
-| `when` | job 실행 시기.<br />`when:manual`, `when:delayed`  |
+|        키워드        | 동작 |
+|:-----------------:|:---|
+|     `script`      |  |
+|  `after_script`   | job 이 종료된 후 실행되는 커맨드 집합 |
+|  `allow_failure`  | job 의 실패 허용, <br />실패한 job 은 커밋 상태에 영향을 주지 않음 |
+|    `artifacts`    | job 성공 시 첨부할 파일, 디렉토리 리스트<br />`artifacts:paths`, `artifacts:exclude`, `artifacts:expose_as`, `artifacts:name`, `artifacts:untracked`, `artifacts:when`, `artifacts:expire_in`, `artifacts:reports` |
+|  `before_script`  |  |
+|      `cache`      | 후속(?) 실행들 간 캐시되어야 할 파일 리스트<br />`cache:paths`, `cache:key`, `cache:untracked`, `cache:policy` |
+|    `coverage`     |  |
+|  `dependencies`   | Restrict which artifacts are passed to a specific job by providing a list of jobs to fetch artifacts from. |
+|   `environment`   | job deploy 환경의 이름<br />`environment:name`, `environment:url`, `environment:on_stop`, `environment:auto_stop_in`, `environment:action` |
+|     `except`      |  |
+|     `extends`     | 해당 job 이 상속받은 구성 항목 |
+|      `image`      | 도커 이미지 사용/<br />`image:name`, `image:entrypoint` |
+|     `include`     | 외부 yaml 파일 포함. <br />`include:local`, `include:file`, `include:template`, `include:remote` |
+|  `interruptible`  | 새로운 실행으로 인해 중복 실행이 될 때 해당 job 을 취소할 수 있는지 여부 |
+|      `only`       | job 생성 제한, `rules` 가 더 유연하고 강력함 |
+|      `pages`      | GitLab 사이트에서 사용할 job 의 결과 업로드 |
+|    `parallel`     | 병렬로 실행할 job 인스턴스의 갯수 |
+|     `release`     | Instructs the runner to generate a Release object. |
+| `resource_group`  | Limit job concurrency. |
+|      `retry`      | 실행 실패 시 job 의 재시도 할 수 있는 시기와 횟수 |
+|      `rules`      | job 을 생성할 지 말지에 대한 조건 <br />`only/except` 와 함께 사용할 수 없음 |
+|    `services`     | 도커 이미지 사용.<br />`services:name`, `services:alias`, `services:entrypoint`, `services:command`  |
+|      `stage`      | job 이 실행되는 단계. 디폴트는 test |
+|      `tags`       | Runner 선택 시 사용되는 태그 목록 |
+|     `timeout`     | job 레벨에서의 타임 아웃 |
+|     `trigger`     |  |
+|    `variables`    | job 레벨 에서의 변수 |
+|      `when`       | job 실행 시기.<br />`when:manual`, `when:delayed`  |
 
 ---
 

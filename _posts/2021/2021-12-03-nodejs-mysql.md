@@ -429,17 +429,17 @@ sequelize.define('foo', {
 
 시퀄라이즈의 자료형은 MySQL 자료형과 약간 다르다.
 
-| MySQL | 시퀄라이즈 |
-|---|---|
-| VARCHAR(100) | STRING(100) |
-| INT | INTEGER |
-| TINYINT | BOOLEAN |
-| DATETIME | DATE |
-| INT UNSIGNED | INTEGER.UNSIGNED |
-| INT UNSIGNED ZEROFILL | INTEGER.UNSIGNED.ZEROFILL |
-| NOT NULL | allowNull: false |
-| UNIQUE | unique: true |
-| DEFAULT now() | defaultValue: Sequelize.NOW |
+| MySQL                 | 시퀄라이즈                       |
+|:----------------------|:----------------------------|
+| VARCHAR(100)          | STRING(100)                 |
+| INT                   | INTEGER                     |
+| TINYINT               | BOOLEAN                     |
+| DATETIME              | DATE                        |
+| INT UNSIGNED          | INTEGER.UNSIGNED            |
+| INT UNSIGNED ZEROFILL | INTEGER.UNSIGNED.ZEROFILL   |
+| NOT NULL              | allowNull: false            |
+| UNIQUE                | unique: true                |
+| DEFAULT now()         | defaultValue: Sequelize.NOW |
 
 **super.init 메서드의 두 번째 인수**
 

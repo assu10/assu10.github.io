@@ -34,12 +34,12 @@ categories: dev
 
 자바스크립트에 대응하는 타입스크립트의 타입은 아래와 같다.
 
-| javascript | typescript |
-|---|:---:|
-| Number | number |
-| Boolean | boolean |
-| String | string |
-| Object | object |
+| javascript  | typescript |
+|:-----------:|:---:|
+|   Number    | number |
+|   Boolean   | boolean |
+|   String    | string |
+|   Object    | object |
 
 타입스크립트는 자바스크립트와의 호환을 위해 `any` 타입을 제공하는데 아래 코드를 보자.
 
