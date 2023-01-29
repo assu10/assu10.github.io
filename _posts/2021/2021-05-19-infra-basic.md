@@ -6,7 +6,7 @@ categories: dev
 tags: devops docker system infra os middleware
 ---
 
-이 포스트는 Docker 를 알아보기 전 알아야 할 시스템/인프라 기초 지식에 대해 기술한다. (아주 간략히)
+이 포스팅은 Docker 를 알아보기 전 알아야 할 시스템/인프라 기초 지식에 대해 기술한다. (아주 간략히)
 
 >- 시스템 기초 지식
 >- 하드웨어와 네트워크 기초 지식
@@ -287,7 +287,7 @@ Dockerfile 을 작성하면 컨테이너의 바탕이 되는 Docker 이미지를
 
 ---
 
-*본 포스트는 Asa Shiho 저자의 **완벽한 IT 인프라 구축을 위한 Docker 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스팅은 Asa Shiho 저자의 **완벽한 IT 인프라 구축을 위한 Docker 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [완벽한 IT 인프라 구축을 위한 Docker 2판](http://www.yes24.com/Product/Goods/64728692)

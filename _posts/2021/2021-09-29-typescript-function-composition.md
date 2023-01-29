@@ -8,7 +8,7 @@ categories: dev
 ---
 
 `함수 조합 (function composition)` 은 작은 기능을 하는 여러 함수를 pipe, compose 함수로 조합하여 더 의미있는 함수로 만들어가는 코드 설계 기법이다.<br />
-이 포스트는 `함수 조합 (function composition)` 의 기본이 되는 고차 함수와 커리, 이를 이용한 함수 조합에 대해 알아본다.
+이 포스팅은 `함수 조합 (function composition)` 의 기본이 되는 고차 함수와 커리, 이를 이용한 함수 조합에 대해 알아본다.
 
 본 포스팅에 사용된 tsconfig.json
 ```json
@@ -564,7 +564,7 @@ console.log(pitagoras([3,4]));  // 5 (3*3 + 4*4 의 제곱근)
 
 ---
 
-*본 포스트는 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스팅은 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)

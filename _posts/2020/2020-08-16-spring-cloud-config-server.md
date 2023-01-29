@@ -6,7 +6,7 @@ categories: dev
 tags: msa spring-cloud-config-server spring-cloud-bus rabbitmq
 ---
 
-이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Config Server 에 대해 기술한다.
+이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Config Server 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고바란다.
 
 >***1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화***<br />
@@ -98,7 +98,7 @@ Config Server는 환경설정 정보를 Git 이나 SVN 같은 버전 관리 도�
 ### 2-1. Config Server 셋업
 새로운 스트링부트 프로젝트 생성 후 Config Server Dependency 를 추가한다.
 actuator 는 서버 구동 확인용으로 사용할 예정이다.
-`actuator` 에 대한 간단한 설명은 이전 포스트인 [여기](https://assu10.github.io/dev/2020/03/26/spring-actuator/)를 참고하길 바란다.
+`actuator` 에 대한 간단한 설명은 이전 포스팅인 [여기](https://assu10.github.io/dev/2020/03/26/spring-actuator/)를 참고하길 바란다.
 
 스트링부트의 버전은 2.3.2 이고, 스프링 클라우드의 버전은 Hoxton.SR6 이다.
 스프링 클라우드 버전에 따른 스프링 부트 버전 선택은 [여기](https://spring.io/projects/spring-cloud)를 참고한다.
