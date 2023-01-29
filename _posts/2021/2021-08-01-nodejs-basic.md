@@ -6,7 +6,7 @@ categories: dev
 tags: nodejs
 ---
 
-이 포스트는 Node.js(Mac 기준) 의 기본 개념과 Node.js 을 시작하기에 앞서 알아야 할 내용들에 대해 기술한다.  
+이 포스팅은 Node.js(Mac 기준) 의 기본 개념과 Node.js 을 시작하기에 앞서 알아야 할 내용들에 대해 기술한다.  
 
 >- Node.js 개념
 >   - Event-driven (이벤트 기반)
@@ -195,7 +195,7 @@ $ export PATH=$PATH:추가경로
 
 ---
 
-*본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스팅은 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [Node.js 교과서 개정2판](http://www.yes24.com/Product/Goods/91860680)

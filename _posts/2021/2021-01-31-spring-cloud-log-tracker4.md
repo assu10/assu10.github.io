@@ -6,7 +6,7 @@ categories: dev
 tags: msa centralized-log sleuth open-zipkin
 ---
 
-이 포스트는 로그 시각화를 위한 Open Zipkin 에 대해 기술한다.
+이 포스팅은 로그 시각화를 위한 Open Zipkin 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />

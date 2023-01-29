@@ -5,7 +5,7 @@ date:   2020-12-06 10:00
 categories: dev
 tags: msa zuul hystrix-timeout ribbon-timeout
 ---
-이 포스트는 Zuul (Ribbon) Retry 와 Zuul 타임아웃에 대해 기술한다.
+이 포스팅은 Zuul (Ribbon) Retry 와 Zuul 타임아웃에 대해 기술한다.
 
 > - Retry
 > - Zuul (Ribbon) Retryable 설정
@@ -28,7 +28,7 @@ Spring Cloud Netflix 는 `load balanced RestTemplate`, `Ribbon`, `Feign` 등 HTT
 
 HTTP Request 를 생성하는 방법에 관계없이 Request 는 항상 실패할 가능성이 있는데 이 때 자동으로 요청을 재시도 (Retry) 할 수 있도록 설정할 수 있다.
 
-이 포스트에선 Request 가 실패할 경우 Zuul 에서 Ribbon 을 통해 다른 서버로 Request 를 시도하도록 설정하는 방법에 대해 알아본다. 
+이 포스팅에선 Request 가 실패할 경우 Zuul 에서 Ribbon 을 통해 다른 서버로 Request 를 시도하도록 설정하는 방법에 대해 알아본다. 
 
 ---
 
@@ -114,7 +114,7 @@ event-service:
 
 ## 4. Hystrix 설정
 
-이전 포스트인 [Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/) 에선 java 코드를 통해 hystrix 를 설정했는데
+이전 포스팅인 [Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/) 에선 java 코드를 통해 hystrix 를 설정했는데
 여기선 yaml 을 통해 hystrix 설정을 진행해보도록 한다.
 
 **zuulserver > pom.xml**

@@ -7,7 +7,7 @@ tags: typescript
 categories: dev
 ---
 
-이 포스트는 비동기 API 를 사용하는 코드를 쉽게 작성하는 `Promise` 클래스와 `async/await` 구문에 대해 알아본다.
+이 포스팅은 비동기 API 를 사용하는 코드를 쉽게 작성하는 `Promise` 클래스와 `async/await` 구문에 대해 알아본다.
 
 이번 포스팅에서는 `tsconfig.json` 의 `downlevelIteration` 설정을 true 로 설정해야 한다.
 
@@ -503,7 +503,7 @@ readFilePromise('./package.json')
 
 ---
 
-*본 포스트는 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스팅은 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)

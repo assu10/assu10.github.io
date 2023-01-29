@@ -6,7 +6,7 @@ categories: dev
 tags: msa hystrix zuul ribbon
 ---
 
-이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.
+이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -96,7 +96,7 @@ Zuul 은 받은 요청을 추려내서 호출하고자 하는 서비스로 라�
 ---
 
 ## 3. Zuul 구축
-이번 포스트인 [Config Server](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)와 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
+이번 포스팅인 [Config Server](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)와 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
 
 ![Config Server + 유레카](/assets/img/dev/2020/0816/config_eureka.png)
 
@@ -429,7 +429,7 @@ hystrix:
 
 ~~히스트릭스 타임아웃을 재정의했지만 리본 역시 5초 이상 수행되는 호출을 타임아웃하므로 5초 이상 수행되는 타임아웃 구성은 히스트릭스와 리본 모두 설정해야 한다.~~
 
-다음 포스트엔 Zuul 의 필터에 관해 다루도록 하겠다.
+다음 포스팅엔 Zuul 의 필터에 관해 다루도록 하겠다.
 
 ---
 

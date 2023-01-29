@@ -6,7 +6,7 @@ categories: dev
 tags: msa spring-cloud-eureka feign
 ---
 
-이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Eureka 에 대해 기술한다.
+이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Eureka 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br /><br />
@@ -473,7 +473,7 @@ public String gift(ServletRequest req, @PathVariable("name") String name) {
 ---
 
 #### 3.3.2 Feign 으로 서비스 검색
-Feign 의 자세한 내용은 이전 포스트인 [Spring Cloud Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 를 참고하면 된다.
+Feign 의 자세한 내용은 이전 포스팅인 [Spring Cloud Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 를 참고하면 된다.
 
 아래는 Feign 을 이용하여 이벤트 서비스(=Consumer)에서 회원 서비스(=Provider)를 호출하는 방법이다.
 
