@@ -8,14 +8,14 @@ tags: devops aws internet-gateway igw nat-device proxy-instance nat
 
 이 포스팅은 AWS 내부 리소스에서 외부 인터넷 구간으로 통신하기 위한 인터넷 연결 방법에 대해 알아본다.
 
-> - 인터넷 연결
->   - Internet Gateway    
->   - NAT Device (NAT Instance & NAT Gateway)
->   - Proxy Instance
-> - NAT Instance 로 인터넷 연결 테스트
->   - 기본 환경 구성
->   - NAT Instance
->   - Resource 삭제
+> - [인터넷 연결](#1-인터넷-연결)
+>   - [Internet Gateway](#11-internet-gateway)
+>   - [NAT Device (NAT Instance & NAT Gateway)](#12-nat-device--nat-instance--nat-gateway-)
+>   - [Proxy Instance](#13-proxy-instance)
+> - [NAT Instance 로 인터넷 연결 테스트](#2-nat-instance-로-인터넷-연결-테스트)
+>   - [기본 환경 구성](#21-기본-환경-구성)
+>   - [NAT Instance 구성](#22-nat-instance-구성)
+>   - [Resource 삭제](#23-resource-삭제)
      
 ---
 
@@ -151,7 +151,7 @@ NAT Instance 를 통해 Private Subnet 에 있는 Instance 를 외부 인터넷�
   - CloudFormation 적용
   - CloudFormation 을 통해 생성된 자원 확인
   - 기본 통신 환경 검증
-- NAT Instance
+- NAT Instance 구성
   - NAT Instance 동작을 위한 스크립트 확인
   - NAT Instance 동작을 위한 설정
   - Private Subnet 에 위치한 Instance 에서 외부로 통신 확인
@@ -524,13 +524,13 @@ curl: (28) Failed to connect to checkip.amazonaws.com port 80 after 2988 ms: Con
 
 ---
 
-## 3. NAT Instance
+## 2.2. NAT Instance 구성
 
 - NAT Instance 동작을 위한 스크립트 확인
 - NAT Instance 동작을 위한 설정
 - Private Subnet 에 위치한 Instance 에서 외부로 통신 확인
 
-### 3.1. NAT Instance 동작을 위한 스크립트 확인
+### 2.2.1. NAT Instance 동작을 위한 스크립트 확인
 
 NAT Instance 동작을 위해 IPv4 라우팅 처리와 IP masquerade 동작을 확인한다.
 
@@ -549,9 +549,9 @@ Chain POSTROUTING (policy ACCEPT 0 packets, 0 bytes)
   659 50641 MASQUERADE  all  --  *      eth0    0.0.0.0/0            0.0.0.0/0
 ```
 
-### 3.2. NAT Instance 동작을 위한 설정
+### 2.2.2. NAT Instance 동작을 위한 설정
 
-#### 3.2.1. Private Subnet 에 라우팅 정보 추가
+#### 2.2.2.1. Private Subnet 에 라우팅 정보 추가
 
 Private Subnet 에 외부 인터넷과 통신하기 위한 라우팅 정보를 추가한다.
 
@@ -560,7 +560,7 @@ Private Subnet 에 외부 인터넷과 통신하기 위한 라우팅 정보를 �
 ![Private Subnet 에 라우팅 정보 추가](/assets/img/dev/2022/1105/nat-3.png)
 
 
-#### 3.2.2. `Source/Destination Check` 비활성화
+#### 2.2.2.2. `Source/Destination Check` 비활성화
 
 NAT Instance 는 자신이 목적지가 아닌 트래픽이 NAT Instance 를 경유해서 외부로 나가기 때문에 NAT Instance 의 `Source/Destination Check` 
 기능을 비활성화한다.
@@ -580,7 +580,7 @@ NAT Instance 는 자신이 목적지가 아닌 트래픽이 NAT Instance 를 경
 ![NAT Instance 설정 후 - 도식화](/assets/img/dev/2022/1105/nat-5.png)
 
 
-### 3.3. Private Subnet 에 위치한 Instance 에서 외부로 통신 확인
+### 2.2.3. Private Subnet 에 위치한 Instance 에서 외부로 통신 확인
 
 이제 *jhPrivate-EC2-1* 과 *jhPrivate-EC2-2* 에서 외부 인터넷 통신 여부를 확인한다.  
 

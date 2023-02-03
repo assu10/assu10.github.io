@@ -8,13 +8,13 @@ tags: devops aws global-accelerator
 
 이 포스팅은 Global Accelerator 에 대해 알아본다.
 
-> - Global Accelerator
-> - Global Accelerator 테스트
->   - 기본 환경 구성
->   - Global Accelerator 설정 및 확인
->   - `Traffic Dial` 과 `Weight` 를 통한 트래픽 조정
->   - Global Accelerator 의 Failover
->   - Resource 삭제
+> - [Global Accelerator](#1-global-accelerator)
+> - [Global Accelerator 테스트](#2-global-accelerator-테스트)
+>   - [기본 환경 구성](#21-기본-환경-구성)
+>   - [Global Accelerator 설정 및 확인](#22-global-accelerator-설정-및-확인)
+>   - [`Traffic Dial` 과 `Weight` 를 통한 트래픽 조정](#23-traffic-dial-과-weight-를-통한-트래픽-조정)
+>   - [Global Accelerator 의 Failover](#24-global-accelerator-의-failover)
+>   - [Resource 삭제](#25-resource-삭제)
 
 ---
 
