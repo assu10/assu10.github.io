@@ -8,12 +8,12 @@ tags: devops aws load-balancing elb alb nlb 경로기반라우팅
 
 이 포스팅은 ELB 종류 중 ALB 와 NLB 에 대해 알아본다.
 
-> - ELB (Elastic Load Balancing)
-> - ALB 와 NLB 를 통한 로드 밸런싱 테스트
->   - 기본 환경 구성
->   - ALB 를 통한 로드 밸런싱
->   - NLB 를 통한 로드 밸런싱
->   - Resource 삭제
+> - [ELB (Elastic Load Balancing)](#1-elb--elastic-load-balancing-)
+> - [ALB 와 NLB 를 통한 로드 밸런싱 테스트](#2-alb-와-nlb-를-통한-로드-밸런싱-테스트)
+>   - [기본 환경 구성](#21-기본-환경-구성)
+>   - [ALB 를 통한 로드 밸런싱](#22-alb-를-통한-로드-밸런싱)
+>   - [NLB 를 통한 로드 밸런싱](#23-nlb-를-통한-로드-밸런싱)
+>   - [Resource 삭제](#24-resource-삭제)
 
 ---
 

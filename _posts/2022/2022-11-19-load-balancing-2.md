@@ -8,15 +8,15 @@ tags: devops aws load-balancing route53 dns
 
 이 포스팅은 AWS 의 관리형 DNS 서비스인 Route 53 에 대해 알아본다.
 
-> - DNS
-> - Route 53
->   - Route 53 라우팅 정책
->   - 도메인 이름 생성
-> - Route 53 구성 테스트
->   - 기본 환경 구성
->   - Route 53 과 ALB 연결
->   - Route 53 장애 조치 라우팅 정책
->   - Resource 삭제
+> - [DNS](#1-dns--domain-name-system-)
+> - [Route 53](#2-route-53)
+>   - [Route 53 라우팅 정책](#21-route-53-라우팅-정책)
+>   - [도메인 이름 생성](#22-도메인-이름-생성)
+> - [Route 53 구성 테스트](#3-route-53-구성-테스트)
+>   - [기본 환경 구성](#31-기본-환경-구성)
+>   - [Route 53 과 ALB 연결](#32-route-53-과-alb-연결)
+>   - [Route 53 장애 조치 라우팅 정책](#33-route-53-장애-조치-라우팅-정책)
+>   - [Resource 삭제](#34-resource-삭제)
 
 ---
 
@@ -94,7 +94,7 @@ Route 53 을 이용하여 도메인 이름을 구매하고, 구매한 도메인 
 - VPC용 Private DNS
   - DNS 데이터를 Public 인터넷에 노출하지 않고 내부 AWS 리소스에 대한 사용자 지정 도메인명 관리
 
-> Route 53 Resolver 에 대한 상세한 내용은 추후 다룰 예정입니다.
+> Route 53 Resolver 에 대한 상세한 내용은 [AWS - Network 연결 옵션 (4): Route 53 DNS Resolver (DNS 해석기)](https://assu10.github.io/dev/2023/01/07/network-4/) 를 참고하세요.
 
 
 ![DNS 통신 흐름](/assets/img/dev/2022/1119/route53_1.png)
