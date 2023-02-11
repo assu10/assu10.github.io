@@ -487,7 +487,7 @@ Load Balancer 가용 영역 지정 시 가용 영역당 1개의 Subnet 만 지�
 
 ALB 는 Security Group 을 지정해주어야 한다.
 
-> Security Group 은 추후 더 자세히 다룰 예정입니다.
+> Security Group 의 상세한 내용은 [AWS - Security (1): Security Group, ACL, VPC Flow Log](https://assu10.github.io/dev/2023/01/29/security-1/) 을 참고하세요.
 
 ![ALB 생성(4)](/assets/img/dev/2022/1113/alb_4.png)
 
