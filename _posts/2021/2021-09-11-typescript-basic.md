@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Typescript 기본"
+title:  "Typescript - 기본"
 date:   2021-09-11 10:00
 categories: dev
 tags: typescript
@@ -9,7 +9,7 @@ categories: dev
 
 이 포스팅은 타입스크립트 기본에 대해 알아본다.
 
-*소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
+> 소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.
 
 >- 타입스크립트
 >- 타입스크립트 문법
