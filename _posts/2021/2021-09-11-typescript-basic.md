@@ -596,6 +596,7 @@ npm run dev
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)
+* [TypeScript Guidebook](https://yamoo9.gitbook.io/typescript/)
 * [tsconfig Reference](https://www.typescriptlang.org/tsconfig)
 * [Typescript, tsconfig.json 주요 설정](https://kay0426.tistory.com/69)
 * [tsconfig.json 컴파일 옵션 정리](https://geonlee.tistory.com/214)

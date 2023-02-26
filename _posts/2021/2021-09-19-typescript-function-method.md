@@ -19,14 +19,14 @@ categories: dev
 >   - 타입 별칭 (type alias)
 >   - 선택적 매개변수
 > - 함수 표현식
->   - 일등 함수 (first-class function)
+>   - 일급 함수 (first-class function)
 >   - 계산법
 >   - 함수 호출 연산자
 >   - 익명 함수 (anonymous function)
 > - 화살표 함수(`=>`)와 표현식
 >   - 실행문과 표현식문
 >   - 표현식문 스타일의 화살표 함수 구현
-> - 일등 함수 (first-class function)
+> - 일급 함수 (first-class function)
 >   - 콜백 함수
 >   - 중첩 함수
 >   - 고차 함수(high-order function) 와 클로저, 부분 함수
@@ -177,14 +177,14 @@ console.log(add2(1, 2))
 
 ---
 
-### 2.1. 일등 함수 (first-class function)
+### 2.1. 일급 함수 (first-class function)
 
-`일등 함수` 란 함수와 변수를 구분하지 않는다는 의미이다.
+`일급 함수` 란 함수와 변수를 구분하지 않는다는 의미이다.
 
 아래 코드를 보자.
 
 ```ts
-// 일등 함수
+// 일급 함수
 
 let add = function(a: number, b: number): number {
     return a+b 
@@ -331,7 +331,7 @@ const isGreater3 = (a: number, b: number): boolean => { return a > b }  // retur
 
 ---
 
-## 4. 일등 함수 (first-class function)
+## 4. 일급 함수 (first-class function)
 
 ### 4.1. 콜백 함수
 
