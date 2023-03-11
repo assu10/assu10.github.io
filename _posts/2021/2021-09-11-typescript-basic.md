@@ -601,3 +601,4 @@ npm run dev
 * [Typescript, tsconfig.json 주요 설정](https://kay0426.tistory.com/69)
 * [tsconfig.json 컴파일 옵션 정리](https://geonlee.tistory.com/214)
 * [node.js가 지원하는 ES 버전 확인](https://node.green/)
+* [typescript - readonly](https://radlohead.gitbook.io/typescript-deep-dive/type-system/readonly)
