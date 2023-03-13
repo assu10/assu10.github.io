@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "NestJS - interface"
+title:  "NestJS - Interface"
 date:   2023-02-26
 categories: dev
 tags: nestjs interface
