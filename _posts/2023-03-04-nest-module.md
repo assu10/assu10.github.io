@@ -276,3 +276,6 @@ $ curl --location 'http://localhost:3000/users' \
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
+* [NestJS로 배우는 백엔드 프로그래밍 - Github](https://github.com/dextto/book-nestjs-backend)
+* [Nest.js Github](https://github.com/nestjs/nest)
+* [NestJS 공식 예제 Starter 프로젝트 Github](https://github.com/nestjs/typescript-starter)
