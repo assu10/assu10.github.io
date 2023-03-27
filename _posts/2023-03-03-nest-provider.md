@@ -631,6 +631,7 @@ export class UsersController { }
 
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [NestJS로 배우는 백엔드 프로그래밍 - Github](https://github.com/dextto/book-nestjs-backend)
+* [NestJS 공식문서](https://nestjs.com/)
 * [Nest.js Github](https://github.com/nestjs/nest)
 * [NestJS 공식 예제 Starter 프로젝트 Github](https://github.com/nestjs/typescript-starter)
 * [npm - nodemailer](https://www.npmjs.com/package/nodemailer)
