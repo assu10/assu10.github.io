@@ -876,5 +876,3 @@ Validator args:  [ 'assu' ]
 
 * [ts-aspect - TypeScript 에서의 AOP](https://github.com/engelmi/ts-aspect)
 * [AspectTS - TypeScript 에서의 AOP](https://github.com/dboikliev/AspecTS/blob/master/src/aspect.ts)
-
-* [TypeORM vs Sequelize](https://codebibimppap.tistory.com/16)
