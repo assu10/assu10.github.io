@@ -21,7 +21,7 @@ tags: nestjs middleware
 
 Middleware 는 라우트 핸들러가 클라이언트 요청을 처리하기 전에 수행하는 컴포넌트이다.  
 
-> 클라이언트 → (HTTP 요청) → **Middleware** → Route Handler (@RequestMapping)
+![Middleware](/assets/img/dev/2023/0318/middleware.png)
 
 NestJS 의 Middleware 는 [Express Middleware](https://expressjs.com/ko/guide/using-middleware.html) 와 동일하다.
 
@@ -36,20 +36,20 @@ Express docs 엔 아래와 같이 기술되어 있다.
 - 여러 개의 Middleware 사용 시 반드시 next() 로 호출 스택 상 다음 Middleware 에게 제어권 전달
 
 Middleware 로 아래와 같은 작업들을 수행할 수 있다.
-- 쿠키 파싱
+- **쿠키 파싱**
   - 쿠키를 파싱하여 사용하기 쉬운 데이터 구조로 변경하면 라우터 핸들러가 매번 쿠키를 파싱할 필요가 없음 
-- 세션 관리
+- **세션 관리**
   - 세션 쿠키를 찾아 해당 쿠키에 대한 세션의 상태를 조회해서 request 에 세션 정보 추가
-- 인증/인가
+- **인증/인가**
   - 사용자가 서비스에 접근 가능한 권한이 있는지 확인
   - NestJS 는 인가 구현 시 `Guard` 를 사용하도록 권장하고 있음
-- 본문 파싱
+- **본문 파싱**
 
 이 외에 DB Transaction 이 필요한 요청인 경우 Transaction 을 걸어 동작 수행 후 커밋하는 등의 Custom Middleware 를 활용할 수도 있다.
 
 > Middleware 와 비슷한 개념인 Interceptor 는 추후 다룰 예정입니다.
 
-> `Guard` 는 추후 다룰 예정입니다.
+> `Guard` 는 [NestJS - Guard, JWT](https://assu10.github.io/dev/2023/03/19/nest-auth/) 를 참고하세요. 
 
 ---
 

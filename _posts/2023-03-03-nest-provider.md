@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "NestJS - Provider"
+title:  "NestJS - Provider, Scope"
 date:   2023-03-03
 categories: dev
-tags: nestjs provider
+tags: nestjs provider scope
 ---
 
 이 포스팅은 NestJS 의 Provider 에 대해 알아본다.
