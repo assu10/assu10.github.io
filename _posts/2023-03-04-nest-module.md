@@ -133,6 +133,8 @@ Common Hello~
 
 > Module 간 순환 종속성이 발생하기 때문에 Module 은 Provider 처럼 주입해서 사용이 불가하다. 
 
+> Provider 내보내기의 좀 더 상세한 내용은 [NestJS - Custom Provider](https://assu10.github.io/dev/2023/03/25/nest-custom-provider/) 의 *5. Provider 내보내기* 를 참고하세요. 
+
 ---
 
 ## 1.2. 전역 Module: `@Global`

@@ -30,6 +30,7 @@ tags: nestjs provider scope
 # 1. Provider: `@Injectable`
 
 Provider 는 애플리케이션의 비즈니스 로직을 수행하는 역할을 한다.  
+(비즈니스 로직을 Controller 에서 하면 SRP 에 부합되지 않음)
 Provider 는 Service, Repository, Factory, Helper 등 여러 가지 형태로 구현 가능하다.
 
 > 단일 책임 원칙 (SRP, Single Responsibility Principle)  
@@ -76,12 +77,13 @@ UserService 클래스에 `@Injectable` 데커레이터를 선언하여 다른 �
 
 Controller 와 마찬가지로 Provider Instance 를 모듈에서 사용 가능하도록 users.module.ts 에 등록해준다.
 
+app.module.ts
 ```ts
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
 })
-
+export class AppModule {}
 ```
 
 ---
