@@ -835,7 +835,7 @@ $ pwd
 /usr/local/var/db/redis
 $ ll
 total 8
--rw-r--r--  1 juhyunlee  admin   119B  9 19 13:33 dump.rdb
+-rw-r--r--  1 -  admin   119B  9 19 13:33 dump.rdb
 ```
 
 import
@@ -868,7 +868,7 @@ $ redis-cli -n 1000 --pipe < appendonly.aof
 $ redis-cli --csv --scan > 2022.csv
 $ ll
 total 520
--rw-r--r--   1 juhyunlee  admin    11B  9 19 14:12 2022.csv
+-rw-r--r--   1 -  admin    11B  9 19 14:12 2022.csv
 
 $ cat 2022.csv
 ───────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────

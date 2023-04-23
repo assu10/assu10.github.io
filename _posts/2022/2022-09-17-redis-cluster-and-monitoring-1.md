@@ -423,7 +423,7 @@ uptime_in_days:0
 hz:15  # sentinel 리더 선출을 위한 정보 (10~19 사이 값이 랜덤하게 설정)
 configured_hz:10
 lru_clock:4694045
-executable:/Users/juhyunlee/redis-server
+executable:/Users/-/redis-server
 config_file:/usr/local/etc/redis-sentinel.conf
 io_threads_active:0
 

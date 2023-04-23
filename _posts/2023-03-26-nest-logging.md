@@ -582,12 +582,12 @@ export class UsersController {
 
 ```shell
 [MyApp] Error   4/17/2023, 3:03:22 PM [InternalServerErrorException: test
-    at UsersController.printLoggerServiceLog (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:63:13)
-    at UsersController.createUser (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:43:10)
-    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:38:29
+    at UsersController.printLoggerServiceLog (/Users/-/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:63:13)
+    at UsersController.createUser (/Users/-/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:43:10)
+    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:38:29
     at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:46:28
-    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:17] error:: - {
+    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:46:28
+    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:17] error:: - {
   stack: [ '{"name":"assu1","email":"test1@test.com","password":"12341234"}' ]
 }
 [MyApp] Warn    4/17/2023, 3:03:22 PM [{"name":"assu1","email":"test1@test.com","password":"12341234"}] warn:  - {}
@@ -610,12 +610,12 @@ error 함수에 넘기는 인자에 따른 출력 비교
 this.logger.error('error::', JSON.stringify(dto), e.stack);
 
 [MyApp] Error   4/17/2023, 3:34:47 PM [InternalServerErrorException: test
-    at UsersController.printLoggerServiceLog (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:63:13)
-    at UsersController.createUser (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:43:10)
-    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:38:29
+    at UsersController.printLoggerServiceLog (/Users/-/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:63:13)
+    at UsersController.createUser (/Users/-/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:43:10)
+    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:38:29
     at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:46:28
-    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:17] error:: - {
+    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:46:28
+    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:17] error:: - {
   stack: [
     '{"name":"assu1","email":"test2sdd1@test.com","password":"12341234"}'
   ]
@@ -628,12 +628,12 @@ this.logger.error('error::', e.stack);
 [MyApp] Error   4/17/2023, 3:34:47 PM error:: - {
   stack: [
     'InternalServerErrorException: test\n' +
-      '    at UsersController.printLoggerServiceLog (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:63:13)\n' +
-      '    at UsersController.createUser (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:43:10)\n' +
-      '    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:38:29\n' +
+      '    at UsersController.printLoggerServiceLog (/Users/-/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:63:13)\n' +
+      '    at UsersController.createUser (/Users/-/Developer/05_nestjs/me/user-service/src/users/users.controller.ts:43:10)\n' +
+      '    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:38:29\n' +
       '    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
-      '    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:46:28\n' +
-      '    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:17'
+      '    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:46:28\n' +
+      '    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:17'
   ]
 }
 ```
@@ -721,6 +721,7 @@ winston 을 사용하면 다른 매체에 로그를 저장하거나 외부 서�
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [NestJS로 배우는 백엔드 프로그래밍 - Github](https://github.com/dextto/book-nestjs-backend)
 * [NestJS 공식문서](https://nestjs.com/)
+* [NestJS docs](https://docs.nestjs.com/)
 * [Nest.js Github](https://github.com/nestjs/nest)
 * [NestJS 공식 예제 Starter 프로젝트 Github](https://github.com/nestjs/typescript-starter)
 * [NestJS Log Level](https://github.com/nestjs/nest/blob/master/packages/common/services/utils/is-log-level-enabled.util.ts#L3)

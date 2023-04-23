@@ -502,9 +502,9 @@ descriptor:  {
   configurable: true
 }
 Method decorator Error: 테스트 에러
-    at hello (/Users/juhyunlee/Developer/05_nestjs/me/ch02/src/main.ts:252:11)
-    at Greeter.descriptor.value (/Users/juhyunlee/Developer/05_nestjs/me/ch02/src/main.ts:240:9)
-    at Object.<anonymous> (/Users/juhyunlee/Developer/05_nestjs/me/ch02/src/main.ts:257:3)
+    at hello (/Users/-/Developer/05_nestjs/me/ch02/src/main.ts:252:11)
+    at Greeter.descriptor.value (/Users/-/Developer/05_nestjs/me/ch02/src/main.ts:240:9)
+    at Object.<anonymous> (/Users/-/Developer/05_nestjs/me/ch02/src/main.ts:257:3)
     at Module._compile (node:internal/modules/cjs/loader:1254:14)
     at Object.Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
     at Module.load (node:internal/modules/cjs/loader:1117:32)

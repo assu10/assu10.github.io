@@ -342,30 +342,30 @@ export class AppModule {}
     url: '/users/0',
     response: { statusCode: 500, message: 'Internal Server Error' },
     stack: "TypeError: Cannot read properties of undefined (reading 'split')\n" +
-      '    at AuthGuard.validateRequest (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/auth.guard.ts:17:53)\n' +
-      '    at AuthGuard.canActivate (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/auth.guard.ts:12:17)\n' +
-      '    at GuardsConsumer.tryActivate (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/guards/guards-consumer.js:15:34)\n' +
-      '    at canActivateFn (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:134:59)\n' +
-      '    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:42:37\n' +
-      '    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:23\n' +
-      '    at Layer.handle [as handle_request] (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/layer.js:95:5)\n' +
-      '    at next (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/route.js:144:13)\n' +
-      '    at Route.dispatch (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/route.js:114:3)\n' +
-      '    at Layer.handle [as handle_request] (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/layer.js:95:5)'
+      '    at AuthGuard.validateRequest (/Users/-/Developer/05_nestjs/me/user-service/src/auth.guard.ts:17:53)\n' +
+      '    at AuthGuard.canActivate (/Users/-/Developer/05_nestjs/me/user-service/src/auth.guard.ts:12:17)\n' +
+      '    at GuardsConsumer.tryActivate (/Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/guards/guards-consumer.js:15:34)\n' +
+      '    at canActivateFn (/Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:134:59)\n' +
+      '    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:42:37\n' +
+      '    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:23\n' +
+      '    at Layer.handle [as handle_request] (/Users/-/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/-/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/route.js:144:13)\n' +
+      '    at Route.dispatch (/Users/-/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/route.js:114:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/-/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/layer.js:95:5)'
   },
   url: '/users/0',
   response: { statusCode: 500, message: 'Internal Server Error' },
   stack: "TypeError: Cannot read properties of undefined (reading 'split')\n" +
-    '    at AuthGuard.validateRequest (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/auth.guard.ts:17:53)\n' +
-    '    at AuthGuard.canActivate (/Users/juhyunlee/Developer/05_nestjs/me/user-service/src/auth.guard.ts:12:17)\n' +
-    '    at GuardsConsumer.tryActivate (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/guards/guards-consumer.js:15:34)\n' +
-    '    at canActivateFn (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:134:59)\n' +
-    '    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:42:37\n' +
-    '    at /Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:23\n' +
-    '    at Layer.handle [as handle_request] (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/layer.js:95:5)\n' +
-    '    at next (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/route.js:144:13)\n' +
-    '    at Route.dispatch (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/route.js:114:3)\n' +
-    '    at Layer.handle [as handle_request] (/Users/juhyunlee/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/layer.js:95:5)'
+    '    at AuthGuard.validateRequest (/Users/-/Developer/05_nestjs/me/user-service/src/auth.guard.ts:17:53)\n' +
+    '    at AuthGuard.canActivate (/Users/-/Developer/05_nestjs/me/user-service/src/auth.guard.ts:12:17)\n' +
+    '    at GuardsConsumer.tryActivate (/Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/guards/guards-consumer.js:15:34)\n' +
+    '    at canActivateFn (/Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:134:59)\n' +
+    '    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-execution-context.js:42:37\n' +
+    '    at /Users/-/Developer/05_nestjs/me/user-service/node_modules/@nestjs/core/router/router-proxy.js:9:23\n' +
+    '    at Layer.handle [as handle_request] (/Users/-/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/layer.js:95:5)\n' +
+    '    at next (/Users/-/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/route.js:144:13)\n' +
+    '    at Route.dispatch (/Users/-/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/route.js:114:3)\n' +
+    '    at Layer.handle [as handle_request] (/Users/-/Developer/05_nestjs/me/user-service/node_modules/express/lib/router/layer.js:95:5)'
 }
 ```
 
@@ -376,5 +376,6 @@ export class AppModule {}
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [NestJS로 배우는 백엔드 프로그래밍 - Github](https://github.com/dextto/book-nestjs-backend)
 * [NestJS 공식문서](https://nestjs.com/)
+* [NestJS docs](https://docs.nestjs.com/)
 * [Nest.js Github](https://github.com/nestjs/nest)
 * [NestJS 공식 예제 Starter 프로젝트 Github](https://github.com/nestjs/typescript-starter)

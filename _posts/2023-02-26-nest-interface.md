@@ -499,7 +499,7 @@ Controller 의 순서를 변경하지 않았을 때
 $ curl --location 'http://localhost:3000'
 Hello World!%
     
-$ juhyunlee  ~  curl --location 'http://api.localhost:3000'
+$ -  ~  curl --location 'http://api.localhost:3000'
 Hello World!%
 ```
 
@@ -760,6 +760,7 @@ getUserInfo userId:  2
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [NestJS로 배우는 백엔드 프로그래밍 - Github](https://github.com/dextto/book-nestjs-backend)
 * [NestJS 공식문서](https://nestjs.com/)
+* [NestJS docs](https://docs.nestjs.com/)
 * [Nest.js Github](https://github.com/nestjs/nest)
 * [NestJS 공식 예제 Starter 프로젝트 Github](https://github.com/nestjs/typescript-starter)
 * [Express Request](https://expressjs.com/en/api.html#req)
