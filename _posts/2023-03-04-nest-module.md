@@ -16,7 +16,7 @@ tags: nestjs module
   - [EmailModule 분리](#22-emailmodule-분리)
 
 
-> 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch05), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch05)에 있습니다.
+> 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch05), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch05) 에 있습니다.
 
 ---
 

@@ -15,7 +15,7 @@ tags: nestjs interceptor
 - [유저 서비스](#3-유저-서비스)
   - [Interceptor 적용](#31-interceptor-적용)
 
-소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch13), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch13)에 있습니다.
+소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch13), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch13) 에 있습니다.
 
 ---
 

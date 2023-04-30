@@ -19,7 +19,7 @@ tags: nestjs typeorm
     - [마이그레이션을 CLI 로 생성하고 실행할 수 있는 환경 구성](#241-마이그레이션을-cli-로-생성하고-실행할-수-있는-환경-구성)
     - [마이그레이션 실행](#242-마이그레이션-실행)
 
-> 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch08)에 있습니다.
+> 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch08) 에 있습니다.
 
 ---
 

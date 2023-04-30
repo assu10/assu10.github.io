@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "NestJS- Task Scheduling"
+title:  "NestJS - Task Scheduling"
 date:   2023-04-09
 categories: dev
 tags: nestjs task-scheduling

@@ -23,7 +23,7 @@ tags: nestjs provider scope
 >   - [Controller 에 Scope 적용](#32-controller-에-scope-적용)
 > - [Custom Provider](#4-custom-provider)
 
-> 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch04), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch04)에 있습니다.
+> 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch04), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch04) 에 있습니다.
 
 ---
 

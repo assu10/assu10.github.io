@@ -22,7 +22,7 @@ tags: nestjs logging nest-winston
   - [외부 서비스에 로그 전송](#34-외부-서비스에-로그-전송)
 
 
-소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch11), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch11)에 있습니다.
+소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch11), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch11) 에 있습니다.
 
 ---
 

@@ -13,7 +13,7 @@ tags: nestjs exception-filter
 - [유저 서비스](#3-유저-서비스)
   - [예외 필터 적용](#31-예외-필터-적용)
 
-소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch12), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch12)에 있습니다.
+소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch12), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch12) 에 있습니다.
 
 ---
 
