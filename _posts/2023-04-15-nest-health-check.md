@@ -406,9 +406,7 @@ export class HealthCheckController {
 
 ```shell
 $ curl --location 'http://localhost:3000/health-check' | jq
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   237  100   237    0     0    538      0 --:--:-- --:--:-- --:--:--   547
+
 {
   "status": "error",
   "info": {
