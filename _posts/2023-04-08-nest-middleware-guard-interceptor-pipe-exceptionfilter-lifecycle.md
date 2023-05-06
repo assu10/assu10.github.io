@@ -68,9 +68,7 @@ export class LoggerMiddleware implements NestMiddleware {
 
 
 인가(Authorization) 는 인증을 통과한 유저가 요청 기능을 사용할 권한이 있는지 판별하는 것으로, 인증(Authentication) 은 Middleware 로 구현하고 
-인가는 Guard 를 이용하여 구현하는 것이 좋다.
-
-> 인증은 미들웨어로! 인가는 `Guard` 로!
+인가는 Guard 를 이용하여 구현하는 방법도 있고, 인증/인가를 Guard 를 이용하여 구현하는 방법도 있다.
 
 > **인증(Authentication) 실패 시** - 401 Unauthorized  
 > **인가(Authorization) 실패 시** - 403 Forbidden

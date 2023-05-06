@@ -748,6 +748,8 @@ hello~ assu
 
 # 7. Parameter Decorator (매개변수 데커레이터)
 
+> [NestJS - Custom Parameter Decorator](https://assu10.github.io/dev/2023/04/22/nest-custom-parameter-decorator) 와 함께 보면 도움이 됩니다.
+
 Parameter Decorator 는 **클래스의 생성자 함수 또는 메서드의 매개변수 선언 직전에 선언**된다.   
 선언 파일, 기타 주변 컨텍스트(e.g. 선언 클래스) 에 사용할 수 없다.  
 반환값은 무시된다.
@@ -873,6 +875,7 @@ Validator args:  [ 'assu' ]
 * [Property decorator documentation is inaccurate?](https://github.com/microsoft/TypeScript/issues/32395)
 * [reflect-metadata](https://www.typescriptlang.org/ko/docs/handbook/decorators.html#%EB%A9%94%ED%83%80%EB%8D%B0%EC%9D%B4%ED%84%B0-metadata)
 * [TypeScript Decorator 직접 만들어보자](https://dparkjm.com/typescript-decorators)
+* [NestJS - Custom Parameter Decorator: Blog](https://assu10.github.io/dev/2023/04/22/nest-custom-parameter-decorator)
 
 * [ts-aspect - TypeScript 에서의 AOP](https://github.com/engelmi/ts-aspect)
 * [AspectTS - TypeScript 에서의 AOP](https://github.com/dboikliev/AspecTS/blob/master/src/aspect.ts)
