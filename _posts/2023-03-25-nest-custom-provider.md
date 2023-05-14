@@ -40,7 +40,7 @@ export class AppModule {}
 - NestJS 프레임워크가 생성하는 인스턴스 대신 직접 인스턴스를 생성하고 싶은 경우
 - 여러 클래스가 의존 관계에 있을 때 이미 존재하는 클래스를 재사용하고자 하는 경우
 
-> 테스트를 위해 mock 객체 버전으로 Provider 를 재정의 하려는 경우 에 대해서는 추후 자세히 다룰 예정입니다.
+> 테스트를 위해 mock 객체 버전으로 Provider 를 재정의 하려는 경우에 대해서는 [NestJS - 테스트 자동화](https://assu10.github.io/dev/2023/04/30/nest-test/) 를 참고해주세요.
 
 `@Module` 데커레이터 인수의 타입은 `ModuleMetadata` 이다. 
 

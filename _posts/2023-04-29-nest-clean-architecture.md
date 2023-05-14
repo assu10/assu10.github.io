@@ -6,7 +6,7 @@ categories: dev
 tags: nestjs clean-architecture
 ---
 
-이 포스팅은 클린 아키텍처에 대해 알ㅇ라본다.
+이 포스팅은 클린 아키텍처에 대해 알아본다.
 
 - [클린 아키텍처](#1-클린-아키텍처)
 - [SOLID 객체 지향 설계 원칙](#2-solid-객체-지향-설계-원칙)
@@ -17,7 +17,7 @@ tags: nestjs clean-architecture
     - [interface layer](#313-interface-layer)
     - [infrastructure layer](#314-infrastructure-layer)
 
-> 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch17) 에 있습니다.
+> 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch17) 에 있습니다.
 
 그 동안 진행해 온 user-service 의 디렉터리 구조는 아래와 같다.
 
@@ -119,7 +119,7 @@ $ tree -L 4 -N -I "node_modules"
   - 미즈니스 로직이 구현되는 레이어
   - 회원 가입, 회원 정보 조회 등의 로직
 - domain layer
-  - 이플리케이션의 핵심 도메인을 구현
+  - 애플리케이션의 핵심 도메인을 구현
   - 애플리케이션이 가져야 하는 핵심 요소만 갖기 때문에 다른 레이어에 의존하지 않음
 
 
@@ -612,7 +612,7 @@ export class UsersModule {}
 
 각 다른 핸들러들도 동일하게 수정한다. 
 
-> 다른 핸들러들은 [example](https://github.com/assu10/nestjs/tree/feature/ch17) 를 참고하세요.
+> 다른 핸들러들은 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch17) 를 참고하세요.
 
 이제 회원 가입 및 조회가 정상적으로 되는지 확인해본다.
 

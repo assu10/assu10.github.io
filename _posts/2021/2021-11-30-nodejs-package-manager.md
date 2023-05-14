@@ -244,7 +244,7 @@ package.json 파일을 좀 더 상세히 보자.
   - 테스트 라이브러리 Jest 를 위한 환경 구성 옵션
   - NestJS 는 기본으로 Jest 를 이용한 테스트 제공
 
-> jest 에 관한 상세한 내용은 추후 상세히 다룰 예정입니다.
+> jest 에 관한 상세한 내용은 [NestJS - 테스트 자동화](https://assu10.github.io/dev/2023/04/30/nest-test/) 를 참고해주세요.
 
 express 패키지를 설치해보자.
 
