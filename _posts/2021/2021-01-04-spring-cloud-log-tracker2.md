@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택"
+title:  "Spring Cloud - Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택"
 date:   2021-01-04 10:00
 categories: dev
 tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack 

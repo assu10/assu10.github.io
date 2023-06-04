@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론"
+title:  "Spring Cloud - Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론"
 date:   2020-12-30 10:00
 categories: dev
 tags: msa centralized-log elasticsearch sleuth zipkin msa-tracker logging-tracker monitoring
