@@ -1,6 +1,6 @@
 ---
 layout: list
-title: MSA
+title: MSA(Spring)
 slug: msa
 category: dev
 menu: false
