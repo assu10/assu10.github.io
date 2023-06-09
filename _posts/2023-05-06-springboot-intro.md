@@ -14,9 +14,6 @@ tags: springboot msa
 - Spring 프레임워크와 Spring Boot 프레임워크
 - Spring Boot 프레임워크 애플리케이션 시작법
 
-> 소스는 [github](https://github.com/assu10/msa-springboot-2) 에 있습니다.
-
----
 
 **목차**
 - [모놀리식 아키텍처](#1-모놀리식-아키텍처)
@@ -34,17 +31,8 @@ tags: springboot msa
   - [Spring Starter 에 포함된 pom.xml](#62-spring-starter-에-포함된-pomxml)
   - [`@SpringBootApplication`](#63-springbootapplication)
 
----
 
-**개발 환경**
-
-- 언어: java
-- Spring Boot ver: 3.1.0
-- IDE: intelliJ
-- SDK: JDK 17
-- 의존성 관리툴: Maven
-- Group: com.assu.study
-- Artifact: chap02
+> 소스는 [github](https://github.com/assu10/msa-springboot-2) 에 있습니다.
 
 ---
 
