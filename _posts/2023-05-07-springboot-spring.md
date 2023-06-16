@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - Spring bean, Spring bean Container, 의존성"
-date:   2023-05-06
+date:   2023-05-07
 categories: dev
 tags: springboot msa spring-bean spring-bean-container application-context 
 ---
@@ -333,9 +333,12 @@ public class ServerConfiguration {
 
 - `@Component`
   - 클래스를 Spring bean 으로 정의하는 가장 일반적인 애너테이션
+  - 애플리케이션 내부에서 공통으로 사용하는 기능들을 정의할 때 사용 (타서비스의 REST-API 를 호출하는 클래스 혹은 암호화 모듈같은 공통 로직)
   - 다른 스테레오 타입 애너테이션들은 `@Component` 파생되었으며, 클래스의 목적에 따라 적절한 애너테이션 선택해서 사용하면 됨
 - `@Controller`
+  - 사용자의 요청 메시지를 검증하는 로직도 포함
 - `@Service`
+  - 트랜잭션 단위로 분리된 메서드를 포함하는 클래스에 사용
 - `@Repository`
 
 위 애너테이션들은 기능은 모두 같지만 클래스 목적에 따라 명확하게 정의해서 사용하기 위해 분리해서 사용한다.

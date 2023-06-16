@@ -737,7 +737,8 @@ public @interface SpringBootApplication {
 - `@ComponentScan`
   - 클래스 패스에 포함되어 있는 `@Configuration` 으로 정의된 자바 설정 클래스와 스테레오 타입 애너테이션으로 정의된 클래스를 스캔함
   - Spring bean 설정을 스캔하여 Spring bean Container 가 Spring bean 으로 로딩하고 관리함
-  - > 스테레오 타입 애너테이션은 추후 다룰 예정입니다.
+  - > 스테레오 타입 애너테이션은 [Spring Boot - Spring bean, Spring bean Container, 의존성](https://assu10.github.io/dev/2023/05/07/springboot-spring/#3-%EC%8A%A4%ED%85%8C%EB%A0%88%EC%98%A4-%ED%83%80%EC%9E%85-spring-bean-%EC%82%AC%EC%9A%A9) 의 _3. 스테레오 타입 Spring bean 사용_
+     를 참고하세요.
 
 정리하면 `@SpringBootApplication` 에 의해 클래스 패스 내 애플리케이션 설정을 위한 자바 설정 클래스와 Spring bean 클래스들을 스캔하여 Spring container 에 등록하고,
 Spring Boot 의 Auto Configuration 기능이 동작한다.
