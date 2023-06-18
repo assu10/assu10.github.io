@@ -288,7 +288,9 @@ server.tomcat.accesslog.rename-on-rotate=true
 
 > REST-API 에 대한 내용은 [REST-API](https://assu10.github.io/dev/2023/05/13/rest-api-basic/) 를 참고하세요.
 
-> REST-API 애플리케이션 구축 시 `@Controller` 와 `@ResponseBody` 를 동시에 제공하는 `@RestController` 를 주로 사용하는데 이는 추후 다룰 예정입니다.
+> REST-API 애플리케이션 구축 시 `@Controller` 보다는 `@Controller` 와 `@ResponseBody` 를 동시에 제공하는 `@RestController` 를 주로 사용하는데
+> `@RestController` 사용법은 [Spring Boot - REST-API with Spring MVC (1): GET/DELETE 메서드 매핑, 응답 메시지 처리(마셜링)](https://assu10.github.io/dev/2023/05/14/springboot-rest-api-2) 의
+> _1.2. Controller 구현: `@PathVariable`, `@RequestParam`, `@DateTimeFormat`_ 을 참고하세요.
 
 /controller/ApiController.java
 ```java
@@ -402,9 +404,13 @@ return ResponseEntity.status(HttpStatus.OK).body(hotel);
 
 ## 3.1. `@ResponseBody`, `HttpMessageConverter`
 
-> REST-API 애플리케이션 구축 시 `@Controller` 와 `@ResponseBody` 를 동시에 제공하는 `@RestController` 를 주로 사용하는데 이는 추후 다룰 예정입니다.
+> REST-API 애플리케이션 구축 시 `@Controller` 보다는 `@Controller` 와 `@ResponseBody` 를 동시에 제공하는 `@RestController` 를 주로 사용하는데
+> `@RestController` 사용법은 [Spring Boot - REST-API with Spring MVC (1): GET/DELETE 메서드 매핑, 응답 메시지 처리(마셜링)](https://assu10.github.io/dev/2023/05/14/springboot-rest-api-2) 의
+> _1.2. Controller 구현: `@PathVariable`, `@RequestParam`, `@DateTimeFormat`_ 을 참고하세요.
 
 `@ResponseBody` 애너테이션이 선언된 메서드가 리턴하는 객체는 Spring 프레임워크에 설정된 메시지 컨버터(HttpMessageConverter) 중 적합한 메시지 컨버터가 JSON 메시지로 마셜링한다.
+또한 `@ResponseBody` 가 선언되어 있으면 Spring MVC 의 View 를 사용하지 않는다. 대신 Controller 의 핸들러 메서드가 리턴하는 객체는 Spring MVC 프레임워크 내부에 설정된
+HttpMessageConverter 중 적절한 것을 골라 마셜링하고, 마셜링된 JSON 객체가 클라이언트에 전달된다.
 
 > **마셜링(Marshalling)**  
 > 객체가 JSON 문자열로 변환되는 것, 그 뱐대는 언마셜링이라고 함
@@ -417,3 +423,5 @@ return ResponseEntity.status(HttpStatus.OK).body(hotel);
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)
+* [REST-API: Blog](https://assu10.github.io/dev/2023/05/13/rest-api-basic/)
+* [MultiValueMap은 무엇일까?](https://velog.io/@nimoh/Spring-MultiValueMap%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C)

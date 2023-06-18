@@ -38,6 +38,7 @@ Spring bean 을 선언하고 Spring bean Container 를 사용하여 Spring bean 
 - [Spring bean 고급 정의](#81-primary)
   - [`@Primary`](#81-primary)
   - [`@Lazy`](#82-lazy)
+- [Spring bean, Java bean, DTO, VO](#9-spring-bean-java-bean-dto-vo)
 
 ---
 
@@ -1318,7 +1319,7 @@ Process finished with exit code 0
 Bean info. type: class java.lang.Long, value: 1
 ```
 
-하지만 오류가 발생할 때 어떤 Spring bean 이 중복되었는지 자세히 알려주므로 가능하면 default 인 false 값을 유지하고, 오류가 발생하면 Spring bean 이름을 변경하여
+하지만 오류가 발생할 때 어떤 Spring bean 이 중복되었는지 자세히 알려주므로 가능하면 **default 인 false 값을 유지**하고, 오류가 발생하면 Spring bean 이름을 변경하여
 중복되지 않도록 하는 것이 좋다.
 
 ---
@@ -1379,7 +1380,6 @@ c.a.s.chap03.SpringBean09Application     : Locale in PriceUnit: ko_KR
 
 만일 `@Lazy` 선언이 없다면 _initialize lazyPriceUnit_ 로그가 먼저 출력된 후 _---------------- Done to initialize spring beans._ 가 출력될 것이다.
 
-
 [6. Spring bean Scope: `@Scope`](#6-spring-bean-scope--scope) 에서 나온 `prototype` 과 혼동하기 쉬운데 `@Lazy` 는 singleton 이므로
 의존성 주입 시점에 Spring bean 이 생성되고 이후 다른 Spring bean 에 의존성을 주입할 때 기존 객체를 그대로 주입하는 반면,
 prototype 은 의존성 주입을 할 때마다 새로운 객체가 생겨난다는 차이점이 있다.
@@ -1391,6 +1391,88 @@ prototype 은 의존성 주입을 할 때마다 새로운 객체가 생겨난다
   - Spring bean Container 에서 대상 Spring bean 을 여러 bean 객체를 생성함
   - 의존성 주입을 할 때마다 새로운 객체를 생성하여 주입
 
+---
+
+# 9. Spring bean, Java bean, DTO, VO
+
+- `Spring bean`
+  - 객체와 이름, 클래스 타입 정보가 Spring Container 로 관리되는 객체
+- `Java bean`
+  - 기본 생성자가 선언되어 있고, getter/setter 패턴으로 클래스 내부 속성에 접근 가능해야 함
+  - Serializable 을 구현하고 있어야 함
+- `DTO` (Data Transfer Object)
+  - 데이터를 전달하는 객체
+  - 데이터를 전달하므로 DTO 내부에 비즈니스 로직이 없어야 함
+  - 클래스 내부 속성에 접근 가능한 getter 메서드는 필요
+- `VO` (Value Object)
+  - 특정 데이터를 추상화하여 데이터를 표현하는 객체
+  - 그래서 equals 메서드를 재정의하여 클래스가 표현하는 값을 서로 비교하면 좋음
+  - 바로 아래 Money 클래스는 VO 임
+  - DDD(Domain Driven Development) 에서 VO 는 immutable (불변) 해야함 
+
+Java bean 은 Spring bean 이 될 수 있지만, Spring bean 이 Java bean 이 될 수 없다.
+즉, Java bean 으로 설계된 클래스를 Spring bean 으로 선언할 수 있지만 그 반대는 될 수 없다는 의미이다.
+
+VO 설계 시 getter/setter 를 의미없이 선언하면 객체의 immutable 속성이 깨진다.  
+immutable 속성은 DTO 나 VO 생성 시 필요하며, 멀티 스레드에 안전하므로 멀티 스레드 환경에서 안전하게 사용할 수 있다. 그리고 immutable 객체는 하나의 상태만
+갖고 있으므로 데이터를 안전하게 사용 가능하다.
+
+---
+
+<**immutable class 설계하는 법**>  
+- class 는 반드시 final 로 선언
+  - final 로 선언하지 않으면 상속이 발생하여 메서드들이 오버라이드되어 immutable 하지 못하게 됨
+- 멤버 변수들은 반드시 final 로 선언
+- 생성자를 직접 선언하여 기본 생성자가 존재하지 않도록 함
+  - 기본 생성자가 있으면 여러 상태가 있는 객체를 생성할 수 있으므로 immutable 하지 못함
+- setter 는 만들지 말고 getter 만 존재해야 함
+
+아래는 immutable class 로 설계된 VO 이다.
+
+```java
+package com.assu.study.chap02;
+
+import java.io.Serializable;
+import java.util.Currency;
+
+public final class Money implements Serializable {  // class 는 반드시 final 로 선언
+  // 멤버 변수들은 반드시 final 로 선언
+  private final Long value;
+  private final Currency currency;
+
+  // 생성자를 직접 선언하여 기본 생성자가 존재하지 않도록 함
+  public Money(Long value, Currency currency) {
+    if (value == null || value < 0) {
+      throw new IllegalArgumentException("invalid value");
+    }
+
+    if (currency == null) {
+      throw new IllegalArgumentException("invalid currency");
+    }
+
+    this.value = value;
+    this.currency = currency;
+  }
+
+  // setter 는 만들지 말고 getter 만 존재해야 함
+  public Long getValue() {
+    return value;
+  }
+
+  public Currency getCurrency() {
+    return currency;
+  }
+
+  // equals 메서드를 재정의하여 클래스가 표현하는 값을 서로 비교
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Money money = (Money) o;
+    return getValue().equals(money.getValue()) && getCurrency().equals(money.getCurrency());
+  }
+}
+```
 ---
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
