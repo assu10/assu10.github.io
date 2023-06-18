@@ -272,7 +272,7 @@ $ curl --location 'http://localhost:18080/hotels/123/rooms/456?fromDate=20230101
   - @GetMapping(path="/hotels/*") 는 '/hotels/12' 는 매핑가능하지만 '/hotels/12/34' 는 매핑 불가
 - `**`
   - 0개 이상의 문자와 디렉터리 매핑
-  - - @GetMapping(path="/hotels/**") 는 '/hotels/12', '/hotels/12/34' 모두 매핑 가능
+  - @GetMapping(path="/hotels/**") 는 '/hotels/12', '/hotels/12/34' 모두 매핑 가능
   - 하위 디렉터리가 몇 개든 상관없이 모두 매핑 가능
 
 ---

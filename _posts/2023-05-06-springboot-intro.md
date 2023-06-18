@@ -362,7 +362,7 @@ Spring 은 여러 가지 프레임워크를 제공하여, 애플리케이션 형
 
 이런 프로젝트들을 Spring 프로젝트라고 하고, 메인 프로젝트 안에 서브 프로젝트들로 나뉘기도 한다. 예를 들면 Spring 데이터 프레임워크는 Spring Data Jpa, Spring Data Redis, Spring Data Couchbase 등으로 나뉠 수 있다.
 
-> Spring 애플리케이션의 기본인 Spring bean container 와 Spring bean 은 추후 다룰 예정입니다.
+> Spring 애플리케이션의 기본인 Spring bean container 와 Spring bean 은 [Spring Boot - Spring bean, Spring bean Container, 의존성](https://assu10.github.io/dev/2023/05/07/springboot-spring/#1-spring-bean-%EC%82%AC%EC%9A%A9) 의 _1. Spring bean 사용_ 을 참고해주세요.
 
 Spring 프레임워크는 아래와 같은 특징이 있다.
 
@@ -730,7 +730,7 @@ public @interface SpringBootApplication {
   - 내부에 `@Configuration` 을 포함하고 있으며, `@Configuration` 이 정의된 클래스는 자바 설정 클래스하고 함
   - 자바 설정 클래스는 별도의 Spring bean 을 정의할 수 있음
   - 따라서 `@SpringBootConfiguration` 이 정의된 이 파일도 자바 설정 클래스이며, 클래스 내부에는 Spring bean 설정을 포함할 수 있음
-  - > 자바 설정 클래스와 Spring bean 설정은 추후 다룰 예정입니다. 
+  - > 자바 설정 클래스와 Spring bean 설정은 [Spring Boot - Spring bean, Spring bean Container, 의존성](https://assu10.github.io/dev/2023/05/07/springboot-spring/) 를 참고해주세요.
 - `@EnableAutoConfiguration`
   - `@Configuration` 과 같이 사용하면 Spring Boot 의 AutoConfiguration 기능을 활성화함
   - 즉, `@EnableAutoConfiguration` 에 의해 Spring Boot 의 자동 설정 클래스들이 실행되어 애플리케이션을 설정함
