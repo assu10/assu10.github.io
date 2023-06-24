@@ -4,5 +4,5 @@ title: Game
 slug: game
 category: etc
 menu: false
-order: 2
+order: 0
 ---
