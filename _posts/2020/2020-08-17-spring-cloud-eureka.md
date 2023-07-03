@@ -477,11 +477,11 @@ Feign 의 자세한 내용은 이전 포스팅인 [Spring Cloud Feign](https://a
 
 아래는 Feign 을 이용하여 이벤트 서비스(=Consumer)에서 회원 서비스(=Provider)를 호출하는 방법이다.
 
-Eureka 내 Ribbon 기능이 정상적으로 동작하는지 확인하기 위해 호출하고자 하는 메소드 리턴값에 포트값을 함께 넣어주었다.
+Eureka 내 Ribbon 기능이 정상적으로 동작하는지 확인하기 위해 호출하고자 하는 메서드 리턴값에 포트값을 함께 넣어주었다.
 
 **member-service > MemberController.java**
 ```java
-// 이벤트 서비스에서 호출할 회원 서비스 내 메소드
+// 이벤트 서비스에서 호출할 회원 서비스 내 메서드
 
 @GetMapping(value = "name/{nick}")
 public String getYourName(ServletRequest req, @PathVariable("nick") String nick) {
