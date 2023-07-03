@@ -220,7 +220,7 @@ If you want to expose Spring Security’s AuthenticationManager as a bean,
 override the authenticationManagerBean method on your WebSecurityConfigurerAdapter and annotate it with @Bean.
 ```
 
-즉, `AuthenticationManager` 를 사용하고 싶으면 `WebSecurityConfigurerAdapter` 를 상속받는 클래스 생성 후 `authenticationManagerBean` 메소드를 오버라이드한 후 
+즉, `AuthenticationManager` 를 사용하고 싶으면 `WebSecurityConfigurerAdapter` 를 상속받는 클래스 생성 후 `authenticationManagerBean` 메서드를 오버라이드한 후 
 Bean 으로 등록 후 사용해야 한다고 설명되어 있다.
 
 **WebSecurityConfigurer** 를 구현해보자.

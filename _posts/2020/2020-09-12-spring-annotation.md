@@ -19,7 +19,7 @@ tags: web spring-annotation
 base-package 를 넣으면 해당 패키지 아래에 있는 컴포넌트들을 찾고 그 과정을 spring-context-버전(4.3.11.RELEASE).jar 에서 처리.
 
 @Component 로 다 쓰지 왜 굳이 @Repository, @Service, @Controller 등을 사용하는 이유는 예를 들어 
-@Repository 는 DAO 의 메소드에서 발생할 수 있는 unchecked exception 들을 스프링의 DataAccessException 으로 처리할 수 있기 때문.
+@Repository 는 DAO 의 메서드에서 발생할 수 있는 unchecked exception 들을 스프링의 DataAccessException 으로 처리할 수 있기 때문.
 또한 가독성에서도 해당 애노테이션을 갖는 클래스가 무엇을 하는지 단 번에 알 수 있다.
 
 ### @EnableAutoConfiguration
@@ -27,13 +27,13 @@ base-package 를 넣으면 해당 패키지 아래에 있는 컴포넌트들을 
 classpath 의 내용에 기반해서 자동 생성해준다.
 
 ### @Configuration
-Configuration 을 클래스에 적용하고 @Bean 을 해당 클래스의 메소드에 적용하면 @Autowired 로 빈을 부를 수 있다.
+Configuration 을 클래스에 적용하고 @Bean 을 해당 클래스의 메서드에 적용하면 @Autowired 로 빈을 부를 수 있다.
 
 ### @Resource
 @Autowired 와 마찬가지로 빈 객체를 주입해주는데 차이점은 Autowired 는 타입으로, Resource 는 이름으로 연결해준다.
 
 ### @PostConstruct, @PreConstruct
-의존하는 객체를 생성한 이후 초기화 작업을 위해 객체 생성 전/후에(pre/post) 실행해야 할 메소드 앞에 붙인다.
+의존하는 객체를 생성한 이후 초기화 작업을 위해 객체 생성 전/후에(pre/post) 실행해야 할 메서드 앞에 붙인다.
 
 ### @PreDestroy
 객체를 제거하기 전(pre)에 해야할 작업을 수행하기 위해 사용한다.
@@ -104,13 +104,13 @@ Request 에 설정되어 있는 속성 값을 가져올 수 있다.
 요청이 온 데이터(JSON 이나 XML 형식)를 바로 클래스나 model 로 매핑하기 위한 어노테이션
 
 ### @RequestHeader
-Request 의 header 값을 가져올 수 있다. 메소드의 파라미터에 사용
+Request 의 header 값을 가져올 수 있다. 메서드의 파라미터에 사용
 ```java
 @RequestHeader(value="Accept-Language") String acceptLanguage  //ko-KR,ko;q=0.8,en-US;q=0.6
 ```
 
 ### @RequestParam
-@PathVariable 과 비슷하다. request 의 parameter 에서 가져오는 것이다. 메소드의 파라미터에 사용됨
+@PathVariable 과 비슷하다. request 의 parameter 에서 가져오는 것이다. 메서드의 파라미터에 사용됨
 
 ### @RequestPart
 Request 로 온 MultipartFile 을 바인딩함<br />
@@ -130,7 +130,7 @@ context 에 설정된 resolver 를 무시한다고 보면된다. (viewResolver)
 
 ### @ControllerAdvice
 클래스 위에 ControllerAdvice 를 붙이고 어떤 예외를 잡아낼 것인지는 
-각 메소드 상단에 @ExceptionHandler(에외클래스명.class)를 붙여서 기술한다.
+각 메서드 상단에 @ExceptionHandler(에외클래스명.class)를 붙여서 기술한다.
 
 ### @RestControllerAdvice
 @ControllerAdvice + @ResponseBody
@@ -173,7 +173,7 @@ context 에 설정된 resolver 를 무시한다고 보면된다. (viewResolver)
 그러므로 @Cacheable 과 같이 사용하면 안된다.
 
 ### @CacheEvict
-캐시에서 데이터를 제거하는 트리거로 동작하는 메소드<br />
+캐시에서 데이터를 제거하는 트리거로 동작하는 메서드<br />
 물론 캐시 설정에서 캐시 만료시간을 줄 수도 있다.<br />
 
 ```java
