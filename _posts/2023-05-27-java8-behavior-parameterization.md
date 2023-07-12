@@ -39,7 +39,8 @@ tags: java java8 behavior-parameterization
 
 동작 파라메터화를 추가하기 위해 부가 코드들이 늘어나는데 이것은 람다 표현식으로 해결이 가능하다.
 
-> 람다 표현식은 추후 자세히 다룰 예정입니다.
+> 람다 표현식에 대한 자세한 내용은 [Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/) 과
+> [Java8 - 람다 표현식 (2): 메서드 레퍼런스, 람다 표현식과 메서드의 조합](http://assu10.github.io/dev/2023/06/03/java8-lambda-expression-2/) 을 참고해주세요.
 
 ---
 
