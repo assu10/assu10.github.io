@@ -95,12 +95,12 @@ Comparator<Apple> byWeight = (Apple o1, Apple o2) -> o2.getWeight().compareTo(o1
 
 람다 표현식은 변수에 할당하거나, 함수형 인터페이스를 인수로 받는 메서드로 전달할 수 있으며, 함수형 인터페이스의 추상 메서드와 같은 시그니처를 갖는다.
 
-Comparator<Apple> 형식의 변수에 람다 할당한 예시
+`Comparator<Apple>` 형식의 변수에 람다 할당한 예시
 ```java
 inventory.sort((Apple a1, Apple a2) -> a2.getWeight().compareTo(a1.getWeight()));
 ```
 
-Predicate<T> 형식을 기대하는 두 번째 인수에 람다 할당한 예시
+`Predicate<T>` 형식을 기대하는 두 번째 인수에 람다 할당한 예시
 ```java
 public static <T> List<T> filter(List<T> list, Predicate<T> p) {  // 형식 파라메터 T
   List<T> result = new ArrayList<>();
@@ -263,7 +263,7 @@ String twoLine = processFile((BufferedReader reader) -> reader.readLine() + read
 
 ## 2.1. Predicate: `boolean test()`
 Predicate 는 논리 판단을 해주는 함수형 인터페이스이다.  
-java.util.function.Predicate<T> 인터페이스는 `boolean test()` 추상 메서드를 가지며, `test()` 의 시그니처는 아래와 같다.
+`java.util.function.Predicate<T>` 인터페이스는 `boolean test()` 추상 메서드를 가지며, `test()` 의 시그니처는 아래와 같다.
 
 Predicate 함수형 인터페이스 시그니처
 ```java
@@ -284,7 +284,8 @@ public interface Predicate<T> {
 | DoublePredicate   | boolean test(double value) |
 
 
-> Predicate 의 `and`, `or`, `negate` 등의 디폴트 메서드는 추후 다룰 예정입니다. 
+> Predicate 의 `and`, `or`, `negate` 등의 디폴트 메서드의 좀 더 자세한 내용은 [Java8 - 람다 표현식 (2): 메서드 레퍼런스, 람다 표현식과 메서드의 조합](https://assu10.github.io/dev/2023/06/03/java8-lambda-expression-2/#32-predicate-%EC%99%80-%EC%A1%B0%ED%95%A9) 의
+> _3.2. Predicate 와 조합_ 을 참고해주세요.
 
 ```java
 public static <T> List<T> filter(List<T> list, Predicate<T> p) {
@@ -311,7 +312,7 @@ System.out.println(nonEmptyStrings);
 
 ## 2.2. Consumer: `void accept(T)`
 Consumer 는 입력을 받아서 함수 내에서 사용 후 별도로 리턴하지 않는다.  
-java.util.function.Consumer<T> 인터페이스는 `void accept(T)` 추상 메서드를 가지며, `accept()` 의 시그니처는 아래와 같다.
+`java.util.function.Consumer<T>` 인터페이스는 `void accept(T)` 추상 메서드를 가지며, `accept()` 의 시그니처는 아래와 같다.
 
 Consumer 함수형 인터페이스 시그니처
 ```java
@@ -351,7 +352,7 @@ forEach(listOfStrings, (String s) -> System.out.println(s));
 
 ## 2.3. Function: `T apply(R)`
 Function 은 입력과 출력을 연결하는 함수형 인터페이스이다. (예 - 무게를 도출하거나 문자열을 길이와 매핑)  
-java.util.function.Function<T, R> 인터페이스는 제네릭 형식 T 를 입력받아서 제네릭 형식 R 객체를 반환하는 `R apply(T t)` 추상 메서드를 가지며, 
+java.util.function.Function<T,R> 인터페이스는 제네릭 형식 T 를 입력받아서 제네릭 형식 R 객체를 반환하는 `R apply(T t)` 추상 메서드를 가지며, 
 `apply()` 의 시그니처는 아래와 같다.
 
 Function 함수형 인터페이스 시그니처
@@ -543,8 +544,8 @@ public static <T> List<T> filter(List<T> list, Predicate<T> p) {  // 형식 파�
 ```
 
 - filter() 메서드의 선언 확인
-- filter() 는 두 번째 파라메터로 Predicate<T> 형식(=대상 형식) 을 기대함
-- Predicate<T> 는 boolean test() 라는 한 개의 추상 메서드를 정의하는 함수형 인터페이스
+- filter() 는 두 번째 파라메터로 `Predicate<T>` 형식(=대상 형식) 을 기대함
+- `Predicate<T>` 는 boolean test() 라는 한 개의 추상 메서드를 정의하는 함수형 인터페이스
 - test() 는 T 를 받아 boolean 을 반환하는 함수 디스크립터 묘사(T -> boolean)
 - filter() 메서드로 전달된 람다 표현식은 T -> boolean 을 만족해야 함
 
@@ -559,7 +560,7 @@ Predicate<String> p = s -> listOfStrings.add(s);  // 유효함
 Consumer<String> b = s -> listOfStrings.add(s); // 유효함
 ```
 
-위 코드에서 람다 표현식의 context 는 Predicate<String> (대상 형식) 이다. (= 함수형 인터페이스)
+위 코드에서 람다 표현식의 context 는 `Predicate<String>` (대상 형식) 이다. (= 함수형 인터페이스)
 
 ---
 
