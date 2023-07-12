@@ -72,7 +72,7 @@ _Apple::getWeight_ 는 _(Apple a) -> a.getWeight()_ 람다 표현식과 동일�
 - `instance 메서드 레퍼런스`
   - class 내부에 존재하는 일반 함수
   - 람다 표현식 (arg0, rest) -> arg0.instanceMethod(rest) 를 메서드 레퍼런스로 표현하면 ClassName::instanceMethod
-  - 예) 람다 표현식 BiPredicate<List<String>, String> stringList = (list, ele) -> list.contains(ele) 를 메서드 레퍼런스로 표현하면 BiPredicate<List<String>, String> stringList2 = List::contains
+  - 예) 람다 표현식 BiPredicate<List\<String\>, String> stringList = (list, ele) -> list.contains(ele) 를 메서드 레퍼런스로 표현하면 BiPredicate<List\<String\>, String> stringList2 = List::contains
 - `기존 객체의 instance 메서드 레퍼런스`
   - 외부 객체의 메서드 호출 시 사용
   - 람다 표현식 (args) -> expr.instanceMethod(args) 를 메서드 레퍼런스로 표현하면 expr::instanceMethod
@@ -516,6 +516,19 @@ Function<Integer, Integer> z = f.compose(g);  // f(g(x))
 int result2 = z.apply(1);
 System.out.println(result2); // 3
 ```
+
+---
+
+# 정리하며..
+
+- 람다 표현식은 익명 함수의 일종임, 이름은 없지만 파라메터 리스트/바디/반환 형식을 가지며 예외를 던질 수 있음
+- 함수형 인터페이스는 오직 하나의 추상 메서드만을 정의하는 인터페이스
+- 함수형 인터페이스를 기대하는 곳에서만 람다 표현식 사용 가능
+- java.util.function 패키지는 `Predicate<T>`, `Function<T,R>`, `Supplier<T>`, `Consumer<T>`, `BinaryOperator<T>` 등 자주 사용하는 함수형 인터페이스를 제공함
+- Java8 은 `Predicate<T>` 같은 제네릭 함수형 인터페이스와 관련한 박싱 동작을 피할 수 있도록 IntPredicate 등의 기본형 특화 인터페이스를 제공함
+- 실행 어라운드 패턴을 람다와 활용하면 유연성과 재사용성을 추가로 얻을 수 있음
+- 메서드 레퍼런스를 이용하면 기존의 메서드 구현을 재사용하며, 직접 전달 가능
+- `Comparator<T>`, `Predicate<T>`, `Function<T,R>` 과 같은 함수형 인터페이스는 람다 표현식을 조랍할 수 있는 다양한 디폴트 메서드를 제공
 
 ---
 
