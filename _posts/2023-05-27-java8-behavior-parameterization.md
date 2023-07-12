@@ -283,9 +283,9 @@ default void sort(Comparator<? super E> c) {
 }
 ```
 
-Comparator<T> 인터페이스를 구현해서 sort 메서드의 동작을 파라메터화(=다양화)할 수 있다.
+`Comparator<T>` 인터페이스를 구현해서 sort 메서드의 동작을 파라메터화(=다양화)할 수 있다.
 
-Comparator<T> 인터페이스
+`Comparator<T>` 인터페이스
 ```java
 public interface Comparator<T> {
   int compare(T o1, T o2);

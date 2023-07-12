@@ -478,13 +478,13 @@ System.out.println(evenNumbers2.test(2)); // true
 
 아래는 람다 표현식을 사용할 수 있는 사용 예시이다.
 
-|   사용 예시    | 람다 예시                                            | 사용 가능한 함수형 인터페이스                                           |
-|:----------:|:-------------------------------------------------|:-----------------------------------------------------------|
-| boolean 표현 | (List<String> list) -> list.isEmpty()            | `Predicate<List<String>>`                                    |
-|   객체 생성    | () -> new Car("red")                             | `Supplier<Car>`                                              |
-|  객체에서 소비   | (Car a) -> System.out.println(a.getName())       | `Consumer<Car>`                                              |
-| 객체에서 선택/추출 | (String s) -> s.length()                         | `Function<String, Integer>` 혹은 `ToIntFunction<String>`         |
-|  두 값을 조합   | (int a, int b) -> a * b                          | `IntBinaryOperator`                                          |
+|   사용 예시    | 람다 예시                                                        | 사용 가능한 함수형 인터페이스                                           |
+|:----------:|:-------------------------------------------------------------|:-----------------------------------------------------------|
+| boolean 표현 | (List\<String\> list) -> list.isEmpty()                      | `Predicate<List<String>>`                                    |
+|   객체 생성    | () -> new Car("red")                                         | `Supplier<Car>`                                              |
+|  객체에서 소비   | (Car a) -> System.out.println(a.getName())                   | `Consumer<Car>`                                              |
+| 객체에서 선택/추출 | (String s) -> s.length()                                     | `Function<String, Integer>` 혹은 `ToIntFunction<String>`         |
+|  두 값을 조합   | (int a, int b) -> a * b                                      | `IntBinaryOperator`                                          |
 |  두 객체를 비교  | (Car a1, Car a2) -> c1.getWeight().compareTo(c2.getWeight()) | `BiFunction<Car, Car, Integer>` 혹은 `ToIntBiFunction<Car, Car>` |
 
 
