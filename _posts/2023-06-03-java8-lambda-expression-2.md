@@ -24,6 +24,7 @@ tags: java java8 lambda-expression method-reference
   - [Comparator 와 조합](#31-comparator-와-조합)
   - [Predicate 와 조합](#32-predicate-와-조합)
   - [Function 과 조합](#33-function-과-조합)
+- [정리하며..](#정리하며)
 
 ---
 
