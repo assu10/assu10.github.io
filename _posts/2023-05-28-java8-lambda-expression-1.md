@@ -372,10 +372,10 @@ public interface Function<T, R> {
 | toPFunction         | p applyAsP(T t)      |
 | toPBiFunction       | p applyAsP(T t, U u) |
 
-> P, Q, p, q 는 기본 자료형
+> P, Q, p, q 는 기본자료형
 
-- 참조형(reference type): Byte, Integer, Object, List
-- 기본형(primitive type): int, double, byte, char
+- 참조형(reference type): Integer, Boolean, String, Byte, Object, List...
+- 기본형(primitive type): boolean, char, byte, short, int, long, float, double
 
 
 String list 를 인수로 받아서 String 길이를 포함하는 Integer 리스트로 변환하는 map 이라는 메서드 정의
@@ -426,17 +426,36 @@ System.out.println(stringLengths);
 
 **제네릭 파라미터(`<T>` 에서 `T`) 는 참조형만 사용이 가능**하다.
 
-> **참조형(reference type)**    
-> Byte, Integer, Object, List  
-> 
-> **기본형(primitive type)**  
-> int, double, byte, char
+<**기본형과 참조형**>
+- **기본형(primitive type)**
+  - boolean, char, byte, short, int, long, float, double
+  - `int n = 1;`
+  - 실제 값을 저장
+  - 산술 연산 가능
+  - null 로 초기화 불가
+  - stack 에 실제 값 저장
+  - 매개 변수로 사용 시 변수의 실제 값만 가져오는 것이기 때문에 **읽기만 가능**
+- **참조형(reference type)**
+  - Integer, Boolean, String, Byte, Object, List...(기본형 8개를 제외한 모든 타입)
+  - `Integer n = new Integer(1);`
+  - 어떤 값이 저장되어 있는 주소를 값으로 가짐
+  - 산술 연산 불가
+  - null 로 초기화 가능 (DB 와 연동 시 DTO 객체에 null 이 필요한 경우 사용 가능)
+  - heap 에 실제 값을 저장하고, 해당 주소를 stack 에 저장
+  - 매개 변수로 사용 시 변수의 값을 **읽고 변경 가능**
 
-- boxing
+기본형을 사용하는 것이 메모리나 속도 측면에서 유리하지만 아래와 같은 경우는 참조형 변수를 사용한다.
+- DB 와 연동되는 데이터나 null 값이 들어가는 변수일 경우
+- 여러 메서드를 거치면서 값이 변할 수 있는 경우
+
+---
+
+<**boxing 과 unboxing**>
+- `boxing`
   - 기본형을 참조형으로 변환
-- unboxing
+- `unboxing`
   - 참조형을 기본형으로 변환
-- auto-boxing
+- `auto-boxing`
   - 박싱과 언박싱이 자동으로 이루어짐
 
 아래는 기본형 int 가 참조형 Integer 로 boxing(오토)되는 예시이다.
@@ -602,3 +621,4 @@ a = 2;
 * [함수형 인터페이스](https://velog.io/@donsco/Java-%ED%95%A8%EC%88%98%ED%98%95-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
 * [표준 함수형 인터페이스](https://velog.io/@im_joonchul/%ED%91%9C%EC%A4%80-%ED%95%A8%EC%88%98%ED%98%95-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
 * [자바 8 표준 API의 함수형 인터페이스 (Consumer, Supplier, Function, Operator, Predicate)](https://hudi.blog/functional-interface-of-standard-api-java-8/)
+* [기본형 변수와 참조형 변수](https://velog.io/@yh20studio/Java-%EA%B8%B0%EB%B3%B8%ED%98%95-%EB%B3%80%EC%88%98%EC%99%80-%EC%B0%B8%EC%A1%B0%ED%98%95-%EB%B3%80%EC%88%98)
