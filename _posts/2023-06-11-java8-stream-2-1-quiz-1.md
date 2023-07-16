@@ -96,7 +96,7 @@ List<Transaction> transactions = Arrays.asList(
 
 ---
 
-# 1. 2011 에 일어난 모든 트랜잭션을 찾아 값을 오름차순으로 정리
+### 1. 2011 에 일어난 모든 트랜잭션을 찾아 값을 오름차순으로 정리
 
 ```java
 List<Transaction> transaction2011 = transactions.stream()
@@ -110,7 +110,7 @@ System.out.println(transaction2011);
 
 ---
 
-# 2. 거래자가 근무하는 모든 도시를 중복없이 나열
+### 2. 거래자가 근무하는 모든 도시를 중복없이 나열
 
 ```java
 List<String> distictCity = transactions.stream()
@@ -124,7 +124,7 @@ System.out.println(distictCity);
 
 ---
 
-# 3. 케임브리지에서 근무하는 모든 거래자를 찾아서 이름순으로 정렬
+### 3. 케임브리지에서 근무하는 모든 거래자를 찾아서 이름순으로 정렬
 
 ```java
 List<Trader> cambridgeTraders = transactions.stream()
@@ -140,7 +140,7 @@ System.out.println(cambridgeTraders);
 
 ---
 
-# 4. 모든 거래자의 이름을 알파벳순으로 정렬하여 String 으로 반환
+### 4. 모든 거래자의 이름을 알파벳순으로 정렬하여 String 으로 반환
 
 ```java
 String traderNames2 = transactions.stream() // Stream<Transaction> 반환
@@ -167,7 +167,7 @@ joining() 은 내부적으로 StringBuilder 를 이용한다.
 
 ---
 
-# 5. 밀라노에 거주자가 있는지?
+### 5. 밀라노에 거주자가 있는지?
 
 ```java
 boolean isMilan = transactions.stream()
@@ -180,7 +180,7 @@ System.out.println(isMilan);
 
 ---
 
-# 6. 케임브리지에 거주하는 거래자의 모든 트랜잭션값 출력
+### 6. 케임브리지에 거주하는 거래자의 모든 트랜잭션값 출력
 
 ```java
 transactions.stream()
@@ -195,7 +195,7 @@ transactions.stream()
 
 ---
 
-# 7. 전체 트랜잭션 중 최대값은?
+### 7. 전체 트랜잭션 중 최대값은?
 
 ```java
 Optional<Integer> max = transactions.stream()
@@ -208,7 +208,7 @@ System.out.println(max);
 
 ---
 
-# 8. 전체 트랜잭션 중 최소값은?
+### 8. 전체 트랜잭션 중 최소값은?
 
 ```java
 Optional<Transaction> min2 = transactions.stream()

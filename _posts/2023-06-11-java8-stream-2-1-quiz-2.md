@@ -33,7 +33,7 @@ new int[]{0,1}
 
 ---
 
-# 피보나치 수열 집합 (Stream.iterate())
+### 피보나치 수열 집합 (Stream.iterate())
 ```java
 Stream.iterate(new int[]{0,1}, t -> new int[]{t[1], t[0]+t[1]})
         .limit(20)
@@ -51,7 +51,7 @@ Stream.iterate(new int[]{0,1}, t -> new int[]{t[1], t[0]+t[1]})
 
 ---
 
-# 피보나치 수열 (Stream.iterate())
+### 피보나치 수열 (Stream.iterate())
 ```java
 List<Integer> fib = Stream.iterate(new int[]{0,1}, t -> new int[]{t[1], t[0]+t[1]})
         .limit(10)
@@ -64,7 +64,7 @@ System.out.println(fib);
 
 ---
 
-# 피보나치 수열 (Stream.generate())
+### 피보나치 수열 (Stream.generate())
 
 기존의 수열 상태를 저장하고, getAsInt() 로 다음 요소를 계산할 수 있도록 IntSupplier 를 만들어야 함
 
@@ -73,7 +73,7 @@ IntSupplier fib2 = new IntSupplier() {
   private int previous = 0;
   private int current = 1;
   @Override
-  public int getAsInt() { // 객체 상태가 바뀌며 새로운 값 생상d
+  public int getAsInt() { // 객체 상태가 바뀌며 새로운 값 생성
     int oldPrevious = this.previous;
     int nextValue = this.previous + this.current;
     this.previous = this.current;
