@@ -21,9 +21,9 @@ tags: java java8 lambda-expression functional-interface
   - [함수 디스크립터](#13-함수-디스크립터)
   - [람다 표현식 활용: 실행 어라운드 패턴](#14-람다-표현식-활용--실행-어라운드-패턴)
 - [함수형 인터페이스 사용](#2-함수형-인터페이스-사용)
-  - [Predicate: `boolean test()`](#21-predicate--boolean-test)
-  - [Consumer: `void accept(T)`](#22-consumer--void-acceptt)
-  - [Function: `T apply(R)`](#23-function--t-applyr)
+  - [Predicate\<T\>: `boolean test(T)`](#21-predicatet--boolean-testt)
+  - [Consumer\<T\>: `void accept(T)`](#22-consumert--void-acceptt)
+  - [Function<T,R>: `R apply(T)`](#23-function--tr---r-applyt)
   - [기본형(primitive type) 특화](#24-기본형--primitive-type--특화)
 - [형식 검사, 제약](#3-형식-검사-형식-추론-제약)
   - [형식 검사](#31-형식-검사)
@@ -128,22 +128,26 @@ List<Apple> redApples5 = filter(inventory, (Apple apple) -> "red".equals(apple.g
 람다 표현식으로 함수형 인터페이스의 추상 메서드 구현을 직접 전달할 수 있기 때문에 전체 표현식을 함수형 인터페이스의 인스턴스로 취급할 수 있다.
 
 함수형 인터페이스는 크게 5가지로 나뉘고, 각 인터페이스는 또 여러 개의 인터페이스로 나뉜다.
-- `Predicate`
+- `Predicate<T>`
   - 매개값은 있고, 반환 타입은 boolean 
   - 매개값을 받아 검사한 후 true/false 반환
-  - `boolean test()` 추상 메서드 가짐
-- `Consumer`
+  - `boolean test(T t)` 추상 메서드 가짐
+  - 함수 디스크립터: T -> boolean
+- `Consumer<T>`
   - 매개값은 있고, 반환값은 없음
   - 리턴이 되지 않고 함수 내에서 사용 후 끝
   - `void accept(T)` 추상 메서드 가짐
-- `Function`
+  - 함수 디스크립터: T -> void
+- `Function<T,R>`
   - 매개값과 리턴값 있음
   - 주로 매개값을 반환값으로 매핑할 때 (=타입 변환이 목적일 때) 사용
-  - `T apply(R)` 추상 메서드 가짐
-- `Supplier`
+  - `R apply(T)` 추상 메서드 가짐
+  - 함수 디스크립터: T -> R
+- `Supplier<T>`
   - 매개값은 없고, 반환값은 있음
   - 데이터를 공급해주는 역할
   - `T get()` 추상 메서드 가짐
+  - 함수 디스크립터: () -> T
 - `Operator`
   - 매개값과 리턴값 있음
   - 주로 매개값을 연산하여 동일한 타입의 결과를 반환할 때 사용
@@ -261,9 +265,9 @@ String twoLine = processFile((BufferedReader reader) -> reader.readLine() + read
 
 ---
 
-## 2.1. Predicate: `boolean test()`
+## 2.1. Predicate\<T\>: `boolean test(T)`
 Predicate 는 논리 판단을 해주는 함수형 인터페이스이다.  
-`java.util.function.Predicate<T>` 인터페이스는 `boolean test()` 추상 메서드를 가지며, `test()` 의 시그니처는 아래와 같다.
+`java.util.function.Predicate<T>` 인터페이스는 `boolean test(T t)` 추상 메서드를 가지며, `test()` 의 시그니처는 아래와 같다.
 
 Predicate 함수형 인터페이스 시그니처
 ```java
@@ -275,13 +279,13 @@ public interface Predicate<T> {
 
 **Predicate 계열 함수형 인터페이스**
 
-| 인터페이스             | 메서드                        |
-|:------------------|:---------------------------|
-| Predicate         | boolean test(T t)          |
-| BiPredicate<T,U>  | boolean test(T t, U u)     |
-| IntPredicate      | boolean test(int value)    |
-| LongPredicate     | boolean test(long value)   |
-| DoublePredicate   | boolean test(double value) |
+| 인터페이스            | 메서드                        |
+|:-----------------|:---------------------------|
+| Predicate\<T\>  | boolean test(T t)          |
+| BiPredicate<T,U> | boolean test(T t, U u)     |
+| IntPredicate     | boolean test(int value)    |
+| LongPredicate    | boolean test(long value)   |
+| DoublePredicate  | boolean test(double value) |
 
 
 > Predicate 의 `and`, `or`, `negate` 등의 디폴트 메서드의 좀 더 자세한 내용은 [Java8 - 람다 표현식 (2): 메서드 레퍼런스, 람다 표현식과 메서드의 조합](https://assu10.github.io/dev/2023/06/03/java8-lambda-expression-2/#32-predicate-%EC%99%80-%EC%A1%B0%ED%95%A9) 의
@@ -310,7 +314,7 @@ System.out.println(nonEmptyStrings);
 
 ---
 
-## 2.2. Consumer: `void accept(T)`
+## 2.2. Consumer\<T\>: `void accept(T)`
 Consumer 는 입력을 받아서 함수 내에서 사용 후 별도로 리턴하지 않는다.  
 `java.util.function.Consumer<T>` 인터페이스는 `void accept(T)` 추상 메서드를 가지며, `accept()` 의 시그니처는 아래와 같다.
 
@@ -323,9 +327,9 @@ public interface Consumer<T> {
 
 **Consumer 계열 함수형 인터페이스**
 
-| 인터페이스           | 메서드                           |
+| 인터페이스             | 메서드                           |
 |:------------------|:-------------------------------|
-| Consumer          | void accept(T t)               |
+| Consumer\<T\>     | void accept(T t)               |
 | BiConsumer<T,U>   | void accept(T t, U u)          |
 | IntConsumer       | void accept(int value)         |
 | LongConsumer      | void accept(long value)        |
@@ -350,7 +354,7 @@ forEach(listOfStrings, (String s) -> System.out.println(s));
 
 ---
 
-## 2.3. Function: `T apply(R)`
+## 2.3. Function<T,R>: `R apply(T)`
 Function 은 입력과 출력을 연결하는 함수형 인터페이스이다. (예 - 무게를 도출하거나 문자열을 길이와 매핑)  
 java.util.function.Function<T,R> 인터페이스는 제네릭 형식 T 를 입력받아서 제네릭 형식 R 객체를 반환하는 `R apply(T t)` 추상 메서드를 가지며, 
 `apply()` 의 시그니처는 아래와 같다.
@@ -399,26 +403,26 @@ System.out.println(stringLengths);
 
 **Supplier 계열 함수형 인터페이스**
 
-| 인터페이스            | 메서드                    |
-|:-----------------|:-----------------------|
-| Supplier         | T get()                |
-| BooleanSupplier  | boolean getAsBoolean() |
-| IntSupplier      | int getAsInt()         |
-| LongSupplier     | long getAsLong()       |
-| DoubleSupplier   | double getAsDouble()   |
+| 인터페이스           | 메서드                    |
+|:----------------|:-----------------------|
+| Supplier\<T\>   | T get()                |
+| BooleanSupplier | boolean getAsBoolean() |
+| IntSupplier     | int getAsInt()         |
+| LongSupplier    | long getAsLong()       |
+| DoubleSupplier  | double getAsDouble()   |
 
 **Operator 계열 함수형 인터페이스**
 
-| 인터페이스                 | 메서드                                                |
-|:----------------------|:---------------------------------------------------|
-| UnaryOperator         | T apply(T t)                                       |
-| BinaryOperator        | T apply(T t1, T t2)                                |
-| IntUnaryOperator      | int applyAsInt(int value)                          |
-| LongUnaryOperator     | long applyAsLong(long value)                       |
-| DoubleUnaryOperator   | double applyAsDouble(double value)                 |
-| IntBinaryOperator     | int applyAsInt(int value1, int value2)             |
-| LongBinaryOperator    | Long applyAsLong(long value1, long value2)         |
-| DoubleBinaryOperator  | double applyAsDouble(double value1, double value2) |
+| 인터페이스                | 메서드                                                |
+|:---------------------|:---------------------------------------------------|
+| UnaryOperator        | T apply(T t)                                       |
+| BinaryOperator\<T\>  | T apply(T t1, T t2)                                |
+| IntUnaryOperator     | int applyAsInt(int value)                          |
+| LongUnaryOperator    | long applyAsLong(long value)                       |
+| DoubleUnaryOperator  | double applyAsDouble(double value)                 |
+| IntBinaryOperator    | int applyAsInt(int value1, int value2)             |
+| LongBinaryOperator   | Long applyAsLong(long value1, long value2)         |
+| DoubleBinaryOperator | double applyAsDouble(double value1, double value2) |
 
 ---
 

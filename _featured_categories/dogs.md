@@ -1,10 +1,10 @@
 ---
 layout: list
-title: SILBY
+title: MY CHILD
 slug: dogs
 menu: true
 submenu: false
 order: 2
 description: >
-  I LOVE SILBY💋
+  I LOVE MY CHILD💋
 ---

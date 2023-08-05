@@ -131,7 +131,7 @@ Apple(Integer weight) 시그니처를 갖는 생성자는 Function<T,R> 의 함�
 
 > Function<T,R> 의 함수 디스크립터는 `T -> R`
 
-> Function 함수형 인터페이스의 좀 더 자세한 내용은 [Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/) _2.3. Function: T apply(R)_ 와
+> Function 함수형 인터페이스의 좀 더 자세한 내용은 [Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/) _2.3. Function<T,R>: R apply(T t)_ 와
 > _2.4. 기본형(primitive type) 특화_ 를 참고하세요.
 
 ```java
@@ -144,7 +144,7 @@ Function<Integer, Apple> c4 = (weight) -> new Apple(weight);  // Apple(Integer w
 Apple a4 = c4.apply(10);  // Function 의 apply() 메서드롤 호출하여 새로운 Apple 객체 생성
 ```
 
-[Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/) 의 _2.3. Function: T apply(R)_ 에서 만들었던 map() 을 이용하면
+[Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/) 의 _2.3. Function<T,R>: R apply(T t)_ 에서 만들었던 map() 을 이용하면
 다양한 무게 리스트를 만들 수 있다.
 
 ```java
