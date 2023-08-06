@@ -3,7 +3,7 @@
 # Change `qwtel` to your shortname (used in the front matter to set a page's author, e.g. `author: qwtel`).
 assu:
   name:              assu
-  email:             juhyun1010@naver.com
+#  email:             juhyun1010@naver.com
 
   # Used at the bottom of each page and at the top of the `about` layout
   # Markdown enabled, can use multiple paragraphs (enabled by `|`)
@@ -22,7 +22,7 @@ assu:
   # Comment/uncommet to show/hide
   # Icons appear in order, can be rearranged:
   social:
-    facebook:        assujh
+    # facebook:        assujh
     # twitter:         <username>
     # google:          <number>
     # vk:              <username>
@@ -57,7 +57,7 @@ assu:
     # delicious:       <username>
     # stumbleupon:     <username>
     # paypal:          <username>
-    email:           mailto:juhyun1010@naver.com
+    # email:           mailto:juhyun1010@naver.com
     rss:             https://assu10.github.io/feed.xml
 
 # Another author
