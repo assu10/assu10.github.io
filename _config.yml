@@ -23,7 +23,7 @@ description:         >
 # This should be the same author as first entry in `_data/authors.yml`
 author:
   name:              assu
-  email:             juhyun1010@naver.com
+  # email:             juhyun1010@naver.com
 
 # Fallback image and color
 image:               /assets/img/main_left.jpg
