@@ -28,15 +28,15 @@ Spring boot 프레임워크는 JSON 메시지를 처리하는 Jackson 라이브�
 
 - [GET, DELETE 메서드 매핑](#1-get-delete-메서드-매핑)
   - [GET 메서드 매핑](#11-get-메서드-매핑)
-  - [Controller 구현: `@PathVariable`, `@RequestParam`, `@DateTimeFormat`](#12-controller-구현--pathvariable--requestparam--datetimeformat)
-  - [`@GetMapping`, `@RequestHeader`](#13-getmapping--requestheader)
+  - [Controller 구현: `@PathVariable`, `@RequestParam`, `@DateTimeFormat`](#12-controller-구현-pathvariable-requestparam-datetimeformat)
+  - [`@GetMapping`, `@RequestHeader`](#13-getmapping-requestheader)
   - [ant-style path](#14-ant-style-path)
   - [`@DeleteMapping`](#15-deletemapping)
 - [응답 메시지 처리](#23-jsonformat)
-  - [JSON 마셜링: `@JsonProperty`, `@JsonSerialize`](#21-json-마셜링--jsonproperty--jsonserialize)
+  - [JSON 마셜링: `@JsonProperty`, `@JsonSerialize`](#21-json-마셜링-jsonproperty-jsonserialize)
   - [JsonSerializer, JsonDeserializer](#22-jsonserializer-jsondeserializer)
   - [`@JsonFormat`](#23-jsonformat)
-  - [Enum 클래스의 변환: `@JsonValue`, `@JsonCreator`](#24-enum-클래스의-변환--jsonvalue--jsoncreator)
+  - [Enum 클래스의 변환: `@JsonValue`, `@JsonCreator`](#24-enum-클래스의-변환-jsonvalue-jsoncreator)
 
 ---
 

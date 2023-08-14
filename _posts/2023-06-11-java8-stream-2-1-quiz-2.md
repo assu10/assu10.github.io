@@ -1,4 +1,4 @@
-즈---
+---
 layout: post
 title:  "Java8 - Stream 활용 (2): Quiz (2)"
 date:   2023-06-11

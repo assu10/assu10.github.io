@@ -8,7 +8,7 @@ tags: nestjs interceptor
 
 이 포스팅은 NestJS 의 Interceptor 에 대해 알아본다.
 
-- [Interceptor: `@UseInterceptors`](#1-interceptor--useinterceptors)
+- [Interceptor: `@UseInterceptors`](#1-interceptor-useinterceptors)
 - [응답과 예외 매핑](#2-응답과-예외-매핑)
   - [응답 변형](#21-응답-변형)
   - [예외 매핑](#22-예외-매핑)

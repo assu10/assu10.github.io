@@ -212,7 +212,7 @@ CD 가 없다면 개발자가 직접 패키징된 파일을 각 서버에 분배
 
 ---
 
-## 2.2. MSA 단점 
+## 2.2. MSA 단점
 
 ### 개발이 어려움
 
@@ -551,7 +551,7 @@ Spring Boot 의 `spring-boot-starter-web` 을 이용하여 웹 애플리케이�
 
 ---
 
-## 6.2. Spring Starter 에 포함된 pom.xml 
+## 6.2. Spring Starter 에 포함된 pom.xml
 
 POM (Project Object Model) 파일은 Maven 의 설정 파일이며, **라이브러리들의 의존성을 설정하고 프로젝트를 빌드하는 기능**을 제공한다.
 

@@ -11,7 +11,7 @@ tags: nestjs provider custom-provider
 - [ValueProvider](#1-valueprovider)
 - [ClassProvider](#2-classprovider)
 - [FactoryProvider](#3-factoryprovider)
-- [ExistingProvider (AliasedProvider)](#4-existingprovider--aliasedprovider-)
+- [ExistingProvider (AliasedProvider)](#4-existingprovider-aliasedprovider)
 - [Provider 내보내기](#5-provider-내보내기)
 
 ---

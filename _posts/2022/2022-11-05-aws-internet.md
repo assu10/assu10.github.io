@@ -10,7 +10,7 @@ tags: devops aws internet-gateway igw nat-device proxy-instance nat
 
 > - [인터넷 연결](#1-인터넷-연결)
 >   - [Internet Gateway](#11-internet-gateway)
->   - [NAT Device (NAT Instance & NAT Gateway)](#12-nat-device--nat-instance--nat-gateway-)
+>   - [NAT Device (NAT Instance & NAT Gateway)](#12-nat-device-nat-instance--nat-gateway)
 >   - [Proxy Instance](#13-proxy-instance)
 > - [NAT Instance 로 인터넷 연결 테스트](#2-nat-instance-로-인터넷-연결-테스트)
 >   - [기본 환경 구성](#21-기본-환경-구성)

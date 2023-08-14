@@ -12,14 +12,14 @@ tags: typescript decorator nestjs
 >   - [Decorator Factory](#11-decorator-factory)
 >   - [`PropertyDescriptor`](#12-propertydescriptor)
 >   - [Decorator 역할 요약](#13-decorator-역할-요약)
-> - [Decorator Composition (데커레이터 합성)](#2-decorator-composition--데커레이터-합성-)
+> - [Decorator Composition (데커레이터 합성)](#2-decorator-composition-데커레이터-합성)
 > - [Class Decorator](#3-class-decorator)
 >   - [Class 재정의](#31-class-재정의)
 >   - [Class Decorator Factory](#32-class-decorator-factory)
 > - [Method Decorator](#4-method-decorator)
-> - [Accessor Decorator (접근자 데커레이터)](#5-accessor-decorator--접근자-데커레이터-)
-> - [Property Decorator (속성 데커레이터)](#6-property-decorator--속성-데커레이터-)
-> - [Parameter Decorator (매개변수 데커레이터)](#7-parameter-decorator--매개변수-데커레이터-)
+> - [Accessor Decorator (접근자 데커레이터)](#5-accessor-decorator-접근자-데커레이터)
+> - [Property Decorator (속성 데커레이터)](#6-property-decorator-속성-데커레이터)
+> - [Parameter Decorator (매개변수 데커레이터)](#7-parameter-decorator-매개변수-데커레이터)
 
 ---
 
