@@ -26,7 +26,7 @@ tags: springboot web msa http http-status-code rest-api spring-web-mvc
   - [서블릿 스택과 리액티브 스택](#22-서블릿-스택과-리액티브-스택)
   - [Spring boot 설정](#23-spring-boot-설정)
 - [REST-API 애플리케이션 구축](#3-rest-api-애플리케이션-구축)
-  - [`@ResponseBody`, `HttpMessageConverter`](#31-responsebody--httpmessageconverter)
+  - [`@ResponseBody`, `HttpMessageConverter`](#31-responsebody-httpmessageconverter)
 
 ---
 

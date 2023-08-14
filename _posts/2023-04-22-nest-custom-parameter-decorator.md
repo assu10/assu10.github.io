@@ -12,7 +12,7 @@ tags: nestjs parameter-decorator custom-parameter-decorator
   - [내장 Decorator 종류](#11-내장-decorator-종류)
 - [Custom Parameter Decorator](#2-custom-parameter-decorator)
 - [Custom Parameter Decorator 의 data 활용](#3-custom-parameter-decorator-의-data-활용)
-- [유효성 검사 파이프(ValidationPipe) 적용](#4-유효성-검사-파이프--validationpipe--적용)
+- [유효성 검사 파이프(ValidationPipe) 적용](#4-유효성-검사-파이프validationpipe-적용)
 - [Decorator 합성](#5-decorator-합성)
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/advanced02) 에 있습니다.

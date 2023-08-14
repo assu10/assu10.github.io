@@ -9,7 +9,7 @@ tags: nestjs exception-filter
 이 포스팅은 NestJS 에 예외 필터를 적용하는 방법에 대해 알아본다.
 
 - [예외 처리](#1-예외-처리)
-- [예외 필터: `@Catch`, `@UseFilters`](#2-예외-필터--catch--usefilters)
+- [예외 필터: `@Catch`, `@UseFilters`](#2-예외-필터-catch-usefilters)
 - [유저 서비스](#3-유저-서비스)
   - [예외 필터 적용](#31-예외-필터-적용)
 

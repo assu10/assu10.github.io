@@ -33,7 +33,7 @@ Spring bean 을 선언하고 Spring bean Container 를 사용하여 Spring bean 
   - [애너테이션 기반의 의존성 주입: `@Autowired`, `@Qualifier`](#41-애너테이션-기반의-의존성-주입--autowired--qualifier)
   - [자바 설정의 의존성 주입](#42-자바-설정의-의존성-주입)
 - [ApplicationContext](#5-applicationcontext)
-- [Spring bean Scope: `@Scope`](#6-spring-bean-scope--scope)
+- [Spring bean Scope: `@Scope`](#6-spring-bean-scope-scope)
 - [Spring bean LifeCycle 관리](#7-spring-bean-lifecycle-관리)
 - [Spring bean 고급 정의](#81-primary)
   - [`@Primary`](#81-primary)

@@ -11,7 +11,7 @@ tags: nestjs typeorm
 - [MySQL 설정](#1-mysql-설정)
 - [유저 서비스](#2-유저-서비스)
   - [TypeORM 으로 DB 연결](#21-typeorm-으로-db-연결)
-  - [회원 가입 시 유저 정보 저장: `@InjectRepository`](#22-회원-가입-시-유저-정보-저장--injectrepository)
+  - [회원 가입 시 유저 정보 저장: `@InjectRepository`](#22-회원-가입-시-유저-정보-저장-injectrepository)
   - [Transaction 적용](#23-transaction-적용)
     - [QueryRunner 로 적용](#231-queryrunner-로-적용)
     - [transaction 함수 직접 사용하여 적용](#232-transaction-함수-직접-사용하여-적용)

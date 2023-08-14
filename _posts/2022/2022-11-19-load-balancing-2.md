@@ -8,7 +8,7 @@ tags: devops aws load-balancing route53 dns
 
 이 포스팅은 AWS 의 관리형 DNS 서비스인 Route 53 에 대해 알아본다.
 
-> - [DNS](#1-dns--domain-name-system-)
+> - [DNS](#1-dns-domain-name-system)
 > - [Route 53](#2-route-53)
 >   - [Route 53 라우팅 정책](#21-route-53-라우팅-정책)
 >   - [도메인 이름 생성](#22-도메인-이름-생성)

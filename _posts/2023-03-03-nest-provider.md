@@ -8,9 +8,9 @@ tags: nestjs provider scope
 
 이 포스팅은 NestJS 의 Provider 에 대해 알아본다.
 
-> - [Provider: `@Injectable`](#1-provider--injectable)
+> - [Provider: `@Injectable`](#1-provider-injectable)
 >   - [Provider 등록](#11-provider-등록)
->   - [Provider 사용 (속성 기반 주입): `@Inject`](#12-provider-사용--속성-기반-주입---inject)
+>   - [Provider 사용 (속성 기반 주입): `@Inject`](#12-provider-사용-속성-기반-주입-inject)
 > - [유저 서비스 회원 가입 로직 구현](#2-유저-서비스-회원-가입-로직-구현)
 >   - [Provider 생성](#21-provider-생성)
 >   - [회원 가입](#22-회원-가입)

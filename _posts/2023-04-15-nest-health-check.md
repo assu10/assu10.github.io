@@ -10,8 +10,8 @@ tags: nestjs health-check
 
 - [NestJS 의 Health Check](#1-nestjs-의-health-check)
 - [Terminus 적용](#2-terminus-적용)
-- [HTTP Health Check: `HttpHealthIndicator`, `@HealthCheck()`](#3-http-health-check--httphealthindicator--healthcheck)
-- [TypeORM Health Check: `TypeOrmHealthIndicator`](#4-typeorm-health-check--typeormhealthindicator)
+- [HTTP Health Check: `HttpHealthIndicator`, `@HealthCheck()`](#3-http-health-check-httphealthindicator-healthcheck)
+- [TypeORM Health Check: `TypeOrmHealthIndicator`](#4-typeorm-health-check-typeormhealthindicator)
 - [Custom Health Indicator](#5-custom-상태-표시기)
 
 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch15) 에 있습니다.
