@@ -302,12 +302,12 @@ result: 8910549898444
 SideEffect prallel sum done in: 0 ms
 ```
 
-성능을 둘째치고 정상적인 결과인 50000005000000 이 나오지 않는다.  
+성능은 둘째치고 정상적인 결과인 50000005000000 이 나오지 않는다.  
 여러 스레드에서 동시에 누적자인 total += value 를 실행하기 때문이다.
 
 **병렬 스트림과 병렬 계산에서는 공유된 가변 상태를 피해야 한다!**
 
-> 이러한 상태 변화를 피하는 방법은 추후 다룰 예정입니다.
+> 이러한 상태 변화를 피하는 방법은 [2.1. RecursiveTask\<V>\>](#21-recursivetaskv) 를 참고하세요.
 
 ---
 
@@ -335,7 +335,7 @@ SideEffect prallel sum done in: 0 ms
   - ArrayList 는 LinkedList 보다 효율적으로 분할 가능 
   - LinkedList 는 분할 시 모든 요소를 탐색해야 하지만, ArrayList 는 요소를 탐색하지 않고도 리스트 분할 가능
   - [range()](https://assu10.github.io/dev/2023/06/10/java8-stream-2-1/#25-%EC%88%AB%EC%9E%90-%EB%B2%94%EC%9C%84-range-rangeclosed) factory 메서드로 만든 기본형 스트림도 쉽게 분해 가능
-  - 추후 설명할 커스텀 Spliterator 를 구현해서 분해 과정을 완벽히 제어 가능
+  - 뒤에 설명할 [커스텀 Spliterator](https://assu10.github.io/dev/2023/06/25/java8-parallel-stream-2/) 를 구현해서 분해 과정을 완벽히 제어 가능
 - **파이프라인의 중간 연산이 스트림의 특성을 어떻게 바꾸는지에 따라 분해 과정의 성능이 달라짐**
   - map, SIZED 스트림은 크기를 알고 있기 때문에 정확히 같은 크기의 두 스트림으로 분할할 수 있어서 효과적으로 스트림 병렬 처리 가능
   - 필터 연산같은 경우 스트림의 길이를 예측할 수 없으므로 효과적으로 스트림을 병렬 처리할 수 있을 지 알 수 없음
@@ -685,7 +685,7 @@ ForkJoin sum done in: 18 ms
 ---
 
 그런데 [1.2. 스트림 성능 측정](#12-스트림-성능-측정) 에서는 ForkJoinXXX 같은 분할 로직을 개발하지 않고도 `parallel()` 을 통해 병렬 스트림을 이용하였는데
-그게 가능했던 이유는 스트림을 자동으로 분할해주는 기법인 `Spliterator` 가 있기 때문인데 이 부분은 다음 포스팅에서 알아보도록 한다. 
+그게 가능했던 이유는 스트림을 자동으로 분할해주는 기법인 `Spliterator` 가 있기 때문인데 이 부분은 [Java8 - Stream 으로 병렬 데이터 처리 (2): Spliterator 인터페이스](https://assu10.github.io/dev/2023/06/25/java8-parallel-stream-2/) 에서 알아보도록 한다. 
 
 ---
 
