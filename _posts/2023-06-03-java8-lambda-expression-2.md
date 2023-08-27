@@ -166,6 +166,8 @@ List<Apple> apples = map(weights, Apple::new);  // map() 메서드로 생성자 
 
 생성자 레퍼런스를 사용하면 객체의 생성이 delay 되기 때문에 lazy initialize 가 가능하다. 실제 객체는 get() 이나 apply() 같은 메서드가 호출될 때 생성된다. (=factory method pattern 에 유용히 사용 가능)
 
+> **Factory Method Pattern (팩토리 메서드 패턴)**  
+> 객체의 생성 코드를 변로의 클래스/메서드로 분리함으로써 객체 생성의 변화에 대비하는데 유용
 
 ---
 
