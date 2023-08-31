@@ -10,7 +10,7 @@ tags: msa hystrix zuul ribbon
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)<br /><br />
+>[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br /><br />
 >***3. Zuul - Proxy & API Gateway***<br />
 >   - 게이트 웨이
 >   - Zuul Proxy
@@ -96,7 +96,7 @@ Zuul 은 받은 요청을 추려내서 호출하고자 하는 서비스로 라�
 ---
 
 ## 3. Zuul 구축
-이번 포스팅인 [Config Server](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)와 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
+이번 포스팅인 [Config Server](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)와 [유레카](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)를 구축했다면 아래 구성도가 셋팅되어 있을 것이다.
 
 ![Config Server + 유레카](/assets/img/dev/2020/0816/config_eureka.png)
 
@@ -346,7 +346,7 @@ zuul:
 
 ## 5. 기존의 Feign Client 수정하여 서비스들 간의 통신도 Zuul 로 통신하도록 하기
 이제 기존에 이벤트 서비스에서 Feign 을 이용하여 회원 서비스의 REST API 를 직접 호출하는 부분을 이제 Zuul 을 통해 호출하도록 수정해보자.<br />
-(잘 기억이 나지 않는다면 [유레카](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/) 의 *3.3. 서비스 검색 (Feign 사용)*과
+(잘 기억이 나지 않는다면 [유레카](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/) 의 *3.3. 서비스 검색 (Feign 사용)*과
 [Open Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 을 참고하세요) 
 
 - 기존 : 이벤트 서비스 → 회원 서비스 (Feign 이용하여 **직접 호출**)

@@ -20,7 +20,7 @@ tags: msa zuul hystrix-timeout ribbon-timeout
 Spring Cloud Netflix 는 `load balanced RestTemplate`, `Ribbon`, `Feign` 등 HTTP Requests 생성하는 다양한 방법을 제공한다.<br /> 
 
 
-> *`load balanced RestTemplate` 는 [Spring Cloud - Spring Cloud Eureka](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/) 의
+> *`load balanced RestTemplate` 는 [Spring Cloud - Spring Cloud Eureka](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/) 의
 > 3.3. 서비스 검색 을 참고하시면 도움이 됩니다.*
 >
 > *`Feign` 는 [Spring Cloud - Spring Cloud Feign](https://assu10.github.io/dev/2020/06/18/spring-cloud-feign/) 을 참고하시면 
