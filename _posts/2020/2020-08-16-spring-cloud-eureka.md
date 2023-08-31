@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - Spring Cloud Eureka"
-date:   2020-08-26 10:00
+date:   2020-08-16 10:00
 categories: dev
 tags: msa spring-cloud-eureka feign
 ---
@@ -102,7 +102,7 @@ Eureka 는 서버 컴포넌트와 클라이언트 컴포넌트로 이루어져 �
 
 아래 Eureka 동작 흐름을 살펴보자.
 
-![유레카 동작 흐름](/assets/img/dev/20200816/eureka.png)
+![유레카 동작 흐름](/assets/img/dev/2020/0816/eureka.png)
 
 
 >서비스 부트스트래핑 시점에 각 마이크로 서비스는 Eureka Server 에 서비스 ID와 URL 등의 정보를 등록한 후 30초 간격으로 ping 을 날려 자신의 가용성을 알림<br />
@@ -118,12 +118,12 @@ Eureka 는 서버 컴포넌트와 클라이언트 컴포넌트로 이루어져 �
 이전 포스팅인 [Config Server](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)를 진행했다면
 아래 구성도가 이미 로컬에 셋팅되어 있을 것이다.
 
-![Config Server](/assets/img/dev/20200808/config.png)
+![Config Server](/assets/img/dev/2020/0808/config.png)
 
 기존에 진행한 Config Server에 유레카를 추가하면 아래와 같은 구성도가 된다.
 언뜻 보면 복잡해 보이지만 회색 음영된 부분은 Config Server 구축 시 이미 구성된 부분으로 더 이상 신경 쓰지 않아도 된다.
 
-![Config Server + 유레카](/assets/img/dev/20200816/config_eureka.png)
+![Config Server + 유레카](/assets/img/dev/2020/0816/config_eureka.png)
 
 이 포스팅은 내용을 이해하기 위한 것이기 때문에 Eureka Server 를 클러스터 모드가 아닌 독립 설치형 모드로 진행할 것이다.
 따라서 위 구성도에선 Eureka Server != Eureka Client이다.
@@ -195,7 +195,7 @@ public class EurekaserverApplication {
 
 컨피그 저장소에 Eureka Server 에 대한 설정 정보를 셋팅한다.
 
-![컨피그 저장소 디렉토리 구조](/assets/img/dev/20200816/folder.png)
+![컨피그 저장소 디렉토리 구조](/assets/img/dev/2020/0816/folder.png)
 
 Config Server의 bootstrap.yaml 에 유레카 구성정보 폴더 경로를 추가한다.
 
@@ -260,7 +260,7 @@ C:\eurekaserver\target>java -jar eurekaserver-0.0.1-SNAPSHOT.jar
 
 Config Server 와 Eureka Server 를 띄웠다면 [http://localhost:8761/](http://localhost:8761/) 에 접속하여 유레카 콘솔 화면을 확인해보자.
 
-![유레카 콘솔화면](/assets/img/dev/20200816/eureka_console.png)
+![유레카 콘솔화면](/assets/img/dev/2020/0816/eureka_console.png)
 
 
 콘솔의 "Instances currently registered with Eureka"를 보면 아직 아무런 인스턴스도 등록되어 있지 않다고 나오는데
@@ -345,11 +345,11 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
 [http://localhost:8761/](http://localhost:8761/) 에 접속하여 유레카 콘솔 화면을 보자.
 이벤트 서비스 2개의 인스턴스, 회원 서비스 1개의 인스턴스가 각각 Eureka Server 에 등록되어 있는 부분을 확인할 수 있다.
 
-![유레카 콘솔](/assets/img/dev/20200816/eureka_console2.png)
+![유레카 콘솔](/assets/img/dev/2020/0816/eureka_console2.png)
 
 [http://localhost:8761/eureka/apps/](http://localhost:8761/eureka/apps/) 에 접속하면 Eureka Server 에 등록된 레지스트리 내용을 볼 수 있다.
 
-![유레카 콘솔](/assets/img/dev/20200816/eureka_all.png)
+![유레카 콘솔](/assets/img/dev/2020/0816/eureka_all.png)
 
 또한 [http://localhost:8761/eureka/apps/event-service](http://localhost:8761/eureka/apps/event-service) 이런 식으로 주소 뒤에 애플리케이션 ID를 붙이면 해당 애플리케이션의 정보만 노출된다.
 
@@ -468,7 +468,7 @@ public String gift(ServletRequest req, @PathVariable("name") String name) {
 회원 서비스가 이벤트 서비스의 REST API 를 호출하여 응답받는 부분을 확인할 수 있다.
 
 
-![RestTemplate 를 이용한 호출](/assets/img/dev/20200816/resttemplate.png)
+![RestTemplate 를 이용한 호출](/assets/img/dev/2020/0816/resttemplate.png)
 
 ---
 
@@ -574,12 +574,12 @@ C:\event-service\target>java event-service-0.0.1-SNAPSHOT.jar
 ```
 
 현재 이벤트 서비스 인스턴스 1개, 회원 서비스 인스턴스 2개가 떠 있는 상태이다.
-![유레카 콘솔](/assets/img/dev/20200816/eureka_console3.png)
+![유레카 콘솔](/assets/img/dev/2020/0816/eureka_console3.png)
 
 이벤트 서비스에서 회원 서비스 호출 시 8090, 8091를 번갈아 가며 호출하는 것을 확인할 수 있다.
-![회원 서비스의 8090 인스턴스 호출](/assets/img/dev/20200816/8090.png)
+![회원 서비스의 8090 인스턴스 호출](/assets/img/dev/2020/0816/8090.png)
 
-![회원 서비스의 8091 인스턴스 호출](/assets/img/dev/20200816/8091.png)
+![회원 서비스의 8091 인스턴스 호출](/assets/img/dev/2020/0816/8091.png)
 
 ---
 
@@ -707,9 +707,9 @@ C:\eurekaserver\target>java -DSpring.profiles.active=peer2 -jar eurekaserver-0.0
 
 이 후 이벤트 서비스를 띄운 후 각 유레카 콘솔에 접속해보자.
 
-![peer1 유레카 콘솔](/assets/img/dev/20200816/peering1.png)
+![peer1 유레카 콘솔](/assets/img/dev/2020/0816/peering1.png)
 
-![peer2 유레카 콘솔](/assets/img/dev/20200816/peering2.png)
+![peer2 유레카 콘솔](/assets/img/dev/2020/0816/peering2.png)
 
 peer1 은 peer2 를, peer2 는 peer1 을 피어링하고 있는 것을 확인할 수 있다.
 또한 이벤트 서비스는 peer1 Eureka Server 에만 서비스 등록을 하고 있지만 peer2 Eureka Server 에도 등록된 것을 확인할 수 있다.

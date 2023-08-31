@@ -9,7 +9,7 @@ tags: msa hystrix
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/)<br />
+>[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
 >[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
 >[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
 >[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
@@ -80,7 +80,7 @@ tags: msa hystrix
 
 ### 1.1 클라이언트 측 부하분산
 
-[Spring Cloud - Spring Cloud Eureka](https://assu10.github.io/dev/2020/08/26/spring-cloud-eureka/) 에서
+[Spring Cloud - Spring Cloud Eureka](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/) 에서
 클라이언트 측 부하 분산에 대해 설명을 했지만 다시 한번 설명하자면 
 **클라이언트 측 부하 분산은 클라이언트가 유레카와 같은 서비스 디스커버리 에이전트를 이용해 서비스의 모든 인스턴스를 검색하여 서비스 인스턴스의
 위치를 캐싱한 후 클라이언트가 인스턴스를 호출할 때마다 클라이언트 측 로드 밸런서를 이용하여 서비스 위치를 하나씩 전달받는 것**을 말한다.
