@@ -592,7 +592,6 @@ OffsetDateTime localDateTimeInNewYork = OffsetDateTime.of(localDateTime1, newYor
 - 기존의 java.util.DateFormat 를 java.time.DateTimeFormat 이 대체
 - 기존의 java.util.TimeZone 을 java.time.ZoneId 가 대체
 
-
 ---
 
 ## 참고 사이트 & 함께 보면 좋은 사이트

@@ -68,15 +68,15 @@ _Apple::getWeight_ 는 _(Apple a) -> a.getWeight()_ 람다 표현식과 동일�
 
 - `static 메서드 레퍼런스`
   - class 내부에 존재하는 static 메서드
-  - 람다 표현식 (args) -> ClassName::staticMethod(args) 를 메서드 레퍼런스로 표현하면 ClassName:staticMethod
+  - 람다 표현식 `(args) -> ClassName::staticMethod(args)` 를 메서드 레퍼런스로 표현하면 `ClassName:staticMethod`
   - 예) 람다 표현식 Function<String, Integer> stringToInteger = (String s) -> Integer.parseInt(s) 를 메서드 레퍼런스로 표현하면 Function<String, Integer> stringToInteger = Integer::parseInt
 - `instance 메서드 레퍼런스`
   - class 내부에 존재하는 일반 함수
   - 람다 표현식 (arg0, rest) -> arg0.instanceMethod(rest) 를 메서드 레퍼런스로 표현하면 ClassName::instanceMethod
-  - 예) 람다 표현식 BiPredicate<List\<String\>, String> stringList = (list, ele) -> list.contains(ele) 를 메서드 레퍼런스로 표현하면 BiPredicate<List\<String\>, String> stringList2 = List::contains
+  - 예) 람다 표현식 `BiPredicate<List<String>, String> stringList = (list, ele) -> list.contains(ele)` 를 메서드 레퍼런스로 표현하면 `BiPredicate<List<String>, String> stringList2 = List::contains`
 - `기존 객체의 instance 메서드 레퍼런스`
   - 외부 객체의 메서드 호출 시 사용
-  - 람다 표현식 (args) -> expr.instanceMethod(args) 를 메서드 레퍼런스로 표현하면 expr::instanceMethod
+  - 람다 표현식 `(args) -> expr.instanceMethod(args)` 를 메서드 레퍼런스로 표현하면 `expr::instanceMethod`
   - 예) 람다 표현식 () -> testTransaction.getValue() 를 메서드 레퍼런스로 표현하면 testTransaction::getValue
 
 
@@ -102,7 +102,7 @@ System.out.println(str);
 
 ## 1.1. 생성자 레퍼런스
 
-생성자 레퍼런스는 `static 메서드 레퍼런스` 를 만드는 방법과 비슷하게 ClassName::new 로 만들 수 있다.
+생성자 레퍼런스는 `static 메서드 레퍼런스` 를 만드는 방법과 비슷하게 `ClassName::new` 로 만들 수 있다.
 
 ### 1.1.1. 생성자 인수가 0개인 경우
 
