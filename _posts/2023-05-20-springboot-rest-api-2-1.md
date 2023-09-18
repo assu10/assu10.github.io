@@ -394,9 +394,9 @@ HTTP 파라메터명이 page → pageNum 으로 변경되었으므로 기존처�
 사용자 요청 데이터에 대해 Controller 에서 하드 코딩으로 검증하여 이슈가 있으면 400 Bad Request 를 응답하는 것을 비효율적이다.
 
 사용가 요청 데이터는 크게 2 가지로 분류가 가능하다.
-- Controller 에서 검증 가능한 케이스
+- **Controller 에서 검증 가능한 케이스**
   - 요청 데이터 자체의 포맷, 무결정 검증
-- Service 나 Component 에서 검증 가능한 케이스
+- **Service 나 Component 에서 검증 가능한 케이스**
   - 데이터 저장소의 데이터를 조회하여 데이터 유무 검증
 
 해당 포스트에서는 Controller 에서 검증 가능한 케이스에 대해 알아본다.
@@ -718,7 +718,7 @@ java 에서 예외는 크게 2 종류가 있다.
 - `Checked Exception`
   - java.lang.Exception 클래스를 상속받은 클래스
   - try-catch 로 예외 처리를 하거나 메서드 시그니처에 throws 키워드를 사용하여 메서드를 호출하는 메서드로 예외를 던짐
-  - 예외 처리 하지 않ㅇ면 컴파일 에러 발생
+  - 예외 처리 하지 않으면 컴파일 에러 발생
 - `Unchecked Exception`
   - java.lang.RuntimeException 클래스를 상속받는 Exception 클래스
   - 예외 처리를 하지 않아도 컴파일 에러가 발생하지 않기 때문에 어디선가 적절한 처리를 해줘야 함

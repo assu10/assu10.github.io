@@ -1,0 +1,116 @@
+<mxfile host="Electron" modified="2023-09-18T12:41:28.869Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="7PNmotSSnzylaLughbkk" version="21.7.5" type="device">
+  <diagram name="페이지-1" id="xIo5_FROEQ1ceOgK0KUl">
+    <mxGraphModel dx="994" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-3" value="Web Browser" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="120" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-4" value="http://www.spring.io" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="120" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-5" value="http://api.spring.io" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="120" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-6" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=3;" edge="1" parent="1" target="LvHy15-kfiA7Wn9uhfhL-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="750" as="sourcePoint" />
+            <mxPoint x="440" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-7" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=3;" edge="1" parent="1" target="LvHy15-kfiA7Wn9uhfhL-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="750" as="sourcePoint" />
+            <mxPoint x="250" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-8" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=3;" edge="1" parent="1" target="LvHy15-kfiA7Wn9uhfhL-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="610" y="750" as="sourcePoint" />
+            <mxPoint x="390" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-9" value="" style="endArrow=block;startArrow=block;html=1;rounded=0;endFill=1;startFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="230" as="sourcePoint" />
+            <mxPoint x="380" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-10" value="GET /index.html" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="LvHy15-kfiA7Wn9uhfhL-9">
+          <mxGeometry x="-0.8609" y="3" relative="1" as="geometry">
+            <mxPoint x="50" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-11" value="" style="endArrow=block;startArrow=block;html=1;rounded=0;endFill=1;startFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="280" as="sourcePoint" />
+            <mxPoint x="380" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-12" value="GET /api.js" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="LvHy15-kfiA7Wn9uhfhL-11">
+          <mxGeometry x="-0.8609" y="3" relative="1" as="geometry">
+            <mxPoint x="34" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-13" value="" style="endArrow=block;startArrow=none;html=1;rounded=0;endFill=1;startFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="330" as="sourcePoint" />
+            <mxPoint x="610" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-14" value="preflight 요청" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="LvHy15-kfiA7Wn9uhfhL-13">
+          <mxGeometry x="-0.8609" y="3" relative="1" as="geometry">
+            <mxPoint x="18" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-15" value="OPTIONS /v1/hotels HTTP/1.1&lt;br&gt;Host: api.spring.io&lt;br&gt;Origin: www.spring.io&lt;br&gt;Access-Control-Request-Method: GET&lt;br&gt;Access-Control-Request-Headers: Authorization" style="shape=card;whiteSpace=wrap;html=1;direction=south;align=left;" vertex="1" parent="1">
+          <mxGeometry x="160" y="348" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-16" value="" style="endArrow=block;startArrow=none;html=1;rounded=0;endFill=1;startFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="610" y="476" as="sourcePoint" />
+            <mxPoint x="150" y="476" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-17" value="preflight 응답" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="LvHy15-kfiA7Wn9uhfhL-16">
+          <mxGeometry x="-0.8609" y="3" relative="1" as="geometry">
+            <mxPoint x="-28" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-18" value="HTTP/1.1 200 OK&lt;br&gt;Access-Control-Allow-Origin: www.spring.io&lt;br&gt;Access-Control-Allow-Method: GET, POST&lt;br&gt;Access-Control-Allow-Headers: *&lt;br&gt;Access-Control-Max-Age: 86400" style="shape=card;whiteSpace=wrap;html=1;direction=south;align=left;" vertex="1" parent="1">
+          <mxGeometry x="339" y="495" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-19" value="" style="endArrow=block;startArrow=none;html=1;rounded=0;endFill=1;startFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="630" as="sourcePoint" />
+            <mxPoint x="610" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-20" value="REST-API 요청" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="LvHy15-kfiA7Wn9uhfhL-19">
+          <mxGeometry x="-0.8609" y="3" relative="1" as="geometry">
+            <mxPoint x="22" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-21" value="GET /v1/hotels HTTP/1.1&lt;br&gt;Host: api.spring.io&lt;br&gt;Origin: www.spring.io" style="shape=card;whiteSpace=wrap;html=1;direction=south;align=left;" vertex="1" parent="1">
+          <mxGeometry x="160" y="650" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-22" value="①" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=19;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="160" y="200" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-23" value="②" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=19;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="160" y="250" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-24" value="⑤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=19;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="160" y="600" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-25" value="④" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=19;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="570" y="440" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LvHy15-kfiA7Wn9uhfhL-26" value="③" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=19;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="160" y="300" width="30" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

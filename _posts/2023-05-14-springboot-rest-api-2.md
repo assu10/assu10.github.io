@@ -568,7 +568,7 @@ public enum HotelRoomType {
 
   private final String param; // 마셜링 후 사용되는 JSON 객체 값 저장
 
-  // 모든 enum 상수 선언 시 JSON 객체 값으로 사용도리 값을 인수로 입력
+  // 모든 enum 상수 선언 시 JSON 객체 값으로 사용될 값을 인수로 입력
   // SINGLE 상수는 문자열 'single' 이 param 값으로 할당됨
   HotelRoomType(String param) {
     this.param = param;

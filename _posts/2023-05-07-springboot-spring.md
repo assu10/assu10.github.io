@@ -323,9 +323,9 @@ public class ServerConfiguration {
 
 애플리케이션 개발 작업 시 애플리케이션 설정 영역과 비즈니스 로직 영역, 이렇게 두 가지로 용도를 나누어 각각 다른 방식으로 Spring bean 을 정의한다.
 
-- 애플리케이션 설정 시
+- **애플리케이션 설정 시**
   - 자바 설정을 이용한 `@Bean` 사용 (=자바 설정 방식)
-- 비즈니스 로직 개발 시
+- **비즈니스 로직 개발 시**
   - 스테레오 타입 애너테이션 사용 (=애너테이션 기반 설정)
 
 스테레오 타입 애너테이션으로 정의된 클래스들은 `@ComponentScan` 으로 스캔되어 Spring bean 으로 생성된다.
@@ -487,7 +487,7 @@ public @interface Qualifier {
 `@Qualifier` 는 메서드, 파라메터, 필드, 애너테이션에 정의 가능하다. value 속성값은 Spring bean 의 이름이 된다.  
 `@Qualifier` 는 의존성을 주입할 Spring bean 이름을 정의한다. 
 **클래스 타입은 같지만 이름이 다른 여러 Spring bean 이 있을 경우 이 중 정의된 이름의 Spring bean 을 주입받기 위해 사용**한다.  
-(`@Qualifier` 애너테이션이 아닌 [`@Primary`](#81-primary) 로도 처리 가능)
+(`@Qualifier` 애너테이션이 아닌 [`@Primary`](#81-primary) 로도 처리 가능)  
 따라서 이런 경우가 아니라면 `@Qualifier` 는 생략 가능하다.
 
 /service/OrderPrinter.java
@@ -628,7 +628,7 @@ public class OrderPrinter2 implements Printer<ProductOrder> {
 }
 ```
 
-필드 주입이나 Setter 메서드 주입과 달리 생성자 주입을 사용하게 되면 테스트 케이스 작성 시 mock 객체 주입이 편리하다는 큰 장점이 있다.
+필드 주입이나 Setter 메서드 주입과 달리 **생성자 주입을 사용하게 되면 테스트 케이스 작성 시 mock 객체 주입이 편리하다는 큰 장점**이 있다.
 
 SpringBean03Application.java
 ```java
@@ -799,15 +799,18 @@ Spring 프레임워크는 6 개의 Scope 를 제공하며, 이 Scope 설정에 �
 - `request`
   - 웹 기능 한정 Scope
   - Spring bean Container 는 HTTP 요청을 처리할 때마다 새로운 객체 생성
-  - `@RequestScope` 애너테이션과 함께 사용하여 정의, 예) @RequestScope, @Scope("request")
+  - `@RequestScope` 애너테이션과 함께 사용하여 정의
+  - 예) @RequestScope, @Scope("request")
 - `session`
   - 웹 기능 한정 Scope
   - HTTP Session 과 대응하는 새로운 객체 생성
-  - `@SessionScope` 애너테이션과 함께 사용하여 정의, 예) @SessionScope, @Scope("session")
+  - `@SessionScope` 애너테이션과 함께 사용하여 정의
+  - 예) @SessionScope, @Scope("session")
 - `application`
   - 웹 기능 한정 Scope
   - Servlet Context 와 대응하는 새로운 객체 생성
-  - `@ApplicationScope` 애너테이션과 함께 사용하여 정의, 예) @ApplicationScope, @Scope("application")
+  - `@ApplicationScope` 애너테이션과 함께 사용하여 정의
+  - 예) @ApplicationScope, @Scope("application")
 - `websocket`
   - 웹 기능 한정 Scope
   - Web Socket Session 과 대응하는 새로운 객체 생성
@@ -940,6 +943,7 @@ singletonDateFormatter 객체의 해시 코드 값이 항상 일정한 것을 �
 formatter 변수에 주입해도 Spring bean 객체는 변함없이 하나임을 의미한다.
 
 이렇게 오류가 발생하는 이유는 DateFormatter.java 가 의존하는 SimpleDateFormatter 가 멀티 스레드에 안전하지 않은 클래스이기 때문이다.  
+
 이럴 때는 아래 3가지 방법 중 하나를 적용하여 해결 가능하다.
 
 - DateFormatter 클래스의 SimpleDateFormatter sdf 를 클래스 변수에서 제거하고 parse() 내부에서 new 키워드를 사용하도록 리팩터링  
@@ -973,7 +977,8 @@ Spring bean 을 생성/소멸하는 과정에서 호출되는 callback 함수들
 
 개발자가 Spring bean LifeCycle 에 관여해야 하는 이유는 여러 가지가 있겠지만 스레드 풀의 한 종류인 ThreadPoolTaskExecutor 클래스를 Spring bean 으로 정의하는 경우를 예로 보자.
 
-스레드 풀이므로 여러 스레드를 생성하는 비용이 크기 때문에 애플리케이션 런타임 도중에 생성하는 것보다 애플리케이션 실행 전에 미리 생성하는 것이 유리하다.  
+스레드 풀이므로 여러 스레드를 생성하는 비용이 크기 때문에 애플리케이션 런타임 도중에 생성하는 것보다 애플리케이션 실행 전에 미리 생성하는 것이 유리하다.
+
 Spring bean 은 Spring bean Container 로 생성되므로 애플리케이션이 시작 가능한 상태가 되기 전에 스레드 풀은 초기화되어야 하고, 애플리케이션이 종료되기 전에
 작업 중인 스레드 풀이 있다면 작업이 끝날 때까지 정리하는 작업이 필요하다.
 
@@ -1328,7 +1333,7 @@ Bean info. type: class java.lang.Long, value: 1
 
 `@Lazy` 애너테이션은 Spring bean 생성을 지연한다.  
 
-Spring bean Container 는 일반적으로 Spring bean 설정을 읽고 Spring bean 객체를 생성하고(Scope 가 singleton 이라고 가정), 생성된 Spring bean  rorcpfmf
+Spring bean Container 는 일반적으로 Spring bean 설정을 읽고 Spring bean 객체를 생성하고(Scope 가 singleton 이라고 가정), 생성된 Spring bean 객체를 
 의존성 주입하지만, `@Lazy` 가 선언된 Spring bean 은 설정만 로딩한다. 그리고 의존성을 주입하는 시점에 Spring bean 객체를 생성한다.
 
 아래는 `@Lazy` 애너테이션이 적용된 Spring bean 이 초기화되는 시점을 알 수 있는 예시이다.
