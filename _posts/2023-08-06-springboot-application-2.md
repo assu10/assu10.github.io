@@ -8,7 +8,6 @@ tags: springboot msa HttpMessageConverter ObjectMapper
 
 이 포스팅에서는 `HttpMessageConverter` 와 `ObjectMapper` 를 설정하는 법에 대해 알아본다.
 
-
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap06) 에 있습니다.
 
 ---
@@ -29,7 +28,7 @@ tags: springboot msa HttpMessageConverter ObjectMapper
 - SDK: JDK 17
 - 의존성 관리툴: Maven
 - Group: com.assu.study
-- Artifact: chap05
+- Artifact: chap06
 
 ![Spring Initializer](/assets/img/dev/2023/0805/init.png)
 
@@ -405,7 +404,7 @@ HotelRoomResponse 의 List<Reservation> reservation 속성은 리스트 타입�
 즉, 스프링 빈이 아닌 `new` 키워드로 생성한 `ObjectMapper` 객체를 직접 `HttpMessageConverter` 의 생성자로 전달하면 
 `JacksonAutoConfiguration` 자동 설정 클래스가 동작하여 개발자가 설정한 `ObjectMapper` 가 동작하지 않는다.
 
-`ObjectMapper` 는 멀티 스레드에 안전한 클래스이기 때문에 동시에 여러 스레드에서 `ObjectMapper` 의 메서드를 사용해도 다른 스레드에 영향을 주지 않는다.
+**`ObjectMapper` 는 멀티 스레드에 안전한 클래스이기 때문에 동시에 여러 스레드에서 `ObjectMapper` 의 메서드를 사용해도 다른 스레드에 영향을 주지 않는다.**
 
 `ObjectMapper` 를 변경하려면 아래와 같이 자바 설정 클래스에 스프링 빈으로 등록하고, `@Primary` 애너테이션을 사용하여 우선권을 갖도록 설정한다.  
 그러면 개발자가 정의한 `ObjectMapper` 스프링 빈이 ApplicationContext 에 포함되고, 스프링 프레임워크의 의존성 주입 기능으로 `HttpMessageConverter` 에도 적용된다.
@@ -502,4 +501,4 @@ reservations 의 요소 개수가 0일 경우 출력이 되지 않는 것을 확
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)
-* [LocalDate datesUntil](https://ntalbs.github.io/2020/java-date-practice/)
+* [LocalDate datesUntil()](https://ntalbs.github.io/2020/java-date-practice/)

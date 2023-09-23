@@ -46,7 +46,7 @@ tags: springboot msa web-mvc-configurer dispatcher-servlet
 - SDK: JDK 17
 - 의존성 관리툴: Maven
 - Group: com.assu.study
-- Artifact: chap05
+- Artifact: chap06
 
 ![Spring Initializer](/assets/img/dev/2023/0805/init.png)
 
