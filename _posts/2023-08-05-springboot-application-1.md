@@ -33,7 +33,7 @@ tags: springboot msa web-mvc-configurer dispatcher-servlet
     - [`addFormatters()`](#1210-addformatters)
     - [`addArgumentResolvers()`](#1211-addargumentresolvers)
     - [`addReturnValueHandlers()`](#1212-addreturnvaluehandlers)
-    - [`configureMessageConverter()` 와 `extendMessageConverters()`](#1213-configuremessageconverter-와-extendmessageconverters)
+    - [`configureMessageConverters()` 와 `extendMessageConverters()`](#1213-configuremessageconverters-와-extendmessageconverters)
   - [DispatcherServlet 설정](#12-webmvcconfigurer-를-이용한-설정)
 
 ---
@@ -203,6 +203,36 @@ public Callable<HotelRoomResponse> getHotelRoomByPeriod(
     return HotelRoomResponse.of(hotelId, roomNumber);
   };
   return response;
+}
+```
+
+/controller/HotelRoomResponse.java (DTO)
+```java
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Getter;
+
+// DTO
+@Getter
+public class HotelRoomResponse {
+
+  @JsonProperty("id") // JSON 객체로 마셜링하는 과정에서 hotelRoomId 속성명 대신 다른 id 가 JSON 객체의 속성명이 됨
+  @JsonSerialize(using = ToStringSerializer.class)  // 마셜링 과정에서 hotelRoomId 의 Long 타입을 String 타입으로 변경
+  private final Long hotelRoomId;
+
+  private final String roomNumber;
+
+  private HotelRoomResponse(Long hotelRoomId, String roomNumber) {
+    this.hotelRoomId = hotelRoomId;
+    this.roomNumber = roomNumber;
+  }
+
+  // 호출하는 쪽에서 생성자 직접 호출하지 않게 하기 위해..
+  // 정적 팩토리 메서드 패턴
+  public static HotelRoomResponse of(Long hotelRoomId, String roomNumber) {
+    return new HotelRoomResponse(hotelRoomId, roomNumber);
+  }
 }
 ```
 
@@ -451,7 +481,7 @@ public Callable<HotelRoomResponse> getHotelRoomByPeriod(
 @PathVariable HotelRoomNumber roomNumber
 ) {
   Callable<HotelRoomResponse> response = () -> {
-    return HotelRoomResponse.of(hotelId, String.valueOf(roomNumber.getRoomNumber()));
+    return HotelRoomResponse.of(hotelId, roomNumber.toString());
   };
   return response;
 }
@@ -681,11 +711,11 @@ REST-API 애플리케이션에서는 JSON 타입의 메시지를 응답하고, �
 즉, REST-API 는 `HandlerMethodReturnValueHandler` 구현체 없이 객체를 JSON 으로 마셜링할 수 있다.
 
 만약 REST-API 애플리케이션에서 핸들러 메서드가 JSON 이 아닌 아른 포맷으로 리턴해야 한다면 `HttpMessageConverter` 를 확장한 후
-`configureMessageConverter()` 나 `extendMessageConverters()` 를 통해 프레임워크에 설정하는데 이건 바로 다음에 나온다.
+`configureMessageConverters()` 나 `extendMessageConverters()` 를 통해 프레임워크에 설정하는데 이건 바로 다음에 나온다.
 
 ---
 
-### 1.2.13. `configureMessageConverter()` 와 `extendMessageConverters()`
+### 1.2.13. `configureMessageConverters()` 와 `extendMessageConverters()`
 
 `@ResponseBody`, `@RequestBody` 애너테이션이 적용된 대상을 특정 포맷으로 변경하는 `HttpMessageConverter` 를 설정하는 메서드이다.
 

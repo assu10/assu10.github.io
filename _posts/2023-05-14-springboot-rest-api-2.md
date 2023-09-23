@@ -33,7 +33,7 @@ Spring boot 프레임워크는 JSON 메시지를 처리하는 Jackson 라이브�
   - [ant-style path](#14-ant-style-path)
   - [`@DeleteMapping`](#15-deletemapping)
 - [응답 메시지 처리](#23-jsonformat)
-  - [JSON 마셜링: `@JsonProperty`, `@JsonSerialize`](#21-json-마셜링-jsonproperty-jsonserialize)
+  - [JSON 마셜링: `@JsonProperty`, `@JsonSerialize`](#21-json-마셜링--jsonproperty--jsonserialize)
   - [JsonSerializer, JsonDeserializer](#22-jsonserializer-jsondeserializer)
   - [`@JsonFormat`](#23-jsonformat)
   - [Enum 클래스의 변환: `@JsonValue`, `@JsonCreator`](#24-enum-클래스의-변환-jsonvalue-jsoncreator)
