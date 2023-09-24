@@ -692,11 +692,15 @@ public class WebConfig implements WebMvcConfigurer {
       @PathVariable Long hotelId,
       @PathVariable HotelRoomNumber roomNumber
   ) {
-  
+        System.out.println(clientInfo);
         ...
   
     return response;
   }
+```
+
+```shell
+ClientInfo(channel=iOS, clientAddress=101.120.121.124)
 ```
 
 ---
