@@ -724,7 +724,7 @@ REST-API 애플리케이션에서는 JSON 타입의 메시지를 응답하고, �
 
 `@ResponseBody`, `@RequestBody` 애너테이션이 적용된 대상을 특정 포맷으로 변경하는 `HttpMessageConverter` 를 설정하는 메서드이다.
 
-> 좀 더 자세한 내용은 추후 다룰 예정입니다.
+> 좀 더 자세한 내용은 [Spring Boot - 웹 애플리케이션 구축 (2): HttpMessageConverter, ObjectMapper](https://assu10.github.io/dev/2023/08/06/springboot-application-2/#11-httpmessageconverter-%EC%84%A4%EC%A0%95) 의 _1.1. `HttpMessageConverter` 설정_ 를 참고하세요.
 
 ---
 

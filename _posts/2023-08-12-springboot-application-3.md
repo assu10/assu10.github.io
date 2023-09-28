@@ -124,7 +124,8 @@ Locale 값을 변경하는 기본 파라메터명은 'locale' 이다.
 파라메터값는 언어 태그나 지역 코드를 합친 언어 태그를 사용하고 보통 java.util.Locale 객체의 toString() 값을 사용한다.
 
 > en_US 에서 en 은 언어 태그, US 는 지역 태그  
-> 추후 국제화(i18n) 에서 좀 더 자세히 다룰 예정입니다.
+
+> 국제화(i18n) 의 좀 더 자세한 내용은 [Spring Boot - 웹 애플리케이션 구축 (5): 국제화 메시지 처리, 로그 설정, 애플리케이션 패키징과 실행](https://assu10.github.io/dev/2023/08/19/springboot-application-5/#1-rest-api-%EC%99%80-%EA%B5%AD%EC%A0%9C%ED%99%94-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%B2%98%EB%A6%AC) 의 _1. REST-API 와 국제화 메시지 처리_ 를 참고하세요.
 
 `LocaleResolver` 와 `LocaleChangeInterceptor` 는 Locale 을 처리하는 역할은 같지만 그 기능은 다르다.
 
