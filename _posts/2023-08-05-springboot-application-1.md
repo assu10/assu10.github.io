@@ -34,7 +34,7 @@ tags: springboot msa web-mvc-configurer dispatcher-servlet
     - [`addArgumentResolvers()`](#1211-addargumentresolvers)
     - [`addReturnValueHandlers()`](#1212-addreturnvaluehandlers)
     - [`configureMessageConverters()` 와 `extendMessageConverters()`](#1213-configuremessageconverters-와-extendmessageconverters)
-  - [DispatcherServlet 설정](#12-webmvcconfigurer-를-이용한-설정)
+  - [DispatcherServlet 설정](#13-dispatcherservlet-설정)
 
 ---
 
