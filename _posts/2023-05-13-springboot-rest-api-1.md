@@ -40,6 +40,24 @@ tags: springboot web msa http http-status-code rest-api spring-web-mvc
 - Group: com.assu.study
 - Artifact: chap04
 
+pom.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.assu</groupId>
+    <artifactId>study</artifactId>
+    <version>1.1.0</version>
+  </parent>
+
+  <artifactId>chap04</artifactId>
+
+</project>
+```
+
 ---
 
 # 1. HTTP 프로토콜

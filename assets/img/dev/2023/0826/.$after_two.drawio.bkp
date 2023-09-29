@@ -1,0 +1,70 @@
+<mxfile host="Electron" modified="2023-09-29T05:33:57.970Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.0 Chrome/114.0.5735.289 Electron/25.8.3 Safari/537.36" etag="hGrw-Lh8MK4TJ3GqMPL0" version="22.0.0" type="device">
+  <diagram name="페이지-1" id="Z8DlbcTmISl2q6gprPQf">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="O1sdwsgHIT84tqkTw0ls-3" target="O1sdwsgHIT84tqkTw0ls-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=none;endFill=0;startArrow=block;startFill=1;" edge="1" parent="1" source="O1sdwsgHIT84tqkTw0ls-3" target="O1sdwsgHIT84tqkTw0ls-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-3" value="클라이언트&lt;br&gt;클래스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="80" width="80" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="O1sdwsgHIT84tqkTw0ls-5" target="O1sdwsgHIT84tqkTw0ls-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-5" value="서버&lt;br&gt;클래스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="80" width="80" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-6" value="메서드가 실행될 때" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="198" y="115" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-7" value="메서드가 리턴될 때" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="390" y="170" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-8" value="예외가 발생될 때" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="396" y="225" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-17" value="After Returning 어드바이스 실행 시점" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="30" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-18" value="After Throwing 어드바이스 실행 시점" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="380" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-19" value="After Returning 어드바이스" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="175" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="O1sdwsgHIT84tqkTw0ls-24" target="O1sdwsgHIT84tqkTw0ls-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=none;endFill=0;startArrow=block;startFill=1;" edge="1" parent="1" source="O1sdwsgHIT84tqkTw0ls-24" target="O1sdwsgHIT84tqkTw0ls-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-24" value="클라이언트&lt;br&gt;클래스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="430" width="80" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="O1sdwsgHIT84tqkTw0ls-26" target="O1sdwsgHIT84tqkTw0ls-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-26" value="서버&lt;br&gt;클래스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="430" width="80" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-27" value="메서드가 실행될 때" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="198" y="465" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-28" value="메서드가 리턴될 때" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="390" y="520" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-29" value="예외가 발생될 때" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="396" y="575" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O1sdwsgHIT84tqkTw0ls-30" value="After Throwing 어드바이스" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="581" width="150" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
