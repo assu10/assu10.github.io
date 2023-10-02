@@ -1345,6 +1345,12 @@ Bean info. type: class java.lang.Long, value: 1
 하지만 오류가 발생할 때 어떤 Spring bean 이 중복되었는지 자세히 알려주므로 가능하면 **default 인 false 값을 유지**하고, 오류가 발생하면 Spring bean 이름을 변경하여
 중복되지 않도록 하는 것이 좋다.
 
+만일 테스트 시 `@TestConfiguration` 을 통해 스프링 빈을 재정의해야 할 경우엔 `spring.main.allow-bean-definition-overriding` 를 true 로 
+설정해주어야 하는 경우는 application-test.properties 파일에 설정한다.
+
+> `spring.main.allow-bean-definition-overriding=true` 로 해야하는 경우에 대한 예시는 
+> [Spring Boot - 스프링 부트 테스트](https://assu10.github.io/dev/2023/08/27/springboot-test/#4-testconfiguration-을-이용하여-테스트-환경-설정) 를 참고하세요.
+
 ---
 
 ## 8.2. `@Lazy`
