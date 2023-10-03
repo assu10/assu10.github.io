@@ -70,9 +70,10 @@ pom.xml
     </dependency>
 
     <!-- mysql 관련 jdbc 드라이버와 클래스들 -->
+    <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
       <version>8.0.33</version>
     </dependency>
   </dependencies>
@@ -360,7 +361,8 @@ Spring Data JPA + JPA/Hibernate 구성의 경우 구현 클래스가 아닌 인�
   - 프레임워크에서 만든 규칙에 따라 메서드를 만들어서 쿼리를 생성할 수 있으며, 애플리케이션이 시작할 때 메서드를 분석하여 생성함
   - 간단한 쿼리는 직접 구현하지 않고 이 기능을 사용하여 쉽게 데이터 처리 가능
 - **감사 기능 제공**
-  - 데이터 생성/수정 시 누가 언제 했는지 추적할 수 있는 애너테이션과 기능 제공
+  - 데이터 생성/수정 시 누가 언제 했는지 추적할 수 있는 애너테이션과 기능 제공사
+  - [Spring Boot - 데이터 영속성(2): 엔티티 클래스 설계](https://assu10.github.io/dev/2023/09/03/springboot-database-2/#6-엔티티-클래스-상속과-mappedsuperclass) 참고
 - **페이징과 정렬 같은 부가 기능 제공**
   - o.s.data.domain.Pageable 인터페이스와 o.s.data.jpa.repository.PagingAndSortingRepository 인터페이스 제공
   - PagingAndSortingRepository 는 JpaRepository 의 부모 인터페이스이므로 JpaRepository 를 사용하는 모든 커스텀 Repository 클래스들은 이용 가능
