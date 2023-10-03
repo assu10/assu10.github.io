@@ -1,0 +1,67 @@
+<mxfile host="Electron" modified="2023-10-03T04:48:22.700Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.1 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="o40pzOTvL9VpDDkmuGqv" version="22.0.1" type="device">
+  <diagram name="페이지-1" id="FgVTL5Cb9elp9pYjTE1p">
+    <mxGraphModel dx="980" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="100" as="sourcePoint" />
+            <mxPoint x="374" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LCLAmSWC3i20AgQIKxbR-1" value="애플리케이션" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="240" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-1" value="DataSource (커넥션 풀)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="375" y="40" width="240" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-2" value="MySQL" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="680" y="40" width="90" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-3" value="Thread #1" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="90" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-4" value="Thread #2" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="130" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-5" value="Connection 객체 (Active)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="415" y="80" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-6" value="Connection 객체 (Active)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="415" y="120" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-7" value="Connection 객체 (Idle)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="415" y="160" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="177" as="sourcePoint" />
+            <mxPoint x="374" y="177" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-10" value="getConnection()" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="154" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="615" y="94.5" as="sourcePoint" />
+            <mxPoint x="679" y="94.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="616" y="173.5" as="sourcePoint" />
+            <mxPoint x="680" y="173.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GJkdpMebeu1_8bUTkQ1m-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="616" y="134.5" as="sourcePoint" />
+            <mxPoint x="680" y="134.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

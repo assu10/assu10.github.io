@@ -1,0 +1,72 @@
+<mxfile host="Electron" modified="2023-10-02T09:09:48.229Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.0 Chrome/114.0.5735.289 Electron/25.8.3 Safari/537.36" etag="eoOG8d4wQ-R9qsRbyj1y" version="22.0.0" type="device">
+  <diagram name="페이지-1" id="v7uA9Oea0civjN8i4D_-">
+    <mxGraphModel dx="994" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xRG0D184axwYZJC-ApsY-2" value="&lt;b&gt;Java 애플리케이션&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="500" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="242" as="sourcePoint" />
+            <mxPoint x="300.25" y="242" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-3" value="&lt;b&gt;클래스&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="110" y="150" width="130" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-4" value="&lt;b&gt;JDBC&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="300.25" y="150" width="250" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-5" value="SQL 구문" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="220" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-6" value="JDBC&lt;br&gt;인터페이스" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310.25" y="220" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-7" value="데이터베이스&lt;br&gt;드라이버" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430.25" y="220" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-8" value="&lt;b&gt;MySQL&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="680" y="150" width="93" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="290" as="sourcePoint" />
+            <mxPoint x="300.25" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.022;entryY=0.417;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="241" as="sourcePoint" />
+            <mxPoint x="677.954" y="241.07999999999993" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.022;entryY=0.417;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="581.05" y="290.5" as="sourcePoint" />
+            <mxPoint x="679.0039999999999" y="290.5799999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-25" value="SQL 문 질의" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="590" y="220" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-26" value="결과 응답" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="590" y="291" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-27" value="" style="endArrow=none;html=1;rounded=0;exitX=0.998;exitY=0.444;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540.03" y="265.96000000000004" as="sourcePoint" />
+            <mxPoint x="680" y="266" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xRG0D184axwYZJC-ApsY-28" value="연결" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="xRG0D184axwYZJC-ApsY-27">
+          <mxGeometry x="-0.1145" relative="1" as="geometry">
+            <mxPoint x="17" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
