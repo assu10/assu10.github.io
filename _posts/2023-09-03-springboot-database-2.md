@@ -450,7 +450,7 @@ public class HotelEntity extends AbstractManageEntity {
   // ...
   
   @Column
-  @Convert(converter = HotelStatus.class)
+  @Convert(converter = HotelStatusConverter.class)
   private HotelStatus status;
   
   // ...

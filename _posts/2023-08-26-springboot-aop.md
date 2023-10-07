@@ -799,7 +799,7 @@ ElapseLoggingAspect 에서도 try-finally 구문만 사용하여 메서드의 �
 그대로 다시 던지도록 loggingPerformance() 메서드 시그니처에 throws Throwable 로 선언되어 있다.
 
 스프링 프레임워크는 RuntimeException 이 발생하면 프레임워크 내부에서 이를 이용하여 처리하는 로직들이 있다.  
-예를 들어 트랜잭션 기능을 제공하는 `@Transactional` 은 RuntimeException 이 발생하몀ㄴ 진행 중인 트랜잭션을 롤백하여 사용하던 커넥션 객체를 
+예를 들어 트랜잭션 기능을 제공하는 `@Transactional` 은 RuntimeException 이 발생하년 진행 중인 트랜잭션을 롤백하여 사용하던 커넥션 객체를 
 커넥션 풀에 다시 반환한다.
 
 근데 만일 loggingPerformance() **_어드바이스가 예외를 다시 던지지 않고 직접 처리한다면 트랜잭션 매니저의 예외 처리 부분이 정상적으로 동작하지 않고, 
