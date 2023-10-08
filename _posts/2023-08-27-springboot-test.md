@@ -1419,3 +1419,5 @@ HotelController 가 의존하는 HotelDisplayService 클래스는 `@Service` 로
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)
+* [tdd 라이브 템플릿](https://ahn3330.tistory.com/128)
+* [인텔리제이 (IntelliJ )스마트하게 사용하기 - 테스트 코드 쉽게 만들기 (go to test, live templates 활용)](https://velog.io/@joshuara7235/IntelliJ-%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%98%EA%B2%8C-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-Test-code-%EC%89%BD%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0-go-to-test-live-templates-%ED%99%9C%EC%9A%A9)

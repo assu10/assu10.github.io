@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Boot - 데이터 영속성(3): JpaRepository, 쿼리 메서드"
 date:   2023-09-03
 categories: dev
-tags: springboot msa database spring-data-jpa query-method data-jpa-test jpa-reposiroty
+tags: springboot msa database spring-data-jpa query-method data-jpa-test jpa-repository
 ---
 
 이 포스팅에서는 Spring Data JPA 에서 제공하는 리포지터리와 쿼리 메서드 전략으로 데이터를 쉽게 사용하는 법에 대해 알아본다.
@@ -634,7 +634,6 @@ class HotelRepositoryTest02 {
   }
 }
 ```
-
 
 ---
 
