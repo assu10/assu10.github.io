@@ -363,6 +363,7 @@ Spring Data JPA + JPA/Hibernate 구성의 경우 구현 클래스가 아닌 인�
 - **감사 기능 제공**
   - 데이터 생성/수정 시 누가 언제 했는지 추적할 수 있는 애너테이션과 기능 제공사
   - [Spring Boot - 데이터 영속성(2): 엔티티 클래스 설계](https://assu10.github.io/dev/2023/09/03/springboot-database-2/#6-엔티티-클래스-상속과-mappedsuperclass) 참고
+  - [Spring Boot - 데이터 영속성(6): 엔티티 상태 이벤트 처리, 트랜잭션 생명주기 동기화 작업](https://assu10.github.io/dev/2023/09/17/springboot-database-6/#1-%EC%97%94%ED%8B%B0%ED%8B%B0-%EC%83%81%ED%83%9C-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%B2%98%EB%A6%AC-entitylisteners) 참고
 - **페이징과 정렬 같은 부가 기능 제공**
   - o.s.data.domain.Pageable 인터페이스와 o.s.data.jpa.repository.PagingAndSortingRepository 인터페이스 제공
   - PagingAndSortingRepository 는 JpaRepository 의 부모 인터페이스이므로 JpaRepository 를 사용하는 모든 커스텀 Repository 클래스들은 이용 가능

@@ -296,8 +296,6 @@ pom.xml
 
 `mysql-connector-java` 와 `hsqldb` 는 `spring-data-jpa` 와 연관된 라이브러리로 이 라이브러리들이 없으면 JPA 프레임워크가 동작하지 않는다.
 
-> `mysql-connector-java` 와 `hsqldb` 의 상세한 내용은 추후 다룰 예정입니다.
-
 /controller/ReservationController.java
 ```java
 package com.assu.study.chap05.controller;
