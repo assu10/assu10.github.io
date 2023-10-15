@@ -334,7 +334,7 @@ getHotels() 를 실행하면 브라우저는 SOP 정책을 검사하고 출처�
 ③ 이 때 ① 에서 기록된 http://www.spring.io 와 getHotels() 에서 사용하는 출처인 http://api.spring.io 가 다르므로 브라우저는 GET /v1/hotels REST-API 를
 실행하기 전에 다른 출처인 http://api.spring.io 호스트에 preflight 를 요청함  
 이 때 요청 메시지는 OPTIONS /v1/hotels 이며, preflight 에 필요한 헤더들이 포함되어 있음  
-즉, 브라우저는 원래 필요한 리소스에 OPTION 메서드로 변경하여 서버에 인증 요청 시도 (= preflight)  
+즉, 브라우저는 원래 필요한 리소스에 OPTIONS 메서드로 변경하여 서버에 인증 요청 시도 (= preflight)  
 
 ④ REST-API 애플리케이션에 CORS 설정이 되어 있으면 응답  
 - **Access-Control-Allow-Origin**: CORS 를 허용하는 출처, 호스트명을 응답함, 호스트 상관없이 모든 출처에 응답하는 경우는 `*` 로 응답  

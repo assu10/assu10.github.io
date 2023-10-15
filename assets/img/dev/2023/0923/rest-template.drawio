@@ -1,0 +1,78 @@
+<mxfile host="Electron" modified="2023-10-14T05:46:59.635Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="nEZZRGAUa2VGefbiyvdc" version="22.0.2" type="device">
+  <diagram name="페이지-1" id="R1zbldPPJgd3iy1yjpjT">
+    <mxGraphModel dx="980" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="269.5" as="sourcePoint" />
+            <mxPoint x="380" y="269.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="240" as="sourcePoint" />
+            <mxPoint x="747" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-8" value="ClientHttpRequestFactory" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="450" y="150" width="250" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="FFK2Aeaunei4HoEKNZXL-1" target="FFK2Aeaunei4HoEKNZXL-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="240" />
+              <mxPoint x="420" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-1" value="RestTemplate" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="130" y="150" width="250" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-3" value="ClientHttpRequest&lt;br&gt;Interceptor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="270" width="170" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-4" value="HttpMessageConverter" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="210" width="170" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-5" value="Response&lt;br&gt;ErrorHandler" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="280" width="170" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-6" value="ClientHttp&lt;br&gt;Request" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="210" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-7" value="ClientHttp&lt;br&gt;Response" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="580" y="210" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="747" y="269.5" as="sourcePoint" />
+            <mxPoint x="700" y="269.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-9" value="서버" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="747" y="150" width="80" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-10" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="50" y="240" as="sourcePoint" />
+            <mxPoint x="130" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-11" value="" style="endArrow=none;html=1;rounded=0;endFill=0;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="49" y="270" as="sourcePoint" />
+            <mxPoint x="129" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-12" value="메서드 실행" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FFK2Aeaunei4HoEKNZXL-13" value="응답" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="270" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
