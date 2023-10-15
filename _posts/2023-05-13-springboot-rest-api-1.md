@@ -100,7 +100,7 @@ HTTP 버전은 아래와 같다.
 
 HTTP 특징은 비연결성, 무상태 두 가지가 있다.
 
-> HTTP/1.1 의 keep-alive 기능에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다.
+> HTTP/1.1 의 keep-alive 기능에 대한 좀 더 상세한 내용은 [1.6.2. `keep-alive` 설정](https://assu10.github.io/dev/2023/09/23/springboot-rest-api-request/#162-keep-alive-%EC%84%A4%EC%A0%95) 를 참고하세요.
 
 ---
 
