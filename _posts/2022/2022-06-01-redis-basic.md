@@ -9,33 +9,33 @@ tags: redis
 이 포스팅은 NoSQL 의 종류와 그 중 Key-Value DB 인 Redis, 그리고 데이터 타입 중 하나인 `String` 에 대해 알아본다.  
 (redis version 은 7.0.0)
 
-> - Redis 설치 및 시작 종료
->   - 설치
->   - redis start & stop
->   - redis-server, redis-client 
->   - 테스트 데이터 입력 및 조회
-> - 데이터 처리 명령어
->   - `RENAME`
->   - `RANDOMKEY`
->   - `KEYS`
->   - `EXISTS`
->   - `DEL`, `FLUSHALL`
->   - `SAVE`
->   - `CLEAR`
->   - `TIME`
->   - `INFO`
-> -`String`
->   -  `SET`, `GET`
->      - `SET` - `NX`/`XX`
->      - `SET` - `EX seconds`/`PX milliseconds`/`EXAT unix-time-seconds`/`PXAT unix-time-milliseconds`/`KEEPTTL`
->   - `MSET`, `MGET`
->   - `STRLEN`
->   - `SETEX`
->   - `TTL`
->   - `INCR`, `DECR`
->   - `INCRBY`, `DECRBY`, `INCRBYFLOAT`
->   - `APPEND`
->   - `GETRANGE`, `SETRANGE`
+> - [Redis 설치 및 시작 종료](#1-redis-설치-및-시작-종료)
+>   - [설치](#11-설치)
+>   - [redis start & stop](#12-redis-start--stop)
+>   - [redis-server, redis-client](#13-redis-server-redis-client)
+>   - [테스트 데이터 입력 및 조회](#14-테스트-데이터-입력-및-조회)
+> - [데이터 처리 명령어](#2-데이터-처리-명령어)
+>   - [`RENAME`](#21-rename)
+>   - [`RANDOMKEY`](#22-randomkey)
+>   - [`KEYS`](#23-keys)
+>   - [`EXISTS`](#24-exists)
+>   - [`DEL`, `FLUSHALL`](#25-del-flushall)
+>   - [`SAVE`](#26-save)
+>   - [`CLEAR`](#27-clear)
+>   - [`TIME`](#28-time)
+>   - [`INFO`](#29-info)
+> - [`String`](#3-string)
+>   - [`SET`, `GET`](#31-set-get)
+>      - [`SET` - `NX`/`XX`](#311-set---nxxx)
+>      - [`SET` - `EX seconds`/`PX milliseconds`/`EXAT unix-time-seconds`/`PXAT unix-time-milliseconds`/`KEEPTTL`](#312-set---ex-secondspx-millisecondsexat-unix-time-secondspxat-unix-time-millisecondskeepttl)
+>   - [`MSET`, `MGET`](#32-mset-mget)
+>   - [`STRLEN`](#33-strlen)
+>   - [`SETEX`](#34-setex)
+>   - [`TTL`](#35-ttl)
+>   - [`INCR`, `DECR`](#36-incr-decr)
+>   - [`INCRBY`, `DECRBY`, `INCRBYFLOAT`](#37-incrby-decrby-incrbyfloat)
+>   - [`APPEND`](#38-append)
+>   - [`GETRANGE`, `SETRANGE`](#39-getrange-setrange)
 
 ---
 
@@ -338,7 +338,7 @@ redis_mode:standalone
 
 ---
 
-## 1.4. 테스트 데이터 입력 및 조회 
+## 1.4. 테스트 데이터 입력 및 조회
 
 ```shell
 127.0.0.1:6379> SET foo bar
@@ -1099,7 +1099,7 @@ OK
 
 ---
 
-## 3.5. `INCR`, `DECR`
+## 3.6. `INCR`, `DECR`
 
 key 값의 value 값 1씩 증감시킨다.
 
@@ -1141,7 +1141,7 @@ OK
 
 ---
 
-## 3.6. `INCRBY`, `DECRBY`, `INCRBYFLOAT`
+## 3.7. `INCRBY`, `DECRBY`, `INCRBYFLOAT`
 
 `INCRBY`, `DECRBY` 는 특정 수치만큼 value 값을 증감시킨다.
 
@@ -1209,7 +1209,7 @@ OK
 
 ---
 
-## 3.7. `APPEND`
+## 3.8. `APPEND`
 
 현재 value 값 뒤에 value 를 추가한다.  
 만일 key 가 존재하지 않으면 신규로 생성한다.
@@ -1242,7 +1242,7 @@ OK
 
 ---
 
-## 3.8. `GETRANGE`, `SETRANGE`
+## 3.9. `GETRANGE`, `SETRANGE`
 
 string 연산에서 substring, replace 와 동일한 연산이다.
 

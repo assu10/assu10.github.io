@@ -8,12 +8,12 @@ tags: redis
 
 이 포스팅은 NoSQL 의 종류와 그 중 Key-Value DB 인 Redis 에 대해 알아본다.
 
-> - NoSQL 종류
-> - Key-Value DB 특징
->   - In-Memory 기반의 데이터 저장 구조
->   - 하나의 Key 와 데이터 값으로 구성
->   - 가공처리가 요구되는 비즈니스 환경에서 적합
-> - Redis
+> - [NoSQL 종류](#1-nosql-종류)
+> - [Key-Value DB 특징](#2-key-value-db-특징)
+>   - [In-Memory 기반의 데이터 저장 구조](#21-in-memory-기반의-데이터-저장-구조)
+>   - [하나의 Key 와 데이터 값으로 구성](#22-하나의-key-와-데이터-값으로-구성)
+>   - [가공처리가 요구되는 비즈니스 환경에서 적합](#23-가공처리가-요구되는-비즈니스-환경에서-적합)
+> - [Redis](#3-redis)
 
 ---
 

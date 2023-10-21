@@ -8,22 +8,21 @@ tags: redis rejson RedisJSON
 
 이 포스팅은 Redis 의 확장 모듈 중 하나인 `RedisJSON` 에 대해 알아본다.  
 
-> - Redis 확장 모듈
-> - RedisJSON 설치
-> - RedisJSON 사용
->   - `JSON.SET`, `JSON.GET`
->   - `JSON.STRLEN`, `JSON.STRAPPEND`
->   - `JSON.NUMINCRBY`, `JSON.NUMMULTBY`
->   - `JSON.NUMINCRBY`, `JSON.NUMMULTBY`
->   - `JSON.DEL`
->   - `JSON.FORGET`
->   - `JSON.ARRAPPEND`, `JSON.ARRINSERT`, `JSON.ARRTRIM`, `JSON.ARRPOP`
->   - `JSON.OBJLEN`, `JSON.OBJKEYS`
->   - `INDENT`, `NEWLINE`, `SPACE`
-> - `make` 오류 시
->   - `make` 버전 업데이트 처리
->   - `rust` 설치
-> - `JSONPath`
+> - [Redis 확장 모듈](#1-redis-확장-모듈)
+> - [RedisJSON 설치](#2-redisjson-설치)
+> - [RedisJSON 사용](#3-redisjson-사용)
+>   - [`JSON.SET`, `JSON.GET`](#31-jsonset-jsonget)
+>   - [`JSON.STRLEN`, `JSON.STRAPPEND`](#32-jsonstrlen-jsonstrappend-)
+>   - [`JSON.NUMINCRBY`, `JSON.NUMMULTBY`](#33-jsonnumincrby-jsonnummultby-)
+>   - [`JSON.DEL`](#34-jsondel)
+>   - [`JSON.FORGET`](#35-jsonforget)
+>   - [`JSON.ARRAPPEND`, `JSON.ARRINSERT`, `JSON.ARRTRIM`, `JSON.ARRPOP`](#36-jsonarrappend-jsonarrinsert-jsonarrtrim-jsonarrpop)
+>   - [`JSON.OBJLEN`, `JSON.OBJKEYS`](#37-jsonobjlen-jsonobjkeys)
+>   - [`INDENT`, `NEWLINE`, `SPACE`](#38-indent-newline-space)
+> - [`make` 오류 시](#make-오류-시)
+>   - [`make` 버전 업데이트 처리](#make-버전-업데이트-처리)
+>   - [`rust` 설치](#rust-설치)
+> - [`JSONPath`](#jsonpath)
 
 ---
 

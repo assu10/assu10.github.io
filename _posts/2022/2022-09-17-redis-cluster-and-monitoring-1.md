@@ -8,22 +8,22 @@ tags: redis
 
 이 포스팅은 Redis 의 복제 시스템 구성과 FailOver 처리에 대해 알아본다.
 
-> - 복제 & 분산 시스템
->   - 파티션 유형
->      - Range Partition (범위 파티션)
->      - Hash Partition
->   - 파티션 구현 방법
->      - Client Side Partitioning
->      - Proxy Assisted Partitioning
->      - Query Routing
-> - Master & Slave & Sentinel
->   - 시스템 설정
->      - Master-Slave
->      - Master-Slave-Sentinel
->      - Master-Slave-Sentinel 구축 및 FailOver Test
->   - 장애 처리 방법
->   - Sentinel 명령어
-> - 부분 동기화
+> - [복제 & 분산 시스템](#1-복제--분산-시스템)
+>   - [파티션 유형](#11-파티션-유형)
+>      - [Range Partition (범위 파티션)](#range-partition-범위-파티션)
+>      - [Hash Partition](#hash-partition)
+>   - [파티션 구현 방법](#12-파티션-구현-방법)
+>      - [Client Side Partitioning](#client-side-partitioning)
+>      - [Proxy Assisted Partitioning](#proxy-assisted-partitioning)
+>      - [Query Routing](#query-routing)
+> - [Master & Slave & Sentinel](#2-master--slave--sentinel)
+>   - [시스템 설정](#21-시스템-설정)
+>      - [Master-Slave](#master-slave)
+>      - [Master-Slave-Sentinel](#master-slave-sentinel)
+>      - [Master-Slave-Sentinel 구축 및 FailOver Test](#master-slave-sentinel-구축-및-failover-test)
+>   - [장애 처리 방법](#22-장애-처리-방법)
+>   - [Sentinel 명령어](#23-sentinel-명령어)
+> - [부분 동기화](#3-부분-동기화)
 
 ---
 

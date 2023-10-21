@@ -8,10 +8,10 @@ tags: redis hyperloglog
 
 이 포스팅은 Redis 의 데이터 타입 중 하나인 `HyperLogLog` 타입에 대해 알아본다.
 
-> - `HyperLogLog`
->   - `PFADD`
->   - `PFCOUNT`
->   - `PFMERGE`
+> - [`HyperLogLog`](#1-hyperloglog)
+>   - [`PFADD`](#11-pfadd)
+>   - [`PFCOUNT`](#12-pfcount)
+>   - [`PFMERGE`](#13-pfmerge)
 
 ---
 

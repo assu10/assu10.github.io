@@ -391,7 +391,7 @@ OSIV 를 비활성화하면 시스템의 리소스를 절약할 수 있고, 영�
 
 아래는 OSIV 를 비활성화했을 때의 영속성 컨텍스트, 트랜잭션, 커넥션 객체의 생명 주기이다.
 
-![OSIV 가 비활성화되었을 때 영속성 컨텍스트의 생명주기](/assets/img/dev/2023/0917/osiv_true.png)
+![OSIV 가 비활성화되었을 때 영속성 컨텍스트의 생명주기](/assets/img/dev/2023/0917/osiv_false.png)
 
 Connection 의 획득 반환 주기가 짧은 것을 확인할 수 있다.
 
@@ -406,6 +406,8 @@ OSIV 사용할 수 없는 컨트롤러 클래스에서는 지연 로딩을 사�
 ---
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
+
+*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

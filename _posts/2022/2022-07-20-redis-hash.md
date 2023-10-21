@@ -8,20 +8,20 @@ tags: redis hash
 
 이 포스팅은 Redis 의 데이터 타입 중 하나인 `Hash` 타입에 대해 알아본다.
 
-> - 데이터 타입
->   - `Hash`
->      - `HSET`, `HGET`
->      - `HGETALL`
->      - `HKEYS`, `HVALS`
->      - ~~`HMSET`~~, `HMGET`
->      - `HEXISTS`
->      - `HDEL`
->      - `HLEN`
->      - `HSTRLEN`
->      - `HRANDFIELD`
->      - `HSETNX`
->      - `HINCRBY`, `HINCRBYFLOAT`
->      - `HSCAN`
+> - [데이터 타입](#1-데이터-타입)
+> - [`Hash`](#2-hash)
+>   - [`HSET`, `HGET`](#21-hset-hget)
+>   - [`HGETALL`](#22-hgetall)
+>   - [`HKEYS`, `HVALS`](#23-hkeys-hvals)
+>   - [~~`HMSET`~~, `HMGET`](#24-hmset-hmget)
+>   - [`HEXISTS`](#25-hexists)
+>   - [`HDEL`](#26-hdel)
+>   - [`HLEN`](#27-hlen)
+>   - [`HSTRLEN`](#28-hstrlen)
+>   - [`HRANDFIELD`](#29-hrandfield)
+>   - [`HSETNX`](#210-hsetnx)
+>   - [`HINCRBY`, `HINCRBYFLOAT`](#211-hincrby-hincrbyfloat)
+>   - [`HSCAN`](#212-hscan)
 
 ---
 
@@ -40,7 +40,7 @@ Redis 에서 데이터 표현 기본 타입은 하나의 Key 와 하나 이상�
 
 ---
 
-# 2. `Hash` 
+# 2. `Hash`
 
 - 하나의 key 에 여러 개의 fields 와 value 로 구성된 데이터 저장
 - RDBMS 에서 PK 와 하나 이상의 컬럼으로 구성된 테이블 구조와 매우 흡사한 데이터 유형
@@ -255,7 +255,7 @@ key 에 매핑되는 모든 field 와 value 를 조회한다.
 
 ---
 
-## 2.6. `HLEN`
+## 2.7. `HLEN`
 
 해당 key 에 정의된 field 의 수를 조회한다.
 
@@ -284,7 +284,7 @@ key 에 매핑되는 모든 field 와 value 를 조회한다.
 
 ---
 
-## 2.7. `HSTRLEN`
+## 2.8. `HSTRLEN`
 
 field 에 매핑된 value 의 길이를 조회한다.
 
@@ -306,7 +306,7 @@ field 에 매핑된 value 의 길이를 조회한다.
 
 ---
 
-## 2.8.  `HRANDFIELD`
+## 2.9.  `HRANDFIELD`
 
 해당 키에서 랜덤하게 하나 혹은 여러 개의 field 를 조회한다.
 
@@ -338,7 +338,7 @@ field 에 매핑된 value 의 길이를 조회한다.
 
 ---
 
-## 2.9. `HSETNX`
+## 2.10. `HSETNX`
 
 해당 field 가 존재하지 않을 때만 value 를 설정한다.
 
@@ -385,7 +385,7 @@ field 에 매핑된 value 의 길이를 조회한다.
 
 ---
 
-## 2.10. `HINCRBY`, `HINCRBYFLOAT`
+## 2.11. `HINCRBY`, `HINCRBYFLOAT`
 
 `HINCRBY` 는 해당 field 의 value 에 셋팅한 숫자만큼 증감한다.
 
@@ -439,7 +439,7 @@ field 에 매핑된 value 의 길이를 조회한다.
 
 ---
 
-## 2.11. `HSCAN`
+## 2.12. `HSCAN`
 
 성능을 위해 `keys` 대신 `HSCAN` 사용을 권장한다.  
 Redis 는 싱글 스레드로 동작하기 때문에 어떤 명령어를 수행하면 (=keys 를 쓰는 순간) Redis 는 이 명령을 처리하기 위해 멈춰버린다.  

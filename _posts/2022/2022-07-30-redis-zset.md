@@ -8,25 +8,25 @@ tags: redis zset sorted-set
 
 이 포스팅은 Redis 의 데이터 타입 중 하나인 `Set` 타입에 대해 알아본다.
 
-> - `Sorted Set`
->   - `ZADD`
->      - `NX`/`XX`
->      - `GT`/`LT`
->      - `CH`
->      - `INCR`
->   - `ZRANGE`, `ZREVRANGE`
->      - `BYSCORE`/`BYLEX`, `LIMIT offset count`
->      - `REV`
->   - `ZRANK`, `ZREVRANK`
->   - `ZSCORE`
->   - `ZCARD`
->   - `ZCOUNT`
->   - `ZSCAN`
->   - `ZPOPMIN`, `ZPOPMAX`
->   - `ZREM`, `ZREMRANGEBYRANK`, `ZREMRANGEBYSCORE`
->   - `ZINCRBY`
->   - `ZUNION`, `ZINTER`, `ZDIFF`
->   - `ZUNIONSTORE`, `ZINTERSTORE`, `ZDIFFSTORE`
+> - [`Sorted Set`](#1-sorted-set)
+>   - [`ZADD`](#11-zadd)
+>      - [`NX`/`XX`](#111-nxxx)
+>      - [`GT`/`LT`](#112-gtlt)
+>      - [`CH`](#113-ch)
+>      - [`INCR`](#114-incr)
+>   - [`ZRANGE`, `ZREVRANGE`](#12-zrange-zrevrange)
+>      - [`BYSCORE`/`BYLEX`, `LIMIT offset count`](#121-byscorebylex-limit-offset-count)
+>      - [`REV`](#122-rev)
+>   - [`ZRANK`, `ZREVRANK`](#13-zrank-zrevrank)
+>   - [`ZSCORE`](#14-zscore)
+>   - [`ZCARD`](#15-zcard)
+>   - [`ZCOUNT`](#16-zcount)
+>   - [`ZSCAN`](#17-zscan)
+>   - [`ZPOPMIN`, `ZPOPMAX`](#18-zpopmin-zpopmax)
+>   - [`ZREM`, `ZREMRANGEBYRANK`, `ZREMRANGEBYSCORE`](#19-zrem-zremrangebyrank-zremrangebyscore)
+>   - [`ZINCRBY`](#110-zincrby)
+>   - [`ZUNION`, `ZINTER`, `ZDIFF`](#111-zunion-zinter-zdiff)
+>   - [`ZUNIONSTORE`, `ZINTERSTORE`, `ZDIFFSTORE`](#112-zunionstore-zinterstore-zdiffstore)
 
 ---
 

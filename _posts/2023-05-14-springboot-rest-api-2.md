@@ -32,8 +32,8 @@ Spring boot 프레임워크는 JSON 메시지를 처리하는 Jackson 라이브�
   - [`@GetMapping`, `@RequestHeader`](#13-getmapping-requestheader)
   - [ant-style path](#14-ant-style-path)
   - [`@DeleteMapping`](#15-deletemapping)
-- [응답 메시지 처리](#23-jsonformat)
-  - [JSON 마셜링: `@JsonProperty`, `@JsonSerialize`](#21-json-마셜링--jsonproperty--jsonserialize)
+- [응답 메시지 처리](#2-응답-메시지-처리)
+  - [JSON 마셜링: `@JsonProperty`, `@JsonSerialize`](#21-json-마셜링-jsonproperty-jsonserialize)
   - [JsonSerializer, JsonDeserializer](#22-jsonserializer-jsondeserializer)
   - [`@JsonFormat`](#23-jsonformat)
   - [Enum 클래스의 변환: `@JsonValue`, `@JsonCreator`](#24-enum-클래스의-변환-jsonvalue-jsoncreator)
@@ -623,6 +623,8 @@ public enum HotelRoomType {
 ---
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
+
+*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

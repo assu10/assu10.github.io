@@ -30,7 +30,7 @@ Spring bean 을 선언하고 Spring bean Container 를 사용하여 Spring bean 
   - [`@Import`](#23-import)
 - [스테레오 타입 Spring bean 사용](#3-스테레오-타입-spring-bean-사용)
 - [의존성 주입](#4-의존성-주입)
-  - [애너테이션 기반의 의존성 주입: `@Autowired`, `@Qualifier`](#41-애너테이션-기반의-의존성-주입--autowired--qualifier)
+  - [애너테이션 기반의 의존성 주입: `@Autowired`, `@Qualifier`](#41-애너테이션-기반의-의존성-주입-autowired-qualifier)
   - [자바 설정의 의존성 주입](#42-자바-설정의-의존성-주입)
 - [ApplicationContext](#5-applicationcontext)
 - [Spring bean Scope: `@Scope`](#6-spring-bean-scope-scope)
@@ -96,7 +96,7 @@ Spring bean 은 생성 주체와 정의 방법에 따라 아래와 같이 나뉜
   - 개발자가 애플리케이션 로직 구현 시 활용  
   (자바 설정 기반의 `@Bean` 애너테이션을 사용하여 Spring bean 을 정의할 수도 있지만 수많은 클래스들을 모두 그렇게 정의하는 건 비효율적)
   - Spring bean 들은 애너테이션들을 사용하여 정의하며 이를 애너테이션 기반 설정이라고 함
-  - > 애너테이션 기반 설정에 대한 내용은 [4.1. 애너테이션 기반의 의존성 주입: `@Autowired`, `@Qualifier`](#41-애너테이션-기반의-의존성-주입--autowired--qualifier) 을 참고하세요.
+  - > 애너테이션 기반 설정에 대한 내용은 [4.1. 애너테이션 기반의 의존성 주입: `@Autowired`, `@Qualifier`](#41-애너테이션-기반의-의존성-주입-autowired-qualifier) 을 참고하세요.
 
 Spring bean Container 는 이렇게 생성된 Spring bean 들의 의존성을 주입한다.  
 > 의존성 주입은 [4. 의존성 주입](#4-의존성-주입) 을 참고하세요.
@@ -1505,6 +1505,8 @@ public final class Money implements Serializable {  // class 는 반드시 final
 ---
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
+
+*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

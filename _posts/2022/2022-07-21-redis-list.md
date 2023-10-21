@@ -8,19 +8,19 @@ tags: redis list
 
 이 포스팅은 Redis 의 데이터 타입 중 하나인 `List` 타입에 대해 알아본다.
 
-> - `List`
->   - `LPUSH`, `RPUSH`
->   - `LRANGE`
->   - `LPOP`, `RPOP`
->   - `LPUSHX`, `RPUSHX`
->   - `RPOPLPUSH`
->   - `LSET`
->   - `LLEN`
->   - `LINSERT`
->   - `LTRIM`
->   - `LREM`
->   - `LINDEX`, `LPOS`
->   - `LMOVE`
+> - [`List`](#1-list)
+>   - [`LPUSH`, `RPUSH`](#11-lpush-rpush)
+>   - [`LRANGE`](#12-lrange)
+>   - [`LPOP`, `RPOP`](#13-lpop-rpop)
+>   - [`LPUSHX`, `RPUSHX`](#14-lpushx-rpushx)
+>   - [`RPOPLPUSH`](#15-rpoplpush)
+>   - [`LSET`](#16-lset)
+>   - [`LLEN`](#17-llen)
+>   - [`LINSERT`](#18-linsert)
+>   - [`LTRIM`](#19-ltrim)
+>   - [`LREM`](#110-lrem)
+>   - [`LINDEX`, `LPOS`](#111-lindex-lpos)
+>   - [`LMOVE`](#112-lmove)
 
 ---
 

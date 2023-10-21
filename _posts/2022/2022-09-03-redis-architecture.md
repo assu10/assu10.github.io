@@ -8,40 +8,39 @@ tags: redis
 
 이 포스팅은 Redis 운영 시 알아야 할 아키텍쳐에 관해 알아본다.   
 
-> - Redis 아키텍쳐
->   - 메모리 영역
->   - 파일 영역
->   - 프로세스 영역
-> - 시스템, Disk 사양
->   - 노드 수 (# of nodes per cluster)
->   - CPU core 수 (# of cores per node)
->   - RAM 크기
->   - Storage 타입
->   - Storage 크기 (Persistent Storage)
->   - 네트워크
-> - 메모리 운영기법
->   - `LRU (Least Recently Used)` 알고리즘
->   - `LFU (Least Frequently Used)` 알고리즘
-> - LazyFree
->   - `lazyfree-lazy-eviction`
->   - `lazyfree-lazy-expire`
->   - `lazyfree-lazy-server-del`
->   - `slave-lazy-flush`
-> - 데이터 Persistence(저장)
->   - RDB 파일을 이용하여 저장(=`SAVE` 명령어 이용)
->   - AOF (Append Only File) 명령어 이용하여 저장 (= `bgrewriteaof` 명령어 이용)
-> - LazyFree
-> - Copy on Write
-> - Benchmark For Redis
-> - 관리 명령어 (redis-cli)
-> - Data Export, Import
->   - `SAVE` 명령어로 rdb file export & import
->   - `bgrewriteaof` 명령어로 aof file export
->   - `scan` 명령어로 text file export
-> - Redis Serialization Protocol & Mass Insertion
->   - Luke Protocol 을 이용한 업로드
->   - Request Response Protocol(RERP) 을 이용한 업로드
-> - redis-cli option
+> - [Redis 아키텍쳐](#1-redis-아키텍쳐)
+>   - [메모리 영역](#11-메모리-영역)
+>   - [파일 영역](#12-파일-영역)
+>   - [프로세스 영역](#13-프로세스-영역)
+> - [시스템, Disk 사양](#2-시스템-disk-사양)
+>   - [노드 수 (# of nodes per cluster)](#21-노드-수--of-nodes-per-cluster)
+>   - [CPU core 수 (# of cores per node)](#22-cpu-core-수--of-cores-per-node)
+>   - [RAM 크기](#23-ram-크기)
+>   - [Storage 타입](#24-storage-타입)
+>   - [Storage 크기 (Persistent Storage)](#25-storage-크기-persistent-storage)
+>   - [네트워크](#26-네트워크)
+> - [메모리 운영기법](#3-메모리-운영기법)
+>   - [`LRU (Least Recently Used)` 알고리즘](#31-lru-least-recently-used-알고리즘)
+>   - [`LFU (Least Frequently Used)` 알고리즘](#32-lfu-least-frequently-used-알고리즘)
+> - [LazyFree](#4-lazyfree)
+>   - [`lazyfree-lazy-eviction`](#41-lazyfree-lazy-eviction)
+>   - [`lazyfree-lazy-expire`](#42-lazyfree-lazy-expire)
+>   - [`lazyfree-lazy-server-del`](#43-lazyfree-lazy-server-del)
+>   - [`slave-lazy-flush`](#44-slave-lazy-flush)
+> - [데이터 Persistence(저장)](#5-데이터-persistence저장)
+>   - [RDB 파일을 이용하여 저장(=`SAVE` 명령어 이용)](#51-rdb-파일을-이용하여-저장save-명령어-이용)
+>   - [AOF (Append Only File) 명령어 이용하여 저장 (= `bgrewriteaof` 명령어 이용)](#52-aof-append-only-file-명령어-이용하여-저장--bgrewriteaof-명령어-이용)
+> - [Copy on Write](#6-copy-on-write)
+> - [Benchmark For Redis](#7-benchmark-for-redis)
+> - [관리 명령어 (redis-cli)](#8-관리-명령어-redis-cli)
+> - [Data Export, Import](#9-data-export-import)
+>   - [`SAVE` 명령어로 rdb file export & import](#91-save-명령어로-rdb-file-export--import)
+>   - [`bgrewriteaof` 명령어로 aof file export](#92-bgrewriteaof-명령어로-aof-file-export)
+>   - [`scan` 명령어로 text file export](#93-scan-명령어로-text-file-export)
+> - [Redis Serialization Protocol & Mass Insertion](#10-redis-serialization-protocol--mass-insertion)
+>   - [Luke Protocol 을 이용한 업로드](#101-luke-protocol-을-이용한-업로드)
+>   - [Request Response Protocol(RERP) 을 이용한 업로드](#102-request-response-protocolrerp-을-이용한-업로드)
+> - [redis-cli option](#11-redis-cli-option)
 
 ---
 

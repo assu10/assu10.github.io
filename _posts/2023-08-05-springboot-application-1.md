@@ -794,5 +794,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
+*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

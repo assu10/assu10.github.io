@@ -352,6 +352,8 @@ myEmitter.on('event', () => {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
+*본 포스팅은 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [Event Loop 공식 문서](https://nodejs.org/ko/docs/guides/event-loop-timers-and-nexttick/)
 * [Node.js event loop workflow & lifecycle in low level - Blog](https://www.voidcanvas.com/nodejs-event-loop)
