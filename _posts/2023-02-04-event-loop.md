@@ -10,12 +10,12 @@ tags: nodejs javascript event-loop setImmediate() setTimeout() process.nextTick(
 
 
 > - [Event Loop](#1-event-loop)
->   - [Timer phase (타이머 단계)](#11-timer-phase--타이머-단계-)
->   - [Pending callback phase (대기 콜백 단계): `pending_queue`](#12-pending-callback-phase--대기-콜백-단계---pendingqueue)
->   - [Idle, Prepare phase (유휴, 준비 단계)](#13-idle-prepare-phase--유휴-준비-단계-)
->   - [Poll phase (폴 단계): `watch_queue`](#14-poll-phase--폴-단계---watchqueue)
->   - [Check phase (체크 단계): `check_queue`](#15-check-phase--체크-단계---checkqueue)
->   - [Close callback phase (종료 콜백 단계): `closing_callbacks_queue`](#16-close-callback-phase--종료-콜백-단계---closingcallbacksqueue)
+>   - [Timer phase (타이머 단계)](#11-timer-phase-타이머-단계)
+>   - [Pending callback phase (대기 콜백 단계): `pending_queue`](#12-pending-callback-phase-대기-콜백-단계-pendingqueue)
+>   - [Idle, Prepare phase (유휴, 준비 단계)](#13-idle-prepare-phase-유휴-준비-단계)
+>   - [Poll phase (폴 단계): `watch_queue`](#14-poll-phase-폴-단계-watchqueue)
+>   - [Check phase (체크 단계): `check_queue`](#15-check-phase-체크-단계-checkqueue)
+>   - [Close callback phase (종료 콜백 단계): `closing_callbacks_queue`](#16-close-callback-phase-종료-콜백-단계-closingcallbacksqueue)
 > - [`setImmediate()` vs `setTimeout()`](#2-setimmediate-vs-settimeout)
 > - [`process.nextTick()`](#3-processnexttick)
 > - [`process.nextTick()` vs `setImmediate()`](#4-processnexttick-vs-setimmediate)

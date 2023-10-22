@@ -28,7 +28,7 @@ tags: redis
 >   - [`lazyfree-lazy-server-del`](#43-lazyfree-lazy-server-del)
 >   - [`slave-lazy-flush`](#44-slave-lazy-flush)
 > - [데이터 Persistence(저장)](#5-데이터-persistence저장)
->   - [RDB 파일을 이용하여 저장(=`SAVE` 명령어 이용)](#51-rdb-파일을-이용하여-저장save-명령어-이용)
+>   - [RDB 파일을 이용하여 저장(=`SAVE` 명령어 이용)](#51-rdb-redis-database-파일을-이용하여-저장save-명령어-이용)
 >   - [AOF (Append Only File) 명령어 이용하여 저장 (= `bgrewriteaof` 명령어 이용)](#52-aof-append-only-file-명령어-이용하여-저장--bgrewriteaof-명령어-이용)
 > - [Copy on Write](#6-copy-on-write)
 > - [Benchmark For Redis](#7-benchmark-for-redis)
@@ -403,7 +403,7 @@ Redis 는 인메모리 기반이지만 필요에 따라 중요 데이터를 지�
 
 ---
 
-## 5.1. RDB 파일을 이용하여 저장(=`SAVE` 명령어 이용)
+## 5.1. RDB (Redis DataBase) 파일을 이용하여 저장(=`SAVE` 명령어 이용)
 
 `SAVE` 명령어를 이용하면 일정 주기마다 일정 개수의 key 데이터를 디스크 상의 dump.rdb 파일로 저장할 수 있다.
 
