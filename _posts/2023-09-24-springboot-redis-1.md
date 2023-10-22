@@ -25,8 +25,6 @@ tags: springboot msa redis spring-data-redis lettuce redis-connection-factory
 **Cache 는 메모리에 데이터를 미리 적재하고 이를 빠르게 읽어 응답하는 구조**이므로, **읽기 동작이 많은 서비스에 Cache 를 사용하면 서비스 응답 속도를 향상**시킬 수 있으며 **시스템 리소스도 
 효율적으로 사용**할 수 있다.
 
-이 포스팅에서는 레디스로 Cache 를 적용하는 방법에 대해 알아본다.
-
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap10) 에 있습니다.
 
 ---
@@ -547,7 +545,7 @@ Redis 자체가 싱글 스레드 기반이기 때문에 여러 커넥션을 사�
 
 ## 3.1. `RedisConnectionFactory` 설정
 
-**`RestTemplate` 는 레디스에 명령어를 실행하는 기능을 제공하는 클래스**이다.  
+**`RedisTemplate` 는 레디스에 명령어를 실행하는 기능을 제공하는 클래스**이다.  
 레디스와 애플리케이션 사이에 커넥션을 맺고 관리하는 기능을 o.s.data.redis.connection 패키지의 `RedisConnectionFactory` 구현체에 위임하는데, 
 `RedisConnectionFactory` 객체를 생성한 후 `RedisTemplate` 의 `setConnectionFactory()` 메서드 인자로 설정하면 된다.  
 

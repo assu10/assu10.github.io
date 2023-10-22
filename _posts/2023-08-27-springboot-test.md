@@ -64,6 +64,12 @@ pom.xml
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 </project>
@@ -127,11 +133,21 @@ pom.xml
 ```xml
 <!-- 테스트 관련 설정 -->
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-test</artifactId>
-    <scope>test</scope>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-test</artifactId>
+  <scope>test</scope>
+  <exclusions>
+    <exclusion>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+    </exclusion>
+  </exclusions>
 </dependency>
 ```
+
+> **org.junit.vintage 를 exclude 하는 이유**  
+> vintage 는 예전 버전과의 호환을 위해 존재하는데 spring-boot-starter-test 는 JUnit4 도 포함하고 있어서 개발자가 선택해서 테스트 코드를 작성할 수 있게 함  
+> JUnit5 를 지원하는데 굳이 Junit3,4 의 모듈까지는 가지고 있을 필요가 없으므로 org.junit.vintage 는 exclude 시킴
 
 `spring-boot-starter-test` 의존성 추가 시 아래 라이브러리들이 포함된다.
 
@@ -1423,3 +1439,4 @@ HotelController 가 의존하는 HotelDisplayService 클래스는 `@Service` 로
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)
 * [tdd 라이브 템플릿](https://ahn3330.tistory.com/128)
 * [인텔리제이 (IntelliJ )스마트하게 사용하기 - 테스트 코드 쉽게 만들기 (go to test, live templates 활용)](https://velog.io/@joshuara7235/IntelliJ-%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%98%EA%B2%8C-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-Test-code-%EC%89%BD%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0-go-to-test-live-templates-%ED%99%9C%EC%9A%A9)
+* [Spring Intializr프로젝트가 spring-boot-starter-test 에서 junit-vintage-engine가 exclude되어 있는 이유](https://rutgo-letsgo.tistory.com/94)
