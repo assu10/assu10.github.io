@@ -344,7 +344,7 @@ com.assu.study.chap07 패키지에 포함된 HotelService 클래스의 getHotels
   - 코드베이스에 있는 모든 메서드 중 get 으로 시작하는 메서드들
 - `execution(* *(com.assu.study.chap07.controller.HotelRequest, ..))`
   - 코드베이스에 있는 모든 메서드 중 c.a.s.chap07.controller.HotelRequest.class 를 인자로 받는 모든 메서드들
-  - 패키지 경로, 클래스명, 메서드명을 지정하는 대신 모든 경로를 의미하는 `*' 지정
+  - 패키지 경로, 클래스명, 메서드명을 지정하는 대신 모든 경로를 의미하는 `*` 지정
   - 인자 위치에 HotelRequest 클래스를 넣어서 메서드에 HotelRequest 인자가 있는 메서드만 포인트 컷으로 정의
 
 
@@ -388,7 +388,7 @@ public Object printElapseTime(ProceedingJoinPoint proceedingJoinPoint) throws Th
 }
 ```
 
-> [7. 애너테이션을 이용한 AOP](#7-애너테이션을-이용한-aop) 에 예시가 있습니다.
+> [7. 애너테이션을 이용한 AOP](#7-애너테이션을-이용한-aop-annotation-order) 에 예시가 있습니다.
 
 ---
 
