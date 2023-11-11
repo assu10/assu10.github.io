@@ -461,7 +461,7 @@ getHotelNameAndAddress() 메서드의 인자는 2개이다.
 만일 hotelName 인자만 사용하여 캐시 key 를 설정해야 하면 `key` 속성을 사용한다.
 
 SpEL `#hotelName` 에서 `#` 은 객체를 의미하고, `hotelName` 은 인자 이름을 의미한다.  
-만약 hotelName 인자의 클래스 타입이 String 이 아니라 HotelRequest 처럼 getter 패턴으로 내부 속성에 접근할 수 있는 밸류 클래스이면 `#hotelRequest.hotelName` 처럼 설정할 수 이:ㅆ다.
+만약 hotelName 인자의 클래스 타입이 String 이 아니라 HotelRequest 처럼 getter 패턴으로 내부 속성에 접근할 수 있는 밸류 클래스이면 `#hotelRequest.hotelName` 처럼 설정할 수 있다.
 
 `condition` 속성에서 `#hotelName > ''` 은 null 조건을 검사한다.
 
