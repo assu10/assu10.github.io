@@ -6,7 +6,7 @@ categories: dev
 tags: web rest-api
 ---
 
-이 포스팅에서는 REST-API 의 특징과 설계 시 유의할 점에 대해 알아본다.
+이 포스트에서는 REST-API 의 특징과 설계 시 유의할 점에 대해 알아본다.
 
 - REST-API
 - REST-API 설계 시 유의점
@@ -188,7 +188,7 @@ Content-type: application/json
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot - HTTP, Spring Web MVC 프레임워크, REST-API](https://assu10.github.io/dev/2023/05/13/springboot-rest-api-1/)

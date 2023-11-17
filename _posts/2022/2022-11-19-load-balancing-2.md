@@ -6,7 +6,7 @@ categories: dev
 tags: devops aws load-balancing route53 dns
 ---
 
-이 포스팅은 AWS 의 관리형 DNS 서비스인 Route 53 에 대해 알아본다.
+이 포스트는 AWS 의 관리형 DNS 서비스인 Route 53 에 대해 알아본다.
 
 > - [DNS](#1-dns-domain-name-system)
 > - [Route 53](#2-route-53)
@@ -20,9 +20,9 @@ tags: devops aws load-balancing route53 dns
 
 ---
 
-아래는 이번 포스팅에서 다뤄볼 범위 도식화이다.
+아래는 이번 포스트에서 다뤄볼 범위 도식화이다.
 
-![이번 포스팅 범위 도식화](/assets/img/dev/2022/1119/1119_design.png)
+![이번 포스트 범위 도식화](/assets/img/dev/2022/1119/1119_design.png)
 
 # 1. DNS (Domain Name System)
 
@@ -142,7 +142,7 @@ TLD 네임 서버는 google.com 에 해당하는 권한있는 네임 서버 주�
 Route 53 이용을 하려면 도메인이 필요하다. (도메인 이름을 생성하고 호스팅 영역에 등록 시 과금)
 
 도메인을 Route 53 을 도메인 등록 대행소로 활용하거나 무료 DNS 제공 사이트를 도메인 등록 대행소로 활용하여 생성할 수 있다.  
-본 포스팅에선 Route 53 을 도메인 등록 대행소로 활용한다.
+본 포스트에선 Route 53 을 도메인 등록 대행소로 활용한다.
 
 > 무료 DNS 제공 사이트를 이용하는 경우는 [Freenom 무료DNS 생성 후 Route 53 호스팅 영역 연결](https://www.notion.so/ongja/CNBA52-Freenom-DNS-Route-53-aa8bc62b89704555b7ba09dd7465cbc6) 를 참고하세요.  
 > 생성한 도메인 이름에 대해 Route 53 에서 호스팅 영역을 생성하여 관리할 수 있습니다.  
@@ -596,7 +596,7 @@ PING qqq.jhtesttest.com (8.8.8.8): 56 data bytes
 - Route 53 Health checks 삭제 (*[Route 53] - [Health checks]*)
 - 호스팅 영역 Record 삭제 (*[Route 53] - [Hosted zones] - [Records]*)
 - 호스팅 영역 삭제 (*[Route 53] - [Hosted zones]*)  
-바로 다음 포스팅에서 사용 예정이므로 지금 삭제하지 말 것
+바로 다음 포스트에서 사용 예정이므로 지금 삭제하지 말 것
 - CloudFormation Stack 삭제 (*[CloudFormation] - [Stacks] - [Delete]*)
 
 CloudFormation Stack 이 삭제되면 위의 [3.1.2. CloudFormation 을 통해 생성된 자원 확인](#312-cloudformation-을-통해-생성된-자원-확인) 의 자원이
@@ -606,7 +606,7 @@ CloudFormation Stack 이 삭제되면 위의 [3.1.2. CloudFormation 을 통해 �
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김원일, 서종호 저자의 **따라하며 배우는 AWS 네트워크 입문**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김원일, 서종호 저자의 **따라하며 배우는 AWS 네트워크 입문**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [따라하며 배우는 AWS 네트워크 입문](http://www.yes24.com/Product/Goods/93887402)
 * [따라하며 배우는 AWS 네트워크 입문 - 책가이드](https://www.notion.so/ongja/AWS-1af579548fd84c268f8f3ee3f26b2ed4)

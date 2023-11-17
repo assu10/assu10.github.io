@@ -8,9 +8,9 @@ categories: dev
 ---
 
 `함수 조합 (function composition)` 은 작은 기능을 하는 여러 함수를 pipe, compose 함수로 조합하여 더 의미있는 함수로 만들어가는 코드 설계 기법이다.<br />
-이 포스팅은 `함수 조합 (function composition)` 의 기본이 되는 고차 함수와 커리, 이를 이용한 함수 조합에 대해 알아본다.
+이 포스트는 `함수 조합 (function composition)` 의 기본이 되는 고차 함수와 커리, 이를 이용한 함수 조합에 대해 알아본다.
 
-본 포스팅에 사용된 tsconfig.json
+본 포스트에 사용된 tsconfig.json
 ```json
 {
   "compilerOptions": {
@@ -54,7 +54,7 @@ categories: dev
 함수형 프로그래밍은 순수 함수와 선언형 프로그래밍의 토대 위에 함수 조합과 모나드 조합으로 코드를 설계하고 구현하는 기법이다.
 
 > 순수 함수는 [Typescript - 배열, 튜플](https://assu10.github.io/dev/2021/09/21/typescript-array-tuple/) 의 *3.1. 순수함수* 를 참고하세요.
-> 모나드 조합은 추후 포스팅 예정입니다.
+> 모나드 조합은 추후 포스트 예정입니다.
 
 함수형 프로그래밍 언어는 아래와 같은 기능을 제공한다. (모두 제공하는 것은 아님)
 - 정적 타입
@@ -102,7 +102,7 @@ type Type3Func<T, Q, R> = (T, Q) => R;
 > 타입 별칭은 [Typescript - 함수, 메서드](https://assu10.github.io/dev/2021/09/19/typescript-function-method/) 의 *1.2. 타입 별칭 (type alias)* 를 참고하세요.<br />
 > [Typescript - 배열, 튜플](https://assu10.github.io/dev/2021/09/21/typescript-array-tuple/) 의 *1.5. 제네릭 방식 타입 추론* 와 함께 보면 도움이 됩니다.
 
-이 외 인터페이스와 클래스에 제네릭 타입을 사용하는 방법은 추후 포스팅 예정입니다.
+이 외 인터페이스와 클래스에 제네릭 타입을 사용하는 방법은 추후 포스트 예정입니다.
 
 ---
 
@@ -564,7 +564,7 @@ console.log(pitagoras([3,4]));  // 5 (3*3 + 4*4 의 제곱근)
 
 ---
 
-*본 포스팅은 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)

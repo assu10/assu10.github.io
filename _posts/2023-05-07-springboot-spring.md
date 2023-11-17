@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa spring-bean spring-bean-container application-context 
 ---
 
-이 포스팅에서는 스프링 애플리케이션을 설정하고 비즈니스 로직을 효율적으로 개발할 수 있도록 해주는 Spring bean 의 생성, 사용법, 설정법에 대해 알아본다.  
+이 포스트에서는 스프링 애플리케이션을 설정하고 비즈니스 로직을 효율적으로 개발할 수 있도록 해주는 Spring bean 의 생성, 사용법, 설정법에 대해 알아본다.  
 
 Spring 프레임워크의 3 가지 핵심 기술은 의존성 주입, 관점 지향 프로그래밍, 서비스 추상화인데 이 중 의존성 주입은 객체 간 결합 정도를 낮추는 유용한 방법이다.
 Spring bean 을 선언하고 Spring bean Container 를 사용하여 Spring bean 들 사이에 의존성 주입을 할 수 있는 클래스와 애너테이션에 대해 알아볼 것이다.
@@ -1506,7 +1506,7 @@ public final class Money implements Serializable {  // class 는 반드시 final
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa redis cache cache-manager redis-cache-manager enable-caching cacheable cache-put cache-evict caching
 ---
 
-이 포스팅에서는 레디스를 사용한 Cache 에 대해 알아본다.
+이 포스트에서는 레디스를 사용한 Cache 에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap10) 에 있습니다.
 
@@ -73,7 +73,7 @@ pom.xml
 스프링 프레임워크의 cache 기능은 AOP 를 사용하여 구현되어 있으므로 프레임워크에서 제공하는 cache 애너테이션을 사용하면 쉽게 스프링 애플리케이션에 
 cache 를 구현할 수 있다.
 
-주로 많이 사용하는 cache 프레임워크는 `EhCache`, `Caffeine`, `JCache` 등이 있지만 이 포스팅에서는 레디스를 사용한 캐시에 대해 알아본다.
+주로 많이 사용하는 cache 프레임워크는 `EhCache`, `Caffeine`, `JCache` 등이 있지만 이 포스트에서는 레디스를 사용한 캐시에 대해 알아본다.
 
 cache 저장소를 구성하는 방식에 따라 2 가지 아키텍처가 있다.
 
@@ -94,7 +94,7 @@ cache 저장소를 구성하는 방식에 따라 2 가지 아키텍처가 있다
 캐시한 데이터 성격에 따라 적절한 아키텍처를 선택하면 된다.  
 데이터 정합성이 매우 중요하면 원격 캐시 아키텍쳐를 고려하면 된다.  
 
-이 포스팅에서는 원격 캐시 저장소를 구성하는 방법에 대해 알아본다.
+이 포스트에서는 원격 캐시 저장소를 구성하는 방법에 대해 알아본다.
 
 ---
 
@@ -178,7 +178,7 @@ public interface CacheManager {
 
 `EhCacheCacheManager` 와 `CaffeineCacheManager` 는 최대 데이터 개수와 유효 기간을 설정할 수 있다.  
 
-이 포스팅에서 사용할 `RedisCacheManager` 는 유효 기간을 설정할 수 있고, 최대 데이터 갯수는 직접 구현해야 한다.
+이 포스트에서 사용할 `RedisCacheManager` 는 유효 기간을 설정할 수 있고, 최대 데이터 갯수는 직접 구현해야 한다.
 
 일반적으로 **캐시마다 최대 데이터 갯수를 설정하는데, 최대 데이터 갯수를 초과하면 캐시 프레임워크는 저장된 데이터 중 초과된 개수만큼 삭제**한다.  
 이렇게 캐시에서 데이터를 삭제하는 과정을 Evict(퇴출) 이라고 한다.  
@@ -686,7 +686,7 @@ public HotelResponse getHotel(HotelRequest hotelRequest) {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

@@ -7,7 +7,7 @@ tags: msa centralized-log sleuth open-zipkin
 ---
 
 이 글은 본 블로그의 MSA 카테고리 중 2020-08-16(Spring Cloud - Spring Cloud Config Server) ~ ? 동안 사용된
-인스턴스의 포트 정보 및 인스턴스 기동 전 미리 기동시켜야 하는 작업들을 정리해놓은 포스팅입니다.
+인스턴스의 포트 정보 및 인스턴스 기동 전 미리 기동시켜야 하는 작업들을 정리해놓은 포스트입니다.
 
 (제가 헷갈려서 정리해놓은 글..)
 

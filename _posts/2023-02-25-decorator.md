@@ -6,7 +6,7 @@ categories: dev
 tags: typescript decorator nestjs
 ---
 
-이 포스팅은 ECMAScript 기능인 Decorator 에 대해 알아본다.   
+이 포스트는 ECMAScript 기능인 Decorator 에 대해 알아본다.   
 
 > - [Decorator](#1-decorator)
 >   - [Decorator Factory](#11-decorator-factory)
@@ -864,7 +864,7 @@ Validator args:  [ 'assu' ]
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [TypeScript Guidebook - 데커레이터](https://yamoo9.gitbook.io/typescript/decorator)

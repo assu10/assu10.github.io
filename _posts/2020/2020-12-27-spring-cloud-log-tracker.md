@@ -5,7 +5,7 @@ date:   2020-12-30 10:00
 categories: dev
 tags: msa centralized-log elasticsearch sleuth zipkin msa-tracker logging-tracker monitoring
 ---
-이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Sleuth, Open Zipkin 에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Sleuth, Open Zipkin 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -36,7 +36,7 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
 
 이러한 문제점을 해결하기 위해서 **로그 데이터를 인덱싱**하고, **검색할 수 있는 중앙 수집 지점**을 만들어 **전체 서비스 인스턴스의 모든 로그를 실시간 스트리밍**하는 방법이 있다.
 
-이 포스팅에선 **마이크로서비스의 로깅과 모니터링의 필요성**에 대해 알아본 후 **다양한 아키텍쳐와 기술**을 살펴보며 **로깅과 모니터링 관련 문제를 해결**할 수 있는
+이 포스트에선 **마이크로서비스의 로깅과 모니터링의 필요성**에 대해 알아본 후 **다양한 아키텍쳐와 기술**을 살펴보며 **로깅과 모니터링 관련 문제를 해결**할 수 있는
 방법에 대해 기술한다.
 
 >개인적으로 MSA 로 구성된 시스템에서 로그 관리는 정말 중요하다고 생각한다.
@@ -201,7 +201,7 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
 ---
 
 지금까지 분산 로그 추적에 관한 전반적인 내용을 살펴보았다.<br />
-이 후엔 중앙 집중형 로그와 분산 로그 추적을 직접 구현해보는 예제를 포스팅하도록 하겠다.
+이 후엔 중앙 집중형 로그와 분산 로그 추적을 직접 구현해보는 예제를 포스트하도록 하겠다.
 
 ---
 

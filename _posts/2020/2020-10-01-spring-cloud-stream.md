@@ -5,7 +5,7 @@ date:   2020-10-01 10:00
 categories: dev
 tags: msa eda event-driven-architecture mda message-driven-architecture spring-cloud-stream redis caching  
 ---
-이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -30,7 +30,7 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 
 ---
 
-이 포스팅에선 비동기 메시지를 사용하여 마이크로서비스 간 통신하는 스프링 기반의 마이크로서비스를 설계하는 법을 다룬다.
+이 포스트에선 비동기 메시지를 사용하여 마이크로서비스 간 통신하는 스프링 기반의 마이크로서비스를 설계하는 법을 다룬다.
 
 메시지를 사용하여 상태 변화를 표현하는데 이러한 개념을 `EDA` (Event Driven Architecture, `이벤트 기반 아키텍처`) 혹은
 `MDA` (Message Driven Architecture, `메시지 기반 아키텍처`) 라고 한다.<br />
@@ -154,14 +154,14 @@ EDA 에 대해 알아보기 전에 먼저 캐싱 솔루션에 대해 알아본�
 스프링 클라우드 스트림은 애플리케이션에 메시지 발행자와 소비자를 쉽게 구축할 수 있는 애너테이션 기반 프레임워크다.<br />
 스프링 클라우드 스트림은 메시징 플랫폼의 구현 세부 사항(소스, 채널, 바인더)을 추상화하고, 여러 메시지 플랫폼 (Kafka, RabbitMQ 등) 과 사용될 수 있다.
 
-이 포스팅에선 [Kafka](https://kafka.apache.org/) 메시지 버스(메시지 브로커)를 사용할 것이다.
+이 포스트에선 [Kafka](https://kafka.apache.org/) 메시지 버스(메시지 브로커)를 사용할 것이다.
 
 >Kafka 는 비동기적으로 메시지 스트림을 보낼 수 있는 경량의 고성능 메시지 버스이다.
 
 이제 스프링 클라우드 스트림 아키텍처에 대해 알아보도록 하자.
 
 스프링 클라우드 스트림 아키텍처에서메시지 발행자 (Publisher) 역할을 하는 서비스가 있고, 소비자 (Consumer) 역할을 하는 서비스가 있는데
-이 포스팅에선 회원 서비스를 발행자, 이벤트 서비스를 소비자로 진행할 것이다.
+이 포스트에선 회원 서비스를 발행자, 이벤트 서비스를 소비자로 진행할 것이다.
 
 스프링 클라우드 스트림 아키텍처는 `SOURCE (소스)`, `CHANNEL (채널)`, `BINDER (바인더)`, `SINK (싱크)` 4개의 컴포넌트로 
 이루어지는데 아래 그림을 보며 이해해보도록 하자.
@@ -513,7 +513,7 @@ group 프로퍼티는 서비스 인스턴스 그룹에서 메시지 복사본 �
 INFO 25304 --- [container-0-C-1] c.a.c.e.EventServiceApplication  : ======= Received an event for organization id assu
 ```
 
-다음 포스팅에서 스프링 클라우드 스트림을 사용한 분산 캐싱과 사용자 정의 채널에 대해 알아본다.
+다음 포스트에서 스프링 클라우드 스트림을 사용한 분산 캐싱과 사용자 정의 채널에 대해 알아본다.
 
 ---
 

@@ -6,7 +6,7 @@ categories: dev
 tags: devops rancher-desktop
 ---
 
-이 포스팅은 Docker Desktop 유료화에 따라 Docker Desktop 을 대체할 수 있는 `Rancher Desktop` 에 대해 알아보고,
+이 포스트는 Docker Desktop 유료화에 따라 Docker Desktop 을 대체할 수 있는 `Rancher Desktop` 에 대해 알아보고,
 최종적으로 Rancher Desktop 에서 관리하는 Docker 를 이용하여 mysql 을 띄워본다.
 
 

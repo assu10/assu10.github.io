@@ -6,7 +6,7 @@ categories: dev
 tags: redis 
 ---
 
-이 포스팅은 Redis 튜닝에 대해 알아본다.
+이 포스트는 Redis 튜닝에 대해 알아본다.
 
 > - [성능 튜닝 포인트](#1-성능-튜닝-포인트)
 > - [시스템 튜닝](#2-시스템-튜닝)
@@ -254,7 +254,7 @@ OK
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)

@@ -5,7 +5,7 @@ date:   2020-11-01 10:00
 categories: dev
 tags: msa hystrix  
 ---
-이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Hystrix 에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Hystrix 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -56,7 +56,7 @@ tags: msa hystrix
 정상 동작하지 않는 원격 서비스의 문제가 심각한 이유는 탐지하기 어려울 뿐 아니라 애플리케이션 전체에 미치는 파급 효과가 크기 때문이다.<br />
 마이크로서비스에 기반을 둔 애플리케이션이 이러한 유형의 장애에 특히 취약한 이유는 하나의 트랜잭션을 완료하는데 여러 분산된 서비스로 구성되기 때문이다.
 
-하여 이 포스팅에선 위와 같은 상황을 방지할 수 있도록 아래와 같은 순서로 **Spring Cloud Netflix Hystrix** 를 사용하여 **클라이언트 회복성 패턴**에 대해 알아본다.
+하여 이 포스트에선 위와 같은 상황을 방지할 수 있도록 아래와 같은 순서로 **Spring Cloud Netflix Hystrix** 를 사용하여 **클라이언트 회복성 패턴**에 대해 알아본다.
 
 - Hystrix 애너테이션을 사용하여 Circuit Breaker (서킷 브레이커) 패턴으로 원격 호출 실행
 - 개별 서킷 브레이커를 사용자 정의하여 호출별 타임아웃 설정 
@@ -178,7 +178,7 @@ public class MemberServiceApplication {
 
 회원 서비스 임의의 메서드에 서킷 브레이커 패턴을 적용해보도록 하자.
 
-아래 코드에선 단순히 `@HystrixCommand` 만 적용했지만 `@HystrixCommand` 엔 더 많은 속성들이 있다. (이 포스팅 뒷부분에 설명)
+아래 코드에선 단순히 `@HystrixCommand` 만 적용했지만 `@HystrixCommand` 엔 더 많은 속성들이 있다. (이 포스트 뒷부분에 설명)
 
 별도 속성 정의없이 `@HystrixCommand` 애너테이션만 사용한다면 모두 기본값을 사용한다는 의미이다.
   
@@ -219,7 +219,7 @@ com.netflix.hystrix.exception.HystrixRuntimeException: hys timed-out and fallbac
 ***`@HystrixCommand` 애너테이션의 구성 설정없이 기본 `@HystrixCommand` 를 사용하는 것은 주의가 많이 필요하다.<br />
 프로퍼티없이 `@HystrixCommand` 애너테이션을 지정하면 모든 원격 서비스 호출에 동일한 스레드 풀을 사용하므로 애플리케이션에서 문제가 발생할 수 있다.***
 
-이 포스팅 뒷부분(벌크헤드)에 원격 서비스 호출을 자체 스레드 풀로 분리하는 방법과 스레드 풀을 독립적으로 동작시키는 구성 방법을 설명한다.
+이 포스트 뒷부분(벌크헤드)에 원격 서비스 호출을 자체 스레드 풀로 분리하는 방법과 스레드 풀을 독립적으로 동작시키는 구성 방법을 설명한다.
 
 ---
 

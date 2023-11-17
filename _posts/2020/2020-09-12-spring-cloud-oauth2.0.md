@@ -5,7 +5,7 @@ date:   2020-09-12 10:00
 categories: dev
 tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt 
 ---
-이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 Security OAuth2 와 Spring Cloud Security 에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Security OAuth2 와 Spring Cloud Security 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -28,11 +28,11 @@ tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt
 
 애플리케이션 보안의 여러 가지 측면으로 바라볼 수 있다.
 
-- **본인 인증(authenticate)** 후 요청한 작업을 수행할 수 있는 **권한(authorized)** 여부 검증 -> 이 포스팅에서 다룰 내용
+- **본인 인증(authenticate)** 후 요청한 작업을 수행할 수 있는 **권한(authorized)** 여부 검증 -> 이 포스트에서 다룰 내용
 - 인프라 스트럭처의 꾸준한 패치
 - 정의된 포트로만 접근 허용, 인가된 서버만 접근할 수 있도록 네트워크 접근 통제
 
-이 포스팅에선 아래의 내용을 다룰 예정이다.
+이 포스트에선 아래의 내용을 다룰 예정이다.
 
 - 스프링 기반 서비스의 보안을 위해 `스프링 클라우드 보안(security)` 과 `OAuth2 표준`을 사용하여 **본인 인증**과 **권한**을 확인
 - OAuth2 를 이용하여 사용자가 호출할 수 있는 엔드포인트와 HTTP verb 정의
@@ -294,7 +294,7 @@ public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
 *사용자 정보: 개발 사용자의 자격 증명과 속한 역할*<br />
 
-이 포스팅에선 가장 단순한 인메모리 데이터 저장소를 사용할 예정이다.
+이 포스트에선 가장 단순한 인메모리 데이터 저장소를 사용할 예정이다.
 
 >**스프링 OAuth2 애플리케이션 정보 저장소**<br />
 >인메모리, RDBMS 에 데이터 저장

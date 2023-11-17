@@ -6,7 +6,7 @@ categories: dev
 tags: java java8 optional-class optional
 ---
 
-이 포스팅에서는 아래 내용에 대해 알아본다.
+이 포스트에서는 아래 내용에 대해 알아본다.
 - null 레퍼런스의 문제점
 - null 대신 Optional: null 로부터 안전한 도메인 모델 재구현
 - Optional 활용: null 확인 코드 제거
@@ -481,7 +481,7 @@ Optional 이 비어있다면 filter() 는 아무 동작도 하지 않고, Option
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [자바 8 인 액션](https://www.yes24.com/Product/Goods/17252419)
 * [책 예제 소스](https://download.hanbit.co.kr/exam/2179/)

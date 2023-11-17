@@ -5,7 +5,7 @@ date:   2020-10-02 10:00
 categories: dev
 tags: msa eda event-driven-architecture mda message-driven-architecture spring-cloud-stream redis caching  
 ---
-이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -30,13 +30,13 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 
 ---
 
-이 포스팅에선 **Redis 와 Kafka 를 사용하여 EDA 기반의 분산 캐싱**을 구현하고, 사용자 정의 채널로 EDA 를 구축해본다. 
+이 포스트에선 **Redis 와 Kafka 를 사용하여 EDA 기반의 분산 캐싱**을 구현하고, 사용자 정의 채널로 EDA 를 구축해본다. 
   
 --- 
 
 ## 1. 스프링 클라우드 스트림을 사용한 분산 캐싱
 
-이전 포스팅에서 회원 서비스와 이벤트 서비스를 메시징을 통하여 통신하도록 설정했지만 실제 메시지로 아무런 작업도 하지 않는다.
+이전 포스트에서 회원 서비스와 이벤트 서비스를 메시징을 통하여 통신하도록 설정했지만 실제 메시지로 아무런 작업도 하지 않는다.
 이제 클라우드 스트림을 이용하여 분산 캐싱을 구현해 볼 것이다.
 
 시나리오는 아래와 같다.
@@ -147,7 +147,7 @@ redis:
 
 ### 2.3. 스프링 데이터 레디스의 Repository 클래스를 정의
 
-*이 포스팅에서 레디스에 대해선 자세히 다루지 않을 것이다. (레디스에 대해선 별도로 찾아보세요~)*
+*이 포스트에서 레디스에 대해선 자세히 다루지 않을 것이다. (레디스에 대해선 별도로 찾아보세요~)*
 
 레디스는 key-value 형태의 데이터 저장소이다.<br />
 레디스 저장소에 접근하기 위해서 스프링 데이터를 사용하기 때문에 repository 클래스를 정의해야 한다.
@@ -379,7 +379,7 @@ DEBUG MemberCacheRestTemplateClient  : ======= Successfully retrieved an Member 
 
 ### 3.1. 사용자 정의 채널 설정
 
-이전 포스팅인 [Spring Cloud - Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/) 의
+이전 포스트인 [Spring Cloud - Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/) 의
 *3. 메시지 발행자와 소비자 구현* 에서는 스프링 클라우드 스트림 프로젝트의 `Source` 와 `Sink` 인터페이스에서 제공하는
 `output` 및 `input` 채널을 사용하였다.
 

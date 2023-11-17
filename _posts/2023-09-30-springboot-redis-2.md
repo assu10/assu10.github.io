@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa redis redis-serializer value-operation redis-template
 ---
 
-이 포스팅에서는 `RedisTemplate` 를 직접 설정하는 방법에 대해 알아본다.
+이 포스트에서는 `RedisTemplate` 를 직접 설정하는 방법에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap10) 에 있습니다.
 
@@ -71,7 +71,7 @@ pom.xml
 여기선 별도의 `RedisTemplate` 스프링 빈을 설정하여 특정 클래스를 레디스 키와 밸류의 클래스 타입으로 사용하는 방법에 대해 알아본다.  
 이 때 레디스와 애플리케이션 사이에 데이터를 변환하는 역할은 `RedisSerializer` 가 담당한다.
 
-> `RedisSerializer` 에 대한 내용은 추후 다룰 예정입니다.
+> `RedisSerializer` 에 대한 내용은 [1.2. RedisSerializer 구현체](#12-redisserializer-구현체) 를 참고하세요.
 
 여기선 레디스의 문자열 자료 구조를 사용하여 호텔 캐시 데이터를 레디스에 저장하는 법에 대해 알아본다.
 
@@ -551,7 +551,7 @@ public class CacheConfig {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

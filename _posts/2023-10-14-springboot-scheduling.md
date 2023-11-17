@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa scheduled enable-scheduling task-scheduler cron fixed-delay fixed-rate batch
 ---
 
-이 포스팅에서는 스프링 프레임워크에서 제공하는 스케쥴링 기능을 설정하는 법과 스케쥴을 설정하여 태스크를 실행하는 법, 그리고 배치 서버를 구성하는 법에 대해 알아본다.
+이 포스트에서는 스프링 프레임워크에서 제공하는 스케쥴링 기능을 설정하는 법과 스케쥴을 설정하여 태스크를 실행하는 법, 그리고 배치 서버를 구성하는 법에 대해 알아본다.
 
 배치 프로세스는 스케쥴링, 트리거, 태스크로 구성된다.
 
@@ -406,7 +406,7 @@ userRepository.findByCreatedBeforeCouponFlagAndSize(to, flgs, fetchCount);
 
 - 모든 서버군의 서버는 NTPD 를 사용하여 서버 시간을 동기화
 - 배치 프로세스의 스케쥴링은 `@Scheduled` 애너테이션의 **`cron` 속성을 사용하여 실행함으로써 서버군에 포함된 모든 서버의 배치 프로세스가 같은 시간에 실행**되도록 함
-- **중복 실행을 막고자 레디스의 분산 락을 사용**하여 가장 먼저 실행된 배치 프로세스가 데이터를 처리
+- **중복 실행을 막고자 레디스의 분산락을 사용**하여 가장 먼저 실행된 배치 프로세스가 데이터를 처리
 - 장애에 견고한 코드를 작성하여 실행되지 못한 태스크는 자동으로 복구할 수 있도록 작성
 - 짧은 주기의 배치 프로세스가 아니라면 **수동으로 복구할 수 있는 기능 개발**
 
@@ -511,7 +511,7 @@ spring.main.web-application-type=none
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

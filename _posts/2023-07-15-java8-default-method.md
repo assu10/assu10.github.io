@@ -6,7 +6,7 @@ categories: dev
 tags: java java8 default-method
 ---
 
-이 포스팅에서는 아래의 내용에 대해 알아본다.
+이 포스트에서는 아래의 내용에 대해 알아본다.
 - 디폴트 메서드
 - 변화하는 인터페이스가 호환성을 유지하는 방법
 - 디폴트 메서드의 활용 패턴
@@ -525,7 +525,7 @@ public class C_1 implements A, B_1 {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [자바 8 인 액션](https://www.yes24.com/Product/Goods/17252419)
 * [책 예제 소스](https://download.hanbit.co.kr/exam/2179/)

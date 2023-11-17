@@ -6,7 +6,7 @@ categories: dev
 tags: msa hystrix zuul ribbon
 ---
 
-이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -59,7 +59,7 @@ Zuul 은 4가지 타입의 필터를 지원한다.
     - 대상 경로 : 라우팅 필터가 새로운 경로로 동적 리다이렉션을 하지 않는 경우 원래 대상 서비스의 경로로 라우팅
 - 대상 서비스가 호출된 후의 응답은 사후 필터로 유입된다. 이때 서비스 응답 수정 및 검사가 가능하다.
     
-이번 포스팅에서는 아래와 같은 필터를 구성할 예정이다.
+이번 포스트에서는 아래와 같은 필터를 구성할 예정이다.
 
 ![구현할 필터 역할과 흐름](/assets/img/dev/2020/0905/filters.png)
 
@@ -94,7 +94,7 @@ Zuul 에서 필터를 구현하려면 `ZuulFilter` 클래스를 상속받은 후
 
 >상관관계 ID 로 로그를 추적하는 방법은 나중에 Spring Cloud Sleuth 와 Open Zipkin 으로 대체하여 사용 예정입니다.<br />
 >[Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/3) - 로그 추적](https://assu10.github.io/dev/2021/01/04/spring-cloud-log-tracker3/) 에
->포스팅되어 있지만 아래 내용도 한번씩 해보세요~
+>포스트되어 있지만 아래 내용도 한번씩 해보세요~
 
 ![사전필터 디렉토리 구조](/assets/img/dev/2020/0905/prefilter.png)
 

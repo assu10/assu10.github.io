@@ -6,7 +6,7 @@ categories: dev
 tags: java java8 refactoring design-pattern strategy-pattern template-pattern observer-pattern chain-of-responsibility-pattern factory-method-pattern factory-pattern
 ---
 
-이 포스팅에서는 람다 표현식을 이용하여 가독성과 유연성을 높이려면 기존 코드를 어떻게 리팩토링해야 하는지 알아본다.  
+이 포스트에서는 람다 표현식을 이용하여 가독성과 유연성을 높이려면 기존 코드를 어떻게 리팩토링해야 하는지 알아본다.  
 또한 람다 표현식으로 전략 패턴, 템플릿 메서드 패턴, 옵저버 패턴, 의무 체인 패턴, 팩토리 패턴 등 객체지향 디자인 패턴을 어떻게 간소화할 수 있는지 알아본다.
 
 
@@ -886,7 +886,7 @@ System.out.println(p2.getClass());
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [자바 8 인 액션](https://www.yes24.com/Product/Goods/17252419)
 * [책 예제 소스](https://download.hanbit.co.kr/exam/2179/)

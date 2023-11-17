@@ -5,7 +5,7 @@ date:   2020-12-06 10:00
 categories: dev
 tags: msa zuul hystrix-timeout ribbon-timeout
 ---
-이 포스팅은 Zuul (Ribbon) Retry 와 Zuul 타임아웃에 대해 기술한다.
+이 포스트는 Zuul (Ribbon) Retry 와 Zuul 타임아웃에 대해 기술한다.
 
 > - Retry
 > - Zuul (Ribbon) Retryable 설정
@@ -28,7 +28,7 @@ Spring Cloud Netflix 는 `load balanced RestTemplate`, `Ribbon`, `Feign` 등 HTT
 
 HTTP Request 를 생성하는 방법에 관계없이 Request 는 항상 실패할 가능성이 있는데 이 때 자동으로 요청을 재시도 (Retry) 할 수 있도록 설정할 수 있다.
 
-이 포스팅에선 Request 가 실패할 경우 Zuul 에서 Ribbon 을 통해 다른 서버로 Request 를 시도하도록 설정하는 방법에 대해 알아본다. 
+이 포스트에선 Request 가 실패할 경우 Zuul 에서 Ribbon 을 통해 다른 서버로 Request 를 시도하도록 설정하는 방법에 대해 알아본다. 
 
 ---
 
@@ -114,7 +114,7 @@ event-service:
 
 ## 4. Hystrix 설정
 
-이전 포스팅인 [Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/) 에선 java 코드를 통해 hystrix 를 설정했는데
+이전 포스트인 [Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/) 에선 java 코드를 통해 hystrix 를 설정했는데
 여기선 yaml 을 통해 hystrix 설정을 진행해보도록 한다.
 
 **zuulserver > pom.xml**
@@ -206,7 +206,7 @@ public String getYourName(ServletRequest req, @PathVariable("nick") String nick)
 
 ## 5. Zuul, Ribbon, Hystrix 의 타임아웃 관계
 
-여기선 이전 포스팅인 [Spring Cloud - Netflix Zuul(1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/) 에서 다룬 서비스 타임아웃을 좀 더 상세히
+여기선 이전 포스트인 [Spring Cloud - Netflix Zuul(1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/) 에서 다룬 서비스 타임아웃을 좀 더 상세히
 살펴볼 것이다.
 
 Ribbon 의 타임아웃과 hystrix 의 타임아웃은 각각 어떤 역할을 하는 것일까?
@@ -235,7 +235,7 @@ Ribbon 의 timeout 공식은 다음과 같다.
 
 > **ribbonTimeout = (ribbon.ConnectTimeout + ribbon.ReadTimeout) * (ribbon.MaxAutoRetries + 1) * (ribbon.MaxAutoRetriesNextServer + 1)**
 
-즉, 이 포스팅의 예제대로라면 ribbon timeout 은 (2 + 1) * (0 + 1) * (1 + 1) = 6 seconds 이다.<br />
+즉, 이 포스트의 예제대로라면 ribbon timeout 은 (2 + 1) * (0 + 1) * (1 + 1) = 6 seconds 이다.<br />
 히스트릭스의 타임아웃인 `hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds` 는 디폴트가 1초이므로
 의도한 6초 이후 타임아웃이 동작하게 하려면 ribbon 과 hystrix 모두 타임아웃 설정이 필요하다. 
 

@@ -6,7 +6,7 @@ categories: dev
 tags: msa centralized-log sleuth open-zipkin
 ---
 
-이 포스팅은 로그 시각화를 위한 Open Zipkin 에 대해 기술한다.
+이 포스트는 로그 시각화를 위한 Open Zipkin 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -34,7 +34,7 @@ tags: msa centralized-log sleuth open-zipkin
 
 ---
 
-바로 전 포스팅인 [Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/4) - 로그 추적을 위한 Sleuth 사용](https://assu10.github.io/dev/2021/01/04/spring-cloud-log-tracker3/)
+바로 전 포스트인 [Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/4) - 로그 추적을 위한 Sleuth 사용](https://assu10.github.io/dev/2021/01/04/spring-cloud-log-tracker3/)
 에서는 분산된 로그를 추적하기 위해 Spring Cloud Sleuth 를 이용하여 추적 ID 와 스팬 ID 를 로그에 추가하는 방법에 대해 알아보았다.
 
 이제 로그를 추적하는 것보다 여러 마이크로서비스 간 트랜잭션의 흐름을 시각화하는 방법에 대해 알아보자.
@@ -138,7 +138,7 @@ Open Zipkin 은 아래 4 가지 저장소를 지원한다.<br />
 기본적으로 Open Zipkin 은 추적 데이터를 저장하는데 인메모리 데이터 저장소를 하용하지만 인메모리 데이터베이스는 보유가능한 데이터의 양이 제한되어 있고,
 Open Zipkin 서버가 종료되거나 고장나면 저장된 데이터가 유실되기 때문에 실제 운영 시스템에는 적합하지 않다.
 
-이 포스팅에선 인메모리 데이터 저장소와 함께 Open Zipkin 을 사용한다. (ElasticSearch 로 Zipkin 연동하여 보는 법도 있습니다.)
+이 포스트에선 인메모리 데이터 저장소와 함께 Open Zipkin 을 사용한다. (ElasticSearch 로 Zipkin 연동하여 보는 법도 있습니다.)
 
 ---
 

@@ -6,7 +6,7 @@ categories: dev
 tags: java java8 lambda-testing stream-testing lambda-debugging stream-debugging peek
 ---
 
-이 포스팅에서는 람다 표현식과 스트림 API 를 사용하는 코드를 테스트하고 디버깅하는 방법에 대해 알아본다.
+이 포스트에서는 람다 표현식과 스트림 API 를 사용하는 코드를 테스트하고 디버깅하는 방법에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/java8/tree/feature/chap08) 에 있습니다.
 
@@ -357,7 +357,7 @@ after limit: 22
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [자바 8 인 액션](https://www.yes24.com/Product/Goods/17252419)
 * [책 예제 소스](https://download.hanbit.co.kr/exam/2179/)

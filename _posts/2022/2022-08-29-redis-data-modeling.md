@@ -6,7 +6,7 @@ categories: dev
 tags: redis data-modeling
 ---
 
-이 포스팅은 Redis 의 데이터 모델링에 관해 알아본다.   
+이 포스트는 Redis 의 데이터 모델링에 관해 알아본다.   
 
 > - [용어](#1-용어)
 > - [Redis 데이터 모델링 가이드 라인](#2-redis-데이터-모델링-가이드-라인)
@@ -159,7 +159,7 @@ K-V DB 는 이런 제약조건 기능이 제공되지 않는다.
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)

@@ -6,7 +6,7 @@ categories: dev
 tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack 
 ---
 
-이 포스팅은 중앙 집중형 로깅 솔루션 중 하나인 ELK (ElasticSearch, Logstash, Kibana) 스택에 대해 기술한다.
+이 포스트는 중앙 집중형 로깅 솔루션 중 하나인 ELK (ElasticSearch, Logstash, Kibana) 스택에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -88,7 +88,7 @@ ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스
 - **Winlogbeat**
     - Windows 이벤트 로그 제공
     
-이 포스팅에선 일단 ELK 스택을 다룰 예정이다.
+이 포스트에선 일단 ELK 스택을 다룰 예정이다.
 
 이제 ELK 스택을 사용하기 위해 각 오픈 소스를 설치해보도록 하자.<br />
 로그 데이터의 전체적인 흐름은 아래와 같다.
@@ -325,7 +325,7 @@ Kibana 콘솔인 [http://localhost:5601/app/home#/](http://localhost:5601/app/ho
 ---
 
 지금까지 로그 집중화를 위한 ELK 스택에 대해 살펴보았다.<br />
-이 후엔 분산 로그 추적을 직접 구현해보는 예제를 포스팅하도록 하겠다.
+이 후엔 분산 로그 추적을 직접 구현해보는 예제를 포스트하도록 하겠다.
 
 ---
 

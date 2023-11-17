@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa database jpa spring-data-jps hibernate datasource connection-pool entity-manager
 ---
 
-이 포스팅에서는 JPA, Spring Data JPA, Hibernate 에 대해 알아본다.
+이 포스트에서는 JPA, Spring Data JPA, Hibernate 에 대해 알아본다.
 
 JPA(Java Persistence API) 는 자바 ORM 표준 스펙이고,  
 Hibernate 는 JPA 표준 스펙을 따르는 구현 프레임워크로 ORM 프레임워크 중 보편적으로 사용된다.  
@@ -557,7 +557,7 @@ spring.datasource.hikari.idle-timeout=604800
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa web-mvc-configurer dispatcher-servlet
 ---
 
-이 포스팅에서는 아래 내용에 대해 알아본다. 
+이 포스트에서는 아래 내용에 대해 알아본다. 
 
 - 스프링 웹 MVC 프레임워크에서 제공하는 `WebMvcConfigurer` 를 사용하여 애플리케이션 설정
 - `DispatcherServlet` 을 설정하여 기능을 확장하거나 새로 설정
@@ -94,7 +94,7 @@ pom.xml
 
 웹 애플리케이션을 설정하는 방법은 3 가지로 분류할 수 있다.
 - **스프링 웹 프레임워크에서 제공하는 확장 인터페이스를 사용하여 필요 기능을 추가,교체**
-  - 예) 이 포스팅에 나오는 `WebMvcConfigurer` 인터페이스에서 제공하는 콜백 메서드를 개발자가 설정한 부분만 구현하는 것
+  - 예) 이 포스트에 나오는 `WebMvcConfigurer` 인터페이스에서 제공하는 콜백 메서드를 개발자가 설정한 부분만 구현하는 것
 - **스프링 프레임워크에 기본 설정으로 만들어지는 스프링 빈을 재설정**
   - 예) `@Primary` 애너테이션을 사용하여 스프링 빈 재정의
 - **스프링 웹 MVC 프레임워크에서 미리 정의한 스프링 빈 이름과 타입으로 사용자가 생성**
@@ -794,7 +794,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

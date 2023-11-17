@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa HttpMessageConverter ObjectMapper
 ---
 
-이 포스팅에서는 `HttpMessageConverter` 와 `ObjectMapper` 를 설정하는 법에 대해 알아본다.
+이 포스트에서는 `HttpMessageConverter` 와 `ObjectMapper` 를 설정하는 법에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap06) 에 있습니다.
 
@@ -517,7 +517,7 @@ reservations 의 요소 개수가 0일 경우 출력이 되지 않는 것을 확
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

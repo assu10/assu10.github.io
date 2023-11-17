@@ -5,7 +5,7 @@ date:   2020-09-30 10:00
 categories: dev
 tags: msa oauth2 jwt spring-cloud-security security-oauth2 spring-security-jwt 
 ---
-이 포스팅은 MSA 를 보다 편하게 도입할 수 있도록 해주는 Security OAuth2 와 Spring Cloud Security 에 대해 기술한다.
+이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Security OAuth2 와 Spring Cloud Security 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -24,7 +24,7 @@ tags: msa oauth2 jwt spring-cloud-security security-oauth2 spring-security-jwt
 
 ---
 
-이전 포스팅에 이어서 포스팅에선 아래의 내용을 다룰 예정이다.
+이전 포스트에 이어서 포스트에선 아래의 내용을 다룰 예정이다.
 
 - ~~스프링 기반 서비스의 보안을 위해 `스프링 클라우드 보안(security)` 과 `OAuth2 표준`을 사용하여 **본인 인증**과 **권한**을 확인~~
 - ~~OAuth2 를 이용하여 사용자가 호출할 수 있는 엔드포인트와 HTTP verb 정의~~
@@ -56,7 +56,7 @@ tags: msa oauth2 jwt spring-cloud-security security-oauth2 spring-security-jwt
 >표준 스크링 클라우드 시큐리티의 OAuth2 구성과 JWT 기반 OAuth2 구성은 서로 다른 클래스를 사용하기 때문에
 >[*master_jwt*](https://github.com/assu10/msa-springcloud/tree/master_jwt) branch 로 분리
 
-이 포스팅은 아래와 같은 절차로 진행된다.
+이 포스트는 아래와 같은 절차로 진행된다.
 
 1. JWT 발행을 위해 인증 서버를 수정 및 JWT 토큰 확장<br />
 2. 마이크로서비스(회원/이벤트 서비스)에서 JWT 사용 (회원 서비스에서 이벤트 서비스 호출)<br />
@@ -208,7 +208,7 @@ public class JWTTokenStoreConfig {
 }
 ```
 
-아래 *JWTOAuth2Config.java* 는 이전 포스팅의 *OAuth2Config.java* 와 동일한 역할을 한다.
+아래 *JWTOAuth2Config.java* 는 이전 포스트의 *OAuth2Config.java* 와 동일한 역할을 한다.
 
 **auth-service > JWTOAuth2Config.java**
 ```java
@@ -277,7 +277,7 @@ public class JWTOAuth2Config extends AuthorizationServerConfigurerAdapter {
 **토큰 획득**
 POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth/token)
 
-토큰 획득 시 Authorization 과 Body 셋팅은 이전 포스팅인 [Spring Cloud - OAuth2, Security(1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/) 에서
+토큰 획득 시 Authorization 과 Body 셋팅은 이전 포스트인 [Spring Cloud - OAuth2, Security(1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/) 에서
 *2.4.1. 토큰 획득* 를 참고하세요.
 
 POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth/token) 호출 시 아래와 같은 형식의 페이로드가 반환된다.
@@ -559,7 +559,7 @@ JWT 토큰에서 사용자 정의 필드를 파싱하는 방법을 확인해보�
 jti=595aa7f9-7887-4263-85b1-20aa3555ffd2, client_id=assuapp}
 ```
 
-여기선 이전 포스팅인 [Spring Cloud - Netflix Zuul(2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/) 의 *2. 사전 필터* 에서 구성한 *PreFilter.java* 를
+여기선 이전 포스트인 [Spring Cloud - Netflix Zuul(2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/) 의 *2. 사전 필터* 에서 구성한 *PreFilter.java* 를
 수정하여 Zuul 로 전달되는 JWT 토큰에서 사용자 정의 필드인 *userId* (위의 *JWTTokenEnhancer.java* 에서 추가함) 필드를 파싱해 볼 예정이다.
 
 `jjwt` 와 `jaxb-api` 의존성을 추가한다.

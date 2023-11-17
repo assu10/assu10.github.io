@@ -6,7 +6,7 @@ categories: dev
 tags: redis 
 ---
 
-이 포스팅은 Redis Logging 과 Monitoring 에 대해 알아본다.
+이 포스트는 Redis Logging 과 Monitoring 에 대해 알아본다.
 
 > - [Master 서버를 이용한 Slave 서버 복구](#1-master-서버를-이용한-slave-서버-복구)
 > - [Logging & Monitoring](#2-logging--monitoring)
@@ -181,7 +181,7 @@ Redis 의 message 는 완벽한 전달을 보장하지 않음.
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)

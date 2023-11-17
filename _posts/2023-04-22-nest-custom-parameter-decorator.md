@@ -6,7 +6,7 @@ categories: dev
 tags: nestjs parameter-decorator custom-parameter-decorator
 ---
 
-이 포스팅은 NestJS 에서 라우트 핸들러의 매개변수에 적용할 수 있는 매개변수 데커레이터를 커스텀하여 활용하는 법에 대해 알아본다.
+이 포스트는 NestJS 에서 라우트 핸들러의 매개변수에 적용할 수 있는 매개변수 데커레이터를 커스텀하여 활용하는 법에 대해 알아본다.
 
 - [Decorator](#1-decorator)
   - [내장 Decorator 종류](#11-내장-decorator-종류)
@@ -282,7 +282,7 @@ export function Auth(...roles: Role[]) {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [NestJS로 배우는 백엔드 프로그래밍 - Github](https://github.com/dextto/book-nestjs-backend)

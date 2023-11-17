@@ -6,7 +6,7 @@ categories: dev
 tags: msa centralized-log sleuth open-zipkin
 ---
 
-이 포스팅은 로그 추적을 할 수 있도록 지원하는 Sleuth 사용법에 대해 기술한다.
+이 포스트는 로그 추적을 할 수 있도록 지원하는 Sleuth 사용법에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
@@ -29,7 +29,7 @@ tags: msa centralized-log sleuth open-zipkin
 
 ---
 
-바로 전 포스팅인 [Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택](https://assu10.github.io/dev/2021/01/04/spring-cloud-log-tracker2/)
+바로 전 포스트인 [Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택](https://assu10.github.io/dev/2021/01/04/spring-cloud-log-tracker2/)
 에서는 마이크로서비스에서 분산되고 파편화되는 로깅 문제를 중앙 집중형 로깅 방식(**ELK Stack**)으로 해결하는 방법에 대해 알아보았다.
 
 중앙 집중형 로깅 솔루션을 사용하면 모든 로그를 중앙 저장소에 보관할 수 있지만<br />
@@ -75,7 +75,7 @@ tags: msa centralized-log sleuth open-zipkin
 
 위 다이어그램처럼 동일한 추적 아이디가 모든 마이크로서비스에 전달되어 트랜잭션의 전 구간을 추적할 수 있게 된다.
 
-전에 포스팅했던 [Spring Cloud - Netflix Zuul(2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/) 의 *2. 사전 필터*와 *3. 사후 필터*에서
+전에 포스트했던 [Spring Cloud - Netflix Zuul(2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/) 의 *2. 사전 필터*와 *3. 사후 필터*에서
 트랜잭션을 추적할 목적으로 아래와 같은 방식으로 상관관계 ID 를 활용하였다. 
 
 - Zuul 의 사전 필터를 사용하여 유입되는 모든 HTTP 요청을 검사하고 상관관계 ID 가 없으면 삽입 
@@ -137,7 +137,7 @@ INFO 다음에 이상한 문구가 찍힌 것이 보일텐데 각 항목의 의�
 - 첫 번째 값 : 어플리케이션 이름 (application.yaml 에 spring.application.name 을 지정해주었지만 빈 값으로 나온다. 혹시나 하여 bootstrap.yaml 에 지정하니 정상적으로 출력됨)
 - 두 번째 값 : 추적 ID (하나의 트랜잭션의 고유 식별자이며 해당 요청의 모든 서비스 호출에 전달됨)
 - 세 번째 값 : 스팬 ID (하나의 트랜잭션의 일부를 나타내는 고유 ID)
-- 네 번째 값 : Open Zipkin 전송 여부 (추적을 위해 Open Zipkin 서버에 데이터 전송 여부를 결정하는 플래그, Open Zipkin은 다음 포스팅 때 다룰 예정)
+- 네 번째 값 : Open Zipkin 전송 여부 (추적을 위해 Open Zipkin 서버에 데이터 전송 여부를 결정하는 플래그, Open Zipkin은 다음 포스트 때 다룰 예정)
 
 회원 서비스와 이벤트 서비스의 추적 ID 는 `e6fcd377c5c46bd9` 로 동일하고 스팬 ID 는 각각 `e6fcd377c5c46bd9`, `15a21c3858c0b1e0` 로 다른 것을 알 수 있다.<br />
 이렇게 다른 스팬 ID 로 트랜잭션의 구간을 구별할 수 있다.

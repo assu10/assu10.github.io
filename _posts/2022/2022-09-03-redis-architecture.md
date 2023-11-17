@@ -6,7 +6,7 @@ categories: dev
 tags: redis 
 ---
 
-이 포스팅은 Redis 운영 시 알아야 할 아키텍쳐에 관해 알아본다.   
+이 포스트는 Redis 운영 시 알아야 할 아키텍쳐에 관해 알아본다.   
 
 > - [Redis 아키텍쳐](#1-redis-아키텍쳐)
 >   - [메모리 영역](#11-메모리-영역)
@@ -486,7 +486,7 @@ Redis 서버는 `redis-benchmark.exe` 실행 코드를 제공하는데 이를 �
 
 `redis-benchmark [-h <host>] [-p <port>] [-c <clients>] [-n <requests>] [-k <boolean>]`
 
-> redis-benchmark 에 대해선 추후 하나의 포스팅으로 올릴 예정이다. 
+> redis-benchmark 에 대해선 추후 하나의 포스트으로 올릴 예정이다. 
 
 ---
 
@@ -919,7 +919,7 @@ $ redis-cli
 
 Luke Protocol 을 이용한 업로드의 단점은 업로드의 성능 지연문제인데 이를 해소한 것이 RERP (Redis Serialization Protocol) 방식이다.
 
-> 추후 사용할 일이 있을 때 포스팅하자...
+> 추후 사용할 일이 있을 때 포스트하자...
 
 ---
 
@@ -1046,7 +1046,7 @@ Examples:
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)

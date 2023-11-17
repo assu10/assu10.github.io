@@ -6,7 +6,7 @@ categories: dev
 tags: redis transaction index authentication
 ---
 
-이 포스팅은 Redis 의 Transaction 관리 방법과 보안/인증에 대해 알아본다.  
+이 포스트는 Redis 의 Transaction 관리 방법과 보안/인증에 대해 알아본다.  
 
 > - [Transaction & Isolation/Lock](#1-transaction--isolationlock)
 > - [CAS (Check And Set)](#2-cas-check-and-set)
@@ -400,7 +400,7 @@ User role 은 엔터프라이즈 에디션 서버에만 제공되며 유형은 �
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)

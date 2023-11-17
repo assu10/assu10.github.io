@@ -6,7 +6,7 @@ categories: dev
 tags: redis hash
 ---
 
-이 포스팅은 Redis 의 데이터 타입 중 하나인 `Hash` 타입에 대해 알아본다.
+이 포스트는 Redis 의 데이터 타입 중 하나인 `Hash` 타입에 대해 알아본다.
 
 > - [데이터 타입](#1-데이터-타입)
 > - [`Hash`](#2-hash)
@@ -489,7 +489,7 @@ cursor 값을 0(default 10) 으로 지정한 `SCAN`/`SSCAN`/`ZSCAN`/`HSCAN` 명�
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)

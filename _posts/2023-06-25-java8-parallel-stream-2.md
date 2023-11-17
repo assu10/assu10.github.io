@@ -6,7 +6,7 @@ categories: dev
 tags: java java8 stream parallel-stream spliterator-interface
 ---
 
-이 포스팅에서는 여러 chunk 를 병렬로 처리하기 전에 병렬 스트림이 요소를 여러 chunk 로 분할하는 방법에 대해 알아보기 위해 커스텀 Spliterator 를 구현하여 분할 과정을 원하는 방식으로
+이 포스트에서는 여러 chunk 를 병렬로 처리하기 전에 병렬 스트림이 요소를 여러 chunk 로 분할하는 방법에 대해 알아보기 위해 커스텀 Spliterator 를 구현하여 분할 과정을 원하는 방식으로
 제어해본다.
 
 
@@ -328,8 +328,6 @@ System.out.println("Found : " + countWords(stream) + " words");
 Spliterator 는 첫 번째 탐색 시점, 첫 번째 분할 시점, 또는 첫 번째 예상 크기(estimatedSize()) 요청 시점에 요소의 소스를 바인딩할 수 있는데
 이러한 동작은 **늦은 바인딩 Spliterator** 라 한다.
 
-> 늦은 바인딩을 이용하여 같은 병렬 스트림에 여러가지 동작을 수행하는 방법은 추후 다룰 예정입니다.
-
 ---
 
 # 2. 정리하며..
@@ -345,7 +343,7 @@ Spliterator 는 첫 번째 탐색 시점, 첫 번째 분할 시점, 또는 첫 �
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [자바 8 인 액션](https://www.yes24.com/Product/Goods/17252419)
 * [책 예제 소스](https://download.hanbit.co.kr/exam/2179/)

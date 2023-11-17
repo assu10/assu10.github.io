@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa
 ---
 
-이 포스팅에서는 아래의 내용에 대해 알아본다.
+이 포스트에서는 아래의 내용에 대해 알아본다.
 
 - 모놀리식 아키텍처와 MSA 의 차이
 - MSA 장/단점
@@ -804,7 +804,7 @@ public class ApiApplication {
 
 ---
 
-앞으로 포스팅마다 프로젝트를 별개로 가져갈 예정이므로 parent pom.xml 과 child pom.xml 파일을 설정한다.
+앞으로 포스트마다 프로젝트를 별개로 가져갈 예정이므로 parent pom.xml 과 child pom.xml 파일을 설정한다.
 
 /pom.xml
 ```xml
@@ -907,7 +907,7 @@ public class ApiApplication {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

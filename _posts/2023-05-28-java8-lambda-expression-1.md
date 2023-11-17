@@ -6,7 +6,7 @@ categories: dev
 tags: java java8 lambda-expression functional-interface
 ---
 
-이 포스팅에서는 Java8 에 추가된 기능 중 하나인 람다 표현식에 대해 알아본다.  
+이 포스트에서는 Java8 에 추가된 기능 중 하나인 람다 표현식에 대해 알아본다.  
 
 람다 표현식을 어떻게 만들고 사용하는지와 어떻게 간결한 코드를 만드는 지에 대해 알아본다.  
 
@@ -619,7 +619,7 @@ a = 2;
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [자바 8 인 액션](https://www.yes24.com/Product/Goods/17252419)
 * [책 예제 소스](https://download.hanbit.co.kr/exam/2179/)

@@ -6,7 +6,7 @@ categories: dev
 tags: devops aws load-balancing elb alb nlb 경로기반라우팅
 ---
 
-이 포스팅은 ELB 종류 중 ALB 와 NLB 에 대해 알아본다.
+이 포스트는 ELB 종류 중 ALB 와 NLB 에 대해 알아본다.
 
 > - [ELB (Elastic Load Balancing)](#1-elb-elastic-load-balancing)
 > - [ALB 와 NLB 를 통한 로드 밸런싱 테스트](#2-alb-와-nlb-를-통한-로드-밸런싱-테스트)
@@ -17,9 +17,9 @@ tags: devops aws load-balancing elb alb nlb 경로기반라우팅
 
 ---
 
-아래는 이번 포스팅에서 다뤄볼 범위 도식화이다.
+아래는 이번 포스트에서 다뤄볼 범위 도식화이다.
 
-![이번 포스팅 범위 도식화](/assets/img/dev/2022/1113/1113_design.png)
+![이번 포스트 범위 도식화](/assets/img/dev/2022/1113/1113_design.png)
 
 # 1. ELB (Elastic Load Balancing)
 
@@ -690,7 +690,7 @@ CloudFormation Stack 이 삭제되면 위의 [2.1.2. CloudFormation 을 통해 �
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김원일, 서종호 저자의 **따라하며 배우는 AWS 네트워크 입문**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김원일, 서종호 저자의 **따라하며 배우는 AWS 네트워크 입문**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [따라하며 배우는 AWS 네트워크 입문](http://www.yes24.com/Product/Goods/93887402)
 * [따라하며 배우는 AWS 네트워크 입문 - 책가이드](https://www.notion.so/ongja/AWS-1af579548fd84c268f8f3ee3f26b2ed4)

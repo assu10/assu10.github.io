@@ -6,7 +6,7 @@ categories: dev
 tags: nestjs middleware guard interceptor pipe exception-filter life-cycle
 ---
 
-이 포스팅은 혼동하기 쉬운  Middleware, Guard, Interceptor, Pipe, ExceptionFilter 에 대해 간단히 비교해본다.
+이 포스트는 혼동하기 쉬운  Middleware, Guard, Interceptor, Pipe, ExceptionFilter 에 대해 간단히 비교해본다.
 
 - [Middleware](#middleware) 
 - [Guard](#guard)
@@ -256,7 +256,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [NestJS로 배우는 백엔드 프로그래밍 - Github](https://github.com/dextto/book-nestjs-backend)

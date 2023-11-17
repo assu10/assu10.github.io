@@ -6,7 +6,7 @@ categories: dev
 tags: nodejs express middleware morgan static body-parser cookie-parser express-session multer
 ---
 
-이 포스팅은 Express 에 대해 알아본다.
+이 포스트는 Express 에 대해 알아본다.
 
 *소스는 [assu10/nodejs.git](https://github.com/assu10/nodejs.git) 에 있습니다.*
 
@@ -528,7 +528,7 @@ app.use(
 - `store`
   - 지금은 메모리에 세션을 저장하고 있지만 서버 재시작 시 메모리가 초기화되어 세션이 사라지므로 배포 시에는 store 에 DB 를 연결하여 세션을 유지함
 
-> `store` 로 레디스가 많이 사용되는데 사용법은 추후 포스팅 예정입니다.
+> `store` 로 레디스가 많이 사용되는데 사용법은 추후 포스트 예정입니다.
 
 ---
 
@@ -1032,7 +1032,7 @@ app.listen(app.get('port'), () => {
 
 ---
 
-*본 포스팅은 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 

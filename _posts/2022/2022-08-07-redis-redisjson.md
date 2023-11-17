@@ -6,7 +6,7 @@ categories: dev
 tags: redis rejson RedisJSON
 ---
 
-이 포스팅은 Redis 의 확장 모듈 중 하나인 `RedisJSON` 에 대해 알아본다.  
+이 포스트는 Redis 의 확장 모듈 중 하나인 `RedisJSON` 에 대해 알아본다.  
 
 > - [Redis 확장 모듈](#1-redis-확장-모듈)
 > - [RedisJSON 설치](#2-redisjson-설치)
@@ -432,7 +432,7 @@ JSONPath 에 좀 더 자세한 사항은 [JsonPath 1](https://goessner.net/artic
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 주종면 저자의 **빅데이터 저장 및 분석을 위한 NoSQL & Redis**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis](http://www.yes24.com/Product/Goods/71131862)
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)

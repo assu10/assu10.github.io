@@ -7,7 +7,7 @@ tags: java java8 stream fibonacci
 ---
 
 [Java8 - Stream 활용 (2): 리듀싱, 숫자형 스트림, 스트림 생성](https://assu10.github.io/dev/2023/06/10/java8-stream-2-1/#34-함수로-무한-스트림-생성) 의
-_3.4. 함수로 무한 스트림 생성_ 과 관련된 퀴즈 포스팅입니다.
+_3.4. 함수로 무한 스트림 생성_ 과 관련된 퀴즈 포스트입니다.
 
 > 소스는 [github](https://github.com/assu10/java8/tree/feature/chap05) 에 있습니다.
 
@@ -93,7 +93,7 @@ fib2Stream.forEach(System.out::println);
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [자바 8 인 액션](https://www.yes24.com/Product/Goods/17252419)
 * [책 예제 소스](https://download.hanbit.co.kr/exam/2179/)

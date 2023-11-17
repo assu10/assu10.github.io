@@ -6,7 +6,7 @@ categories: dev
 tags: nodejs javascript event-loop setImmediate() setTimeout() process.nextTick()
 ---
 
-이 포스팅은 Single Thread 로 동작하는 Node.js 가 어떻게 Non-Block (비동기) 처리를 할 수 있는지 Event Loop 의 원리를 통해 알아본다.  
+이 포스트는 Single Thread 로 동작하는 Node.js 가 어떻게 Non-Block (비동기) 처리를 할 수 있는지 Event Loop 의 원리를 통해 알아본다.  
 
 
 > - [Event Loop](#1-event-loop)
@@ -352,7 +352,7 @@ myEmitter.on('event', () => {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [Event Loop 공식 문서](https://nodejs.org/ko/docs/guides/event-loop-timers-and-nexttick/)

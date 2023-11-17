@@ -7,9 +7,9 @@ tags: typescript
 categories: dev
 ---
 
-이 포스팅은 람다(ramda) 함수형 유틸리티 라이브러리의 기능에 대해 알아본다.
+이 포스트는 람다(ramda) 함수형 유틸리티 라이브러리의 기능에 대해 알아본다.
 
-본 포스팅에 사용된 tsconfig.json
+본 포스트에 사용된 tsconfig.json
 ```json
 {
   "compilerOptions": {
@@ -1104,7 +1104,7 @@ const notDiscountedPrice = calcPrice(4500); // 4500
 
 ### 5.5. `R.always` 조합자
 
-우선순위가 떨어지는 관계로 추후 포스팅 예정입니다.
+우선순위가 떨어지는 관계로 추후 포스트 예정입니다.
 
 ---
 
@@ -1200,7 +1200,7 @@ const result = callAndAppend(input);    // [1, 2, 3, 1, 2, 3, 1, 2, 3]
 
 ---
 
-*본 포스팅은 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 전예홍 저자의 **Do it! 타입스크립트 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 * [Do it! 타입스크립트 프로그래밍](http://easyspub.co.kr/20_Menu/BookView/367/PUB0)

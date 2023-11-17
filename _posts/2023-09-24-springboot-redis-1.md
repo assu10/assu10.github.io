@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa redis spring-data-redis lettuce redis-connection-factory
 ---
 
-이 포스팅에서는 Spring Data Redis 와 Lettuce 라이브러리로 스프링 애플리케이션에서 레디스를 사용하는 방법에 대해 알아본다.
+이 포스트에서는 Spring Data Redis 와 Lettuce 라이브러리로 스프링 애플리케이션에서 레디스를 사용하는 방법에 대해 알아본다.
 
 레디스는 메모리 기반의 데이터 저장소로, key-value 데이터 구조에 기반하는 데이터 저장소이다.  
 최신 버전의 레디스는 PUB/SUB 형태의 데이터를 제공하여 메시지를 전달할 수 있다.  
@@ -19,7 +19,7 @@ tags: springboot msa redis spring-data-redis lettuce redis-connection-factory
 레디스 내부에서 명령어를 처리하는 부분은 싱글 스레드 아키텍처로 구현되어 있다.  
 
 레디스 자바 클라이언트 라이브러리는 다양한데 대표적으로 Jedis, Lettuce, Redisson 등이 있다.  
-이 포스팅에서는 Lettuce 와 Spring-Data-Redis 프로젝트를 사용하여 스프링 애플리케이션을 만드는 방법에 대해 알아본다.
+이 포스트에서는 Lettuce 와 Spring-Data-Redis 프로젝트를 사용하여 스프링 애플리케이션을 만드는 방법에 대해 알아본다.
 
 **쓰기 동작보다 읽기 동작이 많은 데이터가 있다면 Cache 를 도입하는 것이 유리**하다.  
 **Cache 는 메모리에 데이터를 미리 적재하고 이를 빠르게 읽어 응답하는 구조**이므로, **읽기 동작이 많은 서비스에 Cache 를 사용하면 서비스 응답 속도를 향상**시킬 수 있으며 **시스템 리소스도 
@@ -128,10 +128,10 @@ pom.xml
 멀티 스레드 환경에서 발생할 수 있는 컨텍스트 스위칭이 없으므로 효율적으로 시스템 리소스를 사용할 수 있는 장점이 있다.
 
 멀티 스레드 환경에서 공유 자원에 동시에 여러 스레드가 접근한다면 Dead Lock 이 발생할 수 있는데 레디스의 코어 스레드를 싱글 스레드로 구성되어 있기 때문에 Dead Lock 현상이 발생하지 않는다.  
-이러한 싱글 스레드 특성을 이용하여 분산 락으로 레디스를 사용하기도 한다.  
+이러한 싱글 스레드 특성을 이용하여 분산락으로 레디스를 사용하기도 한다.  
 MSA 환경의 여러 컴포넌트는 공유 자원을 사용할 수 있으므로 Race Condition 이 될 수 있는데 이 때 레디스를 사용하면 공유 자원의 점유 여부를 저장할 수 있다.
 
-> 분산 락에 대해서는 추후 다룰 예정입니다.
+> 분산락의 좀 더 상세한 내용은 [Spring Boot - Redis 와 스프링 캐시(3): 분산락, CyclicBarrier](https://assu10.github.io/dev/2023/10/01/springboot-redis-3/) 를 참고하세요.
 
 레디스 명령어 중 전체 데이터를 스캔하는 명령어들이 있는데 이런 명령어의 처리 시간은 데이커 크기에 비례하므로 실행 시간이 길어질 수 있다.  
 레디스는 싱글 스레드이기 때문에 이 명령어를 처리하는 동안 다른 명령어를 처리할 수 없다.  
@@ -168,8 +168,8 @@ MSA 환경의 여러 컴포넌트는 공유 자원을 사용할 수 있으므로
   - 인메모리 데이터 저장소이므로 주 저장소의 데이터를 캐시하여 빠르게 데이터 읽음
   - 캐시된 데이터는 한 곳에 저장되는 중앙 집중형 구조로 구성함
   - 그래야 모든 애플리케이션이 레디스 한 곳만 바라보므로 데이터 일관성을 유지할 수 있음
-- **분산 락 (Distributed Lock)**
-  - 분산 환경에서 여러 시스템이 동시에 데이터를 처리할 때는 특정 공유 자원의 사용 여부를 검증하여 Dead Lock 을 방지해야 하는데 이 때 레디스를 분산 락으로 사용 가능
+- **분산락 (Distributed Lock)**
+  - 분산 환경에서 여러 시스템이 동시에 데이터를 처리할 때는 특정 공유 자원의 사용 여부를 검증하여 Dead Lock 을 방지해야 하는데 이 때 레디스를 분산락으로 사용 가능
 - **순위 계산**
   - `ZRANGE`, `ZREVRANGE`, `ZRANGEBYSCORE`, `ZREVRANGEBYSCORE` 는 ZSet (Sorted Set) 자료 구조를 사용함
   - 정렬 기능이 포함된 Set 자료 구조이므로 쉽고 빠르게 순위 계산 가능
@@ -351,18 +351,18 @@ pom.xml
 애플리케이션이 레디스를 어떤 목적의 데이터 저장소로 사용하는지에 따라서 어떤 방법을 사용할 지 결정하면 된다.  
 레디스를 주 데이터 저장소로 사용한다면 RedisRepository 방식을 권장한다.
 
-이 포스팅에서는 레디스를 데이터 저장소 뿐 아니라 여러 가지 목적으로 활용하므로 RedisTemplate 클래스를 사용할 예정이다.
+이 포스트에서는 레디스를 데이터 저장소 뿐 아니라 여러 가지 목적으로 활용하므로 RedisTemplate 클래스를 사용할 예정이다.
 
 ---
 
 ## 2.1. `RedisAutoConfiguration` 자동 설정
 
-> 이 포스팅에서는 `RedisAutoConfiguration` 을 사용하는 대신 `RedisTemplate` 스프링 빈을 직접 설정하는 방식으로 진행한다.  
+> 이 포스트에서는 `RedisAutoConfiguration` 을 사용하는 대신 `RedisTemplate` 스프링 빈을 직접 설정하는 방식으로 진행한다.  
 > `RedisTemplate` 를 직업 설정하면 개발자가 원하는 클래스 타입의 데이터를 직렬화/역직렬화가 가능하다.  
 > 
 > 그러므로 아래 내용은 참고만 하자.
 
-> `RedisTemplate` 스프링 빈을 직접 설정하는 방식은 추후 다룰 예정입니다.
+> `RedisTemplate` 스프링 빈을 직접 설정하는 방식은 [1.3. `RedisTemplate` 스프링 빈 직접 설정](https://assu10.github.io/dev/2023/09/30/springboot-redis-2/#13-redistemplate-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%88-%EC%A7%81%EC%A0%91-%EC%84%A4%EC%A0%95) 를 참고하세요.
 
 스프링 부트의 `spring-boot-autoconfigure` 프로젝트에는 레디스를 사용할 수 있는 RedisTemplate 스프링 빈을 자동 설정하는
 org.springframework.boot.autoconfigure.data.redis 의 `RedisAutoConfiguration` 자동 설정 클래스를 제공한다.
@@ -551,7 +551,7 @@ Redis 자체가 싱글 스레드 기반이기 때문에 여러 커넥션을 사�
 
 Spring Data Redis 에서는 `RedisConnectionFactory` 인터페이스를 구현한 구현체로 `JedisConnectionFactory` 와 `LettuceConnectionFactory` 클래스를 
 기본으로 제공한다.  
-애플리케이션에서 사용할 레디스 드라이버 라이브러리에 따라 구현체를 선택하면 되며, 이 포스팅에서는 `LettuceConnectionFactory` 를 스프링 빈으로 설정하는 방법에 대해 알아본다.  
+애플리케이션에서 사용할 레디스 드라이버 라이브러리에 따라 구현체를 선택하면 되며, 이 포스트에서는 `LettuceConnectionFactory` 를 스프링 빈으로 설정하는 방법에 대해 알아본다.  
 
 레디스 서버는 아키텍처에 따라 레디스 서버 단독 구성, 레디스 센티넬 구성, 레디스 클러스터 구성으로 구분할 수 있는데, 사용하는 아키텍처에 따라 LettuceConnectionFactory 객체를 설정하면 된다.  
 
@@ -572,7 +572,7 @@ Spring Data Redis 에서는 `RedisConnectionFactory` 인터페이스를 구현�
   - 유닉스 도메인 소켓을 이용하여 애플리케이션과 같은 로컬 호스트에 설치된 레디스 서버에 커넥션 맺을 때 사용
   - TCP 소켓을 사용하는 것보다 빠르며, 메모리 사용량이 적은 장점이 있음
 
-이 포스팅에서는 `RedisStandaloneConfiguration`, `RedisSentinelConfiguration`, `RedisClusterConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈을
+이 포스트에서는 `RedisStandaloneConfiguration`, `RedisSentinelConfiguration`, `RedisClusterConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈을
 생성하는 법에 대해 알아본다.
 
 ---
@@ -714,7 +714,7 @@ public class CacheConfig {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

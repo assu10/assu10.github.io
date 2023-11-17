@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa rest-api spring-web-mvc marshalling path-variable request-param datetime-format get-mapping delete-mapping
 ---
 
-이 포스팅에서는 GET, DELETE, POST, PUT 으로 REST-API 를 개발하는 방법을 알아본다.   
+이 포스트에서는 GET, DELETE, POST, PUT 으로 REST-API 를 개발하는 방법을 알아본다.   
 그리고 클라이언트와 서버 간 데이터를 주고 받는 과정에서 HTTP 프로토콜을 다루는 방법이나 JSON 메시지를 다루는 방법에 대해 알아본다.  
 마지막으로 binary 데이터 처리 방법에 대해서도 알아본다.
 
@@ -624,7 +624,7 @@ public enum HotelRoomType {
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

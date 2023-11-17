@@ -6,7 +6,7 @@ categories: dev
 tags: nodejs express router template-engine
 ---
 
-이 포스팅은 Express 의 라우팅과 넌적스 템플릿 엔진에 대해 알아본다.
+이 포스트는 Express 의 라우팅과 넌적스 템플릿 엔진에 대해 알아본다.
 
 *소스는 [assu10/nodejs.git](https://github.com/assu10/nodejs.git) 에 있습니다.*
 
@@ -760,7 +760,7 @@ app.use((err, req, res, next) => {
 
 ---
 
-*본 포스팅은 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 조현영 저자의 **Node.js 교과서 2판**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 

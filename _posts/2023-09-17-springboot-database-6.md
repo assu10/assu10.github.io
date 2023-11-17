@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa database entity-listeners osiv transaction-lifecycle
 ---
 
-이 포스팅에서는 트랜잭션 이벤트를 사용하여 애플리케이션 기능을 확장하는 방법에 대해 알아본다. 
+이 포스트에서는 트랜잭션 이벤트를 사용하여 애플리케이션 기능을 확장하는 방법에 대해 알아본다. 
 
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap08) 에 있습니다.
 
@@ -407,7 +407,7 @@ OSIV 사용할 수 없는 컨트롤러 클래스에서는 지연 로딩을 사�
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

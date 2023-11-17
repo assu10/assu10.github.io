@@ -6,7 +6,7 @@ categories: dev
 tags: web network cloud-computing packaged-software iaas paas serverless aas
 ---
 
-이 포스팅은 웹 서비스 플랫폼에 관해 간략히 설명한다.
+이 포스트는 웹 서비스 플랫폼에 관해 간략히 설명한다.
 
 > - 클라우드 컴퓨팅
 > - 가상화와 클라우드 컴퓨팅의 차이

@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa Junit spring-boot-test test-configuration mock-bean web-mvc-test data-jpa-test json-test rest-client-test
 ---
 
-이 포스팅에서는 스트링 테스트 모듈을 사용하여 테스트 케이스를 작성하는 방법에 대해 알아본다.  
+이 포스트에서는 스트링 테스트 모듈을 사용하여 테스트 케이스를 작성하는 방법에 대해 알아본다.  
 스프링 부트 프레임워크에서 제공하는 애너테이션과 테스트 슬라이스 개념도 함께 알아본다.
 
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap07) 에 있습니다.
@@ -179,7 +179,7 @@ pom.xml
 
 # 2. Junit 사용: `@Test`
 
-> 본 포스팅에서는 Junit5 를 기준으로 설명한다.  
+> 본 포스트에서는 Junit5 를 기준으로 설명한다.  
 > 참고로 Junit5 는 Junit4 와 하위 호환성이 없다. 
 
 `@Test` 애너테이션은 테스트 메서드를 정의할 때 사용한다.
@@ -1433,7 +1433,7 @@ HotelController 가 의존하는 HotelDisplayService 클래스는 `@Service` 로
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

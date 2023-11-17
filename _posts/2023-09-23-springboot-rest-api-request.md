@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa rest-api uri-components-builder rest-template simple-client-http-request-factory http-components-client-http-request-factory web-client keep-alive parameterized-type-reference client-http-request-interceptor response-error-handler
 ---
 
-이 포스팅에서는 아래 내용에 대해 살펴본다.
+이 포스트에서는 아래 내용에 대해 살펴본다.
 
 - RestTemplate 클래스를 사용하여 REST-API 호출
 - RestTemplate 의 구조와 사용 방법
@@ -20,7 +20,7 @@ RestTemplate 는 스프링 3 부터 제공되고 있으며, 블로킹 동기식 
 즉, 다른 서버에 REST-API 를 호출하고 결과를 받을 때까지 스레드는 블로킹 상태로 변경되어 대기하며, 결과를 받으면 다음 코드를 실행한다.
 
 WebClient 는 스프링 5 부터 제공되고 있으며, 논블로킹 비동기 방식을 사용하는 대표적인 REST-API 클라이언트이다.  
-WebClient 는 리액트 라이브러리를 사용하는 방법과 스프링 비동기 웹 프레임워크인 WebFlux 에 대한 설명이 필요하기 때문에 이 포스팅에서는 WebClient 를 
+WebClient 는 리액트 라이브러리를 사용하는 방법과 스프링 비동기 웹 프레임워크인 WebFlux 에 대한 설명이 필요하기 때문에 이 포스트에서는 WebClient 를 
 동기식으로 사용하는 방법을 간략히 설명한다.
 
 
@@ -1634,7 +1634,7 @@ WebClient 의 `retrieve()` 나 `exchange()` 를 사용하면 `Mono` 와 `Flux` �
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [스프링 부트로 개발하는 MSA 컴포넌트](https://www.yes24.com/Product/Goods/115306377)
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)

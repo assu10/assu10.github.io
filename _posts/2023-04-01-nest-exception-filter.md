@@ -6,7 +6,7 @@ categories: dev
 tags: nestjs exception-filter
 ---
 
-이 포스팅은 NestJS 에 예외 필터를 적용하는 방법에 대해 알아본다.
+이 포스트는 NestJS 에 예외 필터를 적용하는 방법에 대해 알아본다.
 
 - [예외 처리](#1-예외-처리)
 - [예외 필터: `@Catch`, `@UseFilters`](#2-예외-필터-catch-usefilters)
@@ -373,7 +373,7 @@ export class AppModule {}
 
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스팅은 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [NestJS로 배우는 백엔드 프로그래밍](http://www.yes24.com/Product/Goods/115850682)
 * [NestJS로 배우는 백엔드 프로그래밍 - Github](https://github.com/dextto/book-nestjs-backend)
