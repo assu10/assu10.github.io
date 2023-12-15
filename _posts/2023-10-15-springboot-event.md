@@ -58,7 +58,27 @@ tags: springboot msa spring-event event-listener application-event-multicaster a
 
 pom.xml
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.assu</groupId>
+        <artifactId>study</artifactId>
+        <version>1.1.0</version>
+    </parent>
+
+    <artifactId>chap12</artifactId>
+
+    <dependencies>
+        <!-- Spring Data JPA, Hibernate, aop, jdbc -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+    </dependencies>
+</project>
 ```
 
 스프링 프레임워크는 다양한 타입의 이벤트 메시지를 게시/구독할 수 있는 스프링 이벤트를 제공한다.
