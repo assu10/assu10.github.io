@@ -495,10 +495,10 @@ deploy_b:
 [include](https://docs.gitlab.com/ee/ci/yaml/README.html#include) 를 참고하세요.
 
 
-![파이프라인 - Child/Parent Pipelines 아키텍처 (a 디렉토리 안의 내용이 변경된 경우)](/assets/img/dev/2020/1009/trigger.jpg)
+![파이프라인 - Child/Parent Pipelines 아키텍처 (a 디렉터리 안의 내용이 변경된 경우)](/assets/img/dev/2020/1009/trigger.jpg)
 
 .gitlab-ci.yml 의 내용은 아래와 같다.
-a 디렉토리 안의 내용이 변경되면 a 디렉토리에 위한 gitlab-ci.yml 을 실행한다. 
+a 디렉터리 안의 내용이 변경되면 a 디렉터리에 위한 gitlab-ci.yml 을 실행한다. 
 
 ```yaml
 stages:

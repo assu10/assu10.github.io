@@ -166,7 +166,7 @@ $ tree -L 4 -N -I "node_modules"
 
 ## 3.1. 클린 아키텍처 적용
 
-domain layer, application layer, interface layer, infrastructure layer 와 공통으로 사용하는 컴포넌트를 작성할 common 디렉토리를 생성한다.
+domain layer, application layer, interface layer, infrastructure layer 와 공통으로 사용하는 컴포넌트를 작성할 common 디렉터리를 생성한다.
 
 ```shell
 $ tree -L 1

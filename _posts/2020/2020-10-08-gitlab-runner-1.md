@@ -64,7 +64,7 @@ GitLab 은 Git 의 원격 저장소 기능과 이슈 트래커 기능등을 제�
 
 ## GitLab-Runner 다운로드 (Windows)
 
-본인의 C 드라이드에 GitLab 을 설치할 디렉토리를 하나 만든다. (*C:/GitLab-Runner*)
+본인의 C 드라이드에 GitLab 을 설치할 디렉터리를 하나 만든다. (*C:/GitLab-Runner*)
 
 
 [GitLab Runner bleeding edge releases](https://docs.gitlab.com/runner/install/bleeding-edge.html#download-any-other-tagged-release) 에 접속하여
@@ -79,7 +79,7 @@ Windows 64 비트 : [gitlab-runner-windows-amd64.exe](https://s3.amazonaws.com/g
 
 ## GitLab-Runner 등록
 
-Runner 를 다운로드 받은 디렉토리로 이동하여 관리자 권한으로 cmd 창을 연 후 아래와 같이 Runner 를 등록해준다.
+Runner 를 다운로드 받은 디렉터리로 이동하여 관리자 권한으로 cmd 창을 연 후 아래와 같이 Runner 를 등록해준다.
 
 ```shell
 C:\Gitlab-Runner>gitlab-runner.exe register

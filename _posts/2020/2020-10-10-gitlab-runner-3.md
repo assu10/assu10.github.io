@@ -82,7 +82,7 @@ job 의 동작을 정의하는 파라미터들은 아래와 같다.
 |     `script`      |  |
 |  `after_script`   | job 이 종료된 후 실행되는 커맨드 집합 |
 |  `allow_failure`  | job 의 실패 허용, <br />실패한 job 은 커밋 상태에 영향을 주지 않음 |
-|    `artifacts`    | job 성공 시 첨부할 파일, 디렉토리 리스트<br />`artifacts:paths`, `artifacts:exclude`, `artifacts:expose_as`, `artifacts:name`, `artifacts:untracked`, `artifacts:when`, `artifacts:expire_in`, `artifacts:reports` |
+|    `artifacts`    | job 성공 시 첨부할 파일, 디렉터리 리스트<br />`artifacts:paths`, `artifacts:exclude`, `artifacts:expose_as`, `artifacts:name`, `artifacts:untracked`, `artifacts:when`, `artifacts:expire_in`, `artifacts:reports` |
 |  `before_script`  |  |
 |      `cache`      | 후속(?) 실행들 간 캐시되어야 할 파일 리스트<br />`cache:paths`, `cache:key`, `cache:untracked`, `cache:policy` |
 |    `coverage`     |  |
@@ -675,7 +675,7 @@ deploy to production:
 
 ### artifacts
 
-`artifacts` 는 job 이 완료된 후 (성공, 실패, 혹은 항상) 첨부되는 파일 혹은 디렉토리 목록 지정 시 사용된다.
+`artifacts` 는 job 이 완료된 후 (성공, 실패, 혹은 항상) 첨부되는 파일 혹은 디렉터리 목록 지정 시 사용된다.
 
 job 이 완료된 후 아티팩트가 GitLab 으로 전송되며, [최대 아티팩트 크기(1G)](https://docs.gitlab.com/ee/user/gitlab_com/index.html#gitlab-cicd)가 크지 않으면 GitLab UI 에서 다운로드할 수 있다.
 
@@ -737,11 +737,11 @@ microservice_a:
 
 pages 는 static 컨텐츠 업로드 시 사용한다.
 
-- 모든 static contents 는 public/ 디렉토리 아래 있어야 함
+- 모든 static contents 는 public/ 디렉터리 아래 있어야 함
 - public/ 디렉터리에 대한 경로가 있는 아티팩트가 정의되어야 함
 
 
-아래 예는 단순히 프로젝트 루트에서 public/ 디렉토리로 모든 파일을 이동하는 스크립트이다.
+아래 예는 단순히 프로젝트 루트에서 public/ 디렉터리로 모든 파일을 이동하는 스크립트이다.
 
 ```shell
 pages:

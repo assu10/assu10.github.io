@@ -195,7 +195,7 @@ public class EurekaserverApplication {
 
 컨피그 저장소에 Eureka Server 에 대한 설정 정보를 셋팅한다.
 
-![컨피그 저장소 디렉토리 구조](/assets/img/dev/2020/0816/folder.png)
+![컨피그 저장소 디렉터리 구조](/assets/img/dev/2020/0816/folder.png)
 
 Config Server의 bootstrap.yaml 에 유레카 구성정보 폴더 경로를 추가한다.
 

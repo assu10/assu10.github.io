@@ -945,7 +945,7 @@ chmod +x docker_start.sh
 /docker_start.sh
 ```shell
 ./docker_build.sh
-ERROR: Cannot connect to the Docker daemon at unix:///Users/juhyunlee/.rd/docker.sock. Is the docker daemon running?
+ERROR: Cannot connect to the Docker daemon at unix:///Users/.rd/docker.sock. Is the docker daemon running?
 ```
 
 이런 에러가 뜨면 [Rancher Desktop (Docker Desktop 유료화 대응)](https://assu10.github.io/dev/2022/02/02/rancher-desktop/) 을 참고하여 도커 데몬을

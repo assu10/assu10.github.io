@@ -96,7 +96,7 @@ Zuul 에서 필터를 구현하려면 `ZuulFilter` 클래스를 상속받은 후
 >[Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/3) - 로그 추적](https://assu10.github.io/dev/2021/01/04/spring-cloud-log-tracker3/) 에
 >포스트되어 있지만 아래 내용도 한번씩 해보세요~
 
-![사전필터 디렉토리 구조](/assets/img/dev/2020/0905/prefilter.png)
+![사전필터 디렉터리 구조](/assets/img/dev/2020/0905/prefilter.png)
 
 
 우선 로그 확인을 위해 컨피그 원격 저장소에 로그 레벨을 셋팅한다.
