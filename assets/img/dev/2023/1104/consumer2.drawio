@@ -1,0 +1,69 @@
+<mxfile host="Electron" modified="2024-01-01T07:36:53.600Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.16 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="7hbjDB3Xeus9i0HDgzvh" version="22.1.16" type="device">
+  <diagram name="페이지-1" id="OT62fjSk1w-qiAx59hrx">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-2" value="컨슈머 그룹 1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="240" y="80" width="110" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-4" value="토픽 1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="110" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ZOthEm7LHZtOGN_I_dm0-6" target="ZOthEm7LHZtOGN_I_dm0-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-6" value="파티션 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="110" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ZOthEm7LHZtOGN_I_dm0-8" target="ZOthEm7LHZtOGN_I_dm0-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-8" value="파티션 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="150" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ZOthEm7LHZtOGN_I_dm0-10" target="ZOthEm7LHZtOGN_I_dm0-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-10" value="파티션 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="190" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-18" value="파티션 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="110" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-19" value="파티션 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="150" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-20" value="파티션 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="190" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-35" value="컨슈머 그룹 2" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="240" y="270" width="110" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-36" value="파티션 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="300" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-37" value="파티션 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="340" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-38" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=block;endFill=1;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="ZOthEm7LHZtOGN_I_dm0-6" target="ZOthEm7LHZtOGN_I_dm0-36">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="125" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-39" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.182;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=block;endFill=1;entryPerimeter=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="ZOthEm7LHZtOGN_I_dm0-8" target="ZOthEm7LHZtOGN_I_dm0-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="135" as="sourcePoint" />
+            <mxPoint x="270" y="325" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZOthEm7LHZtOGN_I_dm0-40" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="ZOthEm7LHZtOGN_I_dm0-10" target="ZOthEm7LHZtOGN_I_dm0-36">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="200" as="sourcePoint" />
+            <mxPoint x="270" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
