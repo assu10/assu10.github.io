@@ -38,7 +38,6 @@ tags: spring-security user-details granted-authority user-details-service user-d
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
-
 ---
 
 **개발 환경**
@@ -593,6 +592,7 @@ hello200%
   - `UserDetailsService` 를 확장해서 암호 생성, 삭제, 변경 등의 작업을 추가함
 
 `UserDetailsManager` 는 `UserDetailsService` 계약을 확장하고, 메서드를 추가한다.
+`UserDetailsManager` 계약은 `JdbcUserDetailsManager`, InMemoryUserDetailsManager`, `LdapUserDetailsManager` 구현을 제공한다.
 
 스프링 시큐리티가 인증을 수행하려면 `UserDetailsService` 계약이 필요한데 일반적으로 애플리케이션은 사용자를 추가/삭제 하는 등의 관리 기능이 필요하다.  
 이 때 `UserDetailsManager` 인터페이스를 구현한다.
@@ -622,7 +622,8 @@ public interface UserDetailsManager extends UserDetailsService {
 
 실제 운영 시엔 `InMemoryUserDetailsManager` 는 사용하지 않고, 다른 `UserDetailsManager` 인 `JdbcUserDetailsManager` 를 자주 이용한다. 
 
-`JdbcUserDetailsManager` 는 DB 에 저장된 사용자를 관리하며, JDBC 를 통해 DB 에 직접 연결한다.
+`JdbcUserDetailsManager` 는 DB 에 저장된 사용자를 관리하며, JDBC 를 통해 DB 에 직접 연결한다.  
+JDBC 를 직접 이용하기 때문에 애플리케이션이 다른 프레임워크에 고정되지 않는다는 장점이 있다.
 
 ![JdbcUserDetailsManager 를 UserDetailsService 구성 요소로 이용한 인증 흐름](/assets/img/dev/2023/1118/jdbc.png)
 
