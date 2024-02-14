@@ -85,12 +85,16 @@ tags: spring-security user-details granted-authority user-details-service user-d
 
 - **`UserDetails` 계약**
   - `UserDetails` 인터페이스로 사용자를 기술함
+  - 스프링 시큐리티가 관리하는 사용자를 나타냄
 - **`GrantedAuthority` 계약**
   - 사용자는 `GrantedAuthority` 인터페이스로 나타내는 권한을 하나 이상 가짐
+  - 사용자에게 허용되는 작업을 정의
 - **`UserDetailsService` 계약**
   - 사용자 이름으로 찾은 사용자 세부 정보를 반환함
 - **`UserDetailsManager` 계약**
   - `UserDetailsService` 를 확장해서 암호 생성, 삭제, 변경 등의 작업을 추가함
+- **`PasswordEncoder`**
+  - 암호를 암호화 또는 해시하는 방법고, 주어진 인코딩된 문자열을 일반 텍스트 암호와 비교하는 방법을 지정
 
 ---
 
@@ -713,11 +717,11 @@ public class ProjectConfig {
 //        .build();
 //  }
 
-  private final DataSource dataSource;
-
-  public ProjectConfig(DataSource dataSource) {
-    this.dataSource = dataSource;
-  }
+//  private final DataSource dataSource;
+//
+//  public ProjectConfig(DataSource dataSource) {
+//    this.dataSource = dataSource;
+//  }
 
   @Bean
   public UserDetailsService userDetailsService(DataSource dataSource) {

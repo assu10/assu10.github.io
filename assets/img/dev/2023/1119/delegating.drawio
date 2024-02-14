@@ -1,0 +1,64 @@
+<mxfile host="Electron" modified="2024-02-14T11:01:03.622Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="YwZ0rJtQnApwwOqQYfTI" version="23.0.2" type="device">
+  <diagram name="페이지-1" id="VB-xair7F4L-mEWiASB3">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=block;endFill=1;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1" source="KNLb88jh5nLwbT6RkXHB-1" target="KNLb88jh5nLwbT6RkXHB-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;fillColor=#e1d5e7;strokeColor=#9673a6;" edge="1" parent="1" source="KNLb88jh5nLwbT6RkXHB-1" target="KNLb88jh5nLwbT6RkXHB-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-1" value="DelegatingPasswordEncoder" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="170" y="300" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-2" value="NoOpPasswordEncoder" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="210" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-3" value="BCrypPasswordEncoder" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="300" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-4" value="SCrypPasswordEncoder" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="390" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-5" value="" style="endArrow=block;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endFill=1;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="50" y="314" as="sourcePoint" />
+            <mxPoint x="170" y="314" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-8" value="" style="endArrow=block;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endFill=1;fillColor=#e1d5e7;strokeColor=#9673a6;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="50" y="339" as="sourcePoint" />
+            <mxPoint x="170" y="339" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-9" value="{noop}ABCDE" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="281" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-10" value="ABCDE" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="230" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-11" value="{bcrypt}ABCDE" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="350" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-12" value="ABCDE" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="359" y="340" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-13" value="접두사 {XXXX} 가 있는 암호를 지정하고, matches() 메서드 호출" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="10" y="400" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-14" value="접두사 {XXXX} 가 있는 있는 암호를 지정하고, matches() 메서드를 호출하면 그에 맞는 PasswordEncoder 에게 암호 처리가 위임됨" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="286" y="470" width="236" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-15" value="접두사 {noop} 에 대해 NoOpPasswordEncoder 가 등록됨" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="650" y="220" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="KNLb88jh5nLwbT6RkXHB-16" value="접두사 {bcrypt} 에 대해 BCryptPasswordEncoder 가 등록됨" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="650" y="310" width="200" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
