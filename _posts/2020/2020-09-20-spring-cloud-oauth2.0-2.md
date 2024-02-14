@@ -53,7 +53,7 @@ tags: msa oauth2 jwt spring-cloud-security security-oauth2 spring-security-jwt
     
 스프링 클라우드 시큐리티는 JWT 를 기본적으로 지원한다.
 
->표준 스크링 클라우드 시큐리티의 OAuth2 구성과 JWT 기반 OAuth2 구성은 서로 다른 클래스를 사용하기 때문에
+>표준 스프링 클라우드 시큐리티의 OAuth2 구성과 JWT 기반 OAuth2 구성은 서로 다른 클래스를 사용하기 때문에
 >[*master_jwt*](https://github.com/assu10/msa-springcloud/tree/master_jwt) branch 로 분리
 
 이 포스트는 아래와 같은 절차로 진행된다.
