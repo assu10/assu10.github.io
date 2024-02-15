@@ -629,7 +629,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 }
 ```
 
-> `AuthenticationProvider.support()` 를 이용하는 방법은 추후 상세히 다룰 예정입니다. 
+> `AuthenticationProvider.support()` 를 이용하는 방법은 [1.2.1. `AuthenticationProvider.supports()`](https://assu10.github.io/dev/2023/11/25/springsecurity-authrorization-1/#121-authenticationprovidersupports) 를 참고하세요.
 
 이제 위에서 만든 AuthenticationProvider 구현을 등록하여 사용해보자.
 

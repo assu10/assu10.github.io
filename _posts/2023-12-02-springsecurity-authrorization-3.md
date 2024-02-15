@@ -180,6 +180,14 @@ $ curl -v -w "%{http_code}" http://localhost:8080/hello
 
 ---
 
+# 마치며...
+
+- `SecurityContext` 는 인증이 성공한 후 인증된 엔티티의 세부 정보를 유지함
+- `SecurityContext` 를 관리하는 데에는 `MODE_THREADLOCAL`, `MODE_INHERITABLETHREADLOCAL`, `MODE_GLOBAL` 전략을 이용할 수 있으며, 선택한 전략에 따라 다른 스레드에서 `SecurityContext` 세부 정보에 접근하는 방법이 달라짐
+- 공유 스레드 로컬 전략을 사용할 때는 스프링이 관리하는 스레드에만 전략이 적용됨, 프레임워크는 자신이 관리하지 않는 스레드에는 `SecurityContext` 를 복사하지 않음
+
+---
+
 # 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 로렌티우 스필카 저자의 **스프링 시큐리티 인 액션**을 기반으로 스터디하며 정리한 내용들입니다.*
