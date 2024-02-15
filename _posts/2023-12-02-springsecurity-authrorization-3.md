@@ -8,8 +8,6 @@ tags: spring-security http-basic
 
 `HTTP Basic` 인증 방식과 양식 기반 로그인 인증 방식에 대해 알아본다.
 
-> 소스는 [github](https://github.com/assu10/spring-security/tree/feature/chap0504) 에 있습니다.
-
 ---
 
 **목차**
@@ -43,6 +41,8 @@ HTTP Basic 은 기본 인증 방식으로써, 일부 설정을 맞춤 구성하�
 예를 들어 인증 프로세스가 실패할 때는 위한 특정한 논리를 구현하거나, 클라이언트로 반환되는 응답의 일부값을 설정하는 등의 작업을 의미한다.
 
 아래는 HTTP Basic 인증 방식을 명시적으로 설정하는 예시이다.
+
+> 소스는 [github](https://github.com/assu10/spring-security/tree/feature/chap0504) 에 있습니다.
 
 /config/ProjectConfig.java
 ```java
@@ -175,8 +175,216 @@ $ curl -v -w "%{http_code}" http://localhost:8080/hello
 
 > 양식 기반 로그인의 경우 `SecurityContext` 를 관리하는데 있어서 서버 쪽 세션을 사용함  
 > scale-out 이 필요한 대형 애플리케이션에서 `SecurityContext` 를 관리하는데 서버 쪽 세션을 이용하는 것은 좋지 않음  
-> 
-> 그래서 이 부분은 필요 시 알아볼 예정
+
+인증하지 않은 사용자는 자격 증명으로 인증하기 위한 양식으로 리디렉션되고, 인증한 후에는 애플리케이션의 홈으로 리디렉션하는 흐름의 양식 기반 로그인에 대해 알아본다.
+
+> 소스는 [github](https://github.com/assu10/spring-security/tree/feature/chap0505) 에 있습니다.
+
+/config/ProjectConfig.java
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class ProjectConfig {
+  // 양식 기반 인증 방식
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    // 모든 요청에 인증이 필요
+    http.authorizeHttpRequests(authz -> authz.anyRequest()
+            .authenticated())
+        .formLogin(Customizer.withDefaults());
+
+    // 모든 요청에 인증 없이 요청 가능
+    //http.authorizeHttpRequests(authz -> authz.anyRequest().permitAll()).httpBasic(Customizer.withDefaults());
+
+    return http.build();
+  }
+}
+```
+
+스프링 시큐리티는 기본적으로 로그인 양식과 로그아웃 페이지를 제공하고 있기 때문에 localhost:8080 으로 접속하면 localhost:8080/login 으로 리디렉션되는 것을 확인할 수 있다.
+
+따로 `UserDetailsService` 를 등록하지 않으면 기본 제공된 자격 증명으로 로그인할 수 있다.  
+이 때 자격 증명은 user 와 콘솔에 찍히는 UUID 암호이다.
+
+/controller/HelloController.java
+```java
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HelloController {
+  @GetMapping("home")
+  public String home() {
+    return "home.html";
+  }
+}
+```
+
+/resources/static/home.html
+```html
+<h1>Welcome</h1>
+```
+
+이제 localhost:8080/home 에 접근 시 로그인페이지로 리디렉션되고, 로그인후에 home 페이지로 리디렉션된다.  
+localhost:8080/logout 으로 접근하면 로그아웃 페이지로 리디렉션된다.
+
+아래는 인증 성공 시 /home 으로 리디렉션하는 예시이다.
+
+/config/ProjectConfig.java
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class ProjectConfig {
+  // 양식 기반 인증 방식
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    // 모든 요청에 인증이 필요
+    http.authorizeHttpRequests(authz -> authz.anyRequest()
+            .authenticated())
+        .formLogin(f -> f.defaultSuccessUrl("/home", true));  // 인증 성공 시 /home 으로 이동 
+
+    return http.build();
+  }
+}
+```
+
+더 세부적인 맞춤 구성이 필요하면 `AuthenticationSuccessHannadler` 와 `AuthenticationFailureHandler` 를 구현하면 된다.
+
+/handler/CustomAuthenticationSuccessHandler.java
+```java
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+
+@Component
+public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+  // 인증 성공 시 부여된 권한에 따라 다른 리디렉션 수행
+  @Override
+  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    var authorities = authentication.getAuthorities();
+
+    var auth = authorities.stream()
+        .filter(a -> a.getAuthority().equals("read"))
+        .findFirst();
+
+    if (auth.isPresent()) {
+      response.sendRedirect("/home");
+    } else {
+      response.sendRedirect("/error");
+    }
+  }
+}
+```
+
+/handler/CustomAuthenticationFailureHandler.java
+```java
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+@Component
+public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
+  // 인증 실패 시 헤더에 값 추가
+  @Override
+  public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    response.setHeader("failed", LocalDateTime.now().toString());
+  }
+}
+```
+
+/config/ProjectConfig.java
+```java
+import com.assu.study.chap0505.handler.CustomAuthenticationFailureHandler;
+import com.assu.study.chap0505.handler.CustomAuthenticationSuccessHandler;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class ProjectConfig {
+  private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+  private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
+  public ProjectConfig(CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler, CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
+    this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
+    this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+  }
+
+  // 양식 기반 인증 방식
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//    http.authorizeHttpRequests(authz -> authz.anyRequest()
+//            .authenticated())
+//        .formLogin(f -> f.defaultSuccessUrl("/home", true));  // 인증 성공 시 /home 으로 이동
+
+    http.authorizeHttpRequests(authz -> authz.anyRequest()
+            .authenticated())
+        .formLogin(f -> {
+          f.successHandler(customAuthenticationSuccessHandler);
+          f.failureHandler(customAuthenticationFailureHandler);
+        });
+    
+    return http.build();
+  }
+}
+```
+
+이 상태로 올바른 자격 증명을 사용하려 HTTP Basic 방식으로 /home 에 접근하면 HTTP 302 가 내려온다.
+
+```shell
+$ curl -w "%{http_code}" -u user:b1f0bec7-7748-4e39-9dc1-74208f85dd80 http://localhost:8080/hello
+302%
+```
+
+올바른 자격 증명을 입력해도 `formLogin()` 메서드의 요청에 따라 사용자를 로그인 양식으로 보내려고 시도하기 때문에 302 임시 이동 응답이 내려오는 것이다.
+
+아래처럼 HTTP Basic 과 양식 기반 로그인 방식 모두 지원하도록 구성 변경이 가능하다.
+
+```java
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//    http.authorizeHttpRequests(authz -> authz.anyRequest()
+//            .authenticated())
+//        .formLogin(f -> f.defaultSuccessUrl("/home", true));  // 인증 성공 시 /home 으로 이동
+
+http.authorizeHttpRequests(authz -> authz.anyRequest()
+        .authenticated())
+    .httpBasic(Customizer.withDefaults())
+    .formLogin(f -> {
+      f.successHandler(customAuthenticationSuccessHandler);
+      f.failureHandler(customAuthenticationFailureHandler);
+    });
+
+return http.build();
+}
+```
+
+```shell
+$ curl -w "%{http_code}" -u user:9182d1d5-8cbc-4b24-a3ce-ffe12a2a9308 http://localhost:8080/home
+<h1>Welcome</h1>
+200%
+```
 
 ---
 
