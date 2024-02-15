@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-02-14T03:11:55.323Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="lX2LYZfrAY6mvRhcuXtQ" version="23.0.2" type="device">
+<mxfile host="Electron" modified="2024-02-15T04:24:13.126Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="OikZ4Wm9e3W8pTLC_f1S" version="23.0.2" type="device">
   <diagram name="페이지-1" id="7pgbpD99G9CZ7M_Vq6ga">
-    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1667" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -49,15 +49,6 @@
         <mxCell id="qoeaZtmwknUBaQb21UCB-15" value="암호 인코더&lt;br&gt;&lt;br&gt;(&lt;b&gt;PasswordEncoder&lt;/b&gt;)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="400" y="410" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="qoeaZtmwknUBaQb21UCB-16" value="① 인증 필터가 요청을 가로챔" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;" parent="1" vertex="1">
-          <mxGeometry x="46" y="70" width="150" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="qoeaZtmwknUBaQb21UCB-17" value="② 인증 관리자에게 &lt;br&gt;인증 책임이 위임됨" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;" parent="1" vertex="1">
-          <mxGeometry x="86" y="189" width="104" height="45" as="geometry" />
-        </mxCell>
-        <mxCell id="qoeaZtmwknUBaQb21UCB-18" value="③ 인증 관리자는 인증 논리를 구현하는 인증 공급자를 이용함" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;" parent="1" vertex="1">
-          <mxGeometry x="5" y="305" width="186" height="50" as="geometry" />
-        </mxCell>
         <mxCell id="qoeaZtmwknUBaQb21UCB-19" value="④ 인증 공급자는 사용자 세부 정보 서비스로 사용자를 찾고, 암호 인코더로 암호를 검증함" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;" parent="1" vertex="1">
           <mxGeometry x="550" y="360" width="217.5" height="60" as="geometry" />
         </mxCell>
@@ -74,8 +65,37 @@
         <mxCell id="qoeaZtmwknUBaQb21UCB-21" value="⑤ 인증 결과가 필터로 반환됨" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;" parent="1" vertex="1">
           <mxGeometry x="340" y="255" width="147.5" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="WeCNZZApuTKNgdPppbte-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;fillColor=#d5e8d4;strokeColor=#82b366;endArrow=block;endFill=1;" edge="1" parent="1" source="qoeaZtmwknUBaQb21UCB-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="qoeaZtmwknUBaQb21UCB-22" value="⑥ 인증된 엔티티에 관한 세부 정보가 보안 컨텍스트에 저장됨" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;" parent="1" vertex="1">
-          <mxGeometry x="330" y="70" width="187.5" height="40" as="geometry" />
+          <mxGeometry x="460" y="40" width="187.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WeCNZZApuTKNgdPppbte-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;curved=1;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1" source="WeCNZZApuTKNgdPppbte-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WeCNZZApuTKNgdPppbte-2" value="① 인증 필터가 요청을 가로챔" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="70" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WeCNZZApuTKNgdPppbte-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;endArrow=block;endFill=1;" edge="1" parent="1" source="WeCNZZApuTKNgdPppbte-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WeCNZZApuTKNgdPppbte-4" value="② 인증 관리자에게 &lt;br&gt;인증 책임이 위임됨" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="195" width="104" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="WeCNZZApuTKNgdPppbte-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;fillColor=#d5e8d4;strokeColor=#82b366;endArrow=block;endFill=1;" edge="1" parent="1" source="WeCNZZApuTKNgdPppbte-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WeCNZZApuTKNgdPppbte-6" value="③ 인증 관리자는 인증 논리를 구현하는 인증 공급자를 이용함" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="-70" y="300" width="186" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

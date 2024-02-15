@@ -1,0 +1,128 @@
+<mxfile host="Electron" modified="2024-02-15T05:22:20.393Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="lSCEfmdITbi79n3RZme4" version="23.0.2" type="device">
+  <diagram name="페이지-1" id="-CGv-wuT2EaU3h93ui3x">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qtXuDna4pQZUapxrZQjc-45" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="200" as="sourcePoint" />
+            <mxPoint x="520" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-46" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="320" as="sourcePoint" />
+            <mxPoint x="520" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-47" value="요청 A" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="170" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-48" value="요청 B" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="289" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-49" value="Thread 1" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="208" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-50" value="Thread 2" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="330" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-51" value="SecurityContext A&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#3333ff&quot;&gt;요청 A 의 세부 정보&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="150" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-52" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="200" as="sourcePoint" />
+            <mxPoint x="380" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-53" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="150" as="sourcePoint" />
+            <mxPoint x="520" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-54" value="SecurityContext A`&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#ff0000&quot;&gt;&amp;lt;비어있음&amp;gt;&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="380" y="100" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;" edge="1" parent="1" source="qtXuDna4pQZUapxrZQjc-56">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-56" value="@Async 메서드가 다른 스레드 생성" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="460" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-57" value="SecurityContext B&lt;br&gt;요청 B 의 세부 정보" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="270" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-58" value="Thread 1`" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="380" y="156" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-59" value="인증 후 요청 A 는 SecurityContext A 에서 인증된 엔티티에 대한 세부 정보를 얻음" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="130" y="80" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-60" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="200" as="sourcePoint" />
+            <mxPoint x="520" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-61" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="320" as="sourcePoint" />
+            <mxPoint x="520" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-62" value="요청 A" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="170" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-63" value="요청 B" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="289" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-64" value="Thread 1" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="208" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-65" value="Thread 2" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="330" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-66" value="SecurityContext A&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#3333ff&quot;&gt;요청 A 의 세부 정보&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="150" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-67" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="200" as="sourcePoint" />
+            <mxPoint x="380" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-68" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="150" as="sourcePoint" />
+            <mxPoint x="520" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-69" value="SecurityContext A`&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#ff0000&quot;&gt;요청 A 의 세부 정보&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="380" y="100" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;" edge="1" parent="1" source="qtXuDna4pQZUapxrZQjc-71">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-71" value="@Async 메서드가 다른 스레드 생성" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="460" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-72" value="SecurityContext B&lt;br&gt;요청 B 의 세부 정보" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="270" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-73" value="Thread 1`" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="380" y="156" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qtXuDna4pQZUapxrZQjc-74" value="새로운 스레드는 자신의 SecurityContext A` 를 갖으며, 이 때 요청의 원래 스레드에서 세부 정보가 복사됨" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="430" y="50" width="280" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
