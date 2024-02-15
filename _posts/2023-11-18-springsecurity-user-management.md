@@ -49,8 +49,6 @@ tags: spring-security user-details granted-authority user-details-service user-d
 - IDE: intelliJ
 - SDK: JDK 17
 - 의존성 관리툴: Maven
-- Group: com.assu.study
-- Artifact: chap02
 
 ![Spring Initializer Sample](/assets/img/dev/2023/1112/init.png)
 
@@ -94,7 +92,7 @@ tags: spring-security user-details granted-authority user-details-service user-d
 - **`UserDetailsManager` 계약**
   - `UserDetailsService` 를 확장해서 암호 생성, 삭제, 변경 등의 작업을 추가함
 - **`PasswordEncoder`**
-  - 암호를 암호화 또는 해시하는 방법고, 주어진 인코딩된 문자열을 일반 텍스트 암호와 비교하는 방법을 지정
+  - 암호를 암호화 또는 해시하는 방법과, 주어진 인코딩된 문자열을 일반 텍스트 암호와 비교하는 방법을 지정
 
 ---
 

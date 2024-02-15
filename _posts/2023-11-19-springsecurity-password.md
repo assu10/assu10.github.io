@@ -26,7 +26,7 @@ tags: spring-security password-encoder no-op-password-encoder standard-password-
     * [`SCryptPasswordEncoder`](#scryptpasswordencoder)
   * [1.3. `DelegatingPasswordEncoder` 를 이용한 여러 인코딩 전략: `PasswordEncoderFactories`](#13-delegatingpasswordencoder-를-이용한-여러-인코딩-전략-passwordencoderfactories)
   * [1.4. 인코딩, 암호화, 해싱](#14-인코딩-암호화-해싱)
-* [2. 스프링 시큐리티 암호화 모듈(SSCM, Spring Security Crypto Module) 의 추가 정보](#2-스프링-시큐리티-암호화-모듈sscm-spring-security-crypto-module-의-추가-정보)
+* [2. 스프링 시큐리티 암호화 모듈(SSCM, Spring Security Crypto Module)](#2-스프링-시큐리티-암호화-모듈sscm-spring-security-crypto-module)
   * [2.1. KeyGenerator](#21-keygenerator)
   * [2.1.1. `StringKeyGenerator`](#211-stringkeygenerator)
   * [2.1.2. `BytesKeyGenerator`](#212-byteskeygenerator)
@@ -49,8 +49,6 @@ tags: spring-security password-encoder no-op-password-encoder standard-password-
 - IDE: intelliJ
 - SDK: JDK 17
 - 의존성 관리툴: Maven
-- Group: com.assu.study
-- Artifact: chap02
 
 ![Spring Initializer Sample](/assets/img/dev/2023/1112/init.png)
 
@@ -354,7 +352,7 @@ PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPassw
 
 ---
 
-# 2. 스프링 시큐리티 암호화 모듈(SSCM, Spring Security Crypto Module) 의 추가 정보
+# 2. 스프링 시큐리티 암호화 모듈(SSCM, Spring Security Crypto Module)
 
 스프링 시큐리티에서 제공하는 암복호화 함수와 키 생성 솔루선에 대해 알아본다.
 

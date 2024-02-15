@@ -1,0 +1,111 @@
+<mxfile host="Electron" modified="2024-02-15T02:07:26.472Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="DwvHcutAjmPDHegn_idg" version="23.0.2" type="device">
+  <diagram name="페이지-1" id="7TYB_HLJwxVNH-GR8_a6">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-1" target="HAmmXVSSDvsXCcJk_U6g-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=oval;endFill=1;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="30" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-1" value="AuthenticationProvider" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-2" target="HAmmXVSSDvsXCcJk_U6g-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-20" value="사용자가 있는가?" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HAmmXVSSDvsXCcJk_U6g-7">
+          <mxGeometry x="-0.15" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-2" value="UserDetailsService" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="80" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-3" target="HAmmXVSSDvsXCcJk_U6g-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-3" value="PasswordEncoder" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="248" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=none;endFill=0;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-4" target="HAmmXVSSDvsXCcJk_U6g-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="100" y="180" />
+              <mxPoint x="100" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="327" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-18" value="암호가 일치하지 않음" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#FF0000;" vertex="1" connectable="0" parent="HAmmXVSSDvsXCcJk_U6g-13">
+          <mxGeometry x="-0.671" y="3" relative="1" as="geometry">
+            <mxPoint x="36" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-4" target="HAmmXVSSDvsXCcJk_U6g-29">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-19" value="암호가 일치함" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HAmmXVSSDvsXCcJk_U6g-14">
+          <mxGeometry x="-0.1776" y="-3" relative="1" as="geometry">
+            <mxPoint x="4" y="-25" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-4" value="" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="75" y="302" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.8;entryY=0.975;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-5" target="HAmmXVSSDvsXCcJk_U6g-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-22" value="예" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HAmmXVSSDvsXCcJk_U6g-8">
+          <mxGeometry x="-0.7333" y="-3" relative="1" as="geometry">
+            <mxPoint x="17" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="HAmmXVSSDvsXCcJk_U6g-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="185" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-21" value="아니오" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#FF0000;" vertex="1" connectable="0" parent="HAmmXVSSDvsXCcJk_U6g-9">
+          <mxGeometry x="-0.4534" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-5" value="" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="160" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-16" value="① 사용자 로드" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="260" y="70" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-17" value="② 암호가 일치하는지 확인" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="159" y="237" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-23" value="사용자 세부 정보 반환" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="228" y="160" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-25" value="AuthenticationException 발생" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="550" y="175" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-26" value="BadCredentialsException 발생" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="270" y="317" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-27" value="인증 반환" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="110" y="400" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HAmmXVSSDvsXCcJk_U6g-29" value="AuthenticationManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="450" width="170" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

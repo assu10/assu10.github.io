@@ -46,8 +46,6 @@ tags: spring-security http-basic user-details-service password-encoder authentic
 - IDE: intelliJ
 - SDK: JDK 17
 - 의존성 관리툴: Maven
-- Group: com.assu.study
-- Artifact: chap02
 
 ![Spring Initializer Sample](/assets/img/dev/2023/1112/init.png)
 
@@ -211,16 +209,16 @@ hello%
 
 ![스프링 시큐리티의 인증 프로세스에 포함된 주 구성 요소](/assets/img/dev/2023/1112/security.png)
 
-- **인증 필터**
+- **인증 필터 (`AuthenticationFilter`)**
   - 인증 요청을 인증 관리자에게 위임하고, 응답을 바탕으로 보안 컨텍스트를 구성
-- **인증 관리자**
-  - 인증 공급자를 이용하여 인증 처리
+- **인증 관리자 (`AuthenticationManager`)**
+  - 인증 논리를 구현하기 위해 인증 공급자를 이용하여 인증 처리
 - **인증 공급자 (`AuthenticationProvider`)**
   - 인증 논리 구현
   - 사용자 관리 책임을 구현하는 사용자 세부 정보 서비스 (`UserDetailsService`) 를 인증 논리에 이용
   - 암호 관리를 구현하는 암호 인코더 (`PasswordEncoder`) 를 인증 논리에 이용
-- **보안 컨텍스트**
-  - 인증 프로세스 후 인증 데이터를 유지
+- **보안 컨텍스트 (`SecurityContext`)**
+  - 인증 프로세스 후 인증 데이터를 유지 (=인증된 요청에 대한 세부 정보 저장)
 
 `UserDetailsService` 와 `PaasswordEncoder` 는 자동으로 구성되는 빈이며, 인증 공급자 (`AuthenticationProvider`) 는 이 빈들을 이용하여 사용자를 찾고, 암호를 확인한다.
 
@@ -243,7 +241,7 @@ hello%
 
 `UserDetailsService` 처럼 `PasswordEncoder` 도 HTTP Basic 인증 흐름이 꼭 필요하다.
 
-> `PasswordEncoder` 객체 구현의 상세한 내용은 추후 다룰 예정입니다.
+> `PasswordEncoder` 객체 구현의 상세한 내용은 [Spring Security - 암호 처리](https://assu10.github.io/dev/2023/11/19/springsecurity-password/) 를 참고하세요.
 
 만일 `UserDetailsService` 의 기본 구현을 대체할때는 `PasswordEncoder` 도 지정해야 한다.
 
