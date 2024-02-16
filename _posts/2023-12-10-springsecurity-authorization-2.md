@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Security - 권한 부여(2): 액세스 제한"
+title:  "Spring Security - 권한 부여(2): 경로, HTTP Method 에 따른 엑세스 제한"
 date:   2023-12-09
 categories: dev
 tags: spring-security
