@@ -324,7 +324,7 @@ EnumType.ORDINAL 은 열거형 상수들을 순서대로 사용하여 숫자로 
 `@Enumerated` 애너테이션을 사용하게 된다면 EnumType.STRING 을 사용하는 것을 권고한다.
 
 `@Enumerated` 보다는 [5. 엔티티 클래스 속성 변환과 AttributeConverter](#5-엔티티-클래스-속성-변환과-attributeconverter-convert-converter) 에 나오는 AttributeConverter 가 
-데이터를 변환하는 과정을 개발자가 직접 처리할 수 있어 명시적으로 프로그래밍 가능하기 하다.
+데이터를 변환하는 과정을 개발자가 직접 처리할 수 있어 명시적으로 프로그래밍이 가능하다.
 
 ---
 
