@@ -1,15 +1,12 @@
 ---
 layout: post
-title:  "Spring Security - 권한 부여(1): 액세스 제한"
+title:  "Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한"
 date:   2023-12-09
 categories: dev
 tags: spring-security permit-all deny-all role authority
 ---
 
 이 포스트에서는 HTTP 요청 인증 후 수행되는 프로세스인 권한 부여 구성에 대해 알아본다.
-
-- `PasswordEncoder` 이용
-- 스프링 시큐리티 암호화 모듈에 있는 툴 이용 (SSCM, Spring Security Crypto Module)
 
 - 권한에 대해 알아본 후 사용자 권한에 따라 모든 엔드포인트에 엑세스 규칙 적용
 - 권한을 역할로 그룹화
