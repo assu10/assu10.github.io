@@ -390,7 +390,7 @@ http.authorizeHttpRequests(authz ->
 
 pathParameter 로 이메일 주소를 받는 엔드포인트가 있을 때 _@aassuCompany.com_ 으로 끝나는 요청만 허용하고, 다른 이메일 주소 형식은 거부할 때 `denyAll()` 을 사용할 수 있다.  
 
-> 경로와 HTTP 방식, pathParameter 를 기준으로 액세스 제한을 하는 방법을 추후 다룰 예정입니다.
+> 경로와 HTTP 방식, pathParameter 를 기준으로 액세스 제한을 하는 방법은 [https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-2/](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-2/) 을 참고하세요.
 
 혹은 아래와 같이 여러 게이트웨이로 구성된 경우에도 사용할 수 있다.
 

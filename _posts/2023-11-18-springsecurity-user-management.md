@@ -75,7 +75,10 @@ tags: spring-security user-details granted-authority user-details-service user-d
 
 `UserDetails` 계약을 구현하여 사용자를 기술하고, 사용자가 수행할 수 있는 작업(=권한)은 `GrantedAuthority` 인터페이스로 나타낸다.
 
-> 권한에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다.
+> 권한에 대한 좀 더 상세한 내용은    
+> [Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-1/),  
+> [Spring Security - 권한 부여(2): 경로, HTTP Method 에 따른 엑세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-2/) 
+> 를 참고하세요.
 
 아래는 사용자 관리를 수행하는 구성 요소 간의 종속성이다.
 
@@ -151,7 +154,10 @@ public interface UserDetails extends Serializable {
 
 여기서는 권한은 정의하는 방법에 대해 알아본다.
 
-> 사용자 권한을 바탕으로 권한 부여 구성을 작성하는 방법에 대해서는 추후 상세히 다룰 예정입니다.
+> 사용자 권한을 바탕으로 권한 부여 구성을 작성하는 방법에 대해서는  
+> [Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-1/),  
+> [Spring Security - 권한 부여(2): 경로, HTTP Method 에 따른 엑세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-2/)
+> 를 참고하세요.
 
 사용자는 권한이 하나도 없거나, 여러 개의 권한을 가질 수 있으며 일반적으로 1개 이상의 권한을 소유한다.
 

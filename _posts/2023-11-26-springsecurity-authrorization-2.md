@@ -50,7 +50,11 @@ tags: spring-security security-context security-context-holder
 
 여기서 앞으로 볼 내용을 이용하여 권한 부여를 구성할 때 `SecurityContext` 에 저장된 인증된 사용자에 대한 세부 정보를 사용할 수 있다.
 
-> 권한 부여에 대한 상세한 내용은 추후 상세히 다룰 예정입니다.
+> 권한 부여에 대한 상세한 내용은  
+> [Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-1/),  
+> [Spring Security - 권한 부여(2): 경로, HTTP Method 에 따른 엑세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-2/),  
+> [Spring Security - 필터](https://assu10.github.io/dev/2023/12/16/springsecurity-filter/) 
+> 를 참고하세요.
 
 **`AuthenticationManager` 는 인증 프로세스를 완료한 후 요청이 유지되는 동안 `Authentication` 인스턴스를 저장하는데, 이 `Authentication` 객체를 
 저장하는 인스턴스를 `SecurityContext`** 라고 한다.
