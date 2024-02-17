@@ -407,7 +407,8 @@ $ curl -w "%{http_code}" --header 'Authorization: 2221'  http://localhost:8080/h
 
 - **HTTP 요청만 지원함**
   - 하지만 사실 항상 HTTP 요청만 처리하기 때문에 오히려 장점이 될 수도 있음
-  - `Filter` 와 `OncePerRequestFilter` 의 매개변수를 보면 `OncePerRequestFilter` 는 HttpServletRequest, HttpServletResponse 로 직접 수신하기 때문에 요청과 응답을 형변환할 필요가 없음  
+  - `Filter` 와 `OncePerRequestFilter` 의 매개변수를 보면 `OncePerRequestFilter` 는 HttpServletRequest, HttpServletResponse 로 직접 수신하기 때문에 요청과 응답을 형변환할 필요가 없음
+  
 ```java 
 // Filter
 doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -415,6 +416,7 @@ doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterC
 // OncePerRequestFilter
 doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 ```
+
 - **필터가 적용될 지 결정하는 논리 구현 가능**
   - `shouldNotFilter(HttpServletRequest)` 를 재정의하여 필터 체인에 추가한 필터가 특정 요청에는 적용되지 않게 결정 가능
   - 기본적으로 필터는 모드느 요청에 적용됨
