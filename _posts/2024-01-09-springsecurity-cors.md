@@ -18,6 +18,7 @@ tags: spring-security cors cross-origin fors-configurer
 * [1. CORS (Cross-Site Resource Sharing, 교차 출처 리소스 공유)](#1-cors-cross-site-resource-sharing-교차-출처-리소스-공유)
 * [2. `@CrossOrigin` 애너테이션으로 CORS 정책 적용](#2-crossorigin-애너테이션으로-cors-정책-적용)
 * [3. `CorsConfigurer` 로 CORS 적용](#3-corsconfigurer-로-cors-적용)
+* [마치며...](#마치며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -318,6 +319,14 @@ public class ProjectConfig {
 
 `CorsConfiguration` 은 허용되는 출처, 메서드, 헤더를 지정하는 객체로 이 방식을 이용하려면 최소한 출처와 메서드를 지정해야 한다.  
 `CorsConfiguration` 객체는 기본적으로 아무 메서드도 정의하지 않기 때문에 출처만 지정하면 애플리케이션이 요청을 허용하지 않는다.
+
+---
+
+# 마치며...
+
+- 특정 도메인에서 호스팅되는 웹 애플리케이션이 다른 도메인의 컨텐츠에 접근하려고 할 때 발생하며, 기본적으로 브라우저는 이러한 접근을 허용하지 않음
+- CORS 구성을 이용하면 리소스의 일부를 브라우저에서 실행되는 웹 애플리케이션의 다른 도메인에서 호출할 수 있음
+- CORS 를 구성하는 방법은 `@CrossOrigin` 애너테이션으로 엔드포인트별로 구성하는 방법과 `HttpSecurity` 의 `cors()` 로 중앙화된 구성 클래스에서 구성하는 방법이 있음
 
 ---
 

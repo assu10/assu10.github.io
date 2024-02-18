@@ -189,7 +189,7 @@ See!200%
 
 스프링 시큐리티는 기본적으로 CSRF (사이트 간 요청 위조) 에 대한 보호를 적용한다.
 
-> 스프링 시큐리티가 CSRF 토큰 탈취로 인한 CSRF 취약성을 완화하는 법은 추후 다룰 예정입니다.
+> 스프링 시큐리티가 CSRF 토큰 탈취로 인한 CSRF 취약성을 완화하는 법은 [Spring Security - CSRF (Cross-Site Request Forgery, 사이트 간 요청 위조)](https://assu10.github.io/dev/2023/12/17/springsecurity-csrf/) 를 참고하세요.
 
 일단 지금은 권한 부여를 이해하는 것이 목적이니 PUT, POST 등 모든 엔드포인트를 호출할 수 있게 CSRF 보호를 비활성화한다.
 
