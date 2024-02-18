@@ -21,6 +21,7 @@ tags: spring-security csrf csrf-filter csrf-token csrf-token-repository
 * [3. CSRF 보호 맞춤 구성: `CsrfToken`, `CsrfTokenRepository`](#3-csrf-보호-맞춤-구성-csrftoken-csrftokenrepository)
   * [3.1. 특정 엔드포인트만 CSRF 보호 비활성화](#31-특정-엔드포인트만-csrf-보호-비활성화)
   * [3.2. CSRF 토큰 관리를 HTTP 세션 관리에서 DB 관리로 맞춤 구성: `CsrfToken`, `CsrfTokenRepository`](#32-csrf-토큰-관리를-http-세션-관리에서-db-관리로-맞춤-구성-csrftoken-csrftokenrepository)
+* [마치며...](#마치며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -873,6 +874,15 @@ public class ProjectConfig {
 > 따라서 브라우저를 통해 실행하면 정상 실행되지만, IDE Test 혹은 curl 로 진행하면 403 Forbidden 오류가 발생한다.
 
 위와 같은 이유로 curl 로 확인 불가...
+
+---
+
+# 마치며...
+
+- CSRF 는 사용자를 속여 위조 스크립트가 포함된 페이지에 접근하도록 하는 공격 유형임
+- 이 스크립트는 애플리케이션에 로그인한 사용자를 가장하여 사용자 대신 작업 실행이 가능
+- CSRF 보호는 스프링 시큐리티에서 기본적으로 활성화됨
+- 스프링 시큐리티에서 CSRF 보호의 진입점은 HTTP 필터임
 
 ---
 

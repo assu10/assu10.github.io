@@ -120,7 +120,9 @@ public interface Filter {
 - `CorsFilter`
   - CORS (교차 출처 리소스 공유) 권한 부여 규칙 처리
 
-> CSRF, CORS 는 추후 상세히 다룰 예정입니다.
+> CSRF, CORS 에 대한 상세한 내용은  
+> [Spring Security - CSRF (Cross-Site Request Forgery, 사이트 간 요청 위조)](https://assu10.github.io/dev/2023/12/17/springsecurity-csrf/),  
+> [Spring Security - CORS (Cross-Site Resource Sharing, 교차 출처 리소스 공유)](https://assu10.github.io/dev/2024/01/09/springsecurity-cors/) 를 참고하세요.
 
 필터 체인에 모든 필터가 인스턴스를 반드시 가질 필요는 없다. 예를 들어 HTTP Basic 인증 방식을 이용하려면 HttpSecurity.httpBasic() 을 호출해야 하는데 
 이 메서드를 호출하면 필터 체인에 `BasicAuthenticationFilter` 가 추가된다.
