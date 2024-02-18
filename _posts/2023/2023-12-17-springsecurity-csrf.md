@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Security - CSRF"
+title:  "Spring Security - CSRF (Cross-Site Request Forgery, 사이트 간 요청 위조)"
 date:   2023-12-17
 categories: dev
 tags: spring-security csrf csrf-filter csrf-token csrf-token-repository
