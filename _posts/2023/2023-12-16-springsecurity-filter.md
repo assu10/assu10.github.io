@@ -302,10 +302,11 @@ public class ProjectConfig {
   - 인증 보안 수준은 낮지만 단순하다는 장점이 있어 [백엔드 간 통신 시 데이터를 보호하고자 할 때 자주 사용됨](https://assu10.github.io/dev/2023/11/11/springsecurity-basic/#24-api-%ED%82%A4-%EC%95%94%ED%98%B8%ED%99%94-%EC%84%9C%EB%AA%85-ip-%EA%B2%80%EC%A6%9D%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%9A%94%EC%B2%AD-%EB%B3%B4%EC%95%88)
   - 클라이언트 ͍ 백엔드 간 통신 시에도 클라이언트는 HTTP 요청의 헤더에 항상 동일한 문자열을 넣어 백엔드로 전달 후 이 값을 식별하여 통신함
 - 대칭키를 이용하여 인증 요청 서명
-  - [백엔드 간 통신 시 데이터를 보호하고자 할 때 사용됨](https://assu10.github.io/dev/2023/11/11/springsecurity-basic/#24-api-%ED%82%A4-%EC%95%94%ED%98%B8%ED%99%94-%EC%84%9C%EB%AA%85-ip-%EA%B2%80%EC%A6%9D%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%9A%94%EC%B2%AD-%EB%B3%B4%EC%95%88)
+  - [백엔드 간 통신 시 데이터를 보호하고자 할 때 사용됨](https://assu10.github.io/dev/2023/11/11/springsecurity-basic/#24-api-%ED%82%A4-%EC%95%94%ED%98%B8%ED%99%94-%EC%84%9C%EB%AA%85-ip-%EA%B2%80%EC%A6%9D%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%9A%94%EC%B2%AD-%EB%B3%B4%EC%95%88)  
+  > [1.4. 인코딩, 암호화, 해싱](https://assu10.github.io/dev/2023/11/19/springsecurity-password/#14-%EC%9D%B8%EC%BD%94%EB%94%A9-%EC%95%94%ED%98%B8%ED%99%94-%ED%95%B4%EC%8B%B1) 에 대칭키, 비대칭키 내용 참고
   - 대칭키로 요청에 서명/검증하며, 클라이언트와 서버가 모두 키의 값을 아는 상태 (= 클라이언트와 서버가 키를 공유)
   - 클라이언트는 이 키로 요청의 일부에 서명하고(예를 들어 특정 헤더의 값에 서명), 서버는 같은 키로 서명이 유효한지 확인
-  - ㅎ서버는 각 클라이언트의 개별키를 DB 나 Vault 에 저장
+  - 서버는 각 클라이언트의 개별키를 DB 나 Vault 에 저장
   - 비슷하게 비대칭 키 쌍을 이용할 수도 있음
 - OTP 이용
 
