@@ -1,0 +1,177 @@
+<mxfile host="Electron" modified="2024-02-24T08:00:06.790Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="9encYw_qYRk5MXyOoImK" version="23.1.5" type="device">
+  <diagram name="페이지-1" id="fkjtJsCdJn4enmuD0aWs">
+    <mxGraphModel dx="1941" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="__CQUgdxAFar13HM20kB-1" value="User" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="120" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-2" value="Client" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.management_console;fillColor=#D2D3D3;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="310" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-3" value="비즈니스 논리 서버" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.traditional_server;" vertex="1" parent="1">
+          <mxGeometry x="510" y="40" width="23.08" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-4" value="인증 서버" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.traditional_server;" vertex="1" parent="1">
+          <mxGeometry x="700" y="40" width="23.08" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-6" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="853" as="sourcePoint" />
+            <mxPoint x="140" y="103" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-7" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="711.04" y="850" as="sourcePoint" />
+            <mxPoint x="711.04" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-8" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="521.04" y="850" as="sourcePoint" />
+            <mxPoint x="521.04" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-9" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="329.5" y="850" as="sourcePoint" />
+            <mxPoint x="329.5" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-10" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="160" as="sourcePoint" />
+            <mxPoint x="330" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-13" value="/login username:password" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-10">
+          <mxGeometry x="-0.6526" y="1" relative="1" as="geometry">
+            <mxPoint x="55" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-11" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="200" as="sourcePoint" />
+            <mxPoint x="520" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-14" value="/login username:password" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-11">
+          <mxGeometry x="-0.2" y="-1" relative="1" as="geometry">
+            <mxPoint x="17" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-12" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="240" as="sourcePoint" />
+            <mxPoint x="710" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-15" value="/user/auth username:password" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-12">
+          <mxGeometry x="-0.6316" y="2" relative="1" as="geometry">
+            <mxPoint x="56" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-16" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="710" y="280" as="sourcePoint" />
+            <mxPoint x="140" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-17" value="SMS 로 OTP 전송" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-16">
+          <mxGeometry x="-0.4632" y="-3" relative="1" as="geometry">
+            <mxPoint x="58" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-18" value="&lt;h1&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;OTP 를 받기 위해 사용자 이름과 암호로 인증&lt;/font&gt;&lt;/h1&gt;&lt;p&gt;- 사용자가 인증을 위해 클라이언트로 자격 증명을 보냄&lt;/p&gt;&lt;p&gt;- 인증 서버는 사용자를 인증한 후 OTP 코드를 SMS 로 사용자에게 보냄&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;sketch=1;curveFitting=1;jiggle=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="150" width="380" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-19" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="380" as="sourcePoint" />
+            <mxPoint x="330" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-20" value="/login username:password" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-19">
+          <mxGeometry x="-0.6526" y="1" relative="1" as="geometry">
+            <mxPoint x="55" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-21" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="420" as="sourcePoint" />
+            <mxPoint x="520" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-22" value="/login username:password" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-21">
+          <mxGeometry x="-0.6526" y="1" relative="1" as="geometry">
+            <mxPoint x="55" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-23" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="460" as="sourcePoint" />
+            <mxPoint x="710" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-24" value="/login username:password" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-23">
+          <mxGeometry x="-0.6526" y="1" relative="1" as="geometry">
+            <mxPoint x="55" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-28" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="500" as="sourcePoint" />
+            <mxPoint x="330" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-29" value="Token" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-28">
+          <mxGeometry x="0.3684" relative="1" as="geometry">
+            <mxPoint x="31" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-30" value="&lt;h1&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Token 을 받기 위해 OTP 로 인증&lt;/font&gt;&lt;/h1&gt;&lt;p&gt;- 사용자가 OTP 를 보냄&lt;/p&gt;&lt;p&gt;- 인증 서버는 OTP 를 검증&lt;/p&gt;&lt;p&gt;- 비즈니스 서버는 OTP 검증이 유효하면 토큰을 발급하여 클라이언트로 보냄&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;sketch=1;curveFitting=1;jiggle=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="387" width="380" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-31" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="584" as="sourcePoint" />
+            <mxPoint x="520" y="584" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-32" value="/test Authentication: Token" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-31">
+          <mxGeometry x="-0.6526" y="1" relative="1" as="geometry">
+            <mxPoint x="55" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-33" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="630" as="sourcePoint" />
+            <mxPoint x="330" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-34" value="HTTP 200 OK" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;labelBackgroundColor=#DAE8FC;" vertex="1" connectable="0" parent="__CQUgdxAFar13HM20kB-33">
+          <mxGeometry x="0.3684" relative="1" as="geometry">
+            <mxPoint x="31" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-35" value="&lt;h1&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;엔드포인트에 접근하기 위해 Token 으로 인증&lt;/font&gt;&lt;/h1&gt;&lt;p&gt;- 클라이언트가 토큰으로 비즈니스 논리 서버가 노출하는 리소스에 접근&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;sketch=1;curveFitting=1;jiggle=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="560" width="380" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-36" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=3;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-250" y="320" as="sourcePoint" />
+            <mxPoint x="750" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="__CQUgdxAFar13HM20kB-37" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=3;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-250" y="540" as="sourcePoint" />
+            <mxPoint x="750" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

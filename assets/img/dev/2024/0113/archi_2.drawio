@@ -1,0 +1,99 @@
+<mxfile host="Electron" modified="2024-02-24T08:20:05.923Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="l5AKgIYyCh9hTih1q-y4" version="23.1.5" type="device">
+  <diagram name="페이지-1" id="kRbNfIVgyu_WJu8KZ4is">
+    <mxGraphModel dx="1114" dy="2063" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="YIFEG8R_0zvuCe3BDyti-1" target="YIFEG8R_0zvuCe3BDyti-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-1" value="InitialAuthenticationFilter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="130" y="80" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-2" value="JwtAuthenticationFilter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="390" y="80" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="YIFEG8R_0zvuCe3BDyti-3" target="YIFEG8R_0zvuCe3BDyti-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="YIFEG8R_0zvuCe3BDyti-3" target="YIFEG8R_0zvuCe3BDyti-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-3" value="AuthenticationManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="170" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-4" value="UsernamePassword&lt;br&gt;AuthenticationProvider" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="24" y="270" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-5" value="OtpAuthenticationProvider" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="238" y="270" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-6" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="50" y="95" as="sourcePoint" />
+            <mxPoint x="130" y="95" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-7" value="Request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="YIFEG8R_0zvuCe3BDyti-6">
+          <mxGeometry x="-0.175" y="1" relative="1" as="geometry">
+            <mxPoint x="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-8" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="115" as="sourcePoint" />
+            <mxPoint x="50" y="115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-9" value="Response" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="YIFEG8R_0zvuCe3BDyti-8">
+          <mxGeometry x="0.42" y="-2" relative="1" as="geometry">
+            <mxPoint x="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-10" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="94.5" as="sourcePoint" />
+            <mxPoint x="390" y="94.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-11" value="Request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="YIFEG8R_0zvuCe3BDyti-10">
+          <mxGeometry x="-0.175" y="1" relative="1" as="geometry">
+            <mxPoint x="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-12" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="114.5" as="sourcePoint" />
+            <mxPoint x="310" y="114.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-13" value="Response" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="YIFEG8R_0zvuCe3BDyti-12">
+          <mxGeometry x="0.42" y="-2" relative="1" as="geometry">
+            <mxPoint x="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-17" value="요청을 가로챔&lt;br&gt;이 필터는 /login 경로에 대해서만 활성화되며, 사용자 이름/암호, 사용자 이름/OTP 인증 단계를 처리함" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=5;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="-10" width="310" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.567;entryY=-0.06;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="YIFEG8R_0zvuCe3BDyti-17" target="YIFEG8R_0zvuCe3BDyti-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="YIFEG8R_0zvuCe3BDyti-19" target="YIFEG8R_0zvuCe3BDyti-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-19" value="/login 을 제외한 모든 경로에 적용되며, &lt;br&gt;엔드포인트를 호출할 수 있도록 JWT 를 검증함" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=5;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="440" y="-10" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="YIFEG8R_0zvuCe3BDyti-21" target="YIFEG8R_0zvuCe3BDyti-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="YIFEG8R_0zvuCe3BDyti-21" target="YIFEG8R_0zvuCe3BDyti-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YIFEG8R_0zvuCe3BDyti-21" value="각각 사용자 이름/암호, 사용자 이름/OTP 에 대한 인증 논리 구현" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=5;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="360" width="320" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
