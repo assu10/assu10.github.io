@@ -1,0 +1,63 @@
+<mxfile host="Electron" modified="2024-02-25T06:25:09.737Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="p9ArzKSdyKWEeJhG7_dW" version="23.1.5" type="device">
+  <diagram name="페이지-1" id="rKNMEHETRWrcURck55Vn">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cIBQnMjFUahp_uw12VRR-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="cIBQnMjFUahp_uw12VRR-2" target="cIBQnMjFUahp_uw12VRR-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-2" value="OAuth2LoginAuthenticationFilter" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="180" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="cIBQnMjFUahp_uw12VRR-3" target="cIBQnMjFUahp_uw12VRR-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="cIBQnMjFUahp_uw12VRR-3" target="cIBQnMjFUahp_uw12VRR-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="544" y="200" />
+              <mxPoint x="544" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cIBQnMjFUahp_uw12VRR-3" target="cIBQnMjFUahp_uw12VRR-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="544" y="200" />
+              <mxPoint x="544" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-3" value="ClientRegistrationRepository" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="304" y="180" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-4" value="&amp;nbsp;GITHUB&amp;nbsp; &amp;nbsp;ClientRegistration" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="566" y="120" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-5" value="&amp;nbsp;GOOGLE&amp;nbsp; &amp;nbsp;ClientRegistration" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="566" y="180" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-6" value="&amp;nbsp;OKTA&amp;nbsp; &amp;nbsp;ClientRegistration" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="566" y="240" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="cIBQnMjFUahp_uw12VRR-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-11" value="인증 필터는 ClientRegistrationRepository 에서 &lt;br&gt;권한 부여 서버 클라이언트 등록에 대한 세부 정보를 조회" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="60" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="cIBQnMjFUahp_uw12VRR-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="530" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cIBQnMjFUahp_uw12VRR-13" value="ClientRegistrationRepository 에는 &lt;br&gt;하나 이상의 ClientRegistration 객체가 있음" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="380" y="310" width="230" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
