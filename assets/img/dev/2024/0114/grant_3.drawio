@@ -1,0 +1,76 @@
+<mxfile host="Electron" modified="2024-02-25T03:52:17.026Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="0qIs801asD2-axKYkXea" version="23.1.5" type="device">
+  <diagram name="페이지-1" id="h4W88n69cjFPXwg6sM1v">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IlJnZbN0naLgoV53dmtp-2" value="Client" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.mac_client;" vertex="1" parent="1">
+          <mxGeometry x="50" y="80" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-3" value="권한 부여 서버" style="sketch=0;aspect=fixed;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#00188D;shape=mxgraph.mscae.enterprise.database_server" vertex="1" parent="1">
+          <mxGeometry x="232" y="80" width="38" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-4" value="리소스 서버" style="sketch=0;aspect=fixed;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#00188D;shape=mxgraph.mscae.enterprise.database_server" vertex="1" parent="1">
+          <mxGeometry x="412" y="80" width="38" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-6" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="69" y="430" as="sourcePoint" />
+            <mxPoint x="69.5" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-7" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="249" y="430" as="sourcePoint" />
+            <mxPoint x="250.5" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-8" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="431" y="430" as="sourcePoint" />
+            <mxPoint x="430.5" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-9" value="화살표는 HTTP 의 요청과 응답이 아니라 OAuth 2 구성 요소 간에 교환되는 메시지임" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="10" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-11" value="" style="endArrow=block;html=1;rounded=0;endFill=1;fontColor=#FF66B3;strokeColor=#FF66B3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="70" y="309" as="sourcePoint" />
+            <mxPoint x="429" y="309" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-12" value="" style="endArrow=block;html=1;rounded=0;endFill=1;fontColor=#FF66B3;strokeColor=#FF66B3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="429" y="349" as="sourcePoint" />
+            <mxPoint x="70" y="349" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-14" value="1.1. 클라이언트 자격 증명으로&lt;br&gt;액세스 토큰 요청" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="71" y="167" width="180" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-15" value="2.1. 액세스 토큰으로 리소스 접근" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF66B3;" vertex="1" parent="1">
+          <mxGeometry x="71" y="289" width="168" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-16" value="2.2. 토큰 확인 후 리소스 제공" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF66B3;" vertex="1" parent="1">
+          <mxGeometry x="270" y="328" width="168" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-17" value="" style="endArrow=block;html=1;rounded=0;endFill=1;fontColor=#3333FF;strokeColor=#3333FF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="69" y="205" as="sourcePoint" />
+            <mxPoint x="249" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-18" value="" style="endArrow=none;html=1;rounded=0;endFill=0;fontColor=#3333FF;strokeColor=#3333FF;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="69" y="247" as="sourcePoint" />
+            <mxPoint x="249" y="247" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IlJnZbN0naLgoV53dmtp-19" value="1.2. 액세스 토큰 발급" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="100" y="227" width="180" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
