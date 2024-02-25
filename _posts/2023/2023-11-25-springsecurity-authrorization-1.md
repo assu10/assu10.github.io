@@ -80,7 +80,7 @@ tags: spring-security authentication-provider
 즉, 인증 논리를 담당하는 것은 `AuthenticationProvider` 계층이며, 여기에서 요청 허용/거부를 결정하는 조건과 명령을 기술한다.  
 `AuthenticationManager` 는 HTTP Filter 계층에서 요청을 수신한 후 이 책임을 `AuthenticationProvider` 로 위임하는 구성요소이다.
 
-> `AuthenticationFilter` 계층에 대해서는 [https://assu10.github.io/dev/2023/12/16/springsecurity-filter/](https://assu10.github.io/dev/2023/12/16/springsecurity-filter/) 를 참고하세요.
+> `AuthenticationFilter` 계층에 대해서는 [Spring Security - 필터](https://assu10.github.io/dev/2023/12/16/springsecurity-filter/) 를 참고하세요.
 
 본 포스트에서는 결과가 단 2가지인 인증 프로세스에 대해 살펴본다.
 - 요청 엔티티가 인증되지 않음
@@ -183,7 +183,7 @@ Authentication authenticate(Authentication authentication) throws Authentication
 - **인증이 실패하면 메서드는 _AuthenticationException_ 예외를 발생시켜야 함**
 - **메서드가 현재 `AuthenticationProvider` 에서 지원하지 않는 인증 객체를 받으면 null 을 반환해야 함**
   - 이러면 HTTP 필터 수준에서 분리된 여러 `Authentication` 형식을 사용할 가능성이 생김  
-  - > 필터 수준에서 여러 `AuthenticationProvider` 사용에 대한 좀 더 상세한 내용은 [https://assu10.github.io/dev/2023/12/16/springsecurity-filter/](https://assu10.github.io/dev/2023/12/16/springsecurity-filter/) 를 참고하세요.
+  - > 필터 수준에서 여러 `AuthenticationProvider` 사용에 대한 좀 더 상세한 내용은 [Spring Security - 필터](https://assu10.github.io/dev/2023/12/16/springsecurity-filter/) 를 참고하세요.
 - **메서드는 완전히 인증된 객체를 나타내는 `Authentication` 인스턴스를 반환해야 함**
   - 이 인스턴스에 대해 `isAuthenticated()` 는 true 를 반환하며, 인증된 엔티티의 모든 필수 세부 정보가 포함되어 있음
   - 이 인스턴스에 암호화 같은 민감한 데이터는 제거 (인증한 후에는 암호가 더는 필요없으며, 이러한 세부 정보를 그대로 두면 유출될 위험이 있음)
