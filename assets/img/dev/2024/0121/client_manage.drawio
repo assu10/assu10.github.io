@@ -1,0 +1,84 @@
+<mxfile host="Electron" modified="2024-02-25T09:30:25.368Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="jYti5Oz2q2K3iEOvCwCw" version="23.1.5" type="device">
+  <diagram name="페이지-1" id="L-iPqHmT4EFG9WuabVqu">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;" edge="1" parent="1" source="SNDh_RVVlRP1FGRZuaR5-1" target="SNDh_RVVlRP1FGRZuaR5-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-10" value="이용" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="SNDh_RVVlRP1FGRZuaR5-6">
+          <mxGeometry x="-0.7619" y="-1" relative="1" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-1" value="ClientDetailsService&lt;br&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="120" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="SNDh_RVVlRP1FGRZuaR5-2" target="SNDh_RVVlRP1FGRZuaR5-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-11" value="구현" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="SNDh_RVVlRP1FGRZuaR5-7">
+          <mxGeometry x="-0.1152" y="-3" relative="1" as="geometry">
+            <mxPoint y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-2" value="InMemoryClientDetailsService" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="220" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="SNDh_RVVlRP1FGRZuaR5-3" target="SNDh_RVVlRP1FGRZuaR5-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-12" value="구현" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="SNDh_RVVlRP1FGRZuaR5-8">
+          <mxGeometry x="-0.04" relative="1" as="geometry">
+            <mxPoint x="12" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-3" value="JdbcClientDetailsService" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="220" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-4" value="ClientDetails&lt;br&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="120" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="SNDh_RVVlRP1FGRZuaR5-5" target="SNDh_RVVlRP1FGRZuaR5-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-13" value="구현" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="SNDh_RVVlRP1FGRZuaR5-9">
+          <mxGeometry x="-0.3" y="-4" relative="1" as="geometry">
+            <mxPoint x="-4" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-5" value="BaseClientDetails" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="525" y="220" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="SNDh_RVVlRP1FGRZuaR5-14" target="SNDh_RVVlRP1FGRZuaR5-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-14" value="클라이언트의 세부 정보를 검색하는 구성 요소를 나타내는 계약" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="50" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-15" value="메모리 안에서 클라이언트 세부 정보를 관리함" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="310" width="230" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-16" value="JDBC 로 DB 에 연결해 ClientDetails 를 관리함" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="290" y="310" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-17" value="ClientDetails 계약의 구현" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="650" y="300" width="143" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-18" value="스프링 시큐리티가 이해할 수 있게 클라이언트를 나타내는 계약" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="550" y="40" width="233" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.165;entryY=1.05;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="SNDh_RVVlRP1FGRZuaR5-15" target="SNDh_RVVlRP1FGRZuaR5-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.465;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;curved=1;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1" source="SNDh_RVVlRP1FGRZuaR5-16" target="SNDh_RVVlRP1FGRZuaR5-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SNDh_RVVlRP1FGRZuaR5-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.541;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;curved=1;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1" source="SNDh_RVVlRP1FGRZuaR5-17" target="SNDh_RVVlRP1FGRZuaR5-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

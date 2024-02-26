@@ -69,7 +69,7 @@ tags: spring-security oauth2 client-registration client-registration-repository
 
 # 2. 종속성, 엔드포인트, 구성 클래스 구현
 
-> 소스는 [github](https://github.com/깃헙아이디/spring-security/tree/feature/chap1201) 에 있습니다.
+> 소스는 [github](https://github.com/assu10/spring-security/tree/feature/chap1201) 에 있습니다.
 
 pom.xml
 ```xml
