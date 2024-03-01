@@ -169,7 +169,7 @@ TypeOrmModule.forRoot({
 
 ## 2.2. 회원 가입 시 유저 정보 저장: `@InjectRepository`
 
-NestJS 는 [리포지토리 패턴](https://learn.microsoft.com/ko-kr/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) 을 지원한다.  
+NestJS 는 [레파지토리 패턴](https://learn.microsoft.com/ko-kr/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) 을 지원한다.  
 
 유저 Entity 를 정의한다.
 
@@ -638,7 +638,7 @@ query: COMMIT
 * [docker mysql](https://hub.docker.com/_/mysql)
 * [TypeORM vs Sequelize](https://codebibimppap.tistory.com/16)
 * [Rancher Desktop (Docker Desktop 유료화 대응)](https://assu10.github.io/dev/2022/02/02/rancher-desktop/)
-* [리포지토리 패턴](https://learn.microsoft.com/ko-kr/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)
+* [레파지토리 패턴](https://learn.microsoft.com/ko-kr/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)
 * [ULID vs UUID: Sortable Random ID Generators for JavaScript](https://blog.bitsrc.io/ulid-vs-uuid-sortable-random-id-generators-for-javascript-183400ef862c)
 * [TypeORM Transaction](https://typeorm.io/transactions)
 * [Sequelize migration](https://sequelize.org/v5/manual/migrations.html)

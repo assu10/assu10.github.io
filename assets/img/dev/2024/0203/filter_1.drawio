@@ -1,0 +1,105 @@
+<mxfile host="Electron" modified="2024-03-01T05:03:08.888Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="Yle9JTTmRdDRZDCOTpCS" version="23.1.5" type="device">
+  <diagram name="페이지-1" id="pG5eZT2DYqQ27IEcRrEC">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="47DUOU_dUBChPb7fa2JB-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="333" y="191" as="sourcePoint" />
+            <mxPoint x="413" y="191" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-1" value="EventController&lt;br&gt;&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;getEvents(List&amp;lt;Event&amp;gt; events)&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="153" y="171" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-2" value="EventService&lt;br&gt;&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;getEvents(List&amp;lt;Event&amp;gt; events)&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="633" y="171" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="413" y="211" as="sourcePoint" />
+            <mxPoint x="333" y="211" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="190" as="sourcePoint" />
+            <mxPoint x="633" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-3" value="보안 에스펙트&lt;br&gt;&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;aspectLogic()&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;spacingTop=5;spacingBottom=5;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="413" y="171" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-9" value="" style="shape=mxgraph.mockup.markup.redX;fillColor=#ff0000;html=1;shadow=0;whiteSpace=wrap;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="577" y="171" width="30" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-10" value="http://localhost:8080/events&lt;br&gt;&lt;br&gt;본인이 작성한 이벤트에 대해서만 정보를 얻을 수 있음" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="66" y="10" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-11" value="[&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;{&quot;owner&quot;: &quot;assu&quot;},&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;{&quot;owner&quot;: &quot;silby&quot;}&#x9;&lt;/span&gt;&lt;br&gt;]" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="313" y="100" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;curved=1;" edge="1" parent="1" source="47DUOU_dUBChPb7fa2JB-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="573" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-12" value="사전 권한 부여에서는 주어진 권한 부여 규칙을 준수하지 않으면 아예 메서드를 호출하지 않음" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="437" y="270" width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-14" value="사전 권한 부여" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=17;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="6" y="186" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="333" y="481" as="sourcePoint" />
+            <mxPoint x="413" y="481" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-16" value="EventController&lt;br&gt;&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;getEvents(List&amp;lt;Event&amp;gt; events)&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="153" y="461" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="633" y="500" as="sourcePoint" />
+            <mxPoint x="553" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-17" value="EventService&lt;br&gt;&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;getEvents(List&amp;lt;Event&amp;gt; events)&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="633" y="461" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="413" y="501" as="sourcePoint" />
+            <mxPoint x="333" y="501" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="480" as="sourcePoint" />
+            <mxPoint x="633" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-20" value="보안 에스펙트&lt;br&gt;&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;aspectLogic()&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;spacingTop=5;spacingBottom=5;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="413" y="461" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-22" value="[&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;{&quot;owner&quot;: &quot;assu&quot;},&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;{&quot;owner&quot;: &quot;silby&quot;}&#x9;&lt;/span&gt;&lt;br&gt;]" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="313" y="390" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-25" value="사전 필터링" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=17;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="6" y="476" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-26" value="[&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;{&quot;owner&quot;: &quot;assu&quot;}&lt;br&gt;]" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="527" y="390" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-28" value="사전 필터링은 메서드가 호출되지만 규칙을 준수하는 값만 메서드의 매개 변수로 전달됨" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="437" y="581" width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="47DUOU_dUBChPb7fa2JB-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.323;entryY=1.05;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#dae8fc;strokeColor=#6c8ebf;curved=1;" edge="1" parent="1" source="47DUOU_dUBChPb7fa2JB-28" target="47DUOU_dUBChPb7fa2JB-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
