@@ -1,0 +1,48 @@
+<mxfile host="Electron" modified="2024-02-26T08:08:45.944Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="2zpueQ8Yv3ucHbJwpveq" version="23.1.5" type="device">
+  <diagram name="페이지-1" id="xPY-ZT_whExCizqw3V6U">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="zXBx6S3AEpzXPtg0dGBn-1" target="zXBx6S3AEpzXPtg0dGBn-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-1" value="UserController&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;me()&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="116" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-6" value="UserService&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;me()&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="116" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="zXBx6S3AEpzXPtg0dGBn-7" target="zXBx6S3AEpzXPtg0dGBn-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-7" value="UserController&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;me()&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="240" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-8" value="UserService&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;me()&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="240" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;" edge="1" parent="1" source="zXBx6S3AEpzXPtg0dGBn-9" target="zXBx6S3AEpzXPtg0dGBn-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-9" value="보안 Aspect&lt;br&gt;&lt;div style=&quot;text-align: right;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;aspectLogic()&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="280" y="240" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="zXBx6S3AEpzXPtg0dGBn-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-13" value="전역 메서드 보안이 없으면 &lt;br&gt;호출이 컨트롤러에서 서비스로 감" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="319" y="42" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-15" value="전역 메서드보안 활성화 시&lt;br&gt;서비스 메서드에 대한 호출을 Aspect 가 가로챔.&lt;br&gt;&lt;br&gt;지정된 권한 부여 규칙이 충족되지 않으면 &lt;br&gt;서비스 메서드로 호출을 전달하지 않음" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="215" y="360" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="zXBx6S3AEpzXPtg0dGBn-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.308;entryY=1.06;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#d5e8d4;strokeColor=#82b366;curved=1;" edge="1" parent="1" source="zXBx6S3AEpzXPtg0dGBn-15" target="zXBx6S3AEpzXPtg0dGBn-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
