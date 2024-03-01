@@ -70,7 +70,7 @@ tags: spring-security jwt
   - 사용자 자격 증명 DB 를 포함하는 애플리케이션
   - 사용자의 자격 증명(이름,암호) 을 기준으로 사용자를 인증
   - SMS 를 통해 OTP 를 클라이언트로 전송 (MFA, 여기서는 SMS 전송을 하지는 않고 DB 에서 바로 OTP 읽음)
-  - 추후 AWS SNS, Twilio 등으로 구현 가능
+  - AWS SNS, Twilio 등으로 구현 가능
 - 비즈니스 논리 서버
   - 클라이언트가 이용한 엔드포인트가 노출되는 애플리케이션
   - 이 엔드포인트에 대한 접근 보안 적용
@@ -115,11 +115,17 @@ tags: spring-security jwt
   - 토큰을 무효로 할 수도 있고, 탈취된 것을 알게된 후 토큰 거부도 가능
 - **요청에 필요한 세부 정보를 토큰에 저장 가능**
   - 토큰에 사용자의 권한과 역할 같은 세부 정보를 저장함으로써 서버 쪽 세션을 클라이언트 쪽 세션으로 대체하여 Scale-out 을 위한 높은 유연성 제공 가능
-  - > 서버 쪽 세션을 클라이언트 쪽 세션으로 대체하여 Scale-out 을 위한 높은 유연성 제공을 위한 상세한 내용은 추후 다룰 예정입니다.
 - **인증 및 권한 부여 책임을 시스템의 다른 구성 요소로 분리 가능**
   - 사용자를 직접 관리하지 않고 github, google 등의 플랫폼을 이용하여 계정의 자격 증명 가능
   - 인증을 수행하는 구성 요소를 구현하기로 했더라도 구현을 별도로 만들 수 있으면 유연성을 향상하는데 도움이 됨
 - **아키텍처를 상태 비저장상태로 만들 수 있음**
+
+> 서버 쪽 세션을 클라이언트 쪽 세션으로 대체하여 Scale-out 을 위한 높은 유연성 제공을 위한 상세한 내용은   
+> [Spring Security - OAuth 2(1): Grant 유형](https://assu10.github.io/dev/2024/01/14/springsecurity-oauth2-1/),
+> [Spring Security - OAuth 2: 승인 코드 그랜트 유형을 이용한 간단한 SSO App 구현](https://assu10.github.io/dev/2024/01/20/springsecurity-oauth2-2/),
+> [Spring Security - OAuth 2(2): 권한 부여 서버 구현](https://assu10.github.io/dev/2024/01/21/springsecurity-oauth2-auth-server/),
+> [Spring Security - OAuth 2(3): JWT 와 암호화 서명](https://assu10.github.io/dev/2024/01/27/springsecurity-oauth2-jwt/)  
+> 을 참고하세요.
 
 ---
 
@@ -156,7 +162,7 @@ JWT 는 인증 중에 데이터를 쉽게 전송하고 무결성을 검증하기
   - 사용자 자격 증명 DB 를 포함하는 애플리케이션
   - 사용자의 자격 증명(이름,암호) 을 기준으로 사용자를 인증
   - SMS 를 통해 OTP 를 클라이언트로 전송 (MFA, 여기서는 SMS 전송을 하지는 않고 DB 에서 바로 OTP 읽음)
-  - 추후 AWS SNS, Twilio 등으로 구현 가능
+  - AWS SNS, Twilio 등으로 구현 가능
 
 인증 서버는 사용자 자격 증명과 요청 인증 이벤트 중에 생성된 OTP 가 저장된 DB 에 연결한다.
 

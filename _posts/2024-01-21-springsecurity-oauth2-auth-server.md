@@ -68,8 +68,6 @@ tags: spring-security oauth2
 
 맞춤형 권한 부여 서버를 구현하는 대신 Keycloak 이나 Okta 같은 타사 툴을 선택할 수도 있다.
 
-> Keycloak 을 이용한 권한 부여 서버 구현은 추후 다룰 예정입니다.
-
 > 위와 같은 이유로 아래에 나오는 내용은 보지 않아도 됨...
 
 ---
@@ -79,7 +77,7 @@ tags: spring-security oauth2
 OAuth 2 에서 가장 중요한 것은 액세스 토큰을 얻는 것이며, OAuth 2 아키텍처에서 액세스 토큰을 발행하는 구성 요소는 권한 부여 서버이기 때문에 권한 부여 서버가 없으면 
 OAuth 2 흐름도 없다.
 
-> 리소스 서버가 액세스 토큰을 검증하는 방법은 추후 다룰 예정입니다.
+> 리소스 서버가 액세스 토큰을 검증하는 방법은 [1.3. JWT 를 이용하는 리소스 서버 구현](https://assu10.github.io/dev/2024/01/27/springsecurity-oauth2-jwt/#13-jwt-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EB%8A%94-%EB%A6%AC%EC%86%8C%EC%8A%A4-%EC%84%9C%EB%B2%84-%EA%B5%AC%ED%98%84) 을 참고하세요.
 
 > 소스는 [github](https://github.com/assu10/spring-security/tree/feature/chap1301) 에 있습니다.
 
@@ -195,8 +193,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
 위 다이어그램에는 `SecurityContext` 가 없다.  
 이제 인증의 결과가 `SecurityContext` 가 아닌 `TokenStore` 의 토큰으로 관리되기 때문이다.
-
-> `TokenStore` 에 대한 상세한 내용은 추후 다룰 예정입니다.
 
 이제 사용자 관리에 필요한 구성 클래스를 작성한다.
 

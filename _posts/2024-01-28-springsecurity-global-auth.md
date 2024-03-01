@@ -72,7 +72,7 @@ tags: spring-security enable-method-security pre-authorize post-authorize has-pe
 전역 메서드 보안은 애플리케이션의 어떤 계층에도 적용할 수 있다.  
 서비스 클래스, 레파지토리, 매니저, 프록시 등 어떤 부분에도 전역 메서드 보안으로 권한 부여를 적용할 수 있다.
 
-> 필터링에 대해서는 추후 상세히 다룰 예정입니다.
+> 필터링에 대해서는 [Spring Security - 전역 메서드 보안: 사전/사후 권한 필터](https://assu10.github.io/dev/2024/02/03/springsecurity-global-filter/) 를 참고하세요.
 
 ---
 

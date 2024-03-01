@@ -270,7 +270,10 @@ HTTP Basic 인증은 헤더값에 접두사 _Basic_ 을 붙이고 그 뒤에 _�
 
 여기선 인증에 이용되는 `UserDetailsService` 와 `PasswordEncoder` 를 구성하는 방법에 대해 알아본다.
 
-> 구성 요소를 "맞춤 구성" 하는 방법은 추후 상세히 다룰 예정입니다.  
+> 구성 요소를 "맞춤 구성" 하는 방법은  
+> [Spring Security - 사용자 관리](https://assu10.github.io/dev/2023/11/18/springsecurity-user-management/),
+> [Spring Security - 암호 처리](https://assu10.github.io/dev/2023/11/19/springsecurity-password/) 를 참고하세요.  
+> 
 > 여기선 "맞춤형 구현" 을 "연결" 하는 방법에 대해 알아봅니다.
 
 ---
@@ -477,7 +480,10 @@ hello200%
 [3.1. `UserDetailsService` 재정의](#31-userdetailsservice-재정의) 에서는 새로운 사용자 관리 방식에 대해 알아보았다.  
 이제 엔드포인트 인증 방식과 구성에 대해 알아본다.
 
-> 권한 부여에 대한 좀 더 상세한 내용은 추후 상세히 다룰 예정입니다.
+> 권한 부여에 대한 좀 더 상세한 내용은  
+> [Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-1/),
+> [Spring Security - 권한 부여(2): 경로, HTTP Method 에 따른 엑세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-2/),
+> [Spring Security - 필터](https://assu10.github.io/dev/2023/12/16/springsecurity-filter/) 를 참고하세요.
 
 스프링 시큐리티 기본 구성에서 모든 엔드포인트는 애플리케이션에서 관리하는 유효한 사용자가 있다고 가정하고, HTTP Basic 인증 방식으로 권한 부여 방법을 이용한다.
 
@@ -683,7 +689,8 @@ $ curl -w "%{http_code}" http://localhost:8080/hello
 401%
 ```
 
-> `AuthenticationProvider` 인터페이스, `Authentication` 인터페이스, 그리고 그것의 구현인 `UserPasswordAuthenticationToken` 에 대해서는 추후 상세히 다룰 예정입니다.
+> `AuthenticationProvider` 인터페이스, `Authentication` 인터페이스, 그리고 그것의 구현인 `UserPasswordAuthenticationToken` 에 대해서는 
+> [Spring Security - 인증 구현(1): AuthenticationProvider](https://assu10.github.io/dev/2023/11/25/springsecurity-authrorization-1/) 를 참고하세요.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Security - OAuth 2(2): 승인 코드 그랜트 유형을 이용한 간단한 SSO App 구현"
+title:  "Spring Security - OAuth 2: 승인 코드 그랜트 유형을 이용한 간단한 SSO App 구현"
 date:   2024-01-20
 categories: dev
 tags: spring-security oauth2 client-registration client-registration-repository
@@ -47,7 +47,7 @@ tags: spring-security oauth2 client-registration client-registration-repository
 
 # 1. 권한 부여 서버 관리
 
-> 권한 부여 서버 구현은 추후 다룰 예정입니다.
+> 권한 부여 서버 구현은 [Spring Security - OAuth 2(2): 권한 부여 서버 구현](https://assu10.github.io/dev/2024/01/21/springsecurity-oauth2-auth-server/) 을 참고하세요.
 
 [3.1. 승인 코드 그랜트 유형](https://깃헙아이디.github.io/dev/2024/01/14/springsecurity-auth2-1/#31-%EC%8A%B9%EC%9D%B8-%EC%BD%94%EB%93%9C-%EA%B7%B8%EB%9E%9C%ED%8A%B8-%EC%9C%A0%ED%98%95) 에서 본 것처럼 
 클라이언트가 액세스 토큰을 발급받기 위해서는 클라이언트의 자격 증명인 클라이언트 ID 와 암호가 필요하므로 OAuth 애플리케이션을 깃허브 권한 부여 서버에 등록해야 한다.

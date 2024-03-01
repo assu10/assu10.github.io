@@ -429,7 +429,12 @@ CSRF 토큰은 프론트엔드와 백엔드가 하나의 서버로 구성된 아
 > 프론트엔드와 백엔드가 분리된 구조에서의 CSRF 보호와 토큰을 적용하는 방법은 [Spring Security - BE, FE 분리된 설계의 애플리케이션 구현](https://assu10.github.io/dev/2024/01/13/springsecurity-second-app/) 을 참고하세요.
 
 > OAuth 2 는 구성 요소를 분리하기에 매우 좋다. OAuth 2 를 이용하면 클라이언트에 권한을 부여하는 리소스에서 애플리케이션 인증을 진행한다.  
-> 이에 대한 상세한 내용은 추후 다룰 예정입니다.
+> 이에 대한 상세한 내용은   
+> [Spring Security - OAuth 2(1): Grant 유형](https://assu10.github.io/dev/2024/01/14/springsecurity-oauth2-1/),
+> [Spring Security - OAuth 2: 승인 코드 그랜트 유형을 이용한 간단한 SSO App 구현](https://assu10.github.io/dev/2024/01/20/springsecurity-oauth2-2/),
+> [Spring Security - OAuth 2(2): 권한 부여 서버 구현](https://assu10.github.io/dev/2024/01/21/springsecurity-oauth2-auth-server/),
+> [Spring Security - OAuth 2(3): JWT 와 암호화 서명](https://assu10.github.io/dev/2024/01/27/springsecurity-oauth2-jwt/)  
+> 을 참고하세요.
 
 > **절대 데이터를 변경하는 동작을 구현하고 HTTP GET 엔드포인트를 호출할 수 있도록 허용해서는 안된다.**  
 > **HTTP GET 엔드포인트를 호출할 때는 CSRF 토큰이 필요하지 않다는 부분을 잊지 말자!!**
@@ -447,7 +452,12 @@ CSRF 토큰은 프론트엔드와 백엔드가 하나의 서버로 구성된 아
 **CSRF 보호는 서버에서 생성된 리소스를 이용하는 페이지가 같은 서버에서 생성된 경우에만 이용**한다.  
 이 페이지는 [2. 실제 운영에서의 CSRF 보호 적용: 프론트엔드와 백엔드가 하나의 서버로 구성된 경우](#2-실제-운영에서의-csrf-보호-적용-프론트엔드와-백엔드가-하나의-서버로-구성된-경우) 에서 본 것처럼 엔드포인트가 다른 출처로 노출되는 웹 애플리케이션일 수도 있고, 모바일 애플리케이션일수도 있다.
 
-> 모바일 애플리케이션의 경우 OAuth 2 흐름을 이용할 수 있는데 OAuth 2 에 대한 내용은 추후 상세히 다룰 예정입니다.
+> 모바일 애플리케이션의 경우 OAuth 2 흐름을 이용할 수 있는데 OAuth 2 에 대한 내용은  
+> [Spring Security - OAuth 2(1): Grant 유형](https://assu10.github.io/dev/2024/01/14/springsecurity-oauth2-1/),
+> [Spring Security - OAuth 2: 승인 코드 그랜트 유형을 이용한 간단한 SSO App 구현](https://assu10.github.io/dev/2024/01/20/springsecurity-oauth2-2/),
+> [Spring Security - OAuth 2(2): 권한 부여 서버 구현](https://assu10.github.io/dev/2024/01/21/springsecurity-oauth2-auth-server/),
+> [Spring Security - OAuth 2(3): JWT 와 암호화 서명](https://assu10.github.io/dev/2024/01/27/springsecurity-oauth2-jwt/)  
+> 을 참고하세요.
 
 
 ---

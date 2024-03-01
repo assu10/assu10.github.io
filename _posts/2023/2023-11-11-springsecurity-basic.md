@@ -240,7 +240,12 @@ OAuth 2 는 아래와 같은 장점이 있다.
 
 토큰을 관리하는 방법은 앱의 메모리에 토큰 유지, DB 에 토큰 유지, JWT 를 통한 암호화 서명 사용 등을 이용하는 방법이 있다.
 
-> 위 관리 방법들에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다.
+> 위 관리 방법들에 대한 좀 더 상세한 내용은  
+> [Spring Security - OAuth 2(1): Grant 유형](https://assu10.github.io/dev/2024/01/14/springsecurity-oauth2-1/),
+> [Spring Security - OAuth 2: 승인 코드 그랜트 유형을 이용한 간단한 SSO App 구현](https://assu10.github.io/dev/2024/01/20/springsecurity-oauth2-2/),
+> [Spring Security - OAuth 2(2): 권한 부여 서버 구현](https://assu10.github.io/dev/2024/01/21/springsecurity-oauth2-auth-server/),
+> [Spring Security - OAuth 2(3): JWT 와 암호화 서명](https://assu10.github.io/dev/2024/01/27/springsecurity-oauth2-jwt/)  
+> 을 참고하세요.
 
 ---
 
