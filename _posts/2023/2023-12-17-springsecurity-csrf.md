@@ -900,7 +900,7 @@ public class ProjectConfig {
 
 *본 포스트는 로렌티우 스필카 저자의 **스프링 시큐리티 인 액션**을 기반으로 스터디하며 정리한 내용들입니다.*
 
-* [스프링 시큐리티 인 액션](https://www.jetbrains.com/help/idea/markdown.html#floating-toolbar)
+* [스프링 시큐리티 인 액션](https://www.yes24.com/Product/Goods/112200347)
 * [Configuration Migrations](https://docs.spring.io/spring-security/reference/5.8/migration/servlet/config.html)
 * [Cross Site Request Forgery (CSRF)](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html)
 * [Spring Boot 3.x + Security 6.x 기본 설정 및 변화](https://velog.io/@kide77/Spring-Boot-3.x-Security-%EA%B8%B0%EB%B3%B8-%EC%84%A4%EC%A0%95-%EB%B0%8F-%EB%B3%80%ED%99%94)
