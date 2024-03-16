@@ -46,8 +46,6 @@ tags: kotlin
 코틀린은 식 뒤에 세미콜론을 붙이지 않아도 된다.
 
 ```kotlin
-package assu.study.kotlin_me.helloWorld
-
 fun main() {
     println("Hello, world")
 }
