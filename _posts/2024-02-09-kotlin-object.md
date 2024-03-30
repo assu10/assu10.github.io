@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kotlin - 객체"
-date:   2024-02-05
+date:   2024-02-09
 categories: dev
 tags: kotlin
 ---
