@@ -15,14 +15,18 @@ tags: kotlin
 **목차**
 
 <!-- TOC -->
-* [1. null 이 될 수 있는 타입](#1-null-이-될-수-있는-타입)
-* [2. 안전한 호출과 엘비스 연산자](#2-안전한-호출과-엘비스-연산자)
+* [1. null 이 될 수 있는 타입: `?`](#1-null-이-될-수-있는-타입-)
+  * [1.1. nullable 타입의 역참조](#11-nullable-타입의-역참조)
+* [2. 안전한 호출(safe call)과 엘비스(Elvis) 연산자](#2-안전한-호출safe-call과-엘비스elvis-연산자)
+  * [2.1. 안전한 호출 (safe call): `?.`](#21-안전한-호출-safe-call-)
+  * [2.2. 엘비스(Elvis) 연산자: `?:`](#22-엘비스elvis-연산자-)
+  * [2.3. 안전한 호출 (`?.`) 로 여러 호출을 연쇄](#23-안전한-호출--로-여러-호출을-연쇄)
 * [3. 널 아님 단언](#3-널-아님-단언)
 * [4. 확장 함수와 null 이 될 수 있는 타입](#4-확장-함수와-null-이-될-수-있는-타입)
 * [5. 제네릭스](#5-제네릭스)
 * [6. 확장 프로퍼티](#6-확장-프로퍼티)
 * [7. break, continue](#7-break-continue)
-  * [7.1.  레이블](#71-레이블)
+  * [7.1. 레이블](#71-레이블)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -37,7 +41,7 @@ tags: kotlin
 
 ---
 
-# 1. null 이 될 수 있는 타입
+# 1. null 이 될 수 있는 타입: `?`
 
 ```kotlin
 fun main() {
@@ -123,28 +127,176 @@ nullable 타입을 역참조해도 NullPointerException 이 발생하지 않도�
 바로 위 코드를 아래와 같이 하면 s2 를 역참조할 수 있다.
 ```kotlin
 fun main() {
-    val s1: String = "abc"
-    val s2: String? = s1
+  val s1: String = "abc"
+  val s2: String? = s1
+  val s3: String? = null
+  val s4: String? = "abc"
 
-    println(s1.length) // 3
+  println(s1.length) // 3
 
-    // 컴파일 오류
-    // nullable 타입의 멤버는 참조 불가
-    // println(s2.length)
+  // 컴파일 오류
+  // nullable 타입의 멤버는 참조 불가
+  // println(s2.length)
 
-    if (s2 != null) {
-        println(s2.length)  // 3
-    }
+  if (s2 != null) {
+    println(s2.length) // 3
+  }
+
+  // 컴파일 오류
+  // Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String?
+  // String? 타입의 nullable 수신 객체에는 안전한 (?.) 호출이나 널이 아닌 단언(!!.) 호출만 가능
+  // println(s3.length)
+
+  // 컴파일 오류
+  // Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String?
+  // String? 타입의 nullable 수신 객체에는 안전한 (?.) 호출이나 널이 아닌 단언(!!.) 호출만 가능
+  // println(s4.length)
 }
 ```
 
 이렇게 명시적으로 if 문 검사를 하고 나면 코틀린은 nullable 객체를 참조하도록 허용하지만 매번 이렇게 검사를 하기엔 코드가 지저분해진다.
 
-> 이렇게 지저분한 코드를 해결하는 간결한 구문이 있는데 이는 추후 다룰 예정입니다.
+이렇게 지저분한 코드를 해결하는 간결한 구문은 [2. 안전한 호출(safe call)과 엘비스(Elvis) 연산자](#2-안전한-호출safe-call과-엘비스elvis-연산자) 를 참고하세요.
 
 ---
 
-# 2. 안전한 호출과 엘비스 연산자
+# 2. 안전한 호출(safe call)과 엘비스(Elvis) 연산자
+
+## 2.1. 안전한 호출 (safe call): `?.`
+
+안전한 호출은 `?.` 와 같이 표기한다.    
+**안전한 호출 `?.` 을 사용하면 수신 객체가 null 이 아닐 때만 연산을 수행하기 때문에 nullable 타입의 멤버에 접근하면서 NPE 도 발생하지 않게 해준다.**
+
+```kotlin
+// 확장 함수
+fun String.echo() {
+    println(uppercase())
+    println(this)
+    println(lowercase())
+}
+
+fun main() {
+    val s1: String? = "Abcde"
+
+    // 컴파일 오류
+    // Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String?
+    // s1.echo()
+
+    // 안전한 호출인 ?. 사용
+    s1?.echo()
+    // ABCDE
+    // Abcde
+    // abcde
+
+    val s2: String? = null
+    
+    // 안전한 호출인 ?. 사용
+    // s2 의 수신 객체가 null 이므로 아무 일도 수행하지 않음
+    s2?.echo()
+}
+```
+
+아래 코드를 보면 if 문을 사용할 때보다 안전한 호출인 `?.` 를 이용할 때 좀 더 코드가 깔끔해지는 것을 확인할 수 있다.
+```kotlin
+fun checkLength(
+  s: String?,
+  expected: Int?,
+) {
+  // if 문으로 null 검사
+  val length1 =
+    if (s != null) s.length else null
+
+  // 안전한 호출 ?. 로 검사
+  val length2 = s?.length
+
+  println(length1 == expected)
+  println(length2 == expected)
+}
+
+fun main() {
+  checkLength("abc", 3) // true   true
+  checkLength(null, null) // true  true
+}
+```
+
+---
+
+## 2.2. 엘비스(Elvis) 연산자: `?:`
+
+수신 객체가 null 일 경우 `?.` 로 null 을 리턴하는 것 이상의 일이 필요할 경우엔 Elvis 연산자인 `?:` 를 사용한다.
+
+아래 예시를 보자.
+
+```kotlin
+fun main() {
+    val s1: String? = "abc"
+
+    // s1 이 null 이 아니므로 abc 출력
+    println(s1 ?: "ddd")    // abc
+
+    val s2: String? = null
+    
+    // s2 가 null 이므로 ddd 출력
+    println(s2 ?: "ddd")    // ddd
+}
+```
+
+**보통은 아래 예시처럼 안전한 호출이 null 수신 객체에 대해 만들어내는 null 대신 디폴트 값을 제공하기 위해 Elvis 연산자 (`?:`) 를 안전한 호출 (`?.`) 다음에 사용**한다.
+
+```kotlin
+fun checkLength2(
+  s: String?,
+  expected: Int,
+) {
+  // if 문으로 null 검사
+  val length1 =
+    if (s != null) s.length else 0
+
+  // 안전한 호출 ?. 과 Elvis 연산자 ?: 로 검사
+  val length2 = s?.length ?: 0
+
+  println(length1 == expected)
+  println(length2 == expected)
+}
+
+fun main() {
+  checkLength2("abc", 3) // true  true
+  checkLength2(null, 0) // true  true
+}
+```
+
+---
+
+## 2.3. 안전한 호출 (`?.`) 로 여러 호출을 연쇄
+
+연쇄 호출 중간에 null 이 결과로 나올 수도 있는데 최종 결과에만 관심이 있는 경우 `?.` 을 사용하여 여러 호출을 간결하게 연쇄시킬 수 있다.
+
+```kotlin
+class Person(
+    val name: String,
+    var friend: Person? = null,
+)
+
+fun main() {
+    val assu = Person("Assu")
+
+    // assu.friend 프로퍼티가 null 이므로 나머지 호출도 null 리턴
+    println(assu.friend?.friend?.name) // null
+    println(assu.friend?.name) // null
+
+    val silby = Person("Silby")
+    val kamang = Person("Kamang", silby)
+
+    silby.friend = kamang
+
+    println(silby.friend?.name) // Kamang
+    println(silby.friend?.friend?.name) // Silby
+
+    println(assu.friend?.friend?.name ?: "NONO") // NONO
+    println(silby.friend?.name ?: "NONO2") // Kamang
+    println(silby.friend?.friend?.name ?: "NONO2") // Silby
+}
+```
 
 ---
 
