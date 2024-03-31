@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 함수"
+title:  "Kotlin - 함수(1)"
 date:   2024-02-10
 categories: dev
 tags: kotlin joinToString pair triple with-index
