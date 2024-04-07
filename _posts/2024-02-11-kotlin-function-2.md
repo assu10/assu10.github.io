@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Kotlin - 함수(2)"
+title:  "Kotlin - 함수(2): null 이 될 수 있는 타입, 안전한 호출, 엘비스 연산자, 널 아님 단언, 확장 함수, 제네릭스 확장 프로퍼티"
 date:   2024-02-11
 categories: dev
 tags: kotlin
 ---
 
-이 포스트에서는 코틀린 
+코틀린 함수 기능에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap03) 에 있습니다.
 
@@ -21,12 +21,21 @@ tags: kotlin
   * [2.1. 안전한 호출 (safe call): `?.`](#21-안전한-호출-safe-call-)
   * [2.2. 엘비스(Elvis) 연산자: `?:`](#22-엘비스elvis-연산자-)
   * [2.3. 안전한 호출 (`?.`) 로 여러 호출을 연쇄](#23-안전한-호출--로-여러-호출을-연쇄)
-* [3. 널 아님 단언](#3-널-아님-단언)
+* [3. 널 아님 단언: `!!`](#3-널-아님-단언-)
 * [4. 확장 함수와 null 이 될 수 있는 타입](#4-확장-함수와-null-이-될-수-있는-타입)
+  * [4.1. 확장 함수 사용: `isNullOrEmpty()`, `isNullOrBlank()`](#41-확장-함수-사용-isnullorempty-isnullorblank)
+  * [4.2. 비확장 함수 표현](#42-비확장-함수-표현)
+  * [4.3. `this` 를 사용한 확장 함수 표현](#43-this-를-사용한-확장-함수-표현)
 * [5. 제네릭스](#5-제네릭스)
+  * [5.1. 하나의 타입 파라메터를 받는 클래스](#51-하나의-타입-파라메터를-받는-클래스)
+  * [5.2. 제네릭 타입 파라메터를 받는 클래스: `<T>`](#52-제네릭-타입-파라메터를-받는-클래스-t)
+  * [5.3. universal type: `Any`](#53-universal-type-any)
+  * [5.4. 제네릭 함수](#54-제네릭-함수)
+  * [5.5. 코틀린에서 제공하는 컬렉션을 위한 제네릭 함수](#55-코틀린에서-제공하는-컬렉션을-위한-제네릭-함수)
 * [6. 확장 프로퍼티](#6-확장-프로퍼티)
-* [7. break, continue](#7-break-continue)
-  * [7.1. 레이블](#71-레이블)
+  * [6.1. 기본 확장 프로퍼티](#61-기본-확장-프로퍼티)
+  * [6.2. 제네릭 확장 프로퍼티](#62-제네릭-확장-프로퍼티)
+  * [6.3. 스타 프로젝션(star projection): `*`](#63-스타-프로젝션star-projection-)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -90,6 +99,7 @@ fun main() {
     val map = mapOf(0 to "yes", 1 to "no")
 
     // 컴파일 오류
+    // Type mismatch. Required: String  Found:String?
     // val first: String = map[0]
 
     val first: String? = map[0]
@@ -300,27 +310,385 @@ fun main() {
 
 ---
 
-# 3. 널 아님 단언
+# 3. 널 아님 단언: `!!`
+
+**null 이 될 수 없는 변수임을 보증할 때는 `!!` 를 변수 뒤에 선언**한다.
+
+**가장 좋은 방법은 항상 안전한 호출(`?.`) 자세한 예외를 반환하는 특별한 함수를 사용하는 것이다.  
+null 이 아니라는 점을 단언하는 호출은 꼭 필요할 때만 사용하는 것이 좋다.**
+
+`a!!` 는 a 가 null 이 아니면 a 값을 리턴하고, null 이면 오류를 발생시킨다.
+
+```kotlin
+fun main() {
+  val x: String? = "abc"
+
+  println(x!!) // abc
+
+  val a: String? = null
+  // println(a!!) // NullPointException
+
+  val b: String = a!!
+  println(b)  // NPE
+}
+```
+
+일반적으로 `!!` 를 그냥 쓰는 경우는 거의 없고, 보통 역참조와 함께 사용한다.
+
+```kotlin
+fun main() {
+    val s: String? = "abc"
+
+    println(s!!.length) // 3
+}
+```
+
+**`!!` 사용보다는 안전한 호출(`?.`) 이나 명시적인 null 검사를 활용하는 것이 좋다.**  
+아래는 Map 에 특정 key 가 꼭 존재해야 하고, key 가 없을 경우 아무 일도 일어나지 않는 것보다 예외를 발생시키는 것이 
+좋다고 가정하는 예시이다.  
+
+value 를 일반적인 방법인 각괄호로 읽지 않고 `getValue()` 로 읽으면 key 가 없는 경우 NoSuchElementException 이 발생한다.
+
+```kotlin
+fun main() {
+    val map = mapOf(1 to "one")
+
+    println(map[1]!!.uppercase()) // ONE
+    println(map.getValue(1).uppercase()) // ONE
+
+    // println(map[2]!!.uppercase()) // NPE
+
+    // NoSuchElementException 과 같이 구체적인 예외를 던지는 것이 더 유용한 정보를 얻을 수 있음
+    // println(map.getValue(2).uppercase()) // NoSuchElementException
+}
+```
 
 ---
 
 # 4. 확장 함수와 null 이 될 수 있는 타입
 
+## 4.1. 확장 함수 사용: `isNullOrEmpty()`, `isNullOrBlank()`
+
+[안전한 호출](#21-안전한-호출-safe-call-) 을 사용한 _s?.f()_ 는 s 가 null 이 될 수 있는 타입임을 암시한다.  
+비슷하게 t.f() 는 t 가 null 이 될 수 없는 타임을 암시하는 것처럼 보이지만 꼭 t 가 null 이 될 수 없는 타입인 것은 아니다.
+
+코틀린 표준 라이브러리는 아래의 String 확장 함수를 제공한다.
+
+- `isNullOrEmpty()`
+  - 수신 String 이 null 이거나 빈 문자열인지 검사
+- `isNullOrBlank()`
+  - `isNullOrEmpty()` 와 같은 검사를 수행
+  - 수신 객체 String 이 온전히 공백 문자 (탭인 `\t` 와 새 줄 `\n` 도 포함) 로만 구성되어 있는지도 검사
+
+```kotlin
+fun main() {
+    val s1: String? = null
+    println(s1.isNullOrEmpty()) // true
+    println(s1.isNullOrBlank()) // true
+
+    val s2 = ""
+    println(s2.isNullOrEmpty()) // true
+    println(s2.isNullOrBlank()) // true
+
+    val s3 = "  \t\n"
+    println(s3.isNullOrEmpty()) // false
+    println(s3.isNullOrBlank()) // true
+
+    val s4 = "abc"
+    println(s4.isNullOrEmpty()) // false
+    println(s4.isNullOrBlank()) // false
+}
+```
+
+---
+
+## 4.2. 비확장 함수 표현
+
+위에서 `isNullOrEmpty()` 를 null 이 될 수 있는 String? s 를 받는 비확장 함수로 다시 작성할 수 있다.
+
+```kotlin
+// s 가 null 이 될 수 있는 타입이므로 명시적으로 null 여부 확인과 빈 문자열 검사 가능
+// || 는 쇼트 쇼킷을 이용한 것으로, 첫 번째 식이 true 이면 전체 식이 true 로 결정되므로 두 번째 식은 아예 검사하지 않음
+// 따라서 s 가 null 이어도 NPE 가 발생하지 않음
+fun isNullOrEmpty(s: String?): Boolean = s == null || s.isEmpty()
+
+fun main() {
+    println(isNullOrEmpty(null))    // true
+    println(isNullOrEmpty(""))  // true
+}
+```
+
+---
+
+## 4.3. `this` 를 사용한 확장 함수 표현
+
+확장 함수는 `this` 를 사용하여 수신 객체 (확장 대상 타입에 속하는 객체) 를 표현하는데, 이 때 수신 객체를 null 이 될 수 있는 타입으로 지정하려면 확장 대상 타입 뒤에 `?` 를 붙이면 된다.
+
+[4.2. 비확장 함수 표현](#42-비확장-함수-표현) 의 함수를 아래와 같이 사용할 수 있다.
+
+```kotlin
+// this 를 사용한 확장 함수 표현
+fun String?.isNullOrEmpty(): Boolean = this == null || isEmpty()
+
+fun main() {
+    println(null.isNullOrEmpty()) // true
+    println("".isNullOrEmpty()) // true
+}
+```
+
+이전에 비해 확장 함수로 표현한 것이 좀 더 가독성이 좋다.
+
+null 이 될 수 있는 타입을 확장할 때는 조심할 부분이 있다.  
+**`isNullOrEmpty()` 같이 단순하고 함수 이름에서 수신 객체가 null 일 수 있음을 암시하는 경우에는 null 이 될 수 있는 타입의 확장 함수가 유용**하지만 
+**일반적으로는 보통(null 이 될 수 없는)의 확장(=비확장) 을 정의**하는 편이 낫다.
+
+**안전한 호출(`?.`) 과 명시적인 검사는 null 가능성을 명백히 드러내지만 null 이 될 수 있는 타입의 확장 함수는 null 가능성을 감추고 가독성이 떨어지기 때문**이다.
+
 ---
 
 # 5. 제네릭스
+
+## 5.1. 하나의 타입 파라메터를 받는 클래스
+
+제네릭스는 파라메터화한 타입을 만들어 여러 타입에 대해 작동할 수 있는 컴포넌트이다.
+
+아래는 객체를 하나만 담는 클래스의 예시이다. 이 클래스는 저장할 원소의 정확한 타입을 지정한다.
+
+> 클래스의 파라메터를 private 로 지정하는 것에 대한 설명은 [7. 프로퍼티 접근자](https://assu10.github.io/dev/2024/02/09/kotlin-object/#7-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90) 를 참고하세요.
+
+```kotlin
+data class Automobile(val brand: String)
+
+// Automobile 밖에 받지 못하므로 재사용성이 좋지 않음
+class RigidHolder(private val a: Automobile) {
+    fun getValue() = a
+}
+
+fun main() {
+    val holder = RigidHolder(Automobile("BMW"))
+    println(holder.getValue())  // Automobile(brand=BMW)
+}
+```
+
+---
+
+## 5.2. 제네릭 타입 파라메터를 받는 클래스: `<T>`
+
+위의 RigidHolder 는 Automobile 밖에 받지 못하기 때문에 재사용성이 좋지 않다.  
+여러 다른 타입에 대해 각 타입에 맞는 새로운 타입의 보관소 클래스를 만들면 재사용성이 높아질 수 있다. 이를 위해 Automobile 대신 타입 파라메터를 사용하면 된다.
+
+**제네릭 타입 정의는 클래스 이름 뒤에 내부에 하나 이상의 제네릭 placeholder 가 들어있는 `<>` 를 추가**하면 된다.
+
+```kotlin
+class GenericHolder<T>(private val a: T) {
+    fun getValue(): T = a
+}
+
+fun main() {
+    val h1 = GenericHolder(Automobile("BMW"))
+    val a1: Automobile = h1.getValue()
+    println(a1) // Automobile(brand=BMW)
+
+    val h2 = GenericHolder(1)
+    val a2: Int = h2.getValue()
+    println(a2) // 1
+
+    val h3 = GenericHolder("Assu")
+    val a3: String = h3.getValue()
+    println(a3) // Assu
+}
+```
+
+---
+
+## 5.3. universal type: `Any`
+
+[5.1. 하나의 타입 파라메터를 받는 클래스](#51-하나의-타입-파라메터를-받는-클래스) 의 문제를 제네릭 타입이 아닌 유니버셜 타입(universal type) 인 `Any` 로 해결할 수도 있다.
+
+```kotlin
+class AnyHolder(private val a: Any) {
+    fun getValue(): Any = a
+}
+
+data class Automobile2(val brand: String)
+
+class Dog {
+    fun bark() = "Ruff!!"
+}
+
+fun main() {
+    val h1 = AnyHolder(Automobile2("BMW"))
+    val a1 = h1.getValue()
+    println(a1) // Automobile2(brand=BMW)
+
+    // Any 로 선언한 클래스 호출
+    val h2 = AnyHolder(Dog())
+    val a2 = h2.getValue()
+    println(a2) // assu.study.kotlinme.chap03.generics.Dog@34c45dca
+    // 컴파일 되지 않음
+    // println(a2.bark())
+
+    // 제네릭으로 선언한 클래스 호출
+    val h3 = GenericHolder(Dog())
+    val a3 = h3.getValue()
+    println(a3) // assu.study.kotlinme.chap03.generics.Dog@5b6f7412
+    println(a3.bark())  // Ruff!!
+}
+```
+
+간단한 경우엔 `Any` 가 작동하지만 Dog 의 bark() 같이 구체적인 타입이 필요해지면 `Any` 는 제대로 동작하지 않는다.  
+객체를 Any 타입으로 대입하면서 객체 타입이 Dog 라는 사실을 더 이상 추적할 수 없기 때문이다.  
+Dog 를 Any 로 전달하면 결과는 그냥 Any 이고, Any 는 bark() 를 제공하지 않는다.
+
+하지만 제네릭스를 사용하면 실제 컬렉션에 Dog 를 담고 있는 정보를 유지할 수 있기 때문에 getValue() 가 돌려주는 값에 대하여 bark() 를 적용할 수 있다.
+
+---
+
+## 5.4. 제네릭 함수
+
+**제네릭 함수를 정의하려면 `<>` 로 둘러싼 제네릭 타입 파라메터를 함수 이름 앞에 붙이면 된다.**
+
+```kotlin
+fun <T> identity(arg: T): T = arg
+
+fun main() {
+    println(identity("AA")) // AA
+    println(identity(1))    // 1
+
+    // identity() 가 T 타입의 값을 반환하는 제네릭 함수이기 때문에 d 는 Dog 타입임
+    var d: Dog = identity(Dog())
+    println(d)  // assu.study.kotlinme.chap03.generics.Dog@27d6c5e0
+}
+```
+
+---
+
+## 5.5. 코틀린에서 제공하는 컬렉션을 위한 제네릭 함수
+
+코트린 표준 라이브러리는 컬렉션을 위한 여러 제네릭 함수를 제공하는데, 제네릭 확장 함수를 사용하려면 수신 객체 앞에 제네릭 명세(괄호로 둘러싼 타입 파라메터 목록)을 위치시키면 된다.
+
+아래에서 `first()` 와 `firstOrNull()` 의 정의를 살펴보자.
+
+```kotlin
+fun <T> List<T>.first(): T {
+    if (isEmpty()) {
+        throw NoSuchElementException("Empty~")
+    }
+    return this[0]
+}
+
+fun <T> List<T>.firstOrNull(): T? =
+    if (isEmpty()) null else this[0]
+
+
+fun main() {
+    println(listOf(1, 2, 3).first())    // 1
+
+    val i: Int? = listOf(1, 2, 3).firstOrNull()
+    println(i)  // 1
+
+    // Exception in thread "main" java.util.NoSuchElementException: Empty~
+    // val i2: Int? = listOf<Int>().first()
+    //  println(i2)
+
+    val s: String? = listOf<String>().firstOrNull()
+    println(s)  // null
+
+    // Exception in thread "main" java.util.NoSuchElementException: Empty~
+    //val s2: String? = listOf<String>().first()
+    // println(s2)
+}
+```
 
 ---
 
 # 6. 확장 프로퍼티
 
+## 6.1. 기본 확장 프로퍼티
+
+[확장 함수](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#1-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98-extension-function)를 정의할 수 있는 것처럼 
+확장 프로퍼티를 정의할 수도 있다.
+
+확장 프로퍼티의 수신 객체 타입을 지정하는 방법도 확장 함수와 비슷하게 확장 대상 타입이 함수나 프로퍼티 이름 바로 앞에 온다.
+
+```kotlin
+// 확장 함수
+fun ReceiveType.extensionFunction() { ... }
+
+// 확장 프로퍼티
+val ReceiveType.extentionProperty: PropType
+  get() { ... }
+```
+
+**확장 프로퍼티에는 커스텀 getter 가 필요**한데, **확장 프로퍼티에 접근할 때마다 프로퍼티 값이 계산**된다.
+
+```kotlin
+// 확장 프로퍼티 선언
+val String.indices: IntRange
+    get() = 0 until length
+
+fun main() {
+    println("abc".indices)  // 0..2
+}
+```
+
+**파라메터가 없는 확장 함수는 항상 확장 프로퍼티로 변환할 수 있지만, 기능이 단순하고 가독성을 향상시키는 경우에만 프로퍼티를 권장**한다.
+
+[코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html) 에서는 함수가 예외를 던질 경우 프로퍼티보다는 함수를 사용하는 것을 권장한다.
+
 ---
 
-# 7. break, continue
+## 6.2. 제네릭 확장 프로퍼티
+
+아래는 [5.5. 코틀린에서 제공하는 컬렉션을 위한 제네릭 함수](#55-코틀린에서-제공하는-컬렉션을-위한-제네릭-함수) 에 나온 firstOrNull() 함수를 프로퍼티로 구현한 예시이다.
+
+```kotlin
+// 확장 함수
+fun <T> List<T>.firstOrNull(): T? =
+    if (isEmpty()) null else this[0]
+
+// 확장 프로퍼티
+val <T> List<T>.firstOrNull: T?
+    get() = if (isEmpty()) null else this[0]
+
+fun main() {
+    println(listOf(1, 2, 3))    // [1, 2, 3]
+    println(listOf<Int>().firstOrNull()) // 확장 함수, null
+    println(listOf<Int>().firstOrNull)  // 확장 프로퍼티, null
+}
+```
 
 ---
 
-## 7.1. 레이블
+## 6.3. 스타 프로젝션(star projection): `*`
+
+제네릭 인자 타입을 사용하지 않는다면 스타 프로젝션(star projection) `*` 로 대신할 수 있다.
+
+```kotlin
+val List<*>.indices: IntRange
+    get() = 0 until size
+
+fun main() {
+    println(listOf(1).indices)  // 0..0
+    println(listOf('a', 'b').indices)   // 0..1
+    println(emptyList<Int>().indices)   // 0..-1
+    println(emptyList<Int>().indices.equals(IntRange.EMPTY))    // true
+}
+```
+
+List<\*> 를 사용하면 List 에 담긴 원소의 타입 정보를 모두 잃어버리므로 List<\*> 에서 얻은 원소는 `Any?` 에만 대입할 수 있다.  
+List<\*> 에 저장된 값이 null 이 될 수 있는지 없는지에 대한 타입 정보가 없기 때문에 `Any?` 타입의 변수에만 대입이 가능하다.
+
+```kotlin
+fun main() {
+    val list: List<*> = listOf(1, 2, 3)
+    val any: Any? = list[0]
+    println(any)  // 1
+
+    // Type mismatch. Required:Int  Found:Any?
+    //val a: Int = list[0]
+}
+```
 
 ---
 
@@ -331,3 +699,4 @@ fun main() {
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
+* [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)

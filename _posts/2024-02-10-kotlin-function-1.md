@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Kotlin - 함수(1)"
+title:  "Kotlin - 함수(1): 확장 함수, 오버로딩, when, enum, data 클래스, 구조분해"
 date:   2024-02-10
 categories: dev
 tags: kotlin joinToString pair triple with-index
 ---
 
-이 포스트에서는 코틀린 함수 기능에 대해 알아본다. 
+이 포스트에서는 코틀린 함수 기능에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap03) 에 있습니다.
 
