@@ -6,7 +6,7 @@ categories: dev
 tags: kotlin
 ---
 
-코틀린 함수 기능에 대해 알아본다.
+이 포스트에서는 코틀린 함수 기능에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap03) 에 있습니다.
 

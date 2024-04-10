@@ -263,7 +263,7 @@ fun main() {
 
 ## 2.3. `joinToString()`
 
-`joinToString()` 은 디폴트 인자를 사용하는 표준 라이브러리로, 이터레이션이 가능한 객체인 List, Set, Range 등의 내용을 String 으로 합쳐준다.  
+`joinToString()` 은 디폴트 인자를 사용하는 표준 라이브러리로, 이터레이션이 가능한 객체인 List, Set, Range 등의 내용을 String 으로 합쳐준다. 
 
 이 때 원소 사이에 들어간 구분자나 맨 앞에 붙일 접두사, 맨 뒤에 붙일 접미사를 지정할 수도 있다.
 
