@@ -288,8 +288,8 @@ fun main() {
 }
 ```
 
-List 에 `sorted()` 를 호출하면 원본의 요소들을 정렬한 새로운 List 를 리턴하고 원래의 List 는 그대로 남아있다.  
-`sort()` 를 호출하면 원본 리스트를 변경한다.  
+List 에 **`sorted()` 를 호출하면 원본의 요소들을 정렬한 새로운 List 를 리턴하고 원래의 List 는 그대로 남아있다.**    
+**`sort()` 를 호출하면 원본 리스트를 변경**한다.  
 reversed() 등도 마찬가지이다.
 ```kotlin
 val strings = listOf("a", "c", "b")
