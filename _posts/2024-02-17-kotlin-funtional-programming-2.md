@@ -644,6 +644,14 @@ fun main() {
 
 ## 3.6. `any()`, `all()`, `maxByOrNull()`
 
+- `any()`
+  - Map 의 원소 중 주어진 Predicate 를 만족하는 원소가 하나라도 있으면 true 반환
+- `all()`
+  - Map 의 모든 원소가 Predicate 를 만족해야 true 반환
+- `maxByOrNull()`
+  - 주어진 Predicate 에 따라 가장 큰 원소를 반환
+  - 가장 큰 원소가 없으면 null 반환
+
 ```kotlin
 fun main() {
     val map = mapOf(1 to "one", -2 to "minus two")
