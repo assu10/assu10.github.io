@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 함수형 프로그래밍(3): Sequence, Local 함수, `fold()`, 재귀"
+title:  "Kotlin - 함수형 프로그래밍(3): Sequence, Local 함수, fold(), 재귀"
 date:   2024-02-23
 categories: dev
 tags: kotlin sequence as-sequence() substring-before() generate-sequence() take() take-if() local-function label fold() reduce running-fold() recursion tail-recursion tailrec
