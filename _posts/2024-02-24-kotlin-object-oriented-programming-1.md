@@ -96,8 +96,6 @@ fun main() {
 프로퍼티를 선언하는 인터페이스를 구현하는 클래스는 항상 프로퍼티를 오버라이드 해야 한다.
 
 ```kotlin
-package assu.study.kotlinme.chap05
-
 // 프로퍼티를 선언하는 인터페이스
 interface Player {
     val symbol: Char
