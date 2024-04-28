@@ -620,7 +620,7 @@ fun main() {
     // [2=two, 4=four]
     println(result2)
 
-    // 파라메터를 사용하지 아낳을 때는 밑줄을 사용하여 컴파일러 경고를 막음
+    // 파라메터를 사용하지 않을 때는 밑줄을 사용하여 컴파일러 경고를 막음
     // mayKeys(), mapValues() 는 모든 key 나 value 가 변환된 새로운 Map 을 반환함
     val result3 =
         even.mapKeys { (num, _) -> -num }
