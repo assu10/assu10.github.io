@@ -92,7 +92,7 @@ fun main() {
 }
 ```
 
-> 생성자에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다.
+> 생성자에 대한 좀 더 상세한 내용은 [2. 복잡한 생성자: `init`](https://assu10.github.io/dev/2024/02/24/kotlin-object-oriented-programming-1/#2-%EB%B3%B5%EC%9E%A1%ED%95%9C-%EC%83%9D%EC%84%B1%EC%9E%90-init) 를 참고하세요.
 
 ---
 
