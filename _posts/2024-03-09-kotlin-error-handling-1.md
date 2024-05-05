@@ -6,7 +6,7 @@ categories: dev
 tags: kotlin finally require() requireNotNull() check() nothing todo()
 ---
 
-이 포스트에서는 
+이 포스트에서는 커스텀 에러 타입 정의, 검사 명령, `Nothing` 타입에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap06) 에 있습니다.
 
@@ -281,6 +281,11 @@ fun main() {
 ---
 
 ## 1.4. 자원 해제: `finally`
+
+> 자원을 해제하는 좀 더 나은 방법이 있으므로 아래 내용은 참고만 할 것
+
+> `finally` 절은 자원 해제 도중 예외 발생 시 대응이 불가하므로 자원을 해제할 때는 `use()` 를 사용함    
+> 이 부분에 대한 상세한 내용은 [1. 자원 해제: `use()`](https://assu10.github.io/dev/2024/03/10/kotlin-error-handling-2/#1-%EC%9E%90%EC%9B%90-%ED%95%B4%EC%A0%9C-use) 참고하세요.
 
 실패를 피할 수 없을 때 자원을 자동으로 해제하게 만들면 다른 부분이 계속 안전하게 실행될 수 있다.
 

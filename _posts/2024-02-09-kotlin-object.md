@@ -813,7 +813,7 @@ fun main() {
 2
 ```
 
-아래는 getter 는 public, setter 는 private 로 지정하는 예시이다. 그러면 프로퍼티값을 변경하는 일은 클래스 내부에서만 할 수 있다.
+**아래는 getter 는 public, setter 는 private 로 지정**하는 예시이다. 그러면 프로퍼티값을 변경하는 일은 클래스 내부에서만 할 수 있다.
 
 ```kotlin
 class Counter {
