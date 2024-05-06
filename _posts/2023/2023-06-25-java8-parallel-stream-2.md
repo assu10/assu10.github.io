@@ -101,7 +101,7 @@ public static int countWordsIteratively(String s) {
   int counter = 0;
   boolean lastSpace = true;
 
-  // 문자열의 모든 문자를 하나씩 참색
+  // 문자열의 모든 문자를 하나씩 탐색
   for (char c : s.toCharArray()) {
     if (Character.isWhitespace(c)) {
       lastSpace = true;
