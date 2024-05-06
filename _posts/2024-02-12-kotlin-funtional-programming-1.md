@@ -203,7 +203,7 @@ fun main() {
 
 `run()` 은 단순히 자신에게 인자로 전달된 람다를 호출하기만 한다.
 
-> `run()` 은 실제로 다른 용도에서 쓰이는데 이는 추후 다룰 예정입니다.
+> `run()` 은 실제로 다른 용도에서 쓰이는데 `run()` 에 대한 좀 더 상세한 내용은 [2. 영역 함수 (Scope Function): `let()`, `run()`, `with()`, `apply()`, `also()`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#2-%EC%98%81%EC%97%AD-%ED%95%A8%EC%88%98-scope-function-let-run-with-apply-also) 를 참고하세요.
 
 ---
 
