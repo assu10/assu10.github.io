@@ -1015,7 +1015,7 @@ ApiResponse apiResponse = responseEntity.getBody();
 Map<String, List<Long>> dataMap = (Map) apiResponse.getData();
 ```
 
-**타입 캐스팅의 가장 큰 단점은 클래스 타입 안정성을 확보할 수 없다**는 것이다.  
+**타입 캐스팅의 가장 큰 단점은 클래스 타입 안전성을 확보할 수 없다**는 것이다.  
 즉, **타입 캐스팅을 잘못해도 컴파일 에러는 발생하지 않지만 런타임에서 에러가 발생**할 수 있다.  
 
 이런 타입 캐스팅의 단점을 극복하는 것이 슈퍼 타입 토큰이다.  
