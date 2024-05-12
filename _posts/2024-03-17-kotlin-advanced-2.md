@@ -28,9 +28,9 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified
   * [1.6. 타입 소거 (type erasure)](#16-타입-소거-type-erasure)
   * [1.7. 함수의 타입 인자에 대한 실체화: `reified`, `KClass`](#17-함수의-타입-인자에-대한-실체화-reified-kclass)
   * [1.8. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용](#18-reified-를-사용하여-is-를-제네릭-파라메터에-적용)
-  * [1.9. 타입 변성](#19-타입-변성)
+  * [1.9. 타입 변성 (type variance)](#19-타입-변성-type-variance)
     * [1.9.1. 타입 변성: `in`/`out` 변성 애너테이션](#191-타입-변성-inout-변성-애너테이션)
-    * [1.9.2. 타입 변성 (type variance)을 사용하는 이유](#192-타입-변성-type-variance을-사용하는-이유)
+    * [1.9.2. 타입 변성을 사용하는 이유](#192-타입-변성을-사용하는-이유)
       * [1.9.2.1. `out` 애너테이션 사용](#1921-out-애너테이션-사용)
       * [1.9.2.2. `in` 애너테이션 사용](#1922-in-애너테이션-사용)
     * [1.9.3. 공변(covariant)과 무공변(invariant)](#193-공변covariant과-무공변invariant)
@@ -686,7 +686,7 @@ fun main() {
 
 ---
 
-## 1.9. 타입 변성
+## 1.9. 타입 변성 (type variance)
 
 제네릭스와 상속을 조합하면 변화가 2차원이 된다.
 
@@ -738,7 +738,7 @@ class OutBox<out T>(private var contents: T) {
 
 ---
 
-### 1.9.2. 타입 변성 (type variance)을 사용하는 이유
+### 1.9.2. 타입 변성을 사용하는 이유
 
 `in`, `out` 과 같은 제약이 필요한 이유를 알아보기 위해 아래 타입 계층을 보자.
 
@@ -799,7 +799,7 @@ _petBox_ 에 있는 _put(item: Pet)_ 이 있다.
 
 #### 1.9.2.1. `out` 애너테이션 사용
 
-따라서 [1.9.2. 타입 변성 (type variance)을 사용하는 이유](#192-타입-변성-type-variance을-사용하는-이유) 의 코드를 아래와 같이 수정할 수 있다.
+따라서 [1.9.2. 타입 변성을 사용하는 이유](#192-타입-변성을-사용하는-이유) 의 코드를 아래와 같이 수정할 수 있다.
 
 ```kotlin
 val outRabbitBox: OutBox<Rabbit> = OutBox(Rabbit())

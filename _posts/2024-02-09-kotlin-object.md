@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 객체"
+title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 가변인자목록('vararg'), 스프레드 연산자('*'), Set, Map, 프로퍼티 접근자"
 date:   2024-02-09
 categories: dev
 tags: kotlin
@@ -474,7 +474,7 @@ fun main() {
 JVM 에서 primitive 타입은 byte, char, short, int, long, float, boolean 이다.  
 primitive 타입은 `IntArray`, `ByteArray` 등과 같은 특별한 배열 타입을 지원한다.  
 
-반면, **Array<Int> 는 정수값이 담긴 Int 객체에 대한 참조를 모아둔 배열로써, IntArray 보다 훨씬 더 많은 메모리를 차지하고, 처리 속도도 늦다.**
+반면, **Array\<Int\> 는 정수값이 담긴 Int 객체에 대한 참조를 모아둔 배열로써, IntArray 보다 훨씬 더 많은 메모리를 차지하고, 처리 속도도 늦다.**
 
 > 원시 타입과 참조 타입은 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
 
@@ -522,7 +522,7 @@ fun main() {
 
 ## 4.2. 명령줄 인자
 
-명령줄 인자를 받을 땐 main() 에 지정하며, 이 때 파라메터의 타입은 꼭 Array<String> 이어야 한다.
+명령줄 인자를 받을 땐 main() 에 지정하며, 이 때 파라메터의 타입은 꼭 Array\<String\> 이어야 한다.
 
 ```kotlin
 fun main(args: Array<String>) {
