@@ -875,7 +875,7 @@ fun main() {
 **코틀린은 Pair 와 3 개의 값을 묶는 Triple 클래스만 지원**한다. 만일 더 많은 값을 저장하고 싶거나 코드에서 Pair 와 Triple 을 많이 사용한다면 
 각 상황에 맞는 특별한 클래스를 작성하여 사용한다.
 
-위처럼 Pair<Int, String> 을 반환하는 것보다 아래의 예시처럼 Computation 이라는 data 클래스를 반환하는 것이 좋다.  
+위처럼 Pair\<Int, String\> 을 반환하는 것보다 아래의 예시처럼 Computation 이라는 data 클래스를 반환하는 것이 좋다.  
 ```kotlin
 data class Computation(
     val data: Int,
