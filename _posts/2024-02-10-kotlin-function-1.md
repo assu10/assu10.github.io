@@ -837,7 +837,7 @@ fun main() {
 
 위 코드에서 HashMap, HashSet 에서는 `hashCode()` 를 `equals()` 와 함께 사용하여 Key 를 빠르게 검색한다.  
 
-> `hashCode()` 를 `equals()` 에 대해서는 추후 상세히 다룰 예정입니다.
+> `hashCode()` 를 `equals()` 에 대해서는 [1. 연산자 오버로딩: `operator`](https://assu10.github.io/dev/2024/03/23/kotlin-advanced-3/#1-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9-operator) 을 참고하세요.
 
 ---
 
