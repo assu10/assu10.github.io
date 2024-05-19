@@ -6,7 +6,7 @@ categories: dev
 tags: kotlin filterIndexed() toCharArray() stringBuilder buildString() buildList() buildMap() forEachIndexed() let() run() with() apply() also() removeSuffix() takeUnless() inline
 ---
 
-이 포스트에서는 확장 람다와 영역 암수에 대해 알아본다.
+이 포스트에서는 확장 람다와 영역 함수에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap07) 에 있습니다.
 

@@ -1,0 +1,43 @@
+<mxfile host="Electron" modified="2024-05-19T08:02:17.686Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="-CYcRz3rZkK2rImbv436" version="24.4.0" type="device">
+  <diagram name="페이지-1" id="i_dZ5Y8Rfa8v_MlIhRFg">
+    <mxGraphModel dx="1114" dy="869" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-1" value="com.assu.study" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="27" y="20" width="480" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-9" value="catalog" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="57" y="51.5" width="420" height="287.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="ai5ZaGT1VBiUClGiWLfS-3" target="ai5ZaGT1VBiUClGiWLfS-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-3" value="ui (표현 영역)&lt;br&gt;&lt;i&gt;(Controller..)&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="127" y="79" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="ai5ZaGT1VBiUClGiWLfS-5" target="ai5ZaGT1VBiUClGiWLfS-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-5" value="application (응용 영역)&lt;div&gt;&lt;i&gt;(Service..)&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="127" y="159" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-6" value="domain" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="97" y="239" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=block;endFill=0;" edge="1" parent="1" source="ai5ZaGT1VBiUClGiWLfS-8" target="ai5ZaGT1VBiUClGiWLfS-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-8" value="infrastructure" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="337" y="259" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-10" value="product" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="107" y="278" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ai5ZaGT1VBiUClGiWLfS-11" value="category" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="197" y="278" width="80" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

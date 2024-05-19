@@ -6,7 +6,7 @@ categories: dev
 tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
 ---
 
-이 포스트에서는 연산자 오버로딩, `infix`, 연산자 사, 구조 분해 연산자에 대해 알아본다.
+이 포스트에서는 연산자 오버로딩, `infix`, 연산자 사용, 구조 분해 연산자에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap07) 에 있습니다.
 

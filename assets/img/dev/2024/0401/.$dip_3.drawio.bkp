@@ -1,0 +1,37 @@
+<mxfile host="Electron" modified="2024-05-19T04:28:53.149Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="zIYp9AOx3kC7MxMh70db" version="24.4.0" type="device">
+  <diagram name="페이지-1" id="PHUBD7SfC2bx_UWa1ClF">
+    <mxGraphModel dx="807" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wBqjACG3hj4JyvTAnndH-1" value="&amp;nbsp;&lt;b&gt;저수준&lt;/b&gt;&lt;div&gt;&lt;b&gt;&amp;nbsp;(인프라스프럭처&amp;nbsp; 영역)&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="309" y="40" width="187" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="wBqjACG3hj4JyvTAnndH-2" value="&amp;nbsp;&lt;b&gt;고수준&lt;/b&gt;&lt;div&gt;&lt;b&gt;&amp;nbsp;(도메인 영역)&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="99" y="40" width="193" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="wBqjACG3hj4JyvTAnndH-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="wBqjACG3hj4JyvTAnndH-4" target="wBqjACG3hj4JyvTAnndH-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wBqjACG3hj4JyvTAnndH-4" value="CalculateDiscountService" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="118" y="100" width="160" height="70" as="geometry">
+            <mxRectangle x="340" y="380" width="170" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wBqjACG3hj4JyvTAnndH-5" value="&lt;&lt;interface&gt;&gt;&#xa;RuleEngine" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="323" y="100" width="160" height="70" as="geometry">
+            <mxRectangle x="340" y="380" width="170" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wBqjACG3hj4JyvTAnndH-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;endArrow=block;endFill=0;" edge="1" parent="1" source="wBqjACG3hj4JyvTAnndH-7" target="wBqjACG3hj4JyvTAnndH-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wBqjACG3hj4JyvTAnndH-7" value="DroolsEngineRule" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="323" y="208" width="160" height="70" as="geometry">
+            <mxRectangle x="340" y="380" width="170" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

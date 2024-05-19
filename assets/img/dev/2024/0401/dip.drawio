@@ -1,0 +1,40 @@
+<mxfile host="Electron" modified="2024-05-19T02:08:06.880Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="wwA96LvvkSMGx4eOgR0s" version="24.4.0" type="device">
+  <diagram name="페이지-1" id="3CLqw2dKBZLQ11MzMwVS">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GDFU-F83pTLjSAe5p7UL-1" value="고객 정보 구하기&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;rule 을 이용하여 할인 금액 구하기&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="160" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GDFU-F83pTLjSAe5p7UL-2" value="가격 할인 계산&lt;div&gt;CalculateDiscountService&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GDFU-F83pTLjSAe5p7UL-3" value="고수준 모듈" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="190" y="240" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GDFU-F83pTLjSAe5p7UL-4" value="RDBMS 에서 JPA 로 고객정보 조회" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="160" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GDFU-F83pTLjSAe5p7UL-5" value="Engine 으로 rule 적용" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="210" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GDFU-F83pTLjSAe5p7UL-6" value="저수준 모듈" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="475" y="240" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GDFU-F83pTLjSAe5p7UL-7" value="" style="endArrow=block;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="1" target="GDFU-F83pTLjSAe5p7UL-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="265" y="185" as="sourcePoint" />
+            <mxPoint x="455" y="185" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GDFU-F83pTLjSAe5p7UL-8" value="" style="endArrow=block;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="1" target="GDFU-F83pTLjSAe5p7UL-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="307" y="214" as="sourcePoint" />
+            <mxPoint x="442" y="204" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
