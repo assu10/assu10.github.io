@@ -300,7 +300,7 @@ DispatcherServlet 은 `LocaleResolver` 가 추출한 Locale 객체를 LocaleCont
 ThreadLocal 에 저장된 Locale 를 참조**할 수 있다.
 
 > **ThreadLocal 에 저장된 값은 같은 스레드에 저장되므로 같은 스레드 안에서만 참조가 가능**하다.  
-> 따라서 비동기 프로그래밍응ㄹ 하거나 별도의 스레드로 작업을 실행하면 ThreadLocal 값을 참조할 수 없다.
+> 따라서 비동기 프로그래밍을 하거나 별도의 스레드로 작업을 실행하면 ThreadLocal 값을 참조할 수 없다.
 
 ---
 
