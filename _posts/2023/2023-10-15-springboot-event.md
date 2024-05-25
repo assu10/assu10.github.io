@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 스프링 이벤트"
-date:   2023-10-15
+date: 2023-10-15
 categories: dev
 tags: springboot msa spring-event event-listener application-event-multicaster application-event application-event-publisher application-listener transactional-event-listener
 ---
@@ -578,7 +578,7 @@ public class AsyncExecutionConfig implements AsyncConfigurer {
 
 ---
 
-`@Async` 애너테이션 기능을 하용하면 `ApplicationEventMulticaster` 에 스레드 풀을 설정하지 않아도 비동기 이벤트 프로그래밍이 가능하며, 원하는 로직만 비동기로 구현 가능하다.
+`@Async` 애너테이션 기능을 사용하면 `ApplicationEventMulticaster` 에 스레드 풀을 설정하지 않아도 비동기 이벤트 프로그래밍이 가능하며, 원하는 로직만 비동기로 구현 가능하다.
 
 `ApplicationEventMulticaster` 에 스레드 풀을 설정하면 이벤트를 구독하는 모든 구독 클래스가 비동기로 실행되지만, `@Async` 애너테이션을 사용하면 원하는 이벤트 구독 메서드만 선택적으로 비동기 실행이 가능하다.
 

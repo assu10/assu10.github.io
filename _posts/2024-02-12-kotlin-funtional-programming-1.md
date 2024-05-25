@@ -3,7 +3,7 @@ layout: post
 title:  "Kotlin - 함수형 프로그래밍(1): 람다, 컬렉션 연산, 멤버 참조"
 date:   2024-02-12
 categories: dev
-tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filterNotNull() any() all() none() find() firstOrNull() lastOrNull() count() filterNot() partition() sumof() sortedBy() minBy() take() drop(), sortedWith() compmareBy() times()
+tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filterNotNull() any() all() none() find() firstOrNull() lastOrNull() count() filterNot() partition() sumof() sortedBy() minBy() take() drop(), sortedWith() compareBy() times()
 ---
 
 코틀린 여러 함수 기능에 대해 알아본다.
@@ -46,7 +46,7 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
 - 언어: kotlin 1.9.23
 - IDE: intelliJ
 - SDK: JDK 17
-- 의존성 관리툴: Gradle
+- 의존성 관리툴: Gradle 8.5
 
 ---
 
