@@ -30,7 +30,7 @@ tags: kotlin laze() lateinit .isInitialized
 - 언어: kotlin 1.9.23
 - IDE: intelliJ
 - SDK: JDK 17
-- 의존성 관리툴: Gradle
+- 의존성 관리툴: Gradle 8.5
 
 ---
 
