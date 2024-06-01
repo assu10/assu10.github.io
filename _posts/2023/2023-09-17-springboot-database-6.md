@@ -319,7 +319,7 @@ MSA 환경에서 데이터를 처리하고 다른 서버와 협업하는 일은 
 
 예를 들어서 위 코드에서 billingApiAdapter 작업이 더 중요하다면 createHotel() 메서드 안에서 호출한다.  
 billingApiAdapter 의 메서드를 실행할 때 예외가 생긴다면 RuntimeException 을 발생하여 트랜잭션을 롤백할 수 있다.  
-정상 실행되었더라도 billingApiAdapter 의 메서드의 응답값에 따라 createHotel() 메서드를 종류할 수도 있다.  
+정상 실행되었더라도 billingApiAdapter 의 메서드의 응답값에 따라 createHotel() 메서드를 종료할 수도 있다.  
 createHotel() 트랜잭션을 종료하는 과정에서 예외가 발생하더라도 billingApiAdapter 의 메서드는 트랜잭션 종료 전에 이미 실행을 완료한 상태이므로 적어도 
 중요한 작업인 billingApiAdapter 의 실행은 보장할 수 있다.
 

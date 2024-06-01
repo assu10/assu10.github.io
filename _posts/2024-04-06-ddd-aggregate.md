@@ -40,7 +40,7 @@ tags: ddd aggregate factory memberOf @EmbeddedId @Embeddable @ElementCollection 
 * [5. 애그리거트 간 집합 연관](#5-애그리거트-간-집합-연관)
   * [5.1. 애그리거트 간 1-N 연관 관계](#51-애그리거트-간-1-n-연관-관계)
   * [5.2. 애그리거트 간 M-N 연관 관계: `member of`](#52-애그리거트-간-m-n-연관-관계-member-of)
-    * [5.2.1. `@EmbeddedId` 과 `@Embeddable`](#521-embeddedid-과-embeddable)
+    * [5.2.1. 키 클래스: `@EmbeddedId` 과 `@Embeddable`](#521-키-클래스-embeddedid-과-embeddable)
     * [5.2.2. `@ElementCollection` 과 `@CollectionTable`](#522-elementcollection-과-collectiontable)
 * [6. 애그리거트를 팩토리로 사용: 팩토리 함수](#6-애그리거트를-팩토리로-사용-팩토리-함수)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -186,7 +186,7 @@ ShippingInfo info = order.getShippingInfo();
 info.setAddress(newAddress);
 ```
 
-애**그리거트 루트인 _Order_ 에서 _ShippingInfo_ 를 가져와서 직접 정보를 변경**하고 있다.  
+**애그리거트 루트인 _Order_ 에서 _ShippingInfo_ 를 가져와서 직접 정보를 변경**하고 있다.  
 주문 상태에 관계없이 배송지 주문을 변경하는 것은 **업무 규칙을 무시하고 직접 DB 에서 데이터를 수정하는 것과 동일**하다.  
 즉, 논리적인 데이터 일관성이 깨지게 된다.
 
@@ -793,7 +793,7 @@ public class Product {
 }
 ```
 
-> `@EmbeddedId` 와 `@Embeddable` 에 대한 좀 더 상세한 내용은 [5.2.1. `@EmbeddedId` 과 `@Embeddable`](#521-embeddedid-과-embeddable) 을 참고하세요.
+> `@EmbeddedId` 와 `@Embeddable` 에 대한 좀 더 상세한 내용은 [5.2.1. 키 클래스: `@EmbeddedId` 과 `@Embeddable`](#521-키-클래스-embeddedid-과-embeddable) 을 참고하세요.
 
 > `@ElementCollection` 과 `@CollectionTable` 에 대한 좀 더 상세한 내용은 [5.2.2. `@ElementCollection` 과 `@CollectionTable`](#522-elementcollection-과-collectiontable) 를 참고하세요.
 
@@ -880,7 +880,7 @@ public class JpaProductRepository implements ProductRepository {
 
 ---
 
-### 5.2.1. `@EmbeddedId` 과 `@Embeddable`
+### 5.2.1. 키 클래스: `@EmbeddedId` 과 `@Embeddable`
 
 하나의 엔티티에 `@Id` 를 하나 이상 쓰게 되면 매핑 오류가 발생하므로 복합 기본키를 사용할 때는 별도의 키 클래스를 생성해야 한다.
 
