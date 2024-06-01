@@ -20,6 +20,7 @@ tags: kotlin finally require() requireNotNull() check() nothing todo()
   * [1.2. 복구](#12-복구)
   * [1.3. 예외 하위 타입](#13-예외-하위-타입)
   * [1.4. 자원 해제: `finally`](#14-자원-해제-finally)
+  * [1.5. try 를 식으로 사용](#15-try-를-식으로-사용)
 * [2. 검사 명령](#2-검사-명령)
   * [2.1. `require()`](#21-require)
   * [2.2. `File`, `Paths`](#22-file-paths)
@@ -157,6 +158,11 @@ fun main() {
 }
 ```
 
+자바 코드와 다른 점은 `throws` 절이 코드에 없다는 점이다.  
+자바에서는 함수를 작성할 때 함수 선언 뒤에 `throws IOException` 을 붙여야 한다.  
+IOException 이 체크 예외이기 때문인데 자바에서는 체크 예외를 명시적으로 처리해야 한다.  
+어떤 함수가 던질 가능성이 있는 예외나 그 함수가 호출한 다른 함수에서 발생할 수 있는 예외를 모두 catch 로 처리해야 하며, 처리하지 않은 예외는 `throws` 절에 명시해야 한다.
+
 ```shell
 ok
 1 e: assu.study.kotlinme.chap06.exceptionHandling.Exception111: wrong value: 111
@@ -247,7 +253,7 @@ fun main() {
 
 두 번째 예외를 _testCode()_ 가 아닌 `toInt(radix)` 에 의해서 _IllegalArgumentException_ 이 발생하였다.
 
-두 가지 다른 상황에서 같은 예외를 쓰면 혼선이 올 수 있기 때문에 이럴 때는 코드가 발생시키는 오류에서는 커스텀으로 _IncorrectInputException_ 을 던지게 하면 된다.
+두 가지 다른 상황에서 같은 예외를 쓰면 혼선이 올 수 있기 때문에 이럴 때는 코드가 발생시키는 오류에서는 커스텀으로 _IncorrectInputException1_ 을 던지게 하면 된다.
 
 ```kotlin
 class IncorrectInputException1(message: String) : Exception(message)
@@ -350,7 +356,59 @@ fun testFinally(i: Int): Switch {
 fun main() {
     println(testFinally(0)) // Switch(on=false, result=exception~)
     println(testFinally(1)) // Switch(on=false, result=ok)
-    println(testFinally(2)) // Switch(on = false, result = ok)
+    println(testFinally(2)) // Switch(on=false, result = ok)
+}
+```
+
+---
+
+## 1.5. try 를 식으로 사용
+
+아래는 예외가 발생할 경우 catch 블록 다음의 코드가 실행되지 않는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap02
+
+import java.io.BufferedReader
+import java.io.StringReader
+
+fun readNumber(reader: BufferedReader) {
+    val number =
+        try {
+            Integer.parseInt(reader.readLine()) // 이 식의 값이 try 식의 값이 됨
+        } catch (e: NumberFormatException) {
+            return  // 예외가 발생하면 catch 블록 다음의 코드는 실행되지 않음
+        }
+    println(number)
+}
+
+fun main() {
+    val reader = BufferedReader(StringReader("not a number"))
+    readNumber(reader) // 아무것도 출력되지 않음
+}
+```
+
+만약 예외가 발생해도 계속 진행하고 싶다면 catch 블록도 값을 만들어야 한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap02
+
+import java.io.BufferedReader
+import java.io.StringReader
+
+fun readNumber2(reader: BufferedReader) {
+    val number =
+        try {
+            Integer.parseInt(reader.readLine()) // 이 식의 값이 try 식의 값이 됨
+        } catch (e: NumberFormatException) {
+            null // 예외가 발생하면 null 을 사용
+        }
+    println(number)
+}
+
+fun main() {
+    val reader = BufferedReader(StringReader("not a number"))
+    readNumber2(reader) // null
 }
 ```
 
