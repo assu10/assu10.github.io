@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 가변인자목록('vararg'), 스프레드 연산자('*'), Set, Map, 프로퍼티 접근자"
+title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 가변인자목록('vararg'), 스프레드 연산자('*'), Set, Map, 클래스, 프로퍼티 접근자"
 date:   2024-02-09
 categories: dev
 tags: kotlin
 ---
 
-이 포스트에서는 코틀린 객체에 대해 알아본다. 
+이 포스트에서는 코틀린 객체에 대해 알아본다.
 
 객체 지향 언어는 '명사'를 찾아내고, 이 명사를 객체로 변환한다.  
 객체는 데이터를 저장하고, 동작을 수행하므로 객체 지향 언어는 객체를 만들고 사용하는 언어이다.
@@ -35,7 +35,9 @@ tags: kotlin
 * [6. Map](#6-map)
   * [6.1. `getValue()`, `getOrDefault()`](#61-getvalue-getordefault)
   * [6.2. Class Instance 를 Map 으로 저장](#62-class-instance-를-map-으로-저장)
-* [7. 프로퍼티 접근자](#7-프로퍼티-접근자)
+* [7. 클래스](#7-클래스)
+* [8. 프로퍼티](#8-프로퍼티)
+* [9. 프로퍼티 접근자](#9-프로퍼티-접근자)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -748,7 +750,75 @@ fun main() {
 
 ---
 
-# 7. 프로퍼티 접근자
+# 7. 클래스
+
+아래와 같은 java 파일의 클래스가 있다.
+```java
+package com.assu.study.kotlin2me.chap02;
+
+public class Person {
+  private final String name;
+
+  public Person(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+}
+```
+
+intelliJ 의 `[Code] > [Convert Java File to Kotlin File]` 를 사용하여 위 클래스를 코틀린으로 변경하면 아래와 같다.
+```kotlin
+package com.assu.study.kotlin2me.chap02
+
+class Person(val name: String)
+```
+
+위처럼 **코드없이 데이터만 저장하는 클래스를 값 객체** 라고 한다.
+
+자바 코드와 비교해보면 클래스에 public 가시성 변경자가 없음을 확인할 수 있다.  
+**코틀린의 기본 가시성은 public 이므로 이럴 경우 변경자 생략이 가능**하다.
+
+> 클래스에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다. (p. 69)
+
+---
+
+# 8. 프로퍼티
+
+클래스의 목적은 데이터를 캡슐화하는 것이다.
+
+자바에서는 데이터를 필드에 저장하고, 그 데이터에 접근하는 통로로 사용하는 접근자 메서드를 제공한다.
+
+이 **필드와 접근자를 프로퍼티**라고 한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap02
+
+class Person2(
+  val name: String, // 읽기 전용 프로퍼티, 비공개 필드와 getter 생성
+  var isMarried: Boolean, // 쓰기 가능 프로퍼티, 비공개 필드와 공개 getter/setter 생성
+)
+
+fun main(args: Array<String>) {
+  // new 키워드를 사용하지 않음
+  val person = Person2("Assu", true)
+
+  // 프로퍼티 이름을 직접 사용해도 코틀린이 자동으로 getter 를 호출해줌
+  println(person.name)    // Assu
+  println(person.isMarried)   // true
+}
+```
+
+위 코드를 보면 getter 를 호출하는 대신 프로퍼티를 직접 사용하였다.
+
+**대부분의 프로퍼티에는 그 프로퍼티 값을 저장하기 위한 필드**가 있는데 이를 **backing field** 라고 한다.  
+원한다면 커스텀 getter 를 작성하여 프로퍼티 값을 그때그때 계산할 수도 있다.
+
+---
+
+# 9. 프로퍼티 접근자
 
 아래와 같은 방식으로 프로퍼티에 접근할 수도 있지만, 여기서는 getter, setter 를 정의하여 프로퍼티 읽기와 쓰기를 커스텀화해본다.
 
@@ -769,7 +839,7 @@ getter, setter 안에서는 `field` 라는 이름을 사용하여 저장된 값�
 ```kotlin
 class Default {
     var i: Int = 0
-        get() {
+        get() { // 프로퍼티 getter 선언
             println("get()")
             return field
         }
@@ -879,10 +949,15 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
+* [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
+* [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
+* [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)
 * [Kotest](https://github.com/kotest/kotest)
 * [Spek Framework](https://www.spekframework.org/)
