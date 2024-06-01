@@ -473,7 +473,7 @@ class StateMachine {
 }
 ```
 
-> setter 를 private 를 지정하는 _private set_ 에 대한 내용은 [7. 프로퍼티 접근자](https://assu10.github.io/dev/2024/02/09/kotlin-object/#7-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90) 를 참고하세요.
+> setter 를 private 를 지정하는 _private set_ 에 대한 내용은 [9. 프로퍼티 접근자](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90) 를 참고하세요.하세요.
 
 위의 _StateMachine_ 을 테스트하기 위해 테스트 클래스 안에 sm 프로퍼티를 만들어본다.   
 테스트 러너는 다른 테스트가 실행될 때마다 새로운 _StateMachineTest_ 객체를 생성한다.
@@ -567,9 +567,13 @@ class LeanerTest {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
+* [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
+* [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
 * [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)

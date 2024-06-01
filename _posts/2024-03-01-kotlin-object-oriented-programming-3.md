@@ -323,8 +323,23 @@ fun main() {
 
 ## 2.1. 스마트 캐스트: `is`
 
+스마트 캐스트는 타입 검사, 타입 캐스트, 타입 강제 변환을 합친 것이다.
+
 **스마트 캐스트는 자동 다운 캐스트**이다.  
-**`is` 키워드는 어떤 객체가 특정 타입인지 검사**하는데, 이 **검사 영역 안에서는 해당 객체를 검사에 성공한 타입으로 간주**한다.
+**`is` 키워드는 어떤 객체가 특정 타입인지 검사**하는데, 이 **검사 영역 안에서는 해당 객체를 검사에 성공한 타입으로 간주**한다.  
+
+`is` 는 자바의 `instanceof` 와 비슷한데 자바에서는 타입을 `instanceof` 로 확인한 후에 그 타입에 속한 멤버에 접근하기 위해 명시적으로 타입 캐스팅을 해야 한다.  
+하지만 **코틀린은 `is` 로 검사하고 나면 컴파일러가 캐스팅을 수행해준다. (= 스마트 캐스트**)
+
+**스마트 캐스트는 `is` 로 변수에 든 값의 타입을 검사한 후 그 값이 바뀔 수 없는 경우에만 동작**한다.  
+**만일 클래스의 프로퍼티에 대해 스마트 캐스트를 사용한다면 그 프로퍼티는 반드시 val 이어야 하며, 커스텀 접근자를 사용한 것이어도 안된다.**    
+val 가 아니거나, val 이지만 커스텀 접근자를 사용하는 경우 해당 프로퍼티에 대한 접근이 항상 같은 값을 내놓는다고 확신할 수 없기 때문이다.
+
+> 커스텀 접근자에 대한 좀 더 상세한 내용은 [9. 프로퍼티 접근자](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90) 를 참고하세요.
+
+**원하는 타입으로 명시적으로 타입 캐스팅을 하려면 `as` 키워드를 사용**한다.
+
+> `as` 키워드에 대한 좀 더 상세한 내용은 [2.3. `as` 키워드](#23-as-키워드) 를 참고하세요.
 
 ```kotlin
 interface Base11 {
@@ -355,6 +370,8 @@ fun main() {
     }
 }
 ```
+
+> intelliJ 는 스마트 캐스트가 된 변수의 배경색을 다르게 표시해줌 
 
 스마트 캐스트는 `is` 를 통해 when 의 인자가 어떤 타입인지 검색하는 when 식 내부에서 매우 유용하다.
 
@@ -900,9 +917,13 @@ _Top::class_ 로 얻은 클래스 객체에 `sealedSubclasses` 클래스 객체�
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
+* [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
+* [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
 * [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)
