@@ -32,6 +32,7 @@ tags: kotlin joinToString pair triple with-index
   * [4.1. when 기본](#41-when-기본)
   * [4.2. when 으로 Set 과 Set 을 매치](#42-when-으로-set-과-set-을-매치)
   * [4.3. 인자가 없는 when](#43-인자가-없는-when)
+  * [4.4. when 으로 enum 클래스 다루기](#44-when-으로-enum-클래스-다루기)
 * [5. enum](#5-enum)
   * [5.1. enum 기본](#51-enum-기본)
   * [5.2. enum 에 멤버 함수나 멤버 프로퍼티 정의](#52-enum-에-멤버-함수나-멤버-프로퍼티-정의)
