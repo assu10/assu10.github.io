@@ -14,16 +14,19 @@ tags: springboot msa database entity enumerated mapped-super-class generationtyp
 
 **목차**
 
-- [엔티티 클래스와 `@Entity` 애너테이션](#1-엔티티-클래스와-entity-애너테이션)
-- [엔티티 클래스 기본키 설정: `@Id`](#2-엔티티-클래스-기본키-설정-id)
-  - [`GenerationType.TABLE`](#21-generationtypetable)
-  - [`GenerationType.SEQUENCE`](#22-generationtypesequence)
-  - [`GenerationType.IDENTITY`](#23-generationtypeidentity)
-  - [`GenerationType.AUTO`](#24-generationtypeauto)
-- [열거형과 `@Enumerated`](#3-열거형과-enumerated)
-- [Date 클래스와 `@Temporal`](#4-date-클래스와-temporal)
-- [엔티티 클래스 속성 변환과 AttributeConverter: `@Convert`, `@Converter`](#5-엔티티-클래스-속성-변환과-attributeconverter-convert-converter)
-- [엔티티 클래스 상속과 `@MappedSuperClass`](#6-엔티티-클래스-상속과-mappedsuperclass)
+<!-- TOC -->
+* [1. 엔티티 클래스와 `@Entity` 애너테이션](#1-엔티티-클래스와-entity-애너테이션)
+* [2. 엔티티 클래스 기본키 설정: `@Id`](#2-엔티티-클래스-기본키-설정-id)
+  * [2.1. `GenerationType.TABLE`](#21-generationtypetable)
+  * [2.2. `GenerationType.SEQUENCE`](#22-generationtypesequence)
+  * [2.3. `GenerationType.IDENTITY`](#23-generationtypeidentity)
+  * [2.4. `GenerationType.AUTO`](#24-generationtypeauto)
+* [3. 열거형과 `@Enumerated`](#3-열거형과-enumerated)
+* [4. Date 클래스와 `@Temporal`](#4-date-클래스와-temporal)
+* [5. 엔티티 클래스 속성 변환과 `AttributeConverter`: `@Convert`, `@Converter`](#5-엔티티-클래스-속성-변환과-attributeconverter-convert-converter)
+* [6. 엔티티 클래스 상속과 `@MappedSuperClass`](#6-엔티티-클래스-상속과-mappedsuperclass)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 
@@ -227,7 +230,7 @@ public enum HotelStatus {
 
 Java 에서 제공하는 기본 클래스인 String, Integer, Long 등은 자동으로 테이블의 필드에 변환되어 저장되지만 사용자가 정의한 클래스 타입, 열거형, Date, Calendar 클래스는 별도의 추가 설정이 필요하다.
 
-각각 [3. 열거형과 `@Enumerated`](#3-열거형과-enumerated), [4. Date 클래스와 `@Temporal`](#4-date-클래스와-temporal), [5. 엔티티 클래스 속성 변환과 AttributeConverter](#5-엔티티-클래스-속성-변환과-attributeconverter) 에서 그 내용을 참고할 수 있다.
+각각 [3. 열거형과 `@Enumerated`](#3-열거형과-enumerated), [4. Date 클래스와 `@Temporal`](#4-date-클래스와-temporal), [5. 엔티티 클래스 속성 변환과 `AttributeConverter`: `@Convert`, `@Converter`](#5-엔티티-클래스-속성-변환과-attributeconverter-convert-converter) 에서 그 내용을 참고할 수 있다.
 
 ---
 
@@ -323,7 +326,7 @@ EnumType.ORDINAL 은 열거형 상수들을 순서대로 사용하여 숫자로 
 따라서 **EnumType.ORDINAL 은 변화에 취약하기 때문에 사용하지 않는 것이 좋다.**  
 `@Enumerated` 애너테이션을 사용하게 된다면 EnumType.STRING 을 사용하는 것을 권고한다.
 
-`@Enumerated` 보다는 [5. 엔티티 클래스 속성 변환과 AttributeConverter](#5-엔티티-클래스-속성-변환과-attributeconverter-convert-converter) 에 나오는 AttributeConverter 가 
+`@Enumerated` 보다는 [5. 엔티티 클래스 속성 변환과 `AttributeConverter`: `@Convert`, `@Converter`](#5-엔티티-클래스-속성-변환과-attributeconverter-convert-converter) 에 나오는 AttributeConverter 가 
 데이터를 변환하는 과정을 개발자가 직접 처리할 수 있어 명시적으로 프로그래밍이 가능하다.
 
 ---
@@ -339,7 +342,7 @@ java.time 패키지에 포함된 시간 클래스들은 AttributeConverter 를 �
 
 ---
 
-# 5. 엔티티 클래스 속성 변환과 AttributeConverter: `@Convert`, `@Converter`
+# 5. 엔티티 클래스 속성 변환과 `AttributeConverter`: `@Convert`, `@Converter`
 
 `@Temporal` 애너테이션은 java.util.Date 와 java.util.Calendar 클래스 타입 속성에서만 유효하다.
 
@@ -475,6 +478,8 @@ public class Jsr310JpaConverters {
   }// ...
 }
 ```
+
+> `AttributeConverter`, `@Converter`, `@Convert` 에 대한 다른 예시는 [3.4. `AttributeConverter` 를 이용한 밸류 매핑 처리](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/#34-attributeconverter-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%B0%B8%EB%A5%98-%EB%A7%A4%ED%95%91-%EC%B2%98%EB%A6%AC) 를 참고하세요.
 
 ---
 
@@ -613,7 +618,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

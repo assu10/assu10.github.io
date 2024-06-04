@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 데이터 영속성(3): JpaRepository, 쿼리 메서드"
-date:   2023-09-03
+date:   2023-09-09
 categories: dev
 tags: springboot msa database spring-data-jpa query-method data-jpa-test jpa-repository
 ---

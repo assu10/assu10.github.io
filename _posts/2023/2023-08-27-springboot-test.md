@@ -1404,7 +1404,7 @@ HotelController 가 의존하는 HotelDisplayService 클래스는 `@Service` 로
 
 `@DataJpaTest` 는 `@Repository` 스프링 빈을 테스트 하는 방법이다.
 
-> `@DataJpaTest` 의 실제 예시는 [Spring Boot - 데이터 영속성(3): JpaRepository, 쿼리 메서드](https://assu10.github.io/dev/2023/09/03/springboot-database-3/#222-datajpatest-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BC%80%EC%9D%B4%EC%8A%A4) 를 참고하세요.
+> `@DataJpaTest` 의 실제 예시는 [Spring Boot - 데이터 영속성(3): JpaRepository, 쿼리 메서드](https://assu10.github.io/dev/2023/09/09/springboot-database-3/#222-datajpatest-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BC%80%EC%9D%B4%EC%8A%A4) 를 참고하세요.
 
 `@WebMvcTest` 애너테이션이 WebMvc 영역을 구분하여 빠르게 테스트하는 것처럼 `@DataJpaTest` 애너테이션을 사용하여 데이터를 처리하는 영역을 구분함으로써 빠르게 테스트 가능하다.
 

@@ -285,7 +285,7 @@ public class Order {
 만일 팀 표준이나 기술 제약으로 **밸류 타입을 불변으로 구현할 수 없다면 해당 밸류의 변경 기능을 패키지나 protected 범위로 한정해서 외부에서 실행할 수 없도록 
 제한하는 방법**도 있다.
 
-보통 한 애그리거트에 속하는 모델은 한 패키지에 속하기 때문에 패키지나 protected 범위를 사용하면 애그리거트 외부에서 상태 변경 기능을 실행하는 것을 방지할 수 있다.
+보통 한 애그리거트에 속하는 모델은 한 패키지에 속하기 때문에 protected 범위를 사용하면 애그리거트 외부에서 상태 변경 기능을 실행하는 것을 방지할 수 있다.
 
 ---
 
@@ -887,7 +887,7 @@ public class JpaProductRepository implements ProductRepository {
 <**키 클래스의 특징**>  
 - 복합키는 별도의 키 클래스로 생성
 - Serializable 을 implements 해야함
-- equals() 와 `hashCode()` 를 오버라이드 해야함
+- `equals()` 와 `hashCode()` 를 오버라이드 해야함
 - 기본 생성자가 있어야 함 (`@NoArgsConstructor`)
 - 키 클래스는 public 으로 생성해야 함
 
@@ -913,6 +913,8 @@ public class BookId implements Serializable {
 
 ### 5.2.2. `@ElementCollection` 과 `@CollectionTable`
 
+> `@ElementCollection` 과 `@CollectionTable` 에 대한 좀 더 상세한 설명은 [3.5. 밸류 컬렉션: 별도 테이블 매핑: `@ElementCollection`, `@CollectionTable`, `@OrderColumn`](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/#35-%EB%B0%B8%EB%A5%98-%EC%BB%AC%EB%A0%89%EC%85%98-%EB%B3%84%EB%8F%84-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%A7%A4%ED%95%91-elementcollection-collectiontable-ordercolumn) 을 참고하세요.
+
 primitive 타입은 자바에서 값 복사를 지원하므로 데이터 정합성을 가지지만 참조 타입은 참조 복사를 하므로 다른 객체에서 데이터를 조작할 수 있다.  
 따라서 객체 (컬렉션) 은 참조 복사가 아닌 값 복사가 지원되어야 한다.  
 **값 타입이란 참조 복사가 아닌 값 복사가 지원되는 객체 및 컬렉션을 의미**한다.
@@ -924,7 +926,7 @@ primitive 타입은 자바에서 값 복사를 지원하므로 데이터 정합�
 값 타입 테이블은 본인이 속한 엔티티에 종속된다.  
 엔티티와 엔티티의 종속은 영속성 전이와 고아객체 제거로 구현되지만, 이 경우 값 타입 컬렉션임만 명시하면 종속 설정이 자동으로 이루어진다.
 
-`@ElementCollection` 은 해당 컬렉션이 값 타입 컬렉션임을 표시하는 애너테이션이다.
+**`@ElementCollection` 은 해당 컬렉션이 값 타입 컬렉션임을 표시하는 애너테이션**이다.
 
 `@ElementCollection` 은 targetClass 속성을 가지며, targetClass 속성은 컬럼이 매핑될 때의 타입을 지정한다.  
 보통 컬렉션은 제네릭으로 타입을 지정하므로 targetClass 를 설정하지 않으면 제네릭 타입에 맞춰서 타입이 정해진다.
