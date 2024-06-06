@@ -362,6 +362,31 @@ fun main() {
 
 # 2. 컬렉션 연산
 
+코틀린으로 아래와 같이 컬렉션을 만들 수 있다.
+```kotlin
+package com.assu.study.kotlin2me.chap03
+
+fun main() {
+    val set = hashSetOf(1, 1, 2)
+    val list = arrayListOf(1, 1, 2)
+    val list2 = listOf(1, 1, 2)
+    val hashmap = hashMapOf(1 to "one", 2 to "two")
+
+    println(set) // [1, 2]
+    println(list) // [1, 1, 2]
+    println(list2) // [1, 1, 2]
+    println(hashmap) // {1=one, 2=two}
+
+    // javaClass 는 자바에서 getClass() 와 동일
+    println(set.javaClass) // class java.util.HashSet
+    println(list.javaClass) // class java.util.ArrayList
+    println(list2.javaClass) // class java.util.Arrays$ArrayList
+    println(hashmap.javaClass) // class java.util.HashMap
+}
+```
+
+`.javaClass` 로 특정 컬렉션 객체가 
+
 함수형 언어는 `map()`, `filter()`, `any()` 처럼 컬렉션을 다룰 수 있는 여러 수단을 제공한다.
 
 여기선 List 와 그 외 컬렉션에 사용되는 다른 연산에 대해 알아본다.
