@@ -37,7 +37,7 @@ tags: ddd jpa @Embeddable @AttributeOverrides @Entity @Embedded protected @Acces
   * [3.7. 밸류를 이용한 ID 매핑: `@EmbeddedId`](#37-밸류를-이용한-id-매핑-embeddedid)
   * [3.8. 별도 테이블에 저장하는 밸류 매핑: `@SecondaryTable`, `@AttributeOverride`](#38-별도-테이블에-저장하는-밸류-매핑-secondarytable-attributeoverride)
   * [3.9. 밸류 컬렉션을 `@Entity` 로 매핑: `@Inheritance`, `@DiscriminatorColumn`, `@DiscriminatorValue`](#39-밸류-컬렉션을-entity-로-매핑-inheritance-discriminatorcolumn-discriminatorvalue)
-    * [3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, cascade`, `orphanRemoval`](#391-entity-로-매핑된-밸류를-컬렉션으로-매핑-onetomany-cascade-orphanremoval)
+    * [3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, `cascade`, `orphanRemoval`](#391-entity-로-매핑된-밸류를-컬렉션으로-매핑-onetomany-cascade-orphanremoval)
       * [3.9.1.1 `@OneToMany` 매핑에서 컬렉션의 `clear()` 성능](#3911-onetomany-매핑에서-컬렉션의-clear-성능)
   * [3.10. ID 참조와 조인 테이블을 이용한 단방향 M-N 매핑](#310-id-참조와-조인-테이블을-이용한-단방향-m-n-매핑)
 * [4. `ImmutableList`(Guava) 혹은 `List.of()`(java 9) vs `Collections.unmodifiableList()`](#4-immutablelistguava-혹은-listofjava-9-vs-collectionsunmodifiablelist)
@@ -1424,7 +1424,7 @@ public class ExternalImage extends Image {
 
 ---
 
-### 3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, cascade`, `orphanRemoval`
+### 3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, `cascade`, `orphanRemoval`
 
 _Image_ 가 `@Entity`  이므로 목록을 담고 있는 _Product_ 는 `@OneToMany` 를 이용하여 매핑한다.
 
@@ -1623,7 +1623,7 @@ private ProductId id;
 }
 ```
 
-**ID 참조를 이용한 애그리거트 간 단방향 M-N 연관은 [3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, cascade`, `orphanRemoval`](#391-entity-로-매핑된-밸류를-컬렉션으로-매핑-onetomany-cascade-orphanremoval) 에서 본 것처럼 
+**ID 참조를 이용한 애그리거트 간 단방향 M-N 연관은 [3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, `cascade`, `orphanRemoval`](#391-entity-로-매핑된-밸류를-컬렉션으로-매핑-onetomany-cascade-orphanremoval) 에서 본 것처럼 
 밸류 컬렉션 매핑과 동일한 방식으로 설정**하는 것을 알 수 있다.  
 **차이점이 있다면 집합의 값에 밸류 대신 연관을 맺는 식별자가 온다는 점**이다.
 

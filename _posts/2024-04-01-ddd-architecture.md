@@ -713,7 +713,7 @@ public class NoOrderException extends RuntimeException {
 
 ![리포지터리 인터페이스는 도메인 모델 영역, 구현 클래스는 인프라스트럭처 영역](/assets/img/dev/2024/0401/repository.png)
 
-> 리포지터리 구현에 대한 상세한 내용은 추후 다룰 예정입니다.
+> 리포지터리 구현에 대한 상세한 내용은 [DDD - 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/) 을 참고하세요.
 
 ---
 
@@ -726,7 +726,7 @@ public class NoOrderException extends RuntimeException {
 
 즉, **응용 서비스는 트랜잭션을 관리**한다.
 
-> 응용 서비스 구현에 대한 좀 더 상세한 설명은 추후 다룰 예정입니다.
+> 응용 서비스 구현에 대한 좀 더 상세한 설명은 추후 다룰 예정입니다. (p. 91)
 
 ---
 
