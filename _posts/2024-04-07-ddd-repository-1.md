@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "DDD - "
+title:  "DDD - 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑"
 date:   2024-04-07
 categories: dev
-tags: ddd 
+tags: ddd jpa @Embeddable @AttributeOverrides @Entity @Embedded protected @Access AttributeConverter @ElementCollection @CollectionTable @OrderColumn @EmbeddedId @SecondaryTable @AttributeOverride @Inheritance @DiscriminatorColumn @DiscriminatorValue @OneToMany Collections.unmodifiableList()
 ---
 
 이 포스트에서는 아래 내용에 대해 알아본다.
@@ -35,9 +35,12 @@ tags: ddd
   * [3.5. 밸류 컬렉션: 별도 테이블 매핑: `@ElementCollection`, `@CollectionTable`, `@OrderColumn`](#35-밸류-컬렉션-별도-테이블-매핑-elementcollection-collectiontable-ordercolumn)
   * [3.6. 밸류 컬렉션: 한 개 컬럼 매핑: `AttributeConverter`, `Collections.unmodifiableSet()`](#36-밸류-컬렉션-한-개-컬럼-매핑-attributeconverter-collectionsunmodifiableset)
   * [3.7. 밸류를 이용한 ID 매핑: `@EmbeddedId`](#37-밸류를-이용한-id-매핑-embeddedid)
-  * [3.8. 별도 테이블에 저장하는 밸류 매핑: `@SecondatyTable`, `@AttributeOverride`](#38-별도-테이블에-저장하는-밸류-매핑-secondatytable-attributeoverride)
-  * [3.9. 밸류 컬렉션을 `@Entity` 로 매핑](#39-밸류-컬렉션을-entity-로-매핑)
+  * [3.8. 별도 테이블에 저장하는 밸류 매핑: `@SecondaryTable`, `@AttributeOverride`](#38-별도-테이블에-저장하는-밸류-매핑-secondarytable-attributeoverride)
+  * [3.9. 밸류 컬렉션을 `@Entity` 로 매핑: `@Inheritance`, `@DiscriminatorColumn`, `@DiscriminatorValue`](#39-밸류-컬렉션을-entity-로-매핑-inheritance-discriminatorcolumn-discriminatorvalue)
+    * [3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, cascade`, `orphanRemoval`](#391-entity-로-매핑된-밸류를-컬렉션으로-매핑-onetomany-cascade-orphanremoval)
+      * [3.9.1.1 `@OneToMany` 매핑에서 컬렉션의 `clear()` 성능](#3911-onetomany-매핑에서-컬렉션의-clear-성능)
   * [3.10. ID 참조와 조인 테이블을 이용한 단방향 M-N 매핑](#310-id-참조와-조인-테이블을-이용한-단방향-m-n-매핑)
+* [4. `ImmutableList`(Guava) 혹은 `List.of()`(java 9) vs `Collections.unmodifiableList()`](#4-immutablelistguava-혹은-listofjava-9-vs-collectionsunmodifiablelist)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -1147,7 +1150,7 @@ public class OrderNo implements Serializable {
 
 ---
 
-## 3.8. 별도 테이블에 저장하는 밸류 매핑: `@SecondatyTable`, `@AttributeOverride`
+## 3.8. 별도 테이블에 저장하는 밸류 매핑: `@SecondaryTable`, `@AttributeOverride`
 
 **애그리거트에서 루트 엔티티를 뺀 나머지 구성 요소는 대부분 밸류**이다.
 
@@ -1274,7 +1277,7 @@ Article article = entityManager.find(Article.class, 1L);
 
 ---
 
-## 3.9. 밸류 컬렉션을 `@Entity` 로 매핑: `@Inheritane`, `@DiscriminatorColumn`
+## 3.9. 밸류 컬렉션을 `@Entity` 로 매핑: `@Inheritance`, `@DiscriminatorColumn`, `@DiscriminatorValue`
 
 밸류이지만 가금은 `@Entity` 로 매핑해야 하는 경우가 있다.  
 예) 이미지 업로드 방식에 따라 이미지 경로와 썸네일 제공 여부가 달라지는 경우 (= 계층 구조를 갖는 밸류 타입)
@@ -1284,7 +1287,7 @@ Article article = entityManager.find(Article.class, 1L);
 **JPA 는 `@Embeddable` 타입의 클래스 상속 매핑을 지원하지 않으므로 상속 구조를 갖는 밸류 타입을 사용하기 위해서는 `@Embeddable` 대신 `@Entity` 를 이용**하여 
 상속 매핑으로 처리해야 한다.
 
-밸류 타입이지만 `@Entity` 로 매핑하기 때문에 식별자 매핑을 위한 필드가 추가되어야 하고, 구현 클래스를 구분하기 위한 타입 식별 (Discriminator) 컬럼도 추가되어야 한다.
+**밸류 타입이지만 `@Entity` 로 매핑하기 때문에 식별자 매핑을 위한 필드가 추가되어야 하고, 구현 클래스를 구분하기 위한 타입 식별 (Discriminator) 컬럼도 추가**되어야 한다.
 
 ![계층 구조를 저장하는 테이블](/assets/img/dev/2024/0407/value_table.png)
 
@@ -1293,17 +1296,374 @@ Article article = entityManager.find(Article.class, 1L);
 - strategy 로 `SINGLE_TABLE` 사용
 - `@DiscriminatorColumn` 애너테이션을 적용하여 타입 구분용으로 사용할 컬럼 지정
 
-**_Image_ 를 `@Entity` 로 매핑하였어도 모데에서 _Image_ 는 밸류이므로 상태를 변경하는 기능은 추가하지 않는다.**
+**_Image_ 를 `@Entity` 로 매핑하였어도 모델에서 _Image_ 는 밸류이므로 상태를 변경하는 기능은 추가하지 않는다.**
+
+Image.java
+```java
+package com.assu.study.catalog.command.domain.product;
+
+
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
+// 밸류를 @Entity 로 매핑했으므로 상태 변경 메서드는 제공하지 않음
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "image_type")
+@Table(name = "image")
+public abstract class Image {   // 추상 클래스임
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "image_id")
+    private Long id;
+
+    @Column(name = "image_path")
+    private String path;
+
+    @Column(name = "upload_time")
+    private LocalDateTime uploadTime;
+
+    protected Image() {
+    }
+
+    public Image(String path) {
+        this.path = path;
+        this.uploadTime = LocalDateTime.now();
+    }
+
+    protected String getPath() {
+        return path;
+    }
+
+    public LocalDateTime getUploadTime() {
+        return uploadTime;
+    }
+
+    // 이 클래스를 상속받는 클래스에서 구현할 메서드들
+    public abstract String getURL();
+
+    public abstract boolean hasThumbnail();
+
+    public abstract String getThumbnailURL();
+}
+```
+
+이제 위 _Image_ 밸류 엔티티를 상속받는 클래스를 만든다.  
+이 때 `@Entity` 와 `@Discriminator` 를 사용하여 매핑을 설정한다.
+
+InternalImage.java
+```java
+package com.assu.study.catalog.command.domain.product;
+
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+// Image 를 상속받은 클래스
+@Entity
+@DiscriminatorValue("II")
+public class InternalImage extends Image {
+    protected InternalImage() {
+    }
+
+    public InternalImage(String path) {
+        super(path);
+    }
+
+    @Override
+    public String getURL() {
+        return "/images/original/" + getPath();
+    }
+
+    @Override
+    public boolean hasThumbnail() {
+        return true;
+    }
+
+    @Override
+    public String getThumbnailURL() {
+        return "/images/thumbnail/" + getPath();
+    }
+}
+```
+
+ExternalImage.java
+```java
+package com.assu.study.catalog.command.domain.product;
+
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+// Image 를 상속받은 클래스
+@Entity
+@DiscriminatorValue("EI")
+public class ExternalImage extends Image {
+    protected ExternalImage() {
+    }
+
+    public ExternalImage(String path) {
+        super(path);
+    }
+
+    @Override
+    public String getURL() {
+        return getPath();
+    }
+
+    @Override
+    public boolean hasThumbnail() {
+        return false;
+    }
+
+    @Override
+    public String getThumbnailURL() {
+        return null;
+    }
+}
+```
+
+---
+
+### 3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, cascade`, `orphanRemoval`
+
+_Image_ 가 `@Entity`  이므로 목록을 담고 있는 _Product_ 는 `@OneToMany` 를 이용하여 매핑한다.
+
+_Image_ 는 밸류이므로 독자적인 라이프 사이클을 갖고 있지 않기 때문에 _Product_ 에 완전히 의존한다.  
+따라서 **_Product_ 가 저장/삭제될 때 동시에 저장/삭제되도록 `cascade` 속성을 지정**하고, **리스트에서 _Image_ 객체 제거 시 DB 에서도 함께 삭제되도록 `orphanRemoval` 속성도 
+true** 로 설정한다.
+
+Product.java
+```java
+package com.assu.study.catalog.command.domain.product;
+
+import com.assu.study.catalog.command.domain.category.CategoryId;
+import com.assu.study.common.jpa.MoneyConverter;
+import com.assu.study.common.model.Money;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "product")
+public class Product {
+    @EmbeddedId
+    private ProductId id;
+
+    @ElementCollection(fetch = FetchType.LAZY)  // 값 타입 컬렉션
+    @CollectionTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id")) // 테이블명 지정
+    private Set<CategoryId> categoryIds;
+
+    private String name;
+
+    @Convert(converter = MoneyConverter.class)
+    @Column(name = "price")
+    private Money price;
+
+    private String detail;
+
+    @OneToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},    // Product 의 저장/삭제 시 함께 저장 삭제
+            orphanRemoval = true,   // 리스트에서 Image 객체 제거 시 DB 에서도 함께 삭제
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "product_id")
+    @OrderColumn(name = "list_idx")
+    private List<Image> images = new ArrayList<>();
+
+    protected Product() {
+    }
+
+    public Product(ProductId id, String name, Money price, String detail, List<Image> images) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.detail = detail;
+        this.images.addAll(images);
+    }
+
+    public ProductId getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Money getPrice() {
+        return price;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public List<Image> getImages() {
+        return Collections.unmodifiableList(images);
+    }
+
+    // 이미지 변경
+    public void changeImages(List<Image> newImages) {
+        images.clear();
+        images.addAll(newImages);
+    }
+
+    public String getFirstImageThumbnailPath() {
+        if (images == null || images.isEmpty()) {
+            return null;
+        }
+        return images.get(0).getThumbnailURL();
+    }
+}
+```
+
+> `Collections.unmodifiableList()` 에 대한 설명은 [ 4. `ImmutableList`(Guava) 혹은 `List.of()`(java 9) vs `Collections.unmodifiableList()`](#4-immutablelistguava-혹은-listofjava-9-vs-collectionsunmodifiablelist) 을 참고하세요.
+
+위에서 _changeImages()_ 를 보자.
+```java
+public void changeImages(List<Image> newImages) {
+    images.clear();
+    images.addAll(newImages);
+}
+```
+
+이미지 교체를 위해 `clear()` 메서드를 사용하고 있는데 **`@Entity` 에 대한 `@OneToMany` 매핑에서 컬렉션의 `clear()` 메서드들 호출하면 삭제 과정이 비효율적**이다.  
+
+하이버네이트는 `@Entity` 를 위한 컬렉션 객체의 `clear()` 메서드를 호출하면 select 로 대상 엔티티를 로딩한 후에, 
+각 개별 엔티티 삭제를 위한 delete 쿼리를 각각 실행한다.  
+예를 들어 _images_ 에 이미지가 4개가 있을 때 위의 _changeImages()_ 를 호출하면 아래처럼 총 5번의 쿼리가 실행된다.
+
+```sql
+-- 목록 조회
+select * from image where product_id = ?;
+
+-- 삭제
+delete from image where image_id = ?;
+delete from image where image_id = ?;
+delete from image where image_id = ?;
+delete from image where image_id = ?;
+```
+
+이미지의 변경 빈도가 낮다면 괜찮겠지만, **변경 빈도가 높다면 전체 서비스 성능에 문제**가 될 수 있다.
+
+---
+
+#### 3.9.1.1 `@OneToMany` 매핑에서 컬렉션의 `clear()` 성능
+
+**하이버네이트는 `@Embeddable` 타입에 대한 컬렉션의 `clear()` 메서드를 호출하면 컬렉션에 대한 객체를 로딩하지 않고 한번의 delete 쿼리로 삭제 처리를 수행**한다.  
+
+애그리거트의 특성을 유지하면서 `@OneToMany` 매핑에서 컬렉션의 `clear()` 성능 문제를 해소하려면 결국 상속을 포기하고 `@Embeddable` 로 매핑된 단일 클래스로 구현해야 한다.
+
+성능을 위해 `@Embeddable` 을 사용하여 다형성을 포기하고 if-else 로 구현
+```java
+@Embeddable
+public class Image {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "image_id")
+  private Long id;
+  
+  @Column(name = "image_type")
+  private String imageType;
+
+  @Column(name = "image_path")
+  private String path;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "upload_time")
+  private Date uploadTime;
+
+  // 성능을 위해 다형성을 포기하고 if-else 로 구현
+  public boolean hasThumbnail() {
+    if (imageType.equals("II")) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+}
+```
+
+**즉, 코드의 유지 보수와 성능 두 가지 측면을 고려하여 구현 방식을 선택**해야 한다.
 
 ---
 
 ## 3.10. ID 참조와 조인 테이블을 이용한 단방향 M-N 매핑
 
-- 애그리거트 로딩 전략
-- 애그리거트의 영속성 전파
-- 식별자 생성 기능
-- 도메인 구현과 DIP
+애그리거트 간의 집합 연관은 성능 상의 이유로 피해야 한다.
 
+> 애그리거트 간 집합 연관의 성능 문제에 대한 좀 더 상세한 설명은 [5. 애그리거트 간 집합 연관](https://assu10.github.io/dev/2024/04/06/ddd-aggregate/#5-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8-%EA%B0%84-%EC%A7%91%ED%95%A9-%EC%97%B0%EA%B4%80) 을 참고하세요.
+
+하지만 그럼에도 불구하고 요구사항을 구현하는데 집합 연관을 사용하는 것이 유리하다면 ID 참조를 이용하여 단방향 집합 연관을 적용하면 된다.  
+아래는 [5.2. 애그리거트 간 M-N 연관 관계: `member of`](https://assu10.github.io/dev/2024/04/06/ddd-aggregate/#52-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8-%EA%B0%84-m-n-%EC%97%B0%EA%B4%80-%EA%B4%80%EA%B3%84-member-of) 에서 
+본 _Product_ 에서 _Category_ 로의 단방향 M-N 연관을 ID 참조 방식으로 구현한 예시이다.
+
+/catalog/command/domain/product/Product.java
+```java
+package com.assu.study.catalog.command.domain.product;
+
+import com.assu.study.catalog.command.domain.category.CategoryId;
+import jakarta.persistence.*;
+
+import java.util.Set;
+
+@Entity
+@Table(name = "product")
+public class Product {
+@EmbeddedId
+private ProductId id;
+
+    @ElementCollection  // 값 타입 컬렉션
+    @CollectionTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id")) // 테이블명 지정
+    private Set<CategoryId> categoryIds;
+}
+```
+
+**ID 참조를 이용한 애그리거트 간 단방향 M-N 연관은 [3.9.1. `@Entity` 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, cascade`, `orphanRemoval`](#391-entity-로-매핑된-밸류를-컬렉션으로-매핑-onetomany-cascade-orphanremoval) 에서 본 것처럼 
+밸류 컬렉션 매핑과 동일한 방식으로 설정**하는 것을 알 수 있다.  
+**차이점이 있다면 집합의 값에 밸류 대신 연관을 맺는 식별자가 온다는 점**이다.
+
+**ID 참조 방식을 사용하면 `@EllementCollection` 을 이용하기 때문에 _Product_ 삭제 시 매핑에 사용한 조인 테이블의 데이터도 함께 삭제되므로 
+애그리거트를 직접 참조하는 방식을 사용할 때 고민해야 하는 영속성 전파나 로딩 전략을 고민할 필요가 없다.**
+
+---
+
+# 4. `ImmutableList`(Guava) 혹은 `List.of()`(java 9) vs `Collections.unmodifiableList()`
+
+`ImmutableList`(Guava) 혹은 `List.of()`(java 9) 는 불변 리스트를 생성할 때 사용한다.  
+ImmutableList 객체는 생성 시점부터 불변이다.  
+`of()`, `copy()` 등의 정적 팩토리 메서드를 제공한다.  
+**실제로 뷰가 아닌 원본 목록의 복사본을 생성**한다.
+
+```java
+List<String> s = new ArrayList<>(Arrays.asList("a", "b"));
+
+// 뷰가 아닌 원본 목록의 복사본 생성
+List<String> s1 = List.of(s.toArray(new String[]{}));
+```
+
+**`Collections.unmodifiableList()` 는 기존 리스트를 불변 뷰로 감싸서 반환**한다.    
+**원본 리스트에 대한 참조를 유지하기 때문에 원본 리스트가 변경되면 반환된 불변 뷰도 영향을 받는다.**
+
+```java
+List<String> s = new ArrayList<>(Arrays.asList("a", "b"));
+
+// 원본 리스트를 뷰로 감싸서 리턴하며, 원본 리스트가 변경되면 반환된 불변 뷰도 영향을 받음
+List<String> s1 = Collections.unmodifiableList(s);
+```
+
+<**`ImmutableList`(Guava) 혹은 `List.of()`(java 9) 를 사용하는 경우**>
+
+- 원본 데이터에 대한 참조가 필요하지 않은 경우
+- 생성 시점부터 불변을 보장해야 하는 경우
+
+<**`Collections.unmodifiableList()`**>
+
+- 원본 데이터에 대한 참조가 필요하고, 원본 데이터의 변경에 따라 불변 뷰도 같이 변경되어야 하는 경우
 
 ---
 
@@ -1313,3 +1673,4 @@ Article article = entityManager.find(Article.class, 1L);
 
 * [도메인 주도 개발 시작하기](https://www.yes24.com/Product/Goods/108431347)
 * [책 예제 git](https://github.com/madvirus/ddd-start2)
+* [ImmutableList vs Collections.unmodifiableList 무엇이 다를까?](https://colevelup.tistory.com/47)

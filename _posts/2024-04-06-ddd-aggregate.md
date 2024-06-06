@@ -797,6 +797,8 @@ public class Product {
 
 > `@ElementCollection` 과 `@CollectionTable` 에 대한 좀 더 상세한 내용은 [5.2.2. `@ElementCollection` 과 `@CollectionTable`](#522-elementcollection-과-collectiontable) 를 참고하세요.
 
+> `@ElementCollection` 에 대한 추가 설명은 [3.10. ID 참조와 조인 테이블을 이용한 단방향 M-N 매핑](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/#310-id-%EC%B0%B8%EC%A1%B0%EC%99%80-%EC%A1%B0%EC%9D%B8-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A8%EB%B0%A9%ED%96%A5-m-n-%EB%A7%A4%ED%95%91) 을 참고하세요.
+
 /catalog/command/domain/product/ProductId.java
 ```java
 package com.assu.study.catalog.command.domain.product;
