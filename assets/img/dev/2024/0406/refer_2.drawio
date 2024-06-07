@@ -1,0 +1,28 @@
+<mxfile host="Electron" modified="2024-05-26T05:10:35.554Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.8 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="0vfQ1hg--LEl5elFvuaB" version="24.4.8" type="device">
+  <diagram name="페이지-1" id="2ASu2FHaeGVyWreeaYHF">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VTiUe0myc_ZHt63ytffi-1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;opacity=80;" vertex="1" parent="1">
+          <mxGeometry x="30" y="50" width="410" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="VTiUe0myc_ZHt63ytffi-2" value="&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;&lt;pre style=&quot;&quot;&gt;&lt;font face=&quot;IBM Plex Mono, monospace&quot; color=&quot;#080808&quot;&gt;&lt;span style=&quot;font-size: 13.0667px;&quot;&gt;// 주문 애그리거트의 루트&lt;br/&gt;public class Order {&lt;br/&gt;&lt;br/&gt;    private Orderer orderer;&lt;br/&gt;&lt;br/&gt;}&lt;/span&gt;&lt;/font&gt;&lt;br&gt;&lt;/pre&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=7;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VTiUe0myc_ZHt63ytffi-3" value="&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;&lt;pre style=&quot;&quot;&gt;&lt;font face=&quot;IBM Plex Mono, monospace&quot; color=&quot;#080808&quot;&gt;&lt;span style=&quot;font-size: 13.0667px;&quot;&gt;// 주문 애그리거트의 구성 요소&lt;br/&gt;public class Orderer {&lt;br/&gt;&lt;br/&gt;    // 회원 애그리거트 루트인 Member 의 ID 를 참조&lt;br/&gt;    private MemberId memberId;  &lt;br/&gt;&lt;br/&gt;}&lt;/span&gt;&lt;/font&gt;&lt;br&gt;&lt;/pre&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=7;" vertex="1" parent="1">
+          <mxGeometry x="60" y="250" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="VTiUe0myc_ZHt63ytffi-4" value="&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;&lt;pre style=&quot;&quot;&gt;&lt;font face=&quot;IBM Plex Mono, monospace&quot; color=&quot;#080808&quot;&gt;&lt;span style=&quot;font-size: 13.0667px;&quot;&gt;// 회원 애그리거트의 루트&lt;br/&gt;public class Member {&lt;br/&gt;    &lt;br/&gt;}&lt;/span&gt;&lt;/font&gt;&lt;br&gt;&lt;/pre&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=7;" vertex="1" parent="1">
+          <mxGeometry x="490" y="267" width="210" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="VTiUe0myc_ZHt63ytffi-5" value="" style="endArrow=block;html=1;rounded=0;entryX=-0.024;entryY=0.65;entryDx=0;entryDy=0;entryPerimeter=0;endFill=1;" edge="1" parent="1" target="VTiUe0myc_ZHt63ytffi-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="332" as="sourcePoint" />
+            <mxPoint x="520" y="332" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

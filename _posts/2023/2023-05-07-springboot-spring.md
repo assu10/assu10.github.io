@@ -1422,18 +1422,23 @@ prototype 은 의존성 주입을 할 때마다 새로운 객체가 생겨난다
 
 ---
 
-# 9. Spring bean, Java bean, DTO, VO
+# 9. Spring bean, Java bean, DTO, VO, DAO
 
 - `Spring bean`
   - 객체와 이름, 클래스 타입 정보가 Spring Container 로 관리되는 객체
 - `Java bean`
   - 기본 생성자가 선언되어 있고, getter/setter 패턴으로 클래스 내부 속성에 접근 가능해야 함
   - Serializable 을 구현하고 있어야 함
+- `DAO` (Data Access Object)
+  - DB 데이터에 접근하기 위한 객체
+  - 직접 DB 에 접근하여 데이터를 삽입, 삭제, 조회 등 조작할 수 있는 기능을 수행함
 - `DTO` (Data Transfer Object)
   - 데이터를 전달하는 객체
+  - 계층 간 (controller, view 등) 데이터 교환을 위한 Java Bean
   - 데이터를 전달하므로 DTO 내부에 비즈니스 로직이 없어야 함
-  - 클래스 내부 속성에 접근 가능한 getter 메서드는 필요
+  - 클래스 내부 속성에 접근 가능한 getter, setter 메서드만 있음
 - `VO` (Value Object)
+  - Read-only 속성을 가진 값 오브젝트로 geter 만 존재함
   - 특정 데이터를 추상화하여 데이터를 표현하는 객체
   - 그래서 equals 메서드를 재정의하여 클래스가 표현하는 값을 서로 비교하면 좋음
   - 바로 아래 Money 클래스는 VO 임
@@ -1512,3 +1517,4 @@ public final class Money implements Serializable {  // class 는 반드시 final
 * [Spring Boot 공홈](https://spring.io/projects/spring-boot)
 * [Java Optional 바르게 쓰기](https://homoefficio.github.io/2019/10/03/Java-Optional-%EB%B0%94%EB%A5%B4%EA%B2%8C-%EC%93%B0%EA%B8%B0/)
 * [Java, BigDecimal 사용법 정리](https://jsonobject.tistory.com/466)
+* [DAO, DTO, VO의 개념](https://velog.io/@leesomyoung/Java-DAO-DTO-VO%EC%9D%98-%EA%B0%9C%EB%85%90)

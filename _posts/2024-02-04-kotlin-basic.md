@@ -89,14 +89,13 @@ tags: kotlin
 코틀린의 중요한 특성들 중 하나는 **null 이 될 수 있는 타입을 지원**한다는 점이다.  
 null 이 될 수 있는 타입을 지원함에 따라 컴파일 시점에 Null Pointer Exception 이 발생할 수 있는지 여부를 검사할 수 있어서 신뢰성을 높일 수 있다.  
 
-> null 이 될 수 있는 타입 `?` 에 대한 좀 더 상세한 설명은 [https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#1-null-%EC%9D%B4-%EB%90%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%83%80%EC%9E%85-) 을 참고하세요.
+> null 이 될 수 있는 타입 `?` 에 대한 좀 더 상세한 설명은 [1. null 이 될 수 있는 타입: `?`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#1-null-%EC%9D%B4-%EB%90%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%83%80%EC%9E%85-) 을 참고하세요.
 
 코틀린 타입 시스템에 있는 또 다른 새로운 내용은 **함수 타입에 대한 지원**이다.
 
 > 함수 타입에 대한 좀 더 상세한 내용은 [1. 고차 함수 (high-order function)](https://assu10.github.io/dev/2024/02/17/kotlin-funtional-programming-2/#1-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%98-high-order-function) 를 참고하세요.
 
 ---
-
 
 ### 1.1.2. 함수형 프로그래밍
 

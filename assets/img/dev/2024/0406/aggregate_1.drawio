@@ -1,0 +1,37 @@
+<mxfile host="Electron" modified="2024-05-25T07:48:33.545Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.8 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="3OStZHlIMNtZulwMDma3" version="24.4.8" type="device">
+  <diagram name="페이지-1" id="IdqELJfPs2R_mbm50-Xt">
+    <mxGraphModel dx="1114" dy="869" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="FlXmZUs54r_lah6XZ4NM-1" target="FlXmZUs54r_lah6XZ4NM-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="FlXmZUs54r_lah6XZ4NM-1" target="FlXmZUs54r_lah6XZ4NM-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="FlXmZUs54r_lah6XZ4NM-1" target="FlXmZUs54r_lah6XZ4NM-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-1" value="주문" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="180" y="70" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-2" value="회원" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="70" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-3" value="결제" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="180" y="170" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-4" value="상품" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="80" y="70" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="FlXmZUs54r_lah6XZ4NM-6" target="FlXmZUs54r_lah6XZ4NM-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FlXmZUs54r_lah6XZ4NM-6" value="리뷰" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="80" y="170" width="60" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
