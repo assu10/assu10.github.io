@@ -875,7 +875,10 @@ public class JpaProductRepository implements ProductRepository {
 위에서 _:catId member of p.categoryIds_ 는 _categoryIds_ 컬렉션에 _catId_ 로 지정한 값이 존재하는지 검사한다.  
 응용 서비스에서 이 기능을 활용하여 특정 카테고리에 속한 _Product_ 목록을 구할 수 있다.
 
-> JPA 를 이용한 모델 매핑과 컬렉션을 사용할 때의 성능 관련 문제는 [3.9.1. @Entity 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, `cascade`, `orphanRemoval`](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/#391-entity-%EB%A1%9C-%EB%A7%A4%ED%95%91%EB%90%9C-%EB%B0%B8%EB%A5%98%EB%A5%BC-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9C%BC%EB%A1%9C-%EB%A7%A4%ED%95%91-onetomany-cascade-orphanremoval) 을 참고하세요.
+> JPA 를 이용한 모델 매핑과 컬렉션을 사용할 때의 성능 관련 문제는  
+> [3.9.1. @Entity 로 매핑된 밸류를 컬렉션으로 매핑: `@OneToMany`, `cascade`, `orphanRemoval`](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/#391-entity-%EB%A1%9C-%EB%A7%A4%ED%95%91%EB%90%9C-%EB%B0%B8%EB%A5%98%EB%A5%BC-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9C%BC%EB%A1%9C-%EB%A7%A4%ED%95%91-onetomany-cascade-orphanremoval), 
+> [1. 애그리거트 로딩 전략](https://assu10.github.io/dev/2024/04/09/ddd-repository-2/#1-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8-%EB%A1%9C%EB%94%A9-%EC%A0%84%EB%9E%B5)  
+> 을 참고하세요.
 
 > 목록이나 상세 화면과 같은 조회 기능은 조회 전용 모델을 이용하여 구현하는 것이 좋다.  
 > 이에 대한 상세한 내용은 추후 다룰 예정입니다. (p. 124)

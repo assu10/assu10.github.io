@@ -35,7 +35,7 @@ tags: springboot msa scheduled enable-scheduling task-scheduler cron fixed-delay
   * [3.1. 단독 배치 서버 구성](#31-단독-배치-서버-구성)
   * [3.2. 젠킨스와 REST-API 서버군 구성](#32-젠킨스와-rest-api-서버군-구성)
   * [3.3. `@Scheduled` 와 REST-API 서버군 구성](#33-scheduled-와-rest-api-서버군-구성)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -512,7 +512,7 @@ spring.main.web-application-type=none
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

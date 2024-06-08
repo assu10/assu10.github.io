@@ -15,7 +15,7 @@ tags: nestjs task-scheduling
   * [2.2. Interval 선언 방식: `@Interval`](#22-interval-선언-방식-interval)
   * [2.3. Timeout 선언 방식: `@Timeout`](#23-timeout-선언-방식-timeout)
 * [3. Dynamic Task Scheduling](#3-dynamic-task-scheduling)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch14) 에 있습니다.
@@ -462,7 +462,7 @@ CronJob 객체가 제공하는 메서드는 [Nestjs CronJob 객체가 제공하�
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

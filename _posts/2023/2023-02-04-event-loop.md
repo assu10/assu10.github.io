@@ -21,7 +21,7 @@ tags: nodejs javascript event-loop setImmediate() setTimeout() process.nextTick(
 * [3. `process.nextTick()`](#3-processnexttick)
 * [4. `process.nextTick()` vs `setImmediate()`](#4-processnexttick-vs-setimmediate)
 * [5. `process.nextTick()` 을 사용하는 이유](#5-processnexttick-을-사용하는-이유)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -353,7 +353,7 @@ myEmitter.on('event', () => {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

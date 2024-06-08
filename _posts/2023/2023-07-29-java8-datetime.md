@@ -30,7 +30,7 @@ tags: java java8 localdate parsing formatting temporal-adjusters datetimeformatt
 * [3. 다양한 시간대와 캘린더 활용: `ZoneId`](#3-다양한-시간대와-캘린더-활용-zoneid)
   * [3.1. UTC/GMT 기준의 고정 오프셋: `ZoneOffset`](#31-utcgmt-기준의-고정-오프셋-zoneoffset)
 * [4. 정리하며..](#4-정리하며)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -597,7 +597,7 @@ OffsetDateTime localDateTimeInNewYork = OffsetDateTime.of(localDateTime1, newYor
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 

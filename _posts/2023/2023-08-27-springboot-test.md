@@ -24,7 +24,7 @@ tags: springboot msa Junit spring-boot-test test-configuration mock-bean web-mvc
 * [6. 테스트 슬라이스 애너테이션](#6-테스트-슬라이스-애너테이션)
 * [7. 스프링 부트 웹 MVC 테스트: `@WebMvcTest`](#7-스프링-부트-웹-mvc-테스트-webmvctest)
 * [8. JPA 테스트: `@DataJpaTest`](#8-jpa-테스트-datajpatest)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -1434,7 +1434,7 @@ HotelController 가 의존하는 HotelDisplayService 클래스는 `@Service` 로
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

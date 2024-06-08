@@ -15,7 +15,7 @@ tags: nestjs middleware guard interceptor pipe exception-filter life-cycle
 * [Pipe](#pipe)
 * [ExceptionFilter](#exceptionfilter)
 * [전체적인 요청/응답 생명주기](#전체적인-요청응답-생명주기)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 
@@ -259,7 +259,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

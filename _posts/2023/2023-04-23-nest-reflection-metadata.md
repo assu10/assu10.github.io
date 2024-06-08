@@ -12,7 +12,7 @@ tags: nestjs metadata reflection-class reflection-metadata
 * [1. Metadata 지정: `@SetMetadata`](#1-metadata-지정-setmetadata)
 * [2. Metadata 를 런타임에 조회: Handler 에 적용](#2-metadata-를-런타임에-조회-handler-에-적용)
 * [3. Metadata 를 런타임에 조회: Class 에 적용](#3-metadata-를-런타임에-조회-class-에-적용)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/advanced03) 에 있습니다.
@@ -403,7 +403,7 @@ $ curl --location --request POST 'http://localhost:3000/users'
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

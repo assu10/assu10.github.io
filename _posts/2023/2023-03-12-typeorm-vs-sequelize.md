@@ -35,7 +35,7 @@ Typescript 를 지원하는 ORM 은 [TypeORM](https://typeorm.io/), [MikroORM](h
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [TypeORM vs Sequelize](https://codebibimppap.tistory.com/16)
 * [TypeORM](https://typeorm.io/)

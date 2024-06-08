@@ -14,7 +14,7 @@ tags: nestjs health-check
 * [3. HTTP Health Check: `HttpHealthIndicator`, `@HealthCheck()`](#3-http-health-check-httphealthindicator-healthcheck)
 * [4. TypeORM Health Check: `TypeOrmHealthIndicator`](#4-typeorm-health-check-typeormhealthindicator)
 * [5. Custom 상태 표시기](#5-custom-상태-표시기)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch15) 에 있습니다.
@@ -443,7 +443,7 @@ $ curl --location 'http://localhost:3000/health-check' | jq
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

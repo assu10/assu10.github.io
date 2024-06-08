@@ -15,7 +15,7 @@ tags: nestjs parameter-decorator custom-parameter-decorator
 * [3. Custom Parameter Decorator 의 data 활용](#3-custom-parameter-decorator-의-data-활용)
 * [4. 유효성 검사 파이프(ValidationPipe) 적용](#4-유효성-검사-파이프validationpipe-적용)
 * [5. Decorator 합성](#5-decorator-합성)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/advanced02) 에 있습니다.
@@ -283,7 +283,7 @@ export function Auth(...roles: Role[]) {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

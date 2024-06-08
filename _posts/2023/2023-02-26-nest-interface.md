@@ -24,7 +24,7 @@ tags: nestjs interface
   * [이메일 인증](#이메일-인증)
   * [로그인](#로그인)
   * [회원 정보 조회](#회원-정보-조회)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 > 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch03), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch03) 에 있습니다.
@@ -762,7 +762,7 @@ getUserInfo userId:  2
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

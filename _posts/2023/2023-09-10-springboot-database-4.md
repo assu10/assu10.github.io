@@ -24,7 +24,7 @@ tags: springboot msa database transactional propagation isolation dirty-read rea
   * [3.4. `Serializable`](#34-serializable)
 * [4. 트랜잭션 테스트](#4-트랜잭션-테스트)
 * [5. `@Transactional` 사용 시 주의점](#5-transactional-사용-시-주의점)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -935,7 +935,7 @@ self 스프링 빈을 사용하여 createHotel() 메서드를 호출하기 때�
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

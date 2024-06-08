@@ -27,7 +27,7 @@ tags: springboot msa aop
 * [5. `JoinPoint`, `ProceedingJoinPoint`](#5-joinpoint-proceedingjoinpoint)
 * [6. 관점 클래스: `@Aspect`](#6-관점-클래스-aspect)
 * [7. 애너테이션을 이용한 AOP: `@annotation`, `@Order`](#7-애너테이션을-이용한-aop-annotation-order)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -814,7 +814,7 @@ ElapseLoggingAspect 에서도 try-finally 구문만 사용하여 메서드의 �
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

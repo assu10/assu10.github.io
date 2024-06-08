@@ -15,7 +15,7 @@ tags: nestjs middleware
 * [2. Logger Middleware](#2-logger-middleware)
 * [3. `MiddlewareConsumer`](#3-middlewareconsumer)
 * [4. 전역으로 적용](#4-전역으로-적용)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -318,7 +318,7 @@ TypeError: Class constructor Logger2Middleware cannot be invoked without 'new'
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
