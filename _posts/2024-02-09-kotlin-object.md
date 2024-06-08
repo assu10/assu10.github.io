@@ -453,11 +453,24 @@ fun main() {
 ## 4.1. 스프레드 연산자: `*`
 
 Array 를 만들기 위해서 `listOf()` 처럼 `arrayOf()` 를 사용한다.  
-Array 는 항상 가변 객체이다.  
+**Array 는 항상 가변 객체**이다.  
+
+
+배열에 들어있는 원소를 `vararg` 로 넘길 때 코틀린과 자바의 구문이 다르다.
+자바는 배열을 그냥 넘기면 되지만, 코틀린에서는 배열을 명시적으로 풀어서 배열의 가가 원소가 인자로 전달되게 해야 한다.
+
 만일, Array 타입의 인자 하나로 넘기지 않고, 인자 목록으로 변환하고 싶으면 스프레드 연산자(`*`) 를 사용한다.  
-스프레드 연산자는 배열에만 적용할 수 있다.
+**스프레드 연산자는 배열에만 적용**할 수 있다.
 
 ```kotlin
+fun sum(vararg numbers: Int): Int {
+  var total = 0
+  for (n in numbers) {
+    total += n
+  }
+  return total
+}
+
 fun main() {
     val array = intArrayOf(1, 2)
     val result = sum(1, 2, 3, *array, 6)

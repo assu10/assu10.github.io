@@ -390,7 +390,7 @@ fun main() {
 }
 ```
 
-> _::interesting_ 구문에 대한 설명은 [3.2. 함수 참조](http://localhost:4000/dev/2024/02/12/kotlin-funtional-programming-1/#32-%ED%95%A8%EC%88%98-%EC%B0%B8%EC%A1%B0) 를 참고하세요.  
+> _::interesting_ 구문에 대한 설명은 [3.2. 함수 참조](https://assu10.github.io/dev/2024/02/12/kotlin-funtional-programming-1/#32-%ED%95%A8%EC%88%98-%EC%B0%B8%EC%A1%B0) 를 참고하세요.  
 
 ---
 
@@ -1009,10 +1009,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)

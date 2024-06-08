@@ -30,6 +30,9 @@ tags: kotlin
 * [5. 함수](#5-함수)
 * [6. if](#6-if)
 * [7. 문자열 템플릿](#7-문자열-템플릿)
+  * [7.1. 문자열 나누기: `split()`, `toRegex()`](#71-문자열-나누기-split-toregex)
+  * [7.2. 정규식과 3중 따옴표로 묶은 문자열: `substringBeforeLast()`, `substringAfterLast()`, `matchEntire()`, ` matchResult.destructured`](#72-정규식과-3중-따옴표로-묶은-문자열-substringbeforelast-substringafterlast-matchentire--matchresultdestructured)
+  * [7.3. 여러 줄 3중 따옴표 문자열: `trimMargin()`](#73-여러-줄-3중-따옴표-문자열-trimmargin)
 * [8. number 타입](#8-number-타입)
 * [9. `for`, `until`, `downTo`, `step`, `repeat`](#9-for-until-downto-step-repeat)
 * [10. `in` 키워드](#10-in-키워드)
@@ -493,6 +496,146 @@ println("hello, ${if (str.length > 10) str else "hoho~"}")  // hello, hoho~
 ```
 
 > 문자열에 대한 좀 더 상세한 설명은 추후 다룰 예정입니다. (p. 69)
+
+---
+
+## 7.1. 문자열 나누기: `split()`, `toRegex()`
+
+자바의 `split()` 메서드의 구분 문자열은 정규식이기 때문에 마침표 (`.`) 를 사용하여 문자열을 분리할 때 마침표가 모든 문자를 나타내는 정규식으로 해석된다.
+
+코틀린에서는 자바의 `split()` 대신 **여러 다른 조합의 파라메터를 받는 `split()` 확장 함수를 제공**한다.  
+정규식을 파라메터로 받는 함수는 String 이 아닌 Regex 타입의 값을 받는다.  
+따라서 **코틀린에서는 `split()` 함수에 전달하는 값의 타입에 따라 정규식이나 일반 텍스트 중 어느 것으로 문자열을 분리하는지 쉽게 알 수 있다.**
+
+```kotlin
+package com.assu.study.kotlin2me.chap03
+
+fun main() {
+    val str = "12.456-6.A"
+
+    // 정규식을 이용한 문자열 분리
+    val regex = "\\.|-".toRegex()
+
+    // [12, 456, 6, A]
+    println(str.split(regex))
+
+    // 구분 문자열을 이용한 문자열 분리
+    // [12, 456, 6, A]
+    println(str.split(".", "-"))    // 여러 개의 구분 문자열 지정
+}
+```
+
+---
+
+## 7.2. 정규식과 3중 따옴표로 묶은 문자열: `substringBeforeLast()`, `substringAfterLast()`, `matchEntire()`, ` matchResult.destructured`
+
+파일의 전체 경로명을 디렉터리, 파일명, 확장자로 구분하는 기능을 각각 String 을 확장한 함수와 정규식을 이용하여 구해보자.
+
+_/Users/assu/kotlin-book/aaa.txt_
+
+여기서 마지막 슬래시 전까지인 _/Users/assu/kotlin-book/_ 는 디렉터리이고, 마지막 마침표부터 마지막 문자까지는 확장자이다.
+
+String 확장 함수 사용하여 경로 파싱
+```kotlin
+package com.assu.study.kotlin2me.chap03
+
+fun parsePath(path: String) {
+    val dir = path.substringBeforeLast("/")
+    val fullName = path.substringAfterLast("/")
+    val filename = fullName.substringBeforeLast(".")
+    val ext = fullName.substringAfterLast(".")
+
+    println("dir: $dir, filename: $filename, ext: $ext")
+}
+
+fun main() {
+    val path = "/Users/assu/kotlin-book/aaa.txt"
+
+    // dir: /Users/assu/kotlin-book, filename: aaa, ext: txt
+    parsePath(path)
+}
+```
+
+정규식을 이용하여 경로 파싱
+```kotlin
+package com.assu.study.kotlin2me.chap03
+
+fun parsePathWithRegex(path: String) {
+    // 삼중 따옴표를 사용하여 정규식을 사용하면 역슬래시를 포함한 어떤 문자도 이스케이프할 필요 없음
+    val regex = """(.+)/(.+)\.(.+)""".toRegex()
+    val matchResult = regex.matchEntire(path)
+    if (matchResult != null) {
+        val (dir, filename, extension) = matchResult.destructured
+        println("dir: $dir, filename: $filename, extension: $extension")
+    }
+}
+
+fun main() {
+    val path = "/Users/assu/kotlin-book/aaa.txt"
+
+    // dir: /Users/assu/kotlin-book, filename: aaa, extension: txt
+    parsePathWithRegex(path)
+}
+```
+
+3중 따옴표 문자열을 사용하여 정규식을 작성하면 역슬래시를 포함한 어떤 문자도 이스케이프할 필요가 없다.  
+예) 일반 문자열을 이용해서 정규식 작성 시 마침표 기호를 이스케이프하려면 `\\.` 로 쓰지만, 3중 따옴표 문자열에서는 `\.` 로 사용함
+
+`matchEntire()` 의 결과가 성공(= null 이 아님)하면 그룹별로 분해한 매치 결과를 의미하는 `destructured` 프로퍼티를 각 변수에 대입한다.  
+바로 구조 분해 선언을 사용한 것이다.
+
+> 이 구조 분해 선언에 대해서는 추후 좀 더 상세히 다룰 예정입니다. (p. 133)
+
+---
+
+## 7.3. 여러 줄 3중 따옴표 문자열: `trimMargin()`
+
+3중 따옴표 문자열은 문자열 이스케이프를 피할 때도 사용하지만 줄바꿈을 표현하는 아무 문자열이나 이스케이프없이 그대로 사용할 때도 이용한다.
+
+3중 따옴표를 사용하면 줄바꿈이 들어있는 텍스트를 쉽게 문자열로 만들 수 있다.
+
+```kotlin
+fun main() {
+    val str =
+        """|  //
+                .| //
+                .|/\
+        """
+
+    //  //
+    //                .| //
+    //                .|/\
+    println(str.trimMargin())
+
+    // |  //
+    // | //
+    // |/\
+    println(str.trimMargin("."))
+
+    // |  //
+    // //
+    // /\
+    println(str.trimMargin(".|"))
+}
+```
+
+> `trimMargin()` 에 대한 좀 더 상세한 설명은 [2.1. 디폴트 인자, trailing comma: `trimMargin()`](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#21-%EB%94%94%ED%8F%B4%ED%8A%B8-%EC%9D%B8%EC%9E%90-trailing-comma-trimmargin) 를 참고하세요.
+
+**여러 줄의 문자열을 가독성이 좋게 하고 싶다면 들여쓰기를 하되 들여쓰기의 끝부분을 특별한 문자열로 표시하고, `trimMargin()` 을 사용하여 그 문자열과 
+그 직전의 공백을 제거**한다.
+
+**여러 줄의 문자열에는 줄바꿈이 들어가지만 줄바꿈을 `\n` 과 같은 특수 문자를 사용하여 넣을 수는 없다.**  
+
+**여러 줄의 문자열에 `\` 을 넣을 때 이스케이프를 할 필요가 없다.**    
+예) 일반 문자열로 `"C:\\Users\\assu\\book"` 이라고 쓴 경로를 3중 따옴표 문자열로 쓰면 `"""C:\Users\assu\book"""` 이다.
+
+3중 따옴표 문자열 안에서 문자열 템플릿을 사용할 수도 있다.  
+하지만 3중 따옴표 문자열 안에서는 이스케이프를 할 수 없기 때문에 문자열 템플릿의 시작을 표현하는 `$` 을 문자열로 넣기 위해서는 아래와 같이 해야 한다.
+
+```kotlin
+val price = """${'$'}9.99"""
+println(price)  // $9.99
+```
 
 ---
 

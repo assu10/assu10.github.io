@@ -16,9 +16,12 @@ tags: kotlin joinToString pair triple with-index
 
 <!-- TOC -->
 * [1. 확장 함수 (extension function)](#1-확장-함수-extension-function)
+  * [1.1. import 와 확장 함수: `as`](#11-import-와-확장-함수-as)
+  * [1.2. 자바에서 확장 함수 호출](#12-자바에서-확장-함수-호출)
 * [2. 이름 붙은 인자와 디폴트 인자, trailing comma](#2-이름-붙은-인자와-디폴트-인자-trailing-comma)
   * [2.1. 이름 붙은 인자](#21-이름-붙은-인자)
   * [2.1. 디폴트 인자, trailing comma: `trimMargin()`](#21-디폴트-인자-trailing-comma-trimmargin)
+    * [디폴트 값과 자바: `@JvmOverloads`](#디폴트-값과-자바-jvmoverloads)
   * [2.3. `joinToString()`](#23-jointostring)
   * [2.4. 객체 인스턴스를 디폴트 인자로 전달](#24-객체-인스턴스를-디폴트-인자로-전달)
   * [2.5. 가독성을 고려하여 인자 이름 붙이기](#25-가독성을-고려하여-인자-이름-붙이기)
@@ -62,15 +65,34 @@ tags: kotlin joinToString pair triple with-index
 
 # 1. 확장 함수 (extension function)
 
-코틀린 확장 함수는 기존 클래스에 멤버 함수를 추가하는 것과 같은 효과를 낸다.  
+코틀린 확장 함수는 클래스 밖에 선언되지만 기존 클래스에 멤버 함수를 추가하는 것과 같은 효과를 낸다.  
 예를 들어 특정 라이브러리를 사용하는데 한 두가지의 기능만 더 추가해야 하는 경우 확장 함수 기능을 이용할 수 있다.
 
-**확장할 대상 타입은 수신 객체 타입 (receiver type)** 이라고 하며, **확장 함수를 정의하기 위해서는 함수 이름 앞에 수신 객체 타입**을 붙여야 한다.
+**확장할 대상 타입(클래스)은 수신 객체 타입 (receiver type)** 이라고 하며, **확장 함수를 정의하기 위해서는 함수 이름 앞에 수신 객체 타입**을 붙여야 한다.  
+**확장 함수가 호출되는 대상이 되는 값(객체) 는 수신 객체 (receiver object)** 라고 한다.  
+
+**즉, 수신 객체 타입은 확장이 정의될 클래스 타입이고, 수신 객체는 그 클래스에 속한 인스턴스 객체**이다.
 
 `fun 수신객체타입.확장함수() {...}`
 
-아래는 String 클래스에 확장 함수 2개를 정의하는 예시이다.  
-확장 함수인 singleQuota() 와 doubleQuota() 를 마치 수신 객체 타입인 String 의 멤버 함수인 것처럼 이용할 수 있다.
+```kotlin
+fun String.lastChar(): Char = this.get(this.length-1)
+
+// String 이 수신 객체 타입이고, "Kotlin" 이 수신 객체임
+println("Kotlin".lastChar())
+```
+
+위 코드에서 String 은 수신 객체 타입이고, this 는 수신 객체이다.
+
+위처럼 자바 클래스로 컴파일한 클래스 파일이 있는 한 그 클래스에 원하는대로 확장 함수를 추가할 수 있다.
+
+아래는 String 클래스에 확장 함수 2개를 정의하는 예시이다.    
+확장 함수인 singleQuota() 와 doubleQuota() 를 마치 수신 객체 타입인 String 의 멤버 함수인 것처럼 이용할 수 있다.  
+즉, 수신 객체의 메서드나 프로퍼티를 바로 사용할 수 있다.  
+
+하지만 확장 함수는 캡슐화를 깨지 않기 때문에 **클래스 안에서 정의한 메서드와 달리 확장 함수 안에서는 클래스 내부에서만 사용 가능한 private, protected 멤버는 사용할 수 없다.**
+
+즉, **확장 함수는 확장 대상 타입(=수신 객체 타입) 의 public 원소에만 접근**할 수 있다.
 
 ```kotlin
 fun String.singleQuota() = "'$this'"
@@ -82,16 +104,6 @@ fun main() {
 
     println(single) // 'Hello'
     println(double) // "Hello"
-}
-```
-
-```kotlin
-// 다른 패키지에서는 임포트해서 사용함
-import assu.study.kotlin_me.chap03.singleQuota
-
-fun main() {
-    val result = "Single".singleQuota()
-    println(result) // 'Single'
 }
 ```
 
@@ -119,6 +131,7 @@ fun main() {
 ```kotlin
 class Book(val title: String)
 
+// 확장 함수
 fun Book.categorize(category: String) = """title: "$title", category: $category"""
 
 // 위와 동일한 기능을 함
@@ -135,10 +148,57 @@ fun main() {
 }
 ```
 
-확장 함수는 확장 대상 타입(=수신 객체 타입) 의 public 원소에만 접근할 수 있다.
-
 위에서 Book.categorize(category: String) 은 categorize2(book: Book, category: String) 로 쓸 수 있다.  
-하지만 확장 함수를 사용하는 이유는 오로지 `this` 를 사용함 (또는 생략) 으로써 구문의 편의를 얻기 위해서이다. 
+하지만 확장 함수를 사용하는 이유는 오로지 `this` 를 사용함 (또는 생략) 으로써 구문의 편의를 얻기 위해서이다.
+
+---
+
+## 1.1. import 와 확장 함수: `as`
+
+
+```kotlin
+// 다른 패키지에서는 임포트해서 사용함
+import assu.study.kotlin_me.chap03.singleQuota
+
+fun main() {
+    val result = "Single".singleQuota()
+    println(result) // 'Single'
+}
+```
+
+**`as` 키워드를 사용하면 임포트한 클래스나 함수를 다른 이름으로 호출**할 수도 있다.
+
+```kotlin
+// 다른 패키지에서는 임포트해서 사용함
+import assu.study.kotlin_me.chap03.singleQuota as single
+
+fun main() {
+    val result = "Single".single()
+    println(result) // 'Single'
+}
+```
+
+**하나의 파일 안에서 여러 패키지에 속해있는 이름이 같은 함수를 가져와 사용할 때 이름을 바꿔서 import 하면 이름 충돌을 막을 수 있다.**
+
+패키지를 포함한 전체 이름을 써도 되지만 코틀린 문법상 확장 함수는 반드시 짧은 이름을 써야 하므로 import 할 때 이름을 바꾸는 것이 확장 함수 이름 충돌을 해결할 수 있는 
+유일한 방법이다.
+
+---
+
+## 1.2. 자바에서 확장 함수 호출
+
+**내부적으로 확장 함수는 수신 객체를 첫 번째 인자로 받는 정적 메서드이므로 확장 함수를 호출한다고 해서 실행 시점에 부가 비용이 들지 않는다.**
+
+이런 내부적인 설계 때문에 자바에서 확장 함수를 사용할 때 단지 정적 메서드를 호출하면서 첫 번째 인자로 수신 객체를 넘기기만 하면 된다.
+
+다른 최상위 함수와 마찬가지로 확장 함수가 들어있는 자바 클래스 이름도 확장 함수가 포함된 파일 이름에 따라 결정된다.
+
+만일 Util.kt 에 확장 함수를 정의했다면 자바에서 아래와 같이 호출하면 된다.
+
+자바
+```java
+char c = UtilKt.lastChar("java");
+```
 
 ---
 
@@ -188,6 +248,9 @@ fun main() {
 이름 붙은 인자는 디폴트 인자와 사용하면 더 유용하다.  
 디폴트 인자는 파라메터의 디폴트 값을 함수 정의에서 지정하는 것이다.  
 인자 목록이 긴 경우 **디폴트 인자를 생략하면 코드가 짧아지므로 가독성**이 좋아진다.
+
+일반적인 호출 문법을 사용하려면 함수를 선언할 때와 같은 순서로 인자를 지정하거나 일부를 생략하면 뒷부분의 인자들이 생략되지만 
+**이름 붙인 인자를 사용하면 인자 목록의 중간에 있는 인자를 생략하고 지정하고 싶은 인자를 이름을 붙여서 순서와 관계없이 인자 지정이 가능**하다.
 
 ```kotlin
 // blue 뒤에 덧붙은 콤마(trailing comma) 사용
@@ -259,6 +322,18 @@ fun main() {
     println(result2)
 }
 ```
+
+---
+
+### 디폴트 값과 자바: `@JvmOverloads`
+
+자바에는 디폴트 파라메터 개념이 없기 때문에 코틀린 함수를 자바에서 호출하는 경우 코틀린 함수가 디폴트 파라메터 값을 제공하더라도 모든 인자를 명시해야 한다.
+
+만일 자바에서 코틀린 함수를 자주 호출한다면 자바쪽에서 코틀린 함수를 좀 더 편하게 호출하도록 `@JvmOverloads` 를 함수에 추가하면 된다.
+
+`@Jvmoverloads` 를 함수에 추가하면 코틀린 컴파일러가 자동으로 맨 마지막 파라메터로부터 파라메터를 하나씩 생략한 오버로딩한 자바 메서드를 추가해준다.
+
+각각의 오버로딩한 함수들은 시그니처에서 생략된 파라메터에 대해 코틀린 함수의 디폴트 파라메터값을 사용한다.
 
 ---
 
@@ -905,7 +980,7 @@ fun main() {
 ## 7.1. `Pair` 클래스와 구조 분해 선언
 
 표준 라이브러리에 있는 Pair 클래스를 사용하면 2 개의 값을 반환할 수 있다.  
-Pair 는 List 나 Set 처럼 파라메터화된 타입이다.
+`Pair` 는 List 나 Set 처럼 파라메터화된 타입이다.
 
 ```kotlin
 fun compute(input: Int): Pair<Int, String> =
@@ -929,6 +1004,12 @@ fun main() {
     println(value) // 14
     println(desc) // High
 }
+```
+
+위에서 아래와 같은 기능을 구조 분해 선언이라고 한다.
+
+```kotlin
+val (value, desc) = compute(7)
 ```
 
 **코틀린은 Pair 와 3 개의 값을 묶는 Triple 클래스만 지원**한다. 만일 더 많은 값을 저장하고 싶거나 코드에서 Pair 와 Triple 을 많이 사용한다면 
@@ -955,8 +1036,10 @@ fun main() {
 }
 ```
 
-결과값의 타입에 알맞는 이름을 붙여야 가독성이 좋아진다.  
+결과값의 타입에 알맞는 이름을 붙여야 가독성이 좋아진다.    
 그리고 Computation 클래스에 정보를 추가하거나 제거하는 것이 Pair 에 정보를 추가/제거하는 것보다 훨씬 쉽다.
+
+> 식의 구조 분해와 구조 분해를 사용하여 여러 변수를 초기화하는 방법에 대한 규칙은 추후 상세히 다룰 예정입니다. (p. 128)
 
 ---
 
@@ -993,7 +1076,6 @@ fun main() {
 }
 ```
 
-
 ---
 
 ## 7.2. for 문으로 구조 분해값 조회
@@ -1025,7 +1107,9 @@ fun main() {
 ## 7.3. `withIndex()`
 
 `withIndex()` 는 표준 라이브러리가 List 에 대해 제공하는 확장 함수이다.  
-`withIndex()` 는 컬렉션의 값을 `InexedValue` 라는 타입의 객체에 담아서 반환하여, 이 객체를 구조 분해할 수 있다.
+`withIndex()` 는 컬렉션의 값을 `InexedValue` 라는 타입의 객체에 담아서 반환하여 이 객체를 구조 분해할 수 있다.
+
+아래는 `withIndex()` 를 구조 분해 선언과 조합하여 컬렉션 원소의 인덱스와 값을 따로 변수에 담는 예시이다.
 
 ```kotlin
 fun main() {

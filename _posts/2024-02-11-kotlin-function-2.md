@@ -611,6 +611,9 @@ fun main() {
 [확장 함수](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#1-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98-extension-function)를 정의할 수 있는 것처럼 
 확장 프로퍼티를 정의할 수도 있다.
 
+프로퍼티라고는 하지만 상태를 저장할 적절한 방법이 없기 때문에 (기존 클래스의 인스턴스 객체에 필드를 추가할 방법은 없으므로) 실제로 확장 프로퍼티는 아무런 상태도 가질 수 없다.  
+마찬가지로 초기화 코드에서 계산한 값을 담을 장소가 없으므로 초기화 코드도 사용할 수 없다.
+
 확장 프로퍼티의 수신 객체 타입을 지정하는 방법도 확장 함수와 비슷하게 확장 대상 타입이 함수나 프로퍼티 이름 바로 앞에 온다.
 
 ```kotlin
@@ -622,8 +625,9 @@ val ReceiveType.extentionProperty: PropType
   get() { ... }
 ```
 
-**확장 프로퍼티에는 커스텀 getter 가 필요**한데, **확장 프로퍼티에 접근할 때마다 프로퍼티 값이 계산**된다.
+**확장 프로퍼티에는 커스텀 getter 가 필요**한데, **확장 프로퍼티에 접근할 때마다 프로퍼티 값이 계산**된다.  
 
+val 로 선언되어 getter 만 있는 프로퍼티
 ```kotlin
 // 확장 프로퍼티 선언
 val String.indices: IntRange
@@ -631,6 +635,23 @@ val String.indices: IntRange
 
 fun main() {
     println("abc".indices)  // 0..2
+}
+```
+
+var 로 선언되어 getter/setter 가 있는 프로퍼티
+```kotlin
+package com.assu.study.kotlin2me.chap03
+
+var StringBuilder.lastChar: Char
+    get() = get(length - 1) // 프로퍼티 게터
+    set(value: Char) {
+        this.setCharAt(length - 1, value) // 프로퍼티 세터
+    }
+
+fun main() {
+    var sb = StringBuilder("Hello?")
+    sb.lastChar = '!'
+    println(sb)
 }
 ```
 

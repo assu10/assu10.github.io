@@ -1029,6 +1029,9 @@ fun Z.decr() {
 }
 ```
 
+[1.2. 자바에서 확장 함수 호출](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#12-%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C) 에서 본 것처럼 
+확장 함수는 정적 메서드와 같은 특징을 갖기 때문에 확장 함수를 파생 클래스에서 오버라이드 할 수 없다.
+
 **확장 함수는 오버라이드를 할 수 없다.**
 
 ```kotlin
@@ -1081,6 +1084,9 @@ fun main() {
 - **확장 함수**
   - 타입의 존재에 필수적이지 않을 경우
   - 대상 타입을 지원하고 활용하기 위한 외부 연산이나 편리를 위한 연산
+
+> 어떤 클래스를 확장한 함수와 그 클래스의 멤버 함수의 이름과 시그니처가 같다면 확장 함수가 아니라 멤버 함수가 호출됨  
+> (= 멤버 함수의 우선 순위가 더 높음)
 
 ---
 
@@ -1145,10 +1151,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)

@@ -338,27 +338,41 @@ data class Switch(var on: Boolean = false, var result: String = "ok")
 
 // Switch 클래스를 리턴
 fun testFinally(i: Int): Switch {
-    val sw = Switch()
-    try {
-        sw.on = true
-        when (i) {
-            0 -> throw IllegalArgumentException()
-            1 -> return sw
-        }
-    } catch (e: IllegalArgumentException) {
-        sw.result = "exception~"
-    } finally {
-        sw.on = false
+  val sw = Switch()
+  try {
+    sw.on = true
+    when (i) {
+      0 -> throw IllegalArgumentException()
+      2 -> throw BadRequestException()
+      1 -> return sw
     }
-    return sw
+  } catch (e: IllegalArgumentException) {
+    sw.result = "exception~"
+    println("catch~")
+  } finally {
+    sw.on = false
+    println("finally~")
+  }
+  return sw
 }
 
 fun main() {
-    println(testFinally(0)) // Switch(on=false, result=exception~)
-    println(testFinally(1)) // Switch(on=false, result=ok)
-    println(testFinally(2)) // Switch(on=false, result = ok)
+  // catch~
+  // finally~
+  // Switch(on=false, result=exception~)
+  println(testFinally(0))
+
+  // finally~
+  // Switch(on=false, result=ok)
+  println(testFinally(1))
+
+  // finally~
+  // Exception in thread "main" org.apache.coyote.BadRequestException
+  println(testFinally(2)) // Switch(on=false, result=ok)
 }
 ```
+
+예외가 발생하더라도 finally 는 무조건 실행이 된다.
 
 ---
 
@@ -833,6 +847,8 @@ val listNone: List<Nothing?> = listOf(null)
 *본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
+* [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
 * [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)

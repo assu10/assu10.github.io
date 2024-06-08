@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 함수형 프로그래밍(1): 람다, 컬렉션 연산, 멤버 참조"
+title:  "Kotlin - 함수형 프로그래밍(1): 람다, 컬렉션 연산, 멤버 참조, 최상위 함수와 프로퍼티"
 date:   2024-02-12
 categories: dev
 tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filterNotNull() any() all() none() find() firstOrNull() lastOrNull() count() filterNot() partition() sumof() sortedBy() minBy() take() drop(), sortedWith() compareBy() times()
@@ -24,7 +24,7 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
   * [1.6. 람다를 통해 코드 재사용: `filter()`](#16-람다를-통해-코드-재사용-filter)
   * [1.7. 람다를 변수에 담기](#17-람다를-변수에-담기)
   * [1.8. 클로저 (Closure)](#18-클로저-closure)
-* [2. 컬렉션 연산](#2-컬렉션-연산)
+* [2. 컬렉션 연산: `hashSetOf()`, `arrayListOf()`, `listOf()`, `hashMapOf()`](#2-컬렉션-연산-hashsetof-arraylistof-listof-hashmapof)
   * [2.1. List 연산](#21-list-연산)
   * [2.2. 여러 컬렉션 함수들: `filter()`, `filterNotNull()`, `any()`, `all()`, `none()`, `find()`, `firstOrNull()`, `lastOrNull()`, `count()`](#22-여러-컬렉션-함수들-filter-filternotnull-any-all-none-find-firstornull-lastornull-count)
   * [2.3. `filterNot()`, `partition()`](#23-filternot-partition)
@@ -36,6 +36,9 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
   * [3.2. 함수 참조](#32-함수-참조)
   * [3.3. 생성자 참조: `mapIndexed()`](#33-생성자-참조-mapindexed)
   * [3.4. 확장 함수 참조: `times()`](#34-확장-함수-참조-times)
+* [4. 최상위 함수와 프로퍼티 (정적인 유틸리티 클래스 없애기)](#4-최상위-함수와-프로퍼티-정적인-유틸리티-클래스-없애기)
+  * [4.1. 최상위 함수: `@JvmName`](#41-최상위-함수-jvmname)
+  * [4.2. 최상위 프로퍼티: `const`](#42-최상위-프로퍼티-const)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -360,7 +363,7 @@ fun main() {
 
 ---
 
-# 2. 컬렉션 연산
+# 2. 컬렉션 연산: `hashSetOf()`, `arrayListOf()`, `listOf()`, `hashMapOf()`
 
 코틀린으로 아래와 같이 컬렉션을 만들 수 있다.
 ```kotlin
@@ -382,10 +385,21 @@ fun main() {
     println(list.javaClass) // class java.util.ArrayList
     println(list2.javaClass) // class java.util.Arrays$ArrayList
     println(hashmap.javaClass) // class java.util.HashMap
+
+
+    println(list.last()) // 2
+    println(set.max()) // 2
 }
 ```
 
-`.javaClass` 로 특정 컬렉션 객체가 
+`.javaClass` 는 자바의 `getClass()` 와 동일하며, 해당 객체가 어떤 클래스에 속하는지 알 수 있다.  
+위 코드는 코틀린이 자신만의 컬렉션 기능을 제공하지 않는다는 의미이다.
+
+코틀린의 컬렉션은 자바 컬렉션과 똑같은 클래스이지만, 자바보다 더 많은 기능을 사용할 수 있다.  
+예) 리스트의 마지막 원소를 가져오거나 최대값 찾기
+
+> 코틀린 타입 시스템 안에서 자바 컬렉션 클래스가 어떻게 표현되는지 추후 상세히 다룰 예정입니다. (p. 105)
+
 
 함수형 언어는 `map()`, `filter()`, `any()` 처럼 컬렉션을 다룰 수 있는 여러 수단을 제공한다.
 
@@ -921,11 +935,142 @@ fun main() {
 
 ---
 
+# 4. 최상위 함수와 프로퍼티 (정적인 유틸리티 클래스 없애기)
+
+## 4.1. 최상위 함수: `@JvmName`
+
+객체지향 언어인 자바에서는 모든 코드를 클래스의 메서드로 작성해야 한다.  
+그럴 경우 특정 연산을 객체의 인스턴스 API 에 추가해서 사용해야 한다.
+
+그 결과 다양한 정적 메서드를 모아두는 역할만 담당하며, 특별한 상태나 인스턴스 메서드는 없는 클래스들이 생겨났다.  
+JDK 의 `Collections` 클래스가 그 전형적인 예시이다.
+
+코틀린에서는 이런 무의미한 클래스가 필요없다.  
+대신 **함수를 소스 파일의 최상위 수준, 클래스의 밖에 위치**시키면 된다.  
+이런 함수들은 여전히 그 파일의 맨 앞에 정의된 패키지의 멤버 함수이므로 **다른 패키지에서 그 함수를 사용하고 싶을 때는 그 함수가 정의된 패키지를 
+임포트해야 하지만 임포트 시 유틸리티 클래스의 이름이 추가로 들어갈 필요는 없다.**
+
+_test()_ 라는 함수를 Join.kt 라는 파일에 최상위에 정의해보자.
+```kotlin
+package com.assu.study.kotlin2me.chap03
+
+fun test(): String = "TEST"
+```
+
+JVM 은 클래스 안에 있는 코드만을 실행할 수 있기 때문에 컴파일러는 이 파일을 컴파일할 때 새로운 클래스를 정의해준다.
+
+만일 위의 _test()_ 함수를 자바 등 다른 JVM 언어에서 호출하고 싶다면 코드가 어떻게 컴파일되는지 알아야 _test()_ 같은 최상위 함수를 사용할 수 있으므로 
+코틀린이 위의 파일을 컴파일한 결과를 자바 코드로 한번 보자.
+
+```java
+package com.assu.study.kotlin2me.chap03;
+
+public class JoinKt {
+  public static String test() {
+      return "TEST";
+  }    
+}
+```
+
+코틀린 컴파일러가 생성하는 클래스 이름은 최상위 함수가 들어있던 코틀린 소스 파일의 이름과 동일하며, 코틀린 파일의 모든 최상위 함수는 이 클래스의 정적인 메서드가 된다.
+
+따라서 자바에서 _test()_ 를 호출할 때는 아래와 같이 호출하면 된다.
+```java
+import com.assu.study.kotlin2me.chap03.JoinKt;
+
+// ...
+
+JoinKt.test();
+```
+
+만일 코틀린 최상위 함수가 포함되는 클래스의 이름을 변경하고 싶으면 파일에 `@JvmName` 애너테이션을 파일의 맨 앞, 패키지 이름 선언 이전에 위치시키면 된다.
+
+코틀린
+```kotlin
+@file:JvmName("StringFunctions")    // 클래스 이름을 지정하는 애너테이션
+
+package com.assu.study.kotlin2me.chap03 // @file:JvmName 애너테이션 뒤에 패키지 문이 와야 함
+
+fun test(): String = "TEST"
+```
+
+그러면 자바에서 아래와 같이 호출할 수 있다.
+
+자바
+```java
+import com.assu.study.kotlin2me.chap03.StringFunctinos;
+
+// ...
+
+StringFunctions.test();
+```
+
+> `@JvmName` 애너테이션 문법에 대한 상세한 설명은 추후 다룰 예정입니다. (p. 113)
+
+---
+
+## 4.2. 최상위 프로퍼티: `const`
+
+함수와 마찬가지로 프로퍼티도 파일의 최상위 수준에 놓을 수 있다. 이런 프로퍼티 값은 정적 필드에 저장된다.
+
+어떤 데이터를 클래스 밖에 위치시키는 경우는 흔치 않지만 가끔은 유용한 경우가 있다.  
+예) 연산을 수행하는 횟수를 지정하는 var 프로퍼티
+
+```kotlin
+package com.assu.study.kotlin2me.chap03
+
+var opCount = 0 // 최상위 프로퍼티
+
+fun performOperation() {
+    opCount++ // 최상위 프로퍼티 값 변경
+}
+
+fun readOperation() {
+    println("opCount: $opCount") // 최상위 프로퍼티 값 읽음
+}
+
+fun main() {
+    performOperation()
+    performOperation()
+    readOperation() // opCount: 2
+}
+```
+
+> 최상위 프로퍼티의 또 다른 사용 예시는 [1.1. 소수의 특별한 타입을 위한 확장 함수 이용](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#11-%EC%86%8C%EC%88%98%EC%9D%98-%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%83%80%EC%9E%85%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98-%EC%9D%B4%EC%9A%A9) 의 `Any.name` 을 참고하세요.
+
+최상위 프로퍼티 값으로 상수를 추가할 수도 있다.
+
+```kotlin
+val UNIX_LINE_SEPARATOR = "\n"
+```
+
+최상위 프로퍼티도 다른 프로퍼티처럼 접근자 메서드를 통해 자바 코드에 노출된다.  
+**val 는 getter 가 생성되고, var 는 getter/setter 가 생성**된다.
+
+상수인데 getter 를 사용하면 자연스럽지 못하므로 이 **상수를 public static final 필드로 컴파일하려면 `const` 변경자를 추가**하면 된다.  
+단, primitive 타입과 String 타입의 프로퍼티만 const 지정이 가능하다.
+
+```kotlin
+// const 변경자 추가 시 컴파일하면 public static final 로 컴파일됨
+const val UNIX_LINE_SEPARATOR = "\n"
+```
+
+위 코드가 컴파일되면 아래와 같이 된다.
+```java
+public static final String UNIX_LINE_SEPARATOR = "\n";
+```
+
+---
+
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
+* [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
+* [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
 * [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)

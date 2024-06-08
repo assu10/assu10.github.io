@@ -175,7 +175,9 @@ _h2 + h1_ 을 한 후 _h1_ 이나 _h2_ 를 출력하면 stack overflow 가 발�
 
 `infix` 는 중위 표기법이라고도 하는데 두 개의 객체 중간에 들어가게 되는 함수 형태를 `infix function` 이라고 한다.
 
-중위 표기법을 사용하면 `a.함수(b)` 를 `a 함수 b` 로 사용할 수 있으며, `infix` 키워드를 붙인 함수만 중위 표기법을 사용하여 호출할 수 있다.
+중위 표기법을 사용하면 `a.함수(b)` 를 `a 함수 b` 로 사용할 수 있으며, `infix` 키워드를 붙인 함수만 중위 표기법을 사용하여 호출할 수 있다.  
+인자가 하나뿐인 일반 메서드나 인자가 하나뿐인 확장 함수에 중위 호출을 사용할 수 있다.  
+중위 호출시에는 수신 객체와 유일한 메서드 인자 사이에 메서드 이름을 넣는다.
 
 `infix` 함수를 잘 사용하면 가독성을 크게 향상시킬 수 있다.
 
@@ -188,7 +190,7 @@ val result1 = mapOf(Pair("Monday", "월요일"), Pair("Tuesday", "화요일"))
 val result2 = mapOf("Monday" to "월요일", "Tuesday" to "화요일")
 ```
 
-위에서 `to` 가 바로 `infix` 이다.
+위에서 `to` 는 코틀린 키워드가 아니라 중위 호출이라는 특별한 방식으로 `to` 라는 일반 메서드를 홏ㄹ한 것이다. (= `infix`)
 
 `infix` 함수는 아래와 같은 형태를 유지하여 직접 정의할 수도 있다.
 
@@ -1144,10 +1146,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
