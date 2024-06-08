@@ -14,11 +14,14 @@ tags: springboot msa redis redis-serializer value-operation redis-template
 
 **목차**
 
-- [레디스 스트링 예시와 `RedisSerializer` 설정](#1-레디스-스트링-예시와-redisserializer-설정)
-  - [`ValueOperation<K,V>` 인터페이스](#11-valueoperationkv-인터페이스)
-  - [`RedisSerializer` 구현체](#12-redisserializer-구현체)
-  - [`RedisTemplate` 스프링 빈 직접 설정](#13-redistemplate-스프링-빈-직접-설정)
-  - [직접 설정한 `RedisTemplate` 스프링 빈을 사용하여 데이터 조작](#14-직접-설정한-redistemplate-스프링-빈을-사용하여-데이터-조작)
+<!-- TOC -->
+* [1. 레디스 스트링 예시와 `RedisSerializer` 설정](#1-레디스-스트링-예시와-redisserializer-설정)
+  * [1.1. `ValueOperation<K,V>` 인터페이스](#11-valueoperationkv-인터페이스)
+  * [1.2. `RedisSerializer` 구현체](#12-redisserializer-구현체)
+  * [1.3. `RedisTemplate` 스프링 빈 직접 설정](#13-redistemplate-스프링-빈-직접-설정)
+  * [1.4. 직접 설정한 `RedisTemplate` 스프링 빈을 사용하여 데이터 조작](#14-직접-설정한-redistemplate-스프링-빈을-사용하여-데이터-조작)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

@@ -14,13 +14,16 @@ tags: springboot msa database spring-data-jpa query-method data-jpa-test jpa-rep
 
 **목차**
 
-- [레파지토리 개발과 JpaRepository](#1-레파지토리-개발과-jparepository)
-- [Spring Data JPA 의 쿼리 메서드](#2-spring-data-jpa-의-쿼리-메서드)
-  - [메서드명으로 쿼리 생성](#21-메서드명으로-쿼리-생성)
-  - [테스트 케이스](#22-테스트-케이스)
-    - [`@SpringBootTest` 를 사용한 테스트 케이스](#221-springboottest-를-사용한-테스트-케이스)
-    - [`@DataJpaTest` 를 사용한 테스트 케이스](#222-datajpatest-를-사용한-테스트-케이스)
-  - [`@Query` 를 사용한 쿼리 사용](#23-query-를-사용한-쿼리-사용)
+<!-- TOC -->
+* [1. 레파지토리 개발과 JpaRepository](#1-레파지토리-개발과-jparepository)
+* [2. Spring Data JPA 의 쿼리 메서드](#2-spring-data-jpa-의-쿼리-메서드)
+  * [2.1. 메서드명으로 쿼리 생성](#21-메서드명으로-쿼리-생성)
+  * [2.2. 테스트 케이스](#22-테스트-케이스)
+    * [2.2.1. `@SpringBootTest` 를 사용한 테스트 케이스](#221-springboottest-를-사용한-테스트-케이스)
+    * [2.2.2. `@DataJpaTest` 를 사용한 테스트 케이스](#222-datajpatest-를-사용한-테스트-케이스)
+  * [2.3. `@Query` 를 사용한 쿼리 사용](#23-query-를-사용한-쿼리-사용)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

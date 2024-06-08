@@ -22,23 +22,26 @@ Spring bean 을 선언하고 Spring bean Container 를 사용하여 Spring bean 
 
 **목차**
 
-- [Spring bean 사용](#1-spring-bean-사용)
-  - [`@Bean` 애너테이션으로 Spring bean 생성](#11-bean-애너테이션으로-spring-bean-생성)
-- [자바 설정](#2-자바-설정)
-  - [`@Configuration`](#21-configuration)
-  - [`@ComponentScan`](#22-componentscan)
-  - [`@Import`](#23-import)
-- [스테레오 타입 Spring bean 사용](#3-스테레오-타입-spring-bean-사용)
-- [의존성 주입](#4-의존성-주입)
-  - [애너테이션 기반의 의존성 주입: `@Autowired`, `@Qualifier`](#41-애너테이션-기반의-의존성-주입-autowired-qualifier)
-  - [자바 설정의 의존성 주입](#42-자바-설정의-의존성-주입)
-- [ApplicationContext](#5-applicationcontext)
-- [Spring bean Scope: `@Scope`](#6-spring-bean-scope-scope)
-- [Spring bean LifeCycle 관리](#7-spring-bean-lifecycle-관리)
-- [Spring bean 고급 정의](#81-primary)
-  - [`@Primary`](#81-primary)
-  - [`@Lazy`](#82-lazy)
-- [Spring bean, Java bean, DTO, VO](#9-spring-bean-java-bean-dto-vo)
+<!-- TOC -->
+* [1. Spring bean 사용](#1-spring-bean-사용)
+  * [1.1. `@Bean` 애너테이션으로 Spring bean 생성](#11-bean-애너테이션으로-spring-bean-생성)
+* [2. 자바 설정](#2-자바-설정)
+  * [2.1. `@Configuration`](#21-configuration)
+  * [2.2. `@ComponentScan`](#22-componentscan)
+  * [2.3. `@Import`](#23-import)
+* [3. 스테레오 타입 Spring bean 사용](#3-스테레오-타입-spring-bean-사용)
+* [4. 의존성 주입](#4-의존성-주입)
+  * [4.1. 애너테이션 기반의 의존성 주입: `@Autowired`, `@Qualifier`](#41-애너테이션-기반의-의존성-주입-autowired-qualifier)
+  * [4.2. 자바 설정의 의존성 주입](#42-자바-설정의-의존성-주입)
+* [5. ApplicationContext](#5-applicationcontext)
+* [6. Spring bean Scope: `@Scope`](#6-spring-bean-scope-scope)
+* [7. Spring bean LifeCycle 관리](#7-spring-bean-lifecycle-관리)
+* [8. Spring bean 고급 정의](#8-spring-bean-고급-정의)
+  * [8.1. `@Primary`](#81-primary)
+  * [8.2. `@Lazy`](#82-lazy)
+* [9. Spring bean, Java bean, DTO, VO, DAO](#9-spring-bean-java-bean-dto-vo-dao)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

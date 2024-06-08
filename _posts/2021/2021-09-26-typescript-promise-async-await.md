@@ -4,7 +4,6 @@ title:  "Typescript - Promise, async/await"
 date:   2021-09-26 10:00
 categories: dev
 tags: typescript
-categories: dev
 ---
 
 이 포스트는 비동기 API 를 사용하는 코드를 쉽게 작성하는 `Promise` 클래스와 `async/await` 구문에 대해 알아본다.
@@ -15,22 +14,25 @@ categories: dev
 
 *소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
 
-> - 비동기 콜백 함수
->   - 동기와 비동기 API
->   - 동기와 비동기 API
-> - Promise 클래스
->   - `resolve`, `reject` 함수
->   - Promise.resolve, Promise.reject 메서드
->   - then-체인
->   - `Promise.all` 메서드
->   - `Promise.race` 메서드
-> - `async/await` 구문
->   - await 키워드
->   - async 함수 수정자
->   - async 함수 특징
->   - async 함수가 반환하는 값 의미
->   - async 함수 예외 처리
->   - async 함수와 `Promise.all`
+<!-- TOC -->
+  * [1. 비동기 콜백 함수](#1-비동기-콜백-함수)
+    * [1.1. 동기와 비동기 API](#11-동기와-비동기-api)
+    * [1.2. 단일 스레드와 비동기 API](#12-단일-스레드와-비동기-api)
+  * [2. Promise 클래스](#2-promise-클래스)
+    * [2.1. `resolve`, `reject` 함수](#21-resolve-reject-함수)
+    * [2.2. Promise.resolve, Promise.reject 메서드](#22-promiseresolve-promisereject-메서드)
+    * [2.3. then-체인](#23-then-체인)
+    * [2.4. `Promise.all` 메서드](#24-promiseall-메서드)
+    * [2.5. `Promise.race` 메서드](#25-promiserace-메서드)
+  * [3. `async/await` 구문](#3-asyncawait-구문)
+    * [3.1. await 키워드](#31-await-키워드)
+    * [3.2. async 함수 수정자](#32-async-함수-수정자)
+    * [3.3. async 함수 특징](#33-async-함수-특징)
+    * [3.4. async 함수가 반환하는 값 의미](#34-async-함수가-반환하는-값-의미)
+    * [3.5. async 함수 예외 처리](#35-async-함수-예외-처리)
+    * [3.6. async 함수와 `Promise.all`](#36-async-함수와-promiseall)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

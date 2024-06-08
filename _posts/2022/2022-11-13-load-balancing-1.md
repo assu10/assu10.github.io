@@ -8,13 +8,24 @@ tags: devops aws load-balancing elb alb nlb 경로기반라우팅
 
 이 포스트는 ELB 종류 중 ALB 와 NLB 에 대해 알아본다.
 
-> - [ELB (Elastic Load Balancing)](#1-elb-elastic-load-balancing)
-> - [ALB 와 NLB 를 통한 로드 밸런싱 테스트](#2-alb-와-nlb-를-통한-로드-밸런싱-테스트)
->   - [기본 환경 구성](#21-기본-환경-구성)
->   - [ALB 를 통한 로드 밸런싱](#22-alb-를-통한-로드-밸런싱)
->   - [NLB 를 통한 로드 밸런싱](#23-nlb-를-통한-로드-밸런싱)
->   - [Resource 삭제](#24-resource-삭제)
-
+<!-- TOC -->
+* [1. ELB (Elastic Load Balancing)](#1-elb-elastic-load-balancing)
+      * [Load Balancer 구성](#load-balancer-구성)
+      * [ELB 종류](#elb-종류)
+* [2. ALB 와 NLB 를 통한 로드 밸런싱 테스트](#2-alb-와-nlb-를-통한-로드-밸런싱-테스트)
+  * [2.1. 기본 환경 구성](#21-기본-환경-구성)
+    * [2.1.1. CloudFormation 적용](#211-cloudformation-적용)
+    * [2.1.2. CloudFormation 을 통해 생성된 자원 확인](#212-cloudformation-을-통해-생성된-자원-확인)
+    * [2.1.3. 기본 환경 검증](#213-기본-환경-검증)
+  * [2.2. ALB 를 통한 로드 밸런싱](#22-alb-를-통한-로드-밸런싱)
+    * [2.2.1. ALB 생성](#221-alb-생성)
+    * [2.2.2. ALB 검증](#222-alb-검증)
+  * [2.3. NLB 를 통한 로드 밸런싱](#23-nlb-를-통한-로드-밸런싱)
+    * [2.3.1. NLB 생성](#231-nlb-생성)
+    * [2.3.2. NLB 검증](#232-nlb-검증)
+  * [2.4. Resource 삭제](#24-resource-삭제)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 ---
 
 아래는 이번 포스트에서 다뤄볼 범위 도식화이다.

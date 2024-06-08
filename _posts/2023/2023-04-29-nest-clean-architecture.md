@@ -8,14 +8,17 @@ tags: nestjs clean-architecture
 
 이 포스트는 클린 아키텍처에 대해 알아본다.
 
-- [클린 아키텍처](#1-클린-아키텍처)
-- [SOLID 객체 지향 설계 원칙](#2-solid-객체-지향-설계-원칙)
-- [유저 서비스](#3-유저-서비스)
-  - [클린 아키텍처 적용](#31-클린-아키텍처-적용)
-    - [domain layer](#311-domain-layer)
-    - [application layer](#312-application-layer)
-    - [interface layer](#313-interface-layer)
-    - [infrastructure layer](#314-infrastructure-layer)
+<!-- TOC -->
+* [1. 클린 아키텍처](#1-클린-아키텍처)
+* [2. SOLID 객체 지향 설계 원칙](#2-solid-객체-지향-설계-원칙)
+* [3. 유저 서비스](#3-유저-서비스)
+  * [3.1. 클린 아키텍처 적용](#31-클린-아키텍처-적용)
+    * [3.1.1. domain layer](#311-domain-layer)
+    * [3.1.2. application layer](#312-application-layer)
+    * [3.1.3. interface layer](#313-interface-layer)
+    * [3.1.4. infrastructure layer](#314-infrastructure-layer)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 > 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch17) 에 있습니다.
 

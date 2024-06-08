@@ -8,12 +8,22 @@ tags: devops aws cdn cloudfront
 
 이 포스트는 CDN 과 AWS 에서 제공하는 CDN 서비스인 CloudFront 에 대해 알아본다.
 
-> - [CDN (Contents Delivery Network)](#1-cdn-contents-delivery-network)
-> - [CloudFront](#2-cloudfront)
-> - [CloudFront 를 통한 CDN 서비스 테스트](#3-cloudfront-를-통한-cdn-서비스-테스트)
->   - [기본 환경 구성](#31-기본-환경-구성)
->   - [CloudFront 설정과 Route 53 연결](#32-cloudfront-설정과-route-53-연결)
->   - [Resource 삭제](#33-resource-삭제)
+<!-- TOC -->
+* [1. CDN (Contents Delivery Network)](#1-cdn-contents-delivery-network)
+* [2. CloudFront](#2-cloudfront)
+* [3. CloudFront 를 통한 CDN 서비스 테스트](#3-cloudfront-를-통한-cdn-서비스-테스트)
+  * [3.1. 기본 환경 구성](#31-기본-환경-구성)
+    * [3.1.1. CloudFormation 적용](#311-cloudformation-적용)
+    * [3.1.2. CloudFormation 을 통해 생성된 자원 확인](#312-cloudformation-을-통해-생성된-자원-확인)
+    * [3.1.3. Route 53 설정 (EC2 Instance A Record 연결)](#313-route-53-설정-ec2-instance-a-record-연결)
+    * [3.1.4. 기본 통신 환경 검증](#314-기본-통신-환경-검증)
+  * [3.2. CloudFront 설정과 Route 53 연결](#32-cloudfront-설정과-route-53-연결)
+    * [3.2.1. CloudFront Distribution 생성](#321-cloudfront-distribution-생성)
+    * [3.2.2. Route 53 설정 (CloudFront A Record 연결)](#322-route-53-설정-cloudfront-a-record-연결)
+    * [3.2.3. CloudFront 검증](#323-cloudfront-검증)
+  * [3.3. Resource 삭제](#33-resource-삭제)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

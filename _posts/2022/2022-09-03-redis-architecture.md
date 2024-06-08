@@ -8,39 +8,43 @@ tags: redis
 
 이 포스트는 Redis 운영 시 알아야 할 아키텍쳐에 관해 알아본다.   
 
-> - [Redis 아키텍쳐](#1-redis-아키텍쳐)
->   - [메모리 영역](#11-메모리-영역)
->   - [파일 영역](#12-파일-영역)
->   - [프로세스 영역](#13-프로세스-영역)
-> - [시스템, Disk 사양](#2-시스템-disk-사양)
->   - [노드 수 (# of nodes per cluster)](#21-노드-수--of-nodes-per-cluster)
->   - [CPU core 수 (# of cores per node)](#22-cpu-core-수--of-cores-per-node)
->   - [RAM 크기](#23-ram-크기)
->   - [Storage 타입](#24-storage-타입)
->   - [Storage 크기 (Persistent Storage)](#25-storage-크기-persistent-storage)
->   - [네트워크](#26-네트워크)
-> - [메모리 운영기법](#3-메모리-운영기법)
->   - [`LRU (Least Recently Used)` 알고리즘](#31-lru-least-recently-used-알고리즘)
->   - [`LFU (Least Frequently Used)` 알고리즘](#32-lfu-least-frequently-used-알고리즘)
-> - [LazyFree](#4-lazyfree)
->   - [`lazyfree-lazy-eviction`](#41-lazyfree-lazy-eviction)
->   - [`lazyfree-lazy-expire`](#42-lazyfree-lazy-expire)
->   - [`lazyfree-lazy-server-del`](#43-lazyfree-lazy-server-del)
->   - [`slave-lazy-flush`](#44-slave-lazy-flush)
-> - [데이터 Persistence(저장)](#5-데이터-persistence저장)
->   - [RDB 파일을 이용하여 저장(=`SAVE` 명령어 이용)](#51-rdb-redis-database-파일을-이용하여-저장save-명령어-이용)
->   - [AOF (Append Only File) 명령어 이용하여 저장 (= `bgrewriteaof` 명령어 이용)](#52-aof-append-only-file-명령어-이용하여-저장--bgrewriteaof-명령어-이용)
-> - [Copy on Write](#6-copy-on-write)
-> - [Benchmark For Redis](#7-benchmark-for-redis)
-> - [관리 명령어 (redis-cli)](#8-관리-명령어-redis-cli)
-> - [Data Export, Import](#9-data-export-import)
->   - [`SAVE` 명령어로 rdb file export & import](#91-save-명령어로-rdb-file-export--import)
->   - [`bgrewriteaof` 명령어로 aof file export](#92-bgrewriteaof-명령어로-aof-file-export)
->   - [`scan` 명령어로 text file export](#93-scan-명령어로-text-file-export)
-> - [Redis Serialization Protocol & Mass Insertion](#10-redis-serialization-protocol--mass-insertion)
->   - [Luke Protocol 을 이용한 업로드](#101-luke-protocol-을-이용한-업로드)
->   - [Request Response Protocol(RERP) 을 이용한 업로드](#102-request-response-protocolrerp-을-이용한-업로드)
-> - [redis-cli option](#11-redis-cli-option)
+<!-- TOC -->
+* [1. Redis 아키텍쳐](#1-redis-아키텍쳐)
+  * [1.1. 메모리 영역](#11-메모리-영역)
+  * [1.2. 파일 영역](#12-파일-영역)
+  * [1.3. 프로세스 영역](#13-프로세스-영역)
+* [2. 시스템, Disk 사양](#2-시스템-disk-사양)
+  * [2.1. 노드 수 (# of nodes per cluster)](#21-노드-수--of-nodes-per-cluster)
+  * [2.2. CPU core 수 (# of cores per node)](#22-cpu-core-수--of-cores-per-node)
+  * [2.3. RAM 크기](#23-ram-크기)
+  * [2.4. Storage 타입](#24-storage-타입)
+  * [2.5. Storage 크기 (Persistent Storage)](#25-storage-크기-persistent-storage)
+  * [2.6. 네트워크](#26-네트워크)
+* [3. 메모리 운영기법](#3-메모리-운영기법)
+  * [3.1. `LRU (Least Recently Used)` 알고리즘](#31-lru-least-recently-used-알고리즘)
+  * [3.2. `LFU (Least Frequently Used)` 알고리즘](#32-lfu-least-frequently-used-알고리즘)
+* [4. LazyFree](#4-lazyfree)
+  * [4.1. `lazyfree-lazy-eviction`](#41-lazyfree-lazy-eviction)
+  * [4.2. `lazyfree-lazy-expire`](#42-lazyfree-lazy-expire)
+  * [4.3. `lazyfree-lazy-server-del`](#43-lazyfree-lazy-server-del)
+  * [4.4. `slave-lazy-flush`](#44-slave-lazy-flush)
+* [5. 데이터 Persistence(저장)](#5-데이터-persistence저장)
+  * [5.1. RDB (Redis DataBase) 파일을 이용하여 저장(=`SAVE` 명령어 이용)](#51-rdb-redis-database-파일을-이용하여-저장save-명령어-이용)
+  * [5.2. AOF (Append Only File) 명령어 이용하여 저장 (= `bgrewriteaof` 명령어 이용)](#52-aof-append-only-file-명령어-이용하여-저장--bgrewriteaof-명령어-이용)
+* [6. Copy on Write](#6-copy-on-write)
+* [7. Benchmark For Redis](#7-benchmark-for-redis)
+* [8. 관리 명령어 (redis-cli)](#8-관리-명령어-redis-cli)
+  * [8.1. 테스트](#81-테스트)
+* [9. Data Export, Import](#9-data-export-import)
+  * [9.1. `SAVE` 명령어로 rdb file export & import](#91-save-명령어로-rdb-file-export--import)
+  * [9.2. `bgrewriteaof` 명령어로 aof file export](#92-bgrewriteaof-명령어로-aof-file-export)
+  * [9.3. `scan` 명령어로 text file export](#93-scan-명령어로-text-file-export)
+* [10. Redis Serialization Protocol & Mass Insertion](#10-redis-serialization-protocol--mass-insertion)
+  * [10.1. Luke Protocol 을 이용한 업로드](#101-luke-protocol-을-이용한-업로드)
+  * [10.2. Request Response Protocol(RERP) 을 이용한 업로드](#102-request-response-protocolrerp-을-이용한-업로드)
+* [11. redis-cli option](#11-redis-cli-option)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 
@@ -486,8 +490,6 @@ Redis 서버는 `redis-benchmark.exe` 실행 코드를 제공하는데 이를 �
 
 `redis-benchmark [-h <host>] [-p <port>] [-c <clients>] [-n <requests>] [-k <boolean>]`
 
-> redis-benchmark 에 대해선 추후 하나의 포스트으로 올릴 예정이다. 
-
 ---
 
 # 8. 관리 명령어 (redis-cli)
@@ -847,7 +849,7 @@ Transfer finished with success after 172 bytes
 ```
 
 > 다른 포트로 Redis 서버를 띄우고 import or 기존에 뜬 서버에서 keys 삭제 후 import 후 keys * 실행 시 dump.rdb 파일대로 나오지 않음..
-> 왜일까...? 추후 알아보자...
+> 왜일까...?
 
 ---
 
@@ -918,8 +920,6 @@ $ redis-cli
 ## 10.2. Request Response Protocol(RERP) 을 이용한 업로드
 
 Luke Protocol 을 이용한 업로드의 단점은 업로드의 성능 지연문제인데 이를 해소한 것이 RERP (Redis Serialization Protocol) 방식이다.
-
-> 추후 사용할 일이 있을 때 포스트하자...
 
 ---
 

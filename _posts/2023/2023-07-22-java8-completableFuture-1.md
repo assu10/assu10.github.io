@@ -19,18 +19,21 @@ tags: java java8 completable-future
 
 **목차**  
 
-- [`Future`](#1-future)
-  - [`Future` 의 한계점과 `CompletableFuture`](#11-future-의-한계점과-completablefuture)
-- [비동기 API 구현](#2-동기-api-구현)
-  - [동기 메서드를 비동기 메서드로 변환](#21-동기-메서드를-비동기-메서드로-변환)
-  - [에러 처리: `completeExceptionally()`](#22-에러-처리-completeexceptionally)
-    - [Factory 메서드 `supplyAsync()` 로 `CompletableFuture` 생성](#221-factory-메서드-supplyasync-로-completablefuture-생성)
-- [Non-block 코드](#3-non-block-코드)
-  - [병렬 스트림으로 요청 병렬화](#31-병렬-스트림으로-요청-병렬화)
-  - [`CompletableFuture` 로 비동기 호출 구현](#32-completablefuture-로-비동기-호출-구현)
-  - [확장성 더하기](#33-확장성-더하기)
-  - [커스텀 `Executor` 사용](#34-커스텀-executor-사용)
-  - [스트림 병렬화와 `CompletableFuture`](#35-스트림-병렬화와-completablefuture)
+<!-- TOC -->
+* [1. `Future`](#1-future)
+  * [1.1. `Future` 의 한계점과 `CompletableFuture`](#11-future-의-한계점과-completablefuture)
+* [2. 동기 API 구현](#2-동기-api-구현)
+  * [2.1. 동기 메서드를 비동기 메서드로 변환](#21-동기-메서드를-비동기-메서드로-변환)
+  * [2.2. 에러 처리: `completeExceptionally()`](#22-에러-처리-completeexceptionally)
+    * [2.2.1. Factory 메서드 `supplyAsync()` 로 `CompletableFuture` 생성](#221-factory-메서드-supplyasync-로-completablefuture-생성)
+* [3. Non-block 코드](#3-non-block-코드)
+  * [3.1. 병렬 스트림으로 요청 병렬화](#31-병렬-스트림으로-요청-병렬화)
+  * [3.2. `CompletableFuture` 로 비동기 호출 구현](#32-completablefuture-로-비동기-호출-구현)
+  * [3.3. 확장성 더하기](#33-확장성-더하기)
+  * [3.4. 커스텀 `Executor` 사용](#34-커스텀-executor-사용)
+  * [3.5. 스트림 병렬화와 `CompletableFuture`](#35-스트림-병렬화와-completablefuture)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

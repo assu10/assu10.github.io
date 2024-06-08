@@ -19,21 +19,30 @@ tags: java java8 optional-class optional
 
 **목차**  
 
-- [null 에서의 기존 처리](#1-null-에서의-기존-처리)
-- [Optional 클래스](#2-optional-클래스)
-- [Optional 적용 패턴](#3-optional-적용-패턴)
-  - [Optional 객체 생성](#31-optional-객체-생성)
-    - [빈 Optional 생성: `Optional.empty()`](#311-빈-optional-생성-optionalempty)
-    - [null 값을 포함하지 않는 Optional 생성: `Optional.of()`](#312-null-값을-포함하지-않는-optional-생성-optionalof)
-    - [null 값으로 Optional 생성: `Optional.ofNullable()`](#313-null-값으로-optional-생성-optionalofnullable)
-  - [map()으로 Optional 값 추출 후 변환](#32-map-으로-optional-값-추출-후-변환)
-  - [flatMap() 으로 Optional 객체 연결](#33-flatmap-으로-optional-객체-연결)
-  - [디폴트 액션과 Optional 언랩](#34-디폴트-액션과-optional-언랩)
-  - [두 Optional 합치기](#35-두-optional-합치기)
-  - [필터로 특정값 거르기](#36-필터로-특정값-거르기)
-  - [Optional 클래스의 메서드](#37-optional-클래스의-메서드)
-- [기본형 특화 Optional](#4-기본형-특화-optional)
-- [정리하며..](#5-정리하며)
+<!-- TOC -->
+* [1. null 에서의 기존 처리](#1-null-에서의-기존-처리)
+* [2. Optional 클래스](#2-optional-클래스)
+* [3. Optional 적용 패턴](#3-optional-적용-패턴)
+  * [3.1. Optional 객체 생성](#31-optional-객체-생성)
+    * [3.1.1. 빈 Optional 생성: `Optional.empty()`](#311-빈-optional-생성-optionalempty)
+    * [3.1.2. null 값을 포함하지 않는 Optional 생성: `Optional.of()`](#312-null-값을-포함하지-않는-optional-생성-optionalof)
+    * [3.1.3. null 값으로 Optional 생성: `Optional.ofNullable()`](#313-null-값으로-optional-생성-optionalofnullable)
+  * [3.2. map() 으로 Optional 값 추출 후 변환](#32-map-으로-optional-값-추출-후-변환)
+  * [3.3. flatMap() 으로 Optional 객체 연결](#33-flatmap-으로-optional-객체-연결)
+    * [도메인 모델에 Optional 사용 시 데이터 직렬화 불가능](#도메인-모델에-optional-사용-시-데이터-직렬화-불가능)
+  * [3.4. 디폴트 액션과 Optional 언랩](#34-디폴트-액션과-optional-언랩)
+    * [`get()`](#get)
+    * [`orElse(T other)`](#orelset-other)
+    * [`orElseGet(Supplier<? extends T> other)`](#orelsegetsupplier-extends-t-other)
+    * [`orElseThrow(Supplier<? extends X> exceptionSupplier)`](#orelsethrowsupplier-extends-x-exceptionsupplier)
+    * [`ifPresent(Consumer<? super T> consumer)`](#ifpresentconsumer-super-t-consumer)
+  * [3.5. 두 Optional 합치기](#35-두-optional-합치기)
+  * [3.6. 필터로 특정값 거르기](#36-필터로-특정값-거르기)
+  * [3.7. Optional 클래스의 메서드](#37-optional-클래스의-메서드)
+* [4. 기본형 특화 Optional](#4-기본형-특화-optional)
+* [5. 정리하며..](#5-정리하며)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

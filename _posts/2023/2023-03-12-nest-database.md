@@ -8,16 +8,19 @@ tags: nestjs typeorm
 
 이 포스트는 NestJS 에 MySQL 과 TypeORM 을 적용해보는 법에 대해 알아본다.
 
-- [MySQL 설정](#1-mysql-설정)
-- [유저 서비스](#2-유저-서비스)
-  - [TypeORM 으로 DB 연결](#21-typeorm-으로-db-연결)
-  - [회원 가입 시 유저 정보 저장: `@InjectRepository`](#22-회원-가입-시-유저-정보-저장-injectrepository)
-  - [Transaction 적용](#23-transaction-적용)
-    - [QueryRunner 로 적용](#231-queryrunner-로-적용)
-    - [transaction 함수 직접 사용하여 적용](#232-transaction-함수-직접-사용하여-적용)
-  - [마이그레이션](#24-마이그레이션)
-    - [마이그레이션을 CLI 로 생성하고 실행할 수 있는 환경 구성](#241-마이그레이션을-cli-로-생성하고-실행할-수-있는-환경-구성)
-    - [마이그레이션 실행](#242-마이그레이션-실행)
+<!-- TOC -->
+* [1. MySQL 설정](#1-mysql-설정)
+* [2. 유저 서비스](#2-유저-서비스)
+  * [2.1. TypeORM 으로 DB 연결](#21-typeorm-으로-db-연결)
+  * [2.2. 회원 가입 시 유저 정보 저장: `@InjectRepository`](#22-회원-가입-시-유저-정보-저장-injectrepository)
+  * [2.3. Transaction 적용](#23-transaction-적용)
+    * [2.3.1. QueryRunner 로 적용](#231-queryrunner-로-적용)
+    * [2.3.2. transaction 함수 직접 사용하여 적용](#232-transaction-함수-직접-사용하여-적용)
+  * [2.4. 마이그레이션](#24-마이그레이션)
+  * [2.4.1. 마이그레이션을 CLI 로 생성하고 실행할 수 있는 환경 구성](#241-마이그레이션을-cli-로-생성하고-실행할-수-있는-환경-구성)
+  * [2.4.2. 마이그레이션 실행](#242-마이그레이션-실행)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 > 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch08) 에 있습니다.
 

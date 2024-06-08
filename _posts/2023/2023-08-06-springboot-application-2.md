@@ -14,9 +14,12 @@ tags: springboot msa HttpMessageConverter ObjectMapper
 
 **목차**
 
-- [`HttpMessageConverter`, REST-API 설정](#1-httpmessageconverter-rest-api-설정)
-  - [`HttpMessageConverter` 설정](#11-httpmessageconverter-설정)
-  - [`ObjectMapper` 와 스프링 빈을 이용한 애플리케이션 설정](#12-objectmapper-와-스프링-빈을-이용한-애플리케이션-설정)
+<!-- TOC -->
+* [1. `HttpMessageConverter`, REST-API 설정](#1-httpmessageconverter-rest-api-설정)
+  * [1.1. `HttpMessageConverter` 설정](#11-httpmessageconverter-설정)
+  * [1.2. `ObjectMapper` 와 스프링 빈을 이용한 애플리케이션 설정](#12-objectmapper-와-스프링-빈을-이용한-애플리케이션-설정)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

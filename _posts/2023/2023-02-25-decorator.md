@@ -8,18 +8,21 @@ tags: typescript decorator nestjs
 
 이 포스트는 ECMAScript 기능인 Decorator 에 대해 알아본다.   
 
-> - [Decorator](#1-decorator)
->   - [Decorator Factory](#11-decorator-factory)
->   - [`PropertyDescriptor`](#12-propertydescriptor)
->   - [Decorator 역할 요약](#13-decorator-역할-요약)
-> - [Decorator Composition (데커레이터 합성)](#2-decorator-composition-데커레이터-합성)
-> - [Class Decorator](#3-class-decorator)
->   - [Class 재정의](#31-class-재정의)
->   - [Class Decorator Factory](#32-class-decorator-factory)
-> - [Method Decorator](#4-method-decorator)
-> - [Accessor Decorator (접근자 데커레이터)](#5-accessor-decorator-접근자-데커레이터)
-> - [Property Decorator (속성 데커레이터)](#6-property-decorator-속성-데커레이터)
-> - [Parameter Decorator (매개변수 데커레이터)](#7-parameter-decorator-매개변수-데커레이터)
+<!-- TOC -->
+* [1. Decorator](#1-decorator)
+  * [1.1. Decorator Factory](#11-decorator-factory)
+  * [1.2. `PropertyDescriptor`](#12-propertydescriptor)
+  * [1.3. Decorator 역할 요약](#13-decorator-역할-요약)
+* [2. Decorator Composition (데커레이터 합성)](#2-decorator-composition-데커레이터-합성)
+* [3. Class Decorator](#3-class-decorator)
+  * [3.1. Class 재정의](#31-class-재정의)
+  * [3.2. Class Decorator Factory](#32-class-decorator-factory)
+* [4. Method Decorator](#4-method-decorator)
+* [5. Accessor Decorator (접근자 데커레이터)](#5-accessor-decorator-접근자-데커레이터)
+* [6. Property Decorator (속성 데커레이터)](#6-property-decorator-속성-데커레이터)
+* [7. Parameter Decorator (매개변수 데커레이터)](#7-parameter-decorator-매개변수-데커레이터)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

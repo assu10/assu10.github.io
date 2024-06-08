@@ -30,25 +30,29 @@ WebClient 는 리액트 라이브러리를 사용하는 방법과 스프링 비�
 
 **목차**
 
-- [RestTemplate 클래스](#1-resttemplate-클래스)
-  - [RestTemplate 구조](#11-resttemplate-구조)
-    - [`HttpMessageConverter`](#111-httpmessageconverter)
-    - [`ClientHttpRequestInterceptor`](#112-clienthttprequestinterceptor)
-    - [`ResponseErrorHandler`](#113-responseerrorhandler)
-  - [RestTemplate 스프링 빈 설정](#12-resttemplate-스프링-빈-설정)
-    - [`ClientHttpRequestInterceptor` 구현](#121-clienthttprequestinterceptor-구현)
-    - [`ResponseErrorHandler` 구현](#122-responseerrorhandler-구현)
-  - [Connection Timeout 과 Read Timeout 설정](#13-connection-timeout-과-read-timeout-설정)
-  - [RestTemplate 클래스](#14-resttemplate-클래스)
-  - [RestTemplate 예시](#15-resttemplate-예시)
-    - [`GET` 메서드 예시](#151-get-메서드-예시)
-    - [`POST` 메서드 예시](#152-post-메서드-예시)
-    - [`exchange()` 와 `ParameterizedTypeReference` 메서드 예시](#153-exchange-와-parameterizedtypereference-메서드-예시)
-  - [`keep-alive` 와 `Connection-Pool` 설정](#16-keep-alive-와-connection-pool-설정)
-    - [커넥션 풀 설정: `HttpComponentsClientHttpRequestFactory`](#161-커넥션-풀-설정-httpcomponentsclienthttprequestfactory)
-    - [`keep-alive` 설정](#162-keep-alive-설정)
-    - [`keep-alive` 사용 시 주의점](#163-keep-alive-사용-시-주의점)
-- [`WebClient`](#2-webclient)
+<!-- TOC -->
+* [1. RestTemplate 클래스](#1-resttemplate-클래스)
+* [1.1. RestTemplate 구조](#11-resttemplate-구조)
+    * [1.1.1. `HttpMessageConverter`](#111-httpmessageconverter)
+    * [1.1.2. `ClientHttpRequestInterceptor`](#112-clienthttprequestinterceptor)
+    * [1.1.3. `ResponseErrorHandler`](#113-responseerrorhandler)
+  * [1.2. RestTemplate 스프링 빈 설정](#12-resttemplate-스프링-빈-설정)
+    * [1.2.1. `ClientHttpRequestInterceptor` 구현](#121-clienthttprequestinterceptor-구현)
+    * [1.2.2. `ResponseErrorHandler` 구현](#122-responseerrorhandler-구현)
+  * [1.3. Connection Timeout 과 Read Timeout 설정](#13-connection-timeout-과-read-timeout-설정)
+  * [1.4. RestTemplate 클래스](#14-resttemplate-클래스)
+  * [1.5. RestTemplate 예시](#15-resttemplate-예시)
+    * [1.5.1. `GET` 메서드 예시](#151-get-메서드-예시)
+    * [1.5.2. `POST` 메서드 예시](#152-post-메서드-예시)
+    * [1.5.3. `exchange()` 와 `ParameterizedTypeReference` 메서드 예시](#153-exchange-와-parameterizedtypereference-메서드-예시)
+    * [1.5.4. `UriComponentsBuilder`](#154-uricomponentsbuilder)
+  * [1.6. `keep-alive` 와 `Connection-Pool` 설정](#16-keep-alive-와-connection-pool-설정)
+    * [1.6.1. 커넥션 풀 설정: `HttpComponentsClientHttpRequestFactory`](#161-커넥션-풀-설정-httpcomponentsclienthttprequestfactory)
+    * [1.6.2. `keep-alive` 설정](#162-keep-alive-설정)
+    * [1.6.3. `keep-alive` 사용 시 주의점](#163-keep-alive-사용-시-주의점)
+* [2. `WebClient`](#2-webclient)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

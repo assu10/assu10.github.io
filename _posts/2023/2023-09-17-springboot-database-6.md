@@ -14,9 +14,12 @@ tags: springboot msa database entity-listeners osiv transaction-lifecycle
 
 **목차**
 
-- [엔티티 상태 이벤트 처리: `@EntityListeners`](#1-엔티티-상태-이벤트-처리-entitylisteners)
-- [트랜잭션 생명주기 동기화 작업](#2-트랜잭션-생명주기-동기화-작업)
-  - [스프링 부트 프레임워크의 OSIV 설정](#21-스프링-부트-프레임워크의-osiv-설정)
+<!-- TOC -->
+* [1. 엔티티 상태 이벤트 처리: `@EntityListeners`](#1-엔티티-상태-이벤트-처리-entitylisteners)
+* [2. 트랜잭션 생명주기 동기화 작업](#2-트랜잭션-생명주기-동기화-작업)
+  * [2.1. 스프링 부트 프레임워크의 OSIV 설정](#21-스프링-부트-프레임워크의-osiv-설정)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

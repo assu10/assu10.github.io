@@ -8,11 +8,14 @@ tags: redis
 
 이 포스트는 Redis Logging 과 Monitoring 에 대해 알아본다.
 
-> - [Master 서버를 이용한 Slave 서버 복구](#1-master-서버를-이용한-slave-서버-복구)
-> - [Logging & Monitoring](#2-logging--monitoring)
->   - [Logging 정보](#21-logging-정보)
->   - [Monitoring](#22-monitoring)
-> - [Subscribe & Publish](#3-subscribe--publish)
+<!-- TOC -->
+* [1. Master 서버를 이용한 Slave 서버 복구](#1-master-서버를-이용한-slave-서버-복구)
+* [2. Logging & Monitoring](#2-logging--monitoring)
+  * [2.1. Logging 정보](#21-logging-정보)
+  * [2.2. Monitoring](#22-monitoring)
+* [3. Subscribe & Publish](#3-subscribe--publish)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

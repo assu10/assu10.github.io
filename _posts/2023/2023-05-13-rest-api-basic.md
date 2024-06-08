@@ -12,6 +12,17 @@ tags: web rest-api
 - REST-API 설계 시 유의점
 - HTTP 메서드별 REST-API
 
+<!-- TOC -->
+* [1. REST-API](#1-rest-api-)
+* [2. REST-API 설계 시 유의점](#2-rest-api-설계-시-유의점)
+* [3. HTTP 메서드별 REST-API](#3-http-메서드별-rest-api)
+  * [GET](#get)
+  * [POST](#post)
+  * [DELETE](#delete)
+  * [PUT/PATCH](#putpatch)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
+
 ---
 
 # 1. REST-API 

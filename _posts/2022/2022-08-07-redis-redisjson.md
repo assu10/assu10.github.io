@@ -8,21 +8,24 @@ tags: redis rejson RedisJSON
 
 이 포스트는 Redis 의 확장 모듈 중 하나인 `RedisJSON` 에 대해 알아본다.  
 
-> - [Redis 확장 모듈](#1-redis-확장-모듈)
-> - [RedisJSON 설치](#2-redisjson-설치)
-> - [RedisJSON 사용](#3-redisjson-사용)
->   - [`JSON.SET`, `JSON.GET`](#31-jsonset-jsonget)
->   - [`JSON.STRLEN`, `JSON.STRAPPEND`](#32-jsonstrlen-jsonstrappend-)
->   - [`JSON.NUMINCRBY`, `JSON.NUMMULTBY`](#33-jsonnumincrby-jsonnummultby-)
->   - [`JSON.DEL`](#34-jsondel)
->   - [`JSON.FORGET`](#35-jsonforget)
->   - [`JSON.ARRAPPEND`, `JSON.ARRINSERT`, `JSON.ARRTRIM`, `JSON.ARRPOP`](#36-jsonarrappend-jsonarrinsert-jsonarrtrim-jsonarrpop)
->   - [`JSON.OBJLEN`, `JSON.OBJKEYS`](#37-jsonobjlen-jsonobjkeys)
->   - [`INDENT`, `NEWLINE`, `SPACE`](#38-indent-newline-space)
-> - [`make` 오류 시](#make-오류-시)
->   - [`make` 버전 업데이트 처리](#make-버전-업데이트-처리)
->   - [`rust` 설치](#rust-설치)
-> - [`JSONPath`](#jsonpath)
+<!-- TOC -->
+* [1. Redis 확장 모듈](#1-redis-확장-모듈)
+* [2. RedisJSON 설치](#2-redisjson-설치)
+* [3. RedisJSON 사용](#3-redisjson-사용)
+  * [3.1. `JSON.SET`, `JSON.GET`](#31-jsonset-jsonget)
+  * [3.2. `JSON.STRLEN`, `JSON.STRAPPEND`](#32-jsonstrlen-jsonstrappend-)
+  * [3.3. `JSON.NUMINCRBY`, `JSON.NUMMULTBY`](#33-jsonnumincrby-jsonnummultby-)
+  * [3.4. `JSON.DEL`](#34-jsondel)
+  * [3.5. `JSON.FORGET`](#35-jsonforget)
+  * [3.6. `JSON.ARRAPPEND`, `JSON.ARRINSERT`, `JSON.ARRTRIM`, `JSON.ARRPOP`](#36-jsonarrappend-jsonarrinsert-jsonarrtrim-jsonarrpop)
+  * [3.7. `JSON.OBJLEN`, `JSON.OBJKEYS`](#37-jsonobjlen-jsonobjkeys)
+  * [3.8. `INDENT`, `NEWLINE`, `SPACE`](#38-indent-newline-space)
+* [`make` 오류 시](#make-오류-시)
+  * [`make` 버전 업데이트 처리](#make-버전-업데이트-처리)
+  * [`rust` 설치](#rust-설치)
+* [`JSONPath`](#jsonpath)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

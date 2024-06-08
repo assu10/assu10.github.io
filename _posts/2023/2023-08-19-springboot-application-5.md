@@ -14,18 +14,21 @@ tags: springboot msa i18n locale-resolver locale-change-interceptor logger logba
 
 **목차**
 
-- [REST-API 와 국제화 메시지 처리](#1-rest-api-와-국제화-메시지-처리)
-  - [message.properties 파일 설정](#11-messageproperties-파일-설정)
-  - [MessageSource 인터페이스](#12-messagesource-인터페이스)
-  - [스프링 부트 프레임워크의 자동 설정 구성](#13-스프링-부트-프레임워크의-자동-설정-구성)
-  - [`LocaleResolver` 와 `LocaleChangeInterceptor` 설정](#14-localeresolver-와-localechangeinterceptor-설정)
-- [로그 설정](#2-로그-설정)
-  - [Logger 선언](#21-logger-선언)
-  - [logback-spring.xml](#22-logback-springxml)
-  - [중앙 수집 로그](#23-중앙-수집-로그)
-- [애플리케이션 패키징과 실행](#3-애플리케이션-패키징과-실행)
-  - [Maven 패키징](#31-maven-패키징)
-  - [Docker 이미지 생성](#32-docker-이미지-생성)
+<!-- TOC -->
+* [1. REST-API 와 국제화 메시지 처리](#1-rest-api-와-국제화-메시지-처리)
+  * [1.1. message.properties 파일 설정](#11-messageproperties-파일-설정)
+  * [1.2. MessageSource 인터페이스](#12-messagesource-인터페이스)
+  * [1.3. 스프링 부트 프레임워크의 자동 설정 구성](#13-스프링-부트-프레임워크의-자동-설정-구성)
+  * [1.4. `LocaleResolver` 와 `LocaleChangeInterceptor` 설정](#14-localeresolver-와-localechangeinterceptor-설정)
+* [2. 로그 설정](#2-로그-설정)
+  * [2.1. Logger 선언](#21-logger-선언)
+  * [2.2. logback-spring.xml](#22-logback-springxml)
+  * [2.3. 중앙 수집 로그](#23-중앙-수집-로그)
+* [3. 애플리케이션 패키징과 실행](#3-애플리케이션-패키징과-실행)
+  * [3.1. Maven 패키징](#31-maven-패키징)
+  * [3.2. Docker 이미지 생성](#32-docker-이미지-생성)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

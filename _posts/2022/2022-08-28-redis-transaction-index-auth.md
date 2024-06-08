@@ -8,19 +8,22 @@ tags: redis transaction index authentication
 
 이 포스트는 Redis 의 Transaction 관리 방법과 보안/인증에 대해 알아본다.  
 
-> - [Transaction & Isolation/Lock](#1-transaction--isolationlock)
-> - [CAS (Check And Set)](#2-cas-check-and-set)
->   - [`MULTI` / `EXEC`](#21-multi--exec)
->   - [redis 에서의 roll-back](#22-redis-에서의-roll-back)
->   - [`DISCARD`](#23-discard)
->   - [`WATCH` / `UNWATCH`](#24-watch--unwatch)
-> - [Index](#3-index)
->   - [Sorted Set 타입 인덱스](#31-sorted-set-타입-인덱스)
-> - [인증/보안/Roles, 사용자 생성](#4-인증보안roles-사용자-생성)
->   - [액세스 컨트롤 권한](#41-액세스-컨트롤-권한)
->   - [인증](#42-인증)
->   - [테스트](#43-테스트)
->   - [User role 유형](#44-user-role-유형)
+<!-- TOC -->
+* [1. Transaction & Isolation/Lock](#1-transaction--isolationlock)
+* [2. CAS (Check And Set)](#2-cas-check-and-set)
+  * [2.1. `MULTI` / `EXEC`](#21-multi--exec)
+  * [2.2. redis 에서의 roll-back](#22-redis-에서의-roll-back)
+  * [2.3. `DISCARD`](#23-discard)
+  * [2.4. `WATCH` / `UNWATCH`](#24-watch--unwatch)
+* [3. Index](#3-index)
+  * [3.1. Sorted Set 타입 인덱스](#31-sorted-set-타입-인덱스)
+* [4. 인증/보안/Roles, 사용자 생성](#4-인증보안roles-사용자-생성)
+  * [4.1. 액세스 컨트롤 권한](#41-액세스-컨트롤-권한)
+  * [4.2. 인증](#42-인증)
+  * [4.3. 테스트](#43-테스트)
+  * [4.4. User role 유형](#44-user-role-유형)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

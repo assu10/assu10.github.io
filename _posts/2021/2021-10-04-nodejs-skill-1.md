@@ -1190,7 +1190,7 @@ randomBytes 이므로 매번 결과가 달라지므로 salt 를 DB 에 저장하
 
 pbkdf2 는 간단하지만 bcrypt, scrypt 보다는 취약하므로 더 나은 보안을 위해선 bcrypt 나 scrypt 를 사용하면 된다.
 
-*bcrypt 를 사용하는 내용은 추후 다를 예정이다.*
+> `bcrypt` 를 사용하는 내용은 [3.2.2. 로컬 로그인 - 회원가입, 로그인, 로그아웃 라우터](https://assu10.github.io/dev/2022/01/03/nodejs-sns-service/#322-%EB%A1%9C%EC%BB%AC-%EB%A1%9C%EA%B7%B8%EC%9D%B8---%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%A1%9C%EA%B7%B8%EC%95%84%EC%9B%83-%EB%9D%BC%EC%9A%B0%ED%84%B0) 를 참고하세요.
 
 ---
 

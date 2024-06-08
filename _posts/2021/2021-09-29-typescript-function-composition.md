@@ -4,7 +4,6 @@ title:  "Typescript - 함수 조합"
 date:   2021-09-29 10:00
 categories: dev
 tags: typescript
-categories: dev
 ---
 
 `함수 조합 (function composition)` 은 작은 기능을 하는 여러 함수를 pipe, compose 함수로 조합하여 더 의미있는 함수로 만들어가는 코드 설계 기법이다.<br />
@@ -31,21 +30,24 @@ categories: dev
 
 *소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
 
-> - 함수형 프로그래밍
-> - 제네릭 함수
->   - 타입스크립트 제네릭 함수 구문
->   - 함수 역할
->   - 아이덴티티(Identity, I) 함수
-> - 고차 함수와 커리 (curry)
->   - 고차 함수 (high-order function)
->   - 부분 적용 함수와 커리 (curry)
->   - 클로저 (closure)
-> - 함수 조합 (function composition)
->   - `compose 함수`
->   - `pipe 함수`
->   - pipe 와 compose 함수 분석
->   - 부분 함수와 함수 조합
->   - 포인트가 없는 함수
+<!-- TOC -->
+  * [1. 함수형 프로그래밍](#1-함수형-프로그래밍)
+  * [2. 제네릭 함수](#2-제네릭-함수)
+    * [2.1. 타입스크립트 제네릭 함수 구문](#21-타입스크립트-제네릭-함수-구문)
+    * [2.2. 함수 역할](#22-함수-역할)
+    * [2.3. 아이덴티티(Identity, I) 함수](#23-아이덴티티identity-i-함수)
+  * [3. 고차 함수와 커리 (curry)](#3-고차-함수와-커리-curry)
+    * [3.1. 고차 함수 (high-order function)](#31-고차-함수-high-order-function)
+    * [3.2. 부분 적용 함수와 커리 (curry)](#32-부분-적용-함수와-커리-curry)
+    * [3.3. 클로저 (closure)](#33-클로저-closure)
+  * [4. 함수 조합 (function composition)](#4-함수-조합-function-composition)
+    * [4.1. `compose 함수`](#41-compose-함수)
+    * [4.2. `pipe 함수`](#42-pipe-함수)
+    * [4.3. pipe 와 compose 함수 분석](#43-pipe-와-compose-함수-분석)
+    * [4.4. 부분 함수와 함수 조합](#44-부분-함수와-함수-조합)
+    * [4.5. 포인트가 없는 함수](#45-포인트가-없는-함수)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 
@@ -54,7 +56,7 @@ categories: dev
 함수형 프로그래밍은 순수 함수와 선언형 프로그래밍의 토대 위에 함수 조합과 모나드 조합으로 코드를 설계하고 구현하는 기법이다.
 
 > 순수 함수는 [Typescript - 배열, 튜플](https://assu10.github.io/dev/2021/09/21/typescript-array-tuple/) 의 *3.1. 순수함수* 를 참고하세요.
-> 모나드 조합은 추후 포스트 예정입니다.
+> 모나드 조합은 각자 찾아보세요.
 
 함수형 프로그래밍 언어는 아래와 같은 기능을 제공한다. (모두 제공하는 것은 아님)
 - 정적 타입
@@ -102,7 +104,7 @@ type Type3Func<T, Q, R> = (T, Q) => R;
 > 타입 별칭은 [Typescript - 함수, 메서드](https://assu10.github.io/dev/2021/09/19/typescript-function-method/) 의 *1.2. 타입 별칭 (type alias)* 를 참고하세요.<br />
 > [Typescript - 배열, 튜플](https://assu10.github.io/dev/2021/09/21/typescript-array-tuple/) 의 *1.5. 제네릭 방식 타입 추론* 와 함께 보면 도움이 됩니다.
 
-이 외 인터페이스와 클래스에 제네릭 타입을 사용하는 방법은 추후 포스트 예정입니다.
+이 외 인터페이스와 클래스에 제네릭 타입을 사용하는 방법은 [Typescript - Generic 프로그래밍](https://assu10.github.io/dev/2021/10/01/typescript-generic-programming/) 을 참고하세요.
 
 ---
 

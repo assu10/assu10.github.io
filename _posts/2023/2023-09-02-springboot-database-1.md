@@ -19,19 +19,22 @@ Spring Data JPA 는 데이터를 저장/처리하는 Spring Data 프로젝트의
 
 **목차**
 
-- [JPA](#1-jpa)
-  - [ORM 과 SQL Mapper 비교](#11-orm-과-sql-mapper-비교)
-  - [JPA 장단점](#12-jpa-장단점)
-- [도커를 사용한 MySQL 실행 환경 설정](#2-도커를-사용한-mysql-실행-환경-설정)
-- [Spring Data JPA](#3-spring-data-jpa)
-  - [Spring Data JPA 기능](#31-spring-data-jpa-기능)
-  - [Spring Data JPA 자동 설정과 필수 스프링 빈](#32-spring-data-jpa-자동-설정과-필수-스프링-빈)
-    - [`javax.sql.DataSource`](#321-javaxsqldatasource)
-    - [`EntityManager`](#322-entitymanager)
-    - [`TransactionManager`](#323-transactionmanager)
-  - [Spring Data JPA 설정](#33-spring-data-jpa-설정)
-    - [JPA/Hibernate 설정](#331-jpahibernate-설정)
-    - [Hikari DataSource 설정](#332-hikari-datasource-설정)
+<!-- TOC -->
+* [1. JPA](#1-jpa)
+  * [1.1. ORM 과 SQL Mapper 비교](#11-orm-과-sql-mapper-비교)
+  * [1.2. JPA 장단점](#12-jpa-장단점)
+* [2. 도커를 사용한 MySQL 실행 환경 설정](#2-도커를-사용한-mysql-실행-환경-설정)
+* [3. Spring Data JPA](#3-spring-data-jpa)
+  * [3.1. Spring Data JPA 기능](#31-spring-data-jpa-기능)
+  * [3.2. Spring Data JPA 자동 설정과 필수 스프링 빈](#32-spring-data-jpa-자동-설정과-필수-스프링-빈)
+    * [3.2.1. `javax.sql.DataSource`](#321-javaxsqldatasource)
+    * [3.2.2. `EntityManager`](#322-entitymanager)
+    * [3.2.3. `TransactionManager`](#323-transactionmanager)
+  * [3.3. Spring Data JPA 설정](#33-spring-data-jpa-설정)
+    * [3.3.1. JPA/Hibernate 설정](#331-jpahibernate-설정)
+    * [3.3.2 Hikari DataSource 설정](#332-hikari-datasource-설정)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

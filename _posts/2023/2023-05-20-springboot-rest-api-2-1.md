@@ -18,19 +18,22 @@ tags: springboot msa rest-api spring-web-mvc controller-advice response-entity p
 
 **목차**
 
-- [POST, PUT 메서드 매핑: `@RequestBody`, `ResponseEntity`](#1-post-put-메서드-매핑-requestbody-responseentity)
-- [Pageable, Sort 클래스](#2-pageable-sort-클래스)
-  - [Pagination 과 Sort: Pageable 클래스](#21-pagination-과-sort-pageable-클래스)
-  - [Pageable 자동 설정](#22-pageable-자동-설정)
-- [검증](#3-검증)
-  - [JSR-303 을 이용한 데이터 검증](#31-jsr-303-을-이용한-데이터-검증)
-  - [`@Valid`](#32-valid)
-  - [Validator 인터페이스와 `@InitBinder` 를 이용한 검증](#33-validator-인터페이스와-initbinder-를-이용한-검증)
-- [예외 처리](#4-예외-처리)
-  - [`@ControllerAdvice`, `@ExceptionHandler`, `@RestControllerAdvice`](#41-controlleradvice-exceptionhandler-restcontrolleradvice)
-- [미디어 콘텐츠 다운로드](#5-미디어-콘텐츠-다운로드)
-  - [HttpMessageConverter 를 사용하여 파일 byte 정보 조회](#51-httpmessageconverter-를-사용하여-파일-byte-정보-조회)
-  - [HttpServletResponse 를 사용하여 파일 다운로드](#52-httpservletresponse-를-사용하여-파일-다운로드)
+<!-- TOC -->
+* [1. POST, PUT 메서드 매핑: `@RequestBody`, `ResponseEntity`](#1-post-put-메서드-매핑-requestbody-responseentity)
+* [2. Pageable, Sort 클래스](#2-pageable-sort-클래스)
+  * [2.1. Pagination 과 Sort: Pageable 클래스](#21-pagination-과-sort-pageable-클래스)
+  * [2.2. Pageable 자동 설정](#22-pageable-자동-설정)
+* [3. 검증](#3-검증)
+  * [3.1. JSR-303 을 이용한 데이터 검증](#31-jsr-303-을-이용한-데이터-검증)
+  * [3.2. `@Valid`](#32-valid)
+  * [3.3. Validator 인터페이스와 `@InitBinder` 를 이용한 검증](#33-validator-인터페이스와-initbinder-를-이용한-검증)
+* [4. 예외 처리](#4-예외-처리)
+  * [4.1. `@ControllerAdvice`, `@ExceptionHandler`, `@RestControllerAdvice`](#41-controlleradvice-exceptionhandler-restcontrolleradvice)
+* [5. 미디어 콘텐츠 다운로드](#5-미디어-콘텐츠-다운로드)
+  * [5.1. HttpMessageConverter 를 사용하여 파일 byte 정보 조회](#51-httpmessageconverter-를-사용하여-파일-byte-정보-조회)
+  * [5.2. HttpServletResponse 를 사용하여 파일 다운로드](#52-httpservletresponse-를-사용하여-파일-다운로드)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

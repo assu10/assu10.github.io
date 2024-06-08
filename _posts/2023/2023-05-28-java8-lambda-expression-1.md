@@ -15,19 +15,23 @@ tags: java java8 lambda-expression functional-interface
 ---
 
 **목차**  
-- [람다 표현식](#1-람다-표현식)
-  - [람다 표현식 사용](#11-람다-표현식-사용)
-  - [함수형 인터페이스 (Functional Interface)](#12-함수형-인터페이스-functional-interface)
-  - [함수 디스크립터](#13-함수-디스크립터)
-  - [람다 표현식 활용: 실행 어라운드 패턴](#14-람다-표현식-활용-실행-어라운드-패턴)
-- [함수형 인터페이스 사용](#2-함수형-인터페이스-사용)
-  - [Predicate\<T\>: `boolean test(T)`](#21-predicatet-boolean-testt)
-  - [Consumer\<T\>: `void accept(T)`](#22-consumert-void-acceptt)
-  - [Function<T,R>: `R apply(T)`](#23-functiontr-r-applyt)
-  - [기본형(primitive type) 특화](#24-기본형primitive-type-특화)
-- [형식 검사, 제약](#3-형식-검사-형식-추론-제약)
-  - [형식 검사](#31-형식-검사)
-  - [지역 변수 사용과 제약](#32-지역-변수-사용과-제약)
+
+<!-- TOC -->
+* [1. 람다 표현식](#1-람다-표현식)
+  * [1.1. 람다 표현식 사용](#11-람다-표현식-사용)
+  * [1.2. 함수형 인터페이스 (Functional Interface)](#12-함수형-인터페이스-functional-interface)
+  * [1.3. 함수 디스크립터](#13-함수-디스크립터)
+  * [1.4. 람다 표현식 활용: 실행 어라운드 패턴](#14-람다-표현식-활용-실행-어라운드-패턴)
+* [2. 함수형 인터페이스 사용](#2-함수형-인터페이스-사용)
+  * [2.1. Predicate\<T\>: `boolean test(T)`](#21-predicatet-boolean-testt)
+  * [2.2. Consumer\<T\>: `void accept(T)`](#22-consumert-void-acceptt)
+  * [2.3. Function<T,R>: `R apply(T)`](#23-functiontr-r-applyt)
+  * [2.4. 기본형(primitive type) 특화](#24-기본형primitive-type-특화)
+* [3. 형식 검사, 형식 추론, 제약](#3-형식-검사-형식-추론-제약)
+  * [3.1. 형식 검사](#31-형식-검사)
+  * [3.2. 지역 변수 사용과 제약](#32-지역-변수-사용과-제약)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

@@ -26,17 +26,20 @@ Spring boot 프레임워크는 JSON 메시지를 처리하는 Jackson 라이브�
 
 **목차**
 
-- [GET, DELETE 메서드 매핑](#1-get-delete-메서드-매핑)
-  - [GET 메서드 매핑](#11-get-메서드-매핑)
-  - [Controller 구현: `@PathVariable`, `@RequestParam`, `@DateTimeFormat`](#12-controller-구현-pathvariable-requestparam-datetimeformat)
-  - [`@GetMapping`, `@RequestHeader`](#13-getmapping-requestheader)
-  - [ant-style path](#14-ant-style-path)
-  - [`@DeleteMapping`](#15-deletemapping)
-- [응답 메시지 처리](#2-응답-메시지-처리)
-  - [JSON 마셜링: `@JsonProperty`, `@JsonSerialize`](#21-json-마셜링-jsonproperty-jsonserialize)
-  - [JsonSerializer, JsonDeserializer](#22-jsonserializer-jsondeserializer)
-  - [`@JsonFormat`](#23-jsonformat)
-  - [Enum 클래스의 변환: `@JsonValue`, `@JsonCreator`](#24-enum-클래스의-변환-jsonvalue-jsoncreator)
+<!-- TOC -->
+* [1. GET, DELETE 메서드 매핑](#1-get-delete-메서드-매핑)
+  * [1.1. GET 메서드 매핑](#11-get-메서드-매핑)
+  * [1.2. Controller 구현: `@PathVariable`, `@RequestParam`, `@DateTimeFormat`](#12-controller-구현-pathvariable-requestparam-datetimeformat)
+  * [1.3. `@GetMapping`, `@RequestHeader`](#13-getmapping-requestheader)
+  * [1.4. ant-style path](#14-ant-style-path)
+  * [1.5. `@DeleteMapping`](#15-deletemapping)
+* [2. 응답 메시지 처리](#2-응답-메시지-처리)
+  * [2.1. JSON 마셜링: `@JsonProperty`, `@JsonSerialize`](#21-json-마셜링-jsonproperty-jsonserialize)
+  * [2.2. JsonSerializer, JsonDeserializer](#22-jsonserializer-jsondeserializer)
+  * [2.3. `@JsonFormat`](#23-jsonformat)
+  * [2.4. Enum 클래스의 변환: `@JsonValue`, `@JsonCreator`](#24-enum-클래스의-변환-jsonvalue-jsoncreator)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

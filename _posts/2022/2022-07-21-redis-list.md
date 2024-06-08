@@ -8,19 +8,22 @@ tags: redis list
 
 이 포스트는 Redis 의 데이터 타입 중 하나인 `List` 타입에 대해 알아본다.
 
-> - [`List`](#1-list)
->   - [`LPUSH`, `RPUSH`](#11-lpush-rpush)
->   - [`LRANGE`](#12-lrange)
->   - [`LPOP`, `RPOP`](#13-lpop-rpop)
->   - [`LPUSHX`, `RPUSHX`](#14-lpushx-rpushx)
->   - [`RPOPLPUSH`](#15-rpoplpush)
->   - [`LSET`](#16-lset)
->   - [`LLEN`](#17-llen)
->   - [`LINSERT`](#18-linsert)
->   - [`LTRIM`](#19-ltrim)
->   - [`LREM`](#110-lrem)
->   - [`LINDEX`, `LPOS`](#111-lindex-lpos)
->   - [`LMOVE`](#112-lmove)
+<!-- TOC -->
+* [1. `List`](#1-list)
+  * [1.1. `LPUSH`, `RPUSH`](#11-lpush-rpush)
+  * [1.2. `LRANGE`](#12-lrange)
+  * [1.3. `LPOP`, `RPOP`](#13-lpop-rpop)
+  * [1.4. `LPUSHX`, `RPUSHX`](#14-lpushx-rpushx)
+  * [1.5. `RPOPLPUSH`](#15-rpoplpush)
+  * [1.6. `LSET`](#16-lset)
+  * [1.7. `LLEN`](#17-llen)
+  * [1.8. `LINSERT`](#18-linsert)
+  * [1.9. `LTRIM`](#19-ltrim)
+  * [1.10. `LREM`](#110-lrem)
+  * [1.11. `LINDEX`, `LPOS`](#111-lindex-lpos)
+  * [1.12. `LMOVE`](#112-lmove)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

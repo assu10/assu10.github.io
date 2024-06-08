@@ -14,16 +14,19 @@ tags: springboot msa redis cache cache-manager redis-cache-manager enable-cachin
 
 **목차**
 
-- [`Cache` 와 `CacheManager` 인터페이스](#1-cache-와-cachemanager-인터페이스)
-  - [`CacheManager` 구현체, 캐시 데이터 삭제 알고리즘/유효기간](#11-cachemanager-구현체-캐시-데이터-삭제-알고리즘유효기간)
-  - [`RedisCacheManager` 스프링 빈 설정](#12-rediscachemanager-스프링-빈-설정)
-- [Cache 애너테이션: `@EnableCaching`](#2-cache-애너테이션-enablecaching)
-  - [`@Cacheable`](#21-cacheable)
-    - [`@Cacheable` 애너테이션의 `value`, `key`, `condition`](#211-cacheable-애너테이션의-value-key-condition)
-    - [`@Cacheable` 애너테이션의 `keyGenerator`](#212-cacheable-애너테이션의-keygenerator)
-  - [`@CachePut`](#22-cacheput)
-  - [`@CacheEvict`](#23-cacheevict)
-  - [`@Caching`](#24-caching)
+<!-- TOC -->
+* [1. `Cache` 와 `CacheManager` 인터페이스](#1-cache-와-cachemanager-인터페이스)
+  * [1.1. `CacheManager` 구현체, 캐시 데이터 삭제 알고리즘/유효기간](#11-cachemanager-구현체-캐시-데이터-삭제-알고리즘유효기간)
+  * [1.2. `RedisCacheManager` 스프링 빈 설정](#12-rediscachemanager-스프링-빈-설정)
+* [2. Cache 애너테이션: `@EnableCaching`](#2-cache-애너테이션-enablecaching)
+  * [2.1. `@Cacheable`](#21-cacheable)
+    * [2.1.1. `@Cacheable` 애너테이션의 `value`, `key`, `condition`](#211-cacheable-애너테이션의-value-key-condition)
+    * [2.1.2. `@Cacheable` 애너테이션의 `keyGenerator`](#212-cacheable-애너테이션의-keygenerator)
+  * [2.2. `@CachePut`](#22-cacheput)
+  * [2.3. `@CacheEvict`](#23-cacheevict)
+  * [2.4. `@Caching`](#24-caching)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

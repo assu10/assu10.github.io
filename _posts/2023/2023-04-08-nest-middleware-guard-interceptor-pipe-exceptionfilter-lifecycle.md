@@ -8,19 +8,24 @@ tags: nestjs middleware guard interceptor pipe exception-filter life-cycle
 
 이 포스트는 혼동하기 쉬운  Middleware, Guard, Interceptor, Pipe, ExceptionFilter 에 대해 간단히 비교해본다.
 
-- [Middleware](#middleware) 
-- [Guard](#guard)
-- [Interceptor](#interceptor)
-- [Pipe](#pipe)
-- [ExceptionFilter](#exceptionfilter)
-- [전체적인 요청/응답 생명주기](#전체적인-요청응답-생명주기)
+<!-- TOC -->
+* [Middleware](#middleware)
+* [Guard](#guard)
+* [Interceptor](#interceptor)
+* [Pipe](#pipe)
+* [ExceptionFilter](#exceptionfilter)
+* [전체적인 요청/응답 생명주기](#전체적인-요청응답-생명주기)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 
-> 각각에 대한 설명은 [NestJS - Middleware](https://assu10.github.io/dev/2023/03/18/nest-middleware/),
-> [NestJS - Guard, JWT](https://assu10.github.io/dev/2023/03/19/nest-auth/), 
-> [NestJS - Interceptor](https://assu10.github.io/dev/2023/04/02/nest-interceptor), 
-> [NestJS - Pipe, Validation](https://assu10.github.io/dev/2023/03/11/nest-pipe/), 
-> [NestJS - Exception Filter](https://assu10.github.io/dev/2023/04/01/nest-exception-filter/) 를 참고하세요.
+> 각각에 대한 설명은  
+> [NestJS - Middleware](https://assu10.github.io/dev/2023/03/18/nest-middleware/),  
+> [NestJS - Guard, JWT](https://assu10.github.io/dev/2023/03/19/nest-auth/),  
+> [NestJS - Interceptor](https://assu10.github.io/dev/2023/04/02/nest-interceptor),  
+> [NestJS - Pipe, Validation](https://assu10.github.io/dev/2023/03/11/nest-pipe/),  
+> [NestJS - Exception Filter](https://assu10.github.io/dev/2023/04/01/nest-exception-filter/)  
+> 를 참고하세요.
 
 ---
 

@@ -10,28 +10,32 @@ tags: devops gitlab gitlab-runner ci cd
 
 >[GitLab-Runner 설치 & 등록(Windows)](https://assu10.github.io/dev/2020/10/08/gitlab-runner-1/)<br />
 >[GitLab CI/CD Pipeline 구성](https://assu10.github.io/dev/2020/10/09/gitlab-runner-2/)<br /><br />
->***.gitlab-ci.yml 에 대하여***<br />
->- .gitlab-ci.yml
->- job 구성 요소
->- 전역 파라미터
->   - stages
->   - include
->       - include:local
->   - script
->       - script: before_script, after_script
->       - script:  Multi-line commands
->   - stage
->   - extends
->   - rules
->   - needs
->   - allow_failure
->   - when
->   - environment
->   - artifacts
->       - artifacts:path
->   - trigger
->       - trigger:strategy
->   - pages
+
+<!-- TOC -->
+  * [.gitlab-ci.yml](#gitlab-ciyml)
+  * [job 구성 요소](#job-구성-요소)
+  * [전역 파라미터](#전역-파라미터)
+    * [stages](#stages)
+    * [include](#include)
+      * [include:local](#includelocal)
+    * [script](#script)
+      * [script - before_script, after_script](#script---before_script-after_script)
+      * [script - Multi-line commands](#script---multi-line-commands)
+    * [stage](#stage)
+    * [extends](#extends)
+    * [rules](#rules)
+    * [needs](#needs)
+    * [allow_failure](#allow_failure-)
+    * [when](#when)
+    * [environment](#environment)
+    * [artifacts](#artifacts)
+      * [artifacts:path](#artifactspath)
+    * [trigger](#trigger)
+      * [trigger:strategy](#triggerstrategy)
+    * [pages](#pages)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [관련하여 나중에 보면 좋은 사이트](#관련하여-나중에-보면-좋은-사이트)
+<!-- TOC -->
 
 이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
 
@@ -781,13 +785,6 @@ pages:
 
 ---
 
-# 추후 확인 예정
-
-[cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
-[job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html)
-
----
-
 ## 참고 사이트 & 함께 보면 좋은 사이트
 
 * [GitLab CI/CD pipeline configuration reference](https://docs.gitlab.com/ee/ci/yaml/README.html)
@@ -815,3 +812,5 @@ pages:
 * [(프로덕션 환경에서의 배포)Configuring manual deployments](https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)
 * [when:delayed](https://docs.gitlab.com/ee/ci/yaml/README.html#whendelayed)
 * [(특정 환경 배포 시)environment](https://docs.gitlab.com/ee/ci/yaml/README.html#environment)
+* [cache](https://docs.gitlab.com/ee/ci/yaml/README.html#cache)
+* [job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html)

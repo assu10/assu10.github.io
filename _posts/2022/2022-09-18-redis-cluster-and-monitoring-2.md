@@ -8,11 +8,14 @@ tags: redis
 
 이 포스트는 Redis Cluster 를 구축하는 방법에 대해 알아본다.   
 
-> - [Redis Cluster 구축 및 운영](#1-redis-cluster-구축-및-운영)
->   - [Cluster 서버](#11-cluster-서버)
->   - [Cluster 명령어를 이용한 수동 설정](#12-cluster-명령어를-이용한-수동-설정)
->   - [Cluster 명령어](#13-cluster-명령어)
->   - [redis-trib.rb 유틸리티를 이용한 자동 설정](#14-redis-tribrb-유틸리티를-이용한-자동-설정)
+<!-- TOC -->
+* [1. Redis Cluster 구축 및 운영](#1-redis-cluster-구축-및-운영)
+  * [1.1. Cluster 서버](#11-cluster-서버)
+  * [1.2. Cluster 명령어를 이용한 수동 설정](#12-cluster-명령어를-이용한-수동-설정)
+  * [1.3. Cluster 명령어](#13-cluster-명령어)
+  * [1.4. redis-trib.rb 유틸리티를 이용한 자동 설정](#14-redis-tribrb-유틸리티를-이용한-자동-설정)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

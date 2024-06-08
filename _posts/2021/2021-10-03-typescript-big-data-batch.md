@@ -4,7 +4,6 @@ title:  "Typescript - 빅데이터 배치 프로그램"
 date:   2021-10-03 10:00
 categories: dev
 tags: typescript
-categories: dev
 ---
 
 이 포스트는 빅데이터 배치 프로그램을 만들어볼 것이다.<br />
@@ -13,25 +12,28 @@ node.js 환경에서 CSV 파일 형식의 데이터를 MySQL 이나 PostgreSQL �
 
 *소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
 
-> - 프로젝트 구성
-> - CSV 파일과 생성기
-> - node.js 에서 프로그램 명령 줄 인수 읽기
-> - 파일 처리 비동기 함수를 프로미스로 구현
->   - `fs.access` API 로 디렉터리와 파일 확인
->   - `mkdirp` 패키지로 디렉터리 생성 함수 생성
->   - `rimraf` 패키지로 디렉터리 삭제 함수 생성
->   - `fs.writeFile` API 로 파일 생성
->   - `fs.readFile` API 로 파일 내용 읽기
->   - `fs.appendFile` API 로 파일에 내용 추가
->   - `fs.unlink` API 로 파일 삭제
->   - src/fileApi/index.ts 파일 생성
-> - 가짜 데이터 생성
-> - `Object.keys` 와 `Object.values` 함수 사용
-> - CSV 파일 생성
-> - 데이터를 CSV 파일에 쓰기
-> - zip 함수 생성
-> - 생성기 코드 구현 시 주의점
-> - CSV 파일 데이터 읽기
+<!-- TOC -->
+  * [1. 프로젝트 구성](#1-프로젝트-구성)
+  * [2. CSV 파일과 생성기](#2-csv-파일과-생성기)
+  * [3. node.js 에서 프로그램 명령 줄 인수 읽기](#3-nodejs-에서-프로그램-명령-줄-인수-읽기)
+  * [4. 파일 처리 비동기 함수를 프로미스로 구현](#4-파일-처리-비동기-함수를-프로미스로-구현)
+    * [4.1. `fs.access` API 로 디렉터리와 파일 확인](#41-fsaccess-api-로-디렉터리와-파일-확인)
+    * [4.2. `mkdirp` 패키지로 디렉터리 생성 함수 생성](#42-mkdirp-패키지로-디렉터리-생성-함수-생성)
+    * [4.3. `rimraf` 패키지로 디렉터리 삭제 함수 생성](#43-rimraf-패키지로-디렉터리-삭제-함수-생성)
+    * [4.4. `fs.writeFile` API 로 파일 생성](#44-fswritefile-api-로-파일-생성)
+    * [4.5. `fs.readFile` API 로 파일 내용 읽기](#45-fsreadfile-api-로-파일-내용-읽기)
+    * [4.6. `fs.appendFile` API 로 파일에 내용 추가](#46-fsappendfile-api-로-파일에-내용-추가)
+    * [4.7. `fs.unlink` API 로 파일 삭제](#47-fsunlink-api-로-파일-삭제)
+    * [4.8. src/fileApi/index.ts 파일 생성](#48-srcfileapiindexts-파일-생성)
+  * [5. 가짜 데이터 생성](#5-가짜-데이터-생성)
+  * [6. `Object.keys` 와 `Object.values` 함수 사용](#6-objectkeys-와-objectvalues-함수-사용)
+  * [7. CSV 파일 생성](#7-csv-파일-생성)
+  * [8. 데이터를 CSV 파일에 쓰기](#8-데이터를-csv-파일에-쓰기)
+  * [9. zip 함수 생성](#9-zip-함수-생성)
+  * [10. 생성기 코드 구현 시 주의점](#10-생성기-코드-구현-시-주의점)
+  * [11. CSV 파일 데이터 읽기](#11-csv-파일-데이터-읽기)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 
 아래와 같은 순서로 진행 예정이다.

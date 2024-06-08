@@ -8,11 +8,14 @@ tags: nestjs health-check
 
 이 포스트는 NestJS 에서 HTTP Health Check, TypeORM Health Check, Custom Health Check 하는 법에 대해 알아본다.
 
-- [NestJS 의 Health Check](#1-nestjs-의-health-check)
-- [Terminus 적용](#2-terminus-적용)
-- [HTTP Health Check: `HttpHealthIndicator`, `@HealthCheck()`](#3-http-health-check-httphealthindicator-healthcheck)
-- [TypeORM Health Check: `TypeOrmHealthIndicator`](#4-typeorm-health-check-typeormhealthindicator)
-- [Custom Health Indicator](#5-custom-상태-표시기)
+<!-- TOC -->
+* [1. NestJS 의 Health Check](#1-nestjs-의-health-check)
+* [2. Terminus 적용](#2-terminus-적용)
+* [3. HTTP Health Check: `HttpHealthIndicator`, `@HealthCheck()`](#3-http-health-check-httphealthindicator-healthcheck)
+* [4. TypeORM Health Check: `TypeOrmHealthIndicator`](#4-typeorm-health-check-typeormhealthindicator)
+* [5. Custom 상태 표시기](#5-custom-상태-표시기)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch15) 에 있습니다.
 

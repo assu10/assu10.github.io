@@ -31,19 +31,24 @@ tags: springboot msa redis spring-data-redis lettuce redis-connection-factory
 
 **목차**
 
-- [레디스](#1-레디스)
-  - [레디스 센티넬(Sentinel) 아키텍처](#11-레디스-센티넬sentinel-아키텍처)
-  - [레디스 클러스터 아키텍처](#12-레디스-클러스터-아키텍처)
-  - [레디스 자료구조](#13-레디스-자료구조)
-  - [레디스 유효기간](#14-레디스-유효기간)
-- [Spring Data Redis](#2-spring-data-redis)
-  - [`RedisAutoConfiguration` 자동 설정](#21-redisautoconfiguration-자동-설정)
-  - [레디스 도커 설정](#22-레디스-도커-설정)
-- [Lettuce 라이브러리와 커넥션 설정](#3-lettuce-라이브러리와-커넥션-설정)
-  - [`RedisConnectionFactory` 설정](#31-redisconnectionfactory-설정)
-    - [`RedisStandaloneConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#311-redisstandaloneconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
-    - [`RedisSentinelConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#312-redissentinelconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
-    - [`RedisClusterConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#313-redisclusterconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
+<!-- TOC -->
+* [1. 레디스](#1-레디스)
+  * [레디스 동작 방식](#레디스-동작-방식)
+  * [레디스 아키텍처](#레디스-아키텍처)
+  * [1.1. 레디스 센티넬(Sentinel) 아키텍처](#11-레디스-센티넬sentinel-아키텍처)
+  * [1.2. 레디스 클러스터 아키텍처](#12-레디스-클러스터-아키텍처)
+  * [1.3. 레디스 자료구조](#13-레디스-자료구조)
+  * [1.4. 레디스 유효기간](#14-레디스-유효기간)
+* [2. Spring Data Redis](#2-spring-data-redis)
+  * [2.1. `RedisAutoConfiguration` 자동 설정](#21-redisautoconfiguration-자동-설정)
+  * [2.2. 레디스 도커 설정](#22-레디스-도커-설정)
+* [3. Lettuce 라이브러리와 커넥션 설정](#3-lettuce-라이브러리와-커넥션-설정)
+  * [3.1. `RedisConnectionFactory` 설정](#31-redisconnectionfactory-설정)
+    * [3.1.1. `RedisStandaloneConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#311-redisstandaloneconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
+    * [3.1.2. `RedisSentinelConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#312-redissentinelconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
+    * [3.1.3. `RedisClusterConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#313-redisclusterconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

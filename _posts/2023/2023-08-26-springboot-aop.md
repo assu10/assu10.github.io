@@ -15,17 +15,20 @@ tags: springboot msa aop
 
 **목차**
 
-- [AOP 용어](#1-aop-용어)
-- [어드바이스: `@Before`, `@After`, `@AfterReturning`, `@AfterThrowing`, `@Around`](#2-어드바이스-before-after-afterreturning-afterthrowing-around)
-- [스프링 AOP 와 프록시 객체](#3-스프링-aop-와-프록시-객체)
-- [포인트 컷과 표현식](#4-포인트-컷과-표현식)
-  - [포인트 컷 표현식으로 포인트 컷 지정](#41-포인트-컷-표현식으로-포인트-컷-지정)
-    - [`@PointCut` 애너테이션과 포인트 컷 표현식을 사용하여 별도의 포인트 컷 정의](#411-pointcut-애너테이션과-포인트-컷-표현식을-사용하여-별도의-포인트-컷-정의)
-    - [어드바이스 애너테이션의 value 속성 사용](#412-어드바이스-애너테이션의-value-속성-사용)
-  - [특정 애너테이션으로 포인트 컷 지정: `@annotation`](#42-특정-애너테이션으로-포인트-컷-지정-annotation)
-- [`JoinPoint`, `ProceedingJoinPoint`](#5-joinpoint-proceedingjoinpoint)
-- [관점 클래스: `@Aspect`](#6-관점-클래스-aspect)
-- [애너테이션을 이용한 AOP: `@annotation`, `@Order`](#7-애너테이션을-이용한-aop-annotation-order)
+<!-- TOC -->
+* [1. AOP 용어](#1-aop-용어)
+* [2. 어드바이스: `@Before`, `@After`, `@AfterReturning`, `@AfterThrowing`, `@Around`](#2-어드바이스-before-after-afterreturning-afterthrowing-around)
+* [3. 스프링 AOP 와 프록시 객체](#3-스프링-aop-와-프록시-객체)
+* [4. 포인트 컷과 표현식](#4-포인트-컷과-표현식)
+  * [4.1. 포인트 컷 표현식으로 포인트 컷 지정](#41-포인트-컷-표현식으로-포인트-컷-지정)
+    * [4.1.1. `@PointCut` 애너테이션과 포인트 컷 표현식을 사용하여 별도의 포인트 컷 정의](#411-pointcut-애너테이션과-포인트-컷-표현식을-사용하여-별도의-포인트-컷-정의)
+    * [4.1.2. 어드바이스 애너테이션의 value 속성 사용](#412-어드바이스-애너테이션의-value-속성-사용)
+  * [4.2. 특정 애너테이션으로 포인트 컷 지정: `@annotation`](#42-특정-애너테이션으로-포인트-컷-지정-annotation)
+* [5. `JoinPoint`, `ProceedingJoinPoint`](#5-joinpoint-proceedingjoinpoint)
+* [6. 관점 클래스: `@Aspect`](#6-관점-클래스-aspect)
+* [7. 애너테이션을 이용한 AOP: `@annotation`, `@Order`](#7-애너테이션을-이용한-aop-annotation-order)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

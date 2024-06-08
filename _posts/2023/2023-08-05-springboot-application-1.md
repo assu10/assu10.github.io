@@ -18,23 +18,26 @@ tags: springboot msa web-mvc-configurer dispatcher-servlet
 
 **목차**
 
-- [웹 애플리케이션 기본 설정](#1-웹-애플리케이션-기본-설정)
-  - [웹 애플리케이션 설정 매커니즘](#11-웹-애플리케이션-설정-매커니즘)
-  - [`WebMvcConfigurer` 를 이용한 설정](#12-webmvcconfigurer-를-이용한-설정)
-    - [`configurePathMatch()`](#121-configurepathmatch)
-    - [`configureContentNegotiation()`](#122-configurecontentnegotiation)
-    - [`configureAsyncSupport()`](#123-configureasyncsupport)
-    - [`configureDefaultServletHandling()`](#124-configuredefaultservlethandling)
-    - [`addInterceptors()`](#125-addinterceptors)
-    - [`addResourcehandlers()`](#126-addresourcehandlers)
-    - [`addCorsMappings()`](#127-addcorsmappings)
-    - [`addViewControllers()`](#128-addviewcontrollers)
-    - [`configureHandlerExceptionResolvers()` 와 `extendsHandlerExceptionResolvers()`](#129-configurehandlerexceptionresolvers-와-extendshandlerexceptionresolvers)
-    - [`addFormatters()`](#1210-addformatters)
-    - [`addArgumentResolvers()`](#1211-addargumentresolvers)
-    - [`addReturnValueHandlers()`](#1212-addreturnvaluehandlers)
-    - [`configureMessageConverters()` 와 `extendMessageConverters()`](#1213-configuremessageconverters-와-extendmessageconverters)
-  - [DispatcherServlet 설정](#13-dispatcherservlet-설정)
+<!-- TOC -->
+* [1. 웹 애플리케이션 기본 설정](#1-웹-애플리케이션-기본-설정)
+  * [1.1. 웹 애플리케이션 설정 매커니즘](#11-웹-애플리케이션-설정-매커니즘)
+  * [1.2. `WebMvcConfigurer` 를 이용한 설정](#12-webmvcconfigurer-를-이용한-설정)
+    * [1.2.1. `configurePathMatch()`](#121-configurepathmatch)
+    * [1.2.2. `configureContentNegotiation()`](#122-configurecontentnegotiation)
+    * [1.2.3. `configureAsyncSupport()`](#123-configureasyncsupport)
+    * [1.2.4. `configureDefaultServletHandling()`](#124-configuredefaultservlethandling)
+    * [1.2.5. `addInterceptors()`](#125-addinterceptors)
+    * [1.2.6. `addResourcehandlers()`](#126-addresourcehandlers)
+    * [1.2.7. `addCorsMappings()`](#127-addcorsmappings)
+    * [1.2.8. `addViewControllers()`](#128-addviewcontrollers)
+    * [1.2.9. `configureHandlerExceptionResolvers()` 와 `extendsHandlerExceptionResolvers()`](#129-configurehandlerexceptionresolvers-와-extendshandlerexceptionresolvers)
+    * [1.2.10. `addFormatters()`](#1210-addformatters)
+    * [1.2.11. `addArgumentResolvers()`](#1211-addargumentresolvers)
+    * [1.2.12. `addReturnValueHandlers()`](#1212-addreturnvaluehandlers)
+    * [1.2.13. `configureMessageConverters()` 와 `extendMessageConverters()`](#1213-configuremessageconverters-와-extendmessageconverters)
+  * [1.3. DispatcherServlet 설정](#13-dispatcherservlet-설정)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

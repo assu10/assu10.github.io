@@ -9,17 +9,20 @@ tags: nodejs javascript event-loop setImmediate() setTimeout() process.nextTick(
 이 포스트는 Single Thread 로 동작하는 Node.js 가 어떻게 Non-Block (비동기) 처리를 할 수 있는지 Event Loop 의 원리를 통해 알아본다.  
 
 
-> - [Event Loop](#1-event-loop)
->   - [Timer phase (타이머 단계)](#11-timer-phase-타이머-단계)
->   - [Pending callback phase (대기 콜백 단계): `pending_queue`](#12-pending-callback-phase-대기-콜백-단계-pendingqueue)
->   - [Idle, Prepare phase (유휴, 준비 단계)](#13-idle-prepare-phase-유휴-준비-단계)
->   - [Poll phase (폴 단계): `watch_queue`](#14-poll-phase-폴-단계-watchqueue)
->   - [Check phase (체크 단계): `check_queue`](#15-check-phase-체크-단계-checkqueue)
->   - [Close callback phase (종료 콜백 단계): `closing_callbacks_queue`](#16-close-callback-phase-종료-콜백-단계-closingcallbacksqueue)
-> - [`setImmediate()` vs `setTimeout()`](#2-setimmediate-vs-settimeout)
-> - [`process.nextTick()`](#3-processnexttick)
-> - [`process.nextTick()` vs `setImmediate()`](#4-processnexttick-vs-setimmediate)
-> - [`process.nextTick()` 을 사용하는 이유](#5-processnexttick-을-사용하는-이유)
+<!-- TOC -->
+* [1. Event Loop](#1-event-loop)
+  * [1.1. Timer phase (타이머 단계)](#11-timer-phase-타이머-단계)
+  * [1.2. Pending callback phase (대기 콜백 단계): `pending_queue`](#12-pending-callback-phase-대기-콜백-단계-pending_queue)
+  * [1.3. Idle, Prepare phase (유휴, 준비 단계)](#13-idle-prepare-phase-유휴-준비-단계)
+  * [1.4. Poll phase (폴 단계): `watch_queue`](#14-poll-phase-폴-단계-watch_queue)
+  * [1.5. Check phase (체크 단계): `check_queue`](#15-check-phase-체크-단계-check_queue)
+  * [1.6. Close callback phase (종료 콜백 단계): `closing_callbacks_queue`](#16-close-callback-phase-종료-콜백-단계-closing_callbacks_queue)
+* [2. `setImmediate()` vs `setTimeout()`](#2-setimmediate-vs-settimeout)
+* [3. `process.nextTick()`](#3-processnexttick)
+* [4. `process.nextTick()` vs `setImmediate()`](#4-processnexttick-vs-setimmediate)
+* [5. `process.nextTick()` 을 사용하는 이유](#5-processnexttick-을-사용하는-이유)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

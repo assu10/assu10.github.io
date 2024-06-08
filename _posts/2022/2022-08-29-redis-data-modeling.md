@@ -8,13 +8,16 @@ tags: redis data-modeling
 
 이 포스트는 Redis 의 데이터 모델링에 관해 알아본다.   
 
-> - [용어](#1-용어)
-> - [Redis 데이터 모델링 가이드 라인](#2-redis-데이터-모델링-가이드-라인)
->   - [Hash-Hash 데이터 모델](#21-hash-hash-데이터-모델)
->   - [Hash-List 데이터 모델](#22-hash-list-데이터-모델)
->   - [Set/Sorted Set-List 데이터 모델](#23-setsorted-set-list-데이터-모델)
->   - [List-List 데이터 모델](#24-list-list-데이터-모델)
-> - [논리적 DB 설계](#3-논리적-db-설계)
+<!-- TOC -->
+* [1. 용어](#1-용어)
+* [2. Redis 데이터 모델링 가이드 라인](#2-redis-데이터-모델링-가이드-라인)
+  * [2.1. Hash-Hash 데이터 모델](#21-hash-hash-데이터-모델)
+  * [2.2. Hash-List 데이터 모델](#22-hash-list-데이터-모델)
+  * [2.3. Set/Sorted Set-List 데이터 모델](#23-setsorted-set-list-데이터-모델)
+  * [2.4. List-List 데이터 모델](#24-list-list-데이터-모델)
+* [3. 논리적 DB 설계](#3-논리적-db-설계)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

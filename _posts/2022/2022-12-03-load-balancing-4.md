@@ -8,13 +8,26 @@ tags: devops aws global-accelerator
 
 이 포스트는 Global Accelerator 에 대해 알아본다.
 
-> - [Global Accelerator](#1-global-accelerator)
-> - [Global Accelerator 테스트](#2-global-accelerator-테스트)
->   - [기본 환경 구성](#21-기본-환경-구성)
->   - [Global Accelerator 설정 및 확인](#22-global-accelerator-설정-및-확인)
->   - [`Traffic Dial` 과 `Weight` 를 통한 트래픽 조정](#23-traffic-dial-과-weight-를-통한-트래픽-조정)
->   - [Global Accelerator 의 Failover](#24-global-accelerator-의-failover)
->   - [Resource 삭제](#25-resource-삭제)
+<!-- TOC -->
+* [1. Global Accelerator](#1-global-accelerator)
+* [2. Global Accelerator 테스트](#2-global-accelerator-테스트)
+  * [2.1. 기본 환경 구성](#21-기본-환경-구성)
+    * [2.1.1. CloudFormation 적용](#211-cloudformation-적용)
+    * [2.1.2. CloudFormation 을 통해 생성된 자원 확인](#212-cloudformation-을-통해-생성된-자원-확인)
+      * [2.1.2.1. 시드니 (ap-southeast-2) 리전](#2121-시드니-ap-southeast-2-리전)
+      * [2.1.2.2. 상파울루 (sa-east-1) 리전](#2122-상파울루-sa-east-1-리전)
+    * [2.1.3. 기본 통신 환경 검증](#213-기본-통신-환경-검증)
+  * [2.2. Global Accelerator 설정 및 확인](#22-global-accelerator-설정-및-확인)
+    * [2.2.1. Global Accelerator 생성](#221-global-accelerator-생성)
+    * [2.2.2. Global Accelerator 확인](#222-global-accelerator-확인)
+  * [2.3. `Traffic Dial` 과 `Weight` 를 통한 트래픽 조정](#23-traffic-dial-과-weight-를-통한-트래픽-조정)
+    * [2.3.1. 트래픽 조정 전 통신 흐름](#231-트래픽-조정-전-통신-흐름)
+    * [2.3.2. `Traffic Dial` 트래픽 조정 검증](#232-traffic-dial-트래픽-조정-검증)
+    * [2.3.3. `Weight` 트래픽 조정 검증](#233-weight-트래픽-조정-검증)
+  * [2.4. Global Accelerator 의 Failover](#24-global-accelerator-의-failover)
+  * [2.5. Resource 삭제](#25-resource-삭제)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

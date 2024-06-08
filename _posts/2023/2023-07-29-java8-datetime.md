@@ -17,18 +17,21 @@ tags: java java8 localdate parsing formatting temporal-adjusters datetimeformatt
 
 **목차**  
 
-- [LocalDate, LocalTime, LocalDateTime, Instant, Duration, Period](#1-localdate-localtime-localdatetime-instant-duration-period)
-  - [LocalDate, LocalTime](#11-localdate-localtime)
-  - [LocalDateTime](#12-localdatetime)
-  - [Instant](#13-instant)
-  - [Duration, Period](#14-duration-period)
-- [날짜 조정, Parsing, Formatting](#2-날짜-조정-parsing-formatting)
-  - [TemporalAdjusters](#21-temporaladjusters)
-    - [커스텀 TemporalAdjuster 구현](#211-커스텀-temporaladjuster-구현)
-  - [날짜와 시간 객체 출력과 parsing: `DateTimeFormatter`, `DateTimeFormatterBuilder`](#22-날짜와-시간-객체-출력과-parsing-datetimeformatter-datetimeformatterbuilder)
-- [다양한 시간대와 캘린더 활용: `ZoneId`](#3-다양한-시간대와-캘린더-활용-zoneid)
-  - [UTC/GMT 기준의 고정 오프셋: `ZoneOffset`](#31-utcgmt-기준의-고정-오프셋-zoneoffset)
-- [정리하며..](#4-정리하며)
+<!-- TOC -->
+* [1. LocalDate, LocalTime, LocalDateTime, Instant, Duration, Period](#1-localdate-localtime-localdatetime-instant-duration-period)
+  * [1.1. LocalDate, LocalTime](#11-localdate-localtime)
+  * [1.2. LocalDateTime](#12-localdatetime)
+  * [1.3. Instant](#13-instant)
+  * [1.4. Duration, Period](#14-duration-period)
+* [2. 날짜 조정, Parsing, Formatting](#2-날짜-조정-parsing-formatting)
+  * [2.1. TemporalAdjusters](#21-temporaladjusters)
+    * [2.1.1. 커스텀 TemporalAdjuster 구현](#211-커스텀-temporaladjuster-구현)
+  * [2.2. 날짜와 시간 객체 출력과 parsing: `DateTimeFormatter`, `DateTimeFormatterBuilder`](#22-날짜와-시간-객체-출력과-parsing-datetimeformatter-datetimeformatterbuilder)
+* [3. 다양한 시간대와 캘린더 활용: `ZoneId`](#3-다양한-시간대와-캘린더-활용-zoneid)
+  * [3.1. UTC/GMT 기준의 고정 오프셋: `ZoneOffset`](#31-utcgmt-기준의-고정-오프셋-zoneoffset)
+* [4. 정리하며..](#4-정리하며)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

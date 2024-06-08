@@ -4,7 +4,6 @@ title:  "Typescript - ramda 라이브러리 (2)"
 date:   2021-09-30 10:00
 categories: dev
 tags: typescript
-categories: dev
 ---
 
 이 포스트는 람다(ramda) 함수형 유틸리티 라이브러리의 기능에 대해 알아본다.
@@ -32,37 +31,40 @@ categories: dev
 
 *소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
 
-> - `chance` 패키지로 객체 생성
->   - ICoordinates 타입 객체 생성
->   - ILocation 타입 객체 생성
->   - IPerson 타입 객체 생성
-> - 렌즈 (Lens) 를 활용한 객체의 속성 다루기
->   - 렌즈 (Lens)
->   - `R.prop`, `R.assoc` 함수
->   - `R.lens` 함수
->   - `R.view`, `R.set`, `R.over` 함수
->   - `R.lensPath` 함수
-> - 객체 다루기
->   - `R.toPairs`, `R.fromParis` 함수
->   - `R.keys`, `R.values` 함수
->   - `R.zipObj` 함수
->   - `R.mergeLeft`, `R.mergeRight` 함수
->   - `R.mergeDeepLeft`, `R.mergeDeepRight` 함수
-> -  배열 다루기
->   - `R.prepend`, `R.append` 함수
->   - `R.flatten` 함수
->   - `R.unnest` 함수
->   - `R.sort` 함수
->   - `R.sortBy` 함수
->   - `R.sortWith` 함수
-> - 조합 논리 이해
->   - 조합자 (combinator)
->   - `R.chain` 함수
->   - `R.flip` 조합자
->   - `R.identity` 조합자
->   - `R.always` 조합자 (다루지 않음)
->   - `R.applyTo` 조합자
->   - `R.ap` 조합자
+<!-- TOC -->
+  * [1. `chance` 패키지로 객체 생성](#1-chance-패키지로-객체-생성)
+    * [1.1. ICoordinates 타입 객체 생성](#11-icoordinates-타입-객체-생성)
+    * [1.2. ILocation 타입 객체 생성](#12-ilocation-타입-객체-생성)
+    * [1.3. IPerson 타입 객체 생성](#13-iperson-타입-객체-생성)
+  * [2. 렌즈 (Lens) 를 활용한 객체의 속성 다루기](#2-렌즈-lens-를-활용한-객체의-속성-다루기)
+    * [2.1. 렌즈 (Lens)](#21-렌즈-lens-)
+    * [2.2. `R.prop`, `R.assoc` 함수](#22-rprop-rassoc-함수)
+    * [2.3. `R.lens` 함수](#23-rlens-함수)
+    * [2.4. `R.view`, `R.set`, `R.over` 함수](#24-rview-rset-rover-함수)
+    * [2.5. `R.lensPath` 함수](#25-rlenspath-함수)
+  * [3. 객체 다루기](#3-객체-다루기)
+    * [3.1. `R.toPairs`, `R.fromParis` 함수](#31-rtopairs-rfromparis-함수)
+    * [3.2. `R.keys`, `R.values` 함수](#32-rkeys-rvalues-함수)
+    * [3.3. `R.zipObj` 함수](#33-rzipobj-함수)
+    * [3.4. `R.mergeLeft`, `R.mergeRight` 함수](#34-rmergeleft-rmergeright-함수)
+    * [3.5. `R.mergeDeepLeft`, `R.mergeDeepRight` 함수](#35-rmergedeepleft-rmergedeepright-함수)
+  * [4. 배열 다루기](#4-배열-다루기)
+    * [4.1. `R.prepend`, `R.append` 함수](#41-rprepend-rappend-함수)
+    * [4.2. `R.flatten` 함수](#42-rflatten-함수)
+    * [4.3. `R.unnest` 함수](#43-runnest-함수)
+    * [4.4. `R.sort` 함수](#44-rsort-함수)
+    * [4.5. `R.sortBy` 함수](#45-rsortby-함수)
+    * [4.6. `R.sortWith` 함수](#46-rsortwith-함수)
+  * [5. 조합 논리 이해](#5-조합-논리-이해)
+    * [5.1. 조합자 (combinator)](#51-조합자-combinator)
+    * [5.2. `R.chain` 함수](#52-rchain-함수)
+    * [5.3. `R.flip` 조합자](#53-rflip-조합자)
+    * [5.4. `R.identity` 조합자](#54-ridentity-조합자)
+    * [5.5. `R.always` 조합자](#55-ralways-조합자)
+    * [5.6. `R.applyTo` 조합자](#56-rapplyto-조합자)
+    * [5.7. `R.ap` 조합자](#57-rap-조합자)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 
@@ -1104,7 +1106,7 @@ const notDiscountedPrice = calcPrice(4500); // 4500
 
 ### 5.5. `R.always` 조합자
 
-우선순위가 떨어지는 관계로 추후 포스트 예정입니다.
+이 내용은 각자 찾아보세요.
 
 ---
 

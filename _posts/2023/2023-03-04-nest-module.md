@@ -8,12 +8,15 @@ tags: nestjs module
 
 이 포스트는 NestJS 의 Module 설계에 대해 알아본다.
 
-- [Module 설계: `@Module`](#1-module-설계-module)
-  - [Module 다시 내보내기](#11-module-다시-내보내기)
-  - [전역 Module: `@Global`](#12-전역-module-global)
-- [유저 서비스 Module 분리](#2-유저-서비스-module-분리)
-  - [UsersModule 분리](#21-usersmodule-분리)
-  - [EmailModule 분리](#22-emailmodule-분리)
+<!-- TOC -->
+* [1. Module 설계: `@Module`](#1-module-설계-module)
+  * [1.1. Module 다시 내보내기](#11-module-다시-내보내기)
+  * [1.2. 전역 Module: `@Global`](#12-전역-module-global)
+* [2. 유저 서비스 Module 분리](#2-유저-서비스-module-분리)
+  * [2.1. UsersModule 분리](#21-usersmodule-분리)
+  * [2.2. EmailModule 분리](#22-emailmodule-분리)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 
 > 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch05), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch05) 에 있습니다.

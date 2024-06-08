@@ -8,18 +8,21 @@ tags: nestjs logging nest-winston
 
 이 포스트는 NestJS 에서 내장 Logger, Custom Logger, 외부 Logger 를 사용하는 방법에 대해 알아본다.
 
-- [내장 Logger](#1-내장-logger)
-  - [로깅 비활성화](#11-로깅-비활성화)
-  - [로그 레벨 지정](#12-로그-레벨-지정)
-- [Custom Logger](#2-custom-logger)
-  - [Custom Logger 주입하여 사용](#21-custom-logger-주입하여-사용)
-  - [Custom Logger 전역으로 사용](#22-custom-logger-전역으로-사용)
-  - [외부 Logger 사용](#23-외부-logger-사용)
-- [유저 서비스](#3-유저-서비스)
-  - [`nest-winston` 적용](#31-nest-winston-적용)
-  - [내장 Logger 대체](#32-내장-logger-대체)
-  - [BootStrapping 까지 포함하여 내장 Logger 대체](#33-bootstrapping-까지-포함하여-내장-logger-대체)
-  - [외부 서비스에 로그 전송](#34-외부-서비스에-로그-전송)
+<!-- TOC -->
+* [1. 내장 Logger](#1-내장-logger)
+  * [1.1. 로깅 비활성화](#11-로깅-비활성화)
+  * [1.2. 로그 레벨 지정](#12-로그-레벨-지정)
+* [2. Custom Logger](#2-custom-logger)
+  * [2.1. Custom Logger 주입하여 사용](#21-custom-logger-주입하여-사용)
+  * [2.2. Custom Logger 전역으로 사용](#22-custom-logger-전역으로-사용)
+  * [2.3. 외부 Logger 사용](#23-외부-logger-사용)
+* [3. 유저 서비스](#3-유저-서비스)
+  * [3.1. `nest-winston` 적용](#31-nest-winston-적용)
+  * [3.2. 내장 Logger 대체](#32-내장-logger-대체)
+  * [3.3. BootStrapping 까지 포함하여 내장 Logger 대체](#33-bootstrapping-까지-포함하여-내장-logger-대체)
+  * [3.4. 외부 서비스에 로그 전송](#34-외부-서비스에-로그-전송)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch11), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch11) 에 있습니다.

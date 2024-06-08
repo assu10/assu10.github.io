@@ -8,9 +8,12 @@ tags: nestjs metadata reflection-class reflection-metadata
 
 이 포스트는 NestJS 에서 빌드 타임에 선언해 둔 메타데이터를 활용하여 런타임에 동작을 제어할 수 있는 Metadata 에 대해 알아본다.
 
-- [Metadata 지정: `@SetMetadata`](#1-metadata-지정-setmetadata)
-- [Metadata 를 런타임에 조회: Handler 에 적용](#2-metadata-를-런타임에-조회-handler-에-적용)
-- [Metadata 를 런타임에 조회: Class 에 적용](#3-metadata-를-런타임에-조회-class-에-적용)
+<!-- TOC -->
+* [1. Metadata 지정: `@SetMetadata`](#1-metadata-지정-setmetadata)
+* [2. Metadata 를 런타임에 조회: Handler 에 적용](#2-metadata-를-런타임에-조회-handler-에-적용)
+* [3. Metadata 를 런타임에 조회: Class 에 적용](#3-metadata-를-런타임에-조회-class-에-적용)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/advanced03) 에 있습니다.
 

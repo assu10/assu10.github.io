@@ -17,17 +17,20 @@ tags: java java8 completable-future
 
 **목차**  
 
-- [비동기 작업 파이프라인](#1-비동기-작업-파이프라인)
-  - [할인 서비스 구현](#11-할인-서비스-구현)
-  - [할인 서비스 사용](#12-할인-서비스-사용)
-  - [동기 작업과 비동기 작업 조합](#13-동기-작업과-비동기-작업-조합)
-    - [가격 정보 조회](#131-가격-정보-조회)
-    - [Quote 파싱: `CompletableFuture.thenApply()`](#132-quote-파싱-completablefuturethenapply)
-    - [`CompletableFuture` 를 조합하여 할인된 가격 계산: `CompletableFuture.thenCompose()`](#133-completablefuture-를-조합하여-할인된-가격-계산-completablefuturethencompose)
-  - [서로 독립적인 `CompletableFuture` 와 서로 비독립적인 `CompletableFuture` 합치기: `CompletableFuture.thenCombine()`](#14-서로-독립적인-completablefuture-와-서로-비독립적인-completablefuture-합치기-completablefuturethencombine)
-- [`CompletableFuture` 종료 대응](#2-completablefuture-종료-대응-비동기-동작-완료에-대응)
-  - [최저가격 검색 리팩토링: `CompletableFuture.thenAccept()`](#21-최저가격-검색-리팩토링-completablefuturethenaccept)
-- [정리하며..](#3-정리하며)
+<!-- TOC -->
+* [1. 비동기 작업 파이프라인](#1-비동기-작업-파이프라인)
+  * [1.1. 할인 서비스 구현](#11-할인-서비스-구현)
+  * [1.2. 할인 서비스 사용](#12-할인-서비스-사용)
+  * [1.3. 동기 작업과 비동기 작업 조합](#13-동기-작업과-비동기-작업-조합)
+    * [1.3.1. 가격 정보 조회](#131-가격-정보-조회)
+    * [1.3.2. Quote 파싱: `CompletableFuture.thenApply()`](#132-quote-파싱-completablefuturethenapply)
+    * [1.3.3. `CompletableFuture` 를 조합하여 할인된 가격 계산: `CompletableFuture.thenCompose()`](#133-completablefuture-를-조합하여-할인된-가격-계산-completablefuturethencompose)
+  * [1.4. 서로 독립적인 `CompletableFuture` 와 서로 비독립적인 `CompletableFuture` 합치기: `CompletableFuture.thenCombine()`](#14-서로-독립적인-completablefuture-와-서로-비독립적인-completablefuture-합치기-completablefuturethencombine)
+* [2. `CompletableFuture` 종료 대응 (비동기 동작 완료에 대응)](#2-completablefuture-종료-대응-비동기-동작-완료에-대응)
+  * [2.1. 최저가격 검색 리팩토링: `CompletableFuture.thenAccept()`](#21-최저가격-검색-리팩토링-completablefuturethenaccept)
+* [3. 정리하며..](#3-정리하며)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

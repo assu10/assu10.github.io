@@ -4,24 +4,26 @@ title:  "Typescript - 반복기, 생성기"
 date:   2021-09-22 10:00
 categories: dev
 tags: typescript
-categories: dev
 ---
 
 이 포스트는 함수형 프로그래밍의 일부인 선언형 프로그래밍과 함수형 프로그래밍을 가능하게 하는 순수 함수를 다루면서 배열과 튜플에 대해 알아본다. 
 
 *소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
 
-> - 반복기 (`iterator`)
->   - 반복기(`iterator`)와 반복기 제공자(`iterable`)
->   - 반복기 (`iterator`) 가 필요한 이유
->   - `for...of` 구문과 `[Symbol.iterator]` 메서드
->   - Iterable<T> 인터페이스와 Iterator<T> 인터페이스
-> - 생성기 (`generator`)
->   - `setInterval` 함수와 생성기 비교
->   - `yield` 키워드
->   - 반복기 제공자의 메서드로 동작하는 생성기 구현
->   - `yield*` 키워드
->   - `yield` 반환값
+<!-- TOC -->
+  * [1. 반복기 (`iterator`)](#1-반복기-iterator)
+    * [1.1. 반복기(`iterator`)와 반복기 제공자(`iterable`)](#11-반복기iterator와-반복기-제공자iterable)
+    * [1.2. 반복기 (`iterator`) 가 필요한 이유](#12-반복기-iterator-가-필요한-이유)
+    * [1.3. `for...of` 구문과 `[Symbol.iterator]` 메서드](#13-forof-구문과-symboliterator-메서드)
+    * [1.4. Iterable<T> 인터페이스와 Iterator<T> 인터페이스](#14-iterablet-인터페이스와-iteratort-인터페이스)
+  * [2. 생성기 (`generator`)](#2-생성기-generator)
+    * [2.1. `setInterval` 함수와 생성기 비교](#21-setinterval-함수와-생성기-비교)
+    * [2.2. `yield` 키워드](#22-yield-키워드)
+    * [2.3. 반복기 제공자의 메서드로 동작하는 생성기 구현](#23-반복기-제공자의-메서드로-동작하는-생성기-구현)
+    * [2.4. `yield*` 키워드](#24-yield-키워드)
+    * [2.5. `yield` 반환값](#25-yield-반환값)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

@@ -19,14 +19,19 @@ tags: springboot web msa http http-status-code rest-api spring-web-mvc
 
 **목차**
 
-- [HTTP 프로토콜](#1-http-프로토콜)
-  - [HTTP 상태 코드](#11-http-상태-코드)
-- [Spring 웹 MVC 프레임워크](#2-spring-웹-mvc-프레임워크)
-  - [DispatcherServlet](#21-dispatcherservlet)
-  - [서블릿 스택과 리액티브 스택](#22-서블릿-스택과-리액티브-스택)
-  - [Spring boot 설정](#23-spring-boot-설정)
-- [REST-API 애플리케이션 구축](#3-rest-api-애플리케이션-구축)
-  - [`@ResponseBody`, `HttpMessageConverter`](#31-responsebody-httpmessageconverter)
+<!-- TOC -->
+* [1. HTTP 프로토콜](#1-http-프로토콜)
+  * [비연결성](#비연결성)
+  * [무상태](#무상태)
+  * [1.1. HTTP 상태 코드](#11-http-상태-코드)
+* [2. Spring 웹 MVC 프레임워크](#2-spring-웹-mvc-프레임워크)
+  * [2.1. DispatcherServlet](#21-dispatcherservlet)
+  * [2.2. 서블릿 스택과 리액티브 스택](#22-서블릿-스택과-리액티브-스택)
+  * [2.3. Spring boot 설정](#23-spring-boot-설정)
+* [3. REST-API 애플리케이션 구축](#3-rest-api-애플리케이션-구축)
+  * [3.1. `@ResponseBody`, `HttpMessageConverter`](#31-responsebody-httpmessageconverter)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

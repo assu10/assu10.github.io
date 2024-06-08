@@ -8,12 +8,15 @@ tags: nestjs interceptor
 
 이 포스트는 NestJS 의 Interceptor 에 대해 알아본다.
 
-- [Interceptor: `@UseInterceptors`](#1-interceptor-useinterceptors)
-- [응답과 예외 매핑](#2-응답과-예외-매핑)
-  - [응답 변형](#21-응답-변형)
-  - [예외 매핑](#22-예외-매핑)
-- [유저 서비스](#3-유저-서비스)
-  - [Interceptor 적용](#31-interceptor-적용)
+<!-- TOC -->
+* [1. Interceptor: `@UseInterceptors`](#1-interceptor-useinterceptors)
+* [2. 응답과 예외 매핑](#2-응답과-예외-매핑)
+  * [2.1. 응답 변형](#21-응답-변형)
+  * [2.2. 예외 매핑](#22-예외-매핑)
+* [3. 유저 서비스](#3-유저-서비스)
+  * [3.1. Interceptor 적용](#31-interceptor-적용)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch13), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch13) 에 있습니다.
 

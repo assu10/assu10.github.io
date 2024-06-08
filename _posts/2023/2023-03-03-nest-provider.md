@@ -8,20 +8,23 @@ tags: nestjs provider scope
 
 이 포스트는 NestJS 의 Provider 에 대해 알아본다.
 
-> - [Provider: `@Injectable`](#1-provider-injectable)
->   - [Provider 등록](#11-provider-등록)
->   - [Provider 사용 (속성 기반 주입): `@Inject`](#12-provider-사용-속성-기반-주입-inject)
-> - [유저 서비스 회원 가입 로직 구현](#2-유저-서비스-회원-가입-로직-구현)
->   - [Provider 생성](#21-provider-생성)
->   - [회원 가입](#22-회원-가입)
->   - [회원 가입 이메일 발송](#23-회원-가입-이메일-발송)
->   - [이메일 인증](#24-이메일-인증)
->   - [로그인](#25-로그인)
->   - [유저 정보 조회](#26-유저-정보-조회)
-> - [Scope](#3-scope)
->   - [Provider 에 Scope 적용](#31-provider-에-scope-적용)
->   - [Controller 에 Scope 적용](#32-controller-에-scope-적용)
-> - [Custom Provider](#4-custom-provider)
+<!-- TOC -->
+* [1. Provider: `@Injectable`](#1-provider-injectable)
+  * [1.1. Provider 등록](#11-provider-등록)
+  * [1.2. Provider 사용 (속성 기반 주입): `@Inject`](#12-provider-사용-속성-기반-주입-inject)
+* [2. 유저 서비스 회원 가입 로직 구현](#2-유저-서비스-회원-가입-로직-구현)
+  * [2.1. Provider 생성](#21-provider-생성)
+  * [2.2. 회원 가입](#22-회원-가입)
+  * [2.3. 회원 가입 이메일 발송](#23-회원-가입-이메일-발송)
+  * [2.4. 이메일 인증](#24-이메일-인증)
+  * [2.5. 로그인](#25-로그인)
+  * [2.6. 유저 정보 조회](#26-유저-정보-조회)
+* [3. Scope](#3-scope)
+  * [3.1. Provider 에 Scope 적용](#31-provider-에-scope-적용)
+  * [3.2. Controller 에 Scope 적용](#32-controller-에-scope-적용)
+* [4. Custom Provider](#4-custom-provider)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 > 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch04), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch04) 에 있습니다.
 
@@ -249,8 +252,6 @@ export class BaseService {
 
 `@Inject` 데커레이터의 인수는 타입(클래스명), 문자열, 심벌이 올 수 있는데 Provider 가 어떻게 정의되느냐에 따라 다르다.  
 `@Injectable` 이 선언된 클래스는 클래스명을 사용하면 된다.  
-
-> 문자열과 심벌을 추후 다룰 예정입니다.
 
 > 상속 관계에 있지 않은 경우는 속성 기반 주입이 아닌 생성자 기반 주입을 권장함
 
@@ -625,7 +626,7 @@ export class UsersController { }
 
 # 4. Custom Provider
 
-> 추후 다룰 예정입니다..
+> 이 내용은 각자 찾아보세요.
 
 ---
 

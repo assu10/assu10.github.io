@@ -8,12 +8,15 @@ tags: nestjs task-scheduling
 
 이 포스트는 NestJS 에서 Task Scheduling 을 선언하는 방법에 대해 알아본다.
 
-- [`@nest/schedule` 패키지](#1-nestschedule-패키지)
-- [Task Scheduling 선언](#2-task-scheduling-선언)
-  - [Cron Job 선언 방식: `@Cron`](#21-cron-job-선언-방식-cron)
-  - [Interval 선언 방식: `@Interval`](#22-interval-선언-방식-interval)
-  - [Timeout 선언 방식: `@Timeout`](#23-timeout-선언-방식-timeout)
-- [Dynamic Task Scheduling](#3-dynamic-task-scheduling)
+<!-- TOC -->
+* [1. `@nest/schedule` 패키지](#1-nestschedule-패키지)
+* [2. Task Scheduling 선언](#2-task-scheduling-선언)
+  * [2.1. Cron Job 선언 방식: `@Cron`](#21-cron-job-선언-방식-cron)
+  * [2.2. Interval 선언 방식: `@Interval`](#22-interval-선언-방식-interval)
+  * [2.3. Timeout 선언 방식: `@Timeout`](#23-timeout-선언-방식-timeout)
+* [3. Dynamic Task Scheduling](#3-dynamic-task-scheduling)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch14) 에 있습니다.
 

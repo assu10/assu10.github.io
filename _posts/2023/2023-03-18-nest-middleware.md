@@ -8,12 +8,15 @@ tags: nestjs middleware
 
 이 포스트는 NestJS 의 Middleware 에 대해 알아본다.
 
-- [Middleware](#1-middleware)
-- [Logger Middleware](#2-logger-middleware)
-- [`MiddlewareConsumer`](#3-middlewareconsumer) 
-- [전역으로 적용](#4-전역으로-적용)
-
 > 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch09) 에 있습니다.
+
+<!-- TOC -->
+* [1. Middleware](#1-middleware)
+* [2. Logger Middleware](#2-logger-middleware)
+* [3. `MiddlewareConsumer`](#3-middlewareconsumer)
+* [4. 전역으로 적용](#4-전역으로-적용)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 
@@ -47,7 +50,7 @@ Middleware 로 아래와 같은 작업들을 수행할 수 있다.
 
 이 외에 DB Transaction 이 필요한 요청인 경우 Transaction 을 걸어 동작 수행 후 커밋하는 등의 Custom Middleware 를 활용할 수도 있다.
 
-> Middleware 와 비슷한 개념인 Interceptor 는 추후 다룰 예정입니다.
+> Middleware 와 비슷한 개념인 Interceptor 는 [NestJS - Interceptor](https://assu10.github.io/dev/2023/04/02/nest-interceptor/) 를 참고하세요.
 
 > `Guard` 는 [NestJS - Guard, JWT](https://assu10.github.io/dev/2023/03/19/nest-auth/) 를 참고하세요. 
 
@@ -311,7 +314,7 @@ TypeError: Class constructor Logger2Middleware cannot be invoked without 'new'
 함수로 만든 Middleware 는 DI 컨테이너를 사용할 수 없다는 단점이 있다. (= Provider 를 주입받아 사용 불가)
 
 > Middleware 와 비슷한 `Guard` 를 이용하여 Router Handler 에서 요청을 처리하기 전 응답 객체를 처리하는 방법도 있다.  
-> 이 부분은 추후 알아볼 예정입니다.
+> 이 부분은 각자 알아보세요.
 
 ---
 

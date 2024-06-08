@@ -15,14 +15,17 @@ tags: springboot msa Junit spring-boot-test test-configuration mock-bean web-mvc
 
 **목차**
 
-- [스프링 부트 테스트 설정](#1-스프링-부트-테스트-설정)
-- [Junit 사용: `@Test`](#2-junit-사용-test)
-- [`@SpringBootTest` 를 이용하여 스프링 부트 테스트](#3-springboottest-를-이용하여-스프링-부트-테스트)
-- [`@TestConfiguration` 을 이용하여 테스트 환경 설정](#4-testconfiguration-을-이용하여-테스트-환경-설정)
-- [`@MockBean` 을 이용하여 테스트 환경 설정](#5-mockbean-을-이용하여-테스트-환경-설정)
-- [테스트 슬라이스 애너테이션](#6-테스트-슬라이스-애너테이션)
-- [스프링 부트 웹 MVC 테스트: `@WebMvcTest`](#7-스프링-부트-웹-mvc-테스트-webmvctest)
-- [JPA 테스트: `@DataJpaTest`](#8-jpa-테스트-datajpatest)
+<!-- TOC -->
+* [1. 스프링 부트 테스트 설정](#1-스프링-부트-테스트-설정)
+* [2. Junit 사용: `@Test`](#2-junit-사용-test)
+* [3. `@SpringBootTest` 를 이용하여 스프링 부트 테스트](#3-springboottest-를-이용하여-스프링-부트-테스트)
+* [4. `@TestConfiguration` 을 이용하여 테스트 환경 설정](#4-testconfiguration-을-이용하여-테스트-환경-설정)
+* [5. `@MockBean` 을 이용하여 테스트 환경 설정](#5-mockbean-을-이용하여-테스트-환경-설정)
+* [6. 테스트 슬라이스 애너테이션](#6-테스트-슬라이스-애너테이션)
+* [7. 스프링 부트 웹 MVC 테스트: `@WebMvcTest`](#7-스프링-부트-웹-mvc-테스트-webmvctest)
+* [8. JPA 테스트: `@DataJpaTest`](#8-jpa-테스트-datajpatest)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

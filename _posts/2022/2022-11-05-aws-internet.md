@@ -8,14 +8,26 @@ tags: devops aws internet-gateway igw nat-device proxy-instance nat
 
 이 포스트는 AWS 내부 리소스에서 외부 인터넷 구간으로 통신하기 위한 인터넷 연결 방법에 대해 알아본다.
 
-> - [인터넷 연결](#1-인터넷-연결)
->   - [Internet Gateway](#11-internet-gateway)
->   - [NAT Device (NAT Instance & NAT Gateway)](#12-nat-device-nat-instance--nat-gateway)
->   - [Proxy Instance](#13-proxy-instance)
-> - [NAT Instance 로 인터넷 연결 테스트](#2-nat-instance-로-인터넷-연결-테스트)
->   - [기본 환경 구성](#21-기본-환경-구성)
->   - [NAT Instance 구성](#22-nat-instance-구성)
->   - [Resource 삭제](#23-resource-삭제)
+<!-- TOC -->
+  * [](#)
+* [1. 인터넷 연결](#1-인터넷-연결)
+  * [1.1. Internet Gateway](#11-internet-gateway)
+  * [1.2. NAT Device (NAT Instance & NAT Gateway)](#12-nat-device-nat-instance--nat-gateway)
+  * [1.3. Proxy Instance](#13-proxy-instance)
+* [2. NAT Instance 로 인터넷 연결 테스트](#2-nat-instance-로-인터넷-연결-테스트)
+  * [2.1. 기본 환경 구성](#21-기본-환경-구성)
+    * [2.1.1. CloudFormation 적용](#211-cloudformation-적용)
+    * [2.1.2. CloudFormation 을 통해 생성된 자원 확인](#212-cloudformation-을-통해-생성된-자원-확인)
+    * [2.1.3. 기본 통신 환경 검증](#213-기본-통신-환경-검증)
+  * [2.2. NAT Instance 구성](#22-nat-instance-구성)
+    * [2.2.1. NAT Instance 동작을 위한 스크립트 확인](#221-nat-instance-동작을-위한-스크립트-확인)
+    * [2.2.2. NAT Instance 동작을 위한 설정](#222-nat-instance-동작을-위한-설정)
+      * [2.2.2.1. Private Subnet 에 라우팅 정보 추가](#2221-private-subnet-에-라우팅-정보-추가)
+      * [2.2.2.2. `Source/Destination Check` 비활성화](#2222-sourcedestination-check-비활성화)
+    * [2.2.3. Private Subnet 에 위치한 Instance 에서 외부로 통신 확인](#223-private-subnet-에-위치한-instance-에서-외부로-통신-확인)
+  * [2.3. Resource 삭제](#23-resource-삭제)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
      
 ---
 

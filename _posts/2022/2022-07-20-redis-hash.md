@@ -8,20 +8,23 @@ tags: redis hash
 
 이 포스트는 Redis 의 데이터 타입 중 하나인 `Hash` 타입에 대해 알아본다.
 
-> - [데이터 타입](#1-데이터-타입)
-> - [`Hash`](#2-hash)
->   - [`HSET`, `HGET`](#21-hset-hget)
->   - [`HGETALL`](#22-hgetall)
->   - [`HKEYS`, `HVALS`](#23-hkeys-hvals)
->   - [~~`HMSET`~~, `HMGET`](#24-hmset-hmget)
->   - [`HEXISTS`](#25-hexists)
->   - [`HDEL`](#26-hdel)
->   - [`HLEN`](#27-hlen)
->   - [`HSTRLEN`](#28-hstrlen)
->   - [`HRANDFIELD`](#29-hrandfield)
->   - [`HSETNX`](#210-hsetnx)
->   - [`HINCRBY`, `HINCRBYFLOAT`](#211-hincrby-hincrbyfloat)
->   - [`HSCAN`](#212-hscan)
+<!-- TOC -->
+* [1. 데이터 타입](#1-데이터-타입)
+* [2. `Hash`](#2-hash)
+  * [2.1. `HSET`, `HGET`](#21-hset-hget)
+  * [2.2. `HGETALL`](#22-hgetall)
+  * [2.3. `HKEYS`, `HVALS`](#23-hkeys-hvals)
+  * [2.4. ~~`HMSET`~~, `HMGET`](#24-hmset-hmget)
+  * [2.5. `HEXISTS`](#25-hexists)
+  * [2.6. `HDEL`](#26-hdel)
+  * [2.7. `HLEN`](#27-hlen)
+  * [2.8. `HSTRLEN`](#28-hstrlen)
+  * [2.9.  `HRANDFIELD`](#29-hrandfield)
+  * [2.10. `HSETNX`](#210-hsetnx)
+  * [2.11. `HINCRBY`, `HINCRBYFLOAT`](#211-hincrby-hincrbyfloat)
+  * [2.12. `HSCAN`](#212-hscan)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

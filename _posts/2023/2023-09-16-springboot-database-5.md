@@ -14,16 +14,19 @@ tags: springboot msa database entity-manager persistence-context
 
 **목차**
 
-- [EntityManager](#1-entitymanager)
-- [EntityManager 와 영속성 컨텍스트](#2-entitymanager-와-영속성-컨텍스트)
-  - [비영속 상태 (NEW)](#21-비영속-상태-new)
-  - [영속 상태 (MANAGED)](#22-영속-상태-managed)
-  - [준영속 상태 (DETACHED)](#23-준영속-상태-detached)
-  - [삭제 상태 (REMOVED)](#24-삭제-상태-removed)
-- [영속성 컨텍스트의 특징](#3-영속성-컨텍스트의-특징)
-  - [1차 캐시](#31-1차-캐시)
-  - [동일성 보장](#32-동일성-보장)
-  - [지연 쓰기와 변경 감지](#33-지연-쓰기와-변경-감지)
+<!-- TOC -->
+* [1. EntityManager](#1-entitymanager)
+* [2. EntityManager 와 영속성 컨텍스트](#2-entitymanager-와-영속성-컨텍스트)
+  * [2.1. 비영속 상태 (NEW)](#21-비영속-상태-new)
+  * [2.2. 영속 상태 (MANAGED)](#22-영속-상태-managed)
+  * [2.3. 준영속 상태 (DETACHED)](#23-준영속-상태-detached)
+  * [2.4. 삭제 상태 (REMOVED)](#24-삭제-상태-removed)
+* [3. 영속성 컨텍스트의 특징](#3-영속성-컨텍스트의-특징)
+  * [3.1. 1차 캐시](#31-1차-캐시)
+  * [3.2. 동일성 보장](#32-동일성-보장)
+  * [3.3. 지연 쓰기와 변경 감지](#33-지연-쓰기와-변경-감지)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

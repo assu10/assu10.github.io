@@ -8,17 +8,24 @@ tags: nestjs interface
 
 이 포스트는 NestJS 의 Controller 에 대해 알아본다.    
 
-> - [Controller](#1-controller)
->   - [NestJS 구성 요소 약어](#11-nestjs-구성-요소-약어)
->   - [Routing: `@Controller`, `@Get`](#12-routing-controller-get)
->   - [Request Object: `@Req`](#13-request-object-req)
->   - [Response: `@Res`, `@HttpCode`](#14-response-res-httpcode)
->   - [Header: `@Header`](#15-header-header)
->   - [Redirection: `@Redirect`](#16-redirection-redirect)
->   - [Route Parameter (= Path Parameter): `@Param`](#17-route-parameter--path-parameter-param)
->   - [sub-domain Routing: `@HostParam`](#18-sub-domain-routing-hostparam)
->   - [Payload: `@Body`](#19-payload-body)
-> - [유저 서비스의 Interface](#2-유저-서비스의-interface)
+<!-- TOC -->
+* [1. Controller](#1-controller)
+  * [1.1. NestJS 구성 요소 약어](#11-nestjs-구성-요소-약어)
+  * [1.2. Routing: `@Controller`, `@Get`](#12-routing-controller-get)
+  * [1.3. Request Object: `@Req`](#13-request-object-req)
+  * [1.4. Response: `@Res`, `@HttpCode`](#14-response-res-httpcode)
+  * [1.5. Header: `@Header`](#15-header-header)
+  * [1.6. Redirection: `@Redirect`](#16-redirection-redirect)
+  * [1.7. Route Parameter (= Path Parameter): `@Param`](#17-route-parameter--path-parameter-param)
+  * [1.8. sub-domain Routing: `@HostParam`](#18-sub-domain-routing-hostparam)
+  * [1.9. Payload: `@Body`](#19-payload-body)
+* [2. 유저 서비스의 Interface](#2-유저-서비스의-interface)
+  * [회원 가입](#회원-가입)
+  * [이메일 인증](#이메일-인증)
+  * [로그인](#로그인)
+  * [회원 정보 조회](#회원-정보-조회)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 > 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch03), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch03) 에 있습니다.
 
@@ -50,7 +57,7 @@ UPDATE src/app.module.ts (326 bytes)
 
 AppModule (app.module.ts) 에서 방금 생성한 users.controller.ts 와 프로젝트 생성 시 만들어진 AppService (app.service.ts) 를 import 해서 사용하고 있다.
 
-> 모듈과 서비스(Provider) 는 추후 상세히 다룰 예정입니다.
+> 모듈과 서비스(Provider) 는 각자 찾아보세요.
 
 CRUD 보일러 플레이트를 한번에 만들 땐 `nest g resouece Users` 명령어를 이용하면 module, controller, service, entity, dto, test 코드 등을 한번에 생성해준다.
 

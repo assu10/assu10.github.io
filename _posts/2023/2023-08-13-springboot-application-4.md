@@ -14,15 +14,18 @@ tags: springboot msa spring-profiles-active configuration-properties configurati
 
 **목차**
 
-- [Application.properties](#1-applicationproperties)
-  - [`@Value` 애너테이션](#11-value-애너테이션)
-  - [`@ConfigurationProperties`, `@ConfigurationPropertiesScan`](#12-configurationproperties-configurationpropertiesscan)
-- [Profile 설정](#2-profile-설정)
-  - [Profile 변수값 설정: `spring.profiles.active`](#21-profile-변수값-설정-springprofilesactive)
-  - [프로파일별 application.properties 설정](#22-프로파일별-applicationproperties-설정)
-  - [`@Profile` 애너테이션과 스프링 빈 설정](#23-profile-애너테이션과-스프링-빈-설정)
-  - [`@Profile` 애너테이션과 인터페이스를 사용한 확장](#24-profile-애너테이션과-인터페이스를-사용한-확장)
-  - [Environment 인터페이스](#25-environment-인터페이스)
+<!-- TOC -->
+* [1. Application.properties](#1-applicationproperties)
+  * [1.1. `@Value` 애너테이션](#11-value-애너테이션)
+  * [1.2. `@ConfigurationProperties`, `@ConfigurationPropertiesScan`](#12-configurationproperties-configurationpropertiesscan)
+* [2. Profile 설정](#2-profile-설정)
+  * [2.1. Profile 변수값 설정: `spring.profiles.active`](#21-profile-변수값-설정-springprofilesactive)
+  * [2.2. 프로파일별 application.properties 설정](#22-프로파일별-applicationproperties-설정)
+  * [2.3. `@Profile` 애너테이션과 스프링 빈 설정](#23-profile-애너테이션과-스프링-빈-설정)
+  * [2.4. `@Profile` 애너테이션과 인터페이스를 사용한 확장](#24-profile-애너테이션과-인터페이스를-사용한-확장)
+  * [2.5. Environment 인터페이스](#25-environment-인터페이스)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

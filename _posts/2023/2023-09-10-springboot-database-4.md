@@ -14,15 +14,18 @@ tags: springboot msa database transactional propagation isolation dirty-read rea
 
 **목차**
 
-- [`@Transactional` 애너테이션](#1-transactional-애너테이션)
-- [`@Transactional` 의 `propagation` 속성](#2-transactional-의-propagation-속성)
-- [`@Transactional` 의 `isolation` 속성](#3-transactional-의-isolation-속성)
-  - [`Read Uncommitted` 와 `Dirty Read`](#31-read-uncommitted-와-dirty-read)
-  - [`Read Committed` 와 `Non-Repeatable Read`](#32-read-committed-와-non-repeatable-read)
-  - [`Repeatable Read` 와 `Phantom Read`](#33-repeatable-read-와-phantom-read)
-  - [`Serializable`](#34-serializable)
-- [트랜잭션 테스트](#4-트랜잭션-테스트)
-- [`@Transactional` 사용 시 주의점](#5-transactional-사용-시-주의점)
+<!-- TOC -->
+* [1. `@Transactional` 애너테이션](#1-transactional-애너테이션)
+* [2. `@Transactional` 의 `propagation` 속성](#2-transactional-의-propagation-속성)
+* [3. `@Transactional` 의 `isolation` 속성](#3-transactional-의-isolation-속성)
+  * [3.1. `Read Uncommitted` 와 `Dirty Read`](#31-read-uncommitted-와-dirty-read)
+  * [3.2. `Read Committed` 와 `Non-Repeatable Read`](#32-read-committed-와-non-repeatable-read)
+  * [3.3. `Repeatable Read` 와 `Phantom Read`](#33-repeatable-read-와-phantom-read)
+  * [3.4. `Serializable`](#34-serializable)
+* [4. 트랜잭션 테스트](#4-트랜잭션-테스트)
+* [5. `@Transactional` 사용 시 주의점](#5-transactional-사용-시-주의점)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

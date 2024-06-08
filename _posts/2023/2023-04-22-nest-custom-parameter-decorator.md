@@ -8,12 +8,15 @@ tags: nestjs parameter-decorator custom-parameter-decorator
 
 이 포스트는 NestJS 에서 라우트 핸들러의 매개변수에 적용할 수 있는 매개변수 데커레이터를 커스텀하여 활용하는 법에 대해 알아본다.
 
-- [Decorator](#1-decorator)
-  - [내장 Decorator 종류](#11-내장-decorator-종류)
-- [Custom Parameter Decorator](#2-custom-parameter-decorator)
-- [Custom Parameter Decorator 의 data 활용](#3-custom-parameter-decorator-의-data-활용)
-- [유효성 검사 파이프(ValidationPipe) 적용](#4-유효성-검사-파이프validationpipe-적용)
-- [Decorator 합성](#5-decorator-합성)
+<!-- TOC -->
+* [1. Decorator](#1-decorator)
+  * [1.1. 내장 Decorator 종류](#11-내장-decorator-종류)
+* [2. Custom Parameter Decorator](#2-custom-parameter-decorator)
+* [3. Custom Parameter Decorator 의 data 활용](#3-custom-parameter-decorator-의-data-활용)
+* [4. 유효성 검사 파이프(ValidationPipe) 적용](#4-유효성-검사-파이프validationpipe-적용)
+* [5. Decorator 합성](#5-decorator-합성)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 소스는 [example](https://github.com/assu10/nestjs/tree/feature/advanced02) 에 있습니다.
 

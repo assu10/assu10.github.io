@@ -8,18 +8,21 @@ tags: web auth jwt session token sliding-session refresh-token
 
 이 포스트는 인증과 JWT 에 대해 알아본다.
 
-- [인증](#1-인증)
-  - [세션 기반 인증](#11-세션-기반-인증)
-  - [토큰 기반 인증](#12-토큰-기반-인증)
-    - [슬라이딩 세션](#121-슬라이딩-세션)
-      - [리프레시 토큰 발급 전략 및 탈취 조치](#1211-리프레시-토큰-발급-전략-및-탈취-조치)
-- [JWT](#2-jwt)
-  - [Header](#21-header)
-  - [Payload](#22-payload)
-    - [Registered claim](#221-registered-claim)
-    - [Public claim](#222-public-claim)
-    - [Private claim](#223-private-claim)
-  - [Signature](#23-signature)
+<!-- TOC -->
+* [1. 인증](#1-인증)
+* [1.1. 세션 기반 인증](#11-세션-기반-인증)
+* [1.2. 토큰 기반 인증](#12-토큰-기반-인증)
+  * [1.2.1. 슬라이딩 세션](#121-슬라이딩-세션)
+    * [1.2.1.1. 리프레시 토큰 발급 전략 및 탈취 조치](#1211-리프레시-토큰-발급-전략-및-탈취-조치)
+* [2. JWT](#2-jwt)
+* [2.1. Header](#21-header)
+* [2.2. Payload](#22-payload)
+  * [2.2.1. Registered claim](#221-registered-claim)
+  * [2.2.2. Public claim](#222-public-claim)
+  * [2.2.3. Private claim](#223-private-claim)
+* [2.3. Signature](#23-signature)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 
 ---
