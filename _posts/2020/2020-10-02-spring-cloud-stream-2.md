@@ -8,25 +8,18 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
->[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
->[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
->[6. OAuth2, Security - 보안 (2/2)](https://assu10.github.io/dev/2020/09/30/spring-cloud-oauth2.0-2/)<br />
->[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br /><br />
->***8. Spring Cloud Stream, 분산 캐싱 (2/2)***<br />
->- 스프링 클라우드 스트림을 사용한 분산 캐싱
->- 분산 캐싱 구현
->   - 스프링 데이터 레디스 의존성 추가
->   - 레디스 DB 커넥션을 설정
->   - 스프링 데이터 레디스의 Repository 클래스를 정의
->   - 레디스에서 회원 데이터를 저장/조회
->- 사용자 정의 채널 설정 및 EDA 기반의 캐싱 구현
->   - 사용자 정의 채널 설정
->   - 메시지 수신 시 캐시 무효화
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. 스프링 클라우드 스트림을 사용한 분산 캐싱](#1-스프링-클라우드-스트림을-사용한-분산-캐싱)
+  * [2. 분산 캐싱 구현](#2-분산-캐싱-구현)
+    * [2.1. 스프링 데이터 레디스 의존성 추가](#21-스프링-데이터-레디스-의존성-추가)
+    * [2.2. 레디스 DB 커넥션을 설정](#22-레디스-db-커넥션을-설정)
+    * [2.3. 스프링 데이터 레디스의 Repository 클래스를 정의](#23-스프링-데이터-레디스의-repository-클래스를-정의)
+    * [2.4. 레디스에서 회원 데이터를 저장/조회](#24-레디스에서-회원-데이터를-저장조회)
+  * [3. 사용자 정의 채널 설정 및 EDA 기반의 캐싱 구현](#3-사용자-정의-채널-설정-및-eda-기반의-캐싱-구현)
+    * [3.1. 사용자 정의 채널 설정](#31-사용자-정의-채널-설정)
+    * [3.2. 메시지 수신 시 캐시 무효화](#32-메시지-수신-시-캐시-무효화)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

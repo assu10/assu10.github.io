@@ -8,24 +8,15 @@ tags: msa centralized-log elasticsearch sleuth zipkin msa-tracker logging-tracke
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Sleuth, Open Zipkin 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
->[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
->[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
->[6. OAuth2, Security - 보안 (2/2)](https://assu10.github.io/dev/2020/09/30/spring-cloud-oauth2.0-2/)<br />
->[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
->[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br />
->[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br /><br />
->***10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론***<br />
->- 로그 관리의 난제
->- 중앙 집중식 로깅
->- 로깅 솔루션 종류
->   - 클라우드 서비스
->   - 내장 가능 (=사내 구축형)한 로깅 솔루션
->   - 컴포넌트들의 조합
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. 로그 관리의 난제](#1-로그-관리의-난제)
+  * [2. 중앙 집중식 로깅](#2-중앙-집중식-로깅)
+  * [3. 로깅 솔루션 종류](#3-로깅-솔루션-종류)
+    * [3.1. 클라우드 서비스](#31-클라우드-서비스)
+    * [3.2. 내장 가능(=사내 구축형)한 로깅 솔루션](#32-내장-가능사내-구축형한-로깅-솔루션)
+    * [3.3. 컴포넌트들의 조합](#33-컴포넌트들의-조합)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

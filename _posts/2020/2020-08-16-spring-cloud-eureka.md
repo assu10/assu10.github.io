@@ -9,18 +9,22 @@ tags: msa spring-cloud-eureka feign
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Eureka 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br /><br />
->***2. Eureka - Service Registry & Discovery***<br />
->   - Service Registry & Discovery (서비스 등록 및 발견)
->       - 서비스 동적 등록 및 정보 공유
->       - 서비스 동적 발견
->       - 상태 모니터링
->   - Eureka
->   - 유레카 구축
->       - Eureka Server 구축
->       - Eureka Client 구축 (Eureka Server 에 서비스 동적 등록)
->       - 서비스 검색 (RestTemplate, Feign 사용)
->   - 유레카 고가용성<br />
+<!-- TOC -->
+  * [1. Service Registry & Discovery (서비스 등록 및 발견)](#1-service-registry--discovery-서비스-등록-및-발견)
+    * [1.1. 서비스 동적 등록 및 정보 공유](#11-서비스-동적-등록-및-정보-공유)
+    * [1.2. 서비스 동적 발견](#12-서비스-동적-발견)
+    * [1.3. 상태 모니터링](#13-상태-모니터링)
+  * [2. Eureka](#2-eureka)
+  * [3. 유레카 구축](#3-유레카-구축)
+    * [3.1. Eureka Server 구축](#31-eureka-server-구축)
+    * [3.2. Eureka Client 구축 (Eureka Server 에 서비스 동적 등록)](#32-eureka-client-구축-eureka-server-에-서비스-동적-등록)
+    * [3.3. 서비스 검색](#33-서비스-검색)
+      * [3.3.1 RestTemplate 으로 서비스 검색](#331-resttemplate-으로-서비스-검색)
+      * [3.3.2 Feign 으로 서비스 검색](#332-feign-으로-서비스-검색)
+  * [4. 유레카 고가용성](#4-유레카-고가용성)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [피어링 관련](#피어링-관련)
+<!-- TOC -->
 
 Spring Cloud Config Server 에 대한 자세한 내용은 [여기](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)에서 확인이 가능하다.
 

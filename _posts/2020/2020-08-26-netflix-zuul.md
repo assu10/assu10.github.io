@@ -9,21 +9,17 @@ tags: msa hystrix zuul ribbon
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br /><br />
->***3. Zuul - Proxy & API Gateway***<br />
->   - 게이트 웨이
->   - Zuul Proxy
->   - Zuul 구축
->       - Eureka Client 구축 (Eureka Server 에 서비스 동적 등록)
->       - 서비스 검색 (Feign 사용)
->   - Zuul 경로 구성
->       - 서비스 디스커버리를 이용한 자동 경로 매핑
->       - 서비스 디스커버리를 이용한 수동 경로 매핑
->   - 기존의 Feign Client 수정하여 서비스들 간의 통신도 Zuul로 통신하도록 하기 
->   - 서비스 타임아웃
-
-Spring Cloud Config Server 와 Eureka 에 대한 자세한 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. 게이트웨이](#1-게이트웨이)
+  * [2. Zuul Proxy](#2-zuul-proxy)
+  * [3. Zuul 구축](#3-zuul-구축)
+  * [4. Zuul 경로 구성](#4-zuul-경로-구성)
+    * [4.1. 서비스 디스커버리를 이용한 자동 경로 매핑](#41-서비스-디스커버리를-이용한-자동-경로-매핑)
+    * [4.2. 서비스 디스커버리를 이용한 수동 경로 매핑](#42-서비스-디스커버리를-이용한-수동-경로-매핑)
+  * [5. 기존의 Feign Client 수정하여 서비스들 간의 통신도 Zuul 로 통신하도록 하기](#5-기존의-feign-client-수정하여-서비스들-간의-통신도-zuul-로-통신하도록-하기)
+  * [6. 서비스 타임아웃](#6-서비스-타임아웃)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 *[Spring Cloud - Netflix Zuul(Ribbon) Retry](https://assu10.github.io/dev/2020/12/06/netflix-zuul-retryable/)* 와 함께 보면 도움이 됩니다.
 

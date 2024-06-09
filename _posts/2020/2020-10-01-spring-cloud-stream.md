@@ -9,24 +9,19 @@ tags: msa eda event-driven-architecture mda message-driven-architecture spring-c
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 >[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
->[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
->[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
->[6. OAuth2, Security - 보안 (2/2)](https://assu10.github.io/dev/2020/09/30/spring-cloud-oauth2.0-2/)<br /><br />
->***7. Spring Cloud Stream, 분산 캐싱 (1/2)***<br />
->- EDA (이벤트 기반 아키텍처) 와 캐싱 솔루션
->   - 동기식 요청-응답 모델
->   - 비동기식 요청-응답 모델 (EDA)
->   - EDA 단점
->- 스프링 클라우드 스트림
->- 메시지 발행자와 소비자 구현
->   - 메시지 발행자 구현 (회원 서비스)
->   - Spring Cloud Stream Kafka 설치
->   - 메시지 소비자 구현 (이벤트 서비스)
->   - 메시지 서비스 확인
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. EDA (이벤트 기반 아키텍처) 와 캐싱 솔루션](#1-eda-이벤트-기반-아키텍처-와-캐싱-솔루션)
+    * [1.1 동기식 요청-응답 모델](#11-동기식-요청-응답-모델)
+    * [1.2 비동기식 요청-응답 모델 (EDA)](#12-비동기식-요청-응답-모델-eda-)
+    * [1.3. EDA 단점](#13-eda-단점)
+  * [2. 스프링 클라우드 스트림](#2-스프링-클라우드-스트림)
+  * [3. 메시지 발행자와 소비자 구현](#3-메시지-발행자와-소비자-구현)
+    * [3.1. 메시지 발행자 구현 (회원 서비스)](#31-메시지-발행자-구현-회원-서비스)
+    * [3.2. Spring Cloud Stream Kafka 설치](#32-spring-cloud-stream-kafka-설치)
+    * [3.3. 메시지 소비자 구현 (이벤트 서비스)](#33-메시지-소비자-구현-이벤트-서비스)
+    * [3.4. 메시지 서비스 확인](#34-메시지-서비스-확인)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

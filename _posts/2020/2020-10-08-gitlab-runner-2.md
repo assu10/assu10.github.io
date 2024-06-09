@@ -8,21 +8,20 @@ tags: devops gitlab gitlab-runner ci cd
 
 이 글은 GitLab CI/CD Pipeline 에 대해 설명합니다.
 
->[GitLab-Runner 설치 & 등록(Windows)](https://assu10.github.io/dev/2020/10/08/gitlab-runner-1/)<br /><br />
->***GitLab CI/CD Pipeline 구성***<br />
->- CI/CD 파이프라인
->- 수동 배포 설정
->- 수동 job 실행 시 변수 설정
->- CI/CD 파이프라인 그룹화
->- 파이프라인 아키텍처
->   - 파이프라인 아키텍처 - Basic
->   - 파이프라인 아키텍처 - DAG (Directed Acyclic Graph)
->   - 파이프라인 아키텍처 - Child/Parent Pipelines
->- 효율적인 파이프라인 구성
->- 파이프라인 스케쥴링
->- Artifact 사이즈
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [CI/CD 파이프라인](#cicd-파이프라인)
+  * [수동 배포 설정](#수동-배포-설정)
+  * [수동 job 실행 시 변수 설정](#수동-job-실행-시-변수-설정)
+  * [CI/CD 파이프라인 그룹화](#cicd-파이프라인-그룹화)
+  * [파이프라인 아키텍처](#파이프라인-아키텍처)
+    * [파이프라인 아키텍처 - Basic](#파이프라인-아키텍처---basic)
+    * [파이프라인 아키텍처 - DAG (Directed Acyclic Graph)](#파이프라인-아키텍처---dag-directed-acyclic-graph)
+    * [파이프라인 아키텍처 - Child/Parent Pipelines](#파이프라인-아키텍처---childparent-pipelines)
+  * [효율적인 파이프라인 구성](#효율적인-파이프라인-구성)
+  * [파이프라인 스케쥴링](#파이프라인-스케쥴링)
+  * [Artifact 사이즈](#artifact-사이즈)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

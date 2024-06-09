@@ -9,28 +9,16 @@ tags: msa centralized-log sleuth open-zipkin
 이 포스트는 로그 시각화를 위한 Open Zipkin 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
->[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
->[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
->[6. OAuth2, Security - 보안 (2/2)](https://assu10.github.io/dev/2020/09/30/spring-cloud-oauth2.0-2/)<br />
->[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
->[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br />
->[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br />
->[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br />
->[11. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker2/)<br />
->[12. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/4) - 로그 추적을 위한 Sleuth 사용](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker3/)<br /><br />
->***13. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (4/4) - 로그 시각화를 위한 Open Zipkin 사용***<br />
->- Spring Cloud Sleuth 와 Open Zipkin 
->- Open Zipkin 설정 및 사용
->   - 추적 데이터를 기록할 서비스에서 슬루스 와 집킨 의존성 설정
->   - 집킨 서버에 연결되도록 각 서비스의 스프링 프로퍼티 구성
->   - 데이터를 수집하는 집킨 서버 설치 및 구성
->   - 각 클라이언트가 집킨 에 추적 정보를 전송하는데 필요한 샘플링 전략 정의 (=추적 레벨 결정)
->- Open Zipkin 으로 트랜잭션 추적
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. Open Zipkin](#1-open-zipkin)
+  * [2. Open Zipkin 설정 및 사용](#2-open-zipkin-설정-및-사용)
+    * [2.1. 추적 데이터를 기록할 서비스에서 Sleuth 와 Open Zipkin 의존성 설정](#21-추적-데이터를-기록할-서비스에서-sleuth-와-open-zipkin-의존성-설정)
+    * [2.2. Open Zipkin 서버에 연결되도록 각 서비스의 스프링 프로퍼티 구성](#22-open-zipkin-서버에-연결되도록-각-서비스의-스프링-프로퍼티-구성)
+    * [2.3. 데이터를 수집하는 Open Zipkin 서버 설치 및 구성](#23-데이터를-수집하는-open-zipkin-서버-설치-및-구성)
+    * [2.4. 각 클라이언트가 Open Zipkin 에 추적 정보를 전송하는데 필요한 샘플링 전략 정의 (=추적 레벨 결정)](#24-각-클라이언트가-open-zipkin-에-추적-정보를-전송하는데-필요한-샘플링-전략-정의-추적-레벨-결정)
+  * [3. Open Zipkin 으로 트랜잭션 추적](#3-open-zipkin-으로-트랜잭션-추적)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

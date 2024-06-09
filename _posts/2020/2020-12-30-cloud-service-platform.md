@@ -8,13 +8,16 @@ tags: web network cloud-computing packaged-software iaas paas serverless aas
 
 이 포스트는 웹 서비스 플랫폼에 관해 간략히 설명한다.
 
-> - 클라우드 컴퓨팅
-> - 가상화와 클라우드 컴퓨팅의 차이
-> - Packaged Software
-> - IaaS (Infrastructure as a Service)
-> - PaaS (Platform as a Service)
-> - Serverless
-> - SaaS (Software as a Service)
+<!-- TOC -->
+  * [1. 클라우드 컴퓨팅](#1-클라우드-컴퓨팅)
+  * [2. 가상화와 클라우드 컴퓨팅의 차이](#2-가상화와-클라우드-컴퓨팅의-차이)
+  * [3. Packaged Software](#3-packaged-software)
+  * [4. IaaS (Infrastructure as a Service)](#4-iaas-infrastructure-as-a-service)
+  * [5. PaaS (Platform as a Service)](#5-paas-platform-as-a-service)
+  * [6. Serverless](#6-serverless)
+  * [7. SaaS (Software as a Service)](#7-saas-software-as-a-service)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

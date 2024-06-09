@@ -9,23 +9,12 @@ tags: msa centralized-log sleuth open-zipkin
 이 포스트는 로그 추적을 할 수 있도록 지원하는 Sleuth 사용법에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
->[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
->[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
->[6. OAuth2, Security - 보안 (2/2)](https://assu10.github.io/dev/2020/09/30/spring-cloud-oauth2.0-2/)<br />
->[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
->[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br />
->[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br />
->[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br />
->[11. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker2/)<br /><br />
->***12. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (3/4) - 로그 추적을 위한 Sleuth 사용***<br />
->- Spring Cloud Sleuth 와 Open Zipkin 
->- Sleuth
->   - 마이크로서비스에 Sleuth 추가
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. Spring Cloud Sleuth 와 Open Zipkin](#1-spring-cloud-sleuth-와-open-zipkin-)
+  * [2. Sleuth](#2-sleuth)
+    * [2.1. 마이크로서비스에 Sleuth 추가](#21-마이크로서비스에-sleuth-추가)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 
