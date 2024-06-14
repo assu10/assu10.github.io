@@ -24,7 +24,10 @@ tags: ddd
   * [1.1. `and()`, `or()`](#11-and-or)
   * [1.2. `not()`, `where()`](#12-not-where)
 * [2. 정렬 지정: `Sort`](#2-정렬-지정-sort)
-* [3. 페이징 처리](#3-페이징-처리)
+* [3. 페이징 처리: `Pageable`, `PageRequest`, `Sort`](#3-페이징-처리-pageable-pagerequest-sort)
+  * [3.1. `Page` 로 개수 구하기](#31-page-로-개수-구하기)
+  * [3.2. 스펙을 사용하는 `findAll()` 에서 `Pageable` 사용](#32-스펙을-사용하는-findall-에서-pageable-사용)
+  * [3.3. `findFirstN()`, `findFirst()`, `findTop()`](#33-findfirstn-findfirst-findtop)
 * [4. 스펙 조합을 위한 스펙 빌더 클래스](#4-스펙-조합을-위한-스펙-빌더-클래스)
 * [5. 동적 인스턴스 생성](#5-동적-인스턴스-생성)
 * [6. 하이버네이트 `@Subselect` 사용: `@Immutable`, `@Synchronize`](#6-하이버네이트-subselect-사용-immutable-synchronize)
@@ -491,7 +494,7 @@ class OrderSummaryDaoIT {
 
 ---
 
-# 3. 페이징 처리: `Pageable`
+# 3. 페이징 처리: `Pageable`, `PageRequest`, `Sort`
 
 스프링 데이터 JPA 는 페이징 처리를 위한 `Pageable` 타입을 지원한다.  
 `Sort` 타입과 마찬가지로 find() 메서드에 `Pageable` 타입 파라메터를 사용하면 페이징을 자동으로 처리해준다.
@@ -547,16 +550,351 @@ public class MemberData {
 }
 ```
 
-`Pageable` 타입은 인터페이스로 실제 `Pageable` 타입 객체는 `PageRequest` 클래스를 이용해서 생선한다.
+`Pageable` 타입은 인터페이스로 실제 `Pageable` 타입 객체는 `PageRequest` 클래스를 이용해서 생성한다.
 
+/test/.../MemberDataDaoIT.java
+```java
+package com.assu.study.member.query;
+
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.test.context.jdbc.Sql;
+
+import java.util.List;
+
+@SpringBootTest
+@Sql("classpath:shop-init-test.sql")
+class MemberDataDaoIT {
+
+  private Logger logger = LoggerFactory.getLogger(getClass());
+
+  @Autowired
+  private MemberDataDao memberDataDao;
+
+  @Test
+  void findByNameLike() {
+    Sort sort = Sort.by("name").descending();
+    // (페이지 넘버, 한 페이지의 개수)
+    PageRequest pageReq = PageRequest.of(1, 10, sort);   
+
+    List<MemberData> user = memberDataDao.findByNameLike("사용자%", pageReq);
+    logger.info("name like result: {}", user.toString());
+  }
+}
+```
+
+`PageRequest.of()` 의 첫 번째 인자는 페이지 번호, 두 번째 인자는 한 페이지의 개수를 의미한다.  
+페이지 번호는 0 부터 시작하므로 위 코드는 두 번째 페이지, 즉 11~10번째 데이터를 조회한다.
+
+---
+
+## 3.1. `Page` 로 개수 구하기
+
+`Page` 사용 시 데이터 목록 뿐 아니라 조건에 해당하는 전체 개수도 구할 수 있다.
+
+**`Pageable` 을 사용하는 메서드의 리턴 타입이 `Page` 이면 스프링 데이터 JPA 는 목록 조회쿼리와 함께 COUNT 쿼리도 함께 실행**한다.
+
+> 위의 count 쿼리에 대한 관련 내용은 바로 아래 [3.2. 스펙을 사용하는 `findAll()` 에서 `Pageable` 사용](#32-스펙을-사용하는-findall-에서-pageable-사용) 에 
+> 추가 비교 설명이 있습니다.
+
+`Page` 는 전체 데이터 개수, 페이지 개수, 현재 페이지 번호 등 페이징 처리에 필요한 데이터도 함께 제공한다.
+
+MemberDataDao.java
+```java
+package com.assu.study.member.query;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.Repository;
+
+public interface MemberDataDao extends Repository<MemberData, String> {
+    // 리턴 타입이 Page 이면 전체 개수, 페이지 개수 등의 데이터도 제공
+    Page<MemberData> findByBlocked(boolean blocked, Pageable pageable);
+}
+```
+
+/test/.../MemberDataDaoIT.java
+```java
+package com.assu.study.member.query;
+
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.jdbc.Sql;
+
+import java.util.List;
+
+@SpringBootTest
+@Sql("classpath:shop-init-test.sql")
+class MemberDataDaoIT {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private MemberDataDao memberDataDao;
+
+    // Page 사용
+    @Test
+    void findByBlocked() {
+        Page<MemberData> page = memberDataDao.findByBlocked(false, PageRequest.of(2, 3));
+        logger.info("blocked size: {}", page.getContent().size());
+
+        List<MemberData> content = page.getContent();// 조회 결과 목록
+
+        long totalElements = page.getTotalElements();   // 조건에 해당하는 전체 개수
+        int totalPages = page.getTotalPages();  // 전체 페이지 번호
+        int number = page.getNumber();  // 현재 페이지 번호
+        int numberOfElements = page.getNumberOfElements();  // 조회 결과 개수
+        int size = page.getSize();  // 페이지 크기
+
+        logger.info("content.size()={}, totalElements={}, totalPages={}, number={}, numberOfElements={}, size={}",
+                content.size(), totalElements, totalPages, number, numberOfElements, size);
+    }
+}
+```
+
+```shell
+blocked size: 1
+content.size()=1, totalElements=7, totalPages=3, number=2, numberOfElements=1, size=3
+```
+
+---
+
+## 3.2. 스펙을 사용하는 `findAll()` 에서 `Pageable` 사용
+
+스펙을 사용하는 `findAll()` 에서도 `Pageable` 사용이 가능하다.
+
+```java
+package com.assu.study.member.query;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.repository.Repository;
+
+public interface MemberDataDao extends Repository<MemberData, String> {
+    // 스펙 사용시에도 Pageagle 사용 가능
+    Page<MemberData> findAll(Specification<MemberData> spec, Pageable pageable);
+}
+```
+
+**`Pageable` 을 사용하더라도 리턴 타입이 `Page` 이면 COUNT 쿼리를 실행하고, List 이면 COUNT 쿼리를 실행하지 않는다.**    
+따라서 **페이징 처리와 관련된 정보가 필요없다면 `Page` 가 아닌 List 로 리턴 타입을 지정하여 불필요한 COUNT 쿼리를 실행하지 않는 것이 좋다.페이징 처리와 관련된 정보가 필요없다면 `Page` 가 아닌 List 로 리턴 타입을 지정하여 불필요한 COUNT 쿼리를 실행하지 않는 것이 좋다.**
+
+```java
+// COUNT 쿼리 실행하지 않음
+List<MemberData> findByNameLike(String name, Pageable pageable);
+
+// COUNT 쿼리 실행
+Page<MemberData> findByBlocked(boolean blocked, Pageable pageable);
+```
+
+**반면에 스펙을 사용하는 `findAll()` 메서드는 `Pageable` 타입을 사용하면 리턴 타입이 `Page` 가 아니어도 COUNT 쿼리를 실행**한다.
+
+```java
+// 리턴 타입이 List 이지만 스펙을 사용하므로 COUNT 쿼리 실행함
+List<MemberData> findAll(Specification<MemberData> spec, Pageable pageable);
+```
+
+만일 스펙을 사용하고, 페이징 처리를 하면서 COUNT 쿼리를 실행하고 싶지 않으면 스프링 데이터 JPA 가 제공하는 커스텀 리포지터리 기능을 이용하여 직접 구현해야 한다.  
+
+> 구현 방법은 [스프링 데이터 JPA: Pageable 대신 커스텀 리포지터리 기능을 이용하여 직접 구현](https://javacan.tistory.com/entry/spring-data-jpa-range-query) 을 
+> 참고하세요.
+
+---
+
+## 3.3. `findFirstN()`, `findFirst()`, `findTop()`
+
+처음부터 특정 개수의 데이터가 필요하면 `Pageable` 이 아닌 `findFirstN()`, `findFirst()`, `findTop()` 을 사용하면 된다.
+
+```java
+// 이름을 Like 로 검색한 결과를 이름 기준으로 오름차순으로 정렬 후 처음 3개 리턴
+List<MemberData> findFirst3ByNameLikeOrderByName(String name);
+Optional<MemberData> findFirstByNameLikeOrderByName(String name);
+Optional<MemberData> findTopByNameLikeOrderByName(String name);
+```
+
+First 나 Top 을 사용해도 되며, First 나 Top 뒤에 숫자가 없으면 한 개 결과만 리턴한다.
 
 ---
 
 # 4. 스펙 조합을 위한 스펙 빌더 클래스
 
+조건에 따라 여러 스펙을 동적으로 조합할 때 if 문을 써서 조합하다보면 실수하기 쉬운 구조가 된다.
+
+이럴 때 스펙 빌더를 만들어서 사용하면 위의 단점을 보완할 수 있다.
+
+if 문을 사용할 때와 코드양은 비솟하지만 메서드를 사용해서 조건을 표현하고, 메서드 호출 체인으로 연속된 변수 할당을 줄이기 때문에 가독성이 높아지고 구조가 단순해진다.
+
+/test/.../MemberDataDaoIT.java
+```java
+package com.assu.study.member.query;
+
+import com.assu.study.common.jpa.SpecBuilder;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.test.context.jdbc.Sql;
+
+import java.util.List;
+
+@SpringBootTest
+@Sql("classpath:shop-init-test.sql")
+class MemberDataDaoIT {
+
+  private Logger logger = LoggerFactory.getLogger(getClass());
+
+  @Autowired
+  private MemberDataDao memberDataDao;
+
+  @DisplayName("스펙 빌더 테스트")
+  @Test()
+  void specBuilder() {
+    SearchRequest searchRequest = new SearchRequest();
+    searchRequest.setOnlyNotBlocked(true);
+
+    Specification<MemberData> spec = SpecBuilder.builder(MemberData.class)
+            .ifTrue(
+                    searchRequest.isOnlyNotBlocked(),
+                    () -> MemberDataSpecs.nonBlocked()
+            )
+            .ifHasText(
+                    searchRequest.getName(),
+                    name -> MemberDataSpecs.nameLike(searchRequest.getName())
+            )
+            .toSpec();
+
+    List<MemberData> result = memberDataDao.findAll(spec, PageRequest.of(0, 10));
+
+    logger.info("result: {}", result.size());   // 7
+  }
+}
+```
+
+MemberDataSpecs.java
+```java
+package com.assu.study.member.query;
+
+import org.springframework.data.jpa.domain.Specification;
+
+// MemberData 에 관련된 스펙 생성 기능을 하나로 모은 클래스
+public class MemberDataSpecs {
+    public static Specification<MemberData> nonBlocked() {
+        return (root, query, cb) -> cb.equal(root.get("blocked"), false);
+    }
+
+    public static Specification<MemberData> nameLike(String keyword) {
+        return (root, query, cb) -> cb.like(root.get("name"), keyword + "%");
+    }
+}
+```
+
+
+/test/.../SearchRequest.java
+```java
+package com.assu.study.member.query;
+
+public class SearchRequest {
+    private boolean onlyNotBlocked;
+    private String name;
+
+    public boolean isOnlyNotBlocked() {
+        return onlyNotBlocked;
+    }
+
+    public void setOnlyNotBlocked(boolean onlyNotBlocked) {
+        this.onlyNotBlocked = onlyNotBlocked;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+
+
+SpecBuilder.java (스펙 빌더 코드)
+```java
+package com.assu.study.common.jpa;
+
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+// 스펙 조합 시 사용할 스펙 빌더
+public class SpecBuilder {
+    public static <T> Builder<T> builder(Class<T> type) {
+        return new Builder<T>();
+    }
+
+    public static class Builder<T> {
+        private List<Specification<T>> specs = new ArrayList<>();
+
+        public Builder<T> and(Specification<T> spec) {
+            specs.add(spec);
+            return this;
+        }
+
+        public Builder<T> ifHasText(String str,
+                                    Function<String, Specification<T>> specSupplier) {
+            if (StringUtils.hasText(str)) {
+                specs.add(specSupplier.apply(str));
+            }
+            return this;
+        }
+
+        public Builder<T> ifTrue(Boolean cond,
+                                 Supplier<Specification<T>> specSupplier) {
+            if (cond != null && cond.booleanValue()) {
+                specs.add(specSupplier.get());
+            }
+            return this;
+        }
+
+        public Specification<T> toSpec() {
+            Specification<T> spec = Specification.where(null);
+            for (Specification<T> s : specs) {
+                spec = spec.and(s);
+            }
+            return spec;
+        }
+    }
+}
+```
+
+> `Function<T,R>: R apply(T)`, `T -> R` 에 대한 좀 더 상세한 설명은 [https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#23-functiontr-r-applyt](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#23-functiontr-r-applyt) 를 
+> 참고하세요.
+
+> `Supplier<T>: T get()`, `() -> T` 에 대한 좀 더 상세한 설명은 [1.2. 함수형 인터페이스 (Functional Interface)](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#12-%ED%95%A8%EC%88%98%ED%98%95-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-functional-interface) 를 참고하세요.
+
 ---
 
 # 5. 동적 인스턴스 생성
+
+
+
 
 ---
 
@@ -693,3 +1031,4 @@ purchase_order 테이블을 사용하는 _OrderSummary_ 를 조회하게 된다.
 * [cross join](https://hongong.hanbit.co.kr/sql-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-joininner-outer-cross-self-join/)
 * [Hibernate JPA 2 Metamodel Generator](https://docs.jboss.org/hibernate/stable/jpamodelgen/reference/en-US/html_single/)
 * [스프링 데이터 JPA 정적 메타 모델 생성](https://knoc-story.tistory.com/115)
+* [스프링 데이터 JPA: Pageable 대신 커스텀 리포지터리 기능을 이용하여 직접 구현](https://javacan.tistory.com/entry/spring-data-jpa-range-query)
