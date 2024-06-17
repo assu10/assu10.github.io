@@ -54,14 +54,22 @@ tags: kotlin SAM init constructor open
 - 클래스가 **무엇**을 하는지는 기술하지만 그 일을 **어떻게** 하는지는 기술하지 않음
 - 인터페이스가 목표나 임무를 기술하면, 클래스는 세부적인 구현을 함
 
-특정 인터페이스를 구현하는 클래스를 정의하려면 클랫 이름 뒤에 `:` 과 인터페이스 이름을 넣으면 된다.  
-인터페이스 멤버를 구현할때는 반드시 `override` 변경자를 붙여야 한다.
+코틀린의 인터페이스 안에는 추상 메서드 뿐 아니라 구현이 있는 메서드도 정의할 수 있다. (자바의 디폴트 메서드처럼)  
+다만, 인터페이스에는 아무런 상태(필드)도 들어갈 수 없다.
 
+자바처럼 클래스는 인터페이스를 원하는 만큼 구현할 수 있지만, 클래스는 오직 하나만 확장할 수 있다.
+
+특정 인터페이스를 구현하는 클래스를 정의하려면 클랫 이름 뒤에 `:` 과 인터페이스 이름을 넣으면 된다.
+
+인터페이스 멤버를 구현할 때는 반드시 `override` 변경자를 붙여야 한다.  
+기반 클래스에 있는 메서드와 시그니처가 같은 메서드를 우연히 파생 클래스에서 선언하는 경우 컴파일이 안되기 때문에 `override` 를 붙이거나 메서드 이름을 바꿔야 한다.
+
+인터페이스 구현 예시
 ```kotlin
 interface Computer {
-    fun prompt(): String
+    fun prompt(): String    // 추상 메서드
 
-    fun calculateAnswer(): Int
+    fun calculateAnswer(): Int  // 추상 메서드
 }
 
 // Computer 인터페이스를 구현하는 클래스
@@ -88,6 +96,57 @@ fun main() {
     println(result2) // [Hi, Thinking...]
 }
 ```
+
+하나의 클래스가 2개의 인터페이스를 구현하는데 그 2개의 인터페이스에 이름과 시그니처가 같은 멤버 메서드에 대해 둘 이상의 디폴트 구현이 있는 경우를 보자.
+
+```kotlin
+interface Clickable {
+    // 일반 메서드 선언
+    fun click()
+
+    // 디폴트 구현이 있는 메서드
+    fun showOff() = println("I'm clickable!")
+}
+
+interface Focusable {
+    fun setFocus(b: Boolean) = println("I ${if (b) "got" else "lost"} focus.")
+
+    // 디폴트 구현이 있는 메서드
+    fun showOff() = println("I'm focusable!")
+}
+
+// showOff() 라는 동일한 메서드를 각각 포함하는 인터페이스 구현
+class Button :
+    Clickable,
+    Focusable {
+    override fun click() = println("I was clicked")
+
+    // 이름과 시그니처가 같은 멤버 메서드에 대해 둘 이상의 디폴트 구현이 있는 경우에는
+    // 인터페이스를 구현하는 파생 클래스에서 명시적으로 새로운 구현을 제공해야 함
+    override fun showOff() {
+        // 상위 타입의이름을 꺽쇠 괄호 <> 사이에 넣어서 super 를 지정하면
+        // 어떤 상위 타입의 멤버 메서드를 호출할 지 결정할 수 있음
+        super<Clickable>.showOff()
+        super<Focusable>.showOff()
+    }
+}
+
+fun main() {
+    val button = Button()
+    // I'm clickable!
+    // I'm focusable!
+    button.showOff()
+
+    // I got focus.
+    button.setFocus(true)
+
+    // I was clicked
+    button.click()
+}
+```
+
+코틀린 컴파일러는 두 메서드를 아우르는 구현을 파생 클래스에 직접 구현하도록 강제한다.  
+상위 타입의 구현을 호출할 때는 자바처럼 `super` 를 사용한다.
 
 ---
 
@@ -553,7 +612,7 @@ fun main() {
 
 **기반 클래스는 `open`** 이어야 한다.  
 
-**`open` 으로 지정하지 않은 클래스는 상속을 허용하지 않는다.** (= 클래스는 기본적으로 상속에 닫혀있음)  
+**`open` 으로 지정하지 않은 클래스는 상속을 허용하지 않는다.** (= 클래스는 기본적으로 상속에 닫혀ㅇㅇ있음)  
 **코틀린은 `open` 키워드를 사용하여 해당 클래스가 상속을 고려하여 설계되었다는 것을 명시적**으로 드러낸다.
 
 > 자바에서는 `final` 을 사용하여 클래스의 상속을 명시적으로 금지하지 않는 한 클래스는 자동으로 상속이 가능함.  
