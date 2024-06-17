@@ -37,7 +37,7 @@ tags: java java8 lambda-expression method-reference
     * [Function: andThen()](#function-andthen)
     * [Function: compose()](#function-compose)
 * [정리하며..](#정리하며)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -551,7 +551,7 @@ System.out.println(result2); // 3
 ---
 
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 

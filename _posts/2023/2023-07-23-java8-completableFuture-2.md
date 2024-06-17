@@ -29,7 +29,7 @@ tags: java java8 completable-future
 * [2. `CompletableFuture` 종료 대응 (비동기 동작 완료에 대응)](#2-completablefuture-종료-대응-비동기-동작-완료에-대응)
   * [2.1. 최저가격 검색 리팩토링: `CompletableFuture.thenAccept()`](#21-최저가격-검색-리팩토링-completablefuturethenaccept)
 * [3. 정리하며..](#3-정리하며)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -478,7 +478,7 @@ All shops have now responded in 2069 ms
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 라울-게이브리얼 우르마, 마리오 푸스코, 앨런 마이크로프트 저자의 **Java 8 in Action**을 기반으로 스터디하며 정리한 내용들입니다.*
 

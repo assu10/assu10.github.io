@@ -40,7 +40,7 @@ Spring bean 을 선언하고 Spring bean Container 를 사용하여 Spring bean 
   * [8.1. `@Primary`](#81-primary)
   * [8.2. `@Lazy`](#82-lazy)
 * [9. Spring bean, Java bean, DTO, VO, DAO](#9-spring-bean-java-bean-dto-vo-dao)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -1512,7 +1512,7 @@ public final class Money implements Serializable {  // class 는 반드시 final
 ```
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

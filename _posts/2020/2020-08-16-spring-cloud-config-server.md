@@ -9,23 +9,26 @@ tags: msa spring-cloud-config-server spring-cloud-bus rabbitmq
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 스프링 클라우드 프로젝트 중 Spring Cloud Config Server 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고바란다.
 
->***1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화***<br />
->   - Spring Cloud Config Server
->   - Config Server 구축
->       - Config Server 셋업
->       - 저장소(Git or File) 구현 - File
->   - 클라이언트에서 Config Server 접근
->   - Config Server에서 환경설정 변경값 갱신
->   - 환경설정 변경 전파
->       - RabbitMQ 설치
->       - 환경설정 변경 전파 적용
->   - 컨피스 저장소의 중요 정보 보호(암호화)
->       - 암호화에 필요한 오라클 JCE 파일을 내려받아 설치
->       - 암호화 키 설정
->       - 프로퍼티를 암호화 및 복호화
->       - 클라이언트 측에서 암호화하도록 마이크로서비스 구성
->   - 저장소(Git or File) 구현 - Git
->   - Config Server 상태 모니터링
+<!-- TOC -->
+  * [1. Spring Cloud Config Server](#1-spring-cloud-config-server)
+  * [2. Config Server 구축](#2-config-server-구축)
+    * [2-1. Config Server 셋업](#2-1-config-server-셋업)
+    * [2-2. 저장소(Git or File) 구현 - File](#2-2-저장소git-or-file-구현---file)
+  * [3. 클라이언트에서 Config Server 접근](#3-클라이언트에서-config-server-접근)
+  * [4. Config Server에서 환경설정 변경값 갱신](#4-config-server에서-환경설정-변경값-갱신)
+  * [5. 환경설정 변경 전파](#5-환경설정-변경-전파)
+    * [5-1. RabbitMQ 설치](#5-1-rabbitmq-설치)
+    * [5-2. 환경설정 변경 전파 적용](#5-2-환경설정-변경-전파-적용)
+  * [6. 컨피스 저장소의 중요 정보 보호(암호화)](#6-컨피스-저장소의-중요-정보-보호암호화)
+    * [6.1. 암호화에 필요한 오라클 JCE(Unlimited Stength Java cryptography Extension) jar 파일을 내려받아 설치](#61-암호화에-필요한-오라클-jceunlimited-stength-java-cryptography-extension-jar-파일을-내려받아-설치)
+    * [6.2. 암호화 키 설정](#62-암호화-키-설정)
+    * [6.3. 프로퍼티를 암호화 및 복호화](#63-프로퍼티를-암호화-및-복호화)
+    * [6.4. 클라이언트 측에서 암호화하도록 마이크로서비스 구성](#64-클라이언트-측에서-암호화하도록-마이크로서비스-구성)
+  * [7. 저장소(Git or File) 구현 - Git](#7-저장소git-or-file-구현---git)
+  * [8. Config Server 상태 모니터링](#8-config-server-상태-모니터링)
+  * [덧붙임](#덧붙임)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 다양한 요청을 처리하는 마이크로서비스를 관리하기 위해서 스프링 부트 프레임워크가 제공하는 기능만으로는 충분하지 않다.
 스프링 클라우드 프로젝트는 마이크로서비스 개발에 필요한 공통적인 패턴들을 모아서 사용하기 쉬운 스프링 라이브러리 형태로 구현해서 제공한다.

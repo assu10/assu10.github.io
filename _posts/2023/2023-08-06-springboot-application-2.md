@@ -18,7 +18,7 @@ tags: springboot msa HttpMessageConverter ObjectMapper
 * [1. `HttpMessageConverter`, REST-API 설정](#1-httpmessageconverter-rest-api-설정)
   * [1.1. `HttpMessageConverter` 설정](#11-httpmessageconverter-설정)
   * [1.2. `ObjectMapper` 와 스프링 빈을 이용한 애플리케이션 설정](#12-objectmapper-와-스프링-빈을-이용한-애플리케이션-설정)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -518,7 +518,7 @@ reservations 의 요소 개수가 0일 경우 출력이 되지 않는 것을 확
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

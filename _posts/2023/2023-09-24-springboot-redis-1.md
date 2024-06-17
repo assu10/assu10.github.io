@@ -47,7 +47,7 @@ tags: springboot msa redis spring-data-redis lettuce redis-connection-factory
     * [3.1.1. `RedisStandaloneConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#311-redisstandaloneconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
     * [3.1.2. `RedisSentinelConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#312-redissentinelconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
     * [3.1.3. `RedisClusterConfiguration` 을 사용하여 `RedisConnectionFactory` 스프링 빈 생성](#313-redisclusterconfiguration-을-사용하여-redisconnectionfactory-스프링-빈-생성)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -717,7 +717,7 @@ public class CacheConfig {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

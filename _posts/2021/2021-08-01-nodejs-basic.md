@@ -8,12 +8,15 @@ tags: nodejs
 
 이 포스트는 Node.js(Mac 기준) 의 기본 개념과 Node.js 을 시작하기에 앞서 알아야 할 내용들에 대해 기술한다.  
 
->- Node.js 개념
->   - Event-driven (이벤트 기반)
->   - Non-Blocking I/O
->   - Single Thread
->- Node.js 의 활용
->- Node.js 환경 설정 (Mac)
+<!-- TOC -->
+  * [1. Node.js 개념](#1-nodejs-개념)
+    * [1.1. Event-driven (이벤트 기반)](#11-event-driven-이벤트-기반)
+    * [1.2. Non-Blocking I/O](#12-non-blocking-io)
+    * [1.3. Single Thread](#13-single-thread)
+  * [2. Node.js 의 활용](#2-nodejs-의-활용)
+  * [3. Node.js 환경 설정 (Mac)](#3-nodejs-환경-설정-mac)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

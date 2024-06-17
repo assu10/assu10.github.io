@@ -8,21 +8,19 @@ tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Security OAuth2 와 Spring Cloud Security 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
->[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br /><br />
->***5. OAuth2, Security - 보안***<br />
->- OAuth2
->- OAuth2 로 인증 구현
->   - OAuth2 인증 서버 설정
->   - OAuth2 인증 서버에 클라이언트 애플리케이션 등록
->   - 개별 사용자에 대한 자격 증명(인증)과 역할(인가) 설정
->   - OAuth2 패스워드 그랜트 타입을 사용하여 사용자 인증
->- OAuth2 를 이용하여 회원 서비스 보호
->- OAuth2 액세스 토큰 전파
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. OAuth2](#1-oauth2)
+  * [2. OAuth2 로 인증 구현](#2-oauth2-로-인증-구현)
+    * [2.1. OAuth2 인증 서버 설정](#21-oauth2-인증-서버-설정)
+    * [2.2. OAuth2 인증 서버에 클라이언트 애플리케이션 등록](#22-oauth2-인증-서버에-클라이언트-애플리케이션-등록)
+    * [2.3. 개별 사용자에 대한 자격 증명(인증)과 역할(인가) 설정](#23-개별-사용자에-대한-자격-증명인증과-역할인가-설정)
+    * [2.4. OAuth2 패스워드 그랜트 타입을 사용하여 사용자 인증](#24-oauth2-패스워드-그랜트-타입을-사용하여-사용자-인증)
+      * [2.4.1. 토큰 획득](#241-토큰-획득)
+      * [2.4.2. 사용자 정보 조회](#242-사용자-정보-조회)
+  * [3. OAuth2 를 이용하여 회원 서비스 보호](#3-oauth2-를-이용하여-회원-서비스-보호)
+  * [4. OAuth2 액세스 토큰 전파](#4-oauth2-액세스-토큰-전파)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

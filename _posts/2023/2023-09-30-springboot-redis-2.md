@@ -20,7 +20,7 @@ tags: springboot msa redis redis-serializer value-operation redis-template
   * [1.2. `RedisSerializer` 구현체](#12-redisserializer-구현체)
   * [1.3. `RedisTemplate` 스프링 빈 직접 설정](#13-redistemplate-스프링-빈-직접-설정)
   * [1.4. 직접 설정한 `RedisTemplate` 스프링 빈을 사용하여 데이터 조작](#14-직접-설정한-redistemplate-스프링-빈을-사용하여-데이터-조작)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -552,7 +552,7 @@ public class CacheConfig {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

@@ -8,9 +8,6 @@ tags: devops gitlab gitlab-runner ci cd
 
 이 글은 GitLab CI/CD Pipeline 구성파일인 .gitlab-ci.yml 에 대해 설명합니다.
 
->[GitLab-Runner 설치 & 등록(Windows)](https://assu10.github.io/dev/2020/10/08/gitlab-runner-1/)<br />
->[GitLab CI/CD Pipeline 구성](https://assu10.github.io/dev/2020/10/09/gitlab-runner-2/)<br /><br />
-
 <!-- TOC -->
   * [.gitlab-ci.yml](#gitlab-ciyml)
   * [job 구성 요소](#job-구성-요소)
@@ -36,8 +33,6 @@ tags: devops gitlab gitlab-runner ci cd
   * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
   * [관련하여 나중에 보면 좋은 사이트](#관련하여-나중에-보면-좋은-사이트)
 <!-- TOC -->
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
 
 ---
 

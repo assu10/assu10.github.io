@@ -9,18 +9,17 @@ tags: msa hystrix zuul ribbon
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Netflix Zuul 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br /><br />
->***4. Zuul - Proxy & API Gateway (2/2)***<br />
->   - 필터
->   - 사전 필터
->       - Zuul 로 통신하는 모든 마이크로서비스 호출에 상관관계 ID 확인 및 생성
->       - 서비스 호출 시 상관관계 ID 사용
->   - 사후 필터
->   - Zuul 의 고가용성
+<!-- TOC -->
+  * [1. 필터](#1-필터)
+  * [2. 사전 필터](#2-사전-필터)
+    * [2.1. Zuul 로 통신하는 모든 마이크로서비스 호출에 상관관계 ID 확인 및 생성](#21-zuul-로-통신하는-모든-마이크로서비스-호출에-상관관계-id-확인-및-생성)
+    * [2.2. 서비스 호출 시 상관관계 ID 사용](#22-서비스-호출-시-상관관계-id-사용)
+  * [3. 사후 필터](#3-사후-필터)
+  * [4. Zuul 의 고가용성](#4-zuul-의-고가용성)
+  * [덧붙임](#덧붙임)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
-Spring Cloud Config Server 와 Eureka, Zuul(1) 에 대한 자세한 내용은 위 목차에 걸려있는 링크를 참고 바란다.
 
 *[Spring Cloud - Netflix Zuul(Ribbon) Retry](https://assu10.github.io/dev/2020/12/06/netflix-zuul-retryable/)* 와 함께 보면 도움이 됩니다.
 

@@ -17,7 +17,7 @@ tags: nestjs clean-architecture
     * [3.1.2. application layer](#312-application-layer)
     * [3.1.3. interface layer](#313-interface-layer)
     * [3.1.4. infrastructure layer](#314-infrastructure-layer)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 > 소스는 [user-service](https://github.com/assu10/nestjs/tree/user-service/ch17) 에 있습니다.
@@ -700,7 +700,7 @@ $ curl --location --request GET 'http://localhost:3000/users/01GZXC64JYJY26TDASS
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

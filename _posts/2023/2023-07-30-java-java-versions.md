@@ -56,7 +56,7 @@ tags: java java-version
 * [Java 17](#java-17)
   * [Sealed Classes (finalized)](#sealed-classes-finalized)
   * [Deprecating the security manager](#deprecating-the-security-manager)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -984,7 +984,7 @@ Java 15 에서 preview 였던 기능이 완료됨
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 * [Java 8 vs Java 11](https://steady-coding.tistory.com/598)
 * [Java 8 / Java 11 차이 자바](https://itkjspo56.tistory.com/201)

@@ -21,7 +21,7 @@ tags: web auth jwt session token sliding-session refresh-token
   * [2.2.2. Public claim](#222-public-claim)
   * [2.2.3. Private claim](#223-private-claim)
 * [2.3. Signature](#23-signature)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 
@@ -236,7 +236,7 @@ HMACSHA256(
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

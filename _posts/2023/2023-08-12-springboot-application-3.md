@@ -18,7 +18,7 @@ tags: springboot msa interceptor servletFilter
 * [1. Interceptor, ServletFilter 설정](#1-interceptor-servletfilter-설정)
 * [2. HandlerInterceptor 인터페이스](#2-handlerinterceptor-인터페이스)
 * [3. Filter 인터페이스](#3-filter-인터페이스)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -339,7 +339,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

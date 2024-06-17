@@ -9,29 +9,19 @@ tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack
 이 포스트는 중앙 집중형 로깅 솔루션 중 하나인 ELK (ElasticSearch, Logstash, Kibana) 스택에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
->[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
->[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
->[6. OAuth2, Security - 보안 (2/2)](https://assu10.github.io/dev/2020/09/30/spring-cloud-oauth2.0-2/)<br />
->[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
->[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br />
->[9. Spring Cloud - Hystrix (회복성 패턴)](https://assu10.github.io/dev/2020/11/01/spring-cloud-hystrix/)<br />
->[10. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (1/4) - 이론](https://assu10.github.io/dev/2020/12/30/spring-cloud-log-tracker/)<br /><br />
->***11. Spring Cloud Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택***<br />
->- ELK 스택이란?
->- Elastic Stack 이란?
->- ElasticSearch, Kibana, Logstash 설치
->   - ElasticSearch 설치
->   - Kibana 설치
->   - Logstash 설치
->- Springboot에 Logging 설정
->- Kibana 를 통해 여러 마이크로서비스의 로그를 통합하여 조회
->   - Index 생성
->   - 로그 조회
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. ELK 스택이란?](#1-elk-스택이란)
+  * [2. Elastic Stack 이란?](#2-elastic-stack-이란)
+  * [3. ElasticSearch, Kibana, Logstash 설치](#3-elasticsearch-kibana-logstash-설치)
+    * [3.1. ElasticSearch 설치](#31-elasticsearch-설치)
+    * [3.2. Kibana 설치](#32-kibana-설치)
+    * [3.3. Logstash 설치](#33-logstash-설치)
+  * [4. Springboot에 Logging 설정](#4-springboot에-logging-설정)
+  * [5. Kibana 를 통해 여러 마이크로서비스의 로그를 통합하여 조회](#5-kibana-를-통해-여러-마이크로서비스의-로그를-통합하여-조회)
+    * [5.1. Index 생성](#51-index-생성)
+    * [5.2. 로그 조회](#52-로그-조회)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

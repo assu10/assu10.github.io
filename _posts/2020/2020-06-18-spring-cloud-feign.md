@@ -6,6 +6,19 @@ categories: dev
 tags: msa springcloud-feign MSA feign
 ---
 
+
+<!-- TOC -->
+  * [SpringCloud Feign 이란](#springcloud-feign-이란)
+  * [SpringCloud Feign 적용해보기](#springcloud-feign-적용해보기)
+    * [[Provider]](#provider)
+    * [[Consumer]](#consumer)
+      * [프로젝트 생성](#프로젝트-생성)
+      * [어노테이션 추가 (`@EnableFeignclients`)](#어노테이션-추가-enablefeignclients)
+      * [Client 작성 (인터페이스)](#client-작성-인터페이스)
+      * [Feign Client 호출](#feign-client-호출)
+  * [참고사이트](#참고사이트)
+<!-- TOC -->
+
 ## SpringCloud Feign 이란
 
 MSA (MicroService Architecture) 대해 검토를 하다 보면 분산 시스템에 최적화된 여러 가지 라이브러리들이 소개가 되는데 그 중 하나인 Feign 에 대해 다룹니다.
@@ -117,7 +130,7 @@ RestTemplate 을 사용하게 될 경우 http client connection 설정, return �
 
 관련 소스는 [github/assu10](https://github.com/assu10/feign.git){:target="_blank"}  에서 확인하실 수 있습니다.
 
-### 참고사이트
+## 참고사이트
 
 - [https://spring.io/projects/spring-cloud-openfeign](https://spring.io/projects/spring-cloud-openfeign)
 - [https://woowabros.github.io/experience/2019/05/29/feign.html](https://woowabros.github.io/experience/2019/05/29/feign.html)

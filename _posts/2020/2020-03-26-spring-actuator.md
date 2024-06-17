@@ -6,6 +6,16 @@ categories: dev
 tags: msa springboot-actuator spring-monitoring actuator spring-admin-ui
 ---
 
+<!-- TOC -->
+  * [Springboot Actuator란?](#springboot-actuator란)
+  * [Actuator 설정](#actuator-설정)
+  * [Actuator 정보 확인](#actuator-정보-확인)
+  * [Springboot admin UI ?](#springboot-admin-ui-)
+  * [Springboot admin UI 설정](#springboot-admin-ui-설정)
+  * [Springboot admin UI 확인](#springboot-admin-ui-확인)
+  * [참고사이트](#참고사이트)
+<!-- TOC -->
+
 ## Springboot Actuator란?
 스프링부트 액추에이터란 스프링부트 애플리케이션에서 제공하는 여러가지 정보를 모니터링하기 쉽게 정리해주는 스프링부트 기능이다.
 

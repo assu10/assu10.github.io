@@ -32,7 +32,7 @@ tags: springboot msa rest-api spring-web-mvc controller-advice response-entity p
 * [5. 미디어 콘텐츠 다운로드](#5-미디어-콘텐츠-다운로드)
   * [5.1. HttpMessageConverter 를 사용하여 파일 byte 정보 조회](#51-httpmessageconverter-를-사용하여-파일-byte-정보-조회)
   * [5.2. HttpServletResponse 를 사용하여 파일 다운로드](#52-httpservletresponse-를-사용하여-파일-다운로드)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -1042,7 +1042,7 @@ public class ReservationController {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

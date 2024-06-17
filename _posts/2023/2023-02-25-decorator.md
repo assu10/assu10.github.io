@@ -21,7 +21,7 @@ tags: typescript decorator nestjs
 * [5. Accessor Decorator (접근자 데커레이터)](#5-accessor-decorator-접근자-데커레이터)
 * [6. Property Decorator (속성 데커레이터)](#6-property-decorator-속성-데커레이터)
 * [7. Parameter Decorator (매개변수 데커레이터)](#7-parameter-decorator-매개변수-데커레이터)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -865,7 +865,7 @@ Validator args:  [ 'assu' ]
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

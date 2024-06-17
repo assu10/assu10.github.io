@@ -8,30 +8,22 @@ tags: msa hystrix
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Hystrix 에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
->[1. Spring Cloud Config Server - 환경설정 외부화 및 중앙 집중화](https://assu10.github.io/dev/2020/08/16/spring-cloud-config-server/)<br />
->[2. Eureka - Service Registry & Discovery](https://assu10.github.io/dev/2020/08/16/spring-cloud-eureka/)<br />
->[3. Zuul - Proxy & API Gateway (1/2)](https://assu10.github.io/dev/2020/08/26/netflix-zuul/)<br />
->[4. Zuul - Proxy & API Gateway (2/2)](https://assu10.github.io/dev/2020/09/05/netflix-zuul2/)<br />
->[5. OAuth2, Security - 보안 (1/2)](https://assu10.github.io/dev/2020/09/12/spring-cloud-oauth2.0/)<br />
->[6. OAuth2, Security - 보안 (2/2)](https://assu10.github.io/dev/2020/09/30/spring-cloud-oauth2.0-2/)<br />
->[7. Spring Cloud Stream, 분산 캐싱 (1/2)](https://assu10.github.io/dev/2020/10/01/spring-cloud-stream/)<br />
->[8. Spring Cloud Stream, 분산 캐싱 (2/2)](https://assu10.github.io/dev/2020/11/01/spring-cloud-stream-2/)<br /><br />
->***9. Spring Cloud - Hystrix (회복성 패턴)***<br />
->- 클라이언트 회복성 패턴
->   - 클라이언트 측 부하분산
->   - Circuit Breaker (회로 차단기)
->   - Fallback (폴백 처리)
->   - Bulkhead (벌크헤드)
->- 클라이언트 회복성의 중요성
->- Hystrix 설정을 위한 회원 서비스 애플리케이션 설정
->- Hystrix 애너테이션을 사용하여 Circuit Breaker (회로 차단기) 패턴으로 원격 호출 실행
->- 개별 서킷 브레이커를 사용자 정의하여 호출별 타임아웃 설정
->- 서킷 브레이커가 작동할 경우 폴백 전략 구현
->- 서비스 내 개별 스레드 풀을 사용하여 서비스 호출을 격리하고, 호출되는 원격 자원 간에 벌크헤드 구축
->   - 벌크헤드 패턴 기본 구성
->   - 벌크헤드 패턴 상세 구성
-
-이전 내용은 위 목차에 걸려있는 링크를 참고 바란다.
+<!-- TOC -->
+  * [1. 클라이언트 회복성 패턴](#1-클라이언트-회복성-패턴)
+    * [1.1 클라이언트 측 부하분산](#11-클라이언트-측-부하분산)
+    * [1.2 Circuit Breaker (회로 차단기)](#12-circuit-breaker-회로-차단기)
+    * [1.3 Fallback (폴백 처리)](#13-fallback-폴백-처리)
+    * [1.4 Bulkhead (벌크헤드)](#14-bulkhead-벌크헤드)
+  * [2. 클라이언트 회복성의 중요성](#2-클라이언트-회복성의-중요성)
+  * [3. Hystrix 설정을 위한 회원 서비스 애플리케이션 설정](#3-hystrix-설정을-위한-회원-서비스-애플리케이션-설정)
+  * [4. Hystrix 애너테이션을 사용하여 Circuit Breaker (회로 차단기) 패턴으로 원격 호출 실행](#4-hystrix-애너테이션을-사용하여-circuit-breaker-회로-차단기-패턴으로-원격-호출-실행)
+  * [5. 개별 서킷 브레이커를 사용자 정의하여 호출별 타임아웃 설정](#5-개별-서킷-브레이커를-사용자-정의하여-호출별-타임아웃-설정)
+  * [6. 서킷 브레이커가 작동할 경우 폴백 전략 구현](#6-서킷-브레이커가-작동할-경우-폴백-전략-구현)
+  * [7. 서비스 내 개별 스레드 풀을 사용하여 서비스 호출을 격리하고, 호출되는 원격 자원 간에 벌크헤드 구축](#7-서비스-내-개별-스레드-풀을-사용하여-서비스-호출을-격리하고-호출되는-원격-자원-간에-벌크헤드-구축)
+    * [7-1. 벌크헤드 패턴 기본 구성](#7-1-벌크헤드-패턴-기본-구성)
+    * [7-2. 벌크헤드 패턴 상세 구성](#7-2-벌크헤드-패턴-상세-구성)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

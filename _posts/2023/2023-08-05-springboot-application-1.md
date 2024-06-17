@@ -36,7 +36,7 @@ tags: springboot msa web-mvc-configurer dispatcher-servlet
     * [1.2.12. `addReturnValueHandlers()`](#1212-addreturnvaluehandlers)
     * [1.2.13. `configureMessageConverters()` 와 `extendMessageConverters()`](#1213-configuremessageconverters-와-extendmessageconverters)
   * [1.3. DispatcherServlet 설정](#13-dispatcherservlet-설정)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -795,7 +795,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

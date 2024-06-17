@@ -22,7 +22,7 @@ tags: springboot msa database spring-data-jpa query-method data-jpa-test jpa-rep
     * [2.2.1. `@SpringBootTest` 를 사용한 테스트 케이스](#221-springboottest-를-사용한-테스트-케이스)
     * [2.2.2. `@DataJpaTest` 를 사용한 테스트 케이스](#222-datajpatest-를-사용한-테스트-케이스)
   * [2.3. `@Query` 를 사용한 쿼리 사용](#23-query-를-사용한-쿼리-사용)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -640,7 +640,7 @@ class HotelRepositoryTest02 {
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

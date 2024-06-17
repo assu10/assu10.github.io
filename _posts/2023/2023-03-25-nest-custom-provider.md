@@ -14,7 +14,7 @@ tags: nestjs provider custom-provider
 * [3. FactoryProvider](#3-factoryprovider)
 * [4. ExistingProvider (AliasedProvider)](#4-existingprovider-aliasedprovider)
 * [5. Provider 내보내기](#5-provider-내보내기)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -616,7 +616,7 @@ export class AppModule {}
 ---
 
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 

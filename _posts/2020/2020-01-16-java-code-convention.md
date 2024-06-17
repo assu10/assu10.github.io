@@ -15,22 +15,26 @@ tags: web java coding-guide code-convention
 - 코딩 규약을 지키면 다른 개발자가 소스 코드를 보았을 때 더 빠른 시간안에 이해할 수 있도록 도와준다.
 
 
-[1. 들여쓰기](#들여쓰기)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[한 줄의 길이](#한-줄의-길이)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[줄 나누기](#줄-나누기)<br />
-[2. 주석](#주석)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[블록 주석](#블록-주석)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[한 줄 주석](#한-줄-주석)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[꼬리 주석](#꼬리-주석)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[줄 끝 주석](#줄-끝-주석)<br />
-[3. Statements](#Statements)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[복합문](#복합문)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[if, if-else, if else-if else](#if,-if-else,-if-else-if-else)<br />
-[4. White Space](#White-Space)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[한 줄 띄우기](#한-줄-띄우기)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[공백](#공백)<br />
-[5. 기타](#기타)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[괄호](#괄호)
+<!-- TOC -->
+  * [WHY Code Conventions(코딩 규약)?](#why-code-conventions코딩-규약)
+  * [1. 들여쓰기](#1-들여쓰기)
+    * [한 줄의 길이](#한-줄의-길이)
+    * [줄 나누기](#줄-나누기)
+    * [메서드 본문 시작시의 줄바꿈](#메서드-본문-시작시의-줄바꿈)
+  * [2. 주석](#2-주석)
+    * [블록 주석](#블록-주석)
+    * [한 줄 주석](#한-줄-주석)
+    * [꼬리 주석](#꼬리-주석)
+  * [3. Statements](#3-statements)
+    * [복합문](#복합문)
+    * [if, if-else, if else-if else](#if-if-else-if-else-if-else)
+  * [4. While Space](#4-while-space)
+    * [한 줄 띄우기](#한-줄-띄우기)
+    * [공백](#공백)
+  * [5. 기타](#5-기타)
+    * [괄호](#괄호)
+    * [참고사이트](#참고사이트)
+<!-- TOC -->
 
 
 ## 1. 들여쓰기

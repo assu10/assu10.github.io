@@ -11,11 +11,13 @@ GitLab-Runner 설치에 대해 설명합니다.
 
 *온프레미스가 아닌 gitlab.com 을 이용하여 GitLab 을 구성하였습니다*
 
->***GitLab-Runner 설치 & 등록(Windows)***<br />
->- DevOps 란?
->- GitLab 이란?
->- GitLab-Runner 다운로드 (Windows)
->- GitLab-Runner 등록
+<!-- TOC -->
+  * [DevOps 란?](#devops-란)
+  * [GitLab 이란?](#gitlab-이란)
+  * [GitLab-Runner 다운로드 (Windows)](#gitlab-runner-다운로드-windows)
+  * [GitLab-Runner 등록](#gitlab-runner-등록)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
 
 ---
 

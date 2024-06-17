@@ -33,7 +33,7 @@ Spring Data JPA 는 데이터를 저장/처리하는 Spring Data 프로젝트의
   * [3.3. Spring Data JPA 설정](#33-spring-data-jpa-설정)
     * [3.3.1. JPA/Hibernate 설정](#331-jpahibernate-설정)
     * [3.3.2 Hikari DataSource 설정](#332-hikari-datasource-설정)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -558,7 +558,7 @@ spring.datasource.hikari.idle-timeout=604800
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 김병부 저자의 **스프링 부트로 개발하는 MSA 컴포넌트**를 기반으로 스터디하며 정리한 내용들입니다.*
 

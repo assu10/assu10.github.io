@@ -23,7 +23,7 @@ tags: nestjs provider scope
   * [3.1. Provider 에 Scope 적용](#31-provider-에-scope-적용)
   * [3.2. Controller 에 Scope 적용](#32-controller-에-scope-적용)
 * [4. Custom Provider](#4-custom-provider)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 > 소스는 [example](https://github.com/assu10/nestjs/tree/feature/ch04), [user-service](https://github.com/assu10/nestjs/tree/user-service/ch04) 에 있습니다.
@@ -630,7 +630,7 @@ export class UsersController { }
 
 ---
 
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 한용재 저자의 **NestJS로 배우는 백엔드 프로그래밍**을 기반으로 스터디하며 정리한 내용들입니다.*
 
