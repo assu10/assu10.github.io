@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "DDD - "
+title:  "DDD - 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize"
 date:   2024-04-13
 categories: dev
-tags: ddd 
+tags: ddd Sort Pageable PageRequest findFirstN() findFirst() findTop() @Subselect @Immutable @Synchronize
 ---
 
 이 포스트에서는 아래 내용에 대해 알아본다.
@@ -893,8 +893,85 @@ public class SpecBuilder {
 
 # 5. 동적 인스턴스 생성
 
+JPA 는 쿼리 결과에서 임의의 객체를 동적으로 생성할 수 있는 기능을 제공한다.
 
+OrderSummaryDao.java
+```java
+package com.assu.study.order.query.dao;
 
+import com.assu.study.order.query.dto.OrderSummary;
+import com.assu.study.order.query.dto.OrderView;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.Repository;
+
+import java.util.List;
+
+public interface OrderSummaryDao extends Repository<OrderSummary, String> {
+
+    // ...
+
+    @Query(value = """
+            select new com.assu.study.order.query.dto.OrderView ( 
+                o.number, o.state, m.name, m.id, p.name 
+            ) 
+            from Order o join o.orderLines ol, Member m, Product p 
+            where o.orderer.memberId.id = :ordererId 
+            and o.orderer.memberId.id = m.id.id
+            and index(ol) = 0 
+            and ol.productId.id = p.id.id
+            order by o.number.number desc 
+            """)
+    List<OrderView> findOrderView(String ordererId);
+}
+```
+
+위의 JPQL select 절을 보면 `new` 키워드가 있다.
+
+`new` 키워드 뒤에 생성할 인스턴스의 완전한 클래스 이름을 지정하고 괄호 안에 생성자에 인자로 전달할 값을 지정하면 _OrderView_ 생성자는 
+생성자로 전달받은 데이터를 저장한다.
+
+/test/.../OrderSummaryDaoIT.java
+```java
+@DisplayName("동적 인스턴스 생성 테스트")
+@Test
+void findOrderView() {
+    List<OrderView> result = orderSummaryDao.findOrderView("user1");
+    // result: [OrderView(number=ORDER-002, state=PREPARING, memberName=사용자1, memberId=user1, productName=라즈베리파이3 모델B), OrderView(number=ORDER-001, state=PREPARING, memberName=사용자1, memberId=user1, productName=라즈베리파이3 모델B)]
+    logger.info("result: {}", result);
+}
+```
+
+OrderView.java
+```java
+package com.assu.study.order.query.dto;
+
+import com.assu.study.member.command.domain.MemberId;
+import com.assu.study.order.command.domain.OrderNo;
+import com.assu.study.order.command.domain.OrderState;
+import lombok.Getter;
+
+@Getter
+public class OrderView {
+    private final String number;
+    private final OrderState state;
+    private final String memberName;
+    private final String memberId;
+    private final String productName;
+
+    public OrderView(OrderNo number, OrderState state, String memberName, MemberId memberId, String productName) {
+        this.number = number.getNumber();
+        this.state = state;
+        this.memberName = memberName;
+        this.memberId = memberId.getId();
+        this.productName = productName;
+    }
+}
+```
+
+조회 전용 모델을 만드는 이유는 표현 영역을 통해 사용자에게 데이터를 보여주기 위함인데 대부분의 프레임워크는 새로 추가한 밸류 타입에 알맞은 형식으로 출력하지 못하기 때문에 
+위처럼 값을 기본 타입으로 변환하면 편리하다.
+
+**동적 인스턴스의 장점은 JPQL 을 그대로 사용하므로 객체 기준으로 쿼리를 작성하면서도 동시에 지연/즉시 로딩과 같은 고민없이 원하는 결과로 데이터를 조회할 수 있다는 점**이다.
 
 ---
 
@@ -995,7 +1072,6 @@ public class OrderSummary {
 
 **`@Immutable` 애너테이션을 사용하면 하이버네이트는 해당 엔티티의 매핑 필드/프로퍼티가 변경되도 DB 에 반영하지 않고 무시**한다.
 
-
 ```java
 // purchase_order 테이블에서 조회
 Order order = orderRepository.findById(orderNumber);
@@ -1016,9 +1092,70 @@ purchase_order 테이블을 사용하는 _OrderSummary_ 를 조회하게 된다.
 위에선 _OrderSummary_ 의 `@Synchronize` 는 purchase_order 테이블을 명시하고 있으므로 **_OrderSummary_ 를 로딩하기 전에 purchase_order 테이블에 
 변경사항이 있으면 관련 내역을 먼저 flush 하기 때문에 _OrderSummary_ 를 로딩하는 시점에서는 변경 내역이 반영**된다.
 
-**`@Subselect` 를 사용해도 일반 `@Entity` 와 동일하기 때문에 EntityManager#find(), JPQL, Criteria 를 사용해서 조회할 수 있고, 스펙을 사용**할 수도 있다.
+**`@Subselect` 를 사용해도 일반 `@Entity` 와 동일하기 때문에 EntityManager#find(), JPQL, Criteria 를 사용해서 조회할 수 있고, 스펙을 사용할 수도 있다는 것이 
+`@Subselect` 의 장점**이다.
 
-여기서부터 다시 설명~~~~~
+/test/.../OrderSummaryDaoIT.java
+```java
+@DisplayName("@Subselect 를 @Entity 처럼 사용")
+@Test
+void findAllSpecPageable() {
+    LocalDateTime from = LocalDateTime.of(2022, 1, 1, 0, 0, 0);
+    LocalDateTime to = LocalDateTime.of(2023, 1, 2, 0, 0, 0);
+
+    // @Subselect 를 적용한 @Entity 는 일반 @Entity 와 동일한 방법으로 조회 가능
+    Specification<OrderSummary> spec = OrderSummarySpecs.orderDateBetween(from, to);
+    Pageable pageable = PageRequest.of(1, 1);
+    List<OrderSummary> results = orderSummaryDao.findAll(spec, pageable);
+    logger.info("results: {}", results);
+    assertThat(results).hasSize(1);
+}
+```
+
+`@Subselect`의 값으로 지정한 쿼리를 from 절의 서브 쿼리로 사용하기 때문에 실제 실행되는 쿼리는 아래와 같다.
+```sql
+-- SELECT 쿼리
+select os1_0.number,os1_0.order_date,os1_0.orderer_id,os1_0.orderer_name,os1_0.product_id,os1_0.product_name,os1_0.receiver_name,os1_0.state,os1_0.total_amounts,os1_0.version
+from (
+select o.order_number as number,
+       o.version,
+       o.orderer_id,
+       o.orderer_name,
+       o.total_amounts,
+       o.receiver_name,
+       o.state,
+       o.order_date,
+       p.product_id,
+       p.name         as product_name
+from purchase_order o
+         inner join order_line ol
+                    on o.order_number = ol.order_number
+         cross join product p
+where ol.line_idx = 0
+  and ol.product_id = p.product_id
+ ) os1_0 where os1_0.order_date between '2022-01-01' and '2023-01-01' limit 1,1;
+
+-- COUNT 쿼리
+select count(os1_0.number) from ( select o.order_number as number,
+       o.version,
+       o.orderer_id,
+       o.orderer_name,
+       o.total_amounts,
+       o.receiver_name,
+       o.state,
+       o.order_date,
+       p.product_id,
+       p.name         as product_name
+from purchase_order o
+         inner join order_line ol
+                    on o.order_number = ol.order_number
+         cross join product p
+where ol.line_idx = 0
+  and ol.product_id = p.product_id
+ ) os1_0 where os1_0.order_date between '2022-01-01' and '2023-01-01';
+```
+
+만일 이렇게 서브 쿼리를 사용하지 싶지 않다면 native SQL 쿼리를 사용하거나 myBatis 같은 별도의 mapper 를 사용해서 조회 기능을 구현해야 한다.
 
 ---
 
