@@ -23,16 +23,17 @@ tags: kotlin object, inner class, companion object
   * [2.1. 한정된 `this`: `this@클래스명`](#21-한정된-this-this클래스명)
   * [2.2. inner 클래스 상속](#22-inner-클래스-상속)
   * [2.3. Local inner 클래스와 익명 inner 클래스](#23-local-inner-클래스와-익명-inner-클래스)
-* [3. 동반 객체 (companion object)](#3-동반-객체-companion-object)
-  * [3.1. companion object 기본](#31-companion-object-기본)
-  * [3.2. 함수를 companion object 대신 파일 영역에 배치](#32-함수를-companion-object-대신-파일-영역에-배치)
-  * [3.3. companion object 안에서의 프로퍼티](#33-companion-object-안에서의-프로퍼티)
-  * [3.4. 함수를 companion object 영역에 배치](#34-함수를-companion-object-영역에-배치)
-  * [3.5. companion object 를 만들면서 인터페이스 구현](#35-companion-object-를-만들면서-인터페이스-구현)
-  * [3.6. 클래스 위임을 사용하여 companion object 활용](#36-클래스-위임을-사용하여-companion-object-활용)
-  * [3.7. companion object 를 사용하여 인터페이스 구현](#37-companion-object-를-사용하여-인터페이스-구현)
-  * [3.8. companion object 로 객체 생성 제어: Factory Method 패턴](#38-companion-object-로-객체-생성-제어-factory-method-패턴)
-  * [3.9. companion object 생성 시점](#39-companion-object-생성-시점)
+* [3. 내부 클래스 (inner class) 와 내포된 클래스 (nested class)](#3-내부-클래스-inner-class-와-내포된-클래스-nested-class)
+* [4. 동반 객체 (companion object)](#4-동반-객체-companion-object)
+  * [4.1. companion object 기본](#41-companion-object-기본)
+  * [4.2. 함수를 companion object 대신 파일 영역에 배치](#42-함수를-companion-object-대신-파일-영역에-배치)
+  * [4.3. companion object 안에서의 프로퍼티](#43-companion-object-안에서의-프로퍼티)
+  * [4.4. 함수를 companion object 영역에 배치](#44-함수를-companion-object-영역에-배치)
+  * [4.5. companion object 를 만들면서 인터페이스 구현](#45-companion-object-를-만들면서-인터페이스-구현)
+  * [4.6. 클래스 위임을 사용하여 companion object 활용](#46-클래스-위임을-사용하여-companion-object-활용)
+  * [4.7. companion object 를 사용하여 인터페이스 구현](#47-companion-object-를-사용하여-인터페이스-구현)
+  * [4.8. companion object 로 객체 생성 제어: Factory Method 패턴](#48-companion-object-로-객체-생성-제어-factory-method-패턴)
+  * [4.9. companion object 생성 시점](#49-companion-object-생성-시점)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -186,7 +187,7 @@ fun main() {
 }
 ```
 
-> 클래스 안에 object 를 넣는 또 다른 방법으로 companion object 가 있는데 이 내용은 [3. 동반 객체 (companion object)](#3-동반-객체-companion-object) 를 참고하세요.
+> 클래스 안에 object 를 넣는 또 다른 방법으로 companion object 가 있는데 이 내용은 [4. 동반 객체 (companion object)](#4-동반-객체-companion-object) 를 참고하세요.
 
 ---
 
@@ -607,9 +608,95 @@ SAM 변환에는 한계가 있는데 예를 들어 SAM 변환으로 선언하는
 
 ---
 
-# 3. 동반 객체 (companion object)
+# 3. 내부 클래스 (inner class) 와 내포된 클래스 (nested class)
 
-## 3.1. companion object 기본
+> 내부 클래스에 대한 내용은 [2. 내부 클래스 (inner class)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#2-%EB%82%B4%EB%B6%80-%ED%81%B4%EB%9E%98%EC%8A%A4-inner-class) 를 참고하세요.
+
+클래스 안에 다른 클래스를 선언할 수도 있는데 이렇게 클래스 안에 다른 클래스를 선언하면 도우미 클래스를 캡슐화하거나 코드 정의를 그 코드를 사용하는 곳에 가까이 두고 싶을 때 유용하다.
+
+자바와의 차이는 **내포된 클래스 (nested class) 는 명시적으로 요청을 하지 않는 한 외부 클래스 인스턴스에 대한 접근 권한이 없다**는 점이다.
+
+아래처럼 _View_ 의 상태를 직렬화해야 할 경우 _View_ 를 직렬화하기는 쉽지 않지만 필요한 모든 데이터를 다른 도우미 클래스로 복사할 수는 있다.  
+그러기 위해 _State_ 인터페이스를 선언한 후 `Serializable` 을 구현한다.
+
+_View_ 인터페이스 안에는 뷰의 상태를 가져와서 저장할 때 사용할 메서드가 2개 선언되어 있다.
+
+```kotlin
+import java.io.Serializable
+
+// View 를 직렬화하기 위해 선언한 인터페이스
+interface State : Serializable
+
+interface View {
+    fun getCurrentState(): State
+
+    fun restoreState(state: State) {}
+}
+```
+
+_Button1_ 클래스의 상태를 저장하는 클래스(ButtonState) 는 Button 클래스 내부에 선언하면 편하다.
+
+아래는 자바에서의 예시이다.
+
+```java
+public class Button1 implements View {
+  @Override
+  public State getCurrentState() {
+    return new ButtonState();
+  }
+
+  @Override
+  public void restoreState(State state) {
+    // ...
+  }
+
+  public class ButtonState implements State {
+    // ...
+  }
+}
+```
+
+자바는 다른 클래스 안에 정의한 클래스는 자동으로 내부 클래스 (inner class) 가 되기 때문의 위의 _ButtonState_ 클래스는 바깥쪽 _Button_ 클래스에 대한 참조를 
+묵시적으로 포함한다. 그 참조로 인해 _ButtonState_ 를 직렬화할 수 없다.
+
+이 문제를 해결하려면 _ButtonState_ 를 클래스로 선언해야 한다.  
+자바에서 내포된 클래스 (nested class) 를 static 으로 선언하면 그 클래스를 둘러싼 외부 클래스에 대한 묵시적인 참조가 사라진다.
+
+코틀린에서는 내포된 클래스 (nested class) 가 기본적으로 동작하는 방식이 자바와 정반대이다.
+
+아래는 코틀린에서의 예시이다.
+
+```kotlin
+class Button2 : View {
+    override fun getCurrentState(): State = ButtonState()
+
+    override fun restoreState(state: State) {
+        // ...
+    }
+
+    // 내포된 클래스 (nested class)
+    class ButtonState : State {
+        // ...
+    }
+}
+```
+
+코틀린의 내포된 클래스에 아무런 변경자가 붙지 않으면 자바의 static 중첩 클래스와 같다.
+
+만일 이를 내부 클래스 (inner class) 로 변경해서 외부 클래스에 대한 참조를 포함하게 하고 싶다면 `inner` 변경자를 붙이면 된다.
+
+자바와 코틀린의 내포된 클래스 (nested class) 와 내부 클래스 (inner class) 차이
+
+| 클래스 B 안에 정의된 클래스 A                 | 자바              | 코틀린            |
+|:-----------------------------------|:----------------|:---------------|
+| 내포된 클래스 (바깥쪽 클래스에 대한 참조를 저장하지 않음)  | static class A  | class A        |
+| 내부 클래스 (바깥쪽 클래스에 대한 참조를 저장함)       | class A         | inner class A  |
+
+---
+
+# 4. 동반 객체 (companion object)
+
+## 4.1. companion object 기본
 
 동반 객체 (companion object) 안에 있는 함수와 필드는 클래스에 대한 함수와 필드이다.
 
@@ -663,7 +750,7 @@ fun main() {
 
 ---
 
-## 3.2. 함수를 companion object 대신 파일 영역에 배치
+## 4.2. 함수를 companion object 대신 파일 영역에 배치
 
 **함수가 클래스의 private 멤버에 접근할 필요가 없다면 이 함수를 companion object 에 넣는 대신 파일 영역(최상위 수준)에 정의**하면 된다.  
 
@@ -701,7 +788,7 @@ companion object 에 이름을 붙이지 않으면 기본으로 _Companion_ 이�
 
 ---
 
-## 3.3. companion object 안에서의 프로퍼티
+## 4.3. companion object 안에서의 프로퍼티
 
 **companion object 안에서 프로퍼티를 생성하면 이 필드는 메모리 상에 단 하나만 존재**하게 되고, **companion object 와 연관된 클래스의 모든 인스턴스가 이 필드를 공유**한다.
 
@@ -730,7 +817,7 @@ _incr()_ 은 **companion object 를 둘러싼 클래스에서 companion object �
 
 ---
 
-## 3.4. 함수를 companion object 영역에 배치
+## 4.4. 함수를 companion object 영역에 배치
 
 **함수가 오직 companion object 의 프로퍼티만 사용한다면 해당 함수는 companion object 에 넣는 것이 합리적**이다.
 
@@ -776,7 +863,7 @@ fun main() {
 
 ---
 
-## 3.5. companion object 를 만들면서 인터페이스 구현
+## 4.5. companion object 를 만들면서 인터페이스 구현
 
 아래 코드에서 _ZICompanion_ 은 _ZIOpen_ 객체를 companion object 로 사용하고,  
 _ZICompanionInheritance_ 는 _ZIOpen_ 클래스를 확장하고, 오버라이드 하면서 _ZIOpen_ 객체를 생성한다.  
@@ -842,7 +929,7 @@ fun main() {
 
 ---
 
-## 3.6. 클래스 위임을 사용하여 companion object 활용
+## 4.6. 클래스 위임을 사용하여 companion object 활용
 
 > 클래스 위임에 대한 좀 더 상세한 내용은 [1. 클래스 위임 (class delegation)](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#1-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%9C%84%EC%9E%84-class-delegation) 을 참고하세요.
 
@@ -902,7 +989,7 @@ _ZIDelegationInheritance_ 는 `open` 이 아닌 _ZIClosed_ 클래스를 위임�
 
 ---
 
-## 3.7. companion object 를 사용하여 인터페이스 구현
+## 4.7. companion object 를 사용하여 인터페이스 구현
 
 아래에서 _Extend_ 는 companion object (디폴트 이름은 Companion) 를 사용하여 _ZI2_ 인터페이스 구현하고, _Extended_ 인터페이스도 구현한다.  
 _Extended_ 는 _ZI2_ 인터페이스에 _u()_ 함수를 추가한 인터페이스이다.
@@ -946,7 +1033,7 @@ fun main() {
 
 ---
 
-## 3.8. companion object 로 객체 생성 제어: Factory Method 패턴
+## 4.8. companion object 로 객체 생성 제어: Factory Method 패턴
 
 companion object 는 객체 생성을 제어하는 경우에 많이 사용하는데 이 방식은 **팩토리 메서드 패턴**에 해당한다.
 
@@ -981,7 +1068,7 @@ fun main() {
 
 ---
 
-## 3.9. companion object 생성 시점
+## 4.9. companion object 생성 시점
 
 아래 코드를 보면 _CompanionInit()_ 을 호출하여 **_CompanionInit_ 인스턴스가 최초로 생성되는 시점에 companion object 가 단 한번만 생성**된 다는 것을 알 수 있다.  
 또한 **동반 클래스 생성자 생성보다 companion object 생성이 먼저** 일어난다는 것도 알 수 있다.

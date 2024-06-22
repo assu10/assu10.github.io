@@ -37,7 +37,7 @@ tags: kotlin
   * [6.2. Class Instance 를 Map 으로 저장](#62-class-instance-를-map-으로-저장)
 * [7. 클래스](#7-클래스)
 * [8. 프로퍼티](#8-프로퍼티)
-* [9. 프로퍼티 접근자](#9-프로퍼티-접근자)
+* [9. 프로퍼티 접근자: `field`](#9-프로퍼티-접근자-field)
 * [10. 가시성 변경자 (access modifier, 접근 제어 변경자): `public`, `private`, `protected`, `internal`](#10-가시성-변경자-access-modifier-접근-제어-변경자-public-private-protected-internal)
   * [10.1. `pulic`](#101-pulic)
   * [10.2. `private`](#102-private)
@@ -836,7 +836,7 @@ fun main(args: Array<String>) {
 
 ---
 
-# 9. 프로퍼티 접근자
+# 9. 프로퍼티 접근자: `field`
 
 아래와 같은 방식으로 프로퍼티에 접근할 수도 있지만, 여기서는 getter, setter 를 정의하여 프로퍼티 읽기와 쓰기를 커스텀화해본다.
 

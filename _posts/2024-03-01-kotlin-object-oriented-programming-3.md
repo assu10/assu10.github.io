@@ -715,7 +715,8 @@ fun main() {
 
 ## 3.1. 봉인된 클래스 사용
 
-클래스 계층을 제한하려면 기반 클래스를 `sealed` 로 선언하면 된다.
+클래스 계층을 제한하려면 기반 클래스를 `sealed` 로 선언하면 된다.  
+`sealed` 로 표시된 클래스는 자동으로 `open` 이다.
 
 ```kotlin
 open class Transport

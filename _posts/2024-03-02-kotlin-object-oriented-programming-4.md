@@ -406,6 +406,10 @@ class SteelCan3: Can3() {
 
 내포된 클래스는 단순히 외부 클래스의 name space 안에 정의된 클래스로, **내포된 클래스를 사용하면 객체 안에 더 세분화된 구조를 정의**할 수 있다.
 
+> 클래스 계층을 만들되 그 계층에 속한 클래스의 수를 제한하고 싶은 경우 내포된 클래스를 유용하게 사용할 수 있는 봉인 (`sealed`) 된 클래스가 있음  
+> 
+> 봉인된 클래스에 대한 내용은 [3. 봉인된 클래스: `sealed`](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#3-%EB%B4%89%EC%9D%B8%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-sealed) 를 참고하세요.
+
 아래 코드에서 _Plane_ 과 _PrivatePlane_ 은 내포된 클래스이다.
 
 ```kotlin
