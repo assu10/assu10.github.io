@@ -473,7 +473,7 @@ class StateMachine {
 }
 ```
 
-> setter 를 private 를 지정하는 _private set_ 에 대한 내용은 [9. 프로퍼티 접근자](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90) 를 참고하세요.하세요.
+> setter 를 private 를 지정하는 _private set_ 에 대한 내용은 [9. 프로퍼티 접근자: `field`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90-field) 를 참고하세요.하세요.
 
 위의 _StateMachine_ 을 테스트하기 위해 테스트 클래스 안에 sm 프로퍼티를 만들어본다.   
 테스트 러너는 다른 테스트가 실행될 때마다 새로운 _StateMachineTest_ 객체를 생성한다.

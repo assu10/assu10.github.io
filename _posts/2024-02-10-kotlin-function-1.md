@@ -40,6 +40,9 @@ tags: kotlin joinToString pair triple with-index
   * [5.1. enum 기본](#51-enum-기본)
   * [5.2. enum 에 멤버 함수나 멤버 프로퍼티 정의](#52-enum-에-멤버-함수나-멤버-프로퍼티-정의)
 * [6. data 클래스](#6-data-클래스)
+  * [`toString()`: 문자열 표현](#tostring-문자열-표현)
+  * [`equals()`: 객체의 동등성](#equals-객체의-동등성)
+  * [`hashCode()`: 해시 컨테이너](#hashcode-해시-컨테이너)
   * [6.1. data 클래스 기본](#61-data-클래스-기본)
   * [6.2. 일반 클래스와 data 클래스 비교](#62-일반-클래스와-data-클래스-비교)
   * [6.2. data 클래스의 `copy()`](#62-data-클래스의-copy)
@@ -861,18 +864,159 @@ enum class Color(val r: Int, val g: Int, val b: Int) {  // 상수의 프로퍼�
 
 # 6. data 클래스
 
+<**data 클래스 생성 시 추가되는 기능들**>
+- `toString()`: 클래스의 각 필드를 선언 순서대로 표시하는 문자열 표현을 만들어 줌
+- `equals()`: 모든 프로퍼티 값의 동등성 확인
+- `hashCode()`: 모든 프로퍼티의 해시 값을 바탕으로 계산한 해시 값 반환
+- `copy()`
+
+data 클래스에 대해 알아보기 전에 먼저 위 함수들에 대해 간략히 살펴본다.
+
+> data 클래스 생성 시 제공되는 메서드가 더 있는데 이는 추후 다룰 예정입니다. (p. 177)
+
+---
+
+## `toString()`: 문자열 표현
+
+기본 제공되는 객체의 문자열 표현은 Client@43243 이런 형식인데 이 기본 구현을 변경하려면 `toString()` 메서드를 오버라이드하면 된다.
+```kotlin
+class Client(
+    val name: String,
+    val postalCode: Int,
+) {
+    override fun toString(): String = "Client(name='$name', postalCode=$postalCode)"
+}
+
+fun main() {
+    val result1 = Client("AA", 123)
+
+    // toString() 이 없을 경우: com.assu.study.kotlin2me.chap04.Client@41629346 이렇게 출력됨
+    // toString() 이 있을 경우: Client(name='AA', postalCode=123)
+    println(result1)
+}
+```
+
+---
+
+## `equals()`: 객체의 동등성
+
+예를 들어 서로 다른 두 객체가 내부에 동일한 데이터를 갖는 경우 그 둘을 동등한 객체로 보아야할 때가 있다.
+
+```kotlin
+class Client(
+    val name: String,
+    val postalCode: Int,
+) {
+    override fun toString(): String = "Client(name='$name', postalCode=$postalCode)"
+}
+
+fun main() {
+    val client1 = Client("BB", 111)
+    val client2 = Client("BB", 111)
+  
+    println(client1 == client2) // false
+}
+```
+
+코틀린에서 `==` 연산자는 참조 동일성을 검사하는 것이 아니라 객체의 동등성을 검사한다.  
+따라서 `==` 연산은 `equals()` 를 호출하는 식으로 컴파일된다.
+
+따라서 위의 요구사항을 충족시키려면 `equals()` 메서드를 오버라이드하면 된다.
+
+```kotlin
+class Client(
+    val name: String,
+    val postalCode: Int,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Client
+
+        if (name != other.name) return false
+        if (postalCode != other.postalCode) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + postalCode
+        return result
+    }
+}
+```
+
+하지만 위와 같이 `equals()` 를 오버라이드해도 두 객체의 값은 동일하다고 나오지 않는데 그 이우는 `hashCode()` 를 오버라이드하지 않았기 때문이다.
+
+> **`==` 과 `equals()`**  
+> 
+> 자바에서는 `==` 를 primitive 타입과 참조 타입을 비교할 때 사용함  
+> primitive 타입의 경우 `==` 는 두 피연산자의 값이 같은지 비교함 (동등성, equality)  
+> 반면 참조 타입의 경우 `==` 는 두 피연산자의 주소가 같은지 비교함 (참조 비교, reference comparision)  
+> 따라서 자바에서는 두 객체의 동등성을 알려면 `equals()` 를 호출해야 함  
+> 자바에서 `equals()` 대신 `==` 를 호출하면 문제가 될 수도 있음
+> 
+> 코틀린에서는 `==` 연산자가 두 객체를 비교하는 기본적인 방법임  
+> `==` 는 내부적으로 `equals()` 를 호출해서 객체를 비교함  
+> 따라서 **클래스가 `equals()` 를 오버라이드하면 `==` 를 통해 안전하게 그 클래스의 인스턴스를 비교**할 수 있음  
+> **참조 비교를 위해서는 `===` 연산자를 사용**하면 됨
+
+---
+
+## `hashCode()`: 해시 컨테이너
+
+자바에서는 `equals()` 를 오버라이드할 때 반드시 `hashCode()` 도 오버라이드해야 한다.
+
+JVM 언어에서는 아래와 같은 hashCode 가 지켜야하는 제약이 있다.  
+> equals() 가 true 를 반환하는 두 객체는 반드시 같은 hashCode() 를 반환해야 한다.
+
+따라서 `hashCode()` 를 오버라이드하면 두 객체의 값이 같은 경우 동등하다고 판단한다.
+
+```kotlin
+class Client(
+    val name: String,
+    val postalCode: Int,
+) {
+    override fun toString(): String = "Client(name='$name', postalCode=$postalCode)"
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Client
+
+        if (name != other.name) return false
+        if (postalCode != other.postalCode) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + postalCode
+        return result
+    }
+}
+
+fun main() {
+    val client1 = Client("BB", 111)
+    val client2 = Client("BB", 111)
+    println(client1 == client2) // true
+}
+```
+
+코틀린은 data 클래스를 통해 위의 함수들을 자동으로 생성해준다.
+
+---
+
 ## 6.1. data 클래스 기본
 
 데이터 저장만 담당하는 클래스가 필요하면 data 클래스를 사용하여 코드양을 줄이면서 여러 공통 작업을 편하게 수행할 수 있다.  
-`data` 라는 키워드를 사용하여 data 클래스를 정의하면 몇 가지 기능을 클래스에 추가가 된다.  
+`data` 라는 키워드를 사용하여 data 클래스를 정의하면 몇 가지 기능이 클래스에 추가가 된다.  
 
-<**data 클래스 생성 시 추가되는 기능들**>
-- `toString()`
-- `equals()`
-- `copy()`
-- `hashCode()`
-
-이 때 모든 생성자 파라메터를 var 나 val 로 선언해야 한다.
+이 때 **모든 생성자 파라메터를 var 나 val 로 선언**해야 한다.
 
 ```kotlin
 data class Simple(
@@ -928,8 +1072,17 @@ data 클래스와 객체 정보를 디폴트 형태로 보여주는 일반 클�
 
 ## 6.2. data 클래스의 `copy()`
 
+data 클래스의 프로퍼티를 val 가 아닌 var 로 해도 되지만 data 클래스의 모든 프로퍼티를 읽기 전용으로 만들어서 data 클래스를 불변 클래스로 만드는 것을 권장한다.
+
+HashMap 등의 컨테이너에 data 클래스 객체를 담는 경우엔 불변성이 필수적이며, 특히 다중 스레드 프로그램의 경우 불변성은 더욱 중요하다.  
+불변 객체를 주로 사용하는 프로그램에서는 스레드가 사용 중인 데이터를 다른 스레드가 변경할 수 없으므로 스레드를 동기화해야 할 필요성이 줄어든다.
+
+data 클래스 인스턴스를 불변 객체로 더 쉽게 활용하기 위해 코틀린 컴파일러는 `copy()` 메서드를 제공한다.
+
 data 클래스 생성 시 `copy()` 함수도 함께 생성된다.  
-`copy()` 함수는 현재 객체의 모든 데이터를 포함하는 새로운 객체를 생성해주고, 새로운 객체를 생성할 때 일부 값을 새로 지정할 수도 있다.
+`copy()` 함수는 현재 객체의 모든 데이터를 포함하는 새로운 객체를 생성해주고, 새로운 객체를 생성할 때 일부 값을 새로 지정할 수도 있다.  
+객체를 메모리상에서 직접 바꾸는 대신 복사본을 만드는 편이 낫다.  
+복사본은 원본과 다른 생명주기를 가지며, 복사본은 변경하거나 제거해도 원본을 참조하는 다른 부분에 전혀 영향을 끼치지 않는다.
 
 ```kotlin
 data class Assu(

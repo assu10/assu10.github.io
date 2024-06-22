@@ -189,7 +189,7 @@ fun main() {
 }
 ```
 
-> 아래 커스텀 getter 를 사용하는 부분은 [9. 프로퍼티 접근자](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90) 를 참고하세요.
+> 아래 커스텀 getter 를 사용하는 부분은 [9. 프로퍼티 접근자: `field`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90-field) 를 참고하세요.
 ```kotlin
 class Robot : Player {
   // 값을 반환하는 커스텀 getter 사용
