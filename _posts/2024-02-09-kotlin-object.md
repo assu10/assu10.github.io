@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 가변인자목록('vararg'), 스프레드 연산자('*'), Set, Map, 클래스, 프로퍼티 접근자"
+title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 가변인자목록('vararg'), 스프레드 연산자('*'), Set, Map, 클래스, 프로퍼티 접근자, 가시성 변경자"
 date:   2024-02-09
 categories: dev
 tags: kotlin
@@ -38,6 +38,11 @@ tags: kotlin
 * [7. 클래스](#7-클래스)
 * [8. 프로퍼티](#8-프로퍼티)
 * [9. 프로퍼티 접근자](#9-프로퍼티-접근자)
+* [10. 가시성 변경자 (access modifier, 접근 제어 변경자): `public`, `private`, `protected`, `internal`](#10-가시성-변경자-access-modifier-접근-제어-변경자-public-private-protected-internal)
+  * [10.1. `pulic`](#101-pulic)
+  * [10.2. `private`](#102-private)
+  * [10.3. `protected`](#103-protected)
+  * [10.4. `internal`](#104-internal)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -957,6 +962,208 @@ fun main() {
     println(cage.capacity)  // 1
 }
 ```
+
+---
+
+# 10. 가시성 변경자 (access modifier, 접근 제어 변경자): `public`, `private`, `protected`, `internal`
+
+소프트웨어를 설계할 때 우선적으로 고려해야 할 내용은 **변화해야 하는 요소와 동일하게 유지되어야 하는 요소를 분리**하는 것이다.
+
+`public`, `private`, `protected`, `internal` 가시성 변경자는 클래스, 함수, 프로퍼티 정의 앞에 사용하며 접근할 수 있는 범위에 대해 결정한다.
+
+|       변경자        | 클래스 멤버             | 최상위 선언            |
+|:----------------:|:-------------------|:------------------|
+| `public` (기본 가시성) | 모든 곳에서 볼 수 있음      | 모든 곳에서 볼 수 있음     |
+|     `internal`     | 같은 모듈 안에서만 볼 수 있음  | 같은 모듈 안에서만 볼 수 있음 |
+|    `protected`     | 하위 클래스 안에서만 볼 수 있음 | (최상위 선언에 적용 불가)   |
+|     `private`      | 같은 클래스 안에서만 볼 수 있음 | 같은 파일 안에서만 볼 수 있음 |
+
+
+> 자바에서는 같은 패키지 안에서 `protected` 멤버에 접근 가능하지만, 코틀린은 패키지가 아닌 하위 클래스에서만 접근 가능함
+
+> 코틀린과 자바 가시성 규칙의 또 다른 차이는 코틀린에서는 외부 클래스가 내부 클래스(inner class)나 중첩(내포)된 클래스의 `private`, `protected` 멤버에 접근할 수 없다는 점임  
+> 
+> 내부 클래스(inner class) 에 대한 상세한 내용은 [2. 내부 클래스 (inner class)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#2-%EB%82%B4%EB%B6%80-%ED%81%B4%EB%9E%98%EC%8A%A4-inner-class) 를 참고하세요.  
+> 
+> 내포(중첩)된 클래스에 대한 상세한 내용은 [2. 내포된 클래스](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4) 를 참고하세요.
+
+아래는 가시성 규칙을 위반하여 컴파일 오류가 발생하는 예시이다.
+```kotlin
+interface Focusable1 {
+    fun setFocus(b: Boolean) = println("I ${if (b) "got" else "lost"} focus.")
+
+    // 디폴트 구현이 있는 메서드
+    fun showOff() = println("I'm focusable!")
+}
+
+// 같은 모듈 안에서만 볼 수 있는 클래스
+internal open class TalkActiveButton: Focusable1 {
+    // 같은 클래스 안에서만 볼 수 있는 멤버
+    private fun yell() = println("yell~")
+    
+    // 하위 클래스 안에서만 볼 수 있는 멤버
+    protected fun whisper() = println("whisper~")
+}
+
+// 오류: 'public' member exposes its 'internal' receiver type TalkActiveButton
+// 오류: public 멤버가 자신의 internal 수신 타입인 TalkActiveButton 을 노출
+fun TalkActiveButton.giveSpeech() { 
+    // 오류: Cannot access 'yell': it is private in 'TalkActiveButton'
+    // 오류: yell() 은 TalkActiveButton 의 private 멤버임
+    yell()
+    
+    // 오류: Cannot access 'whisper': it is protected in 'TalkActiveButton'
+    // 오류: whisper() 는 TalkActiveButton 의 protected 멤버임
+    whisper()
+}
+```
+
+위 코드에서 public 함수인 _giveSpeech()_ 안에서 그 보다 가시성이 더 낮은 internal 타입인 _TalkActiveButton_ 을 참조하지 못하기 때문에 오류가 발생한다.  
+이 말은 **어떤 클래스의 기반 타입 목록에 들어있는 타입이나 제네릭 클래스의 타입 파라메터에 들어있는 타입의 가시성은 그 클래스 자신의 가시성과 같거나 더 높아야 하고, 
+메서드의 시그니처에 사용된 모든 타입의 가시성은 그 메서드의 가시성과 같거나 더 높아야 한다는 의미**이다.
+
+위에서 오류를 해결하려면 _giveSpeech()_ 의 가시성을 `internal` 로 변경하거나, _TalkActiveButton_ 클래스의 가시성을 `public` 으로 변경하면 된다.
+
+---
+
+## 10.1. `pulic`
+
+`public` 으로 선언하면 직접적으로 접근이 가능하기 때문에 `public` 으로 선언된 정의를 변경하면 이를 이용하는 코드에도 직접적으로 영향을 끼친다.
+
+**변경자를 지정하지 않으면 정의한 대상은 자동으로 `public`** 이 되므로 `public` 변경자를 불필요한 중복이다.
+
+---
+
+## 10.2. `private`
+
+`private` 로 선언하면 같은 클래스에 속한 다른 멤버들만 접근이 가능하므로 정의를 변경하거나 심지어 삭제하더라도 이를 이용하는 코드에 직접적인 영향이 없다.
+
+`private` 이 붙은 클래스, 최상위 함수, 최상위 프로퍼티는 그 정의가 들어있는 파일 내부에서만 접근이 가능하다.
+
+`private` 클래스, 최상위 함수, 최상위 프로퍼티의 예시 코드
+```kotlin
+// 다른 파일에서 접근 불가
+private var index = 0
+
+// 다른 파일에서 접근 불가
+private class Animal(
+    val name: String,
+)
+
+// 다른 파일에서 접근 불가
+private fun recordAnimal(animal: Animal) {
+    println("Animal #$index: ${animal.name}~")
+    index++
+}
+
+fun recordAnimals() {
+    recordAnimal(Animal("AA"))
+    recordAnimal(Animal("BB"))
+}
+
+fun recordAnimalsCount() {
+    println("$index here~")
+}
+
+fun main() {
+    // Animal #0: AA~
+    // Animal #1: BB~
+    recordAnimals()
+
+    // 2 here~
+    recordAnimalsCount()
+}
+```
+
+클래스 내부에서 `private` 를 사용할 경우 예시 코드
+```kotlin
+class Cookie(
+    private var isReady: Boolean,   // private 프로퍼티로 클래스 밖에서는 접근 불가
+) {
+    // private 멤버 함수
+    private fun crumble() = println("crumble~")
+
+    // public 멤버 함수로 public 은 불필요한 중복
+    public fun bite() = println("bite")
+
+    // 접근 변경자가 없으면 public
+    fun eat() {
+        isReady = true  // 같은 클래스의 멤버만 private 멤버에 접근 가능
+        crumble()
+        bite()
+    }
+}
+```
+
+`private` 를 사용하면 같은 패키지 안의 다른 클래스에 영향을 주지 않으면서 코드 변경이 가능하다.
+
+클래스 내의 `private` 프로퍼티 측면에서도 내부 구현을 노출시켜야 하는 경우를 제외하고는 프로퍼티를 `private` 로 만드는 것이 좋다.  
+(내부 프로퍼티를 외부로 노출시켜야 하는 경우는 매우 드뭄)
+
+클래스 내부에 있는 참조를 private 로 정의한다해도 그 참조가 가리키는 객체에 대한 public 참조가 없다는 사실을 보장해주지 못하는 예시 코드
+```kotlin
+class Counter(
+    var start: Int,
+) {
+    fun incr() {
+        start += 1
+    }
+
+    override fun toString() = start.toString()
+}
+
+class CounterHolder(
+    counter: Counter,
+) {
+    private val ctr = counter
+
+    override fun toString() = "CounterHolder: $ctr~"
+}
+
+fun main() {
+    // 아랫줄의 CountHolder 객체 생성을 둘러싸고 있는 영역 안에 정의됨
+    val c = Counter(11)
+    
+    // c 를 CounterHolder 생성자의 인자로 전달하는 것은 새로 생긴 CountHolder 객체가 c 가 가리키는 Counter 객체와 
+    // 똑같은 객체를 참조할 수 있다는 의미임
+    val ch = CounterHolder(c)
+
+    // CounterHolder: 11~
+    println(ch)
+
+    // ch 안에서는 여전에 private 로 인식되는 Counter 를 여전히 c 를 통해 조작 가능
+    c.incr()
+
+    // CounterHolder: 12~
+    println(ch)
+
+    // CounterHolder 안에 있는 ctr 외에는 Counter(9) 를 가리키는 참조가 존재하지 않으므로 
+    // ch2 를 제외한 그 누구도 이 객체를 조작할 수 없음
+    val ch2 = CounterHolder(Counter(9))
+
+    // CounterHolder: 9~
+    println(ch2)
+}
+```
+
+위처럼 **한 객체에 대해 참조를 여러 개 유지하는 경우를 에일리어싱(aliasing)** 이라고 한다.
+
+---
+
+## 10.3. `protected`
+
+> `protected` 에 대한 내용은 [4.2. 상속과 오버라이드](https://assu10.github.io/dev/2024/02/24/kotlin-object-oriented-programming-1/#42-%EC%83%81%EC%86%8D%EA%B3%BC-%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%93%9C) 를 참고하세요.
+
+---
+
+## 10.4. `internal`
+
+대부분의 프로젝트는 모듈로 분리되어 있다.  
+모듈은 코드 기반상에서 논리적으로 독립적인 각 부분을 뜻하며 코드를 모듈로 나누는 방법은 빌드 시스템(Gradle, Maven..) 에 따라 달라진다.
+
+**`internal` 은 그 정의가 포함된 모듈 내부에서만 접근 가능**하다.
+
+요소를 `private` 로 정의하기엔 제약이 너무 심하고, `public` 으로 정의하여 공개 API 의 일부분으로 포함시키기 애매할 경우 `internal` 을 사용하면 된다.
 
 ---
 
