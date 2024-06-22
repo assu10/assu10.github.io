@@ -306,7 +306,7 @@ operator fun setValue(thisRef: T, property: KProperty<*>, value: V)
 
 **위임자 객체의 private 멤버에 접근하려면 위임 클래스를 내포**시켜야 한다.
 
-> 내포된 클래스에 대한 좀 더 상세한 내용은 [2. 내포된 클래스](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4) 를 참고하세요.
+> 내포된 클래스에 대한 좀 더 상세한 내용은 [2. 내포된 클래스(nested class)](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4nested-class) 를 참고하세요.
 
 ```kotlin
 import kotlin.properties.ReadOnlyProperty

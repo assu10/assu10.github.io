@@ -985,7 +985,7 @@ fun main() {
 > 
 > 내부 클래스(inner class) 에 대한 상세한 내용은 [2. 내부 클래스 (inner class)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#2-%EB%82%B4%EB%B6%80-%ED%81%B4%EB%9E%98%EC%8A%A4-inner-class) 를 참고하세요.  
 > 
-> 내포(중첩)된 클래스에 대한 상세한 내용은 [2. 내포된 클래스](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4) 를 참고하세요.
+> 내포(중첩)된 클래스에 대한 상세한 내용은 [2. 내포된 클래스(nested class)](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4nested-class) 를 참고하세요.
 
 아래는 가시성 규칙을 위반하여 컴파일 오류가 발생하는 예시이다.
 ```kotlin

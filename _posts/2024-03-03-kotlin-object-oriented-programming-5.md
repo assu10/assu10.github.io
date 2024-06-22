@@ -194,7 +194,7 @@ fun main() {
 
 inner 클래스는 내포된 클래스와 비슷하지만, **inner 클래스의 객체는 자신을 둘러싼 클래스 인스턴스에 대한 참조(암시적 링크)를 유지**한다.
 
-아래 코드에서 _Hotel_ 은 [2. 내포된 클래스](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4) 에 나온 
+아래 코드에서 _Hotel_ 은 [2. 내포된 클래스(nested class)](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4nested-class) 에 나온 
 _Airport_ 와 비슷하지만 내포된 클래스가 아닌 inner 클래스가 포함되어 있다.
 
 ```kotlin
@@ -601,7 +601,7 @@ fun main() {
 모든 _Counter_ 객체는 **외부 객체의 원소에 접근할 수 있으므로 이 클래스들은 내포된 클래스가 아니라 inner 클래스**이다.  
 출력을 보면 모든 _Counter_ 객체가 _CounterFactory_ 의 _count_ 를 공유한다는 것을 알 수 있다.
 
-> 내포된 클래스에 대한 좀 더 상세한 내용은 [2. 내포된 클래스](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4) 를 참고하세요.
+> 내포된 클래스에 대한 좀 더 상세한 내용은 [2. 내포된 클래스(nested class)](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4nested-class) 를 참고하세요.
 
 SAM 변환에는 한계가 있는데 예를 들어 SAM 변환으로 선언하는 객체 내부에는 주 생성자인 _init_ 블록이 들어갈 수 없다.
 
