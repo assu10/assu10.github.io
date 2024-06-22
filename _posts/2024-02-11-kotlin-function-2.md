@@ -456,7 +456,7 @@ null 이 될 수 있는 타입을 확장할 때는 조심할 부분이 있다.
 
 아래는 객체를 하나만 담는 클래스의 예시이다. 이 클래스는 저장할 원소의 정확한 타입을 지정한다.
 
-> 클래스의 파라메터를 private 로 지정하는 것에 대한 설명은 [9. 프로퍼티 접근자](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90) 를 참고하세요.
+> 클래스의 파라메터를 private 로 지정하는 것에 대한 설명은 [9. 프로퍼티 접근자: `field`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90-field) 를 참고하세요.
 
 ```kotlin
 data class Automobile(val brand: String)

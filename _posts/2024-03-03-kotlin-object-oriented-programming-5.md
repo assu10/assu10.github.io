@@ -23,16 +23,17 @@ tags: kotlin object, inner class, companion object
   * [2.1. 한정된 `this`: `this@클래스명`](#21-한정된-this-this클래스명)
   * [2.2. inner 클래스 상속](#22-inner-클래스-상속)
   * [2.3. Local inner 클래스와 익명 inner 클래스](#23-local-inner-클래스와-익명-inner-클래스)
-* [3. 동반 객체 (companion object)](#3-동반-객체-companion-object)
-  * [3.1. companion object 기본](#31-companion-object-기본)
-  * [3.2. 함수를 companion object 대신 파일 영역에 배치](#32-함수를-companion-object-대신-파일-영역에-배치)
-  * [3.3. companion object 안에서의 프로퍼티](#33-companion-object-안에서의-프로퍼티)
-  * [3.4. 함수를 companion object 영역에 배치](#34-함수를-companion-object-영역에-배치)
-  * [3.5. companion object 를 만들면서 인터페이스 구현](#35-companion-object-를-만들면서-인터페이스-구현)
-  * [3.6. 클래스 위임을 사용하여 companion object 활용](#36-클래스-위임을-사용하여-companion-object-활용)
-  * [3.7. companion object 를 사용하여 인터페이스 구현](#37-companion-object-를-사용하여-인터페이스-구현)
-  * [3.8. companion object 로 객체 생성 제어: Factory Method 패턴](#38-companion-object-로-객체-생성-제어-factory-method-패턴)
-  * [3.9. companion object 생성 시점](#39-companion-object-생성-시점)
+* [3. 내부 클래스 (inner class) 와 내포된 클래스 (nested class)](#3-내부-클래스-inner-class-와-내포된-클래스-nested-class)
+* [4. 동반 객체 (companion object)](#4-동반-객체-companion-object)
+  * [4.1. companion object 기본](#41-companion-object-기본)
+  * [4.2. 함수를 companion object 대신 파일 영역에 배치](#42-함수를-companion-object-대신-파일-영역에-배치)
+  * [4.3. companion object 안에서의 프로퍼티](#43-companion-object-안에서의-프로퍼티)
+  * [4.4. 함수를 companion object 영역에 배치](#44-함수를-companion-object-영역에-배치)
+  * [4.5. companion object 를 만들면서 인터페이스 구현](#45-companion-object-를-만들면서-인터페이스-구현)
+  * [4.6. 클래스 위임을 사용하여 companion object 활용](#46-클래스-위임을-사용하여-companion-object-활용)
+  * [4.7. companion object 를 사용하여 인터페이스 구현](#47-companion-object-를-사용하여-인터페이스-구현)
+  * [4.8. companion object 로 객체 생성 제어: Factory Method 패턴](#48-companion-object-로-객체-생성-제어-factory-method-패턴)
+  * [4.9. companion object 생성 시점](#49-companion-object-생성-시점)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -51,7 +52,7 @@ tags: kotlin object, inner class, companion object
 
 ## 1.1. object 기본
 
-**object 의 인스턴스는 오직 하나만 존재**한다. 이것을 싱글턴 패턴이라고도 한다.
+**object 의 인스턴스는 오직 하나만 존재**한다. 이것을 **싱글턴 패턴**이라고도 한다.
 
 **object 는 여러 인스턴스가 필요하지 않거나, 명시적으로 인스턴스를 여러 개 생성하는 것을 막고 싶은 경우 논리적으로 한 개체 안에 속한 함수와 프로퍼티를 함께 엮는 방법**이다.
 
@@ -92,7 +93,10 @@ object 키워드는 내부 원소들을 object 로 정의한 객체의 name spac
 
 ## 1.2. object 의 상속
 
-**object 는 다른 클래스나 인터페이스를 상속**할 수 있다.
+**object 는 다른 클래스나 인터페이스를 상속**할 수 있다.  
+특정 인터페이스를 구현해야 하는데 그 구현 내부에 다른 상태가 필요하지 않은 경우 이런 기능이 유용하다.  
+예) java.util.Comparator 인터페이스를 보면 Comparator 구현은 두 객체를 인자로 받아서 그 중 어느 객체가 더 큰지 알려주는 정수를 반환하며, Comparator 안에는 데이터를 저장할 필요가 없음  
+따라서 어떤 클래스에 속한 객체를 비교할 때 사용하는 Comparator 는 보통 클래스마다 단 하나씩만 있으면 되므로 Comparator 인스턴스를 만드는 방법으로는 object 선언이 가장 좋은 방법임
 
 ```kotlin
 open class Paint(private val color: String) {
@@ -162,6 +166,9 @@ _Shared_ 를 private 로 정의하면 다른 파일에서는 이 객체에 접�
 
 **object 를 함수 안에 넣을 수는 없지만, 다른 object 나 클래스 안에 object 를 내포시킬 수는 있다.**
 
+이렇게 클래스 안에 선언된 object 도 인스턴스는 단 하나뿐이다.  
+바깥 클래스의 인스턴스마다 내포된 객체 선언에 해당하는 인스턴스가 하나씩 따로 생기는 것이 아니라는 의미이다.
+
 > 클래스가 내포 클래스이어도 관계없지만, 내부 클래스(inner class) 의 경우엔 내부에 object 를 선언할 수 없음  
 > 이 내용은 바로 다음인 [2. 내부 클래스 (inner class)](#2-내부-클래스-inner-class) 에 나옵니다.
 
@@ -186,7 +193,7 @@ fun main() {
 }
 ```
 
-> 클래스 안에 object 를 넣는 또 다른 방법으로 companion object 가 있는데 이 내용은 [3. 동반 객체 (companion object)](#3-동반-객체-companion-object) 를 참고하세요.
+> 클래스 안에 object 를 넣는 또 다른 방법으로 companion object 가 있는데 이 내용은 [4. 동반 객체 (companion object)](#4-동반-객체-companion-object) 를 참고하세요.
 
 ---
 
@@ -194,7 +201,7 @@ fun main() {
 
 inner 클래스는 내포된 클래스와 비슷하지만, **inner 클래스의 객체는 자신을 둘러싼 클래스 인스턴스에 대한 참조(암시적 링크)를 유지**한다.
 
-아래 코드에서 _Hotel_ 은 [2. 내포된 클래스](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4) 에 나온 
+아래 코드에서 _Hotel_ 은 [2. 내포된 클래스 (nested class)](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-nested-class) 에 나온 
 _Airport_ 와 비슷하지만 내포된 클래스가 아닌 inner 클래스가 포함되어 있다.
 
 ```kotlin
@@ -443,10 +450,22 @@ _Egg.Yolk()_ 에 대한 두 번째 호출은 _BigEgg.Yolk_ 생성자에서 호�
 
 ---
 
-## 2.3. Local inner 클래스와 익명 inner 클래스
+## 2.3. Local inner 클래스와 익명 inner 클래스: `object`
+
+`object` 키워드를 싱글턴과 같은 객체를 정의하고 그 객체에 이름을 붙일 때만 사용하지는 않는다.  
+**익명 object 를 정의할 때도 `object` 키워드를 사용**한다.
 
 **멤버 함수 안에 정의된 클래스를 Local inner 클래스**라고 한다.  
 이런 클래스는 객체 식(object expression) 이나 SAM 변환을 사용하여 익명으로 생성할 수 있다.
+
+**객체 식(익명 object) 은 자바의 익명 내부 클래스 대신 사용**된다.
+
+객체 식은 클래스를 정의하고 그 클래스에 속한 인스턴스를 생성하지만, 그 클래스나 인스턴스에 이름을 붙이지는 않는다.
+
+객체 식을 사용하는 방식은 object 선언과 동일하며, 유일한 차이는 object 이름이 빠진다는 점이다.
+
+> object 선언과 달리 익명 object 는 싱글턴이 아님  
+> 객체 식이 쓰일 때마다 새로운 인스턴스가 생성됨
 
 > SAM 변환에 대한 좀 더 상세한 내용은 [1.3. 단일 추상 메서드 (Single Abstract Method, SAM): `fun interface`](https://assu10.github.io/dev/2024/02/24/kotlin-object-oriented-programming-1/#13-%EB%8B%A8%EC%9D%BC-%EC%B6%94%EC%83%81-%EB%A9%94%EC%84%9C%EB%93%9C-single-abstract-method-sam-fun-interface) 를 참고하세요.
 
@@ -601,15 +620,120 @@ fun main() {
 모든 _Counter_ 객체는 **외부 객체의 원소에 접근할 수 있으므로 이 클래스들은 내포된 클래스가 아니라 inner 클래스**이다.  
 출력을 보면 모든 _Counter_ 객체가 _CounterFactory_ 의 _count_ 를 공유한다는 것을 알 수 있다.
 
-> 내포된 클래스에 대한 좀 더 상세한 내용은 [2. 내포된 클래스](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4) 를 참고하세요.
+> 내포된 클래스에 대한 좀 더 상세한 내용은 [2. 내포된 클래스 (nested class)](https://assu10.github.io/dev/2024/03/02/kotlin-object-oriented-programming-4/#2-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-nested-class) 를 참고하세요.
 
 SAM 변환에는 한계가 있는데 예를 들어 SAM 변환으로 선언하는 객체 내부에는 주 생성자인 _init_ 블록이 들어갈 수 없다.
 
 ---
 
-# 3. 동반 객체 (companion object)
+# 3. 내부 클래스 (inner class) 와 내포된 클래스 (nested class)
 
-## 3.1. companion object 기본
+> 내부 클래스에 대한 내용은 [2. 내부 클래스 (inner class)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#2-%EB%82%B4%EB%B6%80-%ED%81%B4%EB%9E%98%EC%8A%A4-inner-class) 를 참고하세요.
+
+클래스 안에 다른 클래스를 선언할 수도 있는데 이렇게 클래스 안에 다른 클래스를 선언하면 도우미 클래스를 캡슐화하거나 코드 정의를 그 코드를 사용하는 곳에 가까이 두고 싶을 때 유용하다.
+
+자바와의 차이는 **내포된 클래스 (nested class) 는 명시적으로 요청을 하지 않는 한 외부 클래스 인스턴스에 대한 접근 권한이 없다**는 점이다.
+
+아래처럼 _View_ 의 상태를 직렬화해야 할 경우 _View_ 를 직렬화하기는 쉽지 않지만 필요한 모든 데이터를 다른 도우미 클래스로 복사할 수는 있다.  
+그러기 위해 _State_ 인터페이스를 선언한 후 `Serializable` 을 구현한다.
+
+_View_ 인터페이스 안에는 뷰의 상태를 가져와서 저장할 때 사용할 메서드가 2개 선언되어 있다.
+
+```kotlin
+import java.io.Serializable
+
+// View 를 직렬화하기 위해 선언한 인터페이스
+interface State : Serializable
+
+interface View {
+    fun getCurrentState(): State
+
+    fun restoreState(state: State) {}
+}
+```
+
+_Button1_ 클래스의 상태를 저장하는 클래스(ButtonState) 는 Button 클래스 내부에 선언하면 편하다.
+
+아래는 자바에서의 예시이다.
+
+```java
+public class Button1 implements View {
+  @Override
+  public State getCurrentState() {
+    return new ButtonState();
+  }
+
+  @Override
+  public void restoreState(State state) {
+    // ...
+  }
+
+  public class ButtonState implements State {
+    // ...
+  }
+}
+```
+
+자바는 다른 클래스 안에 정의한 클래스는 자동으로 내부 클래스 (inner class) 가 되기 때문의 위의 _ButtonState_ 클래스는 바깥쪽 _Button_ 클래스에 대한 참조를 
+묵시적으로 포함한다. 그 참조로 인해 _ButtonState_ 를 직렬화할 수 없다.
+
+이 문제를 해결하려면 _ButtonState_ 를 클래스로 선언해야 한다.  
+자바에서 내포된 클래스 (nested class) 를 static 으로 선언하면 그 클래스를 둘러싼 외부 클래스에 대한 묵시적인 참조가 사라진다.
+
+코틀린에서는 내포된 클래스 (nested class) 가 기본적으로 동작하는 방식이 자바와 정반대이다.
+
+아래는 코틀린에서의 예시이다.
+
+```kotlin
+class Button2 : View {
+    override fun getCurrentState(): State = ButtonState()
+
+    override fun restoreState(state: State) {
+        // ...
+    }
+
+    // 내포된 클래스 (nested class)
+    class ButtonState : State {
+        // ...
+    }
+}
+```
+
+코틀린의 내포된 클래스에 아무런 변경자가 붙지 않으면 자바의 static 중첩 클래스와 같다.
+
+만일 이를 내부 클래스 (inner class) 로 변경해서 외부 클래스에 대한 참조를 포함하게 하고 싶다면 `inner` 변경자를 붙이면 된다.
+
+자바와 코틀린의 내포된 클래스 (nested class) 와 내부 클래스 (inner class) 차이
+
+| 클래스 B 안에 정의된 클래스 A                 | 자바              | 코틀린            |
+|:-----------------------------------|:----------------|:---------------|
+| 내포된 클래스 (바깥쪽 클래스에 대한 참조를 저장하지 않음)  | static class A  | class A        |
+| 내부 클래스 (바깥쪽 클래스에 대한 참조를 저장함)       | class A         | inner class A  |
+
+---
+
+# 4. 동반 객체 (companion object)
+
+companion object 는 클래스 안에 내포된 객체 중 하나이다.
+
+companion object 는 팩토리 메서드와 정적 멤버가 들어갈 장소에 사용된다.
+
+코틀린 클래스 안에는 정적인 멤버가 없다. 코틀린은 자바의 `static` 키워드를 지원하지 않는다.  
+대신 코틀린에서는 패키지 수준의 최상위 함수와 object 선언을 활용한다.
+
+- 패키지 수준의 최상위 함수
+  - 자바의 정적 메서드 역할을 거의 대신 할 수 있음
+- object 선언
+  - 자바의 정적 메서드 역할 중 코틀린의 최상위 함수가 대신할 수 없는 역할이나 정적 필드를 대신함
+
+> 최상위 함수에 대한 상세한 내용은 [4.1. 최상위 함수: `@JvmName`](https://assu10.github.io/dev/2024/02/12/kotlin-funtional-programming-1/#41-%EC%B5%9C%EC%83%81%EC%9C%84-%ED%95%A8%EC%88%98-jvmname) 를 참고하세요.
+
+대부분의 경우 최상위 함수를 활용하는 편을 더 권장하지만 최상위 함수는 private 로 정의된 클래스의 비공개 멤버에 접근할 수 없다.  
+따라서 **클래스의 인스턴스와 관계없이 호출해야 하지만, 클래스의 내부 정보에 접근해야 하는 함수가 필요할 때는 클래스에 내포된 object 선언의 멤버 함수로 정의**해야 한다.
+
+---
+
+## 4.1. companion object 기본
 
 동반 객체 (companion object) 안에 있는 함수와 필드는 클래스에 대한 함수와 필드이다.
 
@@ -623,6 +747,10 @@ SAM 변환에는 한계가 있는데 예를 들어 SAM 변환으로 선언하는
 **하지만 일반 내포 객체 정의는 내포 object 와 그 객체를 둘러싼 클래스 사이의 연관 관계를 제공하지 않는다.**  
 **내포된 object 의 멤버를 클래스 멤버에서 참조해야 할 때는 내포된 object 의 이름을 항상 명시**해야 한다.  
 **클래스 안에서 companion object 를 정의하면 클래스의 내부에서 companion object 원소를 투명하게 참조 가능**하다.
+
+companion object 의 프로퍼티나 메서드에 접근하려면 그 companion object 가 정의된 클래스 이름을 사용한다.  
+그 결과 companion object 의 멤버를 사용하는 구문은 자바의 정적 메서드 호출이나 정적 필드 사용 구문과 같아진다.  
+(인스턴스를 생성할 필요없음)
 
 ```kotlin
 class WithCompanion {
@@ -661,9 +789,53 @@ fun main() {
 }
 ```
 
+companion object 를 이용하며면서 핵심 로직과 도우미 로직을 분리하고 싶다면 아래와 같이 companion object 의 확장 함수를 이용하면 된다.
+
+확장 함수를 사용하기 전의 예시
+```kotlin
+interface JSONFactory<T> {
+    fun fromJSON(jsonText: String): T
+}
+
+class Person(
+    val name: String,
+) {
+    // 동반 객체가 인터페이스 구현
+    companion object : JSONFactory<Person> {
+        override fun fromJSON(jsonText: String): Person = Person("TEST")
+    }
+}
+
+fun main() {
+    val result = Person.fromJSON("aaa")
+    println(result.name)    // TEST
+}
+```
+
+확장 함수를 사용한 예시
+```kotlin
+// 비즈니스 로직
+class Person2(
+    val name: String,
+) {
+    // 비어있는 동반 객체 선언
+    companion object
+}
+
+// 도우미 로직
+fun Person2.Companion.fromJSON(jsonText: String): Person = Person("TEST")
+
+fun main() {
+    val result = Person2.fromJSON("aaa")
+    println(result.name) // TEST
+}
+```
+
+companion object 에 대한 확장 함수를 작성하려면 원래 클래스에 비어있는 object 라도 반드시 companion object 가 꼭 있어야 한다.
+
 ---
 
-## 3.2. 함수를 companion object 대신 파일 영역에 배치
+## 4.2. 함수를 companion object 대신 파일 영역에 배치
 
 **함수가 클래스의 private 멤버에 접근할 필요가 없다면 이 함수를 companion object 에 넣는 대신 파일 영역(최상위 수준)에 정의**하면 된다.  
 
@@ -701,7 +873,7 @@ companion object 에 이름을 붙이지 않으면 기본으로 _Companion_ 이�
 
 ---
 
-## 3.3. companion object 안에서의 프로퍼티
+## 4.3. companion object 안에서의 프로퍼티
 
 **companion object 안에서 프로퍼티를 생성하면 이 필드는 메모리 상에 단 하나만 존재**하게 되고, **companion object 와 연관된 클래스의 모든 인스턴스가 이 필드를 공유**한다.
 
@@ -730,7 +902,7 @@ _incr()_ 은 **companion object 를 둘러싼 클래스에서 companion object �
 
 ---
 
-## 3.4. 함수를 companion object 영역에 배치
+## 4.4. 함수를 companion object 영역에 배치
 
 **함수가 오직 companion object 의 프로퍼티만 사용한다면 해당 함수는 companion object 에 넣는 것이 합리적**이다.
 
@@ -776,7 +948,10 @@ fun main() {
 
 ---
 
-## 3.5. companion object 를 만들면서 인터페이스 구현
+## 4.5. companion object 를 만들면서 인터페이스 구현
+
+다른 object 선언과 마찬가지로 companion object 도 인터페이스를 구현할 수 있다.  
+인터페이스를 구현하는 companion object 를 참조할 때 object 를 둘러싼 클래스의 이름을 바로 사용할 수 있다.
 
 아래 코드에서 _ZICompanion_ 은 _ZIOpen_ 객체를 companion object 로 사용하고,  
 _ZICompanionInheritance_ 는 _ZIOpen_ 클래스를 확장하고, 오버라이드 하면서 _ZIOpen_ 객체를 생성한다.  
@@ -840,9 +1015,35 @@ fun main() {
 }
 ```
 
+아래는 companion object 가 인터페이스를 구현하는 또 다른 예시이다.
+```kotlin
+interface JSONFactory<T> {
+    fun fromJSON(jsonText: String): T
+}
+
+class Person(
+    val name: String,
+) {
+    // 동반 객체가 인터페이스 구현
+    companion object : JSONFactory<Person> {
+        override fun fromJSON(jsonText: String): Person = Person("TEST")
+    }
+}
+
+fun <T> loadFromJSON(factory: JSONFactory<T>) = factory
+
+fun main() {
+    // 동반 객체의 인스턴스를 함수에 넘김
+    // 동반 객체가 구현한 JSONFactory 의 인스턴스를 넘길 때 Person 의 인스턴스가 아닌 Person 클래스 이름을 넘김
+    loadFromJSON(Person)
+}
+```
+
+동반 객체가 구현한 JSONFactory 의 인스턴스를 넘길 때 Person 의 인스턴스가 아닌 Person 클래스 이름을 넘긴다는 부분을 유의해서 보자.
+
 ---
 
-## 3.6. 클래스 위임을 사용하여 companion object 활용
+## 4.6. 클래스 위임을 사용하여 companion object 활용
 
 > 클래스 위임에 대한 좀 더 상세한 내용은 [1. 클래스 위임 (class delegation)](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#1-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%9C%84%EC%9E%84-class-delegation) 을 참고하세요.
 
@@ -902,7 +1103,7 @@ _ZIDelegationInheritance_ 는 `open` 이 아닌 _ZIClosed_ 클래스를 위임�
 
 ---
 
-## 3.7. companion object 를 사용하여 인터페이스 구현
+## 4.7. companion object 를 사용하여 인터페이스 구현
 
 아래에서 _Extend_ 는 companion object (디폴트 이름은 Companion) 를 사용하여 _ZI2_ 인터페이스 구현하고, _Extended_ 인터페이스도 구현한다.  
 _Extended_ 는 _ZI2_ 인터페이스에 _u()_ 함수를 추가한 인터페이스이다.
@@ -946,15 +1147,18 @@ fun main() {
 
 ---
 
-## 3.8. companion object 로 객체 생성 제어: Factory Method 패턴
+## 4.8. companion object 로 객체 생성 제어: Factory Method 패턴
 
-companion object 는 객체 생성을 제어하는 경우에 많이 사용하는데 이 방식은 **팩토리 메서드 패턴**에 해당한다.
+companion object 는 private 생성자를 호출하기 좋은 위치이다.  
+companion object 는 자신을 둘러싼 클래스의 모든 private 멤버에 접근할 수 있기 때문에 바깥쪽 클래스의 private 생성자도 호출할 수 있다.  
+
+따라서 companion object 는 객체 생성을 제어하는 경우에 많이 사용하는데 이 방식은 **팩토리 메서드 패턴**에 해당한다.
 
 아래는 _Numbered2_ 객체로 이루어진 List 생성만 허용하고, 개별 _Numbered2_ 의 생성을 불가하는 예시이다.
 
 ```kotlin
 class Numbered2
-// Numbered2 의 비공개 생성자
+    // Numbered2 의 비공개 생성자
     private constructor(private val id: Int) {
         override fun toString(): String = "$id~"
 
@@ -979,9 +1183,67 @@ fun main() {
 
 이렇게 일반 생성자로 해결할 수 없는 문제는 팩토리 함수가 해결해줄 수 있다.
 
+아래는 여러 개의 부생성자가 있는 경우를 팩토리 메서드로 변환하는 과정의 예시이다.
+
+부생성자가 여러 개 있는 클래스
+```kotlin
+fun getFacebookName(id: Int) = "A::$id"
+
+class User {
+  val nickname: String
+
+  // 부생성자
+  constructor(email: String) {
+    nickname = email.substringBefore('@')
+  }
+
+  // 부생성자
+  constructor(facebookAccountId: Int) {
+    nickname = getFacebookName(facebookAccountId)
+  }
+}
+
+fun main() {
+  val user1 = User("assu1@naver.com")
+  val user2 = User(1)
+
+  println(user1.nickname) // assu1
+  println(user2.nickname) // A::1
+}
+```
+
+이런 로직은 클래스의 인스턴스를 생성하는 팩토리 메서드로 구현하는 것이 더 좋다.  
+아래는 생성자를 통해 _User_ 인스턴스를 만드는 것이 아닌 팩토리 메서드를 통해 인스턴스를 생성하는 예시이다.
+
+```kotlin
+fun getFacebookName1(id: Int) = "A::$id"
+
+class User1 private constructor(
+    val nickname: String,
+) { // 주생성자를 private 로 만듬
+    // 동반 객체 선언
+    companion object {
+        fun newEmailUser(email: String) = User1(email.substringBefore('@'))
+
+        fun newFacebookUser(facebookAccountId: Int) = User1(getFacebookName1(1))
+    }
+}
+
+fun main() {
+    // 클래스 이름을 사용하여 그 클래스에 속한 companion object 의 메서드 호출
+    val user1 = User1.newEmailUser("assu1@naver.com")
+    val user2 = User1.newFacebookUser(1)
+
+    println(user1.nickname) // assu1
+    println(user2.nickname) // A::1
+}
+```
+
+팩토리 메서드는 유용하지만 클래스를 확장해야만 하는 경우에는 companion object 멤버를 파생 클래스에서 오버라이드할 수 없으므로 여러 생성자를 사용하는 편이 더 낫다.
+
 ---
 
-## 3.9. companion object 생성 시점
+## 4.9. companion object 생성 시점
 
 아래 코드를 보면 _CompanionInit()_ 을 호출하여 **_CompanionInit_ 인스턴스가 최초로 생성되는 시점에 companion object 가 단 한번만 생성**된 다는 것을 알 수 있다.  
 또한 **동반 클래스 생성자 생성보다 companion object 생성이 먼저** 일어난다는 것도 알 수 있다.
@@ -1022,10 +1284,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)

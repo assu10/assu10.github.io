@@ -161,7 +161,7 @@ fun main() {
 }
 ```
 
-> `companion object (동반 객체)` 에 대한 좀 더 상세한 설명은 [3. 동반 객체 (companion object)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#3-%EB%8F%99%EB%B0%98-%EA%B0%9D%EC%B2%B4-companion-object) 를 참고하세요.
+> `companion object (동반 객체)` 에 대한 좀 더 상세한 설명은 [4. 동반 객체 (companion object)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#4-%EB%8F%99%EB%B0%98-%EA%B0%9D%EC%B2%B4-companion-object) 를 참고하세요.
 
 > null 이 될 수 있는 타입 `?` 에 대한 좀 더 상세한 내용은 [1. null 이 될 수 있는 타입: `?`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#1-null-%EC%9D%B4-%EB%90%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%83%80%EC%9E%85-) 을 참고하세요.
 

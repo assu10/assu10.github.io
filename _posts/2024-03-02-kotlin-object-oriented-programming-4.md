@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 객체 지향 프로그래밍(4): 타입 검사, 타입 검사 코딩, 내포된 클래스"
+title:  "Kotlin - 객체 지향 프로그래밍(4): 타입 검사, 타입 검사 코딩, 내포된 클래스(nested class)"
 date:   2024-03-02
 categories: dev
 tags: kotlin 
@@ -20,7 +20,7 @@ tags: kotlin
   * [1.2. 타입 검사 코딩](#12-타입-검사-코딩)
   * [1.3. 외부 함수에서 타입 검사](#13-외부-함수에서-타입-검사)
   * [1.4. `sealed` 클래스에서 외부 함수에서 타입 검사](#14-sealed-클래스에서-외부-함수에서-타입-검사)
-* [2. 내포된 클래스](#2-내포된-클래스)
+* [2. 내포된 클래스 (nested class)](#2-내포된-클래스-nested-class)
   * [2.1. Local 클래스](#21-local-클래스)
   * [2.2. 인터페이스에 포함된 클래스](#22-인터페이스에-포함된-클래스)
   * [2.3. 내포된 enum: `coerceAtMost()`](#23-내포된-enum-coerceatmost)
@@ -402,9 +402,13 @@ class SteelCan3: Can3() {
 
 ---
 
-# 2. 내포된 클래스
+# 2. 내포된 클래스 (nested class)
 
 내포된 클래스는 단순히 외부 클래스의 name space 안에 정의된 클래스로, **내포된 클래스를 사용하면 객체 안에 더 세분화된 구조를 정의**할 수 있다.
+
+> 클래스 계층을 만들되 그 계층에 속한 클래스의 수를 제한하고 싶은 경우 내포된 클래스를 유용하게 사용할 수 있는 봉인 (`sealed`) 된 클래스가 있음  
+> 
+> 봉인된 클래스에 대한 내용은 [3. 봉인된 클래스: `sealed`](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#3-%EB%B4%89%EC%9D%B8%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-sealed) 를 참고하세요.
 
 아래 코드에서 _Plane_ 과 _PrivatePlane_ 은 내포된 클래스이다.
 
@@ -721,10 +725,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
