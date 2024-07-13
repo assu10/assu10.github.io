@@ -78,7 +78,7 @@ tags: spring-security authentication-provider
 ---
 
 즉, 인증 논리를 담당하는 것은 `AuthenticationProvider` 계층이며, 여기에서 요청 허용/거부를 결정하는 조건과 명령을 기술한다.  
-`AuthenticationManager` 는 HTTP Filter 계층에서 요청을 수신한 후 이 책임을 `AuthenticationProvider` 로 위임하는 구성요소이다.
+`AuthenticationManager` 는 HTTP Filter 계층에서 요청을 수신한 후 이 책임을 `AuthenticationProvider` 로 위임하는 구성 요소이다.
 
 > `AuthenticationFilter` 계층에 대해서는 [Spring Security - 필터](https://assu10.github.io/dev/2023/12/16/springsecurity-filter/) 를 참고하세요.
 

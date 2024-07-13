@@ -341,7 +341,7 @@ build ruby 3/3:
 - **DAG (Directed Acyclic Graph)**<br />
     - 복잡한 프로젝트에 적합
 - **Child/Parent Pipelines**<br />
-    - 독립적으로 정의된 구성요소가 많은 프로젝트에 적합
+    - 독립적으로 정의된 구성 요소가 많은 프로젝트에 적합
 
 ---
 

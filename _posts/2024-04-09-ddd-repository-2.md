@@ -113,7 +113,7 @@ Product product = productRepository.findById(id);
 조회 시점에 애그리거트를 완전한 상태가 되게 하려면 애그리거트 루트에서 연관 매핑의 조회 방식을 즉시 로딩(`Fetch.EAGER`) 로 설정하면 된다.
 
 아래와 같이 컬렉션이나 `@Entity` 에 대한 매핑의 `fetch` 속성을 `Fetch.EAGER` 로 설정하면 `EntityManager#find()` 메서드로 애그리거트 루트를 조회할 때 
-연관된 구성요소를 DB 에서 함께 읽어온다.
+연관된 구성 요소를 DB 에서 함께 읽어온다.
 
 `@Entity` 컬렉션에 대한 즉시 로딩 설정
 ```java
