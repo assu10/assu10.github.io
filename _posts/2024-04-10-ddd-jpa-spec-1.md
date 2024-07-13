@@ -271,8 +271,6 @@ public interface Specification<T> extends Serializable {
 - 엔티티 타입은 _OrderSummary_
 - _ordererId_ 프로퍼티 값이 지정한 값과 동일함
 
-> _OrderSummary_ 는 추후 상세히 다룰 예정입니다.
-
 스펙 인터페이스를 구현한 OrdererIdSpec 클래스
 ```java
 package com.assu.study.order.query.dao;

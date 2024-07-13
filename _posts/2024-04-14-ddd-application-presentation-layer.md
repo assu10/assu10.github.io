@@ -496,7 +496,7 @@ public String changePassword(HttpServletRequest request, Errors errors) {
 }
 ```
 
-> 표현 영역의 역할 중 하나인 세션 관리는 권한 검사와도 연결되는데 이는 추후 상세히 다룰 예정입니다. (p. 220)
+> 표현 영역의 역할 중 하나인 세션 관리는 권한 검사와도 연결되는데 이는 [6. 권한 검사](#6-권한-검사) 를 참고하세요.
 
 ---
 

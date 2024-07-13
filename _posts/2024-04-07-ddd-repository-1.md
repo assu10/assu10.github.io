@@ -218,7 +218,7 @@ public interface OrderRepository {
 > [Spring Boot - 데이터 영속성(6): 엔티티 상태 이벤트 처리, 트랜잭션 생명주기 동기화 작업](https://assu10.github.io/dev/2023/09/17/springboot-database-6/)  
 > 를 참고하세요.
 
-> JPA 를 작성하는 방법에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다. (p. 138)
+> JPA 를 작성하는 방법에 대한 좀 더 상세한 내용은 [2. 스프링 데이터 JPA 를 이용한 스펙 구현](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/#2-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-jpa-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%8A%A4%ED%8E%99-%EA%B5%AC%ED%98%84) 을 참고하세요.
 
 스프링과 JPA 를 함께 적용할 때는 **스프링 데이터 JPA** 를 사용한다.
 
@@ -1270,7 +1270,9 @@ Article article = entityManager.find(Article.class, 1L);
 
 이럴 경우엔 **조회 전용 기능**을 구현하는 것이 좋다.
 
-> 조회 전용 쿼리를 실행하는 방법에 대해서는 추후 상세히 다룰 예정입니다. (p. 155)
+> 조회 전용 쿼리를 실행하는 방법에 대해서는  
+> [DDD - 스펙 구현, 스펙 사용](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/),  
+> [DDD - 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize](https://assu10.github.io/dev/2024/04/13/ddd-jpa-spec-2/) 를 참고하세요.
 
 > 명령 모델과 조회 전용 모델을 구분하는 방법에 대해서는 추후 상세히 다룰 예정입니다. (p. 155)
 

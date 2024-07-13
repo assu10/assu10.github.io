@@ -726,7 +726,7 @@ public class NoOrderException extends RuntimeException {
 
 즉, **응용 서비스는 트랜잭션을 관리**한다.
 
-> 응용 서비스 구현에 대한 좀 더 상세한 설명은 추후 다룰 예정입니다. (p. 91)
+> 응용 서비스 구현에 대한 좀 더 상세한 설명은 [3. 응용 서비스 구현](https://assu10.github.io/dev/2024/04/14/ddd-application-presentation-layer/#3-%EC%9D%91%EC%9A%A9-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%ED%98%84) 을 참고하세요.
 
 ---
 

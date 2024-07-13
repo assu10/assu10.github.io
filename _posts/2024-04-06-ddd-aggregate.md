@@ -672,7 +672,9 @@ public class JpaOrderViewDao implements OrderViewDao {
 이 방법은 코드가 복잡해지는 단점이 있지만 시스템 처리량을 높일 수 있다는 장점이 있고, 특히 한 대의 DB 장비로 대응할 수 없는 수준의 트래픽이 발생하는 경우엔 
 캐시나 조회 전용 저장소를 선택이 아닌 필수이다.
 
-> JPA 에서 조회 전용 쿼리를 실행하는 방법은 추후 좀 더 상세히 다룰 예정입니다. (p. 120)
+> JPA 에서 조회 전용 쿼리를 실행하는 방법은  
+> [DDD - 스펙 구현, 스펙 사용](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/),  
+> [DDD - 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize](https://assu10.github.io/dev/2024/04/13/ddd-jpa-spec-2/) 를 참고하세요.
 
 > CQRS 을 통해 명령 모델과 조회 전용 모델을 분리해서 구현할 수 있는데 이 방법에 대해서는 추후 좀 더 상세히 다룰 예정입니다. (p. 120)
 
