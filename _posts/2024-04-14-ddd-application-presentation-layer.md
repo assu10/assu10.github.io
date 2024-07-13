@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - "
+title:  "DDD - 표현 영역, 응용 영역, 값 검증, 권한 검사"
 date:   2024-04-14
 categories: dev
 tags: ddd 
@@ -33,6 +33,9 @@ tags: ddd
 * [4. 표현 영역](#4-표현-영역)
 * [5. 값 검증 (validation)](#5-값-검증-validation)
 * [6. 권한 검사](#6-권한-검사)
+  * [6.1. 표현 영역에서 권한 검사](#61-표현-영역에서-권한-검사)
+  * [6.2. 응용 서비스에서 권한 검사](#62-응용-서비스에서-권한-검사)
+  * [6.3. 도메인에서 권한 검사](#63-도메인에서-권한-검사)
 * [7. 조회 전용 기능과 응용 서비스](#7-조회-전용-기능과-응용-서비스)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -557,14 +560,457 @@ public class Controller {
 아래는 잘못된 값이 존재하면 잘못된 값을 표현하는 _ValidationError_ 를 생성하여 errors 목록에 추가한다.  
 값 검증이 끝난 후 errors 에 값이 존재하면 errors 목록을 갖는 _ValidationErrorException_ 을 발생시켜 입력된 파라메터 값이 유효하지 않다는 사실을 알리게 된다.
 
+PlaceOrderService.java (응용 서비스에서 필수값 검증하는 예시)
+```java
+package com.assu.study.order.command.application;
+
+import com.assu.study.catalog.command.domain.product.ProductRepository;
+import com.assu.study.common.ValidationError;
+import com.assu.study.common.ValidationErrorException;
+import com.assu.study.order.command.domain.OrderNo;
+import com.assu.study.order.command.domain.OrderRepository;
+import com.assu.study.order.command.domain.OrdererService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RequiredArgsConstructor
+@Service
+public class PlaceOrderService {
+    private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
+    private final OrdererService ordererService;
+
+    @Transactional
+    public OrderNo placeOrder(OrderRequest orderRequest) {
+        List<ValidationError> errors = new ArrayList<>();
+        if (orderRequest == null) {
+            errors.add(ValidationError.of("empty"));
+        } else {
+            if (orderRequest.getOrdererMemberId() == null) {
+                errors.add(ValidationError.of("ordererMemberId", "empty"));
+            }
+            if (orderRequest.getOrderProducts() == null) {
+                errors.add(ValidationError.of("orderProducts", "empty"));
+            }
+            if (orderRequest.getOrderProducts().isEmpty()) {
+                errors.add(ValidationError.of("orderProducts", "empty"));
+            }
+
+            // 응용 서비스가 입력 오류로 하나의 익셉션으로 모아서 발생시킴
+            if (!errors.isEmpty()) {
+                throw new ValidationErrorException(errors);
+            }
+        }
+
+        // ...
+
+        return orderRepository.nextOrderNo();
+    }
+}
+```
+
+ValidationError.java
+```java
+package com.assu.study.common;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public class ValidationError {
+  private final String name;
+  private final String code;
+
+  public static ValidationError of(String code) {
+    return new ValidationError(null, code);
+  }
+
+  public static ValidationError of(String name, String code) {
+    return new ValidationError(name, code);
+  }
+
+  public boolean hasName() {
+    return name != null;
+  }
+}
+```
+
+ValidationErrorException.java
+```java
+package com.assu.study.common;
+
+import lombok.Getter;
+
+import java.util.List;
+
+@Getter
+public class ValidationErrorException extends RuntimeException {
+    private List<ValidationError> errors;
+
+    public ValidationErrorException(List<ValidationError> errors) {
+        this.errors = errors;
+    }
+}
+```
+
+OrderRequest.java
+```java
+package com.assu.study.order.command.application;
+
+import com.assu.study.member.command.domain.MemberId;
+import com.assu.study.order.command.domain.ShippingInfo;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
+@Getter
+@Setter
+public class OrderRequest {
+    private List<OrderProduct> orderProducts;
+    private MemberId ordererMemberId;
+    private ShippingInfo shippingInfo;
+}
+```
+
+OrderProduct.java
+```java
+package com.assu.study.order.command.application;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class OrderProduct {
+    private String productId;
+    private int quantity;
+}
+```
+
+OrderRepository.java
+```java
+package com.assu.study.order.command.domain;
+
+import org.springframework.data.repository.Repository;
+
+import java.util.Date;
+import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
+
+public interface OrderRepository extends Repository<Order, OrderNo> {
+    Optional<Order> findById(OrderNo id);
+
+    void save(Order order);
+
+    default OrderNo nextOrderNo() {
+        int randomNo = ThreadLocalRandom.current().nextInt(900000) + 100000;
+        String number = String.format("%tY%<tm%<td%<tH-%d", new Date(), randomNo);
+        System.out.println("number: " + number);
+        return new OrderNo(number);
+    }
+}
+```
+
+이제 표현 영역은 응용 서비스가 _ValidationErrorException_ 을 발생시키면 아래처럼 익셉션에서 에러 목록을 가져와서 표현 영역에서 사용할 형태로 변환한다.
+
+OrderController.java (응용 서비스에서 필수값 검증하면 표현 영역에서 그에 맞는 에러 반환하는 예시)
+```java
+package com.assu.study.order.ui;
+
+import com.assu.study.common.ValidationErrorException;
+import com.assu.study.member.command.domain.MemberId;
+import com.assu.study.order.command.application.OrderRequest;
+import com.assu.study.order.command.application.PlaceOrderService;
+import com.assu.study.order.command.domain.OrderNo;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@RequiredArgsConstructor
+@Controller
+public class OrderController {
+  private final PlaceOrderService placeOrderService;
+
+  @PostMapping("/orders/order")
+  public String order(@ModelAttribute("orderReq") OrderRequest orderRequest,
+                      BindingResult bindingResult,
+                      ModelMap modelMap) {
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    orderRequest.setOrdererMemberId(MemberId.of(user.getUsername()));
+    try {
+      OrderNo orderNo = placeOrderService.placeOrder(orderRequest);
+      modelMap.addAttribute("orderNo", orderNo.getNumber());
+    } catch (ValidationErrorException e) {
+
+      // 응용 서비스가 발생시킨 검증 에러 목록을 뷰에서 사용할 형태로 변환
+      e.getErrors().forEach(err -> {
+        if (err.hasName()) {
+          bindingResult.rejectValue(err.getName(), err.getCode());
+        } else {
+          bindingResult.reject(err.getCode());
+        }
+      });
+    }
+    // ...
+
+    return "order/confirm";
+  }
+}
+```
+
+pom.xml
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+
+MemberId.java
+```java
+package com.assu.study.member.command.domain;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
+// 밸류 타입
+@EqualsAndHashCode
+@Getter
+@Setter
+@Embeddable
+public class MemberId implements Serializable {
+    @Column(name = "member_id")
+    private String id;
+
+    protected MemberId() {
+    }
+
+    private MemberId(String id) {
+        new MemberId(id);
+    }
+
+    public static MemberId of(String id) {
+        return new MemberId(id);
+    }
+}
+```
+
+스프링과 같은 프레임워크는 값 검증을 위한 `Validation` 인터페이스를 별도로 제공하므로 해당 인터페이스를 구현한 검증기를 따로 구현하면 표현 영역에서 필수값 검증을 간결히 할 수도 있다.
+
+**표현 영역에서 필수값과 값의 형식을 검사하면 실질적으로 응용 서비스는 ID 중복 여부와 같은 논리적 오류만 검사**하면 된다.  
+즉, **표현 영역과 응용 서비스가 값 검사를 나눠서 수행**하는 것이다.
+
+아래와 같이 나누어 검증을 수행할 수도 있다. (추천하지 않음)
+- **표현 영역**
+  - 필수값, 값의 형식, 범위 등을 검증
+- **응용 서비스**
+  - 데이터의 존재 유무와 같은 논리적 오류 검증
+
+**응용 서비스에서 필수값까지 검사하는지 아닌지에 대해서는 의견이 갈릴 수 있는데 응용 서비스에서 필요한 값 검증을 모두 처리하면 프레임워크가 제공하는 검증 기능을 사용할 때보다 
+작성할 코드의 양은 늘어나지만 응용 서비스의 완성도가 높아지는 이점**이 있다.
+
 ---
 
 # 6. 권한 검사
+
+권한 검사는 보통 아래 3 곳에서 수행할 수 있다.
+- 표현 영역
+- 응용 서비스
+- 도메인
+
+---
+
+## 6.1. 표현 영역에서 권한 검사
+
+표현 영역에서 할 수 있는 기본적인 검사는 인증된 사용자인지 검사 여부이다.
+
+예를 들어 회원 정보 변경과 같은 URL 은 인증된 사용자만 접근 가능하도록 표현 영역에서 아래와 같이 제어할 수 있다.
+
+- URL 을 처리하는 컨트롤러에 웹 요청을 전달하기 전에 인증 여부를 검사하여 인증된 사용자의 웹 요청만 컴트롤러에 전달
+- 인증된 사용자가 아닐 경우 로그인 화면으로 리다이렉트
+
+이런 접근 제어를 하기 좋은 위치가 서블릿 필터이다.
+
+```mermaid
+sequenceDiagram
+
+    participant U as 사용자
+	participant A as 인증 필터
+	participant B as 접근 검사 필터
+	participant C as 실제 구현
+	
+	U ->> +A: 1. 요청
+      A ->> A : 1.1 인증 상태 정보 생성
+      A ->> +B: 1.2. 요청 전달
+        alt 권한이 있으면
+          B ->> +C: 1.2.1 요청 전달
+            C ->> C: 1.2.1.1. 요청 처리
+          C -->> -B: 1.2.1.2 응답
+          B -->> -A: 1.3. 응답
+          A -->> -U: 1.4. 응답
+        else 권한이 없으면
+          B -->> +A: 1.2. 에러 응답
+          A -->> -U: 2.1. 에러 응답
+        end
+```
+
+인증 뿐 아니라 권한에 대해서도 동일한 방식으로 필터를 사용하여 URL 별 권한 검사가 가능하다.
+
+스프링 시큐리티는 비슷한 방식으로 필터를 이용하여 인증 정보를 생성하고 웹 접근을 제어한다.
+
+> 스프링 시큐리티에 대한 좀 더 자세한 설명은 [SpringSecurity](https://assu10.github.io/tag/dev-spring-security/) 를 참고하세요.
+
+![스프링 시큐리티의 인증 프로세스에 포함된 주 구성 요소](/assets/img/dev/2023/1125/security.png)
+
+> 위 그림의 좀 더 자세한 설명은 [Spring Security - 인증 구현(1): AuthenticationProvider](https://assu10.github.io/dev/2023/11/25/springsecurity-authrorization-1/) 을 참고하세요.
+
+---
+
+## 6.2. 응용 서비스에서 권한 검사
+
+URL 만으로 접근 제어를 할 수 없는 경우 응용 서비스의 메서드 단위로 권한 검사가 이루어지는데 이는 꼭 응용 서비스의 코드에서 직접 권한 검사를 해야한다는 의미는 아니다.
+
+예를 들어 스프링 시큐리티는 AOP 를 활용하여 `@PreAuthorize`, `@PostAuthorize` 애너테이션 등으로 서비스 메서드에 대한 권한 검사를 할 수 있도록 지원한다.
+
+> `@PreAuthorize`, `@PostAuthorize` 애너테이션에 대한 좀 더 상세한 설명은 [Spring Security - 전역 메서드 보안: 사전/사후 권한 부여](https://assu10.github.io/dev/2024/01/28/springsecurity-global-auth/) 를 참고하세요.
+
+BlockMemberService.java
+```java
+package com.assu.study.member.command.application;
+
+import com.assu.study.member.command.domain.Member;
+import com.assu.study.member.command.domain.MemberId;
+import com.assu.study.member.command.domain.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@RequiredArgsConstructor
+@Service
+public class BlockMemberService {
+  private MemberRepository memberRepository;
+
+  @PreAuthorize("hasRole('ADMIN')")
+  @Transactional
+  public void block(String memberId) {
+    Member member = memberRepository.findById(MemberId.of(memberId))
+            .orElseThrow(() -> new NoMemberException());
+
+    member.block();
+  }
+}
+```
+
+NoMemberException.java
+```java
+package com.assu.study.member.command.application;
+
+public class NoMemberException extends RuntimeException {
+}
+```
+
+Member.java
+```java
+package com.assu.study.member.command.domain;
+
+import com.assu.study.common.jpa.EmailSetConverter;
+import com.assu.study.common.model.EmailSet;
+import jakarta.persistence.*;
+import lombok.Getter;
+
+// 회원 (애그리거트 루트), 변경 모델
+@Getter
+@Entity
+@Table(name = "member")
+public class Member {
+    @EmbeddedId
+    private MemberId id;
+
+    private String name;
+
+    @Embedded
+    private Password password;
+
+    private boolean blocked;
+
+    // ...
+
+    public void block() {
+        this.blocked = false;
+        // TODO: Event..
+    }
+}
+```
+
+---
+
+## 6.3. 도메인에서 권한 검사
+
+개별 도메인 객체 단위로 권한 검사를 해야한다면 구현이 좀 복잡해진다.
+
+예) 게시글 삭제는 본인 또는 관리자만 가능
+
+이 때 게시글 작성자가 본인인지 확인하려면 게시글 에그리거트를 먼저 로딩해야 한다.  
+즉, 응용 서비스 메서드 수준에서 권한 검사를 할 수 없으므로 아래와 같이 직접 권한 검사 로직을 구현해야 한다.
+
+```java
+public class DeleteArticleService {
+    public void delete(String userId, Long articleId) {
+        Article article = articleRepository.findById(articleId);
+        checkArticleExistence(article);
+        
+        // 사용자 id 와 게시글을 비교하여 삭제 권한을 가졌는지 검사
+        permissionService.checkDeletePermission(userId, article);
+        article.markDeleted();
+        
+        // ...
+    }
+}
+```
+
+스프링 시큐리티를 이용하여 개별 도메인 객체 수준의 권한 검사 기능을 구현할 수도 있다.  
+도메인 객체 수준의 권한 검사 로직은 도메인별로 다르기 때문에 도메인에 맞게 보안 프레임워크를 확장하려면 프레임워크에 대한 높은 이해도가 필요하다.  
+만일 이해도가 높지 않아 프레임워크 확장을 원하는 수준으로 할 수 없다면 프레임워크를 사용하는 대신 도메인에 맞는 권한 검사 기능을 직접 구현하는 것이 코드 유지 보수에 유리하다.
 
 ---
 
 # 7. 조회 전용 기능과 응용 서비스
 
+서비스에서 단순 조회만 한다면 아래와 같이 응용 서비스 코드가 매우 단순하다.
+```java
+public class OrderListService {
+    public List<OrderView> getOrderList(String ordererId) {
+        return orderViewDao.selectByOrderer(ordererId);
+    }
+}
+```
+
+서비스에서 수행하는 추가적인 로직이 없을 뿐더러 단일 쿼리만 실행하는 조회 전용 기능이므로 트랙잭션도 필요없다.  
+이런 경우라면 굳이 서비스를 만들지 말고 표현 영역인 컨트롤러에서 조회 전용 기능을 사용해도 된다.
+
+응용 서비스를 항상 만들어왔기 때문에 응용 서비스없이 컨트롤러와 같은 표현 영역에서 조회 전용 기능에 직접 접근하는 것이 이상하게 느껴질 수 있지만 
+응용 서비스가 사용자 요청 기능을 실행하는데 별다른 기여를 하지 못한다면 굳이 서비스를 만들지 않아도 된다.
+
+> 조회 전용 기능에 대한 내용은 추후 좀 더 상세히 다룰 예정입니다.
 
 ---
 

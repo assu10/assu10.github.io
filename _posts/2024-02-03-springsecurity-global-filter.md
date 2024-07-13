@@ -27,6 +27,7 @@ tags: spring-security pre-filter post-filter
   * [3.2. 쿼리에 직접 필터링 적용](#32-쿼리에-직접-필터링-적용)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
+
 ---
 
 **개발 환경**
@@ -44,7 +45,7 @@ tags: spring-security pre-filter post-filter
 ---
 
 [Spring Security - 전역 메서드 보안: 사전/사후 권한 부여](https://assu10.github.io/dev/2024/01/28/springsecurity-global-auth/)  에서 본 
-사전/사후 권한 부여인 `@PreAuthorize`, @PostAuthorize` 는 권한 규칙에 맞지 않으면 메서드를 아예 호출하지 않거나 예외를 발생시킨다.
+사전/사후 권한 부여인 `@PreAuthorize`, `@PostAuthorize` 는 권한 규칙에 맞지 않으면 메서드를 아예 호출하지 않거나 예외를 발생시킨다.
 
 **사전/사후 필터링은 메서드를 메서드 호출을 허용하면서도 메서드로 보내는 매개 변수에 대해 규칙에 맞는 매개 변수만 메서드로 전달하거나, 
 메서드를 호출한 후 호출자가 반환된 값의 승인된 부분만 받을 수 있도록 한다.**
