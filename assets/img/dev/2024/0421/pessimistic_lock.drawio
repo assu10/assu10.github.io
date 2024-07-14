@@ -1,0 +1,103 @@
+<mxfile host="Electron" modified="2024-07-13T10:12:33.657Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="wx8CutCNrsfE67U7OygW" version="24.6.4" type="device">
+  <diagram name="페이지-1" id="uZY7W01PecxFeLjf48bh">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-1" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;endFill=1;" edge="1" parent="1" source="LxXzRDSaVHr3nhFt67Zr-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="164.5" y="120" as="sourcePoint" />
+            <mxPoint x="164.5" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillStyle=auto;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="149" y="160" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-3" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;endFill=0;" edge="1" parent="1" target="LxXzRDSaVHr3nhFt67Zr-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="164.5" y="120" as="sourcePoint" />
+            <mxPoint x="164.5" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-4" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillStyle=auto;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="149" y="248" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-5" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillStyle=auto;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="149" y="333" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-6" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;endFill=1;" edge="1" parent="1" source="LxXzRDSaVHr3nhFt67Zr-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="331.5" y="120" as="sourcePoint" />
+            <mxPoint x="330" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-7" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillStyle=auto;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="316" y="200" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-8" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;endFill=0;" edge="1" parent="1" target="LxXzRDSaVHr3nhFt67Zr-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="331.5" y="120" as="sourcePoint" />
+            <mxPoint x="331.5" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-9" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillStyle=auto;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="316" y="335" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-10" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillStyle=auto;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="316" y="399" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-11" value="애그리거트 구함&lt;div&gt;접근 잠금&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="184" y="157" width="130" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-12" value="애그리거트 구함 시도&lt;div&gt;잠금으로 대기&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="180" width="130" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-13" value="애그리거트 수정" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="183" y="253" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-14" value="트랜잭션 커밋&lt;div&gt;잠금 해제&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="183" y="331" width="130" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-15" value="애그리거트 구함&lt;div&gt;접근 잠금&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="353" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-16" value="애그리거트 수정" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="349" y="404" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-17" value="스레드 1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="125" y="90" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-18" value="스레드 2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="292" y="90" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-19" value="" style="endArrow=none;dashed=1;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="348" y="214.5" as="sourcePoint" />
+            <mxPoint x="478" y="214.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-20" value="" style="endArrow=none;dashed=1;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="346" y="349.5" as="sourcePoint" />
+            <mxPoint x="476" y="349.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-22" value="잠금된 동안 블로킹" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="380" y="270" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-23" value="" style="endArrow=block;html=1;rounded=0;dashed=1;endFill=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="372" y="215" as="sourcePoint" />
+            <mxPoint x="372" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-24" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillStyle=auto;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="315" y="462" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LxXzRDSaVHr3nhFt67Zr-25" value="트랜잭션 커밋&lt;div&gt;잠금 해제&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="460" width="130" height="33" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

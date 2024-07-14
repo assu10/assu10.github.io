@@ -850,7 +850,6 @@ public class MemberId implements Serializable {
 
 ```mermaid
 sequenceDiagram
-
     participant U as 사용자
 	participant A as 인증 필터
 	participant B as 접근 검사 필터
@@ -906,7 +905,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class BlockMemberService {
-  private MemberRepository memberRepository;
+  private final MemberRepository memberRepository;
 
   @PreAuthorize("hasRole('ADMIN')")
   @Transactional
