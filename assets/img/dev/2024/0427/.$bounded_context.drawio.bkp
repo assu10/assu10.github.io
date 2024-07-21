@@ -1,0 +1,40 @@
+<mxfile host="Electron" modified="2024-07-20T08:37:38.763Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="WaQtjLNw-fV4vek_P_Tr" version="24.6.4" type="device">
+  <diagram name="페이지-1" id="GAFR-Lo968Fh88JjalAU">
+    <mxGraphModel dx="1114" dy="682" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p8QoWxOdtkA00d88RD-k-10" value="&lt;div&gt;재고&lt;/div&gt;&lt;div&gt;바운디드 컨텍스트&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="274" y="350" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-8" value="카탈로그&lt;div&gt;바운디드 컨텍스트&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="170" width="350" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-7" value="&lt;div&gt;주문&lt;/div&gt;&lt;div&gt;바운디드 컨텍스트&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="50" y="350" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-1" value="회원&lt;div&gt;바운디드 컨텍스트&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="50" y="170" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-2" value="&amp;lt;&amp;lt;Agg Root&amp;gt;&amp;gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;Member&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="230" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-3" value="&amp;lt;&amp;lt;Value&amp;gt;&amp;gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;Orderer&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="410" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="p8QoWxOdtkA00d88RD-k-4" target="p8QoWxOdtkA00d88RD-k-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-4" value="&amp;lt;&amp;lt;Agg Root&amp;gt;&amp;gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;Product&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="294" y="230" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-5" value="&amp;lt;&amp;lt;Agg Root&amp;gt;&amp;gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;Category&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="230" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p8QoWxOdtkA00d88RD-k-6" value="&amp;lt;&amp;lt;Agg Root&amp;gt;&amp;gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;Product&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="294" y="410" width="120" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

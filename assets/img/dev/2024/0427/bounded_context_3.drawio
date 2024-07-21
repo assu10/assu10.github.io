@@ -1,0 +1,40 @@
+<mxfile host="Electron" modified="2024-07-20T09:58:51.432Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="ssK3HSKBKQNnRi4iNQ61" version="24.6.4" type="device">
+  <diagram name="페이지-1" id="WCRI4Y8Oz0IedlBCRT2s">
+    <mxGraphModel dx="1114" dy="682" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-1" value="바운디드 컨텍스트" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="60" y="50" width="360" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-2" value="표현 영역" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="100" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-13" value="Command" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="80" y="148.5" width="140" height="182.5" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-9" value="DBMS" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="348" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-6" value="응용 서비스" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="187" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-7" value="인프라스트럭처" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="287" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-8" value="도메인" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="237" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-14" value="Query" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="260" y="148.5" width="140" height="182.5" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-4" value="서비스" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="188" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c3FmpupJX3gxWF9sh-_t-5" value="DAO&lt;div&gt;조회 전용 데이터 모델&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="238" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

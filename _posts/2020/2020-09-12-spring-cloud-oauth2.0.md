@@ -27,7 +27,7 @@ tags: msa oauth2 spring-cloud-security security-oauth2 spring-security-jwt
 애플리케이션 보안의 여러 가지 측면으로 바라볼 수 있다.
 
 - **본인 인증(authenticate)** 후 요청한 작업을 수행할 수 있는 **권한(authorized)** 여부 검증 -> 이 포스트에서 다룰 내용
-- 인프라 스트럭처의 꾸준한 패치
+- 인프라스트럭처의 꾸준한 패치
 - 정의된 포트로만 접근 허용, 인가된 서버만 접근할 수 있도록 네트워크 접근 통제
 
 이 포스트에선 아래의 내용을 다룰 예정이다.
