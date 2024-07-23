@@ -471,7 +471,7 @@ Order order = orderRepository.findById(orderId);
 order.cancel();
 ```
 
-> RDBMS 와 JPA 를 이용하여 리포지터리를 구현하는 방법은 [DDD - 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/) 을 참고하세요.
+> RDBMS 와 JPA 를 이용하여 리포지터리를 구현하는 방법은 [DDD - 리포지토리(1): 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/) 을 참고하세요.
 
 ---
 
@@ -673,8 +673,8 @@ public class JpaOrderViewDao implements OrderViewDao {
 캐시나 조회 전용 저장소를 선택이 아닌 필수이다.
 
 > JPA 에서 조회 전용 쿼리를 실행하는 방법은  
-> [DDD - 스펙 구현, 스펙 사용](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/),  
-> [DDD - 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize](https://assu10.github.io/dev/2024/04/13/ddd-jpa-spec-2/) 를 참고하세요.
+> [DDD - 스펙(1): 스펙 구현, 스펙 사용](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/),  
+> [DDD - 스펙(2): 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize](https://assu10.github.io/dev/2024/04/13/ddd-jpa-spec-2/) 를 참고하세요.
 
 > CQRS 을 통해 명령 모델과 조회 전용 모델을 분리해서 구현할 수 있는데 이 방법에 대해서는 추후 좀 더 상세히 다룰 예정입니다. (p. 120)
 

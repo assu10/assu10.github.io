@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 애그리거트 로딩 전략, 애그리거트 영속성 전파"
+title:  "DDD - 리포지토리(2): 애그리거트 로딩 전략, 애그리거트 영속성 전파"
 date:   2024-04-09
 categories: dev
 tags: ddd 

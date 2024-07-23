@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑"
+title:  "DDD - 리포지토리(1): 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑"
 date:   2024-04-07
 categories: dev
 tags: ddd jpa @Embeddable @AttributeOverrides @Entity @Embedded protected @Access AttributeConverter @ElementCollection @CollectionTable @OrderColumn @EmbeddedId @SecondaryTable @AttributeOverride @Inheritance @DiscriminatorColumn @DiscriminatorValue @OneToMany Collections.unmodifiableList()
@@ -1271,8 +1271,8 @@ Article article = entityManager.find(Article.class, 1L);
 이럴 경우엔 **조회 전용 기능**을 구현하는 것이 좋다.
 
 > 조회 전용 쿼리를 실행하는 방법에 대해서는  
-> [DDD - 스펙 구현, 스펙 사용](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/),  
-> [DDD - 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize](https://assu10.github.io/dev/2024/04/13/ddd-jpa-spec-2/) 를 참고하세요.
+> [DDD - 스펙(1): 스펙 구현, 스펙 사용](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/),  
+> [DDD - 스펙(2): 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize](https://assu10.github.io/dev/2024/04/13/ddd-jpa-spec-2/) 를 참고하세요.
 
 > 명령 모델과 조회 전용 모델을 구분하는 방법에 대해서는 추후 상세히 다룰 예정입니다. (p. 155)
 
