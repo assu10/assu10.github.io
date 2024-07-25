@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - BE, FE 분리된 설계의 애플리케이션 구현"
-date:   2024-01-13
+date: 2024-01-13
 categories: dev
 tags: spring-security jwt 
 ---

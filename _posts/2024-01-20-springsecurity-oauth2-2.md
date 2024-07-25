@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - OAuth 2: 승인 코드 그랜트 유형을 이용한 간단한 SSO App 구현"
-date:   2024-01-20
+date: 2024-01-20
 categories: dev
 tags: spring-security oauth2 client-registration client-registration-repository
 ---

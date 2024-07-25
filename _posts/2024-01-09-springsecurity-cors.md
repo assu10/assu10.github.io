@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - CORS (Cross-Site Resource Sharing, 교차 출처 리소스 공유)"
-date:   2024-01-09
+date: 2024-01-09
 categories: dev
 tags: spring-security cors cross-origin fors-configurer
 ---

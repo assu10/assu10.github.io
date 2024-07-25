@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - OAuth 2(2): 권한 부여 서버 구현"
-date:   2024-01-21
+date: 2024-01-21
 categories: dev
 tags: spring-security oauth2
 ---

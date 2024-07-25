@@ -2,8 +2,32 @@
 layout: base
 ---
 
-{% for post in paginator.posts %}
-  {% include post.html post=post link_title=true excerpt=true %}
+{% assign category = site.featured_categories | where: "slug", page.slug | first %}
+
+{% assign tag = site.featured_tags | where: "category", page.slug %}
+
+{% if page.title.size > 0 %}
+<header>
+    <h1 class="page-title">{{ page.title }}</h1>
+    {% include message.html text=page.description %}
+</header>
+<hr class="sr-only"/>
+{% endif %}
+
+
+{% assign posts = paginator.posts %}
+
+{% for post in posts limit:500 %}
+{% assign currentdate = post.date | date: "%Y" %}
+{% if currentdate != date %}
+{% unless forloop.first %}</ul>{% endunless %}
+<h2 id="y{{post.date | date: "%Y"}}" class="hr">{{ currentdate }}</h2>
+<ul class="related-posts">
+    {% assign date = currentdate %}
+    {% endif %}
+
+    {% include post-list-item.html post=post format="%d %b" %}
+
+    {% if forloop.last %}</ul>{% endif %}
 {% endfor %}
 
-{% include pagination.html %}

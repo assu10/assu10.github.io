@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - OAuth 2(1): Grant 유형"
-date:   2024-01-14
+date: 2024-01-14
 categories: dev
 tags: spring-security oauth2 grant-type
 ---
