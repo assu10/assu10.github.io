@@ -4,5 +4,5 @@ title: Redis
 slug: redis
 category: dev
 menu: false
-order: 11
+order: 50
 ---

@@ -4,5 +4,5 @@ title: DDD
 slug: ddd
 category: dev
 menu: false
-order: 10
+order: 40
 ---

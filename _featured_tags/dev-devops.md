@@ -4,5 +4,5 @@ title: DevOps
 slug: devops
 category: dev
 menu: false
-order: 13
+order: 60
 ---

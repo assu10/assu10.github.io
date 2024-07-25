@@ -4,5 +4,5 @@ title: SpringSecurity
 slug: spring-security
 category: dev
 menu: false
-order: 9
+order: 32
 ---
