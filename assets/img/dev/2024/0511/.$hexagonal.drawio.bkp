@@ -1,0 +1,82 @@
+<mxfile host="Electron" modified="2024-07-25T13:11:04.199Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="FhKMbfynxbVcI5biFozj" version="24.6.4" type="device">
+  <diagram name="페이지-1" id="x3nw_I9Jf6_KYCGw7uSb">
+    <mxGraphModel dx="864" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="OIEu-r6uerOA5nDUT050-30" value="Driven adapter" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530.5" y="190" width="140" height="286" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-29" value="Driving adapter" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="30" y="184" width="140" height="286" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-1" value="" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="180" y="190" width="340" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-3" value="출력 포트" style="rounded=0;whiteSpace=wrap;html=1;rotation=60;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="429" y="245" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-4" value="입력 포트" style="rounded=0;whiteSpace=wrap;html=1;rotation=60;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="181" y="393" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-5" value="출력 포트" style="rounded=0;whiteSpace=wrap;html=1;rotation=-57;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="429" y="395" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-6" value="입력 포트" style="rounded=0;whiteSpace=wrap;html=1;rotation=-57;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="184" y="243" width="90" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-7" target="OIEu-r6uerOA5nDUT050-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-7" target="OIEu-r6uerOA5nDUT050-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-7" target="OIEu-r6uerOA5nDUT050-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-7" value="유스케이스" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="299.5" y="250.5" width="101" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-8" target="OIEu-r6uerOA5nDUT050-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-8" target="OIEu-r6uerOA5nDUT050-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-8" target="OIEu-r6uerOA5nDUT050-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-8" value="유스케이스" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="299.5" y="401" width="101" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-9" value="엔티티" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="299.5" y="324" width="101" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-10" target="OIEu-r6uerOA5nDUT050-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-10" value="영속성 어댑터" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="550" y="234" width="101" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-11" target="OIEu-r6uerOA5nDUT050-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-11" value="외부 시스템&lt;div&gt;어댑터&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="550" y="402" width="101" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-12" target="OIEu-r6uerOA5nDUT050-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-12" value="외부 시스템&lt;div&gt;어댑터&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="400" width="101" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="OIEu-r6uerOA5nDUT050-13" target="OIEu-r6uerOA5nDUT050-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OIEu-r6uerOA5nDUT050-13" value="웹 어댑터" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="231" width="101" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
