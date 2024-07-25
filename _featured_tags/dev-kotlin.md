@@ -4,5 +4,5 @@ title: Kotlin
 slug: kotlin
 category: dev
 menu: false
-order: 11
+order: 6
 ---
