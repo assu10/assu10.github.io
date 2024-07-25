@@ -61,6 +61,10 @@ AppModule (app.module.ts) 에서 방금 생성한 users.controller.ts 와 프로
 
 CRUD 보일러 플레이트를 한번에 만들 땐 `nest g resouece Users` 명령어를 이용하면 module, controller, service, entity, dto, test 코드 등을 한번에 생성해준다.
 
+> **보일러 플레이트 (boilerplate)**  
+> 
+> 변경없이 여러 곳에서 재사용되는 상용구
+
 ```shell
 nest g resource Users
 ? What transport layer do you use? REST API

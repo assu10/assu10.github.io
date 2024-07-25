@@ -1,0 +1,65 @@
+<mxfile host="Electron" modified="2024-07-25T08:55:20.197Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="pfH8nBlakDPcf7vYxpOl" version="24.6.4" type="device">
+  <diagram name="페이지-1" id="myW3DU1q65SaqkEjKod3">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-13" value="웹" style="rounded=1;whiteSpace=wrap;html=1;align=left;fontSize=13;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="90" y="90" width="480" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-14" value="도메인" style="rounded=1;whiteSpace=wrap;html=1;align=left;fontSize=13;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="85" y="198" width="490" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-15" value="컨트롤러" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="257" y="110" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-16" value="영속성" style="rounded=1;whiteSpace=wrap;html=1;align=left;fontSize=13;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="90" y="300" width="490" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="UpcKazzd00oj02ZLPUCJ-18" target="UpcKazzd00oj02ZLPUCJ-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-18" value="리포지터리" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="320" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-19" value="헬퍼" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="320" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="UpcKazzd00oj02ZLPUCJ-22" target="UpcKazzd00oj02ZLPUCJ-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="290" />
+              <mxPoint x="210" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="UpcKazzd00oj02ZLPUCJ-22" target="UpcKazzd00oj02ZLPUCJ-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="UpcKazzd00oj02ZLPUCJ-22" target="UpcKazzd00oj02ZLPUCJ-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="289" />
+              <mxPoint x="520" y="289" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-22" value="서비스" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="218" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="UpcKazzd00oj02ZLPUCJ-25" target="UpcKazzd00oj02ZLPUCJ-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-25" value="컨트롤러" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="375" y="110" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-26" value="유틸리티" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="320" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpcKazzd00oj02ZLPUCJ-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.214;entryY=0.05;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="UpcKazzd00oj02ZLPUCJ-15" target="UpcKazzd00oj02ZLPUCJ-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
