@@ -48,7 +48,6 @@ tags: ddd Sort Pageable PageRequest findFirstN() findFirst() findTop() @Subselec
 ---
 
 pom.xml
-
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
@@ -1081,7 +1080,7 @@ List<OrderSummary> summaries = orderSummaryRepository.findByOrdererId(userId);
 ```
 
 위 코드는 _Order_ 의 상태를 변경한 후 _OrderSummary_ 를 조회하고 있다.  
-하이버네이트는 트랜잭션을 커밋하는 시점에 변경사항을 DB 에 반영하므로 아직 _Order_ 의 변경 내역이 purchase_order 에 반영되지 않은 상태에서  
+하이버네이트는 트랜잭션을 커밋하는 시점에 변경사항을 DB 에 반영하므로 아직 _Order_ 의 변경 내역이 purchase_order 에 반영되지 않은 상태에서 
 purchase_order 테이블을 사용하는 _OrderSummary_ 를 조회하게 된다.  
 즉, _OrderSummary_ 는 최신값이 아닌 이전값이 담기게 된다.
 
