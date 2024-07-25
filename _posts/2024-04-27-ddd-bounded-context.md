@@ -242,7 +242,7 @@ logging.level.org.springframework.security=DEBUG
 대표적인 예가 `CQRS (Command Query Responsibility Segregation)` 패턴이다.  
 
 > CQRS 는 상태를 변경하는 명령 기능과 내용을 조회하는 쿼리 기능을 위한 모델을 구분하는 패턴임  
-> CQRS 에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다.
+> CQRS 에 대한 좀 더 상세한 내용은 [DDD - CQRS](https://assu10.github.io/dev/2024/05/05/ddd-cqrs/) 를 참고하세요.
 
 CQRS 패턴을 바운디드 컨텍스트에 적용하면 상태 변경과 관련된 기능은 도메인 모델 기반으로 구현하고, 조회 기능은 서비스-DAO 를 이용하여 구현할 수 있다.
 

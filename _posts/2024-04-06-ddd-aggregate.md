@@ -426,8 +426,7 @@ public class ChangeOrderService {
 ### 2.3.1. 한 트랜잭션에서 여러 애그리거트 수정
 
 도메인 이벤트를 사용하면 한 트랜잭션에서 한 개의 애그리거트를 수정하면서 동기 혹은 비동기로 다른 애그리거트의 상태를 변경하는 코드를 작성할 수 있다.
-
-> 도메인 이벤트에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다. (p. 111)
+> 위에 대한 좀 더 상세한 내용은 [DDD - 이벤트(2): 비동기 이벤트 처리](https://assu10.github.io/dev/2024/05/04/ddd-event-2/) 를 참고하세요.
 
 <**한 트랜잭션에서 2개 이상의 애그리거트를 변경하는 것을 고려할 수 있는 경우**>  
 - **팀 표준**
@@ -676,7 +675,8 @@ public class JpaOrderViewDao implements OrderViewDao {
 > [DDD - 스펙(1): 스펙 구현, 스펙 사용](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/),  
 > [DDD - 스펙(2): 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize](https://assu10.github.io/dev/2024/04/13/ddd-jpa-spec-2/) 를 참고하세요.
 
-> CQRS 을 통해 명령 모델과 조회 전용 모델을 분리해서 구현할 수 있는데 이 방법에 대해서는 추후 좀 더 상세히 다룰 예정입니다. (p. 120)
+> CQRS 을 통해 명령 모델과 조회 전용 모델을 분리해서 구현할 수 있는데 이 방법에 대해서는 
+> [DDD - CQRS](https://assu10.github.io/dev/2024/05/05/ddd-cqrs/) 를 참고하세요.
 
 ---
 
@@ -883,7 +883,7 @@ public class JpaProductRepository implements ProductRepository {
 > 을 참고하세요.
 
 > 목록이나 상세 화면과 같은 조회 기능은 조회 전용 모델을 이용하여 구현하는 것이 좋다.  
-> 이에 대한 상세한 내용은 추후 다룰 예정입니다. (p. 124)
+> 이에 대한 상세한 내용은 [DDD - CQRS](https://assu10.github.io/dev/2024/05/05/ddd-cqrs/) 를 참고하세요.
 
 ---
 

@@ -1273,7 +1273,7 @@ Article article = entityManager.find(Article.class, 1L);
 > [DDD - 스펙(1): 스펙 구현, 스펙 사용](https://assu10.github.io/dev/2024/04/10/ddd-jpa-spec-1/),  
 > [DDD - 스펙(2): 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize](https://assu10.github.io/dev/2024/04/13/ddd-jpa-spec-2/) 를 참고하세요.
 
-> 명령 모델과 조회 전용 모델을 구분하는 방법에 대해서는 추후 상세히 다룰 예정입니다. (p. 155)
+> 명령 모델과 조회 전용 모델을 구분하는 방법에 대해서는 [DDD - CQRS](https://assu10.github.io/dev/2024/05/05/ddd-cqrs/) 를 참고하세요.
 
 ---
 
