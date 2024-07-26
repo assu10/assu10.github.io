@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Node.js - Express (2): 라우터, 템플릿 엔진"
-date:   2021-12-02 10:00
+date: 2021-12-02 10:00
 categories: dev
 tags: nodejs express router template-engine
 ---

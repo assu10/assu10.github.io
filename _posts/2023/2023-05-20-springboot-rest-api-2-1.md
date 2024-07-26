@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - REST-API with Spring MVC (2): POST/PUT 메서드 매핑, Pageable/Sort, 검증, 예외처리, 미디어 콘텐츠 다운로드"
-date:   2023-05-20
+date: 2023-05-20
 categories: dev
 tags: springboot msa rest-api spring-web-mvc controller-advice response-entity pageable post-mapping put-mapping
 ---

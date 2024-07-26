@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DDD - 애그리거트의 트랜잭션, 선점 잠금, 비선점 잠금, 오프라인 선점 잠금"
-date:   2024-04-21
+date: 2024-04-21
 categories: dev
 tags: ddd LockModeType @Lock @QueryHints @Version
 ---

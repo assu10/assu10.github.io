@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NestJS - Interceptor"
-date:   2023-04-02
+date: 2023-04-02
 categories: dev
 tags: nestjs interceptor
 ---

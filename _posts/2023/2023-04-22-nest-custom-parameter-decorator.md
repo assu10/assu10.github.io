@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NestJS - Custom Parameter Decorator"
-date:   2023-04-22
+date: 2023-04-22
 categories: dev
 tags: nestjs parameter-decorator custom-parameter-decorator
 ---

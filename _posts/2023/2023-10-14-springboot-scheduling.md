@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 스케쥴링 태스크"
-date:   2023-10-14
+date: 2023-10-14
 categories: dev
 tags: springboot msa scheduled enable-scheduling task-scheduler cron fixed-delay fixed-rate batch
 ---

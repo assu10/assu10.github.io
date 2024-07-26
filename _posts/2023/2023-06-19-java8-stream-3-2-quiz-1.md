@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - Stream 으로 데이터 수집 (2): Quiz"
-date:   2023-06-19
+date: 2023-06-19
 categories: dev
 tags: java java8 stream collectors-class
 ---

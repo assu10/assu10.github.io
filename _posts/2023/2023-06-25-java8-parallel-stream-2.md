@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - Stream 으로 병렬 데이터 처리 (2): Spliterator 인터페이스"
-date:   2023-06-25
+date: 2023-06-25
 categories: dev
 tags: java java8 stream parallel-stream spliterator-interface
 ---

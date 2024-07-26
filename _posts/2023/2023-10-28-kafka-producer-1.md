@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kafka - 카프카 프로듀서(1): 프로듀서, 메시지 전달, 프로듀서 설정"
-date:   2023-10-28
+date: 2023-10-28
 categories: dev
 tags: kafka kafka-producer
 ---

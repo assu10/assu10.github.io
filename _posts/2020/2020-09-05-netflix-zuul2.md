@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - Netflix Zuul(2/2)"
-date:   2020-09-05 10:00
+date: 2020-09-05 10:00
 categories: dev
 tags: msa hystrix zuul ribbon
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - 람다 테스팅, 디버깅"
-date:   2023-07-02
+date: 2023-07-02
 categories: dev
 tags: java java8 lambda-testing stream-testing lambda-debugging stream-debugging peek
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "AWS - Load Balancing (4): Global Accelerator"
-date:   2022-12-03 10:00
+date: 2022-12-03 10:00
 categories: dev
 tags: devops aws global-accelerator
 ---

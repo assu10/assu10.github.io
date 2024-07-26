@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Node.js - http 모듈로 서버 생성"
-date:   2021-11-29 10:00
+date: 2021-11-29 10:00
 categories: dev
 tags: nodejs
 ---

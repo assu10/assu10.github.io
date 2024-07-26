@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사"
-date:   2023-05-28
+date: 2023-05-28
 categories: dev
 tags: java java8 lambda-expression functional-interface
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 간단한 애플리케이션 구현"
-date:   2023-12-03
+date: 2023-12-03
 categories: dev
 tags: spring-security
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 데이터 영속성(1): JPA, Spring Data JPA"
-date:   2023-09-02
+date: 2023-09-02
 categories: dev
 tags: springboot msa database jpa spring-data-jps hibernate datasource connection-pool entity-manager
 ---

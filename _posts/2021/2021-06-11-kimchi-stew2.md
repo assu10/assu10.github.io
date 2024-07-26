@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "목살 묵은지김치찜"
-date:   2021-06-11 10:00
+date: 2021-06-11 10:00
 categories: cooking
 tags: cooking 목살묵은지김치찜
 ---

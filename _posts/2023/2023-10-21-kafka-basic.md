@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kafka - 카프카 기본"
-date:   2023-10-21
+date: 2023-10-21
 categories: dev
 tags: kafka
 ---

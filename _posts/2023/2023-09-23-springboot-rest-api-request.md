@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - REST-API 호출"
-date:   2023-09-23
+date: 2023-09-23
 categories: dev
 tags: springboot msa rest-api uri-components-builder rest-template simple-client-http-request-factory http-components-client-http-request-factory web-client keep-alive parameterized-type-reference client-http-request-interceptor response-error-handler
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NestJS - Health Check"
-date:   2023-04-15
+date: 2023-04-15
 categories: dev
 tags: nestjs health-check
 ---

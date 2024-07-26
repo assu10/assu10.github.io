@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - Sorted Set"
-date:   2022-07-30 10:00
+date: 2022-07-30 10:00
 categories: dev
 tags: redis zset sorted-set
 ---

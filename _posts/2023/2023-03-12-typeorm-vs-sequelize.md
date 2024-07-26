@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - TypeORM vs Sequelize"
-date:   2023-03-12
+date: 2023-03-12
 categories: dev
 tags: typescript typeorm
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - 배열, 튜플"
-date:   2021-09-21 10:00
+date: 2021-09-21 10:00
 categories: dev
 tags: typescript
 ---

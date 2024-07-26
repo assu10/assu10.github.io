@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 인증 구현(3): HTTP Basic 인증"
-date:   2023-12-02
+date: 2023-12-02
 categories: dev
 tags: spring-security http-basic
 ---

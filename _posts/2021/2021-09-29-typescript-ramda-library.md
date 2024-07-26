@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - ramda 라이브러리 (1)"
-date:   2021-09-29 10:00
+date: 2021-09-29 10:00
 categories: dev
 tags: typescript
 ---

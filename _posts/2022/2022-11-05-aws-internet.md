@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "AWS - Internet"
-date:   2022-11-05 10:00
+date: 2022-11-05 10:00
 categories: dev
 tags: devops aws internet-gateway igw nat-device proxy-instance nat 
 ---

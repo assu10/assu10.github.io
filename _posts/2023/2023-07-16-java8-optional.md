@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - Optional 클래스"
-date:   2023-07-16
+date: 2023-07-16
 categories: dev
 tags: java java8 optional-class optional
 ---

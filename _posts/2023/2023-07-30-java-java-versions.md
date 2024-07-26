@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java - Java 8 ~ Java 17"
-date:   2023-07-30
+date: 2023-07-30
 categories: dev
 tags: java java-version
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "GitLab-Runner 설치 & 등록(Windows)"
-date:   2020-10-08 10:00
+date: 2020-10-08 10:00
 categories: dev
 tags: devops gitlab gitlab-runner ci cd  
 ---

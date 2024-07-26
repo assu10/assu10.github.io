@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 데이터 영속성(6): 엔티티 상태 이벤트 처리, 트랜잭션 생명주기 동기화 작업"
-date:   2023-09-17
+date: 2023-09-17
 categories: dev
 tags: springboot msa database entity-listeners osiv transaction-lifecycle
 ---

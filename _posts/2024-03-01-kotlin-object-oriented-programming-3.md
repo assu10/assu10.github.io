@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kotlin - 객체 지향 프로그래밍(3): 클래스 위임, 상속/합성/클래스 위임, 다운 캐스트('is', 'as'), 봉인된 클래스('sealed')"
-date:   2024-03-01
+date: 2024-03-01
 categories: dev
 tags: kotlin 
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - 반복기, 생성기"
-date:   2021-09-22 10:00
+date: 2021-09-22 10:00
 categories: dev
 tags: typescript
 ---

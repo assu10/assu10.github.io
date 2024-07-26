@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 전역 메서드 보안: 사전/사후 권한 필터"
-date:   2024-02-03
+date: 2024-02-03
 categories: dev
 tags: spring-security pre-filter post-filter
 ---

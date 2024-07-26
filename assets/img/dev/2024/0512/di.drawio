@@ -1,0 +1,58 @@
+<mxfile host="Electron" modified="2024-07-26T04:19:06.300Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="nM4iVeRCUMbVi8A0S6s6" version="24.6.4" type="device">
+  <diagram name="페이지-1" id="EytZ6H5kO9_4rRt3u_oV">
+    <mxGraphModel dx="864" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-1" value="&amp;nbsp;adapter.in.web" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="50" y="80" width="170" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-2" value="&amp;nbsp;application.port.in" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="290" y="80" width="170" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-3" value="&amp;nbsp;application.service" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="290" y="260" width="170" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-4" value="&amp;nbsp;application.port.out" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="290" y="453" width="170" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-5" value="&amp;nbsp;adapter.out.persistence" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="453" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="1" source="eKEXJ_g9ozE_jAp9puGA-6" target="eKEXJ_g9ozE_jAp9puGA-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-6" value="AccountPersistenceAdapter" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="523" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="eKEXJ_g9ozE_jAp9puGA-7" target="eKEXJ_g9ozE_jAp9puGA-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-7" value="AccountController" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="150" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-9" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;SendMoneyUseCase" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="150" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420.5" y="380" as="sourcePoint" />
+            <mxPoint x="420.5" y="523" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="340" as="sourcePoint" />
+            <mxPoint x="420" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-10" value="SendMoneyService" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="340" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="eKEXJ_g9ozE_jAp9puGA-11" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;LoadAccount" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="523" width="130" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

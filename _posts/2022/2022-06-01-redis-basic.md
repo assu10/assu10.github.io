@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis 기본, 데이터 처리 명령어, String"
-date:   2022-06-01 10:00
+date: 2022-06-01 10:00
 categories: dev
 tags: redis
 ---

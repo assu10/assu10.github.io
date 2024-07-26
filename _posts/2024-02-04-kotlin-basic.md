@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kotlin - 코틀린 기본"
-date:   2024-02-04
+date: 2024-02-04
 categories: dev
 tags: kotlin
 ---

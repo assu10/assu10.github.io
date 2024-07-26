@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - Generic 프로그래밍"
-date:   2021-10-01 10:00
+date: 2021-10-01 10:00
 categories: dev
 tags: typescript
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 인증 구현(2): SecurityContext"
-date:   2023-11-26
+date: 2023-11-26
 categories: dev
 tags: spring-security security-context security-context-holder
 ---

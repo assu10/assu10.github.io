@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Git commit message convention"
-date:   2024-04-22
+date: 2024-04-22
 categories: dev
 tags: web git-commit-convention
 ---

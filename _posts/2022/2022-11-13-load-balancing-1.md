@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "AWS - Load Balancing (1): ELB"
-date:   2022-11-13 10:00
+date: 2022-11-13 10:00
 categories: dev
 tags: devops aws load-balancing elb alb nlb 경로기반라우팅
 ---

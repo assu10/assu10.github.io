@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - Spring Cloud Eureka (상세 설정편)"
-date:   2020-12-05 10:00
+date: 2020-12-05 10:00
 categories: dev
 tags: msa spring-cloud-eureka
 ---

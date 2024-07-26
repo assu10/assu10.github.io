@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring 어노테이션 정리"
-date:   2020-09-12 10:00
+date: 2020-09-12 10:00
 categories: dev
 tags: web spring-annotation 
 ---

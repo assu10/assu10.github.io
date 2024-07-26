@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kafka - 카프카 프로듀서(2): 시리얼라이저, 파티션, 헤더, 인터셉터, 쿼터/스로틀링"
-date:   2023-10-29
+date: 2023-10-29
 categories: dev
 tags: kafka kafka-producer serializer avro partition record-header producer-interceptor
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 가변인자목록('vararg'), 스프레드 연산자('*'), Set, Map, 클래스, 프로퍼티 접근자, 가시성 변경자"
-date:   2024-02-09
+date: 2024-02-09
 categories: dev
 tags: kotlin
 ---

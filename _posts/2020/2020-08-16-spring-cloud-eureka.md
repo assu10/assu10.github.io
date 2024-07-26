@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - Spring Cloud Eureka"
-date:   2020-08-16 10:00
+date: 2020-08-16 10:00
 categories: dev
 tags: msa spring-cloud-eureka feign
 ---

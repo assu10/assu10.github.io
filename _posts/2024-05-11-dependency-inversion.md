@@ -3,7 +3,26 @@ layout: post
 title:  "Clean Architecture - 의존성 역전 (Dependency Inversion Principle)"
 date: 2024-05-11
 categories: dev
-tags: clean  dip dependency-inversion-principle srp hexagonal
+tags: clean dip dependency-inversion-principle srp hexagonal
+---
+
+이 포스트에서는 단일 책임 원칙과 의존성 역전 원칙에 대해 알아본다.
+
+단일 책임 원칙과 의존성 역전 원칙은 SOLID 에서 각각 S 와 D 를 담당하고 있다.
+
+> **SOLID**
+> - **SRP (Single Responsibility Principle, 단일 책임 원칙)**
+    >   - 한 클래스는 하나의 책임만 가져야 함
+> - **OCP (Open/Closed Principle, 개방/폐쇄 원칙)**
+    >   - 소프트웨어 요소는 확장에는 열려있으나 변경에는 닫혀 있어야 함
+> - **LSP (Liskov Substitution Principle, 리스코프 치환 원칙)**
+    >   - 프로그램의 객체는 프로그램의 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 함
+> - **ISP (Interface Segregation Principle, 인터페이스 분리 원칙)**
+    >   - 특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 나음
+> - **DIP (Dependency Inversion Principle)**
+    >   - 추상화에 의존해야지 구체화에 의존하면 안됨
+>   - 의존성 주입 (Dependency Injection) 은 위 원칙을 따르는 방법 중 하나임
+
 ---
 
 **목차**
@@ -16,25 +35,6 @@ tags: clean  dip dependency-inversion-principle srp hexagonal
 * [정리하며...](#정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
-
----
-
-이 포스트에서는 단일 책임 원칙과 의존성 역전 원칙에 대해 알아본다.
-
-단일 책임 원칙과 의존성 역전 원칙은 SOLID 에서 각각 S 와 D 를 담당하고 있다.
-
-> **SOLID**
-> - **SRP (Single Responsibility Principle, 단일 책임 원칙)**
->   - 한 클래스는 하나의 책임만 가져야 함
-> - **OCP (Open/Closed Principle, 개방/폐쇄 원칙)**
->   - 소프트웨어 요소는 확장에는 열려있으나 변경에는 닫혀 있어야 함
-> - **LSP (Liskov Substitution Principle, 리스코프 치환 원칙)**
->   - 프로그램의 객체는 프로그램의 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 함
-> - **ISP (Interface Segregation Principle, 인터페이스 분리 원칙)**
->   - 특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 나음
-> - **DIP (Dependency Inversion Principle)**
->   - 추상화에 의존해야지 구체화에 의존하면 안됨
->   - 의존성 주입 (Dependency Injection) 은 위 원칙을 따르는 방법 중 하나임
 
 ---
 

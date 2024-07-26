@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NestJS - Database, TypeORM"
-date:   2023-03-12
+date: 2023-03-12
 categories: dev
 tags: nestjs typeorm
 ---

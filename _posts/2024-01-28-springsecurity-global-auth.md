@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 전역 메서드 보안: 사전/사후 권한 부여"
-date:   2024-01-28
+date: 2024-01-28
 categories: dev
 tags: spring-security enable-method-security pre-authorize post-authorize has-permission permission-evaluator
 ---

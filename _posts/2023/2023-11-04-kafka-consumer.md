@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kafka - 카프카 프로듀서"
-date:   2023-11-04
+date: 2023-11-04
 categories: dev
 tags: kafka kafka-producer
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - 동작 파라메터화"
-date:   2023-05-27
+date: 2023-05-27
 categories: dev
 tags: java java8 behavior-parameterization
 ---

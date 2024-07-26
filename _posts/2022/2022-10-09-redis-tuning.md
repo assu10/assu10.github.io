@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - Redis 튜닝"
-date:   2022-10-09 10:00
+date: 2022-10-09 10:00
 categories: dev
 tags: redis 
 ---

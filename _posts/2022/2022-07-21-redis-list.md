@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - List"
-date:   2022-07-21 10:00
+date: 2022-07-21 10:00
 categories: dev
 tags: redis list
 ---

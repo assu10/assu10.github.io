@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 웹 애플리케이션의 보안"
-date:   2023-11-11
+date: 2023-11-11
 categories: dev
 tags: spring-security 웹애플리케이션-보안취약의-종류 
 ---

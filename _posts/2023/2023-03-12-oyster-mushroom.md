@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "느타리버섯 볶음"
-date:   2023-03-12 10:00
+date: 2023-03-12 10:00
 categories: cooking
 tags: cooking 느타리버섯볶음
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "돼지고기 고추장찌개"
-date:   2023-06-20 10:00
+date: 2023-06-20 10:00
 categories: cooking
 tags: cooking 고추장찌개
 ---

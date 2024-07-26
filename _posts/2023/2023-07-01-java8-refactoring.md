@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - 리팩토링, 디자인 패턴"
-date:   2023-07-01
+date: 2023-07-01
 categories: dev
 tags: java java8 refactoring design-pattern strategy-pattern template-pattern observer-pattern chain-of-responsibility-pattern factory-method-pattern factory-pattern
 ---

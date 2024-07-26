@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "AWS - Load Balancing (2): Route 53"
-date:   2022-11-19 10:00
+date: 2022-11-19 10:00
 categories: dev
 tags: devops aws load-balancing route53 dns
 ---

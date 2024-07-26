@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Node.js - 패키지 매니저 (package.json)"
-date:   2021-11-30 10:00
+date: 2021-11-30 10:00
 categories: dev
 tags: nodejs npm package-manager package.json
 ---

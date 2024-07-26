@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kotlin - 에러 방지(1): 커스텀 에러 타입 정의, 'require()', 'check()', Nothing 타입, 'TODO()'"
-date:   2024-03-09
+date: 2024-03-09
 categories: dev
 tags: kotlin finally require() requireNotNull() check() nothing todo()
 ---

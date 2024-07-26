@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - MSA 와 Spring Boot"
-date:   2023-05-06
+date: 2023-05-06
 categories: dev
 tags: springboot msa
 ---

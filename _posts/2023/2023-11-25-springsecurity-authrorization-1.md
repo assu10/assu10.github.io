@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 인증 구현(1): AuthenticationProvider"
-date:   2023-11-25
+date: 2023-11-25
 categories: dev
 tags: spring-security authentication-provider
 ---

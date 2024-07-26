@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "매운돼지갈비찜"
-date:   2022-11-19 10:00
+date: 2022-11-19 10:00
 categories: cooking
 tags: cooking 매운돼지갈비찜
 ---

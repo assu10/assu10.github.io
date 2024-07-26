@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - REST-API with Spring MVC (1): GET/DELETE 메서드 매핑, 응답 메시지 처리(마셜링)"
-date:   2023-05-14
+date: 2023-05-14
 categories: dev
 tags: springboot msa rest-api spring-web-mvc marshalling path-variable request-param datetime-format get-mapping delete-mapping
 ---

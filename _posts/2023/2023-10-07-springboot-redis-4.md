@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - Redis 와 스프링 캐시(4): 스프링 프레임워크 Cache"
-date:   2023-10-07
+date: 2023-10-07
 categories: dev
 tags: springboot msa redis cache cache-manager redis-cache-manager enable-caching cacheable cache-put cache-evict caching
 ---

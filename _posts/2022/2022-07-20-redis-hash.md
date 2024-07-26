@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - Hash"
-date:   2022-07-20 10:00
+date: 2022-07-20 10:00
 categories: dev
 tags: redis hash
 ---

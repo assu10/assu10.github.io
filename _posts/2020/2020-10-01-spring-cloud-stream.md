@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - Stream, 분산 캐싱 (1/2)"
-date:   2020-10-01 10:00
+date: 2020-10-01 10:00
 categories: dev
 tags: msa eda event-driven-architecture mda message-driven-architecture spring-cloud-stream redis caching  
 ---

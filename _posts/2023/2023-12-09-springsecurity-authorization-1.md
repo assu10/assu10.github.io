@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한"
-date:   2023-12-09
+date: 2023-12-09
 categories: dev
 tags: spring-security permit-all deny-all role authority
 ---

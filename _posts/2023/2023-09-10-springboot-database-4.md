@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 데이터 영속성(4): 트랜잭션과 @Transactional"
-date:   2023-09-10
+date: 2023-09-10
 categories: dev
 tags: springboot msa database transactional propagation isolation dirty-read read-uncommitted read-committed repeatable-read non-repeatable-read phantom-read
 ---

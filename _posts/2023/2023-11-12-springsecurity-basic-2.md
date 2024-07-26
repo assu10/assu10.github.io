@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - 스프링 시큐리티 기본 구성 요소"
-date:   2023-11-12
+date: 2023-11-12
 categories: dev
 tags: spring-security http-basic user-details-service password-encoder authentication-provider 
 ---

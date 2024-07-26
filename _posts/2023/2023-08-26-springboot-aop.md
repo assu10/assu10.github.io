@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - AOP"
-date:   2023-08-26
+date: 2023-08-26
 categories: dev
 tags: springboot msa aop
 ---

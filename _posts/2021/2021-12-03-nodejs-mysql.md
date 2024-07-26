@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Node.js - MySQL, 시퀄라이즈"
-date:   2021-12-03 10:00
+date: 2021-12-03 10:00
 categories: dev
 tags: nodejs mysql sequelize
 ---

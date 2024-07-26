@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 스프링 부트 테스트"
-date:   2023-08-27
+date: 2023-08-27
 categories: dev
 tags: springboot msa Junit spring-boot-test test-configuration mock-bean web-mvc-test data-jpa-test json-test rest-client-test
 ---

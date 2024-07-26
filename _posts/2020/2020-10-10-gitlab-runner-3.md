@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  ".gitlab-ci.yml 에 대하여"
-date:   2020-10-09 10:00
+date: 2020-10-09 10:00
 categories: dev
 tags: devops gitlab gitlab-runner ci cd  
 ---

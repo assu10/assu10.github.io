@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "클라우드 컴퓨팅, IaaS, PaaS, Serverless, SaaS"
-date:   2020-12-30 10:00
+date: 2020-12-30 10:00
 categories: dev
 tags: web network cloud-computing packaged-software iaas paas serverless aas
 ---

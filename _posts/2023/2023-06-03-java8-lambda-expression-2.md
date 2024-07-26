@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - 람다 표현식 (2): 메서드 레퍼런스, 람다 표현식과 메서드의 조합"
-date:   2023-06-03
+date: 2023-06-03
 categories: dev
 tags: java java8 lambda-expression method-reference
 ---

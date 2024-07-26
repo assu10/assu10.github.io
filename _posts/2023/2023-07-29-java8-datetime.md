@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - 날짜와 시간"
-date:   2023-07-29
+date: 2023-07-29
 categories: dev
 tags: java java8 localdate parsing formatting temporal-adjusters datetimeformatter datetimeformatterbuilder zoneid zoneoffset
 ---

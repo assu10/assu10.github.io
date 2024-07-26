@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "TroubleShooting - Kafka: could not be established. Broker may not be available."
-date:   2023-10-22
+date: 2023-10-22
 categories: dev
 tags: trouble_shooting
 ---

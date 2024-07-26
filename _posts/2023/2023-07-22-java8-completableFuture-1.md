@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - CompletableFuture (1): Future, 병렬화 방법"
-date:   2023-07-22
+date: 2023-07-22
 categories: dev
 tags: java java8 completable-future
 ---

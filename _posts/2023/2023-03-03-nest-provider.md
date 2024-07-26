@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NestJS - Provider, Scope"
-date:   2023-03-03
+date: 2023-03-03
 categories: dev
 tags: nestjs provider scope
 ---

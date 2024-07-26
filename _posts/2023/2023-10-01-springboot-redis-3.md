@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - Redis 와 스프링 캐시(3): 분산락, CyclicBarrier"
-date:   2023-10-01
+date: 2023-10-01
 categories: dev
 tags: springboot msa redis cyclic-barrier
 ---

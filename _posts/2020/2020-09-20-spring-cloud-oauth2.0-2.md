@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - OAuth2, Security(2/2)"
-date:   2020-09-30 10:00
+date: 2020-09-30 10:00
 categories: dev
 tags: msa oauth2 jwt spring-cloud-security security-oauth2 spring-security-jwt 
 ---

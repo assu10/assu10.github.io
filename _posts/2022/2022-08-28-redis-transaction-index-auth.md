@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - Transaction, Index, User Authentication"
-date:   2022-08-28 10:00
+date: 2022-08-28 10:00
 categories: dev
 tags: redis transaction index authentication
 ---

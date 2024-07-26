@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kotlin - 객체 지향 프로그래밍(2): 추상 클래스, 업캐스트, 다형성, 합성, 합성과 상속, 상속과 확장, 어댑터 패턴, 멤버 함수와 확장 함수"
-date:   2024-02-25
+date: 2024-02-25
 categories: dev
 tags: kotlin abstract-class interface upcast polymorphism composition adapter
 ---

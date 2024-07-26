@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - Redis 와 스프링 캐시(2): RedisTemplate 설정"
-date:   2023-09-30
+date: 2023-09-30
 categories: dev
 tags: springboot msa redis redis-serializer value-operation redis-template
 ---

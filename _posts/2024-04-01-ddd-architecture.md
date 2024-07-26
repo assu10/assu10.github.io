@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DDD - 표현/응용/도메인/인프라스트럭처 영역, DIP, 도메인 영역의 주요 구성 요소, 애그리거트, 모듈 구성"
-date:   2024-04-01
+date: 2024-04-01
 categories: dev
 tags: ddd dip entity value rootEntity
 ---

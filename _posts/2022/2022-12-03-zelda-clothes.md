@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "젤다 야숨 - 옷 강화 재료"
-date:   2022-12-03 10:00
+date: 2022-12-03 10:00
 categories: etc
 tags: game
 ---

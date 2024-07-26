@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DDD - 표현 영역, 응용 영역, 값 검증, 권한 검사"
-date:   2024-04-14
+date: 2024-04-14
 categories: dev
 tags: ddd 
 ---

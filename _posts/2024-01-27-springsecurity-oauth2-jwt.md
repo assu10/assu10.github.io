@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Security - OAuth 2(3): JWT 와 암호화 서명"
-date:   2024-01-27
+date: 2024-01-27
 categories: dev
 tags: spring-security oauth2 jwt
 ---

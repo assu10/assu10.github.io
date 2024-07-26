@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DDD - 바운디드 컨텍스트"
-date:   2024-04-27
+date: 2024-04-27
 categories: dev
 tags: ddd bounded-context open-host-service anticorruption-layer shared-kernel separate-way context-map
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "AWS - Load Balancing (3): CloudFront"
-date:   2022-11-26 10:00
+date: 2022-11-26 10:00
 categories: dev
 tags: devops aws cdn cloudfront
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "이 블로그의 MSA 에 사용된 인스턴스 포트 정보 및 서비스 시작법"
-date:   2021-01-30 10:00
+date: 2021-01-30 10:00
 categories: dev
 tags: msa centralized-log sleuth open-zipkin
 ---

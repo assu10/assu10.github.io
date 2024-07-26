@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - 함수, 메서드"
-date:   2021-09-19 10:00
+date: 2021-09-19 10:00
 categories: dev
 tags: typescript
 ---

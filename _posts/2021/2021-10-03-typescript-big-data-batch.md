@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - 빅데이터 배치 프로그램"
-date:   2021-10-03 10:00
+date: 2021-10-03 10:00
 categories: dev
 tags: typescript
 ---

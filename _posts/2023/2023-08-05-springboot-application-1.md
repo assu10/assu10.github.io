@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 웹 애플리케이션 구축 (1): WebMvcConfigurer 를 이용한 설정, DispatcherServlet 설정"
-date:   2023-08-05
+date: 2023-08-05
 categories: dev
 tags: springboot msa web-mvc-configurer dispatcher-servlet
 ---

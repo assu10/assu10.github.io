@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "김치찌개"
-date:   2021-04-11 10:00
+date: 2021-04-11 10:00
 categories: cooking
 tags: cooking 돼지김치찌개
 ---

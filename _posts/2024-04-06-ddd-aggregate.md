@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DDD - 애그리거트, 애그리거트 루트, 애그리거트 참조, 애그리거트 간 집합 연관, 애그리거트를 팩토리로 사용"
-date:   2024-04-06
+date: 2024-04-06
 categories: dev
 tags: ddd aggregate factory memberOf @EmbeddedId @Embeddable @ElementCollection @CollectionTable
 ---

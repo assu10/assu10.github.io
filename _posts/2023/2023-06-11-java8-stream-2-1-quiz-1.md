@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - Stream 활용 (2): Quiz (1)"
-date:   2023-06-11
+date: 2023-06-11
 categories: dev
 tags: java java8 stream
 ---

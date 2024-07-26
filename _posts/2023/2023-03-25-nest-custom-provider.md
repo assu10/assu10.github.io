@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NestJS - Custom Provider"
-date:   2023-03-25
+date: 2023-03-25
 categories: dev
 tags: nestjs provider custom-provider
 ---

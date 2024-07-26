@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "GitLab CI/CD Pipeline 구성"
-date:   2020-10-09 10:00
+date: 2020-10-09 10:00
 categories: dev
 tags: devops gitlab gitlab-runner ci cd  
 ---

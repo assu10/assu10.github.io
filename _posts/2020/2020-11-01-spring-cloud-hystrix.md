@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - Hystrix (회복성 패턴)"
-date:   2020-11-01 10:00
+date: 2020-11-01 10:00
 categories: dev
 tags: msa hystrix  
 ---

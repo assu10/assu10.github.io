@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - 아키텍쳐"
-date:   2022-09-03 10:00
+date: 2022-09-03 10:00
 categories: dev
 tags: redis 
 ---

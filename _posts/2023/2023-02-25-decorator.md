@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Decorator"
-date:   2023-02-25
+date: 2023-02-25
 categories: dev
 tags: typescript decorator nestjs
 ---

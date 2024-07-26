@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - Redis 와 스프링 캐시(1): Spring Data Redis, Lettuce"
-date:   2023-09-24
+date: 2023-09-24
 categories: dev
 tags: springboot msa redis spring-data-redis lettuce redis-connection-factory
 ---

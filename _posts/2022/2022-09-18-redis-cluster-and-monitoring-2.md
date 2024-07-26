@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - Redis Cluster & Monitoring (2)"
-date:   2022-09-18 10:00
+date: 2022-09-18 10:00
 categories: dev
 tags: redis 
 ---

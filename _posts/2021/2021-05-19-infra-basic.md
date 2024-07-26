@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "시스템과 인프라 기초 지식"
-date:   2021-05-19 10:00
+date: 2021-05-19 10:00
 categories: dev
 tags: devops docker system infra os middleware
 ---

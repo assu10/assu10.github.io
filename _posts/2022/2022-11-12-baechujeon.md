@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "알배추전"
-date:   2022-11-12 10:00
+date: 2022-11-12 10:00
 categories: cooking
 tags: cooking 알배추전
 ---

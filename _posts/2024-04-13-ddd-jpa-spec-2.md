@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DDD - 스펙(2): 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize"
-date:   2024-04-13
+date: 2024-04-13
 categories: dev
 tags: ddd Sort Pageable PageRequest findFirstN() findFirst() findTop() @Subselect @Immutable @Synchronize
 ---

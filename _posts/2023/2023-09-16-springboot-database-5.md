@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 데이터 영속성(5): EntityManager"
-date:   2023-09-16
+date: 2023-09-16
 categories: dev
 tags: springboot msa database entity-manager persistence-context
 ---

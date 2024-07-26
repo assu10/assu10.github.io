@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Node.js - mongoDB, mongoose"
-date:   2021-12-30 10:00
+date: 2021-12-30 10:00
 categories: dev
 tags: nodejs mongoDB mongoose
 ---

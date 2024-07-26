@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - 데이터 모델링"
-date:   2022-08-29 10:00
+date: 2022-08-29 10:00
 categories: dev
 tags: redis data-modeling
 ---

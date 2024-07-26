@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "감자탕"
-date:   2021-01-23 10:00
+date: 2021-01-23 10:00
 categories: cooking
 tags: cooking 시레기감자탕 감자탕
 ---

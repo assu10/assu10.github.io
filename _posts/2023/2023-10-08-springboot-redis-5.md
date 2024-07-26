@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - Redis 와 스프링 캐시(5): Sorting"
-date:   2023-10-08
+date: 2023-10-08
 categories: dev
 tags: springboot msa redis zset redis-sorting z-set-operations
 ---

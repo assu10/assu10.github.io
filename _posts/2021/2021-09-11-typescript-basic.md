@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - 기본"
-date:   2021-09-11 10:00
+date: 2021-09-11 10:00
 categories: dev
 tags: typescript
 ---

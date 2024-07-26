@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NestJS - Logging"
-date:   2023-03-26
+date: 2023-03-26
 categories: dev
 tags: nestjs logging nest-winston
 ---

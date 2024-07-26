@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 데이터 영속성(2): 엔티티 클래스 설계"
-date:   2023-09-03
+date: 2023-09-03
 categories: dev
 tags: springboot msa database entity enumerated mapped-super-class generationtype
 ---

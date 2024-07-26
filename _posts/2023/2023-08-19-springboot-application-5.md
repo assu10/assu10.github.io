@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 웹 애플리케이션 구축 (5): 국제화 메시지 처리, 로그 설정, 애플리케이션 패키징과 실행"
-date:   2023-08-19
+date: 2023-08-19
 categories: dev
 tags: springboot msa i18n locale-resolver locale-change-interceptor logger logback logback-spring maven-packaging docker
 ---

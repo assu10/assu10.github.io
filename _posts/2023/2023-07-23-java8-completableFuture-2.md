@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - CompletableFuture (2): 비동기 연산의 파이프라인화"
-date:   2023-07-23
+date: 2023-07-23
 categories: dev
 tags: java java8 completable-future
 ---

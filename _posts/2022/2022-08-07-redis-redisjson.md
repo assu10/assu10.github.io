@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Redis - RedisJSON"
-date:   2022-08-07 10:00
+date: 2022-08-07 10:00
 categories: dev
 tags: redis rejson RedisJSON
 ---

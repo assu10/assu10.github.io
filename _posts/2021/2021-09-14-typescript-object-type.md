@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - 객체, 타입"
-date:   2021-09-14 10:00
+date: 2021-09-14 10:00
 categories: dev
 tags: typescript
 ---

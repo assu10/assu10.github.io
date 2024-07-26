@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - 웹 애플리케이션 구축 (2): HttpMessageConverter, ObjectMapper"
-date:   2023-08-06
+date: 2023-08-06
 categories: dev
 tags: springboot msa HttpMessageConverter ObjectMapper
 ---

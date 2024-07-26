@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kafka - 카프카 설치"
-date:   2023-10-22
+date: 2023-10-22
 categories: dev
 tags: kafka zookeeper kafka-brocker kafka-cluster
 ---

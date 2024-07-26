@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kotlin - 제네릭스 (타입 정보 보존, 제네릭 확장 함수, 타입 파라메터 제약, 타입 소거, 'reified', 타입 변성 애너테이션 ('in'/'out'), 공변과 무공변)"
-date:   2024-03-17
+date: 2024-03-17
 categories: dev
 tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClass
 ---

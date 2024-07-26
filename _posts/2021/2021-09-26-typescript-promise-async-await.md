@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript - Promise, async/await"
-date:   2021-09-26 10:00
+date: 2021-09-26 10:00
 categories: dev
 tags: typescript
 ---

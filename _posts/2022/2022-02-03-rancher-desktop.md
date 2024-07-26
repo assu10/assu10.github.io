@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Rancher Desktop (Docker Desktop 유료화 대응)"
-date:   2022-02-02 10:00
+date: 2022-02-02 10:00
 categories: dev
 tags: devops rancher-desktop
 ---

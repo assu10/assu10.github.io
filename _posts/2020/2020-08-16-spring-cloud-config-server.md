@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - Spring Cloud Config Server"
-date:   2020-08-16 10:00
+date: 2020-08-16 10:00
 categories: dev
 tags: msa spring-cloud-config-server spring-cloud-bus rabbitmq
 ---

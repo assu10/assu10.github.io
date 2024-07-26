@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NoSQL 개념"
-date:   2022-05-29 10:00
+date: 2022-05-29 10:00
 categories: dev
 tags: redis
 ---

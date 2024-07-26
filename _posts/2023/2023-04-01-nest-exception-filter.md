@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NestJS - Exception Filter"
-date:   2023-04-01
+date: 2023-04-01
 categories: dev
 tags: nestjs exception-filter
 ---

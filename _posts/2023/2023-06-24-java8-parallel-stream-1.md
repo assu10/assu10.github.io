@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - Stream 으로 병렬 데이터 처리 (1): 병렬 스트림, 포크/조인 프레임워크"
-date:   2023-06-24
+date: 2023-06-24
 categories: dev
 tags: java java8 stream parallel-stream fork-join-framework recursiveTask
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Cloud - Netflix Zuul(Ribbon) Retry"
-date:   2020-12-06 10:00
+date: 2020-12-06 10:00
 categories: dev
 tags: msa zuul hystrix-timeout ribbon-timeout
 ---

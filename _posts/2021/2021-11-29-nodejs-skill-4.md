@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Node.js - 기본 개념 (4): 이벤트, 예외처리"
-date:   2021-11-29 10:00
+date: 2021-11-29 10:00
 categories: dev
 tags: nodejs event exception
 ---

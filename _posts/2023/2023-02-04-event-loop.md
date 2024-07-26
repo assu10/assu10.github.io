@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Event Loop"
-date:   2023-02-04
+date: 2023-02-04
 categories: dev
 tags: nodejs javascript event-loop setImmediate() setTimeout() process.nextTick()
 ---

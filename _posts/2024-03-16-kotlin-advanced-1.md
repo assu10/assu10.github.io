@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kotlin - 확장 람다, StringBuilder, buildString(), 영역 함수, 'inline'"
-date:   2024-03-16
+date: 2024-03-16
 categories: dev
 tags: kotlin filterIndexed() toCharArray() stringBuilder buildString() buildList() buildMap() forEachIndexed() let() run() with() apply() also() removeSuffix() takeUnless() inline
 ---

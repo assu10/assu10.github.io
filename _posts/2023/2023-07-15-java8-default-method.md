@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java8 - 디폴트 메서드"
-date:   2023-07-15
+date: 2023-07-15
 categories: dev
 tags: java java8 default-method
 ---

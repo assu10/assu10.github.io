@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "TroubleShooting - Nestjs: Failed to execute command: npm install --silent"
-date:   2023-02-01
+date: 2023-02-01
 categories: dev
 tags: trouble_shooting
 ---

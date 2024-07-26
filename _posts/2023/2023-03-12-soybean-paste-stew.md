@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "된장찌개"
-date:   2023-03-12 10:00
+date: 2023-03-12 10:00
 categories: cooking
 tags: cooking 된장찌개
 ---

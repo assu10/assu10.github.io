@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spring Boot - Spring bean, Spring bean Container, 의존성"
-date:   2023-05-07
+date: 2023-05-07
 categories: dev
 tags: springboot msa spring-bean spring-bean-container application-context 
 ---
