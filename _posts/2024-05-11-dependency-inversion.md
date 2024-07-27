@@ -12,15 +12,15 @@ tags: clean dip dependency-inversion-principle srp hexagonal
 
 > **SOLID**
 > - **SRP (Single Responsibility Principle, 단일 책임 원칙)**
-    >   - 한 클래스는 하나의 책임만 가져야 함
+>   - 한 클래스는 하나의 책임만 가져야 함
 > - **OCP (Open/Closed Principle, 개방/폐쇄 원칙)**
-    >   - 소프트웨어 요소는 확장에는 열려있으나 변경에는 닫혀 있어야 함
+>   - 소프트웨어 요소는 확장에는 열려있으나 변경에는 닫혀 있어야 함
 > - **LSP (Liskov Substitution Principle, 리스코프 치환 원칙)**
-    >   - 프로그램의 객체는 프로그램의 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 함
+>   - 프로그램의 객체는 프로그램의 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 함
 > - **ISP (Interface Segregation Principle, 인터페이스 분리 원칙)**
-    >   - 특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 나음
+>   - 특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 나음
 > - **DIP (Dependency Inversion Principle)**
-    >   - 추상화에 의존해야지 구체화에 의존하면 안됨
+>   - 추상화에 의존해야지 구체화에 의존하면 안됨
 >   - 의존성 주입 (Dependency Injection) 은 위 원칙을 따르는 방법 중 하나임
 
 ---
@@ -29,7 +29,7 @@ tags: clean dip dependency-inversion-principle srp hexagonal
 
 <!-- TOC -->
 * [1. 단일 책임 원칙 (SRP, Single Responsibility Principle)](#1-단일-책임-원칙-srp-single-responsibility-principle)
-* [2. 의존성 역전 원칙 (DIP, Dependency Inversion Principal)](#2-의존성-역전-원칙-dip-dependency-inversion-principal)
+* [2. 의존성 역전 원칙 (DIP, Dependency Inversion Principle)](#2-의존성-역전-원칙-dip-dependency-inversion-principle)
 * [3. 클린 아키텍처](#3-클린-아키텍처)
 * [4. 육각형 아키텍처 (헥사고날 아키텍처, Hexagonal architecture)](#4-육각형-아키텍처-헥사고날-아키텍처-hexagonal-architecture)
 * [정리하며...](#정리하며)
@@ -60,14 +60,14 @@ tags: clean dip dependency-inversion-principle srp hexagonal
 
 ---
 
-# 2. 의존성 역전 원칙 (DIP, Dependency Inversion Principal)
+# 2. 의존성 역전 원칙 (DIP, Dependency Inversion Principle)
 
 계층형 아키텍처에서 계층 간 의존성은 항상 다음 계층인 아래 방향을 가리킨다.
 
 단일 책임 원칙을 적용하면 상위 계층들이 하위 계층들에 비해 변경할 이유가 더 많다는 것을 알 수 있다.  
 따라서 영속성 계층에 대한 도메인 계층의 의존성 때문에 영속성 계층을 변경할 때마다 도메인 계층도 변경해야 한다.
 
-영속성 코드 변경에 따른 도메인 코드 영향도를 줄이려면 의존성을 제거해야 하는데 그 답은 바로 의존성 역전 원칙 (Dependency Inversion Principal) 을 적용하는 것이다.
+영속성 코드 변경에 따른 도메인 코드 영향도를 줄이려면 의존성을 제거해야 하는데 그 답은 바로 의존성 역전 원칙 (Dependency Inversion Principle) 을 적용하는 것이다.
 
 의존성 역전 원칙의 의미는 아래와 같다.
 

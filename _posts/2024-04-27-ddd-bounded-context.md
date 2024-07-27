@@ -3,7 +3,7 @@ layout: post
 title:  "DDD - 바운디드 컨텍스트"
 date: 2024-04-27
 categories: dev
-tags: ddd bounded-context open-host-service anticorruption-layer shared-kernel separate-way context-map
+tags: ddd bounded-context open-host-service anti-corruption-layer shared-kernel separate-way context-map
 ---
 
 이 포스트에서는 아래 내용에 대해 알아본다.
@@ -26,7 +26,7 @@ tags: ddd bounded-context open-host-service anticorruption-layer shared-kernel s
   * [4.2. 간접 통합](#42-간접-통합)
   * [4.3. MSA 와 바운디드 컨텍스트](#43-msa-와-바운디드-컨텍스트)
 * [5. 바운디드 컨텍스트 간 관계](#5-바운디드-컨텍스트-간-관계)
-  * [5.1. 공개 호스트 서비스 (Open host service): Anticorruption Layer](#51-공개-호스트-서비스-open-host-service-anticorruption-layer)
+  * [5.1. 공개 호스트 서비스 (Open host service): Anti-corruption Layer](#51-공개-호스트-서비스-open-host-service-anti-corruption-layer)
   * [5.2. 공유 커널 (Shared kernel)](#52-공유-커널-shared-kernel)
   * [5.3. 독립 방식 (Separate way)](#53-독립-방식-separate-way)
 * [6. 컨텍스트 맵](#6-컨텍스트-맵)
@@ -376,7 +376,7 @@ MSA 마다 프로젝트를 생성하므로 바운디드 컨텍스트마다 프�
 
 ---
 
-## 5.1. 공개 호스트 서비스 (Open host service): Anticorruption Layer
+## 5.1. 공개 호스트 서비스 (Open host service): Anti-corruption Layer
 
 두 바운디드 컨텍스트 관계 중 가장 흔한 관계는 한 쪽에서 REST API 를 제공하고 다른 한 쪽에서 그 API 를 호출하는 방식이다.  
 이 때 API 를 사용하는 바운디드 컨텍스트는 API 를 제공하는 바운디드 컨텍스트에 의존하게 된다.
@@ -405,7 +405,7 @@ upstream 컴포넌트 서비스는 자신의 컨텍스트 도메인 모델을 �
 
 ![안티코럽션 계층 역할](/assets/img/dev/2024/0427/bounded_context_4.png)
 
-_RecommendationClient_ 는 외부 시스템의 모델이 자신의 도메인 모델을 침범하지 않도록 만들어주는 **안티코럽션 계층(Anticorruption Layer) 역할**을 한다.  
+_RecommendationClient_ 는 외부 시스템의 모델이 자신의 도메인 모델을 침범하지 않도록 만들어주는 **안티코럽션 계층(Anti-corruption Layer) 역할**을 한다.  
 안티코럽션 계층에서 두 바운디드 컨텍스트 간의 모델 변환을 처리해주므로 다른 바운디드 컨텍스트 모델에 영향을 받지 않고 본인의 도메인 모델을 유지할 수 있다.
 
 ---
