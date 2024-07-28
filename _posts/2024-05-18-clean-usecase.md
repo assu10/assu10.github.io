@@ -98,9 +98,11 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Value;
 
-// 계좌의 현재 스냅샷을 제공하는 엔티티
+// 계좌의 현재 스냅샷을 제공
+@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Account {
   private final AccountId id;
@@ -116,6 +118,13 @@ public class Account {
   // 아직 생성되지 않은 새로운 엔티티 생성
   public static Account withoutId(Money baselineBalance, ActivityWindow activityWindow) {
     return new Account(null, baselineBalance, activityWindow);
+  }
+
+  // ID 가 있는 Account 엔티티 생성
+  // 이미 저장된 엔티티를 재구성할 때 사용
+  public static Account withId(
+          AccountId accountId, Money baselineBalance, ActivityWindow activityWindow) {
+    return new Account(accountId, baselineBalance, activityWindow);
   }
 
   public Optional<AccountId> getId() {
@@ -136,13 +145,13 @@ public class Account {
     }
 
     Activity withdrawal =
-        new Activity(this.id, this.id, targetAccountId, LocalDateTime.now(), money);
+            new Activity(this.id, this.id, targetAccountId, LocalDateTime.now(), money);
     this.activityWindow.addActivity(withdrawal);
 
     return true;
   }
 
-  // 출금 가능 상태인지 확인
+  // 출금 가능 상태인지 확인 (비즈니스 규칙 검증)
   private boolean mayWithdraw(Money money) {
     return Money.add(this.calculateBalance(), money.negate()).isPositiveOrZero();
   }
@@ -162,6 +171,7 @@ public class Account {
     private Long value;
   }
 }
+
 ```
 
 계좌에서 일어나는 입출금은 각각 _withdraw()_, _deposit()_ 메서드처럼 새로운 _Activity_ 를 _ActivityWindow_ 에 출금하는 것에 불과하다.
