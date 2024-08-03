@@ -294,7 +294,22 @@ fun main() {
 ## 1.8. 클로저 (Closure)
 
 람다는 자신의 영역 밖에 있는 요소를 참조할 수 있다.  
-**함수가 자신이 속한 환경의 요소를 포획(capture) 하거나 닫아버리는(close up) 것을 클로저**라고 한다.
+**함수가 자신이 속한 환경의 요소를 포획(capture) 하거나 닫아버리는(close up) 것을 클로저**라고 한다.  
+(람다를 함수에 정의할 때 함수의 파라메터 뿐 아니라 람다 정의의 앞에 선언된 로컬 변수까지 람다에서 사용 가능)
+
+자바와 다른 점 중 하나는 코틀린 람다 안에서는 final 변수가 아닌 변수에도 접근 가능할 수 있고, 람다 안에서 바깥의 변수 변경도 된다.
+
+람다 안에서 사용하는 외부 변수를 _람다가 포획(capture) 한 변수_ 라고 한다.
+
+> 람다 실행 시 표현해야 하는 데이터 구조는 람다에서 시작하는 모든 참조가 포함된 닫힌 (closed) 객체 그래프를 람다 코드와 함께 저장해야 함  
+> 그런 데이터 구조를 클로저 (closure) 라고 함
+> 
+> 함수를 1급 시민으로 만들려면 포획한 변수를 제대로 처리해야 하고, 포획한 변수를 제대로 처리하려면 클로저가 꼭 필요함  
+> 그래서 람다를 클로저 라고 부르기도 함
+
+기본적으로 함수 안에 정의된 로컬 변수의 생명 주기는 함수가 반환되면 끝나지만 어떤 함수가 자신의 로컬 변수를 포획한 람다를 반환하거나 다른 변수에 저장하면 로컬 변수의 
+생명주기와 함수의 생명주기가 달라질 수 있다.  
+포획한 변수가 있는 람다를 저장하여 함수가 끝난 뒤에 실행해도 람다의 본문 코드는 여전히 포획한 변수를 읽거나 쓸 수 있다.
 
 클로저가 없는 람다가 있을 수도 있고, 람다가 없는 클로저가 있을 수도 있다.
 
@@ -325,7 +340,7 @@ fun main() {
 }
 ```
 
-위 코드는 람다가 가변 함수는 sum 을 capture 하여 변경했지만, 보통은 상태를 변경하지 않는 형태로 코드를 사용한다.
+위 코드는 람다가 가변 함수인 sum 을 capture 하여 변경했지만, 보통은 상태를 변경하지 않는 형태로 코드를 사용한다.
 
 ```kotlin
 fun main() {
@@ -360,6 +375,20 @@ fun main() {
     println(x)  // 101
 }
 ```
+
+람다를 이벤트 핸들러나 비동기적으로 실행되는 코드로 활용하는 경우엔 하수 호출이 끝난 다음에 로컬 변수가 변경될 수 있다.
+
+예를 들어 아래 코드는 버튼 클릭 횟수를 제대로 셀 수 없다.
+```kotlin
+fun tryToCountButtonClicks(button: Button): Int {
+    var clicks = 0
+    button.onClick = { clicks++ }
+    return clicks;
+}
+```
+
+onClick 핸들러는 호출될 때마다 _clicks_ 의 값을 증가시키지만 그 값의 변경을 관찰할 수 없으므로 위 함수는 항상 0을 반환한다.  
+위 함수를 제대로 구현하려면 클릭 횟수를 세는 변수를 함수 내부가 아니라 클래스의 프로퍼티나 전역 프로퍼티 등의 위치로 빼내서 나중에 변수의 변화를 살펴볼 수 있도록 해야한다.
 
 ---
 
@@ -704,7 +733,29 @@ fun main() {
 
 함수 인자로 멤버 참조 `::` 를 전달할 수 있다.
 
-멤버 함수나 프로퍼티 이름 앞에 그들이 속한 클래스 이름과 `::` 를 위치시켜서 멤버 참조를 만들 수 있다.  
+멤버 함수나 프로퍼티 이름 앞에 그들이 속한 클래스 이름과 `::` 를 위치시켜서 멤버 참조를 만들 수 있다.
+
+멤버 참조는 프로퍼티나 메서드를 단 하나만 호출하는 함수값을 만들어준다.
+
+```kotlin
+// 멤버 참조 예시
+val getAge = Person::age
+
+// 람다식 예시
+val getAge = { person: Person -> person.age }
+```
+
+멤버 참조는 그 멤버를 호출하는 람다와 같은 타입이므로 아래처럼 자유롭게 바꿔서 사용할 수 있다.    
+이런 것을 에타 변환이라고 한다.
+```kotlin
+people.maxBy { Person::age }
+people.maxBy { p -> p.age }
+people.maxBy { it.age }
+```
+
+> **에타 변환 (Eta conversion)**  
+> 
+> 함수 `f` 와 람다 `{ x -> f(x) }` 를 서로 바꿔서 사용하는 것을 의미함
 
 ---
 
@@ -817,10 +868,23 @@ fun main() {
 ```
 
 Message2 를 유일한 파라메터로 받는 최상위 수준 함수가 있다면 이 함수를 참조로 전달할 수 있다.  
+최상휘에 선언된 함수 뿐 아니라 프로퍼티도 참조 가능하다.  
 **최상위 수준 함수에 대한 참조를 만들 때는 클래스 이름이 없기 때문에 `::함수명`** 처럼 쓴다.
 
+최상위 함수를 참조하는 예시
 ```kotlin
-ata class Message3(
+fun hello() = println("hello~")
+
+fun main() {
+    // 최상위 함수 참조
+    run(::hello) // run() 은 인자로 받은 람다를 호출함
+  
+    // hello~
+}
+```
+
+```kotlin
+data class Message3(
     val sender: String,
     val text: String,
     val isRead: Boolean,
@@ -872,7 +936,30 @@ fun main() {
 
 ## 3.3. 생성자 참조: `mapIndexed()`
 
-클래스 명을 이용하여 생성자에 대한 참조를 만들수도 있다.
+클래스명을 이용하여 생성자에 대한 참조를 만들수도 있다.
+
+생성자 참조를 사용하면 클래스 생성 작업을 연기하거나 저장해둘 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+class Person(
+    private val name: String, // 읽기 전용 프로퍼티, 비공개 필드와 getter 생성
+    private var age: Int, // 쓰기 가능 프로퍼티, 비공개 필드와 공개 getter/setter 생성
+) {
+    override fun toString(): String = "Person(name='$name', age=$age)"
+}
+
+fun main() {
+    // Person 의 인스턴스를 만드는 동작을 값으로 저장
+    val createPersonInstance = ::Person
+
+    val p = createPersonInstance("ASSU", 20)
+
+    // Person(name='ASSU', age=20)
+    println(p)
+}
+```
 
 아래에서 _names.mapIndexed()_ 는 생성자 참조인 `::Student` 를 받는다.
 
@@ -887,7 +974,7 @@ data class Student(
 fun main() {
     val names = listOf("Assu", "Silby")
     
-    // mapIndexed() 에 인덱스와 원솔ㄹ 명시적으로 생성자에 넘김
+    // mapIndexed() 에 인덱스와 원소를 명시적으로 생성자에 넘김
     val students =
         names.mapIndexed { index, name -> Student(index, name) }
 
@@ -926,12 +1013,45 @@ fun goDog(
 
 fun main() {
     val result1 = goInt(11, Int::times12)
-    val result2 = goDog(Dog(), Dog::speak)
+    val result2 = goDog(Dog(), Dog::speak)  // 확장 함수도 멤버 함수와 동일한 방식으로 참조 가능
 
     println(result1) // 132 (11*12 이므로)
     println(result2) // Bow!
 }
 ```
+
+> **바운드 멤버 참조**  
+> 
+> 코틀린 1.0 에서는 클래스의 메서드나 프로퍼티에 대한 참조를 얻은 후 그 참조를 호출할 때 항상 인스턴스 객체를 제공해야 했음
+> 
+> 코틀린 1.1 부터는 바운드 멤버 참조를 지원하는데, 바운드 멤버 참조를 사용하게 되면 멤버 참조를 생성할 때 클래스 인스턴스를 함께 저장한 다음 나중에 그 인스턴스에 대해 
+> 멤버를 호출함  
+> 따라서 호출 시 수신 대상 객체를 별도로 지정해 줄 필요가 없음
+
+바운드 멤버 참조 예시
+```kotlin
+class Person2(
+val name: String, // 읽기 전용 프로퍼티, 비공개 필드와 getter 생성
+var age: Int, // 쓰기 가능 프로퍼티, 비공개 필드와 공개 getter/setter 생성
+) {
+override fun toString(): String = "Person(name='$name', age=$age)"
+}
+
+fun main() {
+val p = Person2("Assu", 30)
+
+    // 인자가 하나(인자로 받은 사람의 나이를 반환)임
+    val personAgeFunction = Person2::age
+
+    println(personAgeFunction(p)) // 30
+
+    // 코틀린 1.1 부터 사용 가능한 바운드 멤버 참조
+    // 인자가 없는(참조를 만들 때 p 가 가리키던 사람의 나이를 반환) 함수임
+    val boundMemberReferenceAgeFunction = p::age
+    println(boundMemberReferenceAgeFunction())  // 30
+}
+```
+
 
 ---
 
