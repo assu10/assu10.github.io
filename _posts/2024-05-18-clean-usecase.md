@@ -16,6 +16,10 @@ tags: clean usecase rich-domain-model anemic-domain-model
 
 > 소스는 [github](https://github.com/assu10/clean-architecture/tree/feature/chap04)  에 있습니다.
 
+![클린 아키텍처의 추상적인 모습](/assets/img/dev/2024/0511/clean.png)
+
+![육각형 아키텍처](/assets/img/dev/2024/0511/hexagonal.png)
+
 ---
 
 **목차**

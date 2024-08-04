@@ -11,6 +11,8 @@ tags: clean test bdd @WebMvcTest mockMvc @MockBean dataJpaTest @Import @Sql @Spr
 
 > 소스는 [github](https://github.com/assu10/clean-architecture/tree/feature/chap07)  에 있습니다.
 
+![클린 아키텍처의 추상적인 모습](/assets/img/dev/2024/0511/clean.png)
+
 ![육각형 아키텍처](/assets/img/dev/2024/0511/hexagonal.png)
 
 ---

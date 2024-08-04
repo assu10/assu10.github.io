@@ -1,0 +1,87 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
+  <diagram name="페이지-1" id="A4Tv24znKJ9u-5XmZ7HH">
+    <mxGraphModel dx="1114" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-22" value="도메인 계층" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=none;opacity=80;fontStyle=1;verticalAlign=bottom;" parent="1" vertex="1">
+          <mxGeometry x="200" y="180" width="490" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-21" value="영속성 계층" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;opacity=80;fontStyle=1;fontSize=13;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="710" y="40" width="150" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-19" value="애플리케이션 계층" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=none;opacity=80;fontStyle=1;verticalAlign=top;fontSize=13;" parent="1" vertex="1">
+          <mxGeometry x="200" y="40" width="490" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-18" value="웹 계층" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;opacity=80;verticalAlign=top;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+          <mxGeometry x="30" y="40" width="150" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" parent="1" source="Wwk8DZAu3rqDoizdw7AV-2" target="Wwk8DZAu3rqDoizdw7AV-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="615" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-2" value="&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;div&gt;UpdateAccountState&lt;/div&gt;&lt;div&gt;Port&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="550" y="80" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-3" value="Account" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="380" y="200" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="Wwk8DZAu3rqDoizdw7AV-4" target="Wwk8DZAu3rqDoizdw7AV-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-4" value="AccountPersistence&lt;div&gt;Adapter&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="720" y="80" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="Wwk8DZAu3rqDoizdw7AV-5" target="Wwk8DZAu3rqDoizdw7AV-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="Wwk8DZAu3rqDoizdw7AV-5" target="Wwk8DZAu3rqDoizdw7AV-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="Wwk8DZAu3rqDoizdw7AV-5" target="Wwk8DZAu3rqDoizdw7AV-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-5" value="SendMoney&lt;div&gt;Service&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="380" y="80" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="Wwk8DZAu3rqDoizdw7AV-6" target="Wwk8DZAu3rqDoizdw7AV-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-6" value="Account&lt;div&gt;Controller&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="80" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" parent="1" source="Wwk8DZAu3rqDoizdw7AV-7" target="Wwk8DZAu3rqDoizdw7AV-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-7" value="&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;div&gt;SendMoney&lt;/div&gt;&lt;div&gt;UseCase&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="210" y="80" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-15" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="190" y="300" as="sourcePoint" />
+            <mxPoint x="190" y="40" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-16" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="701" y="300" as="sourcePoint" />
+            <mxPoint x="701" y="40" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wwk8DZAu3rqDoizdw7AV-17" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="190" y="170" as="sourcePoint" />
+            <mxPoint x="700" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
