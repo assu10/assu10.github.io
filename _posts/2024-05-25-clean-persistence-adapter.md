@@ -67,11 +67,14 @@ dependencies {
   testImplementation('org.springframework.boot:spring-boot-starter-test') {
     exclude group: 'junit' // excluding junit 4
   }
-  testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
-  testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
+
+//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
+//    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
+//    implementation 'com.tngtech.archunit:archunit:1.3.0'
+//    testImplementation 'org.junit.platform:junit-platform-launcher:1.10.3'
 }
 
-tasks.named('test') {
+test {
   useJUnitPlatform()
 }
 ```
@@ -234,10 +237,12 @@ public class Account {
   private final AccountId id;
 
   // 계좌의 현재 잔고를 계산하기 한 ActivityWindow 의 첫 번째 활동 바로 전의 잔고
+  // 과거 특정 시점의 계좌 잔고
   private final Money baselineBalance;
 
   // 한 계좌에 대한 모든 활동(activity) 들을 항상 메모리에 한꺼번에 올리지 않고,
   // Account 엔티티는 ActivityWindow 값 객체(VO) 에서 포착한 지난 며칠 혹은 특정 범위에 해당하는 활동만 보유
+  // 과거 특정 시점 이후의 입출금 내역 (activity)
   private final ActivityWindow activityWindow;
 
   // ID 가 없는 Account 엔티티 생성
@@ -431,7 +436,7 @@ public class AccountPersistenceAdapter implements LoadAccountPort, UpdateAccount
   private final ActivityRepository activityRepository;
   private final AccountMapper accountMapper;
 
-  // Account 도메인 엔티티 반환
+  // Account 도메인 엔티티를 DB 로부터 가져와서 반환
   @Override
   public Account loadAccount(Account.AccountId accountId, LocalDateTime baselineDate) {
     // 계좌 정보 조회
@@ -459,6 +464,7 @@ public class AccountPersistenceAdapter implements LoadAccountPort, UpdateAccount
   }
 
   // 계좌 상태 업데이트
+  // 새로운 계좌 활동을 DB 에 저장
   @Override
   public void updateActivities(Account account) {
     // Account 엔티티의 모든 활동을 순회하여 id 가 있는지 확인 후 없다면 새로운 활동 저장

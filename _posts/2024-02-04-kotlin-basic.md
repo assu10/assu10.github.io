@@ -927,3 +927,4 @@ java 를 kotlin 으로 변환하고 싶을 때는 java 코드를 복사하여 ko
 * [Gradle-Kotlin](https://gradle.org/kotlin/)
 * [코틀린 빌드 스크립트 공홈](https://kotlinlang.org/docs/get-started-with-jvm-gradle-project.html#specify-a-gradle-version-for-your-project)
 * [코틀린 다중 플랫폼 지원 Gradle 스크립트 공홈](https://kotlinlang.org/docs/multiplatform-get-started.html)
+* [우당탕탕 Kotlin 전환기](https://dealicious-inc.github.io/2022/08/29/kotlin-converting.html)

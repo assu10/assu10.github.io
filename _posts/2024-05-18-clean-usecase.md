@@ -77,11 +77,14 @@ dependencies {
   testImplementation('org.springframework.boot:spring-boot-starter-test') {
     exclude group: 'junit' // excluding junit 4
   }
-  testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
-  testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
+
+//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
+//    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
+//    implementation 'com.tngtech.archunit:archunit:1.3.0'
+//    testImplementation 'org.junit.platform:junit-platform-launcher:1.10.3'
 }
 
-tasks.named('test') {
+test {
   useJUnitPlatform()
 }
 ```
@@ -108,10 +111,12 @@ public class Account {
   private final AccountId id;
 
   // 계좌의 현재 잔고를 계산하기 한 ActivityWindow 의 첫 번째 활동 바로 전의 잔고
+  // 과거 특정 시점의 계좌 잔고
   private final Money baselineBalance;
 
   // 한 계좌에 대한 모든 활동(activity) 들을 항상 메모리에 한꺼번에 올리지 않고,
   // Account 엔티티는 ActivityWindow 값 객체(VO) 에서 포착한 지난 며칠 혹은 특정 범위에 해당하는 활동만 보유
+  // 과거 특정 시점 이후의 입출금 내역 (activity)
   private final ActivityWindow activityWindow;
 
   // ID 가 없는 Account 엔티티 생성
@@ -375,17 +380,21 @@ public class Activity {
 
 SendMoneyService.java (서비스)
 ```java
-package com.assu.study.clean_me.account.application.service;
+package com.assu.study.cleanme.account.application.service;
 
-import com.assu.study.clean_me.account.application.port.in.SendMoneyCommand;
-import com.assu.study.clean_me.account.application.port.in.SendMoneyUseCase;
-import com.assu.study.clean_me.account.application.port.out.AccountLock;
-import com.assu.study.clean_me.account.application.port.out.LoadAccountPort;
-import com.assu.study.clean_me.account.application.port.out.UpdateAccountStatePort;
+import com.assu.study.cleanme.account.application.port.in.SendMoneyCommand;
+import com.assu.study.cleanme.account.application.port.in.SendMoneyUseCase;
+import com.assu.study.cleanme.account.application.port.out.AccountLock;
+import com.assu.study.cleanme.account.application.port.out.LoadAccountPort;
+import com.assu.study.cleanme.account.application.port.out.UpdateAccountStatePort;
+import com.assu.study.cleanme.account.domain.Account;
+import com.assu.study.cleanme.common.UseCase;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 // 인커밍 포트 인터페이스인 SendMoneyUseCase 구현
+@UseCase
 @RequiredArgsConstructor
 @Transactional
 public class SendMoneyService implements SendMoneyUseCase {
@@ -398,15 +407,71 @@ public class SendMoneyService implements SendMoneyUseCase {
   // 계좌 상태를 업데이트하기 위한 아웃고잉 인터페이스
   private final UpdateAccountStatePort updateAccountStatePort;
 
+  private final MoneyTransferProperties moneyTransferProperties;
+
+  // 1. 비즈니스 규칙 검증
+  // 2. 모델 상태 조작
+  // 3. 출력값 반환
   @Override
   public boolean sendMoney(SendMoneyCommand command) {
-    // TODO: 비즈니스 규칙 검증
+    // 1. 비즈니스 규칙 검증
 
-    // TODO: 모델 상태 조작
+    // 이체 가능한 최대 한도를 넘는지 검사
+    checkThreshold(command);
 
-    // TODO: 출력값 반환
+    // 오늘로부터 -10 일
+    LocalDateTime baselineDate = LocalDateTime.now().minusDays(10);
 
-    return false;
+    // 최근 10일 이내의 거래내역이 있는 계좌 정보 확인
+    Account sourceAccount = loadAccountPort.loadAccount(command.getSourceAccountId(), baselineDate);
+    Account targetAccount = loadAccountPort.loadAccount(command.getTargetAccountId(), baselineDate);
+
+    // 입출금 계좌 아이디가 존재하는지 확인
+    Account.AccountId sourceAccountId =
+            sourceAccount
+                    .getId()
+                    .orElseThrow(() -> new IllegalStateException("source accountId not to be empty"));
+
+    Account.AccountId targetAccountId =
+            targetAccount
+                    .getId()
+                    .orElseThrow(() -> new IllegalStateException("target accountId not to be empty"));
+
+    // 출금 계좌의 잔고가 다른 트랜잭션에 의해 변경되지 않도록 lock 을 검
+    accountLock.lockAccount(sourceAccountId);
+
+    // 출금 계좌에서 출금을 한 후 lock 해제
+    if (!sourceAccount.withdraw(command.getMoney(), targetAccountId)) {
+      accountLock.releaseAccount(sourceAccountId);
+      return false;
+    }
+
+    // 출금 후 입금 계좌에 lock 을 건 후 입금 처리
+    accountLock.lockAccount(targetAccountId);
+    if (!targetAccount.deposit(command.getMoney(), sourceAccountId)) {
+      accountLock.releaseAccount(sourceAccountId);
+      accountLock.releaseAccount(targetAccountId);
+      return false;
+    }
+
+    // 2. 모델 상태 조작
+    updateAccountStatePort.updateActivities(sourceAccount);
+    updateAccountStatePort.updateActivities(targetAccount);
+
+    accountLock.releaseAccount(sourceAccountId);
+    accountLock.releaseAccount(targetAccountId);
+
+    // 3. 출력값 반환
+    return true;
+  }
+
+  private void checkThreshold(SendMoneyCommand command) {
+    if (command
+            .getMoney()
+            .isGreaterThenOrEqualTo(moneyTransferProperties.getMaximumTransferThreshold())) {
+      throw new ThresholdExceededException(
+              moneyTransferProperties.getMaximumTransferThreshold(), command.getMoney());
+    }
   }
 }
 ```
@@ -457,6 +522,66 @@ import com.assu.study.clean_me.account.domain.Account;
 // 계좌 상태를 업데이트하는 아웃고잉 포트 인터페이스
 public interface UpdateAccountStatePort {
   void updateActivities(Account account);
+}
+```
+
+MoneyTransferProperties.java
+```java
+
+```
+
+> **`@Data` 애너테이션**  
+> 
+> `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`, `@RequiredArgsConstructor`
+
+ThresholdExceededException.java
+```java
+package com.assu.study.cleanme.account.application.service;
+
+import com.assu.study.cleanme.account.domain.Money;
+
+public class ThresholdExceededException extends RuntimeException {
+  public ThresholdExceededException(Money threshold, Money actual) {
+    super(
+        String.format(
+            "Maximum threshold for transferring money exceeded: tried to transfer %s but threshold is %s!",
+            actual, threshold));
+  }
+}
+```
+
+CleanMeConfiguration.java
+```java
+package com.assu.study.cleanme;
+
+import com.assu.study.cleanme.account.application.service.MoneyTransferProperties;
+import com.assu.study.cleanme.account.domain.Money;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@EnableConfigurationProperties(CleanMeConfigurationProperties.class)
+public class CleanMeConfiguration {
+  @Bean
+  public MoneyTransferProperties moneyTransferProperties(
+      CleanMeConfigurationProperties properties) {
+    return new MoneyTransferProperties(Money.of(properties.getTransferThreshold()));
+  }
+}
+```
+
+CleanMeConfigurationProperties.java
+```java
+package com.assu.study.cleanme;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@Data
+@ConfigurationProperties(prefix = "cleanme")
+public class CleanMeConfigurationProperties {
+  private long transferThreshold = Long.MAX_VALUE;
 }
 ```
 

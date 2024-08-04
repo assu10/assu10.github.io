@@ -21,7 +21,7 @@ tags: springboot msa Junit spring-boot-test test-configuration mock-bean web-mvc
 * [3. `@SpringBootTest` 를 이용하여 스프링 부트 테스트](#3-springboottest-를-이용하여-스프링-부트-테스트)
 * [4. `@TestConfiguration` 을 이용하여 테스트 환경 설정](#4-testconfiguration-을-이용하여-테스트-환경-설정)
 * [5. `@MockBean` 을 이용하여 테스트 환경 설정](#5-mockbean-을-이용하여-테스트-환경-설정)
-* [6. 테스트 슬라이스 애너테이션](#6-테스트-슬라이스-애너테이션)
+* [6. 테스트 슬라이스 애너테이션: `@WebMvcTest`, `@DataJpaTest`, `@JsonTest`, `@RestClientTest`, `@DataMongoTest`](#6-테스트-슬라이스-애너테이션-webmvctest-datajpatest-jsontest-restclienttest-datamongotest)
 * [7. 스프링 부트 웹 MVC 테스트: `@WebMvcTest`](#7-스프링-부트-웹-mvc-테스트-webmvctest)
 * [8. JPA 테스트: `@DataJpaTest`](#8-jpa-테스트-datajpatest)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -320,15 +320,18 @@ public class MiscTest {
 19:09:41.306 [main] INFO MiscTest -- AfterAll: after all tests in the current test class.
 ```
 
-일반적으로 테스트 메서드는 **Given-When-Then 패턴**을 사용하여 세 파트로 나누어 개발한다.  
+일반적으로 테스트 메서드는 TDD 혹은 BDD (Behavior-Driven Development, 행동 주도 개발) 스타일에서 일반적으로 사용되는  **Given-When-Then 패턴**을 사용하여 세 파트로 나누어 개발한다.  
 - **Given**
-  - 테스트 케이스를 준비하는 과정 (=어떤 상황이 주어졌을 때)
+  - 테스트 케이스를 준비하는 과정
+  - 해당 test case 가 동작하기 위해 갖춰져야 하는 선행 조건 (=어떤 상황이 주어졌을 때)
   - 예) HashSet 객체를 초기화하고, add() 메서드의 인자로 사용할 value 객체 초기화
 - **When**
-  - 테스트 실행 (= 대상 코드가 동작한다면)
+  - 테스트 실행
+  - 테스트하고자 하는 대상 코드 실행 (= 대상 코드가 동작한다면)
   - 예) 같은 인자값 value 를 add() 메서드에 넣어서 여러 번 호출
 - **Then**
-  - 테스트를 검증 (= 기대한 값과 수행 결과가 맞는지)
+  - 테스트를 검증
+  - 대상 코드의 수행 결과 판단 (= 기대한 값과 수행 결과가 맞는지)
 
 > 테스트 개념에 대해선 [NestJS - 테스트 자동화](https://assu10.github.io/dev/2023/04/30/nest-test/#3-jest-unit-test) 의 _3. Jest Unit Test_ 를 참고하시면 도움이 됩니다.
 
@@ -1112,7 +1115,7 @@ void testWillAnswer() {
 
 ---
 
-# 6. 테스트 슬라이스 애너테이션
+# 6. 테스트 슬라이스 애너테이션: `@WebMvcTest`, `@DataJpaTest`, `@JsonTest`, `@RestClientTest`, `@DataMongoTest`
 
 `@SpringBootTest` 애너테이션으로 테스트 실행 시 ApplicationContext 를 이용하여 스프링 빈을 스캔하고 의존성을 주입하는데, 애플리케이션의 기능이 많다면 
 스캔해야 할 대상이 많아지고 그만큼 많은 객체를 생성해야 하기 때문에 테스트 시간이 오래 걸린다. (= 배포 시간이 길어짐)
@@ -1194,11 +1197,11 @@ public class HotelController {
 
 ---
 
-`spring-test` 모듈은 WebMVC 를 테스트할 수 있는 o.s.test.web.servlet.MockMvc 클래스를 제공한다.  
-이 Mock 객체는 HTTP 클라이언트처럼 서버의 API 에 요청을 하고, 그 응답을 받아올 수 있는 기능을 제공한다.  
-즉, 실제로 HTTP 프로토콜을 사용하여 서버의 API 를 호출하지 않고, 요청을 전송하고 응답을 받아올 수 있는 기능을 Mock 객체로 제공한다.
+`spring-test` 모듈은 WebMVC 를 테스트할 수 있는 `o.s.test.web.servlet.MockMvc` 클래스를 제공한다.  
+이 Mock 객체는 **HTTP 클라이언트처럼 서버의 API 에 요청을 하고, 그 응답을 받아올 수 있는 기능**을 제공한다.  
+즉, **실제로 HTTP 프로토콜을 사용하여 서버의 API 를 호출하지 않고, 요청을 전송하고 응답을 받아올 수 있는 기능을 Mock 객체로 제공**한다.
 
-MockMvc 를 사용하여 테스트 케이스를 작성할 때 주로 아래 클래스들을 함께 사용한다.
+`MockMvc` 를 사용하여 테스트 케이스를 작성할 때 주로 아래 클래스들을 함께 사용한다.
 - `MockMvcRequestBuilders`
   - MockMvc 를 사용하여 HTTP 요청을 전달할 때 HTTP 요청을 Mock 객체로 만들 수 있는 기능 제공
   - 따라서 요청 메시지의 HTTP 헤더나 파라메터, HTTP body 를 설정할 수 있는 메서드 제공
@@ -1319,7 +1322,7 @@ public class JsonUtil {
 HotelController 와 HotelDisplayService 모두 스프링 빈으로 로딩되고, HotelDisplayService 가 HotelController 에 주입된다.  
 (`@WevMvcTest` 와 다른 동작 방식임)
 
-그래서 MockMvc 를 사용하여 REST-API 테스트 시 HotelDisplayService 의 실케 코드가 동작한다.
+그래서 MockMvc 를 사용하여 REST-API 테스트 시 HotelDisplayService 의 실제 코드가 동작한다.
 
 ---
 
