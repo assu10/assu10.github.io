@@ -138,7 +138,7 @@ test {
 도메인과 애플리케이션 계층은 웹이나 영속성 계층과 관련된 요구사항에 관심이 없음에도 불구하고 _Account_ 도메인 모델 클래스는 이런 모든 요구사항들을 다루어야 한다.  
 이는 **_Account_ 클래스는 웹, 애플리케이션, 영속성 계층과 관련된 이유로 인해 변경되어야 하기 때문에 단일 책임 원칙을 위반**한다.
 
-> 단일 책임 원칙에 대한 내용은 [1. 단일 책임 원칙 (SRP, Single Responsibility Principle)](https://assu10.github.io/dev/2024/05/11/dependency-inversion/#1-%EB%8B%A8%EC%9D%BC-%EC%B1%85%EC%9E%84-%EC%9B%90%EC%B9%99-srp-single-responsibility-principle) 을 참고하세요.
+> 단일 책임 원칙에 대한 내용은 [1. 단일 책임 원칙 (SRP, Single Responsibility Principle)](https://assu10.github.io/dev/2024/05/11/clean-dependency-inversion/#1-%EB%8B%A8%EC%9D%BC-%EC%B1%85%EC%9E%84-%EC%9B%90%EC%B9%99-srp-single-responsibility-principle) 을 참고하세요.
 
 그렇다면 매핑하지 않기 전략을 절대로 사용하면 안되는 것일까? 하면 또 그런 아니다.
 
@@ -387,5 +387,5 @@ _SendMoneyUseCase_ 가 업데이트된 잔고를 가진 채로 _Account_ 객체�
 *본 포스트는 톰 홈버그 저자의 **만들면서 배우는 클린 아키텍처**을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [만들면서 배우는 클린 아키텍처](https://wikibook.co.kr/clean-architecture/)
-* [책 예제 git](https://github.com/wikibook/clean-architecture
+* [책 예제 git](https://github.com/wikibook/clean-architecture)
 * [은총알은 없다. (No Silver Bullet)](https://johngrib.github.io/wiki/No-Silver-Bullet/)

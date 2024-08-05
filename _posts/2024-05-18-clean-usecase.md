@@ -401,7 +401,7 @@ import org.springframework.transaction.annotation.Transactional;
 @UseCase
 @RequiredArgsConstructor
 @Transactional
-public class SendMoneyService implements SendMoneyUseCase {
+class SendMoneyService implements SendMoneyUseCase {
 
   // 계좌를 조회하기 위한 아웃고잉 인터페이스
   private final LoadAccountPort loadAccountPort;
@@ -544,7 +544,7 @@ package com.assu.study.cleanme.account.application.service;
 
 import com.assu.study.cleanme.account.domain.Money;
 
-public class ThresholdExceededException extends RuntimeException {
+class ThresholdExceededException extends RuntimeException {
   public ThresholdExceededException(Money threshold, Money actual) {
     super(
         String.format(
@@ -749,7 +749,7 @@ SendMoneyCommandBuiler
 
 물론 들어오는 데이터를 각 유스케이스에 해당하는 입력 모델에 매핑해야 한다.
 
-> 매핑 전략에 대해서는 추후 상세히 다룰 예정입니다. (p. 45)
+> 매핑 전략에 대해서는 [Clean Architecture - 경계 간 매핑 전략](https://assu10.github.io/dev/2024/06/01/clean-layer-mapping/) 을 참고하세요.
 
 ---
 
@@ -937,7 +937,7 @@ import lombok.RequiredArgsConstructor;
 
 // 조회를 위한 서비스
 @RequiredArgsConstructor
-public class GetAccountBalanceService implements GetAccountBalanceQuery {
+class GetAccountBalanceService implements GetAccountBalanceQuery {
   // DB 로부터 데이터 로드를 위해 호출하는 아웃고잉 포트
   private final LoadAccountPort loadAccountPort;
 

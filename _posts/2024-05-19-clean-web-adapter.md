@@ -290,7 +290,7 @@ import org.springframework.transaction.annotation.Transactional;
 @UseCase
 @RequiredArgsConstructor
 @Transactional
-public class SendMoneyService implements SendMoneyUseCase {
+class SendMoneyService implements SendMoneyUseCase {
 
   // 계좌를 조회하기 위한 아웃고잉 인터페이스
   private final LoadAccountPort loadAccountPort;

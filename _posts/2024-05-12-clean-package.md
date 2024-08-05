@@ -94,7 +94,7 @@ tags: clean
 
 **패키지 경계를 `package-private` 접근 수준과 결합하면 각 기능 사이의 불필요한 의존성을 제거**할 수 있다.
 
-> **자바의 접근 수준**  
+> **자바의 접근 제한자**  
 > 
 > - `public`
 >   - 다른 패키지에서 모두 접근 가능
@@ -235,7 +235,7 @@ account 와 같은 상위 레벨 패키지는 다른 바운디드 컨텍스트�
 _AccountController_ 는 _SendMoneyUseCase_ 인터페이스를 필요로 하기 때문에 의존성 주입을 통해 _SendMoneyService_ 클래스의 인스턴스를 주입하고, 
 _SendMoneyService_ 는 _LoadAccountPort_ 인터페이스로 가장한 _AccountPersistenceAdapter_ 클래스의 인스턴스를 주입한다.
 
-> 스프링 프레임워크를 통해 애플리케이션을 초기화하는 방법에 대해서는 추후 상세히 다룰 예정입니다. (p. 31)
+> 스프링 프레임워크를 통해 애플리케이션을 초기화하는 방법에 대해서는 [Clean Architecture - 설정 컴포넌트](https://assu10.github.io/dev/2024/06/02/clean-application-composition/) 를 참고하세요.
 
 ---
 

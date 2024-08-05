@@ -126,7 +126,7 @@ test {
   - DB 를 쿼리하거나 변경할 때 사용 가능한 포맷으로 입력 모델을 매핑
   - 자바는 보통 JPA 를 사용하기 때문에 입력 모델을 DB 테이블 구조를 반영한 JPA 엔티티 객체로 매핑함
   - > 입력 모델을 JPA 엔티티로 매핑하는 것이 들이는 노력에 비해 득이 없는 일이 될 수도 있어서 매핑하지 않는 전략을 사용하기 함  
-이 부분에 대해서는 추후 상세히 다룰 예정입니다. (p. 65)
+이 부분에 대해서는 [Clean Architecture - 경계 간 매핑 전략](http://localhost:4000/dev/2024/06/01/clean-layer-mapping/) 을 참고하세요.
 - **입력을 DB 로 보냄**
   - DB 에 쿼리를 날리고 쿼리 결과를 받아옴
 - **DB 출력을 애플리케이션 포맷으로 매핑**
@@ -158,7 +158,7 @@ DB 연산을 정의하고 있는 포트 인터페이스를 나누는 것에 대�
 인터페이스 분리 원칙 (ISP, Interface Segregation Principle) 은 클라이언트가 오로지 자신이 필요로 하는 메서드만 알면 되도록 
 넓은 인터페이스 대신 특화된 인터페이스를 가져야한다고 한다.
 
-> SOLID 에 대한 설명은 [Clean Architecture - 의존성 역전 (Dependency Inversion Principle)](https://assu10.github.io/dev/2024/05/11/dependency-inversion/) 을 참고하세요.
+> SOLID 에 대한 설명은 [Clean Architecture - 의존성 역전 (Dependency Inversion Principle)](https://assu10.github.io/dev/2024/05/11/clean-dependency-inversion/) 을 참고하세요.
 
 ISP 원칙을 아웃고잉 포트에 적용하면 아래와 같다.
 
@@ -434,7 +434,7 @@ import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class AccountPersistenceAdapter implements LoadAccountPort, UpdateAccountStatePort {
+class AccountPersistenceAdapter implements LoadAccountPort, UpdateAccountStatePort {
 
   private final AccountRepository accountRepository;
   private final ActivityRepository activityRepository;
@@ -548,7 +548,7 @@ class AccountMapper {
 
 이것은 '매핑하지 않기' 전략이라고도 하는데 이 '매핑하지 않기' 전략도 유효한 전략일 수 있다.
 
-> '매핑하지 않기' 전략은 추후 상세히 다룰 예정입니다. (p. 77) 
+> '매핑하지 않기' 전략은 [Clean Architecture - 경계 간 매핑 전략](http://localhost:4000/dev/2024/06/01/clean-layer-mapping/) 을 참고하세요.
 
 하지만 **'매핑하지 않기' 전략은 JPA 로 인해 도메인 모델을 타협할 수밖에 없다.**
 
@@ -582,7 +582,7 @@ import org.springframework.transaction.annotation.Transactional;
 @UseCase
 @RequiredArgsConstructor
 @Transactional
-public class SendMoneyService implements SendMoneyUseCase {
+class SendMoneyService implements SendMoneyUseCase {
 
     // ...
 }

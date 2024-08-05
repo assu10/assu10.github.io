@@ -136,7 +136,7 @@ tags: clean dip dependency-inversion-principle srp hexagonal
 위의 현상은 바람직한 일이다.  
 이를 통해 **도메인 코드를 프레임워크에 특화된 문제로부터 해방시키고 결합도 제거**할 수 있다.
 
-> 도메인 계층과 영속성 계층의 결합을 그대로 수용하는 '매핑하지 않기' 전략을 비롯한 여러 매핑 전략에 대해서는 추후 상세히 다룰 예정입니다. (p. 19)
+> 도메인 계층과 영속성 계층의 결합을 그대로 수용하는 '매핑하지 않기' 전략을 비롯한 여러 매핑 전략에 대해서는 [Clean Architecture - 경계 간 매핑 전략](https://assu10.github.io/dev/2024/06/01/clean-layer-mapping/) 을 참고하세요.
 
 ---
 
