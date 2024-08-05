@@ -575,6 +575,8 @@ public class CleanMeConfiguration {
 }
 ```
 
+> 위의 `@Configuration` 을 사용하여 설정 클래스를 만드는 방법에 대한 설명은 [3. 스프링 부트 프레임워크의 `자바 컨피그`로 설정 컴포넌트 구현: `@Configuration`](https://assu10.github.io/dev/2024/06/02/clean-application-composition/#3-스프링-부트-프레임워크의-자바-컨피그로-설정-컴포넌트-구현-configuration-enablejparepositories) 을 참고하세요.
+
 CleanMeConfigurationProperties.java
 ```java
 package com.assu.study.cleanme;

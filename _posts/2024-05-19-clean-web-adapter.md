@@ -369,61 +369,7 @@ public class SendMoneyService implements SendMoneyUseCase {
 }
 ```
 
-WebAdapter.java
-```java
-package com.assu.study.clean_me.common;
-
-import java.lang.annotation.*;
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.stereotype.Component;
-
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Component
-public @interface WebAdapter {
-  @AliasFor(annotation = Component.class)
-  String value() default "";
-}
-```
-
-UseCase.java
-```java
-package com.assu.study.clean_me.common;
-
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.stereotype.Component;
-
-import java.lang.annotation.*;
-
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Component
-public @interface UseCase {
-  @AliasFor(annotation = Component.class)
-  String value() default "";
-}
-```
-
-PersistenceAdapter.java
-```java
-package com.assu.study.clean_me.common;
-
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.stereotype.Component;
-
-import java.lang.annotation.*;
-
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Component
-public @interface PersistenceAdapter {
-  @AliasFor(annotation = Component.class)
-  String value() default "";
-}
-```
+> `@WebAdapter`, `@UseCase`, `@PersistenceAdapter` 의 상세 구현은 [2. 스프링 프레임워크의 `클래스패스 스캐닝`으로 설정 컴포넌트 구현: `@Component`](https://assu10.github.io/dev/2024/06/02/clean-application-composition/#2-%EC%8A%A4%ED%94%84%EB%A7%81-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC%EC%9D%98-%ED%81%B4%EB%9E%98%EC%8A%A4%ED%8C%A8%EC%8A%A4-%EC%8A%A4%EC%BA%90%EB%8B%9D%EC%9C%BC%EB%A1%9C-%EC%84%A4%EC%A0%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B5%AC%ED%98%84-component) 을 참고하세요.
 
 ---
 
