@@ -547,7 +547,7 @@ getter 와 setter 에 적용할 수 있으며, 하나의 데커레이터를 gett
 데커레이터에 인자로 들어오는 PropertyDescriptors 는 getter, setter 둘 다 포함하고 있지만 각각의 접근자에 대한 PropertyDescriptors 는 없기 때문이라고 한다.  
 따라서 코드 순서상 먼저 오는 접근자에 한해서만 적용된다.
 
-아래는 특정 멤버가 열거가 가능한지 결정하는 데커레이터 예이다.
+아래는 특정 멤버가 열거가 가능한지 결정하는 데커레이터 예시이다.
 ```ts
 // 데커레이터 팩토리
 function Enumerable(value: boolean) {

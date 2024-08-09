@@ -37,52 +37,48 @@ tags: clean archunit build-artifact
 build.gradle
 ```groovy
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.3.2'
-    id 'io.spring.dependency-management' version '1.1.6'
+  id 'java'
+  id 'org.springframework.boot' version '3.3.2'
+  id 'io.spring.dependency-management' version '1.1.6'
 }
 
 group = 'com.assu.study'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
 }
 
 compileJava {
-    sourceCompatibility = 17
-    targetCompatibility = 17
+  sourceCompatibility = 17
+  targetCompatibility = 17
 }
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+  compileOnly 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
 
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'com.mysql:mysql-connector-j:9.0.0'
+  implementation('org.springframework.boot:spring-boot-starter-web')
+  implementation 'org.springframework.boot:spring-boot-starter-validation'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'com.mysql:mysql-connector-j:9.0.0'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'junit' // excluding junit 4
-    }
-    implementation 'com.tngtech.archunit:archunit:1.3.0'
+  testImplementation('org.springframework.boot:spring-boot-starter-test') {
+    exclude group: 'junit' // excluding junit 4
+  }
+  implementation 'com.tngtech.archunit:archunit:1.3.0'
 
-    //testImplementation 'com.h2database:h2:2.3.230'
-
-//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
-//    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
-//    testImplementation 'org.junit.platform:junit-platform-launcher:1.10.3'
+  //testImplementation 'com.h2database:h2:2.3.230'
 }
 
 test {
-    useJUnitPlatform()
+  useJUnitPlatform()
 }
 ```
 

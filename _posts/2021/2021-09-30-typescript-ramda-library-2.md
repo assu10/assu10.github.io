@@ -1080,7 +1080,7 @@ R.pipe(
 )(array);
 ```
 
-아래 코드는 [Typescript - ramda 라이브러리 (1)](https://assu10.github.io/dev/2021/09/29/typescript-ramda-library/) 의 *5.4. `R.ifElse` 함수* 에서 본 `R.ifElse` 함수를 사용한 예이다.<br />
+아래 코드는 [Typescript - ramda 라이브러리 (1)](https://assu10.github.io/dev/2021/09/29/typescript-ramda-library/) 의 *5.4. `R.ifElse` 함수* 에서 본 `R.ifElse` 함수를 사용한 예시이다.<br />
 (최소 5,000 원 어치 상품은 사면 500원을 할인)
 ```ts
 import * as R from 'ramda'

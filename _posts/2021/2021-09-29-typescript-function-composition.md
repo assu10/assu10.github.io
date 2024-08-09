@@ -540,7 +540,7 @@ const fourSquare = pipe(squareMap, squareMap);
 console.log(fourSquare([3, 4]));    // [81, 256]
 ```
 
-이번엔 포인트가 없는 함수 squareMap 과 sumArray 를 pipe 로 조합한 예이다.
+이번엔 포인트가 없는 함수 squareMap 과 sumArray 를 pipe 로 조합한 예시이다.
 ```ts
 // 포인트가 없는 함수 - reduce
 

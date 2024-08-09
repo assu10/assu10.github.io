@@ -185,7 +185,7 @@ management.endpoint.shutdown.enabled=true
 
 `MeterRegistry`만 주입받아 사용하면 쉽게 구현 가능하다.
 
-아래는 처리중인 동시 요청 수에 대한 예이다.
+아래는 처리중인 동시 요청 수에 대한 예시이다.
 
 **ConcurrentTransactionCountInterceptor.java**
 ```java

@@ -553,7 +553,7 @@ export const mergeArray = <T>(...arrays: readonly T[][]): T[] => {
 
 자바스크립트에는 `튜플` 이 없으며 단순히 배열의 한 종류이다.
 
-아래는 여러 타입에 대응하는 `any` 타입 배열을 선언한 예이다.
+아래는 여러 타입에 대응하는 `any` 타입 배열을 선언한 예시이다.
 ```ts
 let tuple: any[] = [true, 'hello']
 ```

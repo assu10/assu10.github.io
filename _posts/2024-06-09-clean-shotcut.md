@@ -1,0 +1,241 @@
+---
+layout: post
+title:  "Clean Architecture - 의식적으로 지름길 사용"
+date: 2024-06-09
+categories: dev
+tags: clean
+---
+
+개발을 하면서 부정적인 지름길을 방지하기 위해서는 먼저 지름길 자체를 파악해야 한다.
+
+이 포스트에서는 잠재적인 지름길에 대한 인식을 높이고, 그 영향에 대해 알아본다.
+
+우발적으로 사용되는 지름길을 인식하여 수정하고, 또는 정당한 지름길이라면 지금길의 효과를 의식적으로 선택할 수도 있다.
+
+![클린 아키텍처의 추상적인 모습](/assets/img/dev/2024/0511/clean.png)
+
+![육각형 아키텍처](/assets/img/dev/2024/0511/hexagonal.png)
+
+---
+
+**목차**
+
+<!-- TOC -->
+* [1. 깨진 창문 이론](#1-깨진-창문-이론)
+* [2. 깨끗한 상태로 시작](#2-깨끗한-상태로-시작)
+* [3. 유스케이스 간 모델 공유](#3-유스케이스-간-모델-공유)
+* [4. 도메인 엔티티를 입출력 모델로 사용](#4-도메인-엔티티를-입출력-모델로-사용)
+* [5. 인커밍 포트 생략](#5-인커밍-포트-생략)
+* [6. 애플리케이션 서비스 생략](#6-애플리케이션-서비스-생략)
+* [정리하며...](#정리하며)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
+
+---
+
+build.gradle
+```groovy
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.2'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.assu.study'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+compileJava {
+    sourceCompatibility = 17
+    targetCompatibility = 17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.mysql:mysql-connector-j:9.0.0'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit' // excluding junit 4
+    }
+    implementation 'com.tngtech.archunit:archunit:1.3.0'
+
+    //testImplementation 'com.h2database:h2:2.3.230'
+}
+
+test {
+    useJUnitPlatform()
+}
+```
+
+application.properties
+```properties
+spring.application.name=clean_me
+spring.datasource.url=jdbc:mysql://localhost:13306/clean?characterEncoding=utf8
+spring.datasource.username=root
+spring.datasource.password=
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.hikari.maximum-pool-size=10
+spring.jpa.database=mysql
+spring.jpa.show-sql=true
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+spring.jpa.open-in-view=false
+```
+
+---
+
+# 1. 깨진 창문 이론
+
+깨진 창문의 이론은 어떠한 것이 일부 망가진 상태로 있다면 사람들은 그 어떠한 것을 더 망가뜨려도 된다고 생각하는 것을 말한다.
+
+생활적인 부분에서는 아래와 같은 예가 있다.
+- 기물 파손이 심한 동네에서는 방치된 차를 도둑질하거나 망가뜨리는 일이 더 쉽게 일어남
+- 좋은 동네라도 차의 창문이 깨져있다면 차를 망가뜨리는 일이 쉽게 일어남
+- 괴롭힘이 심한 집단에서는 괴롭힘이 더 쉽게 일어남
+- 침실이 정돈되어 있지 않으면 옷을 옷장에 넣는 대신 바닥에 던져놓기 쉬움
+
+코드 작업에서는 아래와 같은 예가 있다.
+- 품질이 떨어진 코드에서 작업할 때 더 낮은 품질의 코드를 추가하기 쉬움
+- 코딩 규칙을 어긴 코드에서 작업할 때 또 다른 규칙을 어기기 쉬움
+- 지름길을 많이 사용한 코드에서 작업할 때 또 다른 지름길을 추가하기 쉬움
+
+---
+
+# 2. 깨끗한 상태로 시작
+
+코드를 짜는 것은 깨진 창문 심리에 무의식적으로 영향을 받는다.  
+그래서 가능하면 지름길을 거의 쓰지 않고 기술 부채를 지지 않은 채로 프로젝트를 깨끗하게 시작하는 것이 중요하다.  
+지름길을 한번 사용하는 순간 깨진 창문과 같아져버려서 더 많은 지름길을 끌어들이게 된다.
+
+하지만 때로는 지름길을 사용하는 것이 더 실용적일 때도 있다.  
+그리 중요하지 않은 부분이거나, 프로토타이핑 작업 중이거나, 경제적인 이유 등이 있을 수 있다.
+
+이렇게 의도적인 지름길에 대해서는 세심하게 기록을 해두어야 한다.
+
+기록을 해두는 방법은 **아키텍처 결정 기록(ADR, Architecture Decision Records)** 의 형태도 좋다.  
+이 문서가 있다면 해당 지름길이 합리적인 이유에 의해 의도적으로 추가되었다는 사실을 알기 때문에 깨진 창문 이론의 영향을 덜 받을 수 있다.
+
+이제 육각형 아키텍처에서 고려해볼 수 있는 몇 가지 지름길에 대해 알아본다.
+
+---
+
+# 3. 유스케이스 간 모델 공유
+
+[Clean Architecture - 유스케이스, 입력 유효성 검증, 비즈니스 유효성 검증, 입출력 모델](https://assu10.github.io/dev/2024/05/18/clean-usecase/) 에서 유스케이스마다 다른 입출력 모델을 가져야한다고 하였다.
+
+아래는 2개의 유스케이스가 같은 입력 모델을 공유하는 예시이다.
+
+![유스케이스 간 입출력 모델 공유 시 유스케이스 간에 결합이 생김](/assets/img/dev/2024/0609/usecase.png)
+
+유스케이스 간 입출력 모델 공유로 인해 _SendMoneyUseCase_ 와 _ActivityUseCase_ 가 결합되었다.  
+공유하고 있는 _SendMoneyCommand_ 가 변경되면 두 유스케이스 모두 영향을 받는다.  
+이는 단일 책임 원칙에서 이야기하는 '변경할 이유' 를 공유하는 것이다.
+
+**유스케이스 간 입출력 모델을 공유하는 것은 유스케이스들이 기능적으로 묶여있을 때, 즉 특정 요구사항을 공유할 때 유효**하다.  
+특정 세부사항을 변경할 경우 두 유스케이스 모두에 영향을 주고 싶을 때 말이다.
+
+**두 유스케이스가 서로 간에 미치는 영향없이 독립적으로 진화해야 한다면 입출력 모델을 공유하는 방식은 지름길**이 된다.
+
+만일 독립적으로 진화해야 한다면 처음에는 똑같은 입출력 모델 클래스를 복사하더라고 분리하여 시작해야 한다.
+
+---
+
+# 4. 도메인 엔티티를 입출력 모델로 사용
+
+도메인 엔티티인 _Account_ 와 인커밍 포트인 _SendMoneyUseCase_ 가 있다면 엔티티를 인커밍 포트의 입출력 모델로 사용하고 싶을수도 있다.
+
+![도메인 엔티티를 유스케이스의 입출력 모델로 사용 시 도메인 엔티티와 유스케이스가 결합됨](/assets/img/dev/2024/0609/domain.png)
+
+위 그림에서 인커밍 포트는 도메인 엔티티에 의존성을 가지며, 이는 _Account_ 엔티티가 변경될 또 다른 이유가 된다.  
+도메인 엔티티는 인커밍 포트인 _SendMoneyUseCase_ 에 의존성이 없지만 어떻게 인커밍 포트가 엔티티를 변경할 이유가 된다는 것일까?
+
+만일 _Account_ 엔티티에는 존재하지 않는 정보를 유스케이스가 필요로 한다고 하면 이 정보는 최종적으로 _Account_ 엔티티에 저장되는 것이 아니라 다른 도메인이나 다른 바운디드 컨텍스트에 저장되어야 한다.  
+하지만 이미 유스케이스에서 엔티티를 사용할 수 있기 때문에 _Account_ 엔티티에 새로운 필드를 추가하고 싶은 생각이 든다.
+
+만일 유스케이스가 단순히 DB 필드를 업데이트하는 수준이 아니라 복잡한 도메인 로직을 구현해야 한다면 유스케이스에 대한 전용 입출력 모델을 만들어야 유스케이스의 변경이 엔티티까지 전파되지 않는다.
+
+**이 지름길이 위험한 이유는 많은 유스케이스가 간단한 기능으로 시작하여 점점 복잡한 도메인 로직을 구성하게 된다는 사실 때문**이다.
+
+---
+
+# 5. 인커밍 포트 생략
+
+아웃고잉 포트는 애플리케이션 계층과 아웃고잉 어댑터 사이의 의존성을 역전 (의존성이 안쪽으로 향하도록) 시키기 위해 필수 요소인 반면 인커밍 포트는 의존성 역전에 필수요소는 아니다.
+
+아래는 인커밍 어댑터(_SendMoneyController_) 가 인커밍 포트(_ServiceUseCase_) 없이 애플리케이션 서비스(_SendMoneyService_) 에 직접 접근하도록 한 예시이다.
+
+![인커밍 포트가 없으면 도메인 로직의 진입점이 불분명해짐](/assets/img/dev/2024/0609/port.png)
+
+인커밍 포트는 애플리케이션 중심에 접근하는 진입점을 정의하는데 이를 제거하면 특정 유스케이스를 구현하기 위해 어떤 서비스 메서드를 호출해야 할 지 
+애플리케이션 내부 동작을 파악해야 한다.  
+**전용 인커밍 포트가 있다면 한 눈에 진입점을 식별**할 수 있다.
+
+인커밍 포트를 유지해야 하는 또 다른 이유는 **아키텍처를 쉽게 강제**할 수 있기 때문이다.
+
+[Clean Architecture - 아키텍처 경계 강제 (ArchUnit, 빌드 아티팩트)](https://assu10.github.io/dev/2024/06/08/clean-layer-boundary-enforcement/) 에서 본 
+아키텍처를 강제하는 옵션들을 이용하면 인커밍 어댑터가 애플리케이션 서비스가 아닌 인커밍 포트만 호출하게 할 수 있다.  
+
+애플리케이션 규모가 작거나 인커밍 어댑터가 하나밖에 없어서 모든 제어 흐름을 인커밍 포트의 도움없이 단숨에 파악할 수 있다면 인커밍 포트는 없어도 되지만 
+대부분 그렇듯이 시간이 지날수록 애플리케이션은 규모가 커지기 마련이다.
+
+---
+
+# 6. 애플리케이션 서비스 생략
+
+어떤 유스케이스에서는 애플리케이션 서비스를 통째로 생략하고 싶을수도 있다.
+
+![애플리케이션 서비스가 없으면 도메인 로직을 둘 곳이 없음](/assets/img/dev/2024/0609/application.png)
+
+위 그림에서 아웃고잉 어댑터에 있는 _AccountPersistenceAdapter_ 는 아웃고잉 포트 인터페이스 (예. _LoadAccountPort_) 를 구현하는 대신 직접 
+인커밍 포트 (_SendMoneyUseCase_) 를 구현하여 일반적으로 인커밍 포트를 구현하는 애플리케이션 서비스(예. _SendMoneyService_) 대체한다. (= 아웃고잉 어댑터가 애플리케이션 서비스를 대체)
+
+간한단 CRUD 유스케이스는 보통 애플리케이션 서비스가 도메인 로직 없이 생성, 업데이트, 삭제 요청을 그대로 영속성 어댑터에 전달하기 때문에 위 방법이 괜찮아보일 수 있다.  
+그대로 전달하는 대신 영속성 어댑터가 직접 유스케이스를 구현하게 할 수 있다.
+
+하지만 이 방법은 인커밍 어댑터와 아웃고잉 어댑터 사이에 모델을 공유한다.  
+위 경우에 공유해야 하는 모델이 _Account_ 도메인 엔티티이므로 도메인 모델을 입력 모델로 사용하는 케이스가 된다.
+
+또한 애플리케이션 코어에 유스케이스라고 할 만한 것이 없어진다.
+
+**시간이 지남에 따라 CURD 유스케이스가 점점 복잡해지면 이미 유수케이스가 어댑터에 있으니 도메인 로직을 그대로 아웃고잉 어댑터에 추가**하고 싶을 것이다.  
+**이렇게 되면 도메인 로직이 흩어져서 유지보수가 어렵게 된다.**
+
+단순히 전달만 하는 보일러 플레이트 코드가 많은 서비스를 방지하기 위해 간단한 CRUD 케이스에서 애플리케이션 서비스를 건너뛰기로 결정했다면 유스케이스가 엔티티를 
+단순히 생성, 업데이트, 삭제하는 것보다 많은 일을 하게 될 때 애플리케이션 서비스를 만든다는 명확한 가이드라인을 정해두어야 한다.
+
+---
+
+# 정리하며...
+
+경제적인 관점에서 지름길이 합리적일 때도 있다.
+
+모든 애플리케이션은 처음에는 작게 시작하기 때문에 유스케이스가 단순한 CRUD 상태를 벗어나는 시점이 언제인지에 대해 가이드 라인을 정해놓는 것은 매우 중요하다.
+
+단순 CRUD 상태에서 벗어나지 않는 유스케이스는 유지보수 비용을 증가시키지 않으므로 지름길을 그대로 유지하는 것이 더 경제적이다.
+
+어떤 경우든 왜 특정 지름길을 선택했는가에 대한 기록을 남겨서 나중에 혹은 프로젝트를 인계받는 이들이 이 결정에 대해 다시 평가할 수 있도록 해야한다.
+
+---
+
+# 참고 사이트 & 함께 보면 좋은 사이트
+
+*본 포스트는 톰 홈버그 저자의 **만들면서 배우는 클린 아키텍처**을 기반으로 스터디하며 정리한 내용들입니다.*
+
+* [만들면서 배우는 클린 아키텍처](https://wikibook.co.kr/clean-architecture/)
+* [책 예제 git](https://github.com/wikibook/clean-architecture)
+* [KooKu's log](https://kooku0.github.io/docs/books/get-your-hands-dirty-on-clean-architecture/10/)
+* [깨진 유리창 이론](https://namu.wiki/w/%EA%B9%A8%EC%A7%84%20%EC%9C%A0%EB%A6%AC%EC%B0%BD%20%EC%9D%B4%EB%A1%A0)
+* [아키텍처 결정 기록(ADR, Architecture Decision Records)](https://swalloow.github.io/feat-adr/)

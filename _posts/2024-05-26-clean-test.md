@@ -66,15 +66,14 @@ dependencies {
   implementation('org.springframework.boot:spring-boot-starter-web')
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'com.mysql:mysql-connector-j:9.0.0'
 
   testImplementation('org.springframework.boot:spring-boot-starter-test') {
     exclude group: 'junit' // excluding junit 4
   }
-  testImplementation 'com.h2database:h2:2.3.230'
-//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
-//    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
-//    implementation 'com.tngtech.archunit:archunit:1.3.0'
-//    testImplementation 'org.junit.platform:junit-platform-launcher:1.10.3'
+  implementation 'com.tngtech.archunit:archunit:1.3.0'
+
+  //testImplementation 'com.h2database:h2:2.3.230'
 }
 
 test {
