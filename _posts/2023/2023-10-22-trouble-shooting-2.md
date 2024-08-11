@@ -23,7 +23,7 @@ $ kafka_2.13-3.6.1/bin/kafka-topics.sh --bootstrap-server localhost:9092 \
 
 ```shell
 $ pwd
-/Users/juhyunlee/Developer/kafka/kafka_2.13-3.6.1/config
+/Users/Developer/kafka/kafka_2.13-3.6.1/config
 
 $ vi server.properties
 # The address the socket server listens on. If not configured, the host name will be equal to the value of
@@ -45,19 +45,19 @@ advertised.listeners=PLAINTEXT://127.0.0.1:9092
 zookeeper 재시작
 ```shell
 $ pwd
-/Users/juhyunlee/Developer/zookeeper/apache-zookeeper-3.8.3-bin
+/Users/Developer/zookeeper/apache-zookeeper-3.8.3-bin
 
 $ bin/zkServer.sh start
 /usr/bin/java
 ZooKeeper JMX enabled by default
-Using config: /Users/juhyunlee/Developer/zookeeper/apache-zookeeper-3.8.3-bin/bin/../conf/zoo.cfg
+Using config: /Users/Developer/zookeeper/apache-zookeeper-3.8.3-bin/bin/../conf/zoo.cfg
 Starting zookeeper ... STARTED
 ```
 
 카프카 브로커 재시작
 ```shell
 $ pwd
-/Users/juhyunlee/Developer/kafka
+/Users/Developer/kafka
 
 $ kafka_2.13-3.6.1/bin/kafka-server-start.sh -daemon \
      kafka_2.13-3.6.1/config/server.properties 

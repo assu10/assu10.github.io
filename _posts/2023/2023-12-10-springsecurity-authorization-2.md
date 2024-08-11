@@ -397,7 +397,7 @@ $ curl -w "%{http_code}" -u assu:1111  http://localhost:8080/aa
 get aa200%
 
 # 정상 응답
- juhyunlee  ~  curl -w "%{http_code}" --request POST -u assu:1111  http://localhost:8080/aa
+  ~  curl -w "%{http_code}" --request POST -u assu:1111  http://localhost:8080/aa
 post aa200%
 ```
 
