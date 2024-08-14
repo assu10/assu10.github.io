@@ -1,0 +1,50 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
+  <diagram name="페이지-1" id="r_IanndPfB1i0Bq2TegE">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="00u2TpiYPgBmqlzzs7Pe-3" target="00u2TpiYPgBmqlzzs7Pe-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="00u2TpiYPgBmqlzzs7Pe-3" target="00u2TpiYPgBmqlzzs7Pe-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="225" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-3" value="프로듀서" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-4" value="시리얼라이저" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="75" y="100" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-5" value="컨슈머" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="420" y="60" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-6" value="디시리얼라이저" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="435" y="100" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="00u2TpiYPgBmqlzzs7Pe-8" target="00u2TpiYPgBmqlzzs7Pe-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-8" value="카프카 브로커" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="260" y="80" width="85" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="00u2TpiYPgBmqlzzs7Pe-10" target="00u2TpiYPgBmqlzzs7Pe-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-10" value="스키마&lt;br&gt;레지스트리" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="260" y="200" width="85" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-11" value="스키마 ID&amp;nbsp; 를 갖는 메시지" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="182" y="70" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="00u2TpiYPgBmqlzzs7Pe-12" value="현재 버전의 스키마" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="190" width="70" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
