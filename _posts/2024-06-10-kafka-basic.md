@@ -350,5 +350,6 @@ DB 의 커밋 로그는 모든 트랙잭션 기록을 지속성 (durable) 있게
 *본 포스트는 김병부 저자의 **O'REILLY 카프카 핵심 가이드 2판**를 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
+* [Kafka Doc](https://kafka.apache.org/documentation/)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [아파치 에이브로](https://ko.wikipedia.org/wiki/%EC%95%84%ED%8C%8C%EC%B9%98_%EC%95%84%EB%B8%8C%EB%A1%9C)

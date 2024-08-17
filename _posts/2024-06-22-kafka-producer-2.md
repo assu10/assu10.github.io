@@ -972,6 +972,7 @@ _TimeoutException_ 을 발생시키게 된다.
 
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
+* [Kafka Doc](https://kafka.apache.org/documentation/)
 * [Producer config 정리](https://devidea.tistory.com/90)
 * [에이브로 문서 중 호환성 규칙](https://avro.apache.org/docs/1.7.7/spec.html#Schema+Resolution)
 * [컨플루언트 스키마 레지스트리 코드 (깃허브)](https://github.com/confluentinc/schema-registry)

@@ -1,0 +1,52 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
+  <diagram name="페이지-1" id="39J_rlxbl3vWXTRMzBvw">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-1" value="토픽 T1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="80" y="60" width="120" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-2" value="파티션 0" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="120" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-3" value="파티션 1" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="160" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-4" value="파티션 2" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="200" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-5" value="파티션 3" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="240" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-6" value="컨슈머 그룹 G1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="270" y="60" width="120" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-7" value="컨슈머 C1" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="290" y="120" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" parent="1" source="lTfHQ6y5ZkvYr6f8Dvd6-2" target="lTfHQ6y5ZkvYr6f8Dvd6-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-9" value="컨슈머 C2" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="290" y="160" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" parent="1" source="lTfHQ6y5ZkvYr6f8Dvd6-3" target="lTfHQ6y5ZkvYr6f8Dvd6-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-11" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="lTfHQ6y5ZkvYr6f8Dvd6-4" target="lTfHQ6y5ZkvYr6f8Dvd6-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="lTfHQ6y5ZkvYr6f8Dvd6-5" target="lTfHQ6y5ZkvYr6f8Dvd6-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-13" value="컨슈머 C3" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="290" y="200" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lTfHQ6y5ZkvYr6f8Dvd6-14" value="컨슈머 C4" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="290" y="240" width="80" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

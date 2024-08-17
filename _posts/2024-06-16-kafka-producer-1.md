@@ -623,7 +623,11 @@ Producer 의 send() 메서드를 호출했을 때 성공/실패하기까지 걸�
 
 > **`replica.lag.time.max.ms`**  
 > 
-> 브로커 팔로워가 복제를 위한 패치 요청을 하지 않을 경우 ISR (Interrupt Service Routine) 에서 제외하는 시간
+> 브로커 팔로워가 복제를 위한 패치 요청을 하지 않을 경우 ISR (In-Sync-Replica) 에서 제외하는 시간  
+> 
+> ISR 은 리더 파티션과 팔로워 파티션이 모두 싱크가 된 상태를 말함  
+> 리더 파티션은 `replica.lag.time.max.ms` 만큼의 주기로 팔로워 파티션이 데이터를 복제하는지 확인  
+> 팔로워 파티션은 `replica.lag.time.max.ms` 보다 더 긴 시간동안 데이터를 가져가지 않으면 해당 팔로워 파티션에 문제가 생간것으로 판단하고 ISR 그룹에서 제외
 
 ---
 
@@ -800,7 +804,9 @@ Producer 의 send() 메서드를 호출했을 때 성공/실패하기까지 걸�
 
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
+* [Kafka Doc](https://kafka.apache.org/documentation/)
 * [아파치 카프카 프로젝트 위키](https://cwiki.apache.org/confluence/display/KAFKA/Clients)
 * [아파치 카프카 프로토콜](https://kafka.apache.org/protocol.html)
 * [Producer config 정리](https://devidea.tistory.com/90)
 * [An analysis of the impact of max.in.flight.requests.per.connection and acks on Producer performance](https://cwiki.apache.org/confluence/display/KAFKA/An+analysis+of+the+impact+of+max.in.flight.requests.per.connection+and+acks+on+Producer+performance)
+* [카프카 기본 개념 정리](https://harrislee.tistory.com/110)
