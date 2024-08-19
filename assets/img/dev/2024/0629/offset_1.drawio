@@ -1,0 +1,76 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
+  <diagram name="페이지-1" id="Zh4177HrVnwR2fJRAPfO">
+    <mxGraphModel dx="1071" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-1" value="0" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-2" value="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-3" value="2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-4" value="3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="160" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-5" value="4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="200" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-6" value="5" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="240" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-7" value="6" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="280" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-8" value="7" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="320" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-9" value="8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-10" value="9" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="400" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-11" value="" style="endArrow=block;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="1" target="PZ-o3ppLsaxNRUeCwd0d-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="200" as="sourcePoint" />
+            <mxPoint x="440" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-12" value="마지막으로 커밋된 오프셋" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="72" y="201" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-15" value="10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="440" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-16" value="11" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-18" value="" style="endArrow=block;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="458" y="200" as="sourcePoint" />
+            <mxPoint x="458" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-19" value="지금 처리중인 이벤트" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="390" y="201" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-20" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;rotation=90;size=0.20588235294117646;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="372.5" y="107.5" width="95" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-22" value="마지막 poll() 메서드 호출에서 리턴된 메시지들" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="295" y="253" width="250" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-24" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;rotation=-90;size=0.44;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="288.5" y="-72" width="65" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="PZ-o3ppLsaxNRUeCwd0d-25" value="리밸런싱이 발생할 경우 재처리될 메시지들&lt;div&gt;= 중복 발생&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="205" y="22" width="230" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

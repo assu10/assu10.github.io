@@ -189,7 +189,7 @@ System.out.println(Instant.now());  // 2023-07-29T04:14:17.608598Z (UTC0)
 
 ## 1.4. Duration, Period
 
-두 시간 객체 사이의 지속시간은 Duration 클래스를 이용해서 얻을 수 있고, 두 날짜 사이의 지속 ? 은 Period 클래스를 이용해서 얻을 수 있다.
+두 시간 객체 사이의 지속시간은 Duration 클래스를 이용해서 얻을 수 있고, 두 날짜 사이의 지속날짜는 Period 클래스를 이용해서 얻을 수 있다.
 
 Duration
 ```java
