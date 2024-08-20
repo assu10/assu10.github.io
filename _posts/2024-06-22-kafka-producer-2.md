@@ -21,7 +21,7 @@ tags: kafka producer serializer partitioner
 * [1. 시리얼 라이저](#1-시리얼-라이저)
   * [1.1. 커스텀 시리얼라이저](#11-커스텀-시리얼라이저)
   * [1.2. 아파치 에이브로를 사용하여 직렬화](#12-아파치-에이브로를-사용하여-직렬화)
-  * [1.3. 카프카에서 에이브로 레코드 사용: Schema Registry](#13-카프카에서-에이브로-레코드-사용-schema-registry)
+  * [1.3. 카프카에서 에이브로 레코드 사용: Schema Registry, `KafkaAvroSerializer`](#13-카프카에서-에이브로-레코드-사용-schema-registry-kafkaavroserializer)
     * [1.3.1. 제네릭 에이브로 객체 사용](#131-제네릭-에이브로-객체-사용)
 * [2. 파티션](#2-파티션)
   * [2.1. 키 값이 없는 상태에서 기본 파티셔너 이용](#21-키-값이-없는-상태에서-기본-파티셔너-이용)
@@ -391,7 +391,7 @@ public class CustomerSerializer implements Serializer<Customer> {
 
 ---
 
-## 1.3. 카프카에서 에이브로 레코드 사용: Schema Registry
+## 1.3. 카프카에서 에이브로 레코드 사용: Schema Registry, `KafkaAvroSerializer`
 
 파일 안에 전체 스키마를 저장함으로써 약간의 오버헤드를 감수하는 에이브로 파일과는 달리, 카프카 레코드에 전체 스키마를 저장할 경우 전체 레코드 사이즈는 
 2배 이상이 될 수 있다.  
