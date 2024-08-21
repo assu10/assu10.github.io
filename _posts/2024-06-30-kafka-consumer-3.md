@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Kafka - 컨슈머(3): "
+title:  "Kafka - 컨슈머(3): 폴링 루프 벗어나기, 디시리얼라이저, 컨슈머 그룹없이 컨슈머 사용"
 date: 2024-06-30
 categories: dev
-tags: kafka consumer 
+tags: kafka consumer consumer.wakeup shutdownHook serdes dereserializer avroDeserializer consumer.assign()
 ---
 
 카프카에서 데이터를 읽는 애플리케이션은 토픽을 구독(subscribe) 하고, 구독한 토픽들로부터 메시지를 받기 위해 `KafkaConsumer` 를 사용한다.  
@@ -21,7 +21,7 @@ tags: kafka consumer
   * [2.1. 커스텀 디시리얼라이저](#21-커스텀-디시리얼라이저)
   * [2.2. Avro 디시리얼라이저 사용: `AvroDeserializer`](#22-avro-디시리얼라이저-사용-avrodeserializer)
   * [2.3. `List<T>` 직렬화/역직렬화](#23-listt-직렬화역직렬화)
-* [3. 독립 실행(standalone) 컨슈머: 컨슈머 그룹없이 컨슈머를 사용해야하는 이유와 방법](#3-독립-실행standalone-컨슈머-컨슈머-그룹없이-컨슈머를-사용해야하는-이유와-방법)
+* [3. 컨슈머 그룹없이 컨슈머를 사용하는 경우: `KafkaConsumer.assign()`](#3-컨슈머-그룹없이-컨슈머를-사용하는-경우-kafkaconsumerassign)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -869,7 +869,89 @@ List 안에 들어있는 객체가 아래의 타입일 경우 각각의 객체�
 
 ---
 
-# 3. 독립 실행(standalone) 컨슈머: 컨슈머 그룹없이 컨슈머를 사용해야하는 이유와 방법
+# 3. 컨슈머 그룹없이 컨슈머를 사용하는 경우: `KafkaConsumer.assign()`
+
+컨슈머 그룹은 컨슈머들에게 파티션을 자동으로 할당해주고, 해당 그룹에 컨슈머가 추가/제거될 경우 자동으로 리밸런싱을 해준다.
+
+하지만 경우에 따라서 훨씬 더 단순한 것이 필요할 수도 있다.  
+예) 하나의 컨슈머가 토픽의 모든 파티션으로부터 모든 데이터를 읽어오거나, 토픽의 특정 파티션으로부터 데이터를 읽어와야 할 때
+
+이럴 때는 컨슈머 그룹이나 리밸런스 기능이 필요없다.
+
+그냥 컨슈머에게 특정한 토픽과 파티션을 할당해주고, 메시지를 읽어서 처리한 후 필요할 경우 오프셋을 커밋하면 된다.  
+(컨슈머가 그룹에 조인할 일이 없으니 `subscribe()` 메서드를 호출할 일은 없겠지만 오프셋을 커밋하려면 여전히 `group.id` 값은 설정해주어야 함)
+
+만일 **컨슈머가 어떤 파티션을 읽어야 하는지 알고 있을 경우 토픽을 구독(subscribe) 할 필요 없이 그냥 파티션을 스스로 할당받으면 된다.**
+
+컨슈머는 토픽을 구독(= 컨슈머 그룹의 일원)하거나, 스스로 파티션을 할당받을 수 있지만 두 가지를 동시에 할 수는 없다.
+
+아래는 컨슈머 스스로가 특정 토픽의 모든 파티션을 할당한 뒤 메시지를 읽고 처리하는 예시이다.
+
+StandaloneConsumer.java
+```java
+package com.assu.study.chap04.standalone;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.PartitionInfo;
+import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.StringDeserializer;
+
+// 컨슈머 그룹없이 컨슈머 스스로가 특정 토픽의 모든 파티션을 할당한 뒤 메시지를 읽고 처리
+@Slf4j
+public class StandaloneConsumer {
+  public static void main(String[] args) {
+    Properties props = new Properties();
+    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "broker1:9092,broker2:9092");
+    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "CountryCounter");
+
+    KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+    List<TopicPartition> partitions = new ArrayList<>();
+    // 카프카 클러스터에 해당 토픽에 대해 사용 가능한 파티션들을 요청
+    // 만일 특정 파티션의 레코드만 읽어올거면 생략해도 됨
+    List<PartitionInfo> partitionInfos = consumer.partitionsFor("topic");
+
+    if (partitions != null) {
+      for (PartitionInfo partitionInfo : partitionInfos) {
+        partitions.add(new TopicPartition(partitionInfo.topic(), partitionInfo.partition()));
+      }
+
+      // 읽고자 하는 파티션이 있다면 해당 목록에 `assign()` 으로 추가
+      consumer.assign(partitions);
+
+      Duration timeout = Duration.ofMillis(100);
+
+      while (true) {
+        ConsumerRecords<String, String> records = consumer.poll(timeout);
+        for (ConsumerRecord<String, String> record : records) {
+          log.info(
+              "topic: {}, partition: {}, offset: {}, customer: {}, country: {}",
+              record.topic(),
+              record.partition(),
+              record.offset(),
+              record.key(),
+              record.value());
+        }
+        consumer.commitSync();
+      }
+    }
+  }
+}
+```
+
+리밸런싱 기능을 사용할 수 없고, 직접 파티션을 찾아야 하는 점 외엔 나머지는 크게 다르지 않다.
+
+만일 토픽에 새로운 파티션이 추가될 경우 컨슈머에게 알림이 오지 않으므로 주기적으로 `consumer.partitionsFor()` 를 호출하여 파티션 정보를 확인하거나, 
+파티션이 추가될 때마다 애플리케이션을 재시작함으로써 알림이 오지 않는 상황에 대처해 줄 필요는 있다.
 
 ---
 
