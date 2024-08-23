@@ -468,7 +468,7 @@ fun main() {
 }
 ```
 
-`require()` 를 생성자 안에서 호출하는데, `require()` 는 조건을 반족하지 못하면 _IllegalArgumentException_ 을 반환한다.  
+`require()` 를 생성자 안에서 호출하는데, `require()` 는 조건을 만족하지 못하면 _IllegalArgumentException_ 을 반환한다.  
 따라서 **_IllegalArgumentException_ 예외를 던지는 대신에 항상 `require()` 를 사용**할 수 있다.
 
 **`require()` 의 두 번째 라파메터는 String 을 만들어내는 람다**이다.  

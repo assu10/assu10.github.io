@@ -9,7 +9,7 @@ tags: kafka consumer consumer.wakeup shutdownHook serdes dereserializer avroDese
 카프카에서 데이터를 읽는 애플리케이션은 토픽을 구독(subscribe) 하고, 구독한 토픽들로부터 메시지를 받기 위해 `KafkaConsumer` 를 사용한다.  
 이 포스트에서는 카프카에 쓰여진 메시지를 읽기 위한 클라이언트에 대해 알아본다.
 
-> 소스는 [github](https://github.com/assu10/kafka/tree/feature/chap04)  에 있습니다.
+> 소스는 [github](https://github.com/assu10/kafka/tree/feature/chap04) 에 있습니다.
 
 ---
 

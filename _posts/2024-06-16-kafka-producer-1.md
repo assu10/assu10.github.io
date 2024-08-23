@@ -25,7 +25,7 @@ tags: kafka producer
 > 
 > TCP 패킷의 명세는 [아파치 카프카 프로토콜](https://kafka.apache.org/protocol.html) 에서 확인 가능함
 
-> 소스는 [github](https://github.com/assu10/kafka/tree/feature/chap03)  에 있습니다.
+> 소스는 [github](https://github.com/assu10/kafka/tree/feature/chap03) 에 있습니다.
 
 ---
 

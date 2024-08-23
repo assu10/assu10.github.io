@@ -11,7 +11,7 @@ tags: kafka producer serializer partitioner
 - 파티션 할당 방식을 정의하는 파티셔너
 - 객체의 직렬화 방식을 정의하는 시리얼라이저
 
-> 소스는 [github](https://github.com/assu10/kafka/tree/feature/chap03)  에 있습니다.
+> 소스는 [github](https://github.com/assu10/kafka/tree/feature/chap03) 에 있습니다.
 
 ---
 
