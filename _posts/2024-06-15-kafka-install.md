@@ -590,7 +590,7 @@ num.recovery.threads.per.data.dir=1
 전체 파티션 중 특정 브로커에 리더 역할이 할당된 파티션의 비율이 `leader.imbalnace.per.broker.percentage` 에 설정된 값을 넘어가면 파티션의 
 선호 리더 (preferred leader) 리밸런싱이 발생한다.
 
-> 파티션의 preferred leader 의 좀 더 상세한 내용은 추후 다룰 예정입니다. (p. 28)
+> 파티션의 preferred leader 의 좀 더 상세한 내용은 [3.3. 리더 선출: `elecLeader()`](https://assu10.github.io/dev/2024/07/07/kafka-adminclient-2/#33-%EB%A6%AC%EB%8D%94-%EC%84%A0%EC%B6%9C-elecleader) 을 참고하세요.
 
 > /Users/Developer/kafka/kafka_2.13-3.8.0/config/server.properties 기본 설정에 없음
 
