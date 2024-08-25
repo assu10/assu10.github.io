@@ -12,7 +12,7 @@ tags: kafka
 - 브로커의 메타데이터를 저장하기 위해 사용되는 아파키 주키퍼 설치
 - 브로커를 실행하는데 적합한 하드웨어 선택 기준
 - 여러 개의 카프카 브로커를 하나의 클러스터로 구성하는 방법
-- 카프카를 프로덕션 환겨에서 사용할 때 알아두어야 할 것들
+- 카프카를 프로덕션 환경에서 사용할 때 알아두어야 할 것들
 
 ---
 
@@ -32,7 +32,7 @@ tags: kafka
     * [3.1.4. `log.dirs`](#314-logdirs)
     * [3.1.5. `num.recovery.thread.per.data.dir`](#315-numrecoverythreadperdatadir)
     * [3.1.6. `auto.create.topics.enable`](#316-autocreatetopicsenable)
-    * [3.1.7. `auto.leader.rebalnace.enable`](#317-autoleaderrebalnaceenable)
+    * [3.1.7. `auto.leader.rebalance.enable`](#317-autoleaderrebalanceenable)
     * [3.1.8. `delete.topic.enable`](#318-deletetopicenable)
   * [3.2. 토픽별 기본값](#32-토픽별-기본값)
     * [3.2.1. `num.partitions`](#321-numpartitions)
@@ -580,10 +580,10 @@ num.recovery.threads.per.data.dir=1
 
 ---
 
-### 3.1.7. `auto.leader.rebalnace.enable`
+### 3.1.7. `auto.leader.rebalance.enable`
 
 모든 토픽의 리더 역할이 하나의 브로커에 집중됨으로써 카프카 틀러스터의 균형이 깨지는 경우가 있다.  
-`auto.leader.relablance.enable` 을 활성화해주면 한 리더 역할이 균등하게 분산된다.
+`auto.leader.rebalance.enable` 을 활성화해주면 한 리더 역할이 균등하게 분산된다.
 
 해당 설정을 활성화하면 파티션의 분포 상태를 주기적으로 확인하는 백그라운드 스레드가 시작되며, 이 주기는 `leader.imbalance.check.interval.seconds` 로 설정 가능하다.
 
