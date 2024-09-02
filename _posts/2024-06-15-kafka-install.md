@@ -832,7 +832,7 @@ log.retention.hours=168
 
 메시지가 커지는 만큼 네트워크 연결과 요청을 처리하는 브로커 스레드의 요청 당 작업 시간도 증가하고, 디스크에 써야하는 크기 역시 증가하므로 I/O 처리량에 영향을 미친다.
 
-> 해당 값은 프로듀서의 `max.request.size` 와 맞춰주는 것이 좋은데 이 부분은 추후 다룰 예정입니다.
+> 해당 값은 프로듀서의 `max.request.size` 와 맞춰주는 것이 좋은데 이 부분은 [4.9. `max.request.size`](https://assu10.github.io/dev/2024/06/16/kafka-producer-1/#49-maxrequestsize) 를 참고하세요.
 
 > **메시지 크기 설정 조정**  
 > 
