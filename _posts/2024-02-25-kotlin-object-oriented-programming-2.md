@@ -847,7 +847,7 @@ _X_, _Y_ 에 _f()_ 라는 멤버 함수가 있는 것처럼 보이지만 이 둘
 
 코틀린 표준 라이브러리의 `Sequnece` 인터페이스에는 멤버 함수가 하나만 들어있고, [나머지 Sequence 함수는 모두 확장](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/)이다.
 
-> `Sequnece` 의 좀 더 상세한 내용은 [1. 시퀀스 (Sequence)](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#1-%EC%8B%9C%ED%80%80%EC%8A%A4-sequence) 를 참고하세요.
+> `Sequnece` 의 좀 더 상세한 내용은 [1. 시퀀스 (Sequence)](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#1-시퀀스-sequence-constrainonce) 를 참고하세요.
 
 코틀린은 **필수적인 메서드만 정의하여 포함하는 간단한 인터페이스를 만들고, 모든 부가 함수를 확장으로 정의**하는 것을 철학으로 하고 있다.
 
