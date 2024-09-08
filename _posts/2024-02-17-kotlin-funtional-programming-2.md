@@ -47,9 +47,14 @@ tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() 
 
 # 1. 고차 함수 (high-order function)
 
-**함수를 다른 함수의 인자로 넘길 수 있거나, 함수가 반환값으로 함수를 돌려줄 수 있으면 언어가 고차 함수를 지원**하는 것이다.
+**람다나 다른 함수를 인자로 받거나, 반환값으로 함수를 돌려주는 함수를 고차 함수**라고 한다.
 
 예를 들어 `filter()`, `map()`, `any()` 등이 고차 함수이다.
+
+고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합하여 더 복잡한 연산을 쉽게 정의할 수 있다.  
+
+> 이런 식으로 고차 함수와 단순한 함수를 조합하여 코드를 작성하는 기법을 **컴비네이터 패턴 (Combinator Pattern)** 이라고 부르며,  
+> 컴비네이터 패턴에서 복잡한 연산을 만들기 위해 값이나 함수를 조합할 때 사용하는 고차 함수를 **컴비네이터 (Combinator)** 라고 한다.
 
 람다는 참조에 저장할 수 있다.
 
@@ -563,9 +568,56 @@ fun main() {
 
 ---
 
-## 3.4. `filter()`, `filterKeys()`, `filterValues()`
+## 3.4. `filter()`, `filterKeys()`, `filterValues()`, `maxBy()`
+
+`filter()` 와 `map()` 은 컬렉션을 활용할 때 기반이 되는 함수이다.
+
+`filter()` 는 컬렉션을 이터레이션하면서 주어진 람다에 각 원소를 넘겨서 람다가 true 를 반환하는 원소만 모아서 새로운 컬렉션을 만든다.  
+`map()` 은 주어진 람다를 컬렉션의 각 원소에 적용한 결과를 모아서 새로운 컬렉션을 만든다.
 
 Map 의 여러 연산은 List 가 제공하는 연산과 겹친다.
+
+```kotlin
+fun main() {
+    val list = listOf(1,2,3,4)
+
+    // filter() 사용
+    // 짝수만 남음
+    val even = list.filter { it % 2 == 0 }
+
+    // [2,4]
+    println(even)
+}
+```
+
+`maxBy()` 를 이용하여 나이가 가장 많은 사람의 정보 구하는 예시
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+data class Person4(
+    val name: String,
+    val age: Int,
+)
+
+fun main() {
+    val persons = listOf(Person4("assu", 20), Person4("silby", 2))
+
+    // 목록에서 가장 나이가 많은 사람의 정보 구하기
+    
+    // 아래 방법은 최대값을 구하는 작업을 계속 반복함 (100 명이 있다면 100번의 최대값 연산 수행)
+    val order = persons.filter { it.age == persons.maxBy(Person4::age).age }
+
+    // [Person4(name=assu, age=20)]
+    println(order)
+
+    // 최대값을 한번만 계산해서 나이가 가장 많은 사람의 정보 구하기
+    val maxAge = persons.maxBy(Person4::age).age
+    var order2 = persons.filter { it.age == maxAge }
+
+    // [Person4(name=assu, age=20)]
+    println(order2)
+}
+```
 
 ```kotlin
 fun main() {
@@ -601,6 +653,49 @@ fun main() {
 Map 에 `map()` 을 적용한다는 말은 동어 반복인 듯 하지만 'map' 은 두 가지를 뜻한다.
 - 컬렉션 변환
 - key-value 쌍을 저장하는 데이터 구조
+
+map() 의 기본적인 사용
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+data class Person3(val name: String, val age: Int)
+
+fun main() {
+  val list = listOf(1,2,3,4)
+
+  // map() 을 이용하여 각 원소에 곱하기 2
+  val multiple = list.map { it * 2 }
+
+  // [2,4,6,8]
+  println(multiple)
+
+  // map() 을 이용하여 이름만 출력
+  val persons = listOf(Person3("assu", 20), Person3("silby", 2))
+  val names = persons.map { it.name }
+
+  // [assu, silby]
+  println(names)
+
+  // filter() 와 map() 을 이용하여 10살 이상인 사람의 이름만 출력
+  val tens = persons.filter { it.age >= 10 }.map(Person3::name)
+
+  // [assu]
+  println(tens)
+}
+```
+
+`mapValues()` 를 이용하여 value 값 변환
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+fun main() {
+    // mapValues() 을 이용하여 value 를 대문자로 변환
+    val numbers = mapOf(0 to "zero", 1 to "one")
+
+    // {0=ZERO, 1=ONE}
+    println(numbers.mapValues { it.value.uppercase() })
+}
+```
 
 ```kotlin
 fun main() {
@@ -670,10 +765,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
