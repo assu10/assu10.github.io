@@ -24,6 +24,7 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
   * [1.6. 람다를 통해 코드 재사용: `filter()`](#16-람다를-통해-코드-재사용-filter)
   * [1.7. 람다를 변수에 담기](#17-람다를-변수에-담기)
   * [1.8. 클로저 (Closure)](#18-클로저-closure)
+  * [1.9. 람다와 `this`](#19-람다와-this)
 * [2. 컬렉션 연산: `hashSetOf()`, `arrayListOf()`, `listOf()`, `hashMapOf()`](#2-컬렉션-연산-hashsetof-arraylistof-listof-hashmapof)
   * [2.1. List 연산](#21-list-연산)
   * [2.2. 여러 컬렉션 함수들: `filter()`, `filterNotNull()`, `any()`, `all()`, `none()`, `find()`, `firstOrNull()`, `lastOrNull()`, `count()`](#22-여러-컬렉션-함수들-filter-filternotnull-any-all-none-find-firstornull-lastornull-count)
@@ -389,6 +390,21 @@ fun tryToCountButtonClicks(button: Button): Int {
 
 onClick 핸들러는 호출될 때마다 _clicks_ 의 값을 증가시키지만 그 값의 변경을 관찰할 수 없으므로 위 함수는 항상 0을 반환한다.  
 위 함수를 제대로 구현하려면 클릭 횟수를 세는 변수를 함수 내부가 아니라 클래스의 프로퍼티나 전역 프로퍼티 등의 위치로 빼내서 나중에 변수의 변화를 살펴볼 수 있도록 해야한다.
+
+---
+
+## 1.9. 람다와 `this`
+
+람다에는 무명 객체와 달리 인스턴스 자신을 가리키는 `this` 가 없다.
+
+따라서 람다를 변환한 무명 클래스의 인스턴스를 참조할 방법이 없다.
+
+컴파일러 입장에서 보면 람다는 코드 블록일 뿐이고, 객체가 아니므로 람다를 참조할 수는 없는 것이다.  
+**람다 안에서 `this` 는 그 람다를 둘러싼 클래스의 인스턴스를 가리킨다.**
+
+이벤트 리스너가 이벤트를 처리하다가 자기 자신의 리스너 등록을 해제해야 한다면 람다를 사용할 수 없다.  
+이런 경우 람다 대신 무명 객체를 사용하여 리스너를 구현해야 한다.  
+무명 객체 안에서는 `this` 가 그 무명 객체 인스턴스 자신을 가리키기 때문에 리스너를 해제하는 API 함수에서 `this` 를 넘길 수 있다.
 
 ---
 

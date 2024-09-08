@@ -18,7 +18,7 @@ tags: kotlin sequence as-sequence() substring-before() generate-sequence() take(
 * [1. 시퀀스 (Sequence): `constrainOnce()`](#1-시퀀스-sequence-constrainonce)
   * [1.1. 즉시 계산(수평적 평가) vs 지연 계산(수직적 평가): `asSequence()`](#11-즉시-계산수평적-평가-vs-지연-계산수직적-평가-assequence)
   * [1.2. 중간 연산(intermediate), 최종 연산(terminal): `substringBefore()`](#12-중간-연산intermediate-최종-연산terminal-substringbefore)
-  * [1.3. `generateSequence()`, `take()`, `removeAt()`, `takeIf()`](#13-generatesequence-take-removeat-takeif)
+  * [1.3. `generateSequence()`, `take()`, `removeAt()`, `takeIf()`, `takeWhile()`](#13-generatesequence-take-removeat-takeif-takewhile)
   * [1.4. 제네릭 `takeIf()` 구현](#14-제네릭-takeif-구현)
 * [2. Local 함수](#2-local-함수)
   * [2.1. Local 확장 함수](#21-local-확장-함수)
@@ -299,7 +299,7 @@ fun main() {
 
 ---
 
-## 1.3. `generateSequence()`, `take()`, `removeAt()`, `takeIf()`
+## 1.3. `generateSequence()`, `take()`, `removeAt()`, `takeIf()`, `takeWhile()`
 
 **`generateSequence()` 는 자연수로 이루어진 무한 시퀀스를 생성**한다.
 
@@ -316,6 +316,21 @@ fun main() {
 
     println(result1)    // [1, 2, 3]
     println(result2)    // 6
+}
+```
+
+아래는 0~100 까지의 자연수의 합을 구하는 예시이다.
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+fun main() {
+    
+    // 0~100 까지의 자연수의 합
+    val naturalNumbers = generateSequence(0) { it + 1 }
+    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
+
+    // 5050
+    println(numbersTo100.sum())
 }
 ```
 
@@ -337,6 +352,25 @@ fun main() {
 
     println(seq) // kotlin.sequences.ConstrainedOnceSequence@2e0fa5d3
     println(seq.toList()) // [aaa, bbb]
+}
+```
+
+상위 디렉터리를 뒤지면서 숨김 속성을 가진 디렉터리가 있는지 검사하는 예시 코드
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+import java.io.File
+
+// 상위 디렉터리를 뒤지면서 숨김 속성을 가진 디렉터리가 있는지 검사
+// any() 를 find() 로 변경하면 원하는 디렉터리를 찾을 수 있음
+// 이렇게 시퀀스를 사용하면 조건을 만족하는 디렉터리를 찾은 뒤에는 더 이상 상위 디렉터리를 뒤지지 않음
+fun File.isInsideHiddenDir() = generateSequence(this) { it.parentFile }.any { it.isHidden }
+
+fun main() {
+    val file = File("/Users/assu/.HiddenDir/a.txt")
+
+    // true
+    println(file.isInsideHiddenDir())
 }
 ```
 
