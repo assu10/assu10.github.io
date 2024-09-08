@@ -452,10 +452,36 @@ Map 을 사용하면 key 를 사용하여 value 에 빠르게 접근할 수 있�
 
 ## 3.1. `groupBy()`
 
+**컬렉션의 모든 원소를 어떤 특성에 따라 여러 그룹으로 나누고 싶을 때 `groupBy()` 를 사용**하면 된다.  
+**특성을 파라메터로 전달하면 해당 값을 key 로 갖고, List 를 value 로 갖는 Map 을 생성**한다.
+
 **`groupBy()` 는 Map 을 생성하는 방법 중 하나**이다.  
 **`groupBy()` 의 파라메터는 원본 컬렉션의 원소를 분류하는 키를 반환하는 람다**이다.  
 원본 컬렉션의 각 원소에 이 람다를 적용하여 key 값을 얻은 후 Map 에 넣어준다.  
 이 때 **key 가 같은 값이 둘 이상 있을 수 있으므로 Map 의 value 는 원본 컬렉션의 원소 중 key 에 해당하는 값의 List** 가 되어야 한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+data class Person9(
+    val name: String,
+    val age: Int,
+)
+
+fun main() {
+    val persons = listOf(Person9("assu", 20), Person9("silby", 2), Person9("ajaehun", 20))
+
+    // 나이별로 구분
+    // {20=[Person9(name=assu, age=20), Person9(name=ajaehun, age=20)], 2=[Person9(name=silby, age=2)]}
+    println(persons.groupBy { it.age })
+
+    // 멤버 참조인 :: 를 이용하여 첫 글자에 따라 분류
+    val list = listOf("a", "ab", "b")
+
+    // {a=[a, ab], b=[b]}
+    println(list.groupBy(String::first))
+}
+```
 
 ```kotlin
 data class Person(
