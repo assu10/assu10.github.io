@@ -334,6 +334,39 @@ fun main() {
 
 `flatMap()` 은 컬렉션에서 자주 사용되는 함수이다.
 
+**`flatMap()` 은 인자로 주어진 람다를 컬렉션의 모든 객체에 적용 후 람다를 적용한 결과로 얻어지는 여러 리스트를 하나의 리스트로 모으는 역할**을 한다.
+
+아래는 `flatMap()` 과 `toSet()` 을 이용하여 중복을 제거한 단일 리스트를 구하는 예시이다.
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+data class Book(
+    val title: String,
+    val authors: List<String>,
+)
+
+fun main() {
+    val books = listOf(Book("A", listOf("AA")), Book("B", listOf("BB", "AA")), Book("C", listOf("CC", "BB")))
+
+    // [AA, BB, AA, CC, BB]
+    println(books.flatMap { it.authors })
+
+    // 컬렉션에 있는 모든 저자에 대해 중복 제거
+    // [AA, BB, CC]
+    println(books.flatMap { it.authors }.toSet())
+
+    val strings = listOf("abc", "def")
+
+    //  map() 과 toList() 사용하면 문자열로 이루어진 리스트로 이루어진 리스트가 생성됨
+    // [[a, b, c], [d, e, f]]
+    println(strings.map { it.toList() })
+
+    // flatMap() 은 리스트의 리스트에 들어있던 모든 원소를 단일 리스트로 반환함
+    // [a, b, c, d, e, f]
+    println(strings.flatMap { it.toList() })
+}
+```
+
 아래는 특정 범위에 속한 Int 로부터 가능한 모든 Pair 를 생성하는 예시이다.
 
 ```kotlin
@@ -438,6 +471,14 @@ fun main() {
     val rand = Random(26)
     
     // 코틀린 Random 은 seed 가 같으면 항상 같은 난수 시퀀스를 내놓으므로 결과는 항상 동일함
+
+    // 'Three of Hears.'
+    // 'Ace of Diamonds.'
+    // 'Three of Clubs.'
+    // 'Two of Hears.'
+    // 'Ace of Diamonds.'
+    // 'Ace of Diamonds.'
+    // 'Ace of Hears.'
     repeat(7) { println("'${deck.random(rand)}'") }
 }
 ```
