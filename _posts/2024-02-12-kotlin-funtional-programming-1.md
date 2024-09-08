@@ -487,30 +487,154 @@ fun main() {
 
 다양한 컬렉션 함수들이 predicate 를 받아서 컬렉션의 원소를 검사한다.
 
-- `filter()`
+- **`filter()`**
   - 주어진 predicate 가 true 를 리턴하는 모든 원소가 들어있는 새로운 리스트 반환
   - 모든 원소에 predicate 적용
-- `filterNotNull()`
+- **`filterNotNull()`**
   - null 을 제외한 원소들로 이루어진 새로운 List 반환
-- `any()`
+- **`any()`**
   - 원소 중 어느 하나에 대해 predicate 가 true 를 반환하면 true 반환
   - 결과를 찾자마자 이터레이션 중단
-- `all()`
+- **`all()`**
   - 모든 원소가 predicate 와 일치하는지 검사
-- `none()`
+- **`none()`**
   - predicate 와 일치하는 원소가 하나도 없는지 검사
-- `find()`
-  - predicate 와 일치하는 첫 번째 원소 검사
-  - 원소가 없으면 예외를 던짐
+- **`find()`**
+  - predicate 와 일치하는 첫 번째 원소 반환
+  - 원소가 없으면 null 리턴
   - 결과를 찾자마자 이터레이션 중단
-- `firstOrNull()`
+- **`firstOrNull()`**
+  - `find()` 와 동일
   - predicate 와 일치하는 첫 번째 원소 검사
   - 원소가 없으면 null 반환
-- `lastOrNull()`
+  - 조건에 만족하는 원소가 없을 경우 null 을 리턴한다는 사실을 더 명확히 하고 싶으면 `find()` 대신 `firstOrNull()` 사용
+- **`lastOrNull()`**
   - predicate 와 일치하는 마지막 원소를 반환하며, 일치하는 원소가 없으면 null 반환
-- `count()`
+- **`count()`**
   - predicate 와 일치하는 원소의 개수 반환
   - 모든 원소에 predicate 적용
+
+`all()` 과 `any()` 의 예시
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+data class Person5(
+    val name: String,
+    val age: Int,
+)
+
+fun main() {
+    val persons = listOf(Person5("assu", 20), Person5("silby", 2), Person5("jaehun", 22))
+
+    val canBeOrder20 = { p: Person5 -> p.age >= 20 }
+
+    // all(): 모든 원소가 만족하는지 확인
+    // false
+    println(persons.all(canBeOrder20))
+
+    // any(): 하나의 원소라도 만족하는지 확인
+    // true
+    println(persons.any(canBeOrder20))
+}
+```
+
+어떤 조건에 대해 `!all()` 을 수행한 결과와 그 조건에 대한 부정에 대해 `any()` 를 수행한 결과는 같다.  
+가독성을 높이려면 `any()` 와 `all()` 앞에 `!` 를 붙이지 않는 것이 좋다.
+
+아래는 그 예시이다.
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+fun main() {
+    val list = listOf(1, 2, 3)
+
+    // 모든 원소 중 적어도 하나는 3이 아닌지 확인
+
+    // ! 를 보지 못할수도 있으므로 아래 식 보다는 any() 사용 추천
+    // true
+    println(!list.all { it == 3 })
+
+    // 가독성을 위해 아래를 권장
+    // true
+    println(list.any { it != 3 })
+}
+```
+
+`count()` 를 이용하여 조건에 만족하는 원소 갯수 구하는 예시
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+data class Person6(
+  val name: String,
+  val age: Int,
+)
+
+fun main() {
+  val persons = listOf(Person6("assu", 20), Person6("silby", 2), Person6("jaehun", 22))
+
+  // `count()` 를 이용하여 조건에 만족하는 원소 갯수 구하기
+  // 2
+  println(persons.count { p: Person6 -> p.age >= 20 })
+}
+```
+
+**`count()` 를 사용할 수 있는 조건에서 `size` 를 사용하여 컬렉션을 필터링한 결과를 크기를 가져오는 실수**를 할 때가 있다.  
+`size` 를 사용하면 조건을 만족하는 모든 원소가 포함된 중간 컬렉션이 생긴다.  
+반면, `count()` 는 조건에 만족하는 원소의 갯수만을 추적하므로 조건을 만족하는 원소를 따로 저장하지 않기 때문에 `count()` 가 훨씬 효율적이다.
+
+아래는 그 예시이다.
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+data class Person7(
+    val name: String,
+    val age: Int,
+)
+
+fun main() {
+    val persons = listOf(Person7("assu", 20), Person7("silby", 2), Person7("jaehun", 22))
+    val canBeOrder20 = { p: Person7 -> p.age >= 20 }
+
+    // `count()` 대신 size 를 사용하는 비효율적인 코드
+    // 2
+    println(persons.filter(canBeOrder20).size)
+    
+    // `count()` 를 이용한 효율적인 코드
+    // 2
+    println(persons.count(canBeOrder20))
+}
+```
+
+`find()` 와 `firstOrNull()` 의 예시
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+data class Person8(
+    val name: String,
+    val age: Int,
+)
+
+fun main() {
+    val persons = listOf(Person8("assu", 20), Person8("silby", 2), Person8("jaehun", 22))
+    val canBeYounger30 = { p: Person8 -> p.age <= 30 }
+    val canBeYounger1 = { p: Person8 -> p.age <= 1 }
+
+    // find() 를 사용하여 조건에 만족하는 원소가 있을 경우 첫 번째 원소 리턴
+    // Person8(name=assu, age=20)
+    println(persons.find(canBeYounger30))
+
+    // findFirstOrNull() 을 사용하여 조건에 만족하는 원소가 있을 경우 첫 번째 원소 리턴
+    // Person8(name=assu, age=20)
+    println(persons.firstOrNull(canBeYounger30))
+
+    // 조건에 만족하는 원소가 없을 경우
+    // null
+    println(persons.find(canBeYounger1))
+
+    // null
+    println(persons.firstOrNull(canBeYounger1))
+}
+```
 
 ```kotlin
 fun main() {
