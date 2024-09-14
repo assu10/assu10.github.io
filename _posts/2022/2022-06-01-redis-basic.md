@@ -20,7 +20,6 @@ tags: redis
   * [2.2. `RANDOMKEY`](#22-randomkey)
   * [2.3. `KEYS`](#23-keys)
   * [2.4. `EXISTS`](#24-exists)
-  * [](#)
   * [2.5. `DEL`, `FLUSHALL`](#25-del-flushall)
   * [2.6. `SAVE`](#26-save)
   * [2.7. `CLEAR`](#27-clear)
@@ -28,8 +27,8 @@ tags: redis
   * [2.9. `INFO`](#29-info)
 * [3. `String`](#3-string)
   * [3.1. `SET`, `GET`](#31-set-get)
-    * [3.1.1 `SET` - [`NX`|`XX`]](#311-set---nxxx)
-    * [3.1.2 `SET` - [`EX seconds`|`PX milliseconds`|`EXAT unix-time-seconds`|`PXAT unix-time-milliseconds`|`KEEPTTL`]](#312-set---ex-secondspx-millisecondsexat-unix-time-secondspxat-unix-time-millisecondskeepttl)
+    * [3.1.1 `SET` - [`NX | XX`]](#311-set---nx--xx)
+    * [3.1.2 `SET` - [`EX seconds | PX milliseconds | EXAT unix-time-seconds | PXAT unix-time-milliseconds | KEEPTTL`]](#312-set---ex-seconds--px-milliseconds--exat-unix-time-seconds--pxat-unix-time-milliseconds--keepttl)
   * [3.2. `MSET`, `MGET`](#32-mset-mget)
   * [3.3. `STRLEN`](#33-strlen)
   * [3.4. `SETEX`](#34-setex)
@@ -40,6 +39,7 @@ tags: redis
   * [3.9. `GETRANGE`, `SETRANGE`](#39-getrange-setrange)
   * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
+
 ---
 
 # 1. Redis 설치 및 시작 종료
@@ -482,7 +482,7 @@ OK
 127.0.0.1:6379> EXISTS username7 username8
 (integer) 0
 ```
-  
+
 ---
 
 ## 2.5. `DEL`, `FLUSHALL`
@@ -882,7 +882,7 @@ OK
 "assu"
 ```
 
-### 3.1.1 `SET` - [`NX`|`XX`]
+### 3.1.1 `SET` - [`NX | XX`]
 
 `NX` 는 key 가 존재하지 않을 때만 insert 하는 명령어이다. 
 
@@ -927,7 +927,7 @@ OK
 
 ---
 
-### 3.1.2 `SET` - [`EX seconds`|`PX milliseconds`|`EXAT unix-time-seconds`|`PXAT unix-time-milliseconds`|`KEEPTTL`]
+### 3.1.2 `SET` - [`EX seconds | PX milliseconds | EXAT unix-time-seconds | PXAT unix-time-milliseconds | KEEPTTL`]
 
 `EX seconds` 는 만료 TTL 을 seconds 단위로 지정한다.
 
