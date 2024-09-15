@@ -937,7 +937,7 @@ fun main() {
 일반적으로 프로퍼티는 값을 필드에 저장하지만, 필드가 없는 프로퍼티를 정의할 수도 있다.
 
 ```kotlin
-lass Hamster(val name: String)
+class Hamster(val name: String)
 
 class Cage(private val maxCapacity: Int) {
     private val hamsters = mutableListOf<Hamster>()
