@@ -27,11 +27,13 @@ tags: kotlin filterIndexed() toCharArray() stringBuilder buildString() buildList
   * [1.9. `buildList()`, `buildMap()`: `forEachIndexed()`](#19-buildlist-buildmap-foreachindexed)
   * [1.10. 확장 람다로 빌더 작성 (빌더 패턴)](#110-확장-람다로-빌더-작성-빌더-패턴)
 * [2. 영역 함수 (Scope Function): `let()`, `run()`, `with()`, `apply()`, `also()`](#2-영역-함수-scope-function-let-run-with-apply-also)
-  * [2.1. 안전한 호출(`?.`) 로 영역 함수 사용: `Random.nextBoolean()`, `removeSuffix()`](#21-안전한-호출-로-영역-함수-사용-randomnextboolean-removesuffix)
-  * [2.2. Map 을 검색한 결과에 영역 함수 적용](#22-map-을-검색한-결과에-영역-함수-적용)
-  * [2.3. 연쇄 호출에서 null 이 될 수 있는 타입에 영역 함수 사용: `takeUnless()`](#23-연쇄-호출에서-null-이-될-수-있는-타입에-영역-함수-사용-takeunless)
-  * [2.4. 영역 함수와 자원 해제 `use()`](#24-영역-함수와-자원-해제-use)
-  * [2.5. 영역 함수의 인라인: `inline`](#25-영역-함수의-인라인-inline)
+  * [2.1. `with()`](#21-with)
+  * [2.2. `apply()`](#22-apply)
+  * [2.3. 안전한 호출(`?.`) 로 영역 함수 사용: `Random.nextBoolean()`, `removeSuffix()`](#23-안전한-호출-로-영역-함수-사용-randomnextboolean-removesuffix)
+  * [2.4. Map 을 검색한 결과에 영역 함수 적용](#24-map-을-검색한-결과에-영역-함수-적용)
+  * [2.5. 연쇄 호출에서 null 이 될 수 있는 타입에 영역 함수 사용: `takeUnless()`](#25-연쇄-호출에서-null-이-될-수-있는-타입에-영역-함수-사용-takeunless)
+  * [2.6. 영역 함수와 자원 해제 `use()`](#26-영역-함수와-자원-해제-use)
+  * [2.7. 영역 함수의 인라인: `inline`](#27-영역-함수의-인라인-inline)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -359,12 +361,17 @@ fun main() {
 
 ## 1.8. 확장 람다와 사용하는 `StringBuilder` 와 `buildString()`
 
-코틀린 표준 라이브러리는 확장 람다와 함께 사용하는 함수가 많이 있다.  
+코틀린 표준 라이브러리는 확장 람다와 함께 사용하는 함수가 많이 있다.
 
 `StringBuilder` 는 `toString()` 을 적용하여 불변 String 을 만들어낼 수 있는 가변 객체이다.
 
 더 개선된 방법으로는 **확장 람다를 인자로 받는 `buildString()`** 이 있는데 **`buildString()` 은 자체적으로 `StringBuilder` 객체를 생성**하고, 
 **확장 람다를 생성한 `StringBuilder` 객체에 적용한 후 `toString()` 을 호출하여 문자열**을 얻는다.
+
+즉, `buildString()` 은 `StringBuilder` 객체를 만드는 일과 `toString()` 을 호출해주는 작업을 알아서 해준다.  
+`buildString()` 의 인자는 수신 객체 지정 람다이며, 수신 객체는 항상 `StringBuilder` 가 된다.
+
+`buildString()` 함수는 `StringBuilder` 를 활용하여 String 을 만드는 경우 사용할 수 있는 우아한 해법이다.
 
 ```kotlin
 // StringBuilder 로 문자열 생성
@@ -519,6 +526,9 @@ _result1_, _result2_ 를 보면 이 코드가 어떻게 DSL 로 사용되는지 
 
 **영역 함수**는 **객체의 이름을 사용하지 않아도 그 객체에 접근할 수 있는 임시 영역을 만들어주는 함수**로 **오로지 코드의 가독성을 위해 사용**되며, **다른 추가 기능은 제공하지 않는다.**
 
+즉, **수신 객체를 명시하지 않고 람다의 본문 안에서 다른 객체의 메서드를 호출**할 수 있게 해준다.  
+**그런 람다를 수신 지정 람다(Lambda with receiver)** 라고 한다.
+
 **영역 함수는 단지 가독성을 높이려는 목적으로 만들어진 것이므로 영역 함수를 내포시키는 것은 좋지 않는 방식**이다.
 
 영역 함수는 `let()`, `run()`, `with()`, `apply()`, `also()`, 총 5개로 각각 람다와 함께 사용된다.
@@ -536,7 +546,7 @@ _result1_, _result2_ 를 보면 이 코드가 어떻게 DSL 로 사용되는지 
 **`run()` 은 확장 함수이고, `with()` 는 일반 함수**인 부분을 제외하면 두 함수는 같은 일을 한다.    
 **수신 객체가 null 이 될 수 있거나, 연쇄 호출이 필요한 경우엔 `run()` 을 사용하는 것을 권장**한다.
 
-문맥 객체를 `this` 로 접근 가능한 영역 함수인 `run()`, `with()`,`apply()` 를 사용하면 영역 블록 안에서 가장 깔끔한 구문 사용 가능하고, 
+문맥 객체를 `this` 로 접근 가능한 영역 함수인 `run()`, `with()`,`apply()` 를 사용하면 영역 블록 안에서 가장 깔끔한 구문 사용이 가능하고, 
 문맥 객체를 `it` 으로 접근할 수 있는 영역 함수인 `let()`, `also()` 는 람다 인자에 이름을 붙일 수 있다.
 
 <**각 영역 함수는 아래와 같은 상황에 따라 골라서 사용**>  
@@ -618,7 +628,176 @@ fun main() {
 
 ---
 
-## 2.1. 안전한 호출(`?.`) 로 영역 함수 사용: `Random.nextBoolean()`, `removeSuffix()`
+## 2.1. `with()`
+
+`with()` 를 비롯한 다른 영역 함수들은 어떤 객체의 이름을 반복하지 않고도 그 객체에 대해 다양한 연산을 수행할 수 있도록 해준다.
+
+아래는 `with()` 를 사용하지 않고 알파벳을 생성하는 방법의 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+// StringBuilder() 를 사용하여 알파벳 생성
+fun alphabetWithStringBuilder(): String {
+    val result = StringBuilder()
+    for (letter in 'A'..'Z') {
+        result.append(letter)
+    }
+    result.append("\nEnd~")
+    return result.toString()
+}
+
+// BuildString 을 사용하여 알파벳 생성
+fun alphabetWithBuildString(): String {
+    val result = buildString {
+        ('A'..'Z').forEach { append(it) }
+        append("\nEnd~")
+    }
+    return result
+}
+
+// joinToString() 을 사용하여 알파벳 생성
+fun alphabetWithJoinToString(): String = ('A'..'Z').joinToString(separator = "", postfix = "\nEnd~")
+
+fun main() {
+    // 결과는 모두 동일
+    // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    //End~
+    
+    println(alphabetWithStringBuilder())
+    println(alphabetWithBuildString())
+    println(alphabetWithJoinToString())
+}
+```
+
+위 코드를 보면 매번 _result_ 를 반복하여 사용하고 있다.
+
+아래는 `with()` 를 사용하여 알파벳을 생성하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+fun alphabetWith(): String {
+    val result = StringBuilder()
+    return with(result) {   // 메서드를 호출하려는 수신 객체 지정
+        for (letter in 'A'..'Z') {
+            this.append(letter) // this 를 명시해서 앞에서 지정한 수신 객체의 메서드 호출
+        }
+        append("\nEnd~")    // this 를 생략하고 메서드 호출
+        this.toString() // 람다에서 값 반환
+    }
+}
+
+fun main() {
+    // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    //End~
+    println(alphabetWith())
+}
+```
+
+위에서 `with()` 는 파라메터가 2개 있는 함수이다.  
+첫 번째 파라메터는 _result_ 이고, 두 번째 파라메터는 람다이다.    
+람다를 괄호 밖으로 빼내는 관례를 기억하자.
+
+`with()` 함수는 첫 번째 인자로 받은 객체를 두 번째 인자로 받은 람다의 수신 객체로 만든다.  
+인자로 받은 람다 본문에서는 `this` 를 사용하여 그 수신 객체에 접근할 수 있다.
+
+위 예시에서 `this` 는 첫 번재 인자로 전달된 _result_ 이다.  
+_result_ 의 메서드를 _this.append(letter)_ 처럼 `this` 참조를 통해 접근할 수도 있고, _append("\nEnd~")_ 처럼 바로 호출할 수도 있다.
+
+아래는 바로 위 코드를 `with()` 와 식을 본문으로 하는 함수로 리팩토링하여 불필요한 _result_ 변수를 없애는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+fun alphabetWith() = with(StringBuilder()) {
+    ('A'..'Z').forEach { append(it) }
+    append("\nEnd~")
+    toString()
+}
+
+fun main() {
+    // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    // End~
+    println(alphabetWith())
+    println(alphabetWith2())
+}
+```
+
+불필요한 _result_ 변수를 없애면 _alphabetWith()_ 함수가 식의 결과를 바로 반환하게 되므로 식을 본문으로 하는 함수로 표현할 수 있다.  
+`StringBuilder()` 의 인스턴스를 만들어 즉시 `with()` 에게 인자로 넘기고, 람다에서 `this` 를 사용하여 그 인스턴스를 참조한다.
+
+만일 `with()` 에게 인자로 넘긴 객체의 클래스와 `with()` 를 사용하는 코드가 들어있는 클래스 안에 이름이 같은 메서드가 있을 경우(**= 메서드명 충돌**)엔 **`this` 참조 앞에 레이블을 붙이고 호출**하면 된다.  
+예를 들어 아래와 같다.
+
+`this` 참조 앞에 레이블을 붙이고 호출하는 예시
+
+```kotlin
+fun alphabetWith() = with(StringBuilder()) {
+  ('A'..'Z').forEach { append(it) }
+  append("\nEnd~")
+  toString()
+}
+
+fun alphabetWith() = with(StringBuilder()) {
+  ('A'..'Z').forEach { append(it) }
+  append("\nEnd~")
+  this@with.toString()      // this@레이블 사용
+}
+```
+
+---
+
+## 2.2. `apply()`
+
+**`with()` 가 반환하는 값은 람다 코드를 실행한 결과이며, 그 결과는 람다 식의 본문에 있는 마지막 식의 값**이다.
+
+만일 **람다의 결과 대신 수신 객체가 필요한 경우엔 `apply()` 나 `also()` 를 사용**하면 된다.
+
+`apply()` 함수는 `with()` 와 거의 비슷하며, 유일한 차이는 `apply()` 는 항상 자신에게 전달된 객체 (= 수신 객체)를 반환한다는 점 뿐이다.
+
+위에서 `with()` 를 써서 알바벳을 만드는 함수를 `apply()` 로 리팩토링하면 아래와 같다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap05
+
+// with() 사용
+fun alphabetWith() = with(StringBuilder()) {
+    ('A'..'Z').forEach { append(it) }
+    append("\nEnd~")
+    toString()
+}
+
+// apply() 사용
+fun alphabetApply() = StringBuilder().apply {
+  ('A'..'Z').forEach { append(it) }
+  append("\nEnd~")
+}.toString()
+
+// apply() 와 buildString 사용
+fun alphabetApplyWithBuildString() = buildString {
+  ('A'..'Z').forEach { append(it) }
+  append("\nEnd~")
+}
+
+fun main() {
+    // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    // End~
+    println(alphabetWith())
+    println(alphabetApply())
+    println(alphabetApplyWithBuildString())
+}
+```
+
+`with()` 와 `apply()` 는 수신 객체 지정 람다를 사용하는 일반적인 함수 중 하나이다.
+
+수신 객체 지정 람다는 DSL (Domain Specific Language, 영역 특화 언어) 을 만들 때 매우 유용하다.
+
+> 수신 객체 지정 람다를 DSL 정의에 사용하는 방법과 함께 수신 객체 지정 람다를 호출하는 함수를 직접 작성하는 방법에 대해서는 추후 다룰 예정입니다. (p. 241)
+
+---
+
+## 2.3. 안전한 호출(`?.`) 로 영역 함수 사용: `Random.nextBoolean()`, `removeSuffix()`
 
 > 안전한 호출(`?.`) 에 대한 좀 더 상세한 내용은 [2.1. 안전한 호출 (safe call): `?.`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#21-%EC%95%88%EC%A0%84%ED%95%9C-%ED%98%B8%EC%B6%9C-safe-call-) 을 참고하세요.
 
@@ -699,7 +878,7 @@ fun main() {
 
 ---
 
-## 2.2. Map 을 검색한 결과에 영역 함수 적용
+## 2.4. Map 을 검색한 결과에 영역 함수 적용
 
 Map 의 key 에 해당하는 원소를 찾을 수 있다는 보장이 없기 때문에 Map 에서 객체를 읽어오는 함수의 반환값도 null 이 될 수 있다.
 
@@ -763,7 +942,7 @@ fun main() {
 
 ---
 
-## 2.3. 연쇄 호출에서 null 이 될 수 있는 타입에 영역 함수 사용: `takeUnless()`
+## 2.5. 연쇄 호출에서 null 이 될 수 있는 타입에 영역 함수 사용: `takeUnless()`
 
 영역 함수는 연쇄 호출에서 null 이 될 수 있는 타입과 함께 사용할 수 있다.
 
@@ -821,7 +1000,7 @@ public inline fun <T> T.takeUnless(predicate: (T) -> Boolean): T? {
 
 ---
 
-## 2.4. 영역 함수와 자원 해제 `use()`
+## 2.6. 영역 함수와 자원 해제 `use()`
 
 > 자원 해제에 대한 좀 더 상세한 내용은 [1. 자원 해제: `use()`](https://assu10.github.io/dev/2024/03/10/kotlin-error-handling-2/#1-%EC%9E%90%EC%9B%90-%ED%95%B4%EC%A0%9C-use) 를 참고하세요.
 
@@ -876,16 +1055,17 @@ fun main() {
 
 ---
 
-## 2.5. 영역 함수의 인라인: `inline`
+## 2.7. 영역 함수의 인라인: `inline`
 
-람다를 인자로 전달하면 람다 코드를 외부 객체에 넣기 때문에 일반 함수 호출에 비해 실행 시점의 부가 비용이 좀 더 발생하지만, 람자가 주는 신뢰성과 코드 구조 개선에 비하면 
+람다를 인자로 전달하면 람다 코드를 외부 객체에 넣기 때문에 일반 함수 호출에 비해 실행 시점의 부가 비용이 좀 더 발생하지만, 람다가 주는 신뢰성과 코드 구조 개선에 비하면 
 이런 부가 비용은 크게 문제가 되지 않는다.
 
 **영역 함수를 `inline` 으로 만들면 모든 실행 시점의 부가 비용을 없앨 수 있다.**  
 
 **컴파일러는 `inline` 함수 호출을 보면 함수 호출 식을 함수의 본문으로 치환**하며, 이 때 함수의 모든 파라메터를 실제 제공된 인자로 바꿔준다.
 
-**함수 실행 비용보다 함수 호출 비용이 큰 작은 함수의 경우 `inline` 이 효과적**이다.  
+**함수 실행 비용보다 함수 호출 비용이 큰, 작은 함수의 경우 `inline` 이 효과적**이다.  
+
 반면, **함수가 커질수록** 전체 호출을 실행하는데 걸리는 시간에서 함수 호출이 차지하는 비중이 줄어들기 때문에 **`inline` 의 가치가 하락**하고, 
 **함수가 크면 모든 함수 호출 지점에 함수 본문이 삽입되므로 컴파일된 전체 바이트 코드의 크기도 늘어난다.**
 
