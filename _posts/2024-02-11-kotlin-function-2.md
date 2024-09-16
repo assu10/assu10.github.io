@@ -63,9 +63,11 @@ fun main() {
 
 이 문제의 해법 중 하나는 애초에 null 을 허용하지 않는 것인데 코틀린은 자바와 상호 작용하므로 자바에서 null 이 있기 때문에 애초에 null 을 허용하지 않을 수가 없다.
 
-따라서 애초에 null 을 허용하지 않는 대신 null 이 될 수 있는 타입이라고 선언하여 처리가 가능하다.
+따라서 애초에 null 을 허용하지 않는 대신 null 이 될 수 있는 타입이라고 선언하여 처리가 가능하다.  
+즉, NPE (NullPointerException) 이 발생할 수 있는 시점을 runtime 시점에서 compile 시점으로 옮기는 것이다.
 
-코틀린의 모든 타입은 기본적으로 null 이 될 수 없는 타입인데 null 의 결과가 나올 수 있는 변수라면 타입 이름 뒤에 물음표 (`?`) 를 붙영서 결과가 null 이 될 수도 있음을 표시해야 한다.
+코틀린의 모든 타입은 기본적으로 null 이 될 수 없는 타입인데 null 의 결과가 나올 수 있는 변수라면 타입 이름 뒤에 물음표 (`?`) 를 붙여서 
+결과가 null 이 될 수도 있음을 표시해야 한다.
 
 ```kotlin
 fun main() {
@@ -175,6 +177,9 @@ fun main() {
 ## 2.1. 안전한 호출 (safe call): `?.`
 
 안전한 호출은 `?.` 와 같이 표기한다.    
+
+안전한 호출 연산자인 `?.` 은 null 검사와 메서드 호출을 한 번의 연산으로 수행한다.
+
 **안전한 호출 `?.` 을 사용하면 수신 객체가 null 이 아닐 때만 연산을 수행하기 때문에 nullable 타입의 멤버에 접근하면서 NPE 도 발생하지 않게 해준다.**
 
 ```kotlin
@@ -207,6 +212,7 @@ fun main() {
 ```
 
 아래 코드를 보면 if 문을 사용할 때보다 안전한 호출인 `?.` 를 이용할 때 좀 더 코드가 깔끔해지는 것을 확인할 수 있다.
+
 ```kotlin
 fun checkLength(
   s: String?,
@@ -232,6 +238,8 @@ fun main() {
 ---
 
 ## 2.2. 엘비스(Elvis) 연산자: `?:`
+
+앨비스 연산자인 `?:` 는 null 대신 디폴트 값을 지정할 때 사용한다.
 
 수신 객체가 null 일 경우 `?.` 로 null 을 리턴하는 것 이상의 일이 필요할 경우엔 Elvis 연산자인 `?:` 를 사용한다.
 
@@ -275,6 +283,39 @@ fun main() {
 }
 ```
 
+아래는 엘비스 연산자를 이용하여 예외를 던지는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+class Address(val streetAddr: String, val zipCode: Int, val city: String, val country: String)
+
+class Company(val name: String, val addr: Address?)
+
+class Person(val name: String, val company: Company?)
+
+fun shippingLabel(person: Person) {
+    // 주소가 없으면 예외 발생
+    val address = person.company?.addr ?: throw IllegalArgumentException("No Addr.")
+
+    // address 는 null 이 아님
+    with (address) {
+        println(this.streetAddr)
+        println("$zipCode, $city, $country")
+    }
+}
+
+fun main() {
+    val addr = Address("Aaa", 111, "Bbb", "Ccc")
+    val jetbrains = Company("JetBrains", addr)
+    val person = Person("Assu", jetbrains)
+
+    // Aaa
+    // 111, Bbb, Ccc
+    shippingLabel(person)
+}
+```
+
 ---
 
 ## 2.3. 안전한 호출 (`?.`) 로 여러 호출을 연쇄
@@ -314,8 +355,10 @@ fun main() {
 
 **null 이 될 수 없는 변수임을 보증할 때는 `!!` 를 변수 뒤에 선언**한다.
 
-**가장 좋은 방법은 항상 안전한 호출(`?.`) 자세한 예외를 반환하는 특별한 함수를 사용**하는 것이다.  
+**가장 좋은 방법은 항상 안전한 호출(`?.`) 후에 자세한 예외를 반환하는 특별한 함수를 사용**하는 것이다.  
 **null 이 아니라는 점을 단언하는 호출인 `!!` 은 꼭 필요할 때만 사용**하는 것이 좋다.
+
+`!!` 을 사용하면 어떤 값이든 null 이 될 수 없는 타입으로 강제로 바꿀 수 있다.
 
 `a!!` 는 a 가 null 이 아니면 a 값을 리턴하고, null 이면 오류를 발생시킨다.
 
@@ -343,7 +386,7 @@ fun main() {
 }
 ```
 
-**`!!` 사용보다는 안전한 호출(`?.`) 이나 명시적인 null 검사를 활용하는 것이 좋다.**  
+**`!!` 사용보다는 안전한 호출 `?.` 이나 명시적인 null 검사를 활용하는 것이 좋다.**  
 아래는 Map 에 특정 key 가 꼭 존재해야 하고, key 가 없을 경우 아무 일도 일어나지 않는 것보다 예외를 발생시키는 것이 
 좋다고 가정하는 예시이다.  
 
@@ -362,6 +405,39 @@ fun main() {
     // println(map.getValue(2).uppercase()) // NoSuchElementException
 }
 ```
+
+때로는 널 아님 단언문 `!!` 이 더 나은 해법이 되는 경우가 있다.
+
+어떤 함수가 null 인지 검사한 다음에 다른 함수를 호출한다고 해도 컴파일러는 호출된 함수 안에서 안전하게 그 값을 사용할 수 있음을 인식할 수 없다.
+
+이런 경우 호출된 함수가 언제나 다른 함수에서 null 이 아닌 값을 전달받는다는 사실이 분명하다면 굳이 null 검사를 다시 수행하고 싶지 
+않을 것이다. 이럴 때 널 아님 단언문 `!!` 을 사용한다.
+
+널 아님 단언 `!!` 을 사용할 때의 주의점은 null 에 대해 사용해서 발생하는 예외의 스택 트레이스에는 어떤 파일의 몇 번째 줄인지는 나오지만 어떤 식에서 
+예외가 발생했는지에 대한 정보는 들어있지 않다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+class Address2(val streetAddr: String, val zipCode: Int, val city: String, val country: String)
+
+class Company2(val name: String, val addr: Address2?)
+
+class Person2(val name: String, val company: Company2?)
+
+fun main() {
+    val person = Person2("AA", null)
+
+    // 아래와 같이 어느 파일의 몇 번째 줄인지에 대한 정보만 나오고 어느 식에서 에러가 발생했는지에 대한 정보는 
+    // 출력되지 않음
+    
+    // Exception in thread "main" java.lang.NullPointerException
+    // at com.assu.study.kotlin2me.chap06.NotNullAssertionKt.main(NotNullAssertion.kt:12)
+    println(person.company!!.addr!!.city)
+}
+```
+
+따라서 _person.company!!.addr!!.city_ 이런 식의 코드를 작성하는 것은 좋지 않다.
 
 ---
 
@@ -507,6 +583,8 @@ fun main() {
 
 [5.1. 하나의 타입 파라메터를 받는 클래스](#51-하나의-타입-파라메터를-받는-클래스) 의 문제를 제네릭 타입이 아닌 유니버셜 타입(universal type) 인 `Any` 로 해결할 수도 있다.
 
+> `Any` 에 대한 좀 더 상세한 내용은 [1.1. `Any`](https://assu10.github.io/dev/2024/03/17/kotlin-advanced-2/#11-any) 를 참고하세요.
+
 ```kotlin
 class AnyHolder(private val a: Any) {
     fun getValue(): Any = a
@@ -651,6 +729,8 @@ var StringBuilder.lastChar: Char
 fun main() {
     var sb = StringBuilder("Hello?")
     sb.lastChar = '!'
+  
+    // Hello!
     println(sb)
 }
 ```

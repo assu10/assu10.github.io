@@ -616,7 +616,7 @@ val kc = c1(A::class)
 
 **`reified` 는 제네릭 함수를 `inline` 으로 선언**해야 한다.
 
-> `inline` 에 대한 좀 더 상세한 내용은 [2.5. 영역 함수의 인라인: `inline`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#25-%EC%98%81%EC%97%AD-%ED%95%A8%EC%88%98%EC%9D%98-%EC%9D%B8%EB%9D%BC%EC%9D%B8-inline) 을 참고하세요.
+> `inline` 에 대한 좀 더 상세한 내용은 [2.8. 영역 함수의 인라인: `inline`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#28-%EC%98%81%EC%97%AD-%ED%95%A8%EC%88%98%EC%9D%98-%EC%9D%B8%EB%9D%BC%EC%9D%B8-inline) 을 참고하세요.
 
 ```kotlin
 import kotlin.reflect.KClass
@@ -958,10 +958,12 @@ interface Y: X {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)

@@ -78,9 +78,9 @@ fun main() {
     val result2 = JustOne.f()
     val result3 = JustOne.g()
 
-    println(result1)
-    println(result2)
-    println(result3)
+    println(result1)    // 2
+    println(result2)    // 4
+    println(result3)    // 40
 }
 ```
 
@@ -94,8 +94,11 @@ object 키워드는 내부 원소들을 object 로 정의한 객체의 name spac
 ## 1.2. object 의 상속
 
 **object 는 다른 클래스나 인터페이스를 상속**할 수 있다.  
-특정 인터페이스를 구현해야 하는데 그 구현 내부에 다른 상태가 필요하지 않은 경우 이런 기능이 유용하다.  
+
+**특정 인터페이스를 구현해야 하는데 그 구현 내부에 다른 상태가 필요하지 않은 경우 이런 기능이 유용**하다.  
+
 예) java.util.Comparator 인터페이스를 보면 Comparator 구현은 두 객체를 인자로 받아서 그 중 어느 객체가 더 큰지 알려주는 정수를 반환하며, Comparator 안에는 데이터를 저장할 필요가 없음  
+
 따라서 어떤 클래스에 속한 객체를 비교할 때 사용하는 Comparator 는 보통 클래스마다 단 하나씩만 있으면 되므로 Comparator 인스턴스를 만드는 방법으로는 object 선언이 가장 좋은 방법임
 
 ```kotlin

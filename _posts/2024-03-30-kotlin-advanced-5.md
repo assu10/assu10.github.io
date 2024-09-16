@@ -84,7 +84,8 @@ fun main() {
 }
 ```
 
-_helpful_, _idle_ 모두 val 로 선언되어 있다. lazy 초기화가 없다면 이 프로퍼티들은 var 로 선언해야 하기 때문에 신뢰성이 덜 한 코드가 된다.
+_helpful_, _idle_ 모두 val 로 선언되어 있다.  
+lazy 초기화가 없다면 이 프로퍼티들은 var 로 선언해야 하기 때문에 신뢰성이 덜 한 코드가 된다.
 
 ---
 
@@ -146,7 +147,10 @@ fun main() {
 
 # 2. 늦은(late) 초기화
 
-상황에 따라 지연 계산 초기화 `by lazy()` 를 사용하지 않고 별도의 멤버 함수에서 클래스의 인스턴스가 생성된 후에 프로퍼티를 초기화해야 하는 경우도 있다.
+상황에 따라 지연 계산 초기화 `by lazy()` 를 사용하지 않고 별도의 멤버 함수에서 클래스의 인스턴스가 생성된 후에 프로퍼티를 초기화해야 하는 경우도 있다.  
+(= 객체 인스턴스를 일단 생성한 다음에 나중에 초기화)
+
+예) JUnit 에서는 `@Before` 로 애너테이션된 메서드 안에서 초기화 로직을 수행해야 함
 
 예를 들어 라이브러리가 특별한 함수 안에서 초기화를 해야한다고 요구할 수도 있다.  
 이런 라이브러리의 클래스를 확장하는 경우 개발자가 직접 특별한 함수의 자체 구현을 제공할 수 있다.
@@ -187,6 +191,12 @@ null 은 _items_ 가 초기화되지 않았음을 표시한다.
 **_items_ 를 null 이 될 수 있는 String? 으로 선언하면 _checkItems()_ 처럼 모든 멤버 함수에서 null 검사**를 해야한다.  
 여기서 재사용중인 라이브러리를 _setUp()_ 을 호출하여 _items_ 를 초기화해주기 때문에 **매번 null 검사를 하는 것은 불필요한 작업**이다.
 
+> 코틀린에서 클래스 안에 null 이 될 수 없는 프로퍼티를 생성자 안에서 초기화하지 않고 특별한 메서드 안에서 초기화할 수는 없음  
+> 코틀린에서는 일반적으로 생성자에서 모든 프로퍼티를 초기화해야 함  
+> 또한 프로퍼티 타입이 null 이 될 수 없는 타입이라면 반드시 null 이 아닌 값으로 그 프로퍼티를 초기화해야 하는데 그런 초기화값을 
+> 제공할 수 없다면 null 이 될 수 있는 타입을 사용할 수 밖에 없음  
+> 하지만 null 이 될 수 있는 타입을 사용하면 모든 프로퍼티 접근에 null 검사를 넣거나 널 아님 단언 `!!` 연산자를 사용해야 함
+
 ---
 
 ## 2.1. `lateinit`
@@ -222,13 +232,69 @@ fun main() {
 }
 ```
 
+`lateinit` 을 사용한 예시와 사용하지 않은 예시 비교
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+
+
+class MyService {
+  fun action(): String = "foo"
+}
+
+// 널 아님 단언 `!!` 을 사용하여 null 이 될 수 있는 프로퍼티 접근
+class MyTest {
+  // null 로 초기화하기 위해 null 이 될 수 있는 타입인 프로퍼티 선언
+  private var myService: MyService? = null
+
+  fun setUp() {
+    // setUp() 안에서 진짜 초기값 지정
+    myService = MyService()
+  }
+
+  fun testAction() {
+    // 널 아님 단언 `!!` 이나 안전한 호출 `?.` 을 꼭 사용해야 함
+    myService!!.action()
+    myService?.action()
+  }
+}
+
+// 나중에 초기화하는 프로퍼티 사용
+class MyTestWithLateInit {
+  // 초기화하지 않고 null 이 될 수 없는 프로퍼티 선언
+  private lateinit var myService: MyService
+
+  fun setUp() {
+    // setUp() 안에서 진짜 초기값 지정
+    myService = MyService()
+  }
+
+  fun testAction() {
+    // null 검사를 수행하지 않고 프로퍼티 사용
+    myService.action()
+  }
+}
+```
+
 <**`lateinit` 의 제약 사항**>  
 - 클래스 본문과 최상위 영역이나 지역에 정의된 var 에 대해서만 적용 가능
 - var 프로퍼티에만 적용 가능
+  - val 프로퍼티는 final 필드로 컴파일되며, 생성자 안에서 반드시 초기화해야 함
+  - 따라서 생성자 밖에서 초기화해야 하는 나중에 초기화하는 프로퍼티는 항상 var 이어야 함
 - 프로퍼티 타입은 null 이 아닌 타입이어야 함
 - 프로퍼티가 원시 타입의 값이 아니어야 함
 - 추상 클래스의 추상 프로퍼티나 인스턴스의 프로퍼티에는 적용 불가
 - 커스텀 게터 및 세터를 지원하는 프로퍼티에는 적용 불가
+
+만일 나중에 초기화하는 프로퍼티에 대해 그 프로퍼티를 초기화하기 전에 해당 프로퍼티에 접근하면 아래와 같은 예외가 발생한다.
+
+```shell
+lateinit property myService has not been initialized
+```
+
+_myService_ 라는 `lateinit` 프로퍼티를 아직 초기화하지 않았다는 예외이다.  
+단순한 NPE 가 발생하는 것보다 훨씬 낫다.
 
 > **primitive (원시) 타입**
 > 
@@ -273,10 +339,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)

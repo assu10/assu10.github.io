@@ -29,11 +29,12 @@ tags: kotlin filterIndexed() toCharArray() stringBuilder buildString() buildList
 * [2. 영역 함수 (Scope Function): `let()`, `run()`, `with()`, `apply()`, `also()`](#2-영역-함수-scope-function-let-run-with-apply-also)
   * [2.1. `with()`](#21-with)
   * [2.2. `apply()`](#22-apply)
-  * [2.3. 안전한 호출(`?.`) 로 영역 함수 사용: `Random.nextBoolean()`, `removeSuffix()`](#23-안전한-호출-로-영역-함수-사용-randomnextboolean-removesuffix)
-  * [2.4. Map 을 검색한 결과에 영역 함수 적용](#24-map-을-검색한-결과에-영역-함수-적용)
-  * [2.5. 연쇄 호출에서 null 이 될 수 있는 타입에 영역 함수 사용: `takeUnless()`](#25-연쇄-호출에서-null-이-될-수-있는-타입에-영역-함수-사용-takeunless)
-  * [2.6. 영역 함수와 자원 해제 `use()`](#26-영역-함수와-자원-해제-use)
-  * [2.7. 영역 함수의 인라인: `inline`](#27-영역-함수의-인라인-inline)
+  * [2.3. `let()`](#23-let)
+  * [2.4. 안전한 호출(`?.`) 로 영역 함수 사용: `Random.nextBoolean()`, `removeSuffix()`](#24-안전한-호출-로-영역-함수-사용-randomnextboolean-removesuffix)
+  * [2.5. Map 을 검색한 결과에 영역 함수 적용](#25-map-을-검색한-결과에-영역-함수-적용)
+  * [2.6. 연쇄 호출에서 null 이 될 수 있는 타입에 영역 함수 사용: `takeUnless()`](#26-연쇄-호출에서-null-이-될-수-있는-타입에-영역-함수-사용-takeunless)
+  * [2.7. 영역 함수와 자원 해제 `use()`](#27-영역-함수와-자원-해제-use)
+  * [2.8. 영역 함수의 인라인: `inline`](#28-영역-함수의-인라인-inline)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -797,7 +798,51 @@ fun main() {
 
 ---
 
-## 2.3. 안전한 호출(`?.`) 로 영역 함수 사용: `Random.nextBoolean()`, `removeSuffix()`
+## 2.3. `let()`
+
+null 이 될 수 있는 값을 null 이 아닌 값만 인자로 받는 함수로 넘기려면 어떻게 해야 할까?
+
+그런 호출은 안전하지 않기 때문에 컴파일러는 그런 호출을 허용하지 않는다.
+
+`let()` 이러한 케이스에 잘 활용할 수 있다.
+
+`let()` 함수를 사용하면 null 이 될 수 있는 식을 쉽게 다룰 수 있다.
+
+`let()` 함수를 안전한 호출 연산자 `?.` 와 함께 사용하면 _원하는 식을 평가 → 결과가 null 인지 검사 → 그 결과를 변수에 넣는 작업_ 을 간단한 식을 이용하여 
+한꺼번에 처리할 수 있다.
+
+`let()` 의 가장 흔한 사용 패턴은 null 이 될 수 있는 값을 null 이 아닌 값만 인자로 받는 함수에 넘기는 경우이다.
+
+아래 에시에서 안전한 호출 연산자 `?.` 와 함께 사용된 `let()` 함수는 이메일 주소가 null 이 아닌 경우에만 호출되므로, 람다 안에서 null 이 될 수 없는 타입으로 
+_email_ 을 사용할 수 있다.
+
+`let()` 와 안전한 호출 연산자 `?.` 를 함께 사용하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+fun sendToEmail(email: String) = println("Sending email to $email")
+
+fun main() {
+  val email1: String? = "assu@test.com"
+
+  // Sending email to assu@test.com
+  email1?.let { sendToEmail(it) }
+
+  val email2: String? = null
+
+  // 아무일도 일어나지 않음
+  email2?.let { sendToEmail(it) }
+}
+```
+
+여러 값이 null 인지 검사해야 할 경우 `let()` 호출을 중첩시켜서 처리할 수 있지만 그렇게 `let()` 을 중첩시켜서 처리하면 가독성이 안 좋아진다.
+
+이런 경우엔 일반적인 if 를 사용하여 모든 값을 한꺼번에 검사하는 것이 좋다.
+
+---
+
+## 2.4. 안전한 호출(`?.`) 로 영역 함수 사용: `Random.nextBoolean()`, `removeSuffix()`
 
 > 안전한 호출(`?.`) 에 대한 좀 더 상세한 내용은 [2.1. 안전한 호출 (safe call): `?.`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#21-%EC%95%88%EC%A0%84%ED%95%9C-%ED%98%B8%EC%B6%9C-safe-call-) 을 참고하세요.
 
@@ -878,7 +923,7 @@ fun main() {
 
 ---
 
-## 2.4. Map 을 검색한 결과에 영역 함수 적용
+## 2.5. Map 을 검색한 결과에 영역 함수 적용
 
 Map 의 key 에 해당하는 원소를 찾을 수 있다는 보장이 없기 때문에 Map 에서 객체를 읽어오는 함수의 반환값도 null 이 될 수 있다.
 
@@ -942,7 +987,7 @@ fun main() {
 
 ---
 
-## 2.5. 연쇄 호출에서 null 이 될 수 있는 타입에 영역 함수 사용: `takeUnless()`
+## 2.6. 연쇄 호출에서 null 이 될 수 있는 타입에 영역 함수 사용: `takeUnless()`
 
 영역 함수는 연쇄 호출에서 null 이 될 수 있는 타입과 함께 사용할 수 있다.
 
@@ -1000,7 +1045,7 @@ public inline fun <T> T.takeUnless(predicate: (T) -> Boolean): T? {
 
 ---
 
-## 2.6. 영역 함수와 자원 해제 `use()`
+## 2.7. 영역 함수와 자원 해제 `use()`
 
 > 자원 해제에 대한 좀 더 상세한 내용은 [1. 자원 해제: `use()`](https://assu10.github.io/dev/2024/03/10/kotlin-error-handling-2/#1-%EC%9E%90%EC%9B%90-%ED%95%B4%EC%A0%9C-use) 를 참고하세요.
 
@@ -1055,7 +1100,7 @@ fun main() {
 
 ---
 
-## 2.7. 영역 함수의 인라인: `inline`
+## 2.8. 영역 함수의 인라인: `inline`
 
 람다를 인자로 전달하면 람다 코드를 외부 객체에 넣기 때문에 일반 함수 호출에 비해 실행 시점의 부가 비용이 좀 더 발생하지만, 람다가 주는 신뢰성과 코드 구조 개선에 비하면 
 이런 부가 비용은 크게 문제가 되지 않는다.
@@ -1082,10 +1127,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
