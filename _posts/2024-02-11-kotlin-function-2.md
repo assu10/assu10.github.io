@@ -443,12 +443,37 @@ fun main() {
 
 # 4. 확장 함수와 null 이 될 수 있는 타입
 
+null 이 될 수 있는 타입에 확장 함수를 정의하면 null 값을 편리하게 다룰 수 있다.
+
+어떤 메서드를 호출하기 전에 수신 객체 역할을 하는 변수가 null 이 될 수 없다고 보장하는 대신, **직접 변수에 대해 메서드를 호출해도 확장 함수인 메서드가 
+알아서 null 을 처리**해준다.
+
+**이런 처리는 확장 함수에서만 가능**하다.
+
+일반 멤버 호출은 객체 인스턴스를 통해 dispatch 되기 때문에 그 인스턴스가 null 인지 여부를 검사하지 않는다.
+
+> **디스패치 (dispatch)**
+> 
+> - 동적 디스패치
+>   - 객체의 동적 타입에 따라 적절한 메서드를 호출해주는 방식
+> - 직접 디스패치
+>   - 컴파일러가 컴파일 시점에 어떤 메서드가 호출될 지 결정해서 코드를 생성하는 방힉
+
+---
+
 ## 4.1. 확장 함수 사용: `isNullOrEmpty()`, `isNullOrBlank()`
 
 [안전한 호출](#21-안전한-호출-safe-call-) 을 사용한 _s?.f()_ 는 s 가 null 이 될 수 있는 타입임을 암시한다.  
 비슷하게 t.f() 는 t 가 null 이 될 수 없는 타임을 암시하는 것처럼 보이지만 꼭 t 가 null 이 될 수 없는 타입인 것은 아니다.
 
-코틀린 표준 라이브러리는 아래의 String 확장 함수를 제공한다.
+코틀린은 String 을 확장하여 정의된 `isEmpty()` 와 `isBlank()` 함수를 제공한다.
+
+- `isEmpty()`
+  - 문자열이 빈 문자열인지 검사
+- `isBlank()`
+  - 문자열이 모두 공백으로 이루어졌는지 검사
+
+비슷하게 코틀린 표준 라이브러리는 아래의 String 확장 함수도 제공한다.
 
 - `isNullOrEmpty()`
   - 수신 String 이 null 이거나 빈 문자열인지 검사
@@ -456,9 +481,37 @@ fun main() {
   - `isNullOrEmpty()` 와 같은 검사를 수행
   - 수신 객체 String 이 온전히 공백 문자 (탭인 `\t` 와 새 줄 `\n` 도 포함) 로만 구성되어 있는지도 검사
 
+`isNullOrBlank()` 함수는 아래와 같이 정의되어 있다.
+
+```kotlin
+@kotlin.internal.InlineOnly
+public inline fun CharSequence?.isNullOrBlank(): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrBlank != null)
+    }
+  
+    // null 을 검사하여 null 이면 true 를 리턴하고, 아니면 isBlank() 호출
+    // isBlank() 는 null 이 아닌 문자열 타입의 값에 대해서만 호출 가능
+    return this == null || this.isBlank()
+}
+```
+
+null 이 될 수 있는 타입에 대한 확장을 정의하면 null 이 될 수 있는 값에 대해 그 확장 함수를 호출할 수 있다.  
+그 함수의 내부에서 `this` 는 null 이 될 수 있으므로 명시적으로 null 여부를 검사해야 한다.
+
+> **null의 관점에서 메서드 안에서의 `this` 에 대한 자바와 코틀린 차이**
+> 
+> 자바에서는 메서드 안의 `this` 는 그 메서드가 호출된 수신 객체를 가리키므로 항상 null 이 아님    
+> 수신 객체가 null 이었다면 NPE 가 발생해서 메서드 안으로 들어가지도 못함  
+> 따라서 자바에서 메서드가 정상 실행된다면 그 메서드의 `this` 는 항상 null 이 아님
+> 
+> 반면 코틀린에서는 null 이 될 수 있는 타입의 확장 함수 안에서는 `this` 가 null 이 될 수 있음
+
 ```kotlin
 fun main() {
     val s1: String? = null
+  
+    // 안전한 호출 `?.` 없이 메서드 호출
     println(s1.isNullOrEmpty()) // true
     println(s1.isNullOrBlank()) // true
 
@@ -475,6 +528,31 @@ fun main() {
     println(s4.isNullOrBlank()) // false
 }
 ```
+
+[`let()`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#23-let) 함수도 null 이 될 수 있는 타입의 값에 대해 호출할 수는 있지만
+`let()` 은 `this` 가 null 인지 검사하지 않는다.  
+null 이 될 수 있는 타입의 값에 대해 안전한 호출 `?.` 을 사용하지 않고 `let()` 을 호출하면 람다의 인자는 null 이 될 수 있는 타입으로 추론된다.
+
+```kotlin
+val email3: String? = "assu@test"
+
+// Type mismatch.
+// Required: String
+// Found: String?
+email3.let { sendToEmail(it) }
+```
+
+따라서 `let()` 을 사용할 때 수신 객체가 null 인지 검사하고 싶다면 안전한 호출 `?.` 과 함께 사용해야 한다.
+
+```kotlin
+val email3: String? = "assu@test"
+
+email3?.let { sendToEmail(it) }
+```
+
+**확장 함수를 만들 때 처음에는 null 이 될 수 없는 타입에 대해 확장 함수를 정의**하는 것이 좋다.  
+나중에 대부분 null 이 될 수 있는 타입에 대해 그 함수를 호출하게 되었을 때 확장 함수 안에서 null 을 제대로 처리하게 되면 안전하게 그 확장 함수를 null 이 될 수 있는 
+타입에 대한 확장 함수로 변경할 수 있다.
 
 ---
 
