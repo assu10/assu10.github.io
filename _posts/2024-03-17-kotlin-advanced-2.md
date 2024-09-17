@@ -72,8 +72,37 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
 
 ## 1.1. `Any`
 
-`Any` 는 코틀린 클래스 계층의 root 이다.  
-모든 코틀린 클래스는 `Any` 를 상위 클래스로 가진다.
+자바에서 Object 가 클래스 계층의 최상위 타입이듯 코틀린에서는 `**Any` 타입이 모든 null 이 될 수 없는 타입의 최상위 계층**이다.  
+따라서 모든 코틀린 클래스는 `Any` 를 상위 클래스로 가진다.
+
+하지만 자바에서는 reference 타입만 Object 를 최상위로 하는 타입 계층만 포함되며, primitive 타입은 그런 계층에 포함되지 않는다.
+
+이 말은 자바에서 Object 타입의 객체가 필요할 경우 int 와 같은 primitive 타입은 java.lang.Integer 와 같은 래퍼 타입으로 감싸야한다는 의미이다.
+
+하지만 **코틀린에서는 `Any` 가 Int 등의 primitive 타입을 포함한 모든 타입의 최상위 계층**이다.
+
+> 원시 타입과 참조 타입은 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
+
+자바처럼 코틀린에서도 primitive 타입 값을 `Any` 타입의 변수에 대입하면 자동으로 값을 객체로 감싼다.
+
+```kotlin
+// Any 가 reference 타입이므로 1 이 boxing 됨
+val answer: Any = 1
+```
+
+**`Any` 는 null 이 될 수 없는 타입이므로 만일 null 을 포함하는 모든 값을 대입할 변수를 선언하려면 `Any?` 타입을 사용**해야 한다.
+
+내부에서 `Any` 타입은 java.lang.Object 에 대응한다.
+
+자바 메서드에서 Object 를 인자로 받거나 반환하면 코틀린에서는 `Any` 로 그 타입을 취급한다.  
+(더 정확히는 null 이 될 수 있는지 여부를 알 수 없으므로 [플랫폼 타입](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#121-%ED%94%8C%EB%9E%AB%ED%8F%BC-%ED%83%80%EC%9E%85)인 `Any!` 로 취급함)
+
+코틀린 함수가 `Any` 를 사용하면 자바 바이트코드의 Object 로 컴파일된다.
+
+모든 코틀린 클래스에는 `toString()`, `equals()`, `hashCode()` 메서드를 포함하는이 이 3 개의 메서드는 `Any` 에 정의된 메서드를 상속한 것이다.
+
+java.lang.Object 에 있는 다른 메서드 (`wati()`, `notify()`..) 는 `Any` 에서 사용할 수 없다.  
+따라서 그런 메서드를 호출하고 싶다면 java.lang.Object 타입으로 값을 캐스트해야 한다.
 
 미리 정해지지 않은 타입을 다루는 방법 중 하나로 `Any` 타입의 인자를 전달하는 방법이 있는데 이를 제네릭스를 사용하는 경우와 혼동하면 안된다.
 

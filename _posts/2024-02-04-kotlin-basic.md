@@ -29,7 +29,6 @@ tags: kotlin
 * [4. 데이터 타입](#4-데이터-타입)
   * [4.1. primitive 타입: Int, Boolean 등](#41-primitive-타입-int-boolean-등)
   * [4.2. null 이 될 수 있는 primitive 타입: Int?, Boolean? 등](#42-null-이-될-수-있는-primitive-타입-int-boolean-등)
-  * [4.3. 최상위 타입: Any, Any?](#43-최상위-타입-any-any)
   * [4.3. 코틀린의 void: Unit](#43-코틀린의-void-unit)
 * [5. 함수](#5-함수)
 * [6. if](#6-if)
@@ -442,12 +441,11 @@ primitive 타입으로 이루어진 대규모 컬렉션을 효율적으로 저�
 
 ---
 
-## 4.3. 최상위 타입: Any, Any?
-
-
----
-
 ## 4.3. 코틀린의 void: Unit
+
+> `Any` 에 대한 내용은 [1.1. `Any`](https://assu10.github.io/dev/2024/03/17/kotlin-advanced-2/#11-any) 를 참고하세요.
+
+> `Nothing` 에 대한 내용은 [3. `Nothing` 타입: `TODO()`](https://assu10.github.io/dev/2024/03/09/kotlin-error-handling-1/#3-nothing-%ED%83%80%EC%9E%85-todo) 을 참고하세요.
 
 ---
 
