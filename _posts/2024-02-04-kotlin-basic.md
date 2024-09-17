@@ -29,7 +29,7 @@ tags: kotlin
 * [4. 데이터 타입](#4-데이터-타입)
   * [4.1. primitive 타입: Int, Boolean 등](#41-primitive-타입-int-boolean-등)
   * [4.2. null 이 될 수 있는 primitive 타입: Int?, Boolean? 등](#42-null-이-될-수-있는-primitive-타입-int-boolean-등)
-  * [4.3. 코틀린의 void: Unit](#43-코틀린의-void-unit)
+  * [4.3. 코틀린의 void: `Unit`](#43-코틀린의-void-unit)
 * [5. 함수](#5-함수)
 * [6. if](#6-if)
 * [7. 문자열 템플릿](#7-문자열-템플릿)
@@ -441,9 +441,65 @@ primitive 타입으로 이루어진 대규모 컬렉션을 효율적으로 저�
 
 ---
 
-## 4.3. 코틀린의 void: Unit
+## 4.3. 코틀린의 void: `Unit`
+
+코틀린 `Unit` 타입은 자바의 void 와 같은 기능을 한다.
+
+아래 2 개는 같은 기능을 한다.
+```kotlin
+// 관심을 가질만한 내용을 전혀 반환하지 않는 함수의 반환 타입으로 Unit 사용
+fun f(): Unit { // ... }
+    
+// 반환 타입을 명시하지 안음
+fun f() { // ... }    
+```
+
+코틀린 함수의 반환 타입이 `Unit` 이고, 그 함수가 제네릭 함수를 오버라이드하지 않는다면 그 함수는 내부에서 자바 void 함수로 컴파일된다.  
+그런 코틀린 함수를 자바에서 오버라이드하는 경우 void 를 반환 타입으로 해야 한다.
+
+<**코틀린의 `Unit` 과 자바의 void 차이점**>  
+- `Unit` 은 모든 기능을 갖는 일반적인 타입이며, void 와 달리 `Unit` 을 타입 인자로 사용 가능
+- `Unit` 타입에 속한 값은 단 하나 뿐이며, 그 이름도 `Unit` 임
+- `Unit` 타입의 함수는 `Unit` 값을 묵시적으로 반환함
+
+이 특성은 제네릭 파라메터를 반환하는 함수를 오버라이드하면서 반환 타입으로 `Unit` 을 사용할 때 유용하다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+// 인터페이스의 시그니처는 process() 가 어떤 값을 반환하도록 명세됨
+interface Processor<T> {
+    fun process(): T
+}
+
+class NoResultProcessor : Processor<Unit> {
+    // Unit 을 반환하지만 타입을 지정할 필요는 없음
+    override fun process() {
+        // ...
+        // 여기서 return 을 지정할 필요없음
+    }
+}
+```
+
+`Unit` 타입도 `Unit` 값을 제공하기 때문에 메서드에서 `Unit` 값을 반환하는데 아무 문제가 없다.
+
+하지만 컴파일러가 묵시적으로 _return Unit_ 을 넣어주므로 _NoResultProcessor_ 에서 명시적으로 `Unit` 을 반환할 필요는 없다.
+
+타입 인자로 '값 없음' 을 표현하는 문제를 자바에서는 2 가지로 해결할 수 있다.
+
+- 별도의 인터페이스 (`Callable`, `Runnable` 등과 비슷하게) 를 사용하여 값을 반환하는 경우와 반환하지 않는 경우를 분리
+- 타입 파라메터로 java.lang.Void 타입 사용
+  - 여전히 Void 타입에 대응할 수 있는 유일한 값인 null 을 반환하기 위해 _return null_ 을 명시해야 함
+  - 반환 타입이 void 가 아니므로 함수를 반환할 때 _return_ 을 사용할 수 없고 항상 _return null_ 을 사용해야 함
+
+> **코틀린에서 Void 가 아니라 `Unit` 이라는 이름을 택한 이유**  
+> 
+> 함수형 프로그래밍에서 전통적으로 `Unit` 은 '단 하나의 인스턴스만 갖는 타입' 을 의미해왔고, 바로 그 유일한 인스턴스의 유무가 자바 void 와 코틀린 `Unit` 을 
+> 구분짓는 가장 큰 차이임
 
 > `Any` 에 대한 내용은 [1.1. `Any`](https://assu10.github.io/dev/2024/03/17/kotlin-advanced-2/#11-any) 를 참고하세요.
+
+코틀린에는 `Nothing` 이라는 타입도 있는데 Void 와 `Nothing` 이라는 두 이름은 의미가 비슷해서 혼란을 야기하기 쉽다.
 
 > `Nothing` 에 대한 내용은 [3. `Nothing` 타입: `TODO()`](https://assu10.github.io/dev/2024/03/09/kotlin-error-handling-1/#3-nothing-%ED%83%80%EC%9E%85-todo) 을 참고하세요.
 
