@@ -413,6 +413,30 @@ Int 와 같은 코틀린 타입에는 null 참조가 들어갈 수 없기 때문
 
 ## 4.2. null 이 될 수 있는 primitive 타입: Int?, Boolean? 등
 
+null 참조를 자바의 reference 타입의 변수에만 대입할 수 있기 때문에 null 이 될 수 있는 코틀린 타이은 자바의 primitive 타입으로 표현할 수 없다.
+
+따라서 코틀린에서 null 이 될 수 있는 primitive 타입을 사용하면 그 타입은 자바의 래퍼 타입으로 컴파일된다.
+
+예) 코틀린의 Int? 타입은 자바에서 java.lang.Integer 로 저장됨
+
+제네릭 클래스의 경우 래퍼 타입을 사용한다.  
+자바에서 어떤 클래스의 타입 인자로 primitive 타입을 넘기면 코틀린은 그 타입에 대한 box 타입 (primitive 타입을 reference 타입으로 변환) 을 사용한다.
+
+> boxing 과 unboxing 에 대해서는 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
+
+예를 들어 아래 코드에서는 null 값이나 null 이 될 수 있는 타입을 전혀 사용하지 않았지만 만들어지는 리스트는 래퍼 파입인 Integer 타입으로 이루어진 리스트이다.
+
+```kotlin
+val list = listOf(1, 2, 3)
+```
+
+잉렇게 컴파일하는 이유는 JVM 에서 제네릭을 구현하는 방법 때문이다.
+
+JVM 은 타입 인자로 primitive 타입을 허용하지 않기 때문에 자바와 코틀린 모두 제네릭 클래스는 항상 box 타입을 사용해야 한다.
+
+primitive 타입으로 이루어진 대규모 컬렉션을 효율적으로 저장해야 한다면 primitive 타입으로 이뤄진 효율적인 컬렉션을 제공하는 서드파티 라이브러리를 사용하거나 배열을 사용해야 한다.
+
+> 배열에 대한 상세한 내용은 추후 다룰 예정입니다. (p. 277)
 
 ---
 
