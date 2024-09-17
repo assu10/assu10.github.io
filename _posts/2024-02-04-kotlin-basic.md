@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 코틀린 기본"
+title:  "Kotlin - 코틀린 기본 - 데이터 타입, 문자열, 반복문, `in` 키워드"
 date: 2024-02-04
 categories: dev
 tags: kotlin
@@ -27,11 +27,15 @@ tags: kotlin
 * [2. Hello, World](#2-hello-world)
 * [3. `var`, `val`](#3-var-val)
 * [4. 데이터 타입](#4-데이터-타입)
+  * [4.1. primitive 타입: Int, Boolean 등](#41-primitive-타입-int-boolean-등)
+  * [4.2. null 이 될 수 있는 primitive 타입: Int?, Boolean? 등](#42-null-이-될-수-있는-primitive-타입-int-boolean-등)
+  * [4.3. 최상위 타입: Any, Any?](#43-최상위-타입-any-any)
+  * [4.3. 코틀린의 void: Unit](#43-코틀린의-void-unit)
 * [5. 함수](#5-함수)
 * [6. if](#6-if)
 * [7. 문자열 템플릿](#7-문자열-템플릿)
   * [7.1. 문자열 나누기: `split()`, `toRegex()`](#71-문자열-나누기-split-toregex)
-  * [7.2. 정규식과 3중 따옴표로 묶은 문자열: `substringBeforeLast()`, `substringAfterLast()`, `matchEntire()`, ` matchResult.destructured`](#72-정규식과-3중-따옴표로-묶은-문자열-substringbeforelast-substringafterlast-matchentire--matchresultdestructured)
+  * [7.2. 정규식과 3중 따옴표로 묶은 문자열: `substringBeforeLast()`, `substringAfterLast()`, `matchEntire()`, `matchResult.destructured`](#72-정규식과-3중-따옴표로-묶은-문자열-substringbeforelast-substringafterlast-matchentire-matchresultdestructured)
   * [7.3. 여러 줄 3중 따옴표 문자열: `trimMargin()`](#73-여러-줄-3중-따옴표-문자열-trimmargin)
 * [8. number 타입](#8-number-타입)
 * [9. `for`, `until`, `downTo`, `step`, `repeat`](#9-for-until-downto-step-repeat)
@@ -220,7 +224,7 @@ fun main() {
 val str = "abc"
 
 // 초기화 식이 없는 변수 선언 시 반드시 타입 명시
-val str: String
+val str: String = ""
 str1 = "abc"
 ```
 
@@ -285,7 +289,7 @@ lang.add("HTML")    // 참조가 가리키는 객체 내부 변경
 
 `var 식별자: 타입 = 초기화`
 
-타입을 적지 않아도 코틀린이 변수의 타입을 알아내서 대입하는데 이를 타입 추론이라고 한다.
+타입을 적지 않아도 코틀린이 변수의 타입을 알아내서 대입하는데 이를 **타입 추론**이라고 한다.
 
 ```kotlin
 var n: Int = 1
@@ -326,6 +330,98 @@ aa
 ```
 
 여러 줄의 문자열은 `"""` 로 감싸는데 이를 삼중 큰 따옴표 혹은 raw string 이라고 한다.
+
+---
+
+## 4.1. primitive 타입: Int, Boolean 등
+
+코틀린의 primitive 타입을 내부에서 어떻게 표현하는지에 대해 알아본다.
+
+[null 가능성](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#12-null-%EA%B0%80%EB%8A%A5%EC%84%B1%EA%B3%BC-%EC%9E%90%EB%B0%94) 관련 내용은 
+코틀린이 자바의 boxed type (boxing type) 을 처리하는 방법을 이해하는데 중요하다.
+
+**코틀린은 primitive 타입과 wrapper 타입을 구분하지 않는다.**
+
+그 이유와 코틀린 내부에서 어떻게 primitive 타입에 대한 래핑이 작동하는지에 대해 알아본다.
+
+자바는 primitive 타입 (원시 타입) 과 reference 타입 (참조 타입) 을 구분한다.
+
+> 자바의 원시 타입과 참조 타입은 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
+
+primitive 타입의 변수에는 그 값이 직접 들어가지만, reference 타입의 변수에는 메모리 상의 객체 위치가 들어간다.
+
+primitive 타입의 값에 대해 메서드를 호출하거나, 컬렉션에 primitive 타입이 값을 담을 수 없기 때문에 자바는 reference 타입이 필요한 경우 래퍼 타입 (java.lang.Integer..) 으로 primitive 타입 값을 감싸서 
+사용한다. (= boxing)
+
+따라서 정수의 컬렉션을 정의하려면 _Collection\<int\>_ 가 아니라 _Collection\<Integer\>_ 를 사용해야 한다.
+
+> boxing 과 unboxing 에 대해서는 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
+
+**코틀린은 primitive 타입과 wrapper 타입을 구분하지 않는다.**
+
+따라서 코틀린에서 정수를 표현하는 Int 타입을 아래와 같이 사용할 수 있다.
+
+```kotlin
+val i: Int = 1
+val list: List<Int> = listOf(1, 2, 3)
+```
+
+코틀린 타입에서는 primitive 타입의 값에 대해 메서드를 호출할 수도 있다.
+
+```kotlin
+val progress: Int = 170
+val percentage = progress.coerceIn(0, 100)
+println(percentage) // 100
+```
+
+- `coerceIn()`
+  - 값이 범위 안에 있으면 해당 값을 리턴하고, 범위 안에 없으면 경계값을 리턴함
+```kotlin
+val range = 3..8
+5.coerceIn(range) //5
+1.coerceIn(range) // 3
+9.coerceIn(range) //8
+5.coreceIn(3,6) //5
+```
+
+primitive 타입과 reference 타입이 같다고해서 코틀린이 그들을 항상 객체로 표현하는 것은 아니다.
+
+실행 시점에 숫자 타입은 가능한 가장 효율적인 방식으로 표현된다.
+
+대부분의 경우 (변수, 프로퍼티, 파라메터, 반환 타입 등) 코틀린의 Int 타입은 자바의 int 타입으로 컴파일된다.  
+이런 컴파일이 불가능한 경우는 컬렉셔과 같은 제네릭 클래스를 사용하는 경우 뿐이다.
+
+예) Int 타입을 컬렉션의 타입 파라메터로 넘기면 그 컬렉션에는 Int 의 래퍼 타입에 해당하는 java.lang.Integer 객체가 들어감
+
+**자바의 primitive 타입에 해당하는 코틀린 타입**은 아래와 같다.
+
+- **정수 타입**
+  - Byte, Short, Int, Long
+- **부동소수점 타입**
+  - Float, Double
+- **문자 타입**
+  - Char
+- **불리언 타입**
+  - Boolean
+
+Int 와 같은 코틀린 타입에는 null 참조가 들어갈 수 없기 때문에 쉽게 그에 상응하는 자바 primitive 타입으로 컴파일 할 수 있다.
+
+마찬가지로 자바 primitive 타입의 값은 결코 null 이 될 수 없으므로 자바의 primitive 타입을 코틀린에서 사용할 때도 [플랫폼 타입이](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#121-%ED%94%8C%EB%9E%AB%ED%8F%BC-%ED%83%80%EC%9E%85) 아닌 null 이 될 수 없는 타입으로 
+취급할 수 있다.
+
+---
+
+## 4.2. null 이 될 수 있는 primitive 타입: Int?, Boolean? 등
+
+
+---
+
+## 4.3. 최상위 타입: Any, Any?
+
+
+---
+
+## 4.3. 코틀린의 void: Unit
 
 ---
 
@@ -527,7 +623,7 @@ fun main() {
 
 ---
 
-## 7.2. 정규식과 3중 따옴표로 묶은 문자열: `substringBeforeLast()`, `substringAfterLast()`, `matchEntire()`, ` matchResult.destructured`
+## 7.2. 정규식과 3중 따옴표로 묶은 문자열: `substringBeforeLast()`, `substringAfterLast()`, `matchEntire()`, `matchResult.destructured`
 
 파일의 전체 경로명을 디렉터리, 파일명, 확장자로 구분하는 기능을 각각 String 을 확장한 함수와 정규식을 이용하여 구해보자.
 
