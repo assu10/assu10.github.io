@@ -303,13 +303,49 @@ ERROR: Type mismatch: inferred type is String! but Int was expected
 
 여기서는 코틀린과 자바를 혼합한 클래스 계층을 선언할 때 주의할 점에 대해 알아본다.
 
+코틀린에서 자바 메서드를 오버라이드할 때 그 메서드의 파라메터와 반환 타입을 null 이 될 수 있는 타입으로 선언할 지 null 이 될 수 없는 타입으로 선언할 지 결정해야 한다.
+
+아래는 자바의 한 인터페이스 예시이다.
+
+```java
+interface JavaInterface {
+  void action(String input);
+}
+```
+
+코틀린 컴파일러는 아래와 같은 2 가지 구현을 다 받아들인다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+class KtClass1 : JavaInterface {
+    override fun action(input: String) {
+        println(input)
+    }
+}
+
+class KtClass2 : JavaInterface {
+    override fun action(input: String?) {
+        if (input != null) {
+            println(input)
+        }
+    }
+}
+```
+
+자바 클래스나 인터페이스를 코틀린에서 구현할 경우 null 가능성을 제대로 처리하는 것은 중요하다.
+
+코틀린 컴파일러는 null 이 될 수 없는 타입으로 선언한 모든 파라메터에 대해 null 이 아님을 검사하는 단언문을 만들어준다.  
+자바 코드가 그 메서드에 null 을 넘기면 이 단언문에 의해 예외가 발생한다.  
+만일 파라메터를 메서드 안에서 사용하지 않더라도 이 예외는 피할 수 없다.
+
 ---
 
 # 2. 안전한 호출(safe call)과 엘비스(Elvis) 연산자
 
 ## 2.1. 안전한 호출 (safe call): `?.`
 
-안전한 호출은 `?.` 와 같이 표기한다.    
+안전한 호출은 `?.` 와 같이 표기한다.
 
 안전한 호출 연산자인 `?.` 은 null 검사와 메서드 호출을 한 번의 연산으로 수행한다.
 
