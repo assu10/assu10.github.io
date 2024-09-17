@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 코틀린 기본 - 데이터 타입, 문자열, 반복문, `in` 키워드"
+title:  "Kotlin - 코틀린 기본 - 데이터 타입, 문자열, 반복문, `in` 키워드, 자바-코틀린 변환"
 date: 2024-02-04
 categories: dev
 tags: kotlin
@@ -38,6 +38,8 @@ tags: kotlin
   * [7.2. 정규식과 3중 따옴표로 묶은 문자열: `substringBeforeLast()`, `substringAfterLast()`, `matchEntire()`, `matchResult.destructured`](#72-정규식과-3중-따옴표로-묶은-문자열-substringbeforelast-substringafterlast-matchentire-matchresultdestructured)
   * [7.3. 여러 줄 3중 따옴표 문자열: `trimMargin()`](#73-여러-줄-3중-따옴표-문자열-trimmargin)
 * [8. number 타입](#8-number-타입)
+  * [8.1. 숫자 변환](#81-숫자-변환)
+  * [8.2. 문자열을 숫자로 변환](#82-문자열을-숫자로-변환)
 * [9. `for`, `until`, `downTo`, `step`, `repeat`](#9-for-until-downto-step-repeat)
 * [10. `in` 키워드](#10-in-키워드)
 * [11. 식(expression), 문(statement)](#11-식expression-문statement)
@@ -761,6 +763,108 @@ println(price)  // $9.99
 
 # 8. number 타입
 
+## 8.1. 숫자 변환
+
+코틀린과 자바의 가장 큰 차이점 중 하나는 숫자를 변환하는 방식이다.
+
+**코틀린은 한 타입의 숫자를 다른 타입의 숫자로 자동 변환하지 않는다.**
+
+```kotlin
+val i = 1
+
+// 컴파일 오류
+// Type mismatch.
+// Required: Long
+// Found: Int
+val l: Long = i
+```
+
+아래처럼 변환 메서드를 호출해야 한다.
+
+```kotlin
+val i = 1
+
+// 변환 메서드 호출
+val l: Long = i.toLong()
+```
+
+코틀린은 Boolean 을 제외한 모든 primitive 타입에 대한 변환 함수를 제공한다.
+
+변환 함수의 이름은 `toByte()`, `toShort()`, `toChar()` 등과 같다.
+
+어떤 타입을 표현 범위가 더 넓은 타입으로 변환할 수도 있고, 범위가 더 좁은 타입으로 변환하면서 값을 벗어나는 경우 일부를 잘라내는 `Long.toInt()` 와 같은 변환 함수도 있다.
+
+코틀린은 개발자의 혼란을 피하기 위해 **타입 변환을 명시**하도록 한다.
+
+특히 box 타입을 비교하는 경우에 문제가 많다.
+
+> boxing 과 unboxing 에 대해서는 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
+
+
+두 box 타입 간의 `equals()` 메서드는 그 안에 들어있는 값이 아니라 box 타입 객체를 비교한다.
+
+예) 자바에서 _new Integer(1).equals(new Long(1))_ 은 false 임
+
+숫자 타입에 명시적 변환을 사용하지 않은 예시와 사용한 예시
+
+```kotlin
+val x = 1
+val list = listOf(1L, 2L)
+
+// 컴파일 오류
+// println(x in list)
+
+// 타입을 명시적으로 변환하여 같은 타입의 값으로 만든 후 비교
+println(x.toLong() in list) // true
+```
+
+**동시에 여러 숫자 타입을 사용하려면 예상치 못한 동작을 피하기 위해 각 변수를 명시적으로 변환**해야 한다.
+
+> **primitive 타입 리터럴 (Literal)**
+> 
+> 코틀린은 10진수 외에 아래와 같은 숫자 리터럴을 허용함
+> 
+> - **Long 타입 리터럴**
+>   - `L` 접미사 사용
+>   - 예) 12L
+> - **Double 타입 리터럴**
+>   - 표준 부동소수짐 표기법 사용
+>   - 예) 1.12, 1.1e10, 1.1e-10
+> - **Float 타입 리터럴**
+>   - `f`, `F` 접미사 사용
+>   - 예) 12.3f, 12.3F
+> - **16진 리터럴**
+>   - `0x`, `0X` 접두사 사용
+>   - 예) 0xCAFEBABE, 0XxbcdL
+> - **2진 리터럴**
+>   - `0b`, `0B` 접두사 사용
+>   - 예) 0b0000000101
+
+> **상수 (Constant) vs 리터럴 (Literal)**
+> 
+> - **상수**
+> - 변하지 않는 변수
+> - **리터럴**
+>   - 데이터(= 값) 그 자체를 의미함
+>   - 즉, 변수에 넣는 변하지 않는 데이터를 의미
+>   - _val a = 10_ 에서 _a_ 는 상수이고, _10_ 은 리터럴임
+> - **리터럴 표기법**
+>   - 변수를 선언함과 동시에 그 값을 지정해주는 표기법
+>   - 문자열 리터럴: _val string = "test"_
+>   - 불리언 리터럴: _val boolean = true_
+
+**숫자 리터럴을 사용할 때는 변환 함수를 호출할 필요가 없다.**    
+즉, 11L 이나 1.1f 처럼 상수 뒤에 타입을 표현하는 문자를 붙이면 변환이 필요없다.
+
+```kotlin
+val aa = 1000   // Int
+val bb = 1000L  // Long
+val cc = 1000.0 // Double
+```
+
+코틀린 산술 연사자에도 자바처럼 숫자 연산 시 overflow 가 발생할 수 있다.  
+코틀린은 overflow 를 검사하느라 추가 비용을 들이지 않는다.
+
 overflow 현상
 ```kotlin
 fun main() {
@@ -774,11 +878,28 @@ fun main() {
 }
 ```
 
+---
+
+## 8.2. 문자열을 숫자로 변환
+
+코틀린은 문자열을 primitive 타입으로 변환하는 여러 함수를 제공한다.
+
+예) `toInt()`, `toByte()`, `toBoolean()`..
+
 ```kotlin
-val aa = 1000   // Int
-val bb = 1000L  // Long
-val cc = 1000.0 // Double
+println("1".toInt()) // 1
+
+// 런타임 오류
+// java.lang.NumberFormatException: For input string: "1L"
+
+// println("1L".toLong())
 ```
+
+---
+
+
+
+
 
 ---
 
@@ -1048,3 +1169,4 @@ java 를 kotlin 으로 변환하고 싶을 때는 java 코드를 복사하여 ko
 * [코틀린 빌드 스크립트 공홈](https://kotlinlang.org/docs/get-started-with-jvm-gradle-project.html#specify-a-gradle-version-for-your-project)
 * [코틀린 다중 플랫폼 지원 Gradle 스크립트 공홈](https://kotlinlang.org/docs/multiplatform-get-started.html)
 * [우당탕탕 Kotlin 전환기](https://dealicious-inc.github.io/2022/08/29/kotlin-converting.html)
+* [리터럴(Literal)이란?](https://velog.io/@me2designer/%EB%A6%AC%ED%84%B0%EB%9F%B4Literal%EC%9D%B4%EB%9E%80)
