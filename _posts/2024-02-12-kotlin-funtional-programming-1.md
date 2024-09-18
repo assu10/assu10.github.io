@@ -16,10 +16,10 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
 
 <!-- TOC -->
 * [1. 람다](#1-람다)
-  * [1.1. 함수 파라메터가 하나인 경우](#11-함수-파라메터가-하나인-경우)
+  * [1.1. 함수 파라메터가 하나인 경우: `it`](#11-함수-파라메터가-하나인-경우-it)
   * [1.2. 함수 파라메터가 여러 개인 경우](#12-함수-파라메터가-여러-개인-경우)
   * [1.3. 람다 파라메터가 여러 개인 경우: `mapIndexed()`](#13-람다-파라메터가-여러-개인-경우-mapindexed)
-  * [1.4. 람다가 특정 인자를 사용하지 않는 경우: `List.indices()`](#14-람다가-특정-인자를-사용하지-않는-경우-listindices)
+  * [1.4. 람다가 특정 인자를 사용하지 않는 경우: `_`, `List.indices()`](#14-람다가-특정-인자를-사용하지-않는-경우-_-listindices)
   * [1.5. 람다에 파라메터가 없는 경우: `run()`](#15-람다에-파라메터가-없는-경우-run)
   * [1.6. 람다를 통해 코드 재사용: `filter()`](#16-람다를-통해-코드-재사용-filter)
   * [1.7. 람다를 변수에 담기](#17-람다를-변수에-담기)
@@ -30,7 +30,7 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
   * [2.2. 여러 컬렉션 함수들: `filter()`, `filterNotNull()`, `any()`, `all()`, `none()`, `find()`, `firstOrNull()`, `lastOrNull()`, `count()`](#22-여러-컬렉션-함수들-filter-filternotnull-any-all-none-find-firstornull-lastornull-count)
   * [2.3. `filterNot()`, `partition()`](#23-filternot-partition)
   * [2.4. 커스텀 함수의 반환값에 구조 분해 선언 사용](#24-커스텀-함수의-반환값에-구조-분해-선언-사용)
-  * [2.5. `sumOf()`, `sortedBy()`, `minBy()`, `take()`, `drop()`](#25-sumof-sortedby-minby-take-drop)
+  * [2.5. `sumOf()`, `sortedBy()`, `minBy()`, `takeXX()`, `dropXX()`](#25-sumof-sortedby-minby-takexx-dropxx)
   * [2.6. Set 의 연산](#26-set-의-연산)
 * [3. 멤버 참조: `::`](#3-멤버-참조-)
   * [3.1. 프로퍼티 참조: `sortedWith()`, `compareBy()`](#31-프로퍼티-참조-sortedwith-compareby)
@@ -95,7 +95,7 @@ fun main() {
 
 ---
 
-## 1.1. 함수 파라메터가 하나인 경우
+## 1.1. 함수 파라메터가 하나인 경우: `it`
 
 파라메터가 하나일 경우 코틀린은 자동으로 파라메터 이름을 `it` 으로 만들기 때문에 더 이상 위처럼 _n ->_ 을 사용할 필요가 없다.
 
@@ -158,7 +158,7 @@ fun main() {
 
 ---
 
-## 1.4. 람다가 특정 인자를 사용하지 않는 경우: `List.indices()`
+## 1.4. 람다가 특정 인자를 사용하지 않는 경우: `_`, `List.indices()`
 
 람다가 특정 인자를 사용하지 않으면 밑줄 `_` 을 사용하여 람다가 어떤 인자를 사용하지 않는다는 컴파일러 경고를 무시할 수 있다.
 
@@ -377,7 +377,7 @@ fun main() {
 }
 ```
 
-람다를 이벤트 핸들러나 비동기적으로 실행되는 코드로 활용하는 경우엔 하수 호출이 끝난 다음에 로컬 변수가 변경될 수 있다.
+람다를 이벤트 핸들러나 비동기적으로 실행되는 코드로 활용하는 경우엔 함수 호출이 끝난 다음에 로컬 변수가 변경될 수 있다.
 
 예를 들어 아래 코드는 버튼 클릭 횟수를 제대로 셀 수 없다.
 ```kotlin
@@ -411,6 +411,7 @@ onClick 핸들러는 호출될 때마다 _clicks_ 의 값을 증가시키지만 
 # 2. 컬렉션 연산: `hashSetOf()`, `arrayListOf()`, `listOf()`, `hashMapOf()`
 
 코틀린으로 아래와 같이 컬렉션을 만들 수 있다.
+
 ```kotlin
 package com.assu.study.kotlin2me.chap03
 
@@ -450,6 +451,8 @@ fun main() {
 
 여기선 List 와 그 외 컬렉션에 사용되는 다른 연산에 대해 알아본다.
 
+---
+
 ## 2.1. List 연산
 
 아래는 List 를 생성하는 여러 방법이다.
@@ -477,7 +480,7 @@ fun main() {
 }
 ```
 
-위의 List 생성자는 인자가 2개인데 첫 번째 인자는 생성할 List 의 크기이고, 두 번째는 생성한 List 의 각 원소를 초기화하는 람다이다.  
+위의 **List 생성자는 인자가 2개**인데 **첫 번째 인자는 생성할 List 의 크기**이고, **두 번째는 생성한 List 의 각 원소를 초기화하는 람다**이다.  
 이 람다는 원소의 인덱스를 전달받는다.  
 람다가 함수의 마지막 원소인 경우 람다를 인자 목록 밖으로 빼내도 된다.
 
@@ -639,7 +642,7 @@ fun main() {
     // Person8(name=assu, age=20)
     println(persons.find(canBeYounger30))
 
-    // findFirstOrNull() 을 사용하여 조건에 만족하는 원소가 있을 경우 첫 번째 원소 리턴
+    // firstOrNull() 을 사용하여 조건에 만족하는 원소가 있을 경우 첫 번째 원소 리턴
     // Person8(name=assu, age=20)
     println(persons.firstOrNull(canBeYounger30))
 
@@ -651,6 +654,26 @@ fun main() {
     println(persons.firstOrNull(canBeYounger1))
 }
 ```
+
+`filterNotNull()` 을 사용하여 컬렉션 안에 null 이 없음을 보장하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+// null 인 원소 걸러내기
+fun addValidNumbers(numbers: List<Int?>): List<Int> {
+    val validNumbers = numbers.filterNotNull()
+    return validNumbers
+}
+
+fun main() {
+    val numbers = addValidNumbers(listOf(1, 2, null, 5))
+
+    // [1, 2, 5]
+    println(numbers)
+}
+```
+
 
 ```kotlin
 fun main() {
@@ -758,7 +781,7 @@ fun main() {
 
 ---
 
-## 2.5. `sumOf()`, `sortedBy()`, `minBy()`, `take()`, `drop()`
+## 2.5. `sumOf()`, `sortedBy()`, `minBy()`, `takeXX()`, `dropXX()`
 
 [3. 리스트](https://assu10.github.io/dev/2024/02/09/kotlin-object/#3-%EB%A6%AC%EC%8A%A4%ED%8A%B8) 에서 수 타입으로 정의된 리스트에 대해 
 `sum()` 이나 비교 가능한 원소로 이루어진 리스트에 적용할 수 있는 `sorted()` 를 보았다.
@@ -802,7 +825,7 @@ fun main() {
 }
 ```
 
-`take()`, `drop()` 은 각각 첫 번째 원소를 취하거나 제거하고, `takeLast()`, `dropLast()` 는 각각 마지막 원소를 위하거나 제거한다.
+`take()`, `drop()` 은 각각 첫 번째 원소를 취하거나 제거하고, `takeLast()`, `dropLast()` 는 각각 마지막 원소를 취하거나 제거한다.
 
 4개 함수 모두 취하거나 제거할 대상을 지정하는 람다를 받는 버전도 있다.
 
@@ -928,6 +951,35 @@ fun main() {
 
 객체의 기본적인 대소 비교를 따르지 않도록 정렬 순서를 지정해야 하는 경우 프로퍼티 참조가 유용하다.
 
+위에서 `single()` 은 원소가 하나일 경우에만 사용 가능하다.
+
+```kotlin
+package assu.study.kotlinme.chap04.memberReference
+
+data class Message(
+    val sender: String,
+    val text: String,
+    val isRead: Boolean,
+)
+
+fun main() {
+    val message =
+        listOf(
+            Message("Assu", "Hello", true),
+            Message("Silby", "Bow!", false),
+            Message("Silby2", "Bow2!", false),
+        )
+
+    val unread = message.filterNot(Message::isRead)
+    println(unread) // [Message(sender=Silby, text=Bow!, isRead=false), Message(sender=Silby2, text=Bow2!, isRead=false)]
+    println(unread.size) // 2
+  
+    // 런타임 오류
+    // java.lang.IllegalArgumentException: List has more than one element.
+    println(unread.single().text)
+}
+```
+
 > **`sorted()` 를 호출하면 원본의 요소들을 정렬한 새로운 List 를 리턴하고 원래의 List 는 그대로 남아있다.**    
 **`sort()` 를 호출하면 원본 리스트를 변경**한다.
 
@@ -1024,53 +1076,64 @@ fun main() {
 ```
 
 ```kotlin
+package assu.study.kotlinme.chap04.memberReference
+
 data class Message3(
-    val sender: String,
-    val text: String,
-    val isRead: Boolean,
-    val attachments: List<Attachment3>,
+  val sender: String,
+  val text: String,
+  val isRead: Boolean,
+  val attachments: List<Attachment3>,
 )
 
 data class Attachment3(
-    val type: String,
-    val name: String,
+  val type: String,
+  val name: String,
 )
 
 // Message2.isImportant() 라는 확장 함수
 fun Message3.isImportant(): Boolean =
-    text.contains("Money") ||
-        attachments.any {
+  text.contains("Money") ||
+          attachments.any {
             it.type == "image" && it.name.contains("dog")
-        }
+          }
 
 fun ignore(message: Message3): Boolean = !message.isImportant() && message.sender in setOf("Assu", "Silby")
 
 fun main() {
-    val message =
+  val message =
+    listOf(
+      Message3("Assu", "gogo!", false, listOf()),
+      Message3("Assu2", "gogo!2", false, listOf()),
+      Message3(
+        "Assu",
+        "gogo!",
+        false,
         listOf(
-            Message3("Assu", "gogo!", false, listOf()),
-            Message3(
-                "Assu",
-                "gogo!",
-                false,
-                listOf(
-                    Attachment3("image", "cute dog"),
-                ),
-            ),
-        )
+          Attachment3("image", "cute dog"),
+        ),
+      ),
+    )
 
-    // 최상위 수준 함수에 대한 참조 전달
-    val result1 = message.filter(::ignore)
-    val result2 = message.filter(::ignore).size
-    println(result1) // [Message3(sender=Assu, text=gogo!, isRead=false, attachments=[])]
-    println(result2) // 1
+  // 최상위 수준 함수에 대한 참조 전달
+  val result1 = message.filter(::ignore)
 
-    val result3 = message.filterNot(::ignore)
-    val result4 = message.filterNot(::ignore).size
-    println(result3) // [Message3(sender=Assu, text=gogo!, isRead=false, attachments=[Attachment3(type=image, name=cute dog)])]
-    println(result4) // 1
+  // `count()` 대신 size 를 사용하는 비효율적인 코드
+  val result2 = message.filter(::ignore).size
+  val result3 = message.count(::ignore)
+
+  println(result1) // [Message3(sender=Assu, text=gogo!, isRead=false, attachments=[])]
+  println(result2) // 1
+  println(result3) // 1
+
+  val result4 = message.filterNot(::ignore)
+  val result5 = message.filterNot(::ignore).size
+
+  println(result4) // [Message3(sender=Assu, text=gogo!, isRead=false, attachments=[Attachment3(type=image, name=cute dog)])]
+  println(result5) // 1
 }
 ```
+
+> `count()` 대신 size 를 사용하는 비효율적인 코드인 이유는 [2.2. 여러 컬렉션 함수들: `filter()`, `filterNotNull()`, `any()`, `all()`, `none()`, `find()`, `firstOrNull()`, `lastOrNull()`, `count()`](#22-여러-컬렉션-함수들-filter-filternotnull-any-all-none-find-firstornull-lastornull-count) 를 참고하세요.
 
 ---
 
@@ -1078,7 +1141,7 @@ fun main() {
 
 클래스명을 이용하여 생성자에 대한 참조를 만들수도 있다.
 
-생성자 참조를 사용하면 클래스 생성 작업을 연기하거나 저장해둘 수 있다.
+**생성자 참조를 사용하면 클래스 생성 작업을 연기하거나 저장**해둘 수 있다.
 
 ```kotlin
 package com.assu.study.kotlin2me.chap05
