@@ -22,10 +22,10 @@ tags: kotlin finally require() requireNotNull() check() nothing todo()
   * [1.4. 자원 해제: `finally`](#14-자원-해제-finally)
   * [1.5. try 를 식으로 사용](#15-try-를-식으로-사용)
 * [2. 검사 명령](#2-검사-명령)
-  * [2.1. `require()`](#21-require)
+  * [2.1. 사전 조건: `require()`](#21-사전-조건-require)
   * [2.2. `File`, `Paths`](#22-file-paths)
   * [2.3. `requireNotNull()`](#23-requirenotnull)
-  * [2.4. `check()`](#24-check)
+  * [2.4. 사후 조건: `check()`](#24-사후-조건-check)
   * [2.5. `assert()`](#25-assert)
 * [3. `Nothing` 타입: `TODO()`](#3-nothing-타입-todo)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -113,7 +113,7 @@ Exception in thread "main" assu.study.kotlinme.chap06.exceptionHandling.Exceptio
 
 만일 일치하는 핸들러는 잡지 못하면 콘솔에 stack trace 를 출력하면서 종료된다.
 
-`exception handler` 에서는 catch 키워두 다음에 처리하려는 예외의 목록을 나열하고, 이 후 복구 과정을 구현하는 코드를 구현한다.
+`exception handler` 에서는 catch 키워드 다음에 처리하려는 예외의 목록을 나열하고, 이 후 복구 과정을 구현하는 코드를 구현한다.
 
 ```kotlin
 class Exception111(val value: Int) : Exception("wrong value: $value")
@@ -161,10 +161,12 @@ fun main() {
 자바 코드와 다른 점은 `throws` 절이 코드에 없다는 점이다.  
 자바에서는 함수를 작성할 때 함수 선언 뒤에 `throws IOException` 을 붙여야 한다.  
 IOException 이 체크 예외이기 때문인데 자바에서는 체크 예외를 명시적으로 처리해야 한다.  
-어떤 함수가 던질 가능성이 있는 예외나 그 함수가 호출한 다른 함수에서 발생할 수 있는 예외를 모두 catch 로 처리해야 하며, 처리하지 않은 예외는 `throws` 절에 명시해야 한다.
+
+**어떤 함수가 던질 가능성이 있는 예외나 그 함수가 호출한 다른 함수에서 발생할 수 있는 예외를 모두 `catch` 로 처리**해야 하며, **처리하지 않은 예외는 `throws` 절에 명시**해야 한다.
 
 ```shell
 ok
+
 1 e: assu.study.kotlinme.chap06.exceptionHandling.Exception111: wrong value: 111
 1 e.message: wrong value: 111
 1 e.value: 111
@@ -223,10 +225,13 @@ fun main() {
 ## 1.3. 예외 하위 타입
 
 너무 많은 예외 타입을 만드는 것은 코드의 복잡도를 높힌다.  
+
 간단한 규칙으로, **처리 방식이 달라야 한다면 다른 예외 타입**을 사용하여 이를 구분하는 것이 좋고,  
 **처리 방식이 같다면 동일한 예외 타입을 쓰면서 생성자 인자를 다르게 주는 방식**으로 구체적인 정보를 전달하는 것이 좋다.
 
 아래는 잘못된 값을 전달하여 발생하는 표준 라이브러리인 _IllegalArgumentException_ 발생 예시이다.
+
+다른 상황에서 같은 예외를 사용하여 혼선을 주는 안 좋은 예시
 
 ```kotlin
 fun testCode(code: Int) {
@@ -251,36 +256,40 @@ fun main() {
 }
 ```
 
-두 번째 예외를 _testCode()_ 가 아닌 `toInt(radix)` 에 의해서 _IllegalArgumentException_ 이 발생하였다.
+두 번째 예외는 _testCode()_ 가 아닌 `toInt(radix)` 에 의해서 _IllegalArgumentException_ 이 발생하였다.
 
 두 가지 다른 상황에서 같은 예외를 쓰면 혼선이 올 수 있기 때문에 이럴 때는 코드가 발생시키는 오류에서는 커스텀으로 _IncorrectInputException1_ 을 던지게 하면 된다.
 
 ```kotlin
-class IncorrectInputException1(message: String) : Exception(message)
+package assu.study.kotlinme.chap06.exceptionHandling
+
+class IncorrectInputException1(
+  message: String,
+) : Exception(message)
 
 fun checkCode(code: Int) {
-    if (code <= 1000) {
-        throw IllegalArgumentException("code must be > 1000: $code")
-    }
+  if (code <= 1000) {
+    throw IncorrectInputException1("code must be > 1000: $code")
+  }
 }
 
 fun main() {
-    try {
-        // A1 은 16진수로 161
-        checkCode("A1".toInt(16))
-    } catch (e: IncorrectInputException1) {
-        println(e.message) // produces error code must be > 1000: 161
-    } catch (e: IllegalArgumentException) {
-        println("produces error ${e.message}")
-    }
+  try {
+    // A1 은 16진수로 161
+    checkCode("A1".toInt(16))
+  } catch (e: IncorrectInputException1) {
+    println(e.message) // code must be > 1000: 161
+  } catch (e: IllegalArgumentException) {
+    println("produces error ${e.message}")
+  }
 
-    try {
-        checkCode("1".toInt(1))
-    } catch (e: IncorrectInputException1) {
-        println(e.message)
-    } catch (e: IllegalArgumentException) {
-        println("produces error ${e.message}") // produces error radix 1 was not in valid range 2..36
-    }
+  try {
+    checkCode("1".toInt(1))
+  } catch (e: IncorrectInputException1) {
+    println(e.message)
+  } catch (e: IllegalArgumentException) {
+    println("produces error ${e.message}") // produces error radix 1 was not in valid range 2..36
+  }
 }
 ```
 
@@ -430,15 +439,15 @@ fun main() {
 
 # 2. 검사 명령
 
-검사 명령은 만족시켜야 하는 제약 조건을 적은 단언문으로 보통 함수 인자와 검증할 때 검사 명령을 사용한다.
+**검사 명령은 만족시켜야 하는 제약 조건을 적은 단언문**으로 보통 함수 인자와 검증할 때 검사 명령을 사용한다.
 
 검사 명령을 사용하면 프로그램을 검증하고, 코드를 더 자세히 설명할 수 있으므로 가능할 때마다 검사 명령을 사용하는 것이 좋다.
 
 ---
 
-## 2.1. `require()`
+## 2.1. 사전 조건: `require()`
 
-사전 조건은 초기화 관련 제약 사항을 보장한다.
+**사전 조건은 초기화 관련 제약 사항을 보장**한다.
 
 **`require()` 는 보통 함수 인자를 검증하기 위해 사용되며, 함수 본문 맨 앞에 위치**한다.
 
@@ -471,7 +480,7 @@ fun main() {
 `require()` 를 생성자 안에서 호출하는데, `require()` 는 조건을 만족하지 못하면 _IllegalArgumentException_ 을 반환한다.  
 따라서 **_IllegalArgumentException_ 예외를 던지는 대신에 항상 `require()` 를 사용**할 수 있다.
 
-**`require()` 의 두 번째 라파메터는 String 을 만들어내는 람다**이다.  
+**`require()` 의 두 번째 파라메터는 String 을 만들어내는 람다**이다.  
 **따라서 `require()` 가 예외를 던지기 전까지는 문자열 생성 부가 비용이 들지 않는다.**
 
 위 코드의 `init` 을 아래와 같이 사용할 수도 있다.
@@ -597,7 +606,7 @@ fun checkNotNull(n: Int?): Int {
         "checkNotNull() argument cannot be null~"
     }
 
-    // requireNotNull() 호출이 n 을 null 이 될 수 업을 값으로 스마트캐스트 해주므로
+    // requireNotNull() 호출이 n 을 null 이 될 수 없을 값으로 스마트캐스트 해주므로
     // n 에 대해 더 이상 null 검사를 할 필요가 없음
     return n * 9
 }
@@ -619,9 +628,9 @@ fun main() {
 
 ---
 
-## 2.4. `check()`
+## 2.4. 사후 조건: `check()`
 
-사후 조건은 함수의 결과를 검사한다.
+**사후 조건은 함수의 결과를 검사**한다.
 
 **함수의 결과에 대한 제약 사항을 묘사하는 경우 이를 사후 조건으로 표현하는 것이 좋다.**
 
@@ -657,7 +666,8 @@ fun main() {
 }
 ```
 
-사전 조건이 제대로 들어왔음을 검증했을 때 사후 조건이 실패한다는 건 거의 로직의 실수가 있다는 의미이다.  
+사전 조건이 제대로 들어왔음을 검증했을 때 사후 조건이 실패한다는 건 거의 로직의 실수가 있다는 의미이다.
+
 이런 이유로 로직이 올바르다고 확신하면 성능에 미치는 영향을 최소화하기 위해 사후 조건을 주석으로 처리하거나 제거하는 경우가 많은데 
 미래에 코드를 변경하여 발생하는 문제를 감지할 수 있도록 그대로 두는 것이 좋다.
 
@@ -667,7 +677,8 @@ fun main() {
 
 ## 2.5. `assert()`
 
-`check()` 문을 주석처리했다가 해제하는 수고를 덜기 위해 `assert()` 를 사용한다.  
+`check()` 문을 주석처리했다가 해제하는 수고를 덜기 위해 `assert()` 를 사용한다.
+
 `assert()` 의 경우 검사를 활성화하거나 비활성화할 수 있는데 기본적으로 비활성화 되어있기 때문에 명령줄 플래그로 명시적으로 활성화할 수 있다.
 코틀린에서는 `-ea` 라는 플래그를 사용한다.
 
@@ -679,7 +690,13 @@ fun main() {
 
 **`Nothing` 은 함수가 결코 반환되지 않는다는 사실을 표현하는 반환 타입**이다.
 
-**항상 예외를 던지는 함수의 반환 타입이 `Nothing` 타입**이다. 
+코틀린에서는 결코 성공적으로 값을 돌려주는 일이 없으므르 반환값이라는 개념 자체가 의미없는 함수가 일부 존재한다.  
+예) 테스트 라이브러리들은 _fail()_ 이라는 함수를 제공하는 경우가 많은데 _fail()_ 은 특별한 메시지가 들어있는 예외를 던져서 현재 테스트를 실패시킴  
+다른 예로는 무한 루프를 도는 함수는 결코 값을 반환하지 않고, 정상적으로 끝나지 않음
+
+이런 함수를 호출하는 코드를 분석할 때 함수가 정상적으로 끝나지 않는다는 사실을 알면 유용하며, 그런 경우를 표현하기 위해 `Nothing` 타입을 반환 타입으로 사용한다.
+
+**항상 예외를 던지는 함수의 반환 타입이 `Nothing` 타입**이다.
 
 `Nothing` 은 아무 인스턴스도 없는 코틀린 내장 타입이다.
 
@@ -708,8 +725,10 @@ fun main() {
 }
 ```
 
-`TODO()` 는 `Nothing` 타입을 반환하지만 위의 _later()_, _later2()_ 는 Nothing 이 나닌 String, Int 타입을 반환한다.  
-**`Nothing` 은 모든 타입과 호환 가능**하다. 즉, `Nothing` 타입은 모든 다른 타입의 하위 타입으로 취급된다.
+`TODO()` 는 `Nothing` 타입을 반환하지만 위의 _later()_, _later2()_ 는 `Nothing` 이 아닌 String, Int 타입을 반환한다.
+
+**`Nothing` 은 모든 타입과 호환 가능**하다.  
+즉, `Nothing` 타입은 모든 다른 타입의 하위 타입으로 취급된다.
 
 _later()_, _later2()_ 은 앞으로 함수를 구현해야 한다는 사실을 알려주는 예외를 발생시킨다.  
 
@@ -734,6 +753,8 @@ fun main() {
 
 **위와 같은 방법을 사용하면 오류 처리 시 유용**하다.  
 예를 들어 **예외 타입을 변경하거나 예외를 던지기 전 로그를 남기는 등의 처리가 가능**하다.
+
+**`Nothing` 타입은 아무런 값도 포함하지 않기 때문에 `Nothing` 타입은 함수의 반환 타입이나 반환 타입으로 사용될 타입 파라메터로만 쓸 수 있다.**
 
 ---
 
@@ -805,6 +826,8 @@ fun main() {
 }
 ```
 
+컴파일러는 `Nothing` 이 반환 타입인 함수가 결코 정상적으로 종료되지 않음을 알고 그 함수를 호출하는 코드를 분석할 때 사용한다.
+
 ---
 
 **추가적인 타입 정보가 없는 상태로 그냥 null 이 주어지면 컴파일러가 null 이 될 수 있는 `Nothing` 타입으로 추론**한다.
@@ -833,7 +856,8 @@ fun main() {
 
 
 아래에서 _listNone_ 은 null 값만 들어있는 List 로 초기화됐다.  
-컴파일러는 _listNone_ 의 타입이 List\<Nothing?\> 이라고 추론한다.  
+컴파일러는 _listNone_ 의 타입이 List\<Nothing?\> 이라고 추론한다.
+
 따라서 **null 이 될 수 있는 타입이 원소인 리스트를 가리키는 변수를 null 만 들어있는 List 로 초기화하고 싶을 때에는 이런 식 (_List\<Nothing?\>_) 으로 원소의 타입을 명시**해야 한다. 
 
 ```kotlin
@@ -844,10 +868,12 @@ val listNone: List<Nothing?> = listOf(null)
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
