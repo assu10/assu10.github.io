@@ -822,7 +822,7 @@ fun main() {
 }
 ```
 
-> 가변 인자 목록 `vararg` 에 대한 좀 더 상세한 내용은 [4. 가변 인자 목록: `vararg`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#4-%EA%B0%80%EB%B3%80-%EC%9D%B8%EC%9E%90-%EB%AA%A9%EB%A1%9D-vararg) 을 참고하세요.
+> 가변 인자 목록 `vararg` 에 대한 좀 더 상세한 내용은 [4.1. 가변 인자 목록: `vararg`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#41-%EA%B0%80%EB%B3%80-%EC%9D%B8%EC%9E%90-%EB%AA%A9%EB%A1%9D-vararg) 을 참고하세요.
 
 ---
 

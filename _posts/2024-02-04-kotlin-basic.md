@@ -316,7 +316,7 @@ lang.add("HTML")    // 참조가 가리키는 객체 내부 변경
 ```kotlin
 package com.assu.study.kotlin2me.chap06
 
-// src 컬렉션은 변경하지 않지만, target 컬레교션은 변경한다는 사실을 알 수 있음
+// src 컬렉션은 변경하지 않지만, target 컬렉션은 변경한다는 사실을 알 수 있음
 fun <T> copyElements(
     src: Collection<T>,
     target: MutableCollection<T>,

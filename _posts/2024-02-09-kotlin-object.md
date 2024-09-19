@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 가변인자목록('vararg'), 스프레드 연산자('*'), Set, Map, 클래스, 프로퍼티 접근자, 가시성 변경자"
+title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 배열, 스프레드 연산자('*'), Set, Map, 클래스, 프로퍼티 접근자, 가시성 변경자"
 date: 2024-02-09
 categories: dev
 tags: kotlin
@@ -28,9 +28,13 @@ tags: kotlin
   * [3.1. 파라메터화한 타입](#31-파라메터화한-타입)
   * [3.2. 읽기 전용과 가변 List: `listOf()`, `mutableListOf()`](#32-읽기-전용과-가변-list-listof-mutablelistof)
   * [3.3. `+=`](#33-)
-* [4. 가변 인자 목록: `vararg`](#4-가변-인자-목록-vararg)
-  * [4.1. 스프레드 연산자: `*`](#41-스프레드-연산자-)
-  * [4.2. 명령줄 인자](#42-명령줄-인자)
+* [4. 배열](#4-배열)
+  * [4.1. 가변 인자 목록: `vararg`](#41-가변-인자-목록-vararg)
+  * [4.2. 스프레드 연산자: `*`](#42-스프레드-연산자-)
+  * [4.3. 명령줄 인자](#43-명령줄-인자)
+  * [4.4. 객체의 배열과 primitive 타입의 배열](#44-객체의-배열과-primitive-타입의-배열)
+    * [4.4.1. `toTypedArray()`, `toIntArray()`](#441-totypedarray-tointarray)
+    * [4.4.2. primitive 타입의 배열](#442-primitive-타입의-배열)
 * [5. Set](#5-set)
 * [6. Map](#6-map)
   * [6.1. `getValue()`, `getOrDefault()`](#61-getvalue-getordefault)
@@ -403,7 +407,9 @@ println(list4)  // [a, b, c]
 
 ---
 
-# 4. 가변 인자 목록: `vararg`
+# 4. 배열
+
+## 4.1. 가변 인자 목록: `vararg`
 
 `vararg` 키워드는 길이가 변할 수 있는 인자의 목록을 만든다.
 
@@ -436,18 +442,45 @@ println(sum(1, 2, 3))   // 6
 Array 와 List 는 비슷하지만 다르게 구현이 된다.  
 List 는 일반적인 라이브러리 클래스인 반면, Array 는 자바같은 다른 언어와 호환되어야 하기 때문에 생겨난 코틀린 타입이다.
 
-**간단한 시퀀스가 필요하면 List 를 사용하고, 서드파트 API 가 Array 를 요구하거나, `vararg` 를 다룰 때만 Array 를 쓰는 것이 좋다.**
+**간단한 시퀀스가 필요하면 List 를 사용하고, 서드파트 API 가 Array 를 요구하거나 `vararg` 를 다룰 때만 Array 를 쓰는 것이 좋다.**
 
 아래는 `vararg` 가 Array 로 취급된다는 사실을 무시한 채 List 로 다룰 때의 예시이다.
 
 ```kotlin
-fun evaluate(vararg ints: Int) = "Size: ${ints.size}\n" +
-        "Sum: ${ints.sum()}\n" +
-        "Average: ${ints.average()}\n"
+package assu.study.kotlinme.chap02
+
+fun evaluate(vararg ints: Int) =
+  "Size: ${ints.size}\n" +
+          "Sum: ${ints.sum()}\n" +
+          "Average: ${ints.average()}\n"
+
+fun evaluate2(ints: List<Int>) =
+  "Size: ${ints.size}\n" +
+          "Sum: ${ints.sum()}\n" +
+          "Average: ${ints.average()}\n"
 
 fun main() {
-    var result = evaluate(1, -1, 1, 2, 3)
-    println(result)
+  val result1 = evaluate(1, -1, 1, 2, 3)
+
+  // Size: 5
+  // Sum: 6
+  // Average: 1.2
+  println(result1)
+
+  // 컴파일 오류
+//    val result2 = evaluate2(1, -1, 1, 2, 3)
+//    println(result2)
+
+  // 컴파일 오류
+//    val result3 = evaluate(listOf(1, -1, 1, 2, 3))
+//    println(result3)
+
+  val result4 = evaluate2(listOf(1, -1, 1, 2, 3))
+
+  // Size: 5
+  // Sum: 6
+  // Average: 1.2
+  println(result4)
 }
 ```
 
@@ -455,14 +488,14 @@ fun main() {
 
 ---
 
-## 4.1. 스프레드 연산자: `*`
+## 4.2. 스프레드 연산자: `*`
 
 Array 를 만들기 위해서 `listOf()` 처럼 `arrayOf()` 를 사용한다.  
 **Array 는 항상 가변 객체**이다.  
 
 
-배열에 들어있는 원소를 `vararg` 로 넘길 때 코틀린과 자바의 구문이 다르다.
-자바는 배열을 그냥 넘기면 되지만, 코틀린에서는 배열을 명시적으로 풀어서 배열의 가가 원소가 인자로 전달되게 해야 한다.
+배열에 들어있는 원소를 `vararg` 로 넘길 때 코틀린과 자바의 구문이 다르다.  
+자바는 배열을 그냥 넘기면 되지만, 코틀린에서는 배열을 명시적으로 풀어서 배열의 각 원소가 인자로 전달되게 해야 한다.
 
 만일, Array 타입의 인자 하나로 넘기지 않고, 인자 목록으로 변환하고 싶으면 스프레드 연산자(`*`) 를 사용한다.  
 **스프레드 연산자는 배열에만 적용**할 수 있다.
@@ -496,10 +529,13 @@ primitive 타입은 `IntArray`, `ByteArray` 등과 같은 특별한 배열 타�
 
 반면, **Array\<Int\> 는 정수값이 담긴 Int 객체에 대한 참조를 모아둔 배열로써, IntArray 보다 훨씬 더 많은 메모리를 차지하고, 처리 속도도 늦다.**
 
-> 원시 타입과 참조 타입은 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
+> primitive 타입의 배열은 [4.4.2. primitive 타입의 배열](#442-primitive-타입의-배열) 에 좀 더 자세히 나옵니다.
 
+> JVM 의 원시 타입과 참조 타입은 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
 
-만일 위 코드에서 `intArrayOf()` 가 아닌 `arrayOf()` 를 사용하면 Array<Int> 타입이 추론되어 오류가 발생한다.
+> 자바에 대응하는 코틀린이 primitive 타입은 [4.1. primitive 타입: Int, Boolean 등](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#41-primitive-%ED%83%80%EC%9E%85-int-boolean-%EB%93%B1) 을 참고하세요.
+
+만일 위 코드에서 `intArrayOf()` 가 아닌 `arrayOf()` 를 사용하면 Array\<Int\> 타입이 추론되어 오류가 발생한다.
 
 ```kotlin
 val array2 = arrayOf(1, 2)
@@ -540,7 +576,7 @@ fun main() {
 
 ---
 
-## 4.2. 명령줄 인자
+## 4.3. 명령줄 인자
 
 명령줄 인자를 받을 땐 main() 에 지정하며, 이 때 파라메터의 타입은 꼭 Array\<String\> 이어야 한다.
 
@@ -551,6 +587,196 @@ fun main(args: Array<String>) {
     val second = args[1].toInt()
     val third = args[2].toFloat()
     println("$first $second $third")    // dd 1 3.1
+}
+```
+
+---
+
+## 4.4. 객체의 배열과 primitive 타입의 배열
+
+[4.1. 가변 인자 목록: `vararg`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#41-%EA%B0%80%EB%B3%80-%EC%9D%B8%EC%9E%90-%EB%AA%A9%EB%A1%9D-vararg) 에서 본 것처럼 
+기본적으로는 배열보다는 컬렉션을 먼저 사용해야 한다.
+
+하지만 자바 API 가 여전히 배열을 사용하므로 코틀린에서도 배열을 써야할 때가 있는데 여기서는 코틀린에서 배열을 다루는 방법에 대해 알아본다.
+
+아래는 코틀린 배열의 기본적인 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+fun main() {
+    val arr: Array<String> = arrayOf("a", "b")
+
+// 배열의 인덱스 값 범위에 대해 이터레이션 하기 위해 array.indices 확장 함수 사용
+    for (i in arr.indices) {
+        println("arg $i is : ${arr[i]}")
+    }
+
+    // arg 0 is : a
+    // arg 1 is : b
+}
+```
+
+코틀린 배열은 타입 파라메터를 받는 클래스이다.
+
+배열의 원소 타입은 바로 그 타입 파라메터에 의해 정해진다.
+
+<**코틀린에서 배열 생성하는 법**>  
+- `arrayOf()` 에 원소를 넘김
+- `arrayOfNulls()` 함수에 정수값을 인자로 넘기면 모든 원소가 null 이고, 인자로 넘긴 값과 크기가 같은 배열 생성 가능
+  - 원소 타입이 null 이 될 수 있는 타입인 경우에만 이 함수 사용 가능
+- `Array` 생성자는 배열 크기와 람다를 인자로 받아서 람다를 호출하여 각 배열 원소를 초기화함
+  - `arrayOf()` 를 사용하지 않고 각 원소가 null 이 아닌 배열을 만들어야 하는 경우 이 생성자를 사용함
+  - 예) _Array\<String\>(2) { // ... }_
+
+아래는 `Array` 생성자를 이용하여 a~z 까지 알파벳 소문자에 해당하는 문자열이 원소인 배열을 생성하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+fun main() {
+    val letters = Array<String>(26) { i -> ('a' + i).toString() }
+
+    // [Ljava.lang.String;@3b07d329
+    println(letters)
+
+    // abcdefghijklmnopqrstuvwxyz
+    println(letters.joinToString(""))
+}
+```
+
+람다는 배열 원소의 인덱스를 인자로 받아서 배열의 해당 위치에 들어갈 원소를 반환한다.
+
+---
+
+### 4.4.1. `toTypedArray()`, `toIntArray()`
+
+코틀린은 배열을 인자로 받는 자바 함수를 호출하거나 `vararg` 파라메터를 받는 코틀린 함수를 호출하기 위해 배열을 만드는 경우가 많다.  
+하지만 이 때 데이터가 이미 컬렉션에 들어있다면 컬렉션을 배열로 변환해야 한다.
+
+이 때 **`toTypedArray()` 를 사용하면 쉽게 컬렉션을 배열**로 바꿀 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+fun sum(vararg numbers: Int): Int {
+    var total = 0
+    for (n in numbers) {
+        total += n
+    }
+    return total
+}
+
+fun main() {
+    val strings = listOf("a", "b", "c")
+    val numbers = listOf(1, 2, 3)
+
+    // vararg 인자를 넘기기 위해 스프레드 연산자 * 사용
+    println("%s %s %s".format(*strings.toTypedArray()))
+
+    println("%s %s %s".format(*numbers.toTypedArray()))
+
+    // 컴파일 오류
+    // println("%d %d %d".format(*numbers.toIntArray()))
+
+    // 컴파일 오류
+    // Type mismatch.
+    // Required: IntArray
+    // Found: Array<Int>
+    
+    //sum(*numbers.toTypedArray())
+
+    sum(*numbers.toIntArray())
+}
+```
+
+원소의 타입이 Int 일 경우 `toTypedArray()` 는 Array\<Int\> 를 반환하고, `toIntArray()` 는 `IntArray` 를 반환한다.
+
+---
+
+### 4.4.2. primitive 타입의 배열
+
+다른 제네릭 타입처럼 배열 타입의 타입 파라메터도 항상 객체 타입이다.
+
+따라서 Array\<Int\> 와 같은 타입은 선언하면 그 배열은 boxing 된 정수의 배열이다.  
+(자바 타입은 java.lang.Integer[])
+
+boxing 하지 않은 primitive 타입의 배열이 필요하면 그런 타입을 위한 특별한 배열 클래스를 사용해야 한다.
+
+> boxing 과 unboxing 에 대해서는 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
+
+코틀린은 primitive 타입의 배열을 표현하는 별도 클래스를 각 primitive 타입마다 하나씩 제공한다.  
+예) `IntArray`, `ByteArray`, `CharArray`, `BooleanArray` ..
+
+이런 **primitive 타입 배열은 자바의 primitive 타입 배열인 int[], byte[], char[] 등으로 컴파일되기 때문에 boxing 하지 않고 가장 효율적인 방식으로 저장**된다.
+
+<**primitive 배열 생성하는 법**>  
+- 각 배열 타입의 생성자는 size 인자를 받아서 해당 primitive 타입의 디폴트 값 (보통은 0) 으로 초기화된 size 크기의 배열 반환
+- 팩토리 함수 (`IntArray` 를 생성하는 `intArrayOf()` 등) 는 여러 값을 가변 인자로 받아서 그런 값이 들어간 배열을 반환
+- (일반 배열처럼) 크기와 람다를 인자로 받는 생성자를 사용
+
+아래는 위의 3 가지 방법으로 primitive 배열을 생성하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+fun main() {
+    // 각 배열 타입의 생성자는 size 인자를 받아서 해당 primitive 타입의 디폴트 값 (보통은 0) 으로 초기화된 size 크기의 배열 반환
+    val fiveZeros: IntArray = IntArray(5)
+
+    // 팩토리 함수 intArrayOf() 사용
+    val fiveZeros2: IntArray = intArrayOf(0, 0, 0, 0, 0)
+
+    // 크기와 람다를 인자로 받는 생성자를 사용
+    val fiveZeros3: IntArray = IntArray(5) { i -> i + 1 }
+
+    println(fiveZeros) // [I@53d8d10a
+    println(fiveZeros2) // [I@e9e54c2
+    println(fiveZeros3) // [I@65ab7765
+
+    println(fiveZeros.joinToString()) // 0, 0, 0, 0, 0
+    println(fiveZeros2.joinToString()) // 0, 0, 0, 0, 0
+    println(fiveZeros3.joinToString()) // 1, 2, 3, 4, 5
+}
+```
+
+**boxing 된 값이 들어있는 컬렉션이나 배열이 있다면 `toIntArray()` 등의 변환 함수를 사용하여 unboxing 된 값이 들어있는 배열로 변환**할 수 있다.
+
+코틀린 표준 라이브러리는 배열의 기본 연산 (배열 길이 구하기, 원소 설정 등) 에 더해 컬렉션에 사용할 수 있는 모든 확장 함수를 배열에도 제공한다.
+
+따라서 `filter()`, `map()` 등을 배열에서도 사용할 수 있다.
+
+primitive 배열로 이루어진 배열에도 이런 확장 함수를 동일하게 사용할 수 있다.
+
+**단, 이런 확장 함수가 반환하는 값은 배열이 아니라 리스트**이다.
+
+이제 [4.4. 객체의 배열과 primitive 타입의 배열](#442-primitive-타입의-배열) 에서 만들어 본 알파벳을 `forEachIndexed()` 와 람다를 사용하여 출력해보자.
+
+4.4. 객체의 배열과 primitive 타입의 배열 에서 만들어 본 알파벳
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+fun main() {
+    val letters = Array<String>(26) { i -> ('a' + i).toString() }
+
+    // [Ljava.lang.String;@3b07d329
+    println(letters)
+
+    // abcdefghijklmnopqrstuvwxyz
+    println(letters.joinToString(""))
+}
+```
+
+`forEachIndexed()` 는 배열의 모든 원소를 갖고 인자로 받은 람다를 호출해주는데 이 때 배열의 원소와 그 원소의 인덱스를 람다에게 인자로 전달한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+fun main() {
+    val letters = Array<String>(26) { i -> ('a' + i).toString() }
+
+    letters.forEachIndexed { index, s -> println("$index is $s") }
 }
 ```
 
@@ -724,7 +950,8 @@ fun main() {
 ## 6.1. `getValue()`, `getOrDefault()`
 
 주어진 key 에 포함되어 있지 않은 원소를 조회하면 Map 은 null 을 반환한다.  
-null 이 될 수 없는 값을 원하면 `getValue()` 를 사용하는 것이 좋다. `getValue()` 를 사용할 때 key 가 맵에 없으면 NoSuchElementException 이 런타임에 발생한다.
+null 이 될 수 없는 값을 원하면 `getValue()` 를 사용하는 것이 좋다.  
+`getValue()` 를 사용할 때 key 가 맵에 없으면 _NoSuchElementException_ 이 런타임에 발생한다.
 
 하지만 이 오류는 런타임에 발생하므로 `getOrDefault()` 를 이용하여 null 혹은 예외를 던지지 않도록 하는 것이 좋다.
 
@@ -915,7 +1142,8 @@ fun main() {
 2
 ```
 
-**아래는 getter 는 public, setter 는 private 로 지정**하는 예시이다. 그러면 프로퍼티값을 변경하는 일은 클래스 내부에서만 할 수 있다.
+**아래는 getter 는 public, setter 는 private 로 지정**하는 예시이다.  
+그러면 프로퍼티값을 변경하는 일은 클래스 내부에서만 할 수 있다.
 
 ```kotlin
 class Counter {
@@ -1032,7 +1260,7 @@ fun TalkActiveButton.giveSpeech() {
 }
 ```
 
-위 코드에서 public 함수인 _giveSpeech()_ 안에서 그 보다 가시성이 더 낮은 internal 타입인 _TalkActiveButton_ 을 참조하지 못하기 때문에 오류가 발생한다.  
+위 코드에서 public 함수인 _giveSpeech()_ 안에서 그보다 가시성이 더 낮은 internal 타입인 _TalkActiveButton_ 을 참조하지 못하기 때문에 오류가 발생한다.  
 이 말은 **어떤 클래스의 기반 타입 목록에 들어있는 타입이나 제네릭 클래스의 타입 파라메터에 들어있는 타입의 가시성은 그 클래스 자신의 가시성과 같거나 더 높아야 하고, 
 메서드의 시그니처에 사용된 모든 타입의 가시성은 그 메서드의 가시성과 같거나 더 높아야 한다는 의미**이다.
 
@@ -1114,7 +1342,7 @@ class Cookie(
 클래스 내의 `private` 프로퍼티 측면에서도 내부 구현을 노출시켜야 하는 경우를 제외하고는 프로퍼티를 `private` 로 만드는 것이 좋다.  
 (내부 프로퍼티를 외부로 노출시켜야 하는 경우는 매우 드뭄)
 
-클래스 내부에 있는 참조를 private 로 정의한다해도 그 참조가 가리키는 객체에 대한 public 참조가 없다는 사실을 보장해주지 못하는 예시 코드
+클래스 내부에 있는 참조를 `private` 로 정의한다해도 그 참조가 가리키는 객체에 대한 `public` 참조가 없다는 사실을 보장해주지 못하는 예시 코드
 ```kotlin
 class Counter(
     var start: Int,
