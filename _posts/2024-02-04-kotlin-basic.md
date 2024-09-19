@@ -27,6 +27,7 @@ tags: kotlin
 * [2. Hello, World](#2-hello-world)
 * [3. `var`, `val`](#3-var-val)
   * [3.1. 읽기 전용 컬렉션과 변경 가능한 컬렉션: `Collection`, `MutableCollection`](#31-읽기-전용-컬렉션과-변경-가능한-컬렉션-collection-mutablecollection)
+  * [3.2. 코틀린 컬렉션과 자바 컬렉션](#32-코틀린-컬렉션과-자바-컬렉션)
 * [4. 데이터 타입](#4-데이터-타입)
   * [4.1. primitive 타입: Int, Boolean 등](#41-primitive-타입-int-boolean-등)
   * [4.2. null 이 될 수 있는 primitive 타입: Int?, Boolean? 등](#42-null-이-될-수-있는-primitive-타입-int-boolean-등)
@@ -334,6 +335,61 @@ fun main() {
     println(target) // [4, 5, 1, 2, 3]
 }
 ```
+
+---
+
+## 3.2. 코틀린 컬렉션과 자바 컬렉션
+
+[2. 컬렉션 연산: `hashSetOf()`, `arrayListOf()`, `listOf()`, `hashMapOf()`](https://assu10.github.io/dev/2024/02/12/kotlin-funtional-programming-1/#2-%EC%BB%AC%EB%A0%89%EC%85%98-%EC%97%B0%EC%82%B0-hashsetof-arraylistof-listof-hashmapof) 에서 본 것처럼 
+모든 코틀린 컬렉션은 그에 상응하는 자바 컬렉션 인터페이스의 인스턴스이다.
+
+따라서 코틀린과 자바를 오갈 때 아무 변환도 필요없다.
+
+하지만 코틀린은 모든 자바 인터페이스마다 읽기 전용 인터페이스와 변경 가능한 인터페이스, 2 가지 표현을 제공한다.
+
+![코틀린 컬렉션 인터페이스 계층 구조](/assets/img/dev/2024/0204/interface.png)
+
+위 그림을 보면 자바 클래스 ArrayList 와 HashSet 은 코틀린의 변경 가능 인터페이스를 확장하는 것을 알 수 있다.
+
+코틀린의 읽기 전용과 변경 가능 인터페이스의 기본 구조는 java.util 패키지에 있는 자바 컬렉션 인터페이스의 구조를 그대로 옮겨놓았다.  
+추가로 변경 가능한 각 인터페이스는 자신과 대응하는 읽기 전용 인터페이스를 확장 (상속) 한다.
+
+변경 가능한 인터페이스는 java.util 패키지에 있는 인터페이스와 직접적으로 연관되지만, 읽기 전용 인터페이스에는 컬렉션을 변경할 수 있는 모든 요소가 빠져있다.
+
+위 그림에서 자바 표준 클래스를 코틀린에서 어떻게 취급하는지 보기 위해 java.util.ArrayList, java.util.HashSet 클래스를 예시로 들었는데, 코틀린은 
+이들이 마치 각각 코틀린의 `MutableList` 와 `MutableSet` 인터페이스를 상속한 것처럼 취급한다.
+
+LinkedList, SortedSet 등 자바 컬렉션 라이브러리에 있는 다른 구현도 마찬가지로 코틀린 상위 타입을 갖는 것처럼 취급한다.
+
+**이런 방식을 통하여 코틀린은 자바 호환성을 제공하는 한편 읽기 전용 인터페이스와 변경 가능 인터페이스를 분리**한다.
+
+위의 컬렉션처럼 Map 클래스도 코틀린에서 `Map` 과 `MutableMap`, 2 가지 버전을 보여준다.  
+(Map 은 `Collection` 이나 `Iterable` 을 확장하지 않음)
+
+<**컬렉션 생성 함수 모음**>  
+
+| 컬렉션 타입 | 읽기 전용 타입   | 변경 가능 타입                                                          |
+|:------:|:-----------|:------------------------------------------------------------------|
+|  List  | `listOf()` | `mutableListOf()`, `arrayListOf()`                                |
+|  Set   | `setOf()`  | `mutableSetOf()`, `hashSetOf()`, `linkedSetOf()`, `sortedSetOf()` |
+|  Map   | `mapOf()`   | `mutableMapOf()`, `hashMapOf()`, `linkedMapOf()`, `sortedMapOf()`  |
+
+자바 메서드를 호출할 때 컬렉션을 인자로 넘겨야 한다면 따로 변환하거나 복사하는 등의 추가 작업 없이 직접 컬렉션을 넘기면 된다.  
+예) java.util.Collection 을 파라메터로 받는 자바 메서드가 있다면 `Collection`, `MutableCollection` 모두 인자로 넘길 수 있음
+
+이런 성질로 인해 컬렉션의 변경 가능성과 관련하여 중요한 문제가 생긴다.
+
+자바는 읽기 전용 컬렉션과 변경 가능 컬렉션을 구분하지 않으므로 코틀린에서 읽기 전용 `Collection` 으로 선언된 객체라도 자바 코드에서는 그 컬렉션 객체의 내용을 변경할 수 있다.
+
+따라서 **컬렉션을 자바로 넘기는 코틀린 코드를 작성한다면 호출하려는 자바 코드가 컬렉션을 변경할 지 여부에 따라 올바른 파라메터 타입을 사용**해야 한다.
+
+**즉, 변경 불가능한 컬렉션 타입을 넘겨도 자바 쪽에서 내용을 변경할 수 있으므로 자바 쪽에서 컬렉션을 변경할 여지가 있다면 아예 코틀린 쪽에서도 변경 가능한 컬렉션 타입을 
+사용하여 자바 코드 수행 후 컬렉션 내용이 변할 수 있음을 코드에 남겨두어야 한다.**
+
+null 이 아닌 원소로 이루어진 컬렉션 타입도 비슷하다.  
+null 이 아닌 원소로 이루어진 컬렉션을 자바 메서드에 넘겼는데 자바 메서드가 null 을 컬렉션에 넣을 수도 있다.
+
+따라서 **컬렉션을 자바 코드에게 넘길 때는 특별히 주의해야 하며, 코틀린 쪽 타입이 자바 쪽에서 컬렉션에게 가할 수 있는 변경의 내용 (null 가능성, 불변성 등..) 을 반영**하게 해야 한다.
 
 ---
 
@@ -1265,3 +1321,4 @@ java 를 kotlin 으로 변환하고 싶을 때는 java 코드를 복사하여 ko
 * [코틀린 다중 플랫폼 지원 Gradle 스크립트 공홈](https://kotlinlang.org/docs/multiplatform-get-started.html)
 * [우당탕탕 Kotlin 전환기](https://dealicious-inc.github.io/2022/08/29/kotlin-converting.html)
 * [리터럴(Literal)이란?](https://velog.io/@me2designer/%EB%A6%AC%ED%84%B0%EB%9F%B4Literal%EC%9D%B4%EB%9E%80)
+* [Kotlin v2.0.20 Maps.kt](https://github.com/JetBrains/kotlin/blob/v2.0.20/libraries/stdlib/src/kotlin/collections/Maps.kt)
