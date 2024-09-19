@@ -28,6 +28,7 @@ tags: kotlin
 * [3. `var`, `val`](#3-var-val)
   * [3.1. 읽기 전용 컬렉션과 변경 가능한 컬렉션: `Collection`, `MutableCollection`](#31-읽기-전용-컬렉션과-변경-가능한-컬렉션-collection-mutablecollection)
   * [3.2. 코틀린 컬렉션과 자바 컬렉션](#32-코틀린-컬렉션과-자바-컬렉션)
+  * [3.3. 컬렉션을 플랫폼 타입으로 다루기](#33-컬렉션을-플랫폼-타입으로-다루기)
 * [4. 데이터 타입](#4-데이터-타입)
   * [4.1. primitive 타입: Int, Boolean 등](#41-primitive-타입-int-boolean-등)
   * [4.2. null 이 될 수 있는 primitive 타입: Int?, Boolean? 등](#42-null-이-될-수-있는-primitive-타입-int-boolean-등)
@@ -390,6 +391,109 @@ null 이 아닌 원소로 이루어진 컬렉션 타입도 비슷하다.
 null 이 아닌 원소로 이루어진 컬렉션을 자바 메서드에 넘겼는데 자바 메서드가 null 을 컬렉션에 넣을 수도 있다.
 
 따라서 **컬렉션을 자바 코드에게 넘길 때는 특별히 주의해야 하며, 코틀린 쪽 타입이 자바 쪽에서 컬렉션에게 가할 수 있는 변경의 내용 (null 가능성, 불변성 등..) 을 반영**하게 해야 한다.
+
+---
+
+## 3.3. 컬렉션을 플랫폼 타입으로 다루기
+
+자바에서 정의한 타입을 코틀린에서는 [플랫폼 타입](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#121-%ED%94%8C%EB%9E%AB%ED%8F%BC-%ED%83%80%EC%9E%85)으로 본다.
+
+플랫폼 타입의 경우 코틀린 쪽에서는 null 관련 정보가 없다.  
+따라서 컴파일러는 코틀린 코드가 그 타입을 null 이 될 수 있는 타입이나 null 이 될 수 없는 타입 어느 쪽이든 사용할 수 있도록 허용한다.
+
+플랫폼 타입인 컬렉션은 기본적으로 변경 가능성에 대해 알 수 없기 때문에 코틀린 코드는 그 타입을 읽기 전용 컬렉션과 변경 가능한 컬렉션 어느 쪽이로든 다룰 수 있다.
+
+보통은 원하는 대로 동작이 잘 수행될 가능성이 높기 때문에 문제가 되진 않지만 컬렉션 타입이 시그니처에 들어간 자바 메서드 구현을 오버라이드 하는 경우 읽기 전용 컬렉션과 
+변경 가능한 컬렉션의 차이가 문제가 된다.
+
+플랫폼 타입에서 null 가능성을 다룰 때처럼 오버라이드하려는 메서드의 자바 컬렉션 타입을 어떤 코틀린 컬렉션 타입으로 표현할 지 결정해야 한다.
+
+보통 아래와 같은 상황을 고려해야 한다.
+
+- 컬렉션이 null 이 될 수 있는가?
+- 컬렉션의 원소가 null 이 될 수 있는가?
+- 오버라이드하는 메서드가 컬렉션을 변경할 수 있는가?
+
+아래와 같이 컬렉션 파라메터가 있는 자바 인터페이스가 있다고 하자.
+
+```java
+package com.assu.study.kotlin2me.chap06;
+
+import java.io.File;
+import java.util.List;
+
+// 파일에 들어있는 텍스트를 처리하는 인터페이스
+public interface FileContent {
+  void process(File path, byte[] binary, List<String> text);
+}
+```
+
+이 인터페이스를 코틀린으로 구현하려면 아래의 내용을 고민 후 적절히 선택해야 한다.
+
+- 일부 파일은 binary 파일이며, binary 파일 안의 내용은 텍스트로 표현할 수 없는 경우가 있으므로 리스트는 null 이 될 수 있음
+- 파일의 각 줄은 null 일 수 없으므로 이 리스트의 원소는 null 이 될 수 없음
+- 이 리스트는 파일의 내용을 표현하며, 그 내용을 바꿀 필요가 없으므로 읽기 전용임
+
+아래는 코틀린으로 구현한 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+import java.io.File
+
+class FileIndexer : FileContent {
+    override fun process(
+        path: File,
+        binary: ByteArray?,
+        text: MutableList<String>?,
+    ) {
+        TODO("Not yet implemented")
+    }
+}
+```
+
+아래는 컬렉션 파라메터가 있는 다른 자바 인터페이스이다.
+
+```java
+package com.assu.study.kotlin2me.chap06;
+
+import java.util.List;
+
+// 인터페이스를 구현한 클래스가 아래의 내용들을 처리함
+// - 텍스트 폼에서 읽은 데이터를 파싱하여 객체 리스트를 만듦
+// - 그 리스트의 객체들을 출력 리스트 뒤에 추가함
+// - 데이터를 파싱하는 과정에서 발생한 오류 메시지를 별도의 리스트에 넣음
+public interface DataParser<T> {
+  void parseData(String input, List<T> output, List<String> errors);
+}
+```
+
+이 인터페이스를 코틀린으로 구현하려면 아래의 내용을 적절히 고민 후 선택해야 한다.
+
+- 호출하는 쪽에서 항상 오류 메시지를 받아야 하므로 List\<String\> 은 null 이 될 수 없음
+- errors 의 원소는 null 이 될 수도 있음 (데이터를 파싱하는 과정에서 오류가 발생하지 않을수도 있으므로)
+- 구현 코드에서 원소를 추가할 수 있어야 하므로 List\<T\> 는 변경 가능해야 함
+
+아래는 코틀린으로 구현한 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap06
+
+class PersonParser : DataParser<Person> {
+    override fun parseData(
+        input: String,
+        output: MutableList<Person>,
+        errors: MutableList<String?>,
+    ) {
+        TODO("Not yet implemented")
+    }
+}
+```
+
+위 2개의 자바 인터페이스에 사용된 List\<String\> 을 코틀린으로 구현 시 각각 List\<String\>? 과 MutableList\<String?\> 으로 구현하였다.
+
+이러한 선택을 제대로 하려면 자바 인터페이스나 클래스가 어떤 맥락에서 사용되는지 알아야 한다.  
+자바에서 가져온 컬렉션에 대해 코틀린 구현에서 어떤 작업을 수행해야 할 지 검토하면 쉽게 결정할 수 있다.
 
 ---
 
