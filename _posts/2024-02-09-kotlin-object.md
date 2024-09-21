@@ -1026,7 +1026,17 @@ class Person(val name: String)
 자바 코드와 비교해보면 클래스에 public 가시성 변경자가 없음을 확인할 수 있다.  
 **코틀린의 기본 가시성은 public 이므로 이럴 경우 변경자 생략이 가능**하다.
 
-> 클래스에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다. (p. 69)
+> 인터페이스, 복잡한 생성자 `init`, 부생성자 `constructor`, 상속, 기반 클래스 초기화에 대한 내용은 [Kotlin - 객체 지향 프로그래밍(1): 인터페이스, SAM(fun interface), init, 부생성자, 상속, 기반클래스 초기화](https://assu10.github.io/dev/2024/02/24/kotlin-object-oriented-programming-1/) 를 참고하세요.
+> 
+> 클래스 위임 `by`, 캐스트 `is`/`as`/`as?`, 봉인된 클래스 `sealed` 에 대한 내용은 [Kotlin - 객체 지향 프로그래밍(3): 클래스 위임, 상속/합성/클래스 위임, 다운 캐스트('is', 'as'), 봉인된 클래스('sealed')](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/) 를 참고하세요.
+> 
+> 내부 클래스에 대한 내용은 [2. 내부 클래스 (inner class)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#2-%EB%82%B4%EB%B6%80-%ED%81%B4%EB%9E%98%EC%8A%A4-inner-class) 를 참고하세요.
+> 
+> 내부 클래스와 내포된 클래스에 대한 내용은 [3. 내부 클래스 (inner class) 와 내포된 클래스 (nested class)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#3-%EB%82%B4%EB%B6%80-%ED%81%B4%EB%9E%98%EC%8A%A4-inner-class-%EC%99%80-%EB%82%B4%ED%8F%AC%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-nested-class) 를 참고하세요.
+> 
+> 추상 클래스, 업캐스트, 합성, 상속과 확장에 대한 내용은 [Kotlin - 객체 지향 프로그래밍(2): 추상 클래스, 업캐스트, 다형성, 합성, 합성과 상속, 상속과 확장, 어댑터 패턴, 멤버 함수와 확장 함수](https://assu10.github.io/dev/2024/02/25/kotlin-object-oriented-programming-2/) 를 참고하세요.
+
+> 가시성에 대한 내용은 [10. 가시성 변경자 (access modifier, 접근 제어 변경자): `public`, `private`, `protected`, `internal`](#10-가시성-변경자-access-modifier-접근-제어-변경자-public-private-protected-internal) 에 나옵니다.
 
 ---
 
