@@ -29,7 +29,9 @@ tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
     * [1.3.5. 파라메터 타입이 연산자가 확장하는 타입과 다른 타입인 경우](#135-파라메터-타입이-연산자가-확장하는-타입과-다른-타입인-경우)
     * [1.3.6. 반환 파입이 두 피연산자의 타입과 다른 경우](#136-반환-파입이-두-피연산자의-타입과-다른-경우)
   * [1.4. 비교 연산자: `compareTo()`](#14-비교-연산자-compareto)
-  * [1.5. 범위와 컨테이너: `rangeTo()`, `contains()`](#15-범위와-컨테이너-rangeto-contains)
+  * [1.5. 범위와 컨테이너](#15-범위와-컨테이너)
+    * [1.5.1. `in` 의 관례: `contains()`](#151-in-의-관례-contains)
+    * [1.5.2. `..` 의 관례: `rangeTo()`](#152--의-관례-rangeto)
   * [1.6. 인덱스로 원소에 접근: `get()`, `set()`](#16-인덱스로-원소에-접근-get-set)
   * [1.7. 호출 연산자: `invoke()`](#17-호출-연산자-invoke)
     * [1.7.1. `invoke()` 를 확장 함수로 정의](#171-invoke-를-확장-함수로-정의)
@@ -1039,11 +1041,64 @@ fun main() {
 
 ---
 
-## 1.5. 범위와 컨테이너: `rangeTo()`, `contains()`
+## 1.5. 범위와 컨테이너
 
 **`rangeTo()` 는 범위를 생성하는 `..` 연산자를 오버로드**하고, **`contains()` 는 값이 범위 안에 들어가는지 여부를 알려주는 `in` 연산자를 오버로드**한다.
 
+---
+
+### 1.5.1. `in` 의 관례: `contains()`
+
 > `in` 키워드에 대한 좀 더 상세한 설명은 [10. `in` 키워드](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#10-in-%ED%82%A4%EC%9B%8C%EB%93%9C) 를 참고하세요.
+
+`in` 은 객체가 컬렉션에 들어있는지 검사하는데 이 때 `in` 연산자와 대응하는 함수는 `contains()` 이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Point6(
+    val x: Int,
+    val y: Int,
+)
+
+data class Rectangle(
+    val upperLeft: Point6,
+    val lowerRight: Point6,
+)
+
+operator fun Rectangle.contains(p: Point6): Boolean =
+    // 범위를 만들고 x,y 좌표가 그 범위 안에 있는지 검사
+    p.x in upperLeft.x until lowerRight.x &&
+        p.y in upperLeft.y until lowerRight.y
+
+fun main() {
+    val rect = Rectangle(Point6(10, 20), Point6(50, 50))
+
+    println(Point6(20, 30) in rect) // true
+    println(Point6(5, 5) in rect) // false
+}
+```
+
+> 닫힌 범위 `..` 와 열린 범위 `until` 에 대한 내용은 [9. `for`, `until`, `downTo`, `step`, `repeat`](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#9-for-until-downto-step-repeat) 참고하세요.
+
+`in` 의 우항에 있는 객체는 `contains()` 메서드의 수신 객체가 되고, 좌항에 있는 객체는 `contains()` 메서드에 인자로 전달된다.
+
+```kotlin
+a in c
+
+// 아래로 컴파일됨
+c.contains(a)
+```
+
+---
+
+### 1.5.2. `..` 의 관례: `rangeTo()`
+
+
+
+---
+
+`rangeTo()` 와 `contains()` 를 모두 오버라이드하는 예시
 
 ```kotlin
 class J(var v: Int) {

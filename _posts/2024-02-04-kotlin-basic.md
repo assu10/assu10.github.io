@@ -1159,6 +1159,7 @@ println("1".toInt()) // 1
 # 9. `for`, `until`, `downTo`, `step`, `repeat`
 
 코틀린의 for 는 아래와 같은 형식이다.
+
 ```kotlin
 for (<아이템> in <원소들>) {
     // ...
@@ -1166,6 +1167,7 @@ for (<아이템> in <원소들>) {
 ```
 
 1~3 까지 루프
+
 ```kotlin
 // 1~3 까지 루프
 for (i in 1..3) {
@@ -1173,12 +1175,14 @@ for (i in 1..3) {
 }
 ```
 
-1~10 까지 루프 (10 포함): `..`
+1~10 까지 루프 (10 포함): `..` (닫힌 범위)
+
 ```kotlin
 val range1 = 1..10
 println(range1) // 1..10
 ```
-1~10 까지 루프 (10 미포함): `until`
+1~10 까지 루프 (10 미포함): `until` (열린 범위)
+
 ```kotlin
 val range2 = 1..<10
 val range3 = 1 until 10
@@ -1187,6 +1191,7 @@ println(range3) // 1..9
 ```
 
 `until`, `downTo`, `step`
+
 ```kotlin
 fun showRange(r: IntProgression) {
     for (i in r) {
@@ -1216,6 +1221,7 @@ showRange(9 downTo 2 step 3)
 `IntProgression` 은 Int 범위를 포함하며, 코틀린이 기본 제공하는 타입이다.
 
 문자열 이터레이션
+
 ```kotlin
 for (c in 'a'..'z') {
     print(c)    // abcdefghijklmnopqrstuvwxyz
@@ -1223,6 +1229,7 @@ for (c in 'a'..'z') {
 ```
 
 `lastIndex`
+
 ```kotlin
 val str = "abc"
 for (i in 0..str.lastIndex) {
@@ -1231,6 +1238,7 @@ for (i in 0..str.lastIndex) {
 ```
 
 각 문자 이터레이션
+
 ```kotlin
 for (ch in "Jnskhm  ") {
     print(ch + 1)   // Kotlin!!
@@ -1238,6 +1246,7 @@ for (ch in "Jnskhm  ") {
 ```
 
 `repeat`
+
 ```kotlin    
 // repeat
 repeat(3) {
