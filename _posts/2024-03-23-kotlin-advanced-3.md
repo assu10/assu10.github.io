@@ -1094,7 +1094,64 @@ c.contains(a)
 
 ### 1.5.2. `..` 의 관례: `rangeTo()`
 
+범위를 만들려면 `..` 구문을 사용해아 한다.  
+예) 1..10 은 1~10 까지 모든 수가 들어있는 범위를 가리킴
 
+`..` 연산자는 `rangeTo()` 함수를 간략하게 표현하는 방법이다.
+
+```kotlin
+start..end 
+
+// 아래로 컴파일됨
+start.rangeTo(end)
+```
+
+`rangeTo()` 함수는 범위를 반환하며, 아무 클래스에나 정의할 수 있다.
+
+하지만 [2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드: `compareValuesBy()`](#23-comparable-인터페이스-구현-후-compareto-오버라이드-comparevaluesby) 에서 본 것처럼 
+어느 클래스가 `Comparable` 인터페이스를 구현하면 `rangeTo()` 를 정의할 필요가 없다.
+
+코틀린 라이브러리에는 모든 `Comparable` 객체에 대해 적용 가능한 `rangeTo()` 함수가 들어있다.  
+이 함수는 범위를 반환하며, 어떤 원소가 그 범위 안에 들어있는지 `in` 을 통해 검사할 수 있다.
+
+```kotlin
+operator fun <T: Comparable<T>> T.rangeTo(that: T): ClosedRange<T>
+```
+
+아래는 LocalDate 클래스를 이용하여 날짜의 범위를 만드는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+import java.time.LocalDate
+
+fun main() {
+    val now = LocalDate.now()
+
+    // 오늘을 포함하여 10일 짜리 범위를 만듦 (now <= .. <= now.plusDays(10))
+    val vacation = now..now.plusDays(10) // now.rangeTo(now.plusDays(10))
+
+    // 특정 날짜가 날짜 범위 안에 들어가는지 검사
+    println(now.plusWeeks(1) in vacation) // true
+}
+```
+
+위 코드에서 `rangeTo()` 함수는 LocalDate 의 멤버가 아니며, `Comparable` 에 대한 확장 함수이다.
+
+`rangeTo()` 연산자는 다른 산술 연산자보다 우선 순위가 낮다.
+
+_0..n.forEach { }_ 와 같은 식은 컴파일할 수 없다.  
+범위 연산자는 우선 순위가 낮아서 범위의 메서드를 호출하려면 범위를 괄호로 감싸야 한다.
+
+```kotlin
+val n = 10
+
+// 컴파일 오류
+// 0..n.forEach { print(it) }
+
+// 012345678910
+(0..n).forEach { print(it) }
+```
 
 ---
 
