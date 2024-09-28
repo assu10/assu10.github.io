@@ -18,9 +18,9 @@ tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
 * [1. 연산자 오버로딩: `operator`](#1-연산자-오버로딩-operator)
   * [1.1. `infix`](#11-infix)
   * [1.2. 동등성 `==`, 비동등성 `!=`](#12-동등성--비동등성-)
-    * [1.2.1. `equals()` 오버로딩](#121-equals-오버로딩-)
+    * [1.2.1. 동등성 연산자 `equals()` 오버로딩](#121-동등성-연산자-equals-오버로딩)
     * [1.2.2. null 이 될 수 있는 객체를 `==` 로 비교](#122-null-이-될-수-있는-객체를--로-비교)
-    * [1.2.3. `==` 와 `===`](#123--와-)
+    * [1.2.3. `==` 와 식별자 비교 (Identity equals) 연산자 `===`](#123--와-식별자-비교-identity-equals-연산자-)
   * [1.3. 산술 연산자](#13-산술-연산자)
     * [1.3.1. 이항 (binary) 산술 연산자 오버로딩](#131-이항-binary-산술-연산자-오버로딩)
     * [1.3.2. 복합 대입 (compound assignment) 연산자 오버로딩](#132-복합-대입-compound-assignment-연산자-오버로딩)
@@ -37,7 +37,7 @@ tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
 * [2. 연산자 사용](#2-연산자-사용)
   * [2.1. 가변 컬렉션에 `+=`, `+` 적용](#21-가변-컬렉션에---적용)
   * [2.2. 불변 컬렉션에 `+=` 적용: `var` 대신 `val` 를 사용해야 하는 이유](#22-불변-컬렉션에--적용-var-대신-val-를-사용해야-하는-이유)
-  * [2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드](#23-comparable-인터페이스-구현-후-compareto-오버라이드)
+  * [2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드: `compareValuesBy()`](#23-comparable-인터페이스-구현-후-compareto-오버라이드-comparevaluesby)
   * [2.4. 구조 분해 연산자](#24-구조-분해-연산자)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -229,9 +229,11 @@ fun main() {
 
 ## 1.2. 동등성 `==`, 비동등성 `!=`
 
+`equals()` 를 호출해야 하는 자바와 달리 코틀린은 `==` 비교 연산자를 직접 사용할 수 있어서 비교 코드가 자바에 디해 더 간결하다.
+
 `==` 과 `!=` 은 `equals()` 멤버 함수를 호출한다.
 
-data 클래스는 자동으로 저장된 모든 필드를 서로 비교하는 `equals()` 를 오버라이드 해 주지만, 일반 클래스에서는 `equals()` 를 오버라이드하지 않으면 
+data 클래스는 자동으로 저장된 모든 필드를 서로 비교하는 `equals()` 를 오버라이드 해주지만, 일반 클래스에서는 `equals()` 를 오버라이드하지 않으면 
 클래스 내용이 아닌 참조를 비교하는 디폴트 버전이 실행된다.
 
 ```kotlin
@@ -266,13 +268,22 @@ fun main() {
 
 ---
 
-### 1.2.1. `equals()` 오버로딩 
+### 1.2.1. 동등성 연산자 `equals()` 오버로딩
+
+코틀린은 `==` 연산자 호출을 `equals()` 메서드 호출로 컴파일한다.  
+`!=` 연산자도 마찬가지이다.
 
 **`equlas()` 는 확장 함수로 정의할 수 없는 유일한 연산자**이다.
 
 **`equals()` 는 반드시 멤버 함수로 오버라이드** 되어야 하며, 정의할 때는 디폴트 `equals(other: Any?)` 를 오버라이드 한다.  
 여기서 _other_ 의 타입은 개발자가 정의한 클래스의 구체적인 타입이 아니라 _Any?_ 이므로, **`equals()` 를 오버라이드할 때는 반드시 비교 대상 타입을 선택**해야 한다.
 
+다른 연산자 오버로딩 관례와는 달리 `equals()` 는 `Any` 에 정의된 메서드이므로 `override` 가 필요하다.
+
+`Any` 의 `equals()` 에는 `operator` 가 붙어있지만 그 메서드를 오버라이드하는 하위 클래스의 메서드 앞에는 `operator` 변경자를 붙이지 않아도 자동으로 
+상위 클래스의 `operator` 지정이 적용된다.
+
+또한, `Any` 에서 상속받은 `equals()` 가 확장 함수보다 우선 순위가 높기 때문에 `equals()` 는 확장 함수로 정의할 수 없다.
 
 아래는 `equals()` 를 오버라이드하는 예시이다.
 ```kotlin
@@ -404,6 +415,15 @@ fun main() {
 }
 ```
 
+동등성 검사 `==` 는 `equals()` 와 널 검사로 컴파일된다.
+
+```kotlin
+a == b
+
+// 아래로 컴파일됨
+a?.equals(b) ?: (b === null)
+```
+
 > 엘비스 연산자 `?:` 에 대한 좀 더 상세한 내용은 [2.2. 엘비스(Elvis) 연산자: `?:`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#22-%EC%97%98%EB%B9%84%EC%8A%A4elvis-%EC%97%B0%EC%82%B0%EC%9E%90-) 를 참고하세요.
 
 > 안전한 호출 `?.` 에 대하나 좀 더 상세한 내용은 [2.1. 안전한 호출 (safe call): `?.`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#21-%EC%95%88%EC%A0%84%ED%95%9C-%ED%98%B8%EC%B6%9C-safe-call-) 을 참고하세요.
@@ -412,7 +432,7 @@ fun main() {
 
 ---
 
-### 1.2.3. `==` 와 `===`
+### 1.2.3. `==` 와 식별자 비교 (Identity equals) 연산자 `===`
 
 자바에서는 primitive 타입을 비교할 때 `==` 를 사용한다.  
 이 때 `==` 는 주소값이 아닌 값이 같은지 비교하는데 이를 동등성이라고 한다.
@@ -426,7 +446,7 @@ int b = 1;
 System.out.println(a == b) // true
 ```
 
-한편 자바에서 wrapper 타입 사이에 `==` 를 사용할 경우엔 값이 아닌 주소값을 비교하게 된다.  
+한편 자바에서 wrapper 타입 사이에 `==` 를 사용할 경우엔 값이 아닌 주소값을 비교하게 된다.
 
 > String 은 wrapper 타입이지만 리터럴을 사용하는 경우 자바 컴파일러는 String Constant Pool (String pool) 이라는 힙 영역에 같은 값의 문자열을 공유하여 
 > 메모리 사용량을 최적화함  
@@ -461,15 +481,19 @@ System.out.println(c.equals(d));// true
 > 
 > 이에 대한 내용은 [4.1. primitive 타입: Int, Boolean 등](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#41-primitive-%ED%83%80%EC%9E%85-int-boolean-%EB%93%B1) 을 참고하세요.
 
-코틀린에서 `==` 는 값을 비교하고, `===` 는 주소값(= 참조 동등성 검사) 을 비교한다.
+코틀린에서 `==` 는 값을 비교하고, `===` 는 주소값(= 참조 동등성 검사) 을 비교한다.  
+즉, `===` 는 `equals()` 의 파라메터가 수신 객체와 같은지 비교한다. (= 서로 같은 객체인지)
 
 코틀린에서 `==` 는 내부적으로 `equals()` 를 호출한다.
+
+또한, `===` 는 오버로딩할 수 없다.
 
 |              | 자바                                                               | 코틀린      |
 |:------------:|:-----------------------------------------------------------------|:---------|
 |     `==`     | - primitive 타입: 값 비교<br />- wrapper 타입: 주소값 비교 (단, 리터럴일 경우 값 비교) | - 값 비교   |
 |    `===`     | 없음                                                               | - 주소값 비교 |
 |  `equals()`  | 값 비교                                                             | - 값 비교   |
+
 
 ```kotlin
 class UserA(val id: String)
@@ -961,7 +985,7 @@ fun main() {
 
 > 제어할 수 없는 클래스를 써야 하는 경우에만 `compareTo()` 를 확장 함수로 정의하고, 그 외엔 `Comparable` 인터페이스를 구현하는 것이 좋음
 > 
-> [2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드](#23-comparable-인터페이스-구현-후-compareto-오버라이드) 를 참고하세요. 
+> [2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드: `compareValuesBy()`](#23-comparable-인터페이스-구현-후-compareto-오버라이드-comparevaluesby) 를 참고하세요. 
 
 `compareTo()` 를 정의하면 모든 비교 연산자인 `<`, `>`, `<=`, `>=` 를 사용할 수 있다.
 
@@ -1424,10 +1448,32 @@ fun main() {
 
 ---
 
-## 2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드
+## 2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드: `compareValuesBy()`
 
 [1.4. 비교 연산자: `compareTo()`](#14-비교-연산자-compareto) 에서 `compareTo()` 를 확장 함수로 오버라이드하는 것을 보았는데 
 클래스가 `Comparable` 인터페이스를 구현한 후 `compareTo()` 를 오버라이드하면 더 좋다.
+
+자바에서 정렬이나 최대값, 최소값 등 값을 비교해야 할 때 사용할 클래스는 `Comparable` 인터페이스를 구현해야 한다.  
+`Comparable` 에 들어있는 `compareTo()` 메서드는 한 객체와 다른 객체의 크기를 비교하여 정수로 나타낸다.
+
+하지만 자바에는 이 메서드를 짧게 호출할 수 있는 방법이 없다.
+
+자바에서 `<`, `>`, `<=`, `>=` 등의 연산자는 primitive  타입의 값만 비교할 수 있고, 다른 모든 타입의 값에는 _ele1.compareTo(ele2)_ 를 명시적으로 사용해야 한다.
+
+코틀린도 똑같은 `Comparable` 인터페이스를 지원하며, 게다가 `Comparable` 인터페이스 안에 있는 `compareTo()` 메서드를 호출하는 관례까지 제공한다.  
+따라서 `<`, `>`, `>=`, `<=` 는 `compareTo()` 로 컴파일된다.
+
+```kotlin
+a >= b
+
+// 아래로 컴파일됨
+a.compareTo(b) >= 0
+
+a > b 
+
+// 아래로 컴파일됨
+a.compareTo(b) > 0
+```
 
 두 `Comparable` 객체 사이에는 항상 `<`, `>`, `>=`, `<=` 사용할 수 있다.  
 (`==`, `!=` 는 포함되지 않음)
@@ -1473,6 +1519,49 @@ fun main() {
 
 List 에 **`sorted()` 를 호출하면 원본의 요소들을 정렬한 새로운 List 를 리턴하고 원래의 List 는 그대로 남아있다.**    
 **`sort()` 를 호출하면 원본 리스트를 변경**한다.
+
+아래는 여러 개의 파라메터를 비교하는 `compareTo()` 메서드를 구현하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+class Person(
+    val firstName: String,
+    val lastName: String,
+) : Comparable<Person> {
+    override fun compareTo(other: Person): Int {
+        // 인자로 받은 함수를 차례로 호출하면서 값을 비교
+        // 성을 비교하여 성이 같으면 이름을 비교함
+        return compareValuesBy(this, other, Person::lastName, Person::firstName)
+    }
+}
+
+fun main() {
+    val person1 = Person("Assu", "ASmith")
+    val person2 = Person("Bob", "BJohnson")
+    val person3 = Person("Aarol", "BJohnson")
+
+    println(person1 > person2) // false (person1: Asmith, person2 BJohnson)
+    println(person2 > person3) // true (person1: Bob, person2: Aarol)
+}
+```
+
+`equals()` 와 마찬가지로 `Comparable` 의 `compareTo()` 에 `operator` 변경자가 붙어있으므로 하위 클래스의 오버라이딩 함수에 `operator` 를 붙일 필요는 없다.
+
+위 코드는 `compareValuesBy()` 함수를 이용하여 `compareTo()` 를 간단하게 정의한다.
+
+**`compareValuesBy()`**  
+- 첫 번째 비교 함수에 두 객체를 넘겨서 두 객체가 같지 않다는 결과 (0 이 아닌 값) 가 나오면 그 결과값을 즉시 반환
+- 두 객체가 같다는 결과 (0) 가 나오면 두 번째 비교 함수를 통해 두 객체를 비교함
+- 이런 식으로 두 객체의 대소를 알려주는 0 이 아닌 값이 처음 나올때까지 인자로 받은 함수를 차례로 호출하여 두 값을 비교하며, 모든 함수가 0 을 반환하면 0 을 반환함
+
+> `compareTo()` 가 반환하는 값에 대해서는 [1.4. 비교 연산자: `compareTo()`](#14-비교-연산자-compareto) 를 참고하세요.
+
+`Comparable` 인터페이스를 구현하는 모든 자바 클래스를 코틀린에서는 간결한 연산자 구문으로 비교할 수 있다.
+
+```kotlin
+println("abc" > "bdc") // false
+```
 
 ---
 
