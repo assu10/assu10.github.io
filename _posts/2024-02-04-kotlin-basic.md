@@ -557,13 +557,13 @@ aa
 
 그 이유와 코틀린 내부에서 어떻게 primitive 타입에 대한 래핑이 작동하는지에 대해 알아본다.
 
-자바는 primitive 타입 (원시 타입) 과 reference 타입 (참조 타입) 을 구분한다.
+자바는 primitive 타입 (원시 타입) 과 wrapper 타입 (참조 타입) 을 구분한다.
 
 > 자바의 원시 타입과 참조 타입은 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
 
-primitive 타입의 변수에는 그 값이 직접 들어가지만, reference 타입의 변수에는 메모리 상의 객체 위치가 들어간다.
+primitive 타입의 변수에는 그 값이 직접 들어가지만, wrapper 타입의 변수에는 메모리 상의 객체 위치가 들어간다.
 
-primitive 타입의 값에 대해 메서드를 호출하거나, 컬렉션에 primitive 타입이 값을 담을 수 없기 때문에 자바는 reference 타입이 필요한 경우 래퍼 타입 (java.lang.Integer..) 으로 primitive 타입 값을 감싸서 
+primitive 타입의 값에 대해 메서드를 호출하거나, 컬렉션에 primitive 타입이 값을 담을 수 없기 때문에 자바는 wrapper 타입이 필요한 경우 래퍼 타입 (java.lang.Integer..) 으로 primitive 타입 값을 감싸서 
 사용한다. (= boxing)
 
 따라서 정수의 컬렉션을 정의하려면 _Collection\<int\>_ 가 아니라 _Collection\<Integer\>_ 를 사용해야 한다.
@@ -597,7 +597,7 @@ val range = 3..8
 5.coreceIn(3,6) //5
 ```
 
-primitive 타입과 reference 타입이 같다고해서 코틀린이 그들을 항상 객체로 표현하는 것은 아니다.
+primitive 타입과 wrapper 타입이 같다고해서 코틀린이 그들을 항상 객체로 표현하는 것은 아니다.
 
 실행 시점에 숫자 타입은 가능한 가장 효율적인 방식으로 표현된다.
 
@@ -626,14 +626,14 @@ Int 와 같은 코틀린 타입에는 null 참조가 들어갈 수 없기 때문
 
 ## 4.2. null 이 될 수 있는 primitive 타입: Int?, Boolean? 등
 
-null 참조를 자바의 reference 타입의 변수에만 대입할 수 있기 때문에 null 이 될 수 있는 코틀린 타이은 자바의 primitive 타입으로 표현할 수 없다.
+null 참조를 자바의 wrapper 타입의 변수에만 대입할 수 있기 때문에 null 이 될 수 있는 코틀린 타이은 자바의 primitive 타입으로 표현할 수 없다.
 
 따라서 코틀린에서 null 이 될 수 있는 primitive 타입을 사용하면 그 타입은 자바의 래퍼 타입으로 컴파일된다.
 
 예) 코틀린의 Int? 타입은 자바에서 java.lang.Integer 로 저장됨
 
 제네릭 클래스의 경우 래퍼 타입을 사용한다.  
-자바에서 어떤 클래스의 타입 인자로 primitive 타입을 넘기면 코틀린은 그 타입에 대한 box 타입 (primitive 타입을 reference 타입으로 변환) 을 사용한다.
+자바에서 어떤 클래스의 타입 인자로 primitive 타입을 넘기면 코틀린은 그 타입에 대한 box 타입 (primitive 타입을 wrapper 타입으로 변환) 을 사용한다.
 
 > boxing 과 unboxing 에 대해서는 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
 

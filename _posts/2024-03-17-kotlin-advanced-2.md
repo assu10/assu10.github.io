@@ -75,7 +75,7 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
 자바에서 Object 가 클래스 계층의 최상위 타입이듯 코틀린에서는 `**Any` 타입이 모든 null 이 될 수 없는 타입의 최상위 계층**이다.  
 따라서 모든 코틀린 클래스는 `Any` 를 상위 클래스로 가진다.
 
-하지만 자바에서는 reference 타입만 Object 를 최상위로 하는 타입 계층만 포함되며, primitive 타입은 그런 계층에 포함되지 않는다.
+하지만 자바에서는 wrapper 타입만 Object 를 최상위로 하는 타입 계층만 포함되며, primitive 타입은 그런 계층에 포함되지 않는다.
 
 이 말은 자바에서 Object 타입의 객체가 필요할 경우 int 와 같은 primitive 타입은 java.lang.Integer 와 같은 래퍼 타입으로 감싸야한다는 의미이다.
 
@@ -86,7 +86,7 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
 자바처럼 코틀린에서도 primitive 타입 값을 `Any` 타입의 변수에 대입하면 자동으로 값을 객체로 감싼다.
 
 ```kotlin
-// Any 가 reference 타입이므로 1 이 boxing 됨
+// Any 가 wrapper 타입이므로 1 이 boxing 됨
 val answer: Any = 1
 ```
 
