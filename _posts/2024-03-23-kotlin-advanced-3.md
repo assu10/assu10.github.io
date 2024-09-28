@@ -22,7 +22,12 @@ tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
     * [1.2.2. null 이 될 수 있는 객체를 `==` 로 비교](#122-null-이-될-수-있는-객체를--로-비교)
     * [1.2.3. `==` 와 `===`](#123--와-)
   * [1.3. 산술 연산자](#13-산술-연산자)
-    * [1.3.1. 파라메터 타입이 연산자가 확장하는 타입과 다른 타입인 경우](#131-파라메터-타입이-연산자가-확장하는-타입과-다른-타입인-경우)
+    * [1.3.1. 이항 (binary) 산술 연산자 오버로딩](#131-이항-binary-산술-연산자-오버로딩)
+    * [1.3.2. 복합 대입 (compound assignment) 연산자 오버로딩](#132-복합-대입-compound-assignment-연산자-오버로딩)
+    * [1.3.3. 단항 (unary) 연산자 오버로딩](#133-단항-unary-연산자-오버로딩)
+    * [1.3.4. 비트 연산자에 대한 연산자 함수](#134-비트-연산자에-대한-연산자-함수)
+    * [1.3.5. 파라메터 타입이 연산자가 확장하는 타입과 다른 타입인 경우](#135-파라메터-타입이-연산자가-확장하는-타입과-다른-타입인-경우)
+    * [1.3.6. 반환 파입이 두 피연산자의 타입과 다른 경우](#136-반환-파입이-두-피연산자의-타입과-다른-경우)
   * [1.4. 비교 연산자: `compareTo()`](#14-비교-연산자-compareto)
   * [1.5. 범위와 컨테이너: `rangeTo()`, `contains()`](#15-범위와-컨테이너-rangeto-contains)
   * [1.6. 컨테이너 원소 접근: `get()`, `set()`](#16-컨테이너-원소-접근-get-set)
@@ -104,6 +109,8 @@ fun main() {
 ---
 
 연산자를 확장 함수로 정의하면 클래스의 private 멤버를 볼 수 없지만, 멤버 함수로 정의하면 private 멤버에 접근 가능하다.
+
+> 연산자를 정의할 때는 멤버 함수보다는 확장 함수로 구현하는 것이 일반적인 패턴임
 
 ```kotlin
 data class Num2(private val n: Int) {
@@ -490,6 +497,14 @@ fun main() {
 
 ## 1.3. 산술 연산자
 
+자바에서는 primitive 타입에 대해서만 산술 연살자를 사용할 수 있고, 추가로 String 에 대해 `+` 연산자를 사용할 수 있다.
+
+하지만 다른 클래스나 컬렉션에 대해서도 산술 연산자를 사용할 수 있으면 편리한 경우가 있다.  
+예) BigInteger 클래스를 다룰 때 `add()` 메서드를 명시적으로 호출하기보다 `+` 연산자를 사용,  
+컬렉션에 원소를 추가할 때 `+=` 연산자를 사용
+
+코틀린에서는 위와 같은 일이 가능하다.
+
 **기본 산술 연산자를 확장으로 정의**할 수 있다.
 
 일단 아래 기본적인 내용을 숙지하자.
@@ -508,24 +523,174 @@ println(g3) // 1
 ```
 
 - **단항 연산자**
-  - `unaryPlus()`
-  - `unaryMinus()`
-  - `not()`
-- **증가/감소 연산자**
-  - `inc()`: var 에서만 가능
-  - `dec()`: var 에서만 가능
-- **2항 연산자**
-  - `plus()`
-  - `minus()`
-  - `times()`
-  - `div()`
-  - `rem()`
+  - `unaryPlus()`: +a
+  - `unaryMinus()`: -a
+  - `not()`: !a
+  - `inc()`: ++a, a++ (var 에서만 가능)
+  - `dec()`: --a, a-- (var 에서만 가능)
+- **이항 연산자**
+  - `plus()`: a + b
+  - `minus()`: a - b
+  - `times()`: a * b
+  - `div()`: a / b
+  - `rem()`: a % b
 - **복합 대입 연산자**
-  - `plusAssign()`
-  - `minusAssign()`
-  - `timesAssign()`
-  - `divAssign()`
-  - `remAssign()`
+  - `plusAssign()`: a += b
+  - `minusAssign()`: a =+ b
+  - `timesAssign()`: a *= b
+  - `divAssign()`: a /= b
+  - `remAssign()`: a %= b
+
+---
+
+### 1.3.1. 이항 (binary) 산술 연산자 오버로딩
+
+- **이항 연산자**
+  - `plus()`: a + b
+  - `minus()`: a - b
+  - `times()`: a * b
+  - `div()`: a / b
+  - `rem()`: a % b
+
+아래는 클래스 안에 `plus()` 연산자를 오버로딩하는 예시이다.
+
+연산자를 각각 멤버 함수와 확장 함수로 오버로딩하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Point(
+    val x: Int,
+    val y: Int,
+) {
+    // 연산자를 멤버 함수로 오버로딩
+    operator fun plus(other: Point) = Point(x + other.x, y + other.y)
+}
+
+// 연산자를 확장 함수로 오버로딩
+operator fun Point.minus(other: Point) = Point(x - other.x, y - other.y)
+
+fun main() {
+    val p1 = Point(10, 20)
+    val p2 = Point(20, 40)
+
+    // Point(x=30, y=60)
+    println(p1 + p2) // p1.plus(p2)
+
+    // Point(x=-10, y=-20)
+    println(p1 - p2)
+}
+```
+
+---
+
+### 1.3.2. 복합 대입 (compound assignment) 연산자 오버로딩
+
+- **복합 대입 연산자**
+  - `plusAssign()`: a += b
+  - `minusAssign()`: a =+ b
+  - `timesAssign()`: a *= b
+  - `divAssign()`: a /= b
+  - `remAssign()`: a %= b
+
+복합 대입 연산자는 `+=` 처럼 대입과 산술 연산은 하나로 합친 연산자이다.
+
+`plus()` 와 같은 연산자를 오버로딩하면 코틀린은 `+` 연산자 뿐 아니라 그와 관련있는 연산자인 `+=` 도 자동으로 함께 지원한다.
+
+믈론 변수가 변경 가능한 var 일 때만 복합 대입 연산자 사용이 가능하다.
+
+`plus()` 연산자를 오버로딩했을 때 `+=` 도 사용가능한 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Point(
+    val x: Int,
+    val y: Int,
+)
+
+// 연산자를 확장 함수로 오버로딩
+operator fun Point.plus(other: Point) = Point(x + other.x, y + other.y)
+
+fun main() {
+    val p1 = Point(10, 20)
+    val p2 = Point(20, 40)
+
+    // Point(x=30, y=60)
+    println(p1 + p2) // p1.plus(p2)
+
+    // += 도 사용 가능
+    var p3 = Point(1, 2)
+    p3 += Point(3, 4) // p3 = p3 + Point(3,4)
+    println(p3)
+}
+```
+
+경우에 따라 `+=` 연산이 객체에 대한 참조를 다른 참조로 바꾸기보다는 원래 객체의 내부 상태를 변경하게 하고 싶을 때가 있다.
+
+> 예를 들어 _p3 = p3 + Point(3,4)_ 의 실행을 하나씩 따라가보자.  
+> p3 의 `plus()` 는 새로운 객체를 반환하므로 _p3 + Point(3,4)_ 은 연산을 수행한 새로운 _Point_ 객체를 반환함  
+> 그 후 대입이 이루어지면 _p3_ 객체는 새로운 _Point_ 객체를 가리키게 됨
+> 
+> 따라서 `+=` 연산은 참조를 다른 참조로 바꿔치기함
+
+변경 가능한 컬렉션에 원소를 추가하는 경우가 대표적인 예시이다.
+
+> 변경 가능한 컬렉션에 원소를 추가하는 것에 대한 내용은 뒤에 나오는 [2.1. 가변 컬렉션에 `+=`, `+` 적용](#21-가변-컬렉션에---적용) 를 참고하세요.
+
+---
+
+### 1.3.3. 단항 (unary) 연산자 오버로딩
+
+- **단항 연산자**
+  - `unaryPlus()`: +a
+  - `unaryMinus()`: -a
+  - `not()`: !a
+  - `inc()`: ++a, a++ (var 에서만 가능)
+  - `dec()`: --a, a-- (var 에서만 가능)
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Point3(
+  val x: Int,
+  val y: Int,
+)
+
+// 단항 함수는 파라메터가 없음
+operator fun Point3.unaryMinus(): Point3 = Point3(-x, -y)
+
+fun main() {
+  val p = Point3(10, 20)
+
+  // Point3(x=-10, y=-20)
+  println(-p) // p.unaryMinus()
+}
+```
+
+아래는 BigDecimal 클래스에서 `++` 를 오버로딩하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+import java.math.BigDecimal
+
+operator fun BigDecimal.inc() = this + BigDecimal.ONE
+
+fun main() {
+    var d = BigDecimal.ZERO
+
+    // 후위 증가 연산자는 println() 이 실행된 후 값 증가
+    println(d++) // 0
+
+    // 전위 증가 연산자는 println() 이 실행되기 전에 값 증가
+    println(++d) // 2
+}
+```
+
+---
+
+단항 연산자, 증가/감소 연산자, 이항 연산자, 복합 대입 연산을 모두 사용한 예시
 
 ```kotlin
 class G(var v: Int) {
@@ -568,7 +733,7 @@ fun unary(a: G) {
   b-- // dec() (var 에서만 가능)
 }
 
-// 2항 연산자
+// 이항 연산자
 operator fun G.plus(g: G) = G(v + g.v)
 
 operator fun G.minus(g: G) = G(v - g.v)
@@ -665,9 +830,47 @@ _four_ 가 var 로 정의되어 있는 경우 _four = four.plus(g)_ 로 해석�
 
 ---
 
-### 1.3.1. 파라메터 타입이 연산자가 확장하는 타입과 다른 타입인 경우
+### 1.3.4. 비트 연산자에 대한 연산자 함수
+
+코틀린은 표준 숫자 타입에 대해 비트 연산자를 정의하지 않으므로 커스텀 타입에서 비트 연산자를 정의할 수도 없다.
+
+대신에 중위 연산자 표기법 [`infix`](#11-infix) 을 지원하는 일반 함수를 사용하여 비트 연산을 수행한다.  
+커스텀 타입에서도 그와 비슷한 함수를 정의해서 사용할 수 있다.
+
+아래는 코틀린에서 비트 연산을 수행하는 함수 목록이다.
+
+|  연산자   | 설명                      | 자바에서는 |
+|:------:|:------------------------|:-----:|
+| `shl`  | 왼쪽 시프트                  | `<<`  |
+| `shr`  | 오른쪽 시프트 (부호 비트 유지)      | `>>`  |
+| `ushr` | 오른쪽 시프트 (0 으로 부호 비트 설정) | `>>>` |
+| `and`  | 비트 곱                    |  `&`  |
+|  `or`  | 비트 합                    |   `|` |
+| `xor`  | 비트 배타                   |  `^`  |
+|  `inv`  | 비트 반전                   |  `~`   |
+
+
+아래는 `and`, `or`, `shl` 연산자에 대한 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+fun main() {
+    println(0x0F and 0xF0) // 0
+    println(0x0F or 0xF0) // 255
+    println(0x0F shl 0xF0) // 983040
+    println(0x1 shl 4) // 16
+}
+```
+
+---
+
+### 1.3.5. 파라메터 타입이 연산자가 확장하는 타입과 다른 타입인 경우
+
+연산자를 정의할 때 두 피연산자가 꼭 같은 타입일 필요는 없다.
 
 파라메터 타입이 연산자가 확장하는 타입과 다른 타입이면 아래처럼 확장 함수를 정의하면 된다.
+
 ```kotlin
 class H(var v: Int) {
     override fun equals(other: Any?): Boolean =
@@ -693,6 +896,64 @@ fun main() {
     println(H(1) + 10) // H(11)
 }
 ```
+
+두 피연산자의 타입이 다른 연산자를 정의하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Point2(
+    val x: Int,
+    val y: Int,
+)
+
+operator fun Point2.times(scale: Double): Point2 = Point2((x * scale).toInt(), (y * scale).toInt())
+
+fun main() {
+    val p = Point2(10, 20)
+
+    // Point2(x=15, y=30)
+    println(p * 1.5)
+
+    // 컴파일 오류
+    // None of the following functions can be called with the arguments supplied.
+    // 아래처럼 쓰려면 Double.times() 를 정의해야 함
+
+    // println(1.5 * p)
+}
+```
+
+코틀린 연산자가 자동으로 교환 법칙 (commutativity) 을 지원하지는 않는다.
+
+> **교환 법칙 (commutativity)**
+> 
+> _a op b == b op a_ 인 설징
+
+따라서 위이 코드에서 _p * 1.5_ 를 _1.5 * p_ 로도 사용해야 한다면 아래처럼 이에 대응하는 연산자 함수를 정의해야 한다.
+
+```kotlin
+operator fun Double.times(p: Point2): Point2 = Point2((this * p.x).toInt(), (this * p.y).toInt())
+```
+
+---
+
+### 1.3.6. 반환 파입이 두 피연산자의 타입과 다른 경우
+
+연산자 함수의 반환 타입이 꼭 두 피연산자 중 하나와 일치해야 하는 것도 아니다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+// 피연산자는 각각 Char, Int 이고 반환 타입은 String 인 연산자 오버로딩 확장 함수
+operator fun Char.times(count: Int): String = toString().repeat(count)
+
+fun main() {
+  // / aaa
+  println('a' * 3)
+}
+```
+
+위 코드에 정의된 연산자는 Char 타입을 좌항으로 받고 Int 를 우항으로 받아서 String 을 반환한다.
 
 ---
 
@@ -1045,9 +1306,45 @@ fun main() {
 }
 ```
 
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+fun main() {
+    val numbers = ArrayList<Int>() // 변경 가능한 배열
+    numbers += 11   // operator plusAssign()
+    
+    // [11]
+    println(numbers)
+}
+```
+
+반환 타입이 `Unit` 인 `plusAssign()` 함수를 정의하면 코틀린은 `+=` 연산자에 그 함수를 사용한다.
+
+코틀린 표준 라이브러리는 변경 가능한 컬렉션에 대해 `plusAssign()` 을 정의하며, 위의 예시는 그 `plusAssign()` 을 사용한다.
+
 ---
 
 ## 2.2. 불변 컬렉션에 `+=` 적용: `var` 대신 `val` 를 사용해야 하는 이유
+
+이론적으로 `+=` 는 `plus()` 와 `plusAssign()` 양쪽으로 모두 컴파일할 수 있다.
+
+```kotlin
+a += b 
+
+// 위 식은 아래 2개로 컴파일 가능
+a = a.plus(b)
+a.plusAssign(b)
+```
+
+따라서 예상치 못한 결과를 가져올 수 있으므로 아래와 같은 방식으로 해결할 수 있다.
+
+- 일반 연산자를 사용 (`plus()`..)
+- var 를 val 로 변경하여 `plusAssign()` 적용이 불가능하도록 함
+
+위와 같은 이유로 **`plus()` 와 `plusAssign()` 연산은 동시에 정의하지 말아야 한다.**
+
+**변경 불가능한 클래스에 대해서는 `plus()` 와 같이 새로운 값은 반환하는 연산만을 추가**해야 한다.  
+빌더와 같이 변경 가능한 클래스에 대해서는 `plusAssign()` 연산만을 추가해야 한다.
 
 가변 컬렉션에 `+=` 를 호출하면 컬렉션 내용을 변경하지만, 읽기 전용 컬렉션에 `+=` 을 적용하면 예상치 못한 결과를 얻을수도 있다.
 
@@ -1094,6 +1391,36 @@ _initial_ 의 경우 컬렉션이 변경되지 않고 그대로 있는 것을 �
 만일 _var list_ 를 _val list_ 로 변경하면 _list += 3_ 이 컴파일되지 않기 때문에 이런 문제가 발생하지 않는다.
 
 **이것이 디폴트로 val 를 사용해야 하는 이유 중 하나이다. var 는 꼭 필요할 때만 사용하는 것이 좋다.** 
+
+정리하자면 아래와 같다.
+
+코틀린 표준 라이브러리는 컬렉션에 대해 2 가지 접근 방법을 함께 제공한다.
+
+- **`+`, `-`**
+  - 항상 새로운 컬렉션 반환
+- **`+=`, `-=`**
+  - 항상 변경 가능한 컬렉션에 작용하여 메모리에 있는 객체 상태를 변경함
+  - 읽기 전용 컬렉션에 위 연산자를 사용하면 변경을 적용한 복사본은 반환함
+  - 따라서 var 로 선언한 변수가 가리키는 읽기 전용 컬렉션에만 `+=`, `-=` 를 적용할 수 있음
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+fun main() {
+    // val 로 선언한 변수에 변경 가능한 컬렉션 지정
+    val list = arrayListOf(1, 2)
+    list += 3 // += 는 list 를 변경함
+
+    // [1, 2, 3]
+    println(list)
+
+    // + 는 두 리스트의 모든 원소를 포함하는 새로운 리스트 반환
+    var list2 = list + listOf(4, 5)
+
+    // [1, 2, 3, 4, 5]
+    println(list2)
+}
+```
 
 ---
 
