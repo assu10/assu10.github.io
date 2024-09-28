@@ -30,7 +30,7 @@ tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
     * [1.3.6. 반환 파입이 두 피연산자의 타입과 다른 경우](#136-반환-파입이-두-피연산자의-타입과-다른-경우)
   * [1.4. 비교 연산자: `compareTo()`](#14-비교-연산자-compareto)
   * [1.5. 범위와 컨테이너: `rangeTo()`, `contains()`](#15-범위와-컨테이너-rangeto-contains)
-  * [1.6. 컨테이너 원소 접근: `get()`, `set()`](#16-컨테이너-원소-접근-get-set)
+  * [1.6. 인덱스로 원소에 접근: `get()`, `set()`](#16-인덱스로-원소에-접근-get-set)
   * [1.7. 호출 연산자: `invoke()`](#17-호출-연산자-invoke)
     * [1.7.1. `invoke()` 를 확장 함수로 정의](#171-invoke-를-확장-함수로-정의)
   * [1.8. 역작은따옴표로 감싼 함수 이름](#18-역작은따옴표로-감싼-함수-이름)
@@ -1043,7 +1043,7 @@ fun main() {
 
 **`rangeTo()` 는 범위를 생성하는 `..` 연산자를 오버로드**하고, **`contains()` 는 값이 범위 안에 들어가는지 여부를 알려주는 `in` 연산자를 오버로드**한다.
 
-> `in` 키워드에 대한 좀 더 상세한 설명은 [9. `in` 키워드](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#9-in-%ED%82%A4%EC%9B%8C%EB%93%9C) 를 참고하세요.
+> `in` 키워드에 대한 좀 더 상세한 설명은 [10. `in` 키워드](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#10-in-%ED%82%A4%EC%9B%8C%EB%93%9C) 를 참고하세요.
 
 ```kotlin
 class J(var v: Int) {
@@ -1087,9 +1087,107 @@ fun main() {
 
 ---
 
-## 1.6. 컨테이너 원소 접근: `get()`, `set()`
+## 1.6. 인덱스로 원소에 접근: `get()`, `set()`
 
-**`get()`, `set()` 는 각괄호인 `[]` 을 사용하여 컨테이너의 원소를 읽고 쓰는 연산을 정의**한다.
+컬렉션을 다룰 때 가장 많이 사용하는 연산은 인덱스를 사용하여 원소를 읽거나 쓰는 연산과 어떤 연산이 컬렉션에 속해있는지 검사하는 연산이다.
+
+- 인덱스를 사용하여 원소를 설정하거나 가져올 때는 _a[b]_ 라는 인덱스 연산자 사용
+- `in` 연산자는 원소가 컬렉션이나 범위에 속하는지 검사하거나 컬렉션에 있는 원소를 이터레이션할 때 사용
+
+코틀린에서는 인덱스 연산자도 관례를 따른다.
+
+**`get()`, `set()` 는 각괄호인 `[]` 을 사용하여 컨테이너의 원소를 읽고 쓰는 연산을 정의**한다.  
+즉, **인덱스 연산자를 사용하여 원소를 읽는 연산은 `get()` 연산자 메서드로 변환**되고, **원소를 쓰는 연산은 `set()` 연산자 메서드로 변환**된다.
+
+아래는 `get()` 관례를 구현하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Point4(
+    val x: Int,
+    val y: Int,
+)
+
+// get() 연산자 함수 정의
+operator fun Point4.get(index: Int): Int =
+    // 주어진 인덱스에 해당하는 좌표 찾음
+    when (index) {
+        0 -> x
+        1 -> y
+        else ->
+            throw IndexOutOfBoundsException("Invalid coordinate $index")
+    }
+
+fun main() {
+    val p = Point4(10, 20)
+
+    println(p[0]) // 10, p.get(0)
+}
+```
+
+`get()` 이라는 메서드는 만들고 `operator` 변경자를 붙이기만 하면 된다.
+
+`get()` 메서드의 파라메터로 Int 가 아닌 타입을 사용할 수도 있다.  
+예를 들어 Map 인덱스 연산의 경우 `get()` 의 파라메터 타입은 Map 의 key 타입과 같은 타입이 될 수 있다.
+
+또한, 여러 파라메터를 사용하는 `get()` 을 정의할 수도 있다.  
+예) 2차원 행렬이나 배열을 표현하는 클래스에 `operator fun get(rowIndex: Int, collIndex: Int)` 를 정의하면 _matrix[row, col]_ 로 그 메서드 호출 가능
+
+컬렉션 클래스가 다양한 key 타입을 지원해야 한다면 다양한 파라메터 타입에 대해 오버로딩한 `get()` 메서드를 여러 개 정의할 수도 있다.
+
+```kotlin
+x[a, b]
+
+// 아래로 컴파일됨
+x.get(a, b)
+```
+
+---
+
+인덱스에 해당하는 컬렉션 원소를 쓰고 싶을 때는 `set()` 메서드를 정의하면 된다.
+
+위의 _Point4_ 클래스는 불변 클래스 (생성자 파라메터가 val) 이므로 `set()` 이 의미가 없으므로 변경 가능한 다른 클래스를 이용하여 확인해본다.
+
+아래는 `set()` 관례를 구현하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+// 생성자 파라메터가 var (= 가변 클래스)
+data class Point5(
+    var x: Int,
+    var y: Int,
+)
+
+operator fun Point5.set(
+    index: Int,
+    value: Int,
+) {
+    when (index) {
+        0 -> x = value
+        1 -> y = value
+        else -> throw IndexOutOfBoundsException()
+    }
+}
+
+fun main() {
+    val p = Point5(10, 20)
+    p[1] = 30 // p.set(1, 20)
+
+    // Point5(x=10, y=30)
+    println(p)
+}
+```
+
+```kotlin
+x[a, b] = c
+
+// 아래로 컴파일됨
+x.set(a, b, c)
+```
+
+---
 
 ```kotlin
 class K(var v: Int) {
