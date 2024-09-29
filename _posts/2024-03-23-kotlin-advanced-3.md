@@ -31,7 +31,8 @@ tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
   * [1.4. 비교 연산자: `compareTo()`](#14-비교-연산자-compareto)
   * [1.5. 범위와 컨테이너](#15-범위와-컨테이너)
     * [1.5.1. `in` 의 관례: `contains()`](#151-in-의-관례-contains)
-    * [1.5.2. `..` 의 관례: `rangeTo()`](#152--의-관례-rangeto)
+    * [1.5.2. `in` 의 관례: `iterator()`](#152-in-의-관례-iterator)
+    * [1.5.3. `..` 의 관례: `rangeTo()`](#153--의-관례-rangeto)
   * [1.6. 인덱스로 원소에 접근: `get()`, `set()`](#16-인덱스로-원소에-접근-get-set)
   * [1.7. 호출 연산자: `invoke()`](#17-호출-연산자-invoke)
     * [1.7.1. `invoke()` 를 확장 함수로 정의](#171-invoke-를-확장-함수로-정의)
@@ -1092,12 +1093,109 @@ c.contains(a)
 
 ---
 
-### 1.5.2. `..` 의 관례: `rangeTo()`
+### 1.5.2. `in` 의 관례: `iterator()`
+
+> 반복문에 대한 내용은 [9. `for`, `until`, `downTo`, `step`, `repeat`](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#9-for-until-downto-step-repeat) 을 참고하세요.
+
+코틀린의 for 루프는 [1.5.1. `in` 의 관례: `contains()`](#151-in-의-관례-contains) 에서 본 범위 검사와 동일하게 `in` 연산자를 사용한다.
+
+하지만 이 경우 `in` 의 의미는 다르다.
+
+```kotlin
+for (x in list) {
+    // ...
+}
+```
+
+위와 같은 코드는 `list.iterator()` 를 호출해서 이터레이터를 얻은 다음 자바와 마찬가지로 그 이터레이터에 대해 `hasNext()` 와 `next()` 호출을 반복하는 식으로 변환된다.
+
+코틀린에서는 이 또한 관례이기 때문에 `iterator()` 메서드를 확장 함수로 정의할 수 있다.
+
+이런 설질로 인해 일반 자바 문자열에 대한 for 루프가 가능하다.
+
+코틀린 라이브러리는 String 의 상위 클래스인 CharSequence 에 대한 `iterator()` 확장 함수를 제공하고 있다.
+
+```kotlin
+operator fun CharSequence.iterator(): CharIterator
+```
+
+따라서 아래와 같은 반복문이 가능하다.
+
+```kotlin
+for (c in "abc") {
+    // abc
+    print(c)
+}
+```
+
+클래스 안에 직접 `iterator()` 메서드를 구현할 수도 있다.
+
+아래는 날짜에 대해 이터레이션하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+import java.time.LocalDate
+
+operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate> =
+
+  // 이 object 는 LocalDate 원소에 대한 Iterator 를 구현함
+  object : Iterator<LocalDate> {
+    var current = start
+
+    // compareTo() 관례를 사용하여 날짜 비교
+    // `endInclusive`: The maximum value in the range (inclusive).
+    override fun hasNext(): Boolean = current <= endInclusive
+
+    // 현재 날짜를 저장한 다음에 날짜를 변경
+    // 그 후 저장해 둔 날짜를 반환
+    // 현재 날짜를 1일 뒤로 변경
+    override fun next(): LocalDate = current.apply { current = plusDays(1) }
+  }
+
+fun main() {
+  val newYear = LocalDate.ofYearDay(2024, 1)
+  val daysOff = newYear.minusDays(1)..newYear
+
+  println(newYear) // 2024-01-01
+  println(daysOff) // 2023-12-31..2024-01-01
+
+  // daysOff 에 대응하는 iterator() 함수가 있으면 daysOff 에 대해 이터레이션
+
+  // 2023-12-31
+  // 2024-01-01
+  for (dayOff in daysOff) {
+    println(dayOff)
+  }
+}
+```
+
+위 코드에서 범위 타입에 대한 `iterator()` 메서드를 정의하는 부분을 보자.
+
+```kotlin
+operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate>
+```
+
+[1.5.3. `..` 의 관례: `rangeTo()`](#153--의-관례-rangeto) 에 나오는 내용이지만 `rangeTo()` 함수는 `ClosedRange` 의 인스턴스를 반환한다.
+
+```kotlin
+operator fun <T: Comparable<T>> T.rangeTo(that: T): ClosedRange<T>
+```
+
+예시 코드에서 `ClosedRange<LocalDate>` 에 대한 확장 함수 `iterator()` 를 정의했기 때문에 LocalDate 의 범위 객체를 for 루프에 사용할 수 있다.
+
+> object 에 대한 내용은 [1. object](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#1-object) 를 참고하세요.
+
+> `apply` 에 대한 내용은 2. 영역 함수 (Scope Function): `let()`, `run()`, `with()`, `apply()`, `also()`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#2-%EC%98%81%EC%97%AD-%ED%95%A8%EC%88%98-scope-function-let-run-with-apply-also) 을 참고하세요.
+
+---
+
+### 1.5.3. `..` 의 관례: `rangeTo()`
 
 범위를 만들려면 `..` 구문을 사용해아 한다.  
 예) 1..10 은 1~10 까지 모든 수가 들어있는 범위를 가리킴
 
-`..` 연산자는 `rangeTo()` 함수를 간략하게 표현하는 방법이다.
+**`..` 연산자는 `rangeTo()` 함수를 간략하게 표현**하는 방법이다.
 
 ```kotlin
 start..end 
