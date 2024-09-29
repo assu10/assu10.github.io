@@ -1300,7 +1300,7 @@ fun main() {
 
 ## 7.2. for 문으로 구조 분해값 조회
 
-for 문을 사용하여 Pair, Triple 이나 다른 data 클래스의 객체로 이루어진 Map, List 에 대해 이터레이션하면서 값의 각 부분을 구조 분해로 얻을 수 있다.
+for 문을 사용하여 `Pair`, `Triple` 이나 다른 data 클래스의 객체로 이루어진 Map, List 에 대해 이터레이션하면서 값의 각 부분을 구조 분해로 얻을 수 있다.
 
 ```kotlin
 fun main() {
@@ -1319,6 +1319,19 @@ fun main() {
     }
     // (1, one),(2, two),
     println(result)
+}
+```
+
+위에서 Map 에 대한 for 문은 아래의 확장 함수를 사용하는 코드와 동일하다.
+
+```kotlin
+for ((key, value) in map) {
+    result += "$key = $value,"
+}
+
+for (entry in map.entries) {
+    val key = entry.component1()
+    val value = entry.copmonent2()
 }
 ```
 
