@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 함수(1): 확장 함수, 오버로딩, when, enum, data 클래스, 구조분해"
+title:  "Kotlin - 함수(1): 확장 함수, 오버로딩, when, enum, data 클래스, 구조 분해 선언"
 date: 2024-02-10
 categories: dev
 tags: kotlin joinToString pair triple with-index
@@ -1130,6 +1130,31 @@ fun main() {
 
 # 7. 구조 분해 (destructuring) 선언
 
+> [2.4. 구조 분해 연산자: `componentN()`](https://assu10.github.io/dev/2024/03/23/kotlin-advanced-3/#24-%EA%B5%AC%EC%A1%B0-%EB%B6%84%ED%95%B4-%EC%97%B0%EC%82%B0%EC%9E%90-componentn) 와 함께 보면 도움이 됩니다.
+
+구조 분해를 사용하면 복합적인 값을 분해해서 여러 다른 변수를 한꺼번에 초기화할 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Point7(
+    val x: Int,
+    val y: Int,
+)
+
+fun main() {
+    val p = Point7(10, 20)
+
+    // x, y 변수를 선언한 다음 p 의 여러 컴포넌트로 초기화함
+    val (x, y) = p
+
+    println(x) // 10
+    println(y) // 20
+}
+```
+
+---
+
 ## 7.1. `Pair` 클래스와 구조 분해 선언
 
 표준 라이브러리에 있는 Pair 클래스를 사용하면 2 개의 값을 반환할 수 있다.  
@@ -1168,7 +1193,10 @@ val (value, desc) = compute(7)
 **코틀린은 Pair 와 3 개의 값을 묶는 Triple 클래스만 지원**한다. 만일 더 많은 값을 저장하고 싶거나 코드에서 Pair 와 Triple 을 많이 사용한다면 
 각 상황에 맞는 특별한 클래스를 작성하여 사용한다.
 
-위처럼 Pair\<Int, String\> 을 반환하는 것보다 아래의 예시처럼 Computation 이라는 data 클래스를 반환하는 것이 좋다.  
+위처럼 Pair\<Int, String\> 을 반환하는 것보다 아래의 예시처럼 Computation 이라는 data 클래스를 반환하는 것이 좋다.
+
+> 이에 대한 내용은 바로 뒤에 나오는 [7.2. data 클래스의 구조 분해](#72-data-클래스의-구조-분해) 를 참고하세요.
+
 ```kotlin
 data class Computation(
     val data: Int,
@@ -1200,6 +1228,8 @@ fun main() {
 
 data 클래스의 인스턴스를 구조 분해할 때는 data 클래스 생성자에 각 프로퍼티가 나열된 순서대로 값이 대입된다.
 
+data 클래스의 주 생성자에 들어있는 프로퍼티에 대해서는 컴파일러가 자동으로 `componentN()` 함수를 만들어준다.
+
 data 클래스의 프로퍼티는 이름에 의해 대입되는 것이 아니라 순서대로 대입이 된다.  
 **어떤 객체를 구조 분해에 사용했는데 이후에 그 data 클래스에 맨 마지막이 아닌 위치에 프로퍼티를 추가하게 되면 새로운 프로퍼티가 기존에 다른 값을 대입받던 식별자에 대입이 되면서 
 예상과 다른 결과**가 나올 수 있다.
@@ -1226,6 +1256,43 @@ fun main() {
     // 구조 분해 선언 시 선언할 식별자 중 일부가 필요하지 않으면 밑줄 _ 을 사용할 수 있고, 맨 뒤쪽의 이름들은 아예 생략 가능
     val (_, _, animal) = tuple
     println(animal) // aa
+}
+```
+
+아래는 data 클래스가 아닌 일반 클래스에서 `componentN()` 함수를 구현하는 예시이다.
+
+```kotlin
+class Point(val x: Int, val y: Int) {
+    operator fun component1() = x
+    operator fun component2() = y
+}
+```
+
+**구조 분해 선언은 함수에서 여러 값을 반환할 때 유용**하다.
+
+여러 값을 한꺼번에 반환해야 하는 함수가 있다면 반환해야 하는 모든 값이 들어있는 data 클래스를 정의하고, 함수의 반환 타입을 그 data 클래스로 지정한다.
+
+아래는 위의 동작을 보여주기 위해 파일 이름을 이름과 확장자로 나누는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+// 값을 저장하기 위한 data 클래스
+data class NameComponents(
+  val name: String,
+  val extension: String,
+)
+
+fun splitFilename(fullName: String): NameComponents {
+  val (name, ext) = fullName.split(".", limit = 2)
+  return NameComponents(name, ext)
+}
+
+fun main() {
+  val (name, ext) = splitFilename("test.txt")
+
+  println(name) // test
+  println(ext) // ext
 }
 ```
 

@@ -41,7 +41,7 @@ tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
   * [2.1. 가변 컬렉션에 `+=`, `+` 적용](#21-가변-컬렉션에---적용)
   * [2.2. 불변 컬렉션에 `+=` 적용: `var` 대신 `val` 를 사용해야 하는 이유](#22-불변-컬렉션에--적용-var-대신-val-를-사용해야-하는-이유)
   * [2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드: `compareValuesBy()`](#23-comparable-인터페이스-구현-후-compareto-오버라이드-comparevaluesby)
-  * [2.4. 구조 분해 연산자](#24-구조-분해-연산자)
+  * [2.4. 구조 분해 연산자: `componentN()`](#24-구조-분해-연산자-componentn)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -1873,9 +1873,42 @@ println("abc" > "bdc") // false
 
 ---
 
-## 2.4. 구조 분해 연산자
+## 2.4. 구조 분해 연산자: `componentN()`
 
-보통 직접 정의할 일이 거의 없는 또 다른 연산자로 [구조 분해](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#7-%EA%B5%AC%EC%A1%B0-%EB%B6%84%ED%95%B4-destructuring-%EC%84%A0%EC%96%B8) 함수가 있다.
+보통 직접 정의할 일이 거의 없는 또 다른 연산자로 [구조 분해 선언](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#7-%EA%B5%AC%EC%A1%B0-%EB%B6%84%ED%95%B4-destructuring-%EC%84%A0%EC%96%B8) 함수가 있다.
+
+내부에서 구조 분해 선언은 관례를 사용한다.
+
+구조 분해 선언의 각 변수를 초기화하기 위해 `componentN()` 이라는 함수를 호출하는데 여기서 `N` 은 구조 분해 선언에 있는 변수 위치에 따라 붙는 번호이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Point7(
+    val x: Int,
+    val y: Int,
+)
+
+fun main() {
+    val p = Point7(10, 20)
+
+    // x, y 변수를 선언한 다음 p 의 여러 컴포넌트로 초기화함
+    val (x, y) = p
+
+    println(x) // 10
+    println(y) // 20
+}
+```
+
+위의 _val (x, y) = p_ 는 아래와 같이 컴파일된다.
+
+```kotlin
+val (x, y) = p
+
+// 아래와 같이 컴파일됨 (= 구조 분해 선언은 componentN() 함수 호출로 변환됨)
+val x = p.component1()
+val y = p.component2()
+```
 
 아래는 구조 분해 대입을 위해 코틀린이 암묵적으로 _component1()_, _component2()_ 을 호출해주는 예시이다.
 
@@ -1965,6 +1998,32 @@ fun main() {
     println(age1) // 20
 }
 ```
+
+코틀린은 **맨 앞의 다섯 원소에 대한 `componentN()` 을 제공**한다.  
+따라서 컬렉션 크기가 5보다 작아도 여전히 `component1()` ~ `component5()` 까지 사용 가능하다.
+
+컬렉션 크기를 벗어나는 위치의 원소에 대한 구조 분해 선언을 사용하면 실행 시점에 _java.lang.Array.IndexOutOfBoundsException_ 이 발생한다.
+
+만일 6개 이상의 변수를 사용하는 구조 분해를 컬렉션에 대해 사용하면 `component6()` 에 의한 컴파일 오류가 발생한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+fun main() {
+    val x = listOf(1, 2)
+
+    // 런타임 에러
+    // java.lang.ArrayIndexOutOfBoundsException: Index 2 out of bounds for length 2
+
+    // val (a, b, c, d, e) = x
+
+    // 컴파일 에러
+    // Destructuring declaration initializer of type List<Int> must have a 'component6()' function
+
+    // val (a, b, c, d, e, f) = x
+}
+```
+
 
 ---
 
