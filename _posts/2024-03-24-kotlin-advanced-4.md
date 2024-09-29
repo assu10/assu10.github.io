@@ -106,7 +106,9 @@ _BasicRead_ 의 `getValue()` 는 _Readable_ 에 대한 접근을 가능하게 �
 
 > **reflection**  
 > 
-> 실행 시점에 코틀린 언어의 다양한 요소에 대한 정보를 얻을 수 있게 해주는 기능
+> 실행 시점에 코틀린 언어의 다양한 요소에 대한 정보를 얻을 수 있게 해주는 기능  
+> 
+> refection 에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다.
 
 ---
 
@@ -143,6 +145,7 @@ class BasicReadWrite {
     ) {
         rw.i = s.toIntOrNull() ?: 0
         rw.msg = "setValue to ${rw.i}~"
+        // rw.value = "test~ ${rw.value}"   // 런타임 에러
         // rw.msg = "setValue to $rw.i~"   // 이렇게 하면 ReadWritable 에 메모리 주소가 출력됨
     }
 }
@@ -172,7 +175,7 @@ fun main() {
 
 ## 1.3. `ReadOnlyProperty` 인터페이스 상속
 
-[1.1. 프로퍼티가 val 인 경우: `KProperty`](#11-프로퍼티가-val-인-경우-kproperty),  에서 
+[1.1. 프로퍼티가 val 인 경우: `KProperty`](#11-프로퍼티가-val-인-경우-kproperty) 에서 
 **위임 클래스인 _BasicRead_, _BasicReadWrite_ 모두 어떤 인터페이스도 구현할 필요없이, 단순이 필요한 함수 이름과 시그니처만 만족하면 위임 역할을 수행**할 수 있다.
 
 하지만 원한다면 `ReadOnlyProperty` 인터페이스를 상속할 수도 있다.
@@ -357,8 +360,8 @@ fun main() {
 }
 ```
 
-이렇게 `**getValue()`, `setValue()` 를 확장 함수로 만들면 변경하거나 상속할 수 없는 기존 클래스에 `getValue()`, `setValue()` 를 추가함으로써 
-_Sum_ 클래스의 인스턴스를 위임 객체로 사용**할 수 있게 된다. 
+이렇게 **`getValue()`, `setValue()` 를 확장 함수로 만들면 변경하거나 상속할 수 없는 기존 클래스에 `getValue()`, `setValue()` 를 추가함으로써 
+_Sum_ 클래스의 인스턴스를 위임 객체로 사용**할 수 있게 된다.
 
 ---
 
@@ -366,7 +369,7 @@ _Sum_ 클래스의 인스턴스를 위임 객체로 사용**할 수 있게 된�
 
 위 코드들에서는 `getValue()`, `setValue()` 의 첫 번째 파라메터의 타입을 구체적으로 받았는데, 이런 식으로 정의한 위임은 그 구체적인 타입에 얽매이게 될 수가 있다.  
 
-상황에 따라서는 첫 번째 파라메터를 `Any?` 로 지정함으로써 더 일반적인 목적의 위임을 만들 수 있다.
+상황에 따라서는 **첫 번째 파라메터를 `Any?` 로 지정함으로써 더 일반적인 목적의 위임**을 만들 수 있다.
 
 아래는 String 타입의 위임 프로퍼티가 있고, 이 프로퍼티의 내용은 해당 프로퍼티 이름에 대응하면 텍스트 파일인 예시이다.
 
@@ -506,30 +509,34 @@ fun main() {
 **`Delegates.observable()` 은 가변 프로퍼티의 값을 변경되는지 확인하는 함수**이다.
 
 ```kotlin
+package assu.study.kotlinme.chap07.delegationTools
+
 import kotlin.properties.Delegates
 
 class Team {
-    var msg = ""
-    var captain: String by Delegates.observable("INIT임 ") { prop, old, new ->
-        msg += "${prop.name} : $old to $new ~\n"
-    }
+  var msg = ""
+  var captain: String by Delegates.observable("INIT임 ") { prop, old, new ->
+    msg += "${prop.name} : $old to $new ~\n"
+  }
 }
 
 fun main() {
-    val team = Team()
-    team.captain = "assu"
-    team.captain = "silby"
+  val team = Team()
+  team.captain = "assu"
+  team.captain = "silby"
+  team.captain = "silby2"
 
-    // captain : INIT임  to assu ~
-    // captain : assu to silby ~
-    println(team.msg)
+  // captain : INIT임  to assu ~
+  // captain : assu to silby ~
+  // captain : silby to silby2 ~
+  println(team.msg)
 }
 ```
 
 `Delegates.observable()` 는 2개의 인자를 받는다.
 - **첫 번째 인자**
   - 프로퍼티의 초기값
-  - 위에서는 "INIT임 "
+  - 위에서는 "INIT임"
 - **두 번째 인자**
   - 프로퍼티가 변경될 때 실행할 동작을 지정하는 함수
   - 위에서는 람다를 사용함
@@ -544,59 +551,60 @@ fun main() {
 아래의 _aName()_ 은 _captain_ 의 이름이 A 로 시작하도록 강제한다.
 
 ```kotlin
+package assu.study.kotlinme.chap07.delegationTools
+
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
 
 fun aName(
-    property: KProperty<*>,
-    old: String,
-    new: String,
+  property: KProperty<*>,
+  old: String,
+  new: String,
 ) = if (new.startsWith("A")) {
-    println("$old to $new ~")
-    true
+  println("$old to $new ~")
+  true
 } else {
-    println("name must start with 'A' ~")
-    false
+  println("11 name must start with 'A' ~")
+  false
 }
 
 interface Captain {
-    var captain: String
+  var captain: String
 }
 
 class TeamWithTraditions1 : Captain {
-    override var captain: String by Delegates.vetoable("Assu", ::aName)
+  override var captain: String by Delegates.vetoable("Assu", ::aName)
 }
 
-// Delegates.vetoable() 를 aName() 대신 람다를 사용하여 정의 
+// Delegates.vetoable() 를 aName() 대신 람다를 사용하여 정의
 class TeamWithTraditions2 : Captain {
-    override var captain: String by Delegates.vetoable("Assu") { _, old, new ->
-        if (new.startsWith("A")) {
-            println("$old to $new ~~")
-            true
-        } else {
-            println("name must start with 'A' ~~")
-            false
-        }
+  override var captain: String by Delegates.vetoable("Assu") { _, old, new ->
+    if (new.startsWith("A")) {
+      println("$old to $new ~~")
+      true
+    } else {
+      println("22 name must start with 'A' ~~")
+      false
     }
+  }
 }
 
 fun main() {
-    // Assu to ASSU1 ~
-    // name must start with 'A' ~
-    // ASSU1
-    
-    // Assu to ASSU1 ~~
-    // name must start with 'A' ~~
-    // ASSU1
-    listOf(
-        TeamWithTraditions1(),
-        TeamWithTraditions2(),
-    ).forEach {
-        it.captain = "ASSU1"
-        it.captain = "BSSU"
+  // Assu to ASSU1 ~
+  // 11 name must start with 'A' ~
+  // ASSU1
+  // Assu to ASSU1 ~~
+  // 22 name must start with 'A' ~~
+  // ASSU1
+  listOf(
+    TeamWithTraditions1(),
+    TeamWithTraditions2(),
+  ).forEach {
+    it.captain = "ASSU1"
+    it.captain = "BSSU"
 
-        println(it.captain)
-    }
+    println(it.captain)
+  }
 }
 ```
 
@@ -644,10 +652,12 @@ fun main() {
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린**을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
+* [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
+* [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)

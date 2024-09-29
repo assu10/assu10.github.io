@@ -173,7 +173,7 @@ fun main() {
 
 위임을 하면 별도로 작성하지 않아도 멤버 객체의 함수를 외부 객체를 통해 접근할 수 있다. (위에서 _controls.up(1)_ 을 호출한 것처럼)
 
-위 코드에서 중요한 점은 _DelegatedControls_ 에 _Controls2_ 의 구현 방식에 대한 의존 관계가 생기지 않는다는 점이다.
+**위 코드에서 중요한 점은 _DelegatedControls_ 에 _Controls2_ 의 구현 방식에 대한 의존 관계가 생기지 않는다는 점**이다.
 
 ---
 
@@ -350,32 +350,36 @@ val 가 아니거나, val 이지만 커스텀 접근자를 사용하는 경우 �
 > `as` 키워드에 대한 좀 더 상세한 내용은 [2.3. `as` 키워드](#23-as-키워드) 를 참고하세요.
 
 ```kotlin
+package assu.study.kotlinme.chap05.downcasting
+
 interface Base11 {
-    fun f()
+  fun f() = println("f()~")
 }
 
 class Derived11 : Base11 {
-    override fun f() {}
-    fun g() {}
+  override fun f() {}
+
+  fun g() = println("g()~")
 }
 
 class Derived22 : Base11 {
-    override fun f() {}
-    fun h() {}
+  override fun f() {}
+
+  fun h() = println("h()~")
 }
 
 fun main() {
-    val b1: Base11 = Derived11() // 업캐스트
-    // b1.g()   // 호출 불가
-    if (b1 is Derived11) {
-        b1.g()  // 호출 가능 `is` 검사의 영역 내부
-    }
-    
-    val b2: Base11 = Derived22()    // 업캐스트
-    // b2.h();  // 호출 불가
-    if (b2 is Derived22) {
-        b2.h()  // 호출 가능, `is` 검사의 영역 내부
-    }
+  val b1: Base11 = Derived11() // 업캐스트
+  // b1.g()   // 호출 불가
+  if (b1 is Derived11) {
+    b1.g() // g()~, 호출 가능 `is` 검사의 영역 내부
+  }
+
+  val b2: Base11 = Derived22() // 업캐스트
+  // b2.h();  // 호출 불가
+  if (b2 is Derived22) {
+    b2.h() // h()~, 호출 가능, `is` 검사의 영역 내부
+  }
 }
 ```
 
@@ -435,7 +439,8 @@ fun main() {
 **자동 다운 캐스트는 대상이 상수일때만 제대로 동작**한다.
 
 대상 객체를 가리키는 기반 클래스 타입의 참조가 변경 가능(`var`) 할 때 타입을 검증한 시점과 다운 캐스트한 객체에 대해 함수를 호출한 시점 사이에 참조가 가리키는 객체가 
-바뀔 가능성이 있다. 즉, **타입 검사와 사용 시점 사이에 객체의 구체적인 타입이 달라질 수 있다는 의미**이다.
+바뀔 가능성이 있다.  
+즉, **타입 검사와 사용 시점 사이에 객체의 구체적인 타입이 달라질 수 있다는 의미**이다.
 
 ```kotlin
 interface Creature1
@@ -478,7 +483,7 @@ class SmartCast2(var c: Creature1) {
         // because 'c' is a mutable property that could have been changed by this time
         // c 가 이 시점에서 변했을 수 있는 가변 프로퍼티이기 때문에 Human 으로 스마트 캐스트할 수 없다는 의미
         
-    //    when (c) { // 편의상 이렇게 했지만 추천하지 않음
+    //    when (c) {
     //        is Human1 -> c.greeting()
     //        is Dog1 -> c.bark()
     //        is Cat1 -> c.yaong()
@@ -516,7 +521,7 @@ because 'c' is a mutable property that could have been changed by this time
 
 c 가 이 시점에서 변했을 수 있는 가변 프로퍼티이기 때문에 Human 으로 스마트 캐스트할 수 없다는 의미이다.
 
-**코틀린은 `is` 로 위의 _c_ 타입을 검사하는 시점과 _c_ 를 다운 캐스트한 타입으로 사용하는 시점 사이에 _c_ 의 값이 변하지 않도록 강제**한다.
+**코틀린은 스마트 캐스트 `is` 로 위의 _c_ 타입을 검사하는 시점과 _c_ 를 다운 캐스트한 타입으로 사용하는 시점 사이에 _c_ 의 값이 변하지 않도록 강제**한다.
 
 위 코드에서 _SmartCast1_ 은 _c_ 프로퍼티를 `val` 로 만들어서 변화를 막고, _SmartCast2_ 는 지역 변수 `val c` 를 이용하여 변화를 막고 있다.
 
@@ -591,11 +596,11 @@ val result3 = dogBarkUnsafe(Cat2())
 안전하지 않은 캐스트 `as` 를 사용할 때마다 스마트 캐스트 `is` 를 통해 미리 `as` 로 변환 가능한 타입인지 검사해볼 수도 있지만 그보다는 안전한 캐스트인 `as?` 를 
 사용하는 것이 더 간결하다.
 
-안전한 캐스트 `as?` 는 어떤 값을 지정한 타입으로 캐스트하며, 만일 값을 대상 타입으로 변환할 수 없을 경우 예외를 던지지 않고 null 을 반환한다.
+**안전한 캐스트 `as?` 는 어떤 값을 지정한 타입으로 캐스트**하며, **만일 값을 대상 타입으로 변환할 수 없을 경우 예외를 던지지 않고 null 을 반환**한다.
 
 따라서 안전한 캐스트 `as?` 사용 시엔 NPE 를 방지하기 위해 적절한 조치가 필요하다.
 
-안전한 캐스트 `as?` 의 가장 일반적인 패턴은 캐스트를 수행한 뒤에 엘비스 연산자를 사용하는 것이다.
+**안전한 캐스트 `as?` 의 가장 일반적인 패턴은 캐스트를 수행한 뒤에 엘비스 연산자를 사용**하는 것이다.
 
 [2. 안전한 호출(safe call)과 엘비스(Elvis) 연산자](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#2-%EC%95%88%EC%A0%84%ED%95%9C-%ED%98%B8%EC%B6%9Csafe-call%EA%B3%BC-%EC%97%98%EB%B9%84%EC%8A%A4elvis-%EC%97%B0%EC%82%B0%EC%9E%90) 에서 본 엘비스 연산자가 가장 간단하고 적합하다.
 
@@ -664,6 +669,8 @@ fun main() {
 ## 2.4. 리스트 원소의 타입 알아내기: `filterIsInstance()`
 
 Predicate 에서 `is` 를 사용하면 List 나 다른 iterable (이터레이션을 할 수 있는 대상 타입) 의 원소가 주어진 타입의 객체인지 알 수 있다.
+
+> 리스트 원소의 타입을 알아낼 때는 `filterIsInstance()` 를 사용하므로 아래 코드는 참고만 할 것
 
 ````kotlin
 interface Creature4
@@ -761,7 +768,7 @@ fun main() {
 ## 3.1. 봉인된 클래스 사용
 
 클래스 계층을 제한하려면 기반 클래스를 `sealed` 로 선언하면 된다.  
-`sealed` 로 표시된 클래스는 자동으로 `open` 이다.
+**`sealed` 로 표시된 클래스는 자동으로 `open`** 이다.
 
 ```kotlin
 open class Transport
@@ -791,7 +798,7 @@ fun main() {
 'when' expression must be exhaustive, add necessary 'else' branch
 ```
 
-위에서 _travel()_ 은 다운 캐스트가 근본적인 문제가 될 수 있는 지점이다.  
+위에서 _travel()_ 은 **다운 캐스트가 근본적인 문제가 될 수 있는 지점**이다.  
 만일 _Transport_ 를 상속한 _Tram_ 이라는 클래스가 새로 정의되면 _travel()_ 은 여전히 컴파일 되고 실행도 되지만, _Tram_ 추가에 맞춰서 when 을 바꾸어야 한다는 아무런 단서가 없다.  
 
 이렇게 코드에서 다운 캐스트가 여기저기 흩어져 있다면 이로 인해 유지보수가 힘들어진다.
@@ -898,7 +905,7 @@ fun main() {
 }
 ```
 
-코드를 보면 알겠지만 `sealed` 클래스는 기본적으로 파생 클래스가 모두 같은 파일 안에 정의되어야 한다는 제약이 가해진 `abstract` 클래스이다.
+코드를 보면 알겠지만 **`sealed` 클래스는 기본적으로 파생 클래스가 모두 같은 파일 안에 정의되어야 한다는 제약이 가해진 `abstract` 클래스**이다.
 
 `sealed` 클래스의 간접적인 파생 클래스는 별도의 파일에 정의 가능하다.
 
