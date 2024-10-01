@@ -15,7 +15,7 @@ tags: kotlin KProperty ReadOnlyProperty ReadWriteProperty Delegates.observable()
 **목차**
 
 <!-- TOC -->
-* [1. 프로퍼티 위임: `by`](#1-프로퍼티-위임-by)
+* [1. 프로퍼티 위임: `by` (프로퍼티 접근자 로직 재활용)](#1-프로퍼티-위임-by-프로퍼티-접근자-로직-재활용)
   * [1.1. 프로퍼티가 val 인 경우: `KProperty`](#11-프로퍼티가-val-인-경우-kproperty)
   * [1.2. 프로퍼티가 var 인 경우](#12-프로퍼티가-var-인-경우)
   * [1.3. `ReadOnlyProperty` 인터페이스 상속](#13-readonlyproperty-인터페이스-상속)
@@ -42,16 +42,95 @@ tags: kotlin KProperty ReadOnlyProperty ReadWriteProperty Delegates.observable()
 
 ---
 
-# 1. 프로퍼티 위임: `by`
+# 1. 프로퍼티 위임: `by` (프로퍼티 접근자 로직 재활용)
 
-프로퍼티는 접근자 로직을 위임할 수 있는데, `by` 키워드를 사용하여 프로퍼티를 위임과 연결할 수 있다.
+> [9. 프로퍼티 접근자: `field`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90-field) 를 참고하세요.
+
+> 클래스 위임에 대한 좀 더 상세한 내용은 [1. 클래스 위임 (class delegation)](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#1-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%9C%84%EC%9E%84-class-delegation) 을 참고하세요.
+
+위임 프로퍼티를 사용하면 값을 뒷받침하는 필드 (= backing field) 에 단순히 저장하는 것보다 더 복잡한 방식으로 동작하는 프로퍼티를 쉽게 구현 가능하다.
+
+또한 그 과정에서 접근자 로직을 매번 재구현할 필요도 없다.
+
+예) 프로퍼티는 위임을 사용하여 자신의 값을 필드가 아니라 DB, 브라우저 세션, 맵 등에 저장 가능
+
+> **backing field**
+> 
+> 대부분의 프로퍼티에는 그 프로퍼티 값을 저장하기 위한 필드가 있는데 그 필드를 backing field 라고 함
+
+**위임은 객체가 직접 작업을 수행하지 않고 다른 도우미 객체가 그 작업을 처리하게 맡기는 디자인 패턴**이다.
+
+여기서 **작업을 처리하는 도우미 객체를 위임 객체**라고 한다.
+
+도우미 객체를 직접 작성할 수도 있지만 더 좋은 방법은 코틀린 언어가 제공하는 기능을 활용하는 것이다.
+
+**프로퍼티는 접근자 로직을 위임할 수 있는데, `by` 키워드를 사용하여 프로퍼티를 위임과 연결**할 수 있다.
 
 `val (또는 var) 프로퍼티명 by 위임할 객체`
+
+위임 프로퍼티의 일반적인 문법
+
+```kotlin
+class Foo {
+    var p: String by Delegate()
+}
+```
+
+위 코드에서 p 프로퍼티는 접근자 로직을 다른 객체에게 위임한다.  
+여기서는 Delegate 클래스의 인스턴스를 위임 객체(= 작업을 처리하는 도우미 객체)로 사용한다.  
+`by` 뒤에 있는 식을 계산하여 위임에 쓰일 객체를 얻는다.
+
+컴파일러는 위 코드를 아래와 같이 숨겨진 도우미 프로퍼티를 만든 후 그 프로퍼티를 위임 객체의 인스턴스로 초기화한다.  
+_p_ 프로퍼티는 바로 그 위임 객체에게 자신의 작업을 위임한다.  
+아래에서는 숨겨진 도우미 프로퍼티가 _delegate_ 이다.
+
+컴파일러가 생성한 코드
+
+```kotlin
+class Foo {
+    // 컴파일러가 생성한 도우미 프로퍼티
+    private val delegate = Delegate()
+  
+    // p 프로퍼티를 위해 컴파일러가 생성한 접근자는 delegate 의 getValue() 와 setValue() 메서드를 호출함
+    var p: String 
+      set(value: String) = delegate.setValue(..., value)
+      get() = delegate.getValue(...)
+}
+```
 
 프로퍼티가 val (읽기 전용) 인 경우는 위임 객체의 클래스에 `getValue()` 함수 정의가 있어야 하고, 
 프로퍼티가 var (쓰기 가능) 인 경우는 위임 객체의 클래스에 `getValue()`, `setValue()` 함수 정의가 있어야 한다.
 
-> 클래스 위임에 대한 좀 더 상세한 내용은 [1. 클래스 위임 (class delegation)](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#1-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%9C%84%EC%9E%84-class-delegation) 을 참고하세요.
+이 때 getValue(), setValue() 는 멤버 함수이거나 확장 함수일 수 있다.
+
+위임 객체인 Delegate 클래스를 단순화하면 아래와 같다.
+
+```kotlin
+class Delegate {
+    operator fun getValue(...) { ... }
+    operator fun setValue(..., value: Type) { ... }
+}
+
+class Foo {
+    var p: Type by Delegate()
+}
+
+fun main() {
+    val foo = Foo()
+  
+    // foo.p 라는 프로퍼티 호출은 내부에서 delegate.getValue(...) 를 호출함
+    val oldValue = foo.p
+  
+    // 프로퍼티 값을 변경하는 문장은 내부에서 delegate.setValue(..., newValue) 를 호출함
+    foo.p = newValue
+}
+```
+
+_p_ 의 getter, setter 는 _Delegate_ 타입의 위임 프로퍼티 객체에 있는 메서드를 호출한다.
+
+위임 프로퍼티의 강력함을 보여주는 예 중 하나가 프로퍼티 위임을 사용하여 프로퍼티 초기화를 지연시키는 것이다.
+
+> 위임을 사용하여 프로프티 초기화를 지연시키는 예시는 [1.2. 위임 프로퍼티를 통해 지연 초기화를 구현: lazy()](https://assu10.github.io/dev/2024/03/30/kotlin-advanced-5/#12-%EC%9C%84%EC%9E%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EB%A5%BC-%ED%86%B5%ED%95%B4-%EC%A7%80%EC%97%B0-%EC%B4%88%EA%B8%B0%ED%99%94%EB%A5%BC-%EA%B5%AC%ED%98%84-lazy) 를 참고하세요.
 
 ---
 

@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Kotlin - 지연 계산 초기화('lazy()'), 늦은 초기화('lateinit', '.isInitialized')"
+title:  "Kotlin - 지연 계산 초기화('lazy()'), 늦은 초기화('lateinit', '.isInitialized'), backing field, backing property"
 date: 2024-03-30
 categories: dev
-tags: kotlin laze() lateinit .isInitialized
+tags: kotlin lazy() lateinit .isInitialized backing-field backing-property
 ---
 
 이 포스트에서는 지연 계산 초기화와 늦은 초기화에 대해 알아본다.
@@ -15,11 +15,14 @@ tags: kotlin laze() lateinit .isInitialized
 **목차**
 
 <!-- TOC -->
-* [1. 지연(lazy) 계산 초기화: `lazy()`](#1-지연lazy-계산-초기화-lazy)
-  * [1.1. 3가지 프로퍼티 초기화 방법 비교](#11-3가지-프로퍼티-초기화-방법-비교)
+* [1. 프로퍼티 초기화 지연](#1-프로퍼티-초기화-지연)
+  * [1.1. `backing property` 를 통해 지연 초기화를 구현](#11-backing-property-를-통해-지연-초기화를-구현)
+  * [1.2. 위임 프로퍼티를 통해 지연 초기화를 구현: `lazy()`](#12-위임-프로퍼티를-통해-지연-초기화를-구현-lazy)
+  * [1.3. 3가지 프로퍼티 초기화 방법 비교](#13-3가지-프로퍼티-초기화-방법-비교)
 * [2. 늦은(late) 초기화](#2-늦은late-초기화)
   * [2.1. `lateinit`](#21-lateinit)
   * [2.2. `.isInitialized`](#22-isinitialized)
+* [3. `backing field` 와 `backing property`](#3-backing-field-와-backing-property)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -34,7 +37,7 @@ tags: kotlin laze() lateinit .isInitialized
 
 ---
 
-# 1. 지연(lazy) 계산 초기화: `lazy()`
+# 1. 프로퍼티 초기화 지연
 
 프로퍼티를 초기화하는 방법은 총 3가지가 있다.
 
@@ -42,7 +45,9 @@ tags: kotlin laze() lateinit .isInitialized
 - 프로퍼티에 접근할 때마다 값을 계산하는 custom getter() 정의
 - 지연 계산 초기화 사용
 
-초기값을 계산하는 비용이 많이 들지만 프로퍼티를 선언하는 시점에 즉시 필요하지 않거나 아예 필요하지 않을 수도 있는 경우가 있다.
+**지연 계산 초기화는 객체의 일부분을 초기화하지 않고 남겨뒀다가 실제로 그 부분의 값이 필요할 경우 초기화할 때 흔히 쓰이는 패턴**이다.
+
+**초기값을 계산하는 비용이 많이 들지만 프로퍼티를 선언하는 시점에 즉시 필요하지 않거나 아예 필요하지 않을 수도 있는 프로퍼티에 대해 지연 계산 초기화 패턴을 사용**할 수 있다.
 
 - 복잡하고 시간이 오래 걸리는 계산
 - 네트워크 요청
@@ -56,8 +61,82 @@ tags: kotlin laze() lateinit .isInitialized
 이런 문제를 해결하기 위해 **지연 계산 프로퍼티는 생성 시점이 아닌 처음 사용할 때 초기화**된다.  
 지연 계산 프로퍼티를 사용하면 **그 프로퍼티의 값을 읽기 전까지는** 비싼 초기화 계산을 수행하지 않는다.
 
-코틀린은 [프로퍼티 위임](https://assu10.github.io/dev/2024/03/24/kotlin-advanced-4/#1-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%9C%84%EC%9E%84-by) 을 사용하여 
+---
+
+## 1.1. `backing property` 를 통해 지연 초기화를 구현
+
+이메일이 DB 에 들어있고, 조회할 때 시간이 오래 걸리는 상황이라 이메일 프로퍼티 값을 최초로 사용할 때 단 한번만 DB 에서 가져오게 구현한다고 해보자.
+
+아래는 `backing property` 를 통해 지연 초기화를 구현하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+data class Email(
+  val email: String,
+)
+
+// DB 에서 이메일을 조회하는 함수
+fun loadEmail(person: PersonByBackingProperty): List<Email> {
+  println("${person.name} 의 이메일")
+  return listOf()
+}
+
+data class PersonByBackingProperty(
+  val name: String,
+) {
+  // 데이터를 저장하고 emails 의 위임 객체 역할을 하는 _emails 프로퍼티
+  private var _emails: List<Email>? = null
+  val emails: List<Email>
+    get() {
+      // 최초 접근 시 이메일을 가져옴
+      if (_emails == null) {
+        _emails = loadEmail(this)
+      }
+
+      // 저장해 둔 데이터가 있으면 그 데이터를 반환
+      return _emails!!
+    }
+}
+
+fun main() {
+  val p = PersonByBackingProperty("assu")
+
+  // assu 의 이메일  <-- 최초 emails 을 읽을 때 단 한번만 가져옴
+  // []
+  // []
+  println(p.emails)
+  println(p.emails)
+}
+```
+
+위 코드에서는 `backing property` (뒷받침하는 프로퍼티) 기법을 사용하였다.
+
+| _\_emails_<br />(backing property) | _emails_                           |
+|:-----------------------------------|:-----------------------------------|
+| 값을 저장 (var)                        | _\_emails_ 프로퍼티에 대한 읽기 연산 제공 (val) |
+| null 이 될 수 있는 타입                   | null 이 될 수 없는 타입                   |
+
+
+이런 기법은 자주 사용하는 기법이므로 잘 알아두는 것이 좋다.
+
+하지만 이런 코드를 만드는 것은 좀 성가시다.  
+**위와 같은 방식으로 `backing property` 를 사용하면 지연 초기화를 해야하는 프로퍼티가 많아질 경우 가독성도 안 좋아질 뿐더러 이 구현은 스레드에 안전하지 않아서 언제나 제대로 작동한다고 할 수 없다.**
+
+이럴 때 위임 프로퍼티를 사용하면 코드가 훨씬 간단해진다.
+
+> 위임 프로퍼티에 대한 내용은 [Kotlin - 프로퍼티 위임, 'ReadOnlyProperty', 'ReadWriteProperty', 프로퍼티 위임 도구 (Delegates.observable(), Delegates.vetoable(), Delegates.notNull())](https://assu10.github.io/dev/2024/03/24/kotlin-advanced-4/) 를 참고하세요.
+
+**위임 프로퍼티는 데이터를 저장할 때 사용되는 `backing property` 와 값이 오직 한 번만 초기화됨을 보장하는 getter 로직을 함께 캡슐화**해준다.
+
+---
+
+## 1.2. 위임 프로퍼티를 통해 지연 초기화를 구현: `lazy()`
+
+코틀린은 [프로퍼티 위임](https://assu10.github.io/dev/2024/03/24/kotlin-advanced-4/) 을 사용하여
 일관성있고 가독성이 좋은 지연 계산 프로퍼티 구문을 제공하는데, `by` 다음에 `lazy()` 를 붙여주면 된다.
+
+**`lazy` 는 위임 객체를 반환하는 코틀린 라이브러리 함수**이다.
 
 ```kotlin
 val lazyProp by lazy { 초기화 코드 }
@@ -87,11 +166,55 @@ fun main() {
 _helpful_, _idle_ 모두 val 로 선언되어 있다.  
 lazy 초기화가 없다면 이 프로퍼티들은 var 로 선언해야 하기 때문에 신뢰성이 덜 한 코드가 된다.
 
+[1.1. `backing property` 를 통해 지연 초기화를 구현](#11-backing-property-를-통해-지연-초기화를-구현) 의 예시를 위임 프로퍼티를 통해 구현하면 아래와 같다.
+
+`backing property` 로 지연 초기화 구현
+
+```kotlin
+data class PersonByBackingProperty(
+  val name: String,
+) {
+  // 데이터를 저장하고 emails 의 위임 객체 역할을 하는 _emails 프로퍼티
+  private var _emails: List<Email>? = null
+  val emails: List<Email>
+    get() {
+      // 최초 접근 시 이메일을 가져옴
+      if (_emails == null) {
+        _emails = loadEmail(this)
+      }
+
+      // 저장해 둔 데이터가 있으면 그 데이터를 반환
+      return _emails!!
+    }
+}
+```
+
+위임 프로퍼티로 지연 초기화 구현
+
+```kotlin
+data class PersonByLazy(
+    val name: String,
+) {
+    val emails by lazy { loadEmail(this) }
+}
+```
+
+코드가 매우 간결해진 것을 볼 수 있다.
+
+`lazy()` 함수는 `getValue()` 메서드가 들어있는 객체를 반환하기 때문에 `lazy()` 를 `by` 키워드와 함께 사용하여 위임 프로퍼티를 만들 수 있다.
+
+**`lazy()` 함수의 인자는 값을 초기화할 때 호출할 람다**이다.
+
+**`lazy()` 함수는 기본적으로 스레드에 안전**하다.
+
+하지만 필요에 따라 동기화에 사용할 lock 을 `lazy()` 함수에 전달할 수도 있고, 다중 스레드 환경에서 사용하지 않을 프로퍼티를 위해 `lazy()` 함수가 동기화를 
+하지 못하게 막을수도 있다.
+
 ---
 
-## 1.1. 3가지 프로퍼티 초기화 방법 비교
+## 1.3. 3가지 프로퍼티 초기화 방법 비교
 
-아래는 프로퍼티를 초기화하는 3 가지 방법인 정의 시점, getter(), 지연 계산을 비교한 예시이다.
+아래는 프로퍼티를 초기화하는 3 가지 방법인 `정의 시점`, `getter()`, `지연 계산`을 비교한 예시이다.
 
 ```kotlin
 fun compute(i: Int): Int {
@@ -283,7 +406,7 @@ class MyTestWithLateInit {
   - val 프로퍼티는 final 필드로 컴파일되며, 생성자 안에서 반드시 초기화해야 함
   - 따라서 생성자 밖에서 초기화해야 하는 나중에 초기화하는 프로퍼티는 항상 var 이어야 함
 - 프로퍼티 타입은 null 이 아닌 타입이어야 함
-- 프로퍼티가 원시 타입의 값이 아니어야 함
+- 프로퍼티가 primitive 타입의 값이 아니어야 함
 - 추상 클래스의 추상 프로퍼티나 인스턴스의 프로퍼티에는 적용 불가
 - 커스텀 게터 및 세터를 지원하는 프로퍼티에는 적용 불가
 
@@ -337,6 +460,12 @@ fun main() {
 
 ---
 
+# 3. `backing field` 와 `backing property`
+
+https://colour-my-memories-blue.tistory.com/6
+
+---
+
 # 참고 사이트 & 함께 보면 좋은 사이트
 
 *본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
@@ -349,3 +478,4 @@ fun main() {
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
 * [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)
+* [Backing Field와 Backing Properties](https://colour-my-memories-blue.tistory.com/6)
