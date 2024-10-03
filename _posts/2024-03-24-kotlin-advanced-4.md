@@ -26,6 +26,11 @@ tags: kotlin KProperty ReadOnlyProperty ReadWriteProperty Delegates.observable()
 * [2. 프로퍼티 위임 도구](#2-프로퍼티-위임-도구)
   * [2.1. 프로퍼티 위임 도구로 사용되는 Map](#21-프로퍼티-위임-도구로-사용되는-map)
   * [2.2. `Delegates.observable()`](#22-delegatesobservable)
+    * [2.2.1. 위임 프로퍼티 없이 값 추적](#221-위임-프로퍼티-없이-값-추적)
+      * [2.2.1.1. `value-parameter`](#2211-value-parameter)
+    * [2.2.2. 위임 프로퍼티를 사용하여 값 추적](#222-위임-프로퍼티를-사용하여-값-추적)
+    * [2.2.3. 위임 프로퍼티 `by` 를 사용하여 값 추적](#223-위임-프로퍼티-by-를-사용하여-값-추적)
+    * [2.2.4. 위임 프로퍼티 `by` 와 `Delegates.observable()` 를 사용하여 값 추적](#224-위임-프로퍼티-by-와-delegatesobservable-를-사용하여-값-추적)
   * [2.3. `Delegates.vetoable()`](#23-delegatesvetoable)
   * [2.4. `Delegates.notNull()`](#24-delegatesnotnull)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -594,7 +599,7 @@ import kotlin.properties.Delegates
 
 class Team {
   var msg = ""
-  var captain: String by Delegates.observable("INIT임 ") { prop, old, new ->
+  var captain: String by Delegates.observable("INIT임") { prop, old, new ->
     msg += "${prop.name} : $old to $new ~\n"
   }
 }
@@ -620,6 +625,411 @@ fun main() {
   - 프로퍼티가 변경될 때 실행할 동작을 지정하는 함수
   - 위에서는 람다를 사용함
   - 함수의 인자는 변경 중인 프로퍼티, 프로퍼티의 현재값, 프로퍼티에 저장될 새로운 값
+
+---
+
+### 2.2.1. 위임 프로퍼티 없이 값 추적
+
+어떤 객체의 프로퍼티가 변경될 때마다 리스너에게 변경 통지를 보내야하는 경우를 생각해보자.
+
+자바에서는 `PropertyChangeSupport` 와 `PropertyChangeEvent` 클래스를 사용하여 이런 통지를 처리하는 경우가 자주 있다.
+
+여기서는 위 기능을 아래와 같은 순서로 리팩토링 해본다.
+
+- 위임 프로퍼티 없이 값 추적
+- 위임 프로퍼티를 이용하여 값 추적
+- `Delegates.observable()` 을 사용하여 값 추적
+
+`PropertyChangeSupport` 클래스는 리스너의 목록을 관리하고, `PropertyChangeEvent` 이벤트가 들어오면 모든 리스너에게 이벤트를 통지한다.  
+보통 자바 빈 클래스의 필드에 `PropertyChangeSupport` 인스턴스를 저장하고, 프로퍼티 변경 시 그 인스턴스에게 처리를 위임하는 방식으로 통지 기능을 구현한다.
+
+필드를 모든 클래스에 추가하고 싶지는 않으므로 `PropertyChangeSupport` 인스턴스를 _changeSupport_ 라는 필드에 저장하고 프로퍼티 변경 리스너를 추적해주는 
+도우미 클래스를 만든다.  
+리스너 지원이 필요한 클래스는 이 도우미 클래스를 확장하여 _changeSupport_ 에 접근 가능하다.
+
+PropertyChangeSupport 를 사용하기 위한 도우미 클래스
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+import java.beans.PropertyChangeListener
+import java.beans.PropertyChangeSupport
+
+// PropertyChangeSupport 를 사용하기 위한 도우미 클래스
+open class PropertyChangeAware {
+    protected val changeSupport = PropertyChangeSupport(this)
+
+    fun addPropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.addPropertyChangeListener(listener)
+    }
+
+    fun removePropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.removePropertyChangeListener(listener)
+    }
+}
+```
+
+> `protected` 가시성 변경자에 대한 내용은 [10. 가시성 변경자 (access modifier, 접근 제어 변경자): `public`, `private`, `protected`, `internal`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#10-%EA%B0%80%EC%8B%9C%EC%84%B1-%EB%B3%80%EA%B2%BD%EC%9E%90-access-modifier-%EC%A0%91%EA%B7%BC-%EC%A0%9C%EC%96%B4-%EB%B3%80%EA%B2%BD%EC%9E%90-public-private-protected-internal) 를 참고하세요.
+
+이제 _People_ 클래스를 작성한다.
+
+읽기 전용 프로퍼티 (이름) 와 변경 가능한 프로퍼티 (나이, 급여) 를 정의한다.  
+이 클래스는 나이가 급여가 변경되면 그 사실을 리스너에게 통지한다.
+
+프로퍼티 변경 통지를 직접 구현한 _People_ 클래스
+
+```kotlin
+// 프로퍼티 변경 통지를 직접 구현
+class People(
+    val name: String, // public final val name: String
+    age: Int, // value-parameter val age: Int
+    salary: Int,
+) : PropertyChangeAware() {
+    var age: Int = age
+        set(newValue) {
+            // field 를 사용하여 age 프로퍼티의 backing field 에 접근
+            val oldValue = field
+            field = newValue
+
+            // 프로퍼티 변경을 리스너에게 통지
+            changeSupport.firePropertyChange("age", oldValue, newValue)
+        }
+
+    var salary: Int = salary
+        set(newValue) {
+            val oldValue = field
+            field = newValue
+            changeSupport.firePropertyChange("salary", oldValue, newValue)
+        }
+}
+```
+
+main 에서 실행
+
+```kotlin
+fun main() {
+    val p = People("Assu", 20, 100)
+
+    // 프로퍼티 변경 리스너 추가
+    p.addPropertyChangeListener { event ->
+        println("Property ${event.propertyName} changed from ${event.oldValue} to ${event.newValue}")
+    }
+
+    p.age = 25 // Property age changed from 20 to 25
+    p.salary = 200 // Property salary changed from 100 to 200
+}
+```
+
+_People_ 코드에서 `field` 키워드를 사용하여 _age_, _salary_ 프로퍼티의 `backing-field` 에 접근한다.
+
+> 프로퍼티 접근자 `field` 에 대한 내용은 [9. 프로퍼티 접근자: `field`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90-field) 를 참고하세요.
+
+setter 코드에 중복이 많이 보이는 것을 알 수 있다.
+
+이제 프로퍼티의 값을 저장하고 필요에 따라 통지를 보내주는 클래스를 추출해보자.
+
+---
+
+#### 2.2.1.1. `value-parameter`
+
+클래스 생성 시 `val` 혹은 `var` 가 없다면 `value-parameter` 이다.
+
+**`val`, `var` 파라메터는 클래스의 멤버**로 들어가지만, **`val` 가 없다면 단지 생성자 초기화에 사용되는 파라메터**이다.
+
+즉, 2 개의 목적은 아래와 같다.
+
+- `val`, `var` 파라메터를 생성자 안에 사용
+  - 이를 클래스의 멤버로써 정의하고 초기화까지 바로 진행
+- `val` 나 `var` 가 없는 파라메터를 생성자 안에 사용
+  - 단지 생성자 초기화에 사용
+
+아래와 같은 코드가 있다고 하자.
+
+val 가 있는 경우의 코틀린
+
+```kotlin
+class Foo(val bar: String)
+```
+
+이에 대응하는 자바 코드
+
+```java
+class Foo {
+  String bar;
+  public Foo(String bar) {
+    this.bar = bar;
+  }
+}
+```
+
+val 가 없는 경우의 코틀린 (= `value-parameter`)
+
+```kotlin
+class Foo(bar: String)
+```
+
+이에 대응하는 자바 코드
+
+```java
+class Foo {
+
+  public Foo(String bar) {
+
+  }
+}
+```
+
+`val` 가 없다면 클래스 내부에서 해당 변수에 접근할 수 없다.
+
+```kotlin
+class Foo(a: String, val b: Int)
+```
+
+위와 같은 코드가 있을 때 _Foo_ 클래스 내부에서 _b_ 변수에는 접근 가능하지만 _a_ 변수에는 접근이 불가하다.
+
+> 관련하여 [Kotlin doc: Classes](https://kotlinlang.org/docs/classes.html),  
+> [Why do I need a parameter in a primary constructor without val/var modifier in Kotlin?](https://stackoverflow.com/questions/49610775/why-do-i-need-a-parameter-in-a-primary-constructor-without-val-var-modifier-in-k),   
+> [stackoverflow: value-parameter](https://stackoverflow.com/questions/60409838/difference-between-val-parameter-or-without-val)  
+> 를 참고하면 도움이 됩니다.
+
+---
+
+### 2.2.2. 위임 프로퍼티를 사용하여 값 추적
+
+아래는 [2.2.1. 위임 프로퍼티 없이 값 추적](#221-위임-프로퍼티-없이-값-추적) 구현한 _People_ 클래스의 불필요한 중복 로직 제거를 위해 2개로 분리하는 예시이다.
+
+- 프로퍼티 값을 저장하고 필요에 따라 통지를 보내주는 클래스 추출
+- _People_ 클래스
+
+도우미 클래스를 사용하여 프로퍼티 변경 통지 구현
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+import java.beans.PropertyChangeListener
+import java.beans.PropertyChangeSupport
+
+// PropertyChangeSupport 를 사용하기 위한 도우미 클래스 (이건 그대로 사용)
+open class PropertyChangeAware2 {
+    protected val changeSupport = PropertyChangeSupport(this)
+
+    fun addPropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.addPropertyChangeListener(listener)
+    }
+
+    fun removePropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.removePropertyChangeListener(listener)
+    }
+}
+
+// 프로퍼티의 값을 저장하고 필요에 따라 통지를 보내주는 클래스
+class ObservableProperty(val propName: String, var propValue: Int, val changeSupport: PropertyChangeSupport) {
+    fun getValue(): Int = propValue
+    fun setValue(newValue: Int) {
+        val oldValue = propValue
+        propValue = newValue
+        changeSupport.firePropertyChange(propName, oldValue, newValue)
+    }
+}
+```
+
+```kotlin
+class People2(
+    val name: String,
+    age: Int,
+    salary: Int,
+) : PropertyChangeAware2() {
+    val _age = ObservableProperty("age", age, changeSupport)
+    var age: Int
+        get() = _age.getValue()
+        set(value) {
+            _age.setValue(value)
+        }
+
+    val _salary = ObservableProperty("salary", salary, changeSupport)
+    var salary: Int
+        get() = _salary.getValue()
+        set(value) {
+            _salary.setValue(value)
+        }
+}
+```
+
+프로퍼티 값을 저장하고 그 값이 변경되면 변경 통지를 전달해주는 클래스를 통해 로직 중복을 많이 제거했다.
+
+하지만 아직도 각 프로퍼티마다 _ObservableProperty_ 를 만들고, getter/setter 에서 _ObservableProperty_ 에게 작업을 위임하는 준비 코드가 상당 부분 필요하다.
+
+코틀린의 위임 프로퍼티 기능을 사용하면 이런 준비 코드를 없앨 수 있다.
+
+```kotlin
+fun main() {
+    val p = People2("Assu", 20, 100)
+
+    // 프로퍼티 변경 리스너 추가
+    p.addPropertyChangeListener { event ->
+        println("Property ${event.propertyName} changed from ${event.oldValue} to ${event.newValue}")
+    }
+
+    p.age = 25 // Property age changed from 20 to 25
+    p.salary = 200 // Property salary changed from 100 to 200
+}
+```
+
+---
+
+### 2.2.3. 위임 프로퍼티 `by` 를 사용하여 값 추적
+
+코틀린의 위임 프로퍼티를 사용하기 위해 위에서 작성한 _ObservableProperty_ 에 있는 _getValue()_, _setValue()_ 를 코틀린의 관례에 맞게 수정해준다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+import java.beans.PropertyChangeListener
+import java.beans.PropertyChangeSupport
+import kotlin.reflect.KProperty
+
+// PropertyChangeSupport 를 사용하기 위한 도우미 클래스 (이건 그대로 사용)
+open class PropertyChangeAware3 {
+    protected val changeSupport = PropertyChangeSupport(this)
+
+    fun addPropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.addPropertyChangeListener(listener)
+    }
+
+    fun removePropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.removePropertyChangeListener(listener)
+    }
+}
+
+// 프로퍼티의 값을 저장하고 필요에 따라 통지를 보내주는 클래스
+// 위임 프로퍼티를 사용하기 위해 getValue(), setValue() 를 코틀린 관례에 맞게 수정
+class ObservableProperty3(
+    var propValue: Int,
+    val changeSupport: PropertyChangeSupport,
+) {
+    operator fun getValue(
+        p: People3,
+        prop: KProperty<*>,
+    ): Int = propValue
+
+    operator fun setValue(
+        p: People3,
+        prop: KProperty<*>,
+        newValue: Int,
+    ) {
+        val oldValue = propValue
+        propValue = newValue
+        changeSupport.firePropertyChange(prop.name, oldValue, newValue)
+    }
+}
+```
+
+_ObservableProperty3_ 가 달라진 점은 아래와 같다.
+
+- 코틀린 관례에 사용하는 다른 함수들처럼 [`operator`](https://assu10.github.io/dev/2024/03/23/kotlin-advanced-3/#1-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9-operator) 변경자를 붙임
+- _getValue()_, _setValue()_ 는 2개의 인자를 밭음
+  - 프로퍼티가 포함된 객체 (위에서는 People3 타입인 p)
+  - 프로퍼티를 표현하는 객체 (`KProperty`)
+    - `KProperty.name` 을 통해 메서드가 처리할 프로퍼티명을 알 수 있음
+- `KProperty` 를 통해 프로퍼티 이름을 전달받으므로 주 생성자에서 _name_ 프로퍼티는 없앰
+
+> `KProperty` 에 대해서는 추후 다룰 예정입니다. (p. 338)
+
+이제 위임 프로퍼티를 사용할 수 있다.
+
+```kotlin
+class People3(
+    val name: String,
+    age: Int,
+    salary: Int,
+) : PropertyChangeAware3() {
+    var age: Int by ObservableProperty3(age, changeSupport)
+    var salary: Int by ObservableProperty3(salary, changeSupport)
+}
+```
+
+`by` 키워드를 이용하여 위임 객체를 사용하면 위에서 직접 코드를 짜야했던 부분들을 코틀린 컴파일러가 자동으로 처리해준다.
+
+**`by` 오른쪽에 오는 객체를 위임 객체**라고 한다.
+
+코틀린은 위임 객체를 감춰진 프로퍼티에 저장하고, 주 객체의 프로퍼티를 읽거나 쓸 때마다 위임 객체의 getValue(), setValue() 를 호출해준다.
+
+```kotlin
+fun main() {
+    val p = People3("Assu", 20, 100)
+
+    // 프로퍼티 변경 리스너 추가
+    p.addPropertyChangeListener { event ->
+        println("Property ${event.propertyName} changed from ${event.oldValue} to ${event.newValue}")
+    }
+
+    p.age = 25 // Property age changed from 20 to 25
+    p.salary = 200 // Property salary changed from 100 to 200
+}
+```
+
+---
+
+### 2.2.4. 위임 프로퍼티 `by` 와 `Delegates.observable()` 를 사용하여 값 추적
+
+코틀린에는 이미 위의 _ObservableProperty_ 와 비슷한 역할 (= 프로퍼티를 관찰) 을 하는 함수인 `Delegates.observable()` 를 제공하고 있다.
+
+다만 `Delegates.observable()` 는 `PropertyChangeSupport` 와는 연결되어 있지 않으므로 프로퍼티 값의 변경을 통지할 때 `PropertyChangeSupport` 를 
+사용하는 방법을 알려주는 람다를 함께 넘겨주어야 한다.
+
+위임 프로퍼티 `by` 와 `Delegates.observable()` 사용
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+import java.beans.PropertyChangeListener
+import java.beans.PropertyChangeSupport
+import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
+
+// PropertyChangeSupport 를 사용하기 위한 도우미 클래스 (이건 그대로 사용)
+open class PropertyChangeAware4 {
+  protected val changeSupport = PropertyChangeSupport(this)
+
+  fun addPropertyChangeListener(listener: PropertyChangeListener) {
+    changeSupport.addPropertyChangeListener(listener)
+  }
+
+  fun removePropertyChangeListener(listener: PropertyChangeListener) {
+    changeSupport.removePropertyChangeListener(listener)
+  }
+}
+
+// 위임 프로퍼티 `by` 와 `Delegates.observable()` 사용
+class People4(
+  val name: String,
+  age: Int,
+  salary: Int,
+) : PropertyChangeAware4() {
+  private val observer = { prop: KProperty<*>, oldValue: Int, newValue: Int ->
+    changeSupport.firePropertyChange(prop.name, oldValue, newValue)
+  }
+
+  var age: Int by Delegates.observable(age, observer)
+  var salary: Int by Delegates.observable(salary, observer)
+}
+```
+
+`by` 의 오른쪽에 있는 식을 계산한 결과인 객체는 컴파일러가 호출할 수 있는 올바른 타입의 `getValue()` 와 `setValue()` 를 반드시 제공해야 한다.
+
+```kotlin
+fun main() {
+    val p = People4("Assu", 20, 100)
+
+    // 프로퍼티 변경 리스너 추가
+    p.addPropertyChangeListener { event ->
+        println("Property ${event.propertyName} changed from ${event.oldValue} to ${event.newValue}")
+    }
+
+    p.age = 25 // Property age changed from 20 to 25
+    p.salary = 200 // Property salary changed from 100 to 200
+}
+```
 
 ---
 
@@ -741,3 +1151,7 @@ fun main() {
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
 * [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)
+* [Kotlin doc: backing-fields](https://kotlinlang.org/docs/properties.html#backing-fields)
+* [Kotlin doc: backing-properties](https://kotlinlang.org/docs/properties.html#backing-properties)
+* [stackoverflow: value-parameter](https://stackoverflow.com/questions/60409838/difference-between-val-parameter-or-without-val)
+* [Why do I need a parameter in a primary constructor without val/var modifier in Kotlin?](https://stackoverflow.com/questions/49610775/why-do-i-need-a-parameter-in-a-primary-constructor-without-val-var-modifier-in-k)
