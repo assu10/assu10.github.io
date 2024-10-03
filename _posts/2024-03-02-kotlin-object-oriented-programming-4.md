@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 객체 지향 프로그래밍(4): 타입 검사, 타입 검사 코딩, 내포된 클래스(nested class)"
+title: "Kotlin - 객체 지향 프로그래밍(4): 타입 검사, 타입 검사 코딩, 내포된 클래스(nested class)"
 date: 2024-03-02
 categories: dev
 tags: kotlin 

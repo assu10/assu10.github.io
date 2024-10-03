@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 연산자 오버로딩, 'infix', 가변 컬렉션에 '+=', '+' 적용, Comparable, 구조 분해 연산자"
+title: "Kotlin - 연산자 오버로딩, 'infix', 가변 컬렉션에 '+=', '+' 적용, Comparable, 구조 분해 연산자"
 date: 2024-03-23
 categories: dev
 tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable

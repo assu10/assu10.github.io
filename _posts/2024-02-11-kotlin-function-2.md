@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 함수(2): null 이 될 수 있는 타입, 안전한 호출, 널 아님 단언, 엘비스 연산자, 널 아님 단언, 확장 함수, 제네릭스, 확장 프로퍼티"
+title: "Kotlin - 함수(2): null 이 될 수 있는 타입, 안전한 호출, 널 아님 단언, 엘비스 연산자, 널 아님 단언, 확장 함수, 제네릭스, 확장 프로퍼티"
 date: 2024-02-11
 categories: dev
 tags: kotlin

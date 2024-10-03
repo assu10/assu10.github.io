@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 함수형 프로그래밍(2): 고차 함수, 리스트 조작, Map 생성"
+title: "Kotlin - 함수형 프로그래밍(2): 고차 함수, 리스트 조작, Map 생성"
 date: 2024-02-17
 categories: dev
 tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() groupBy() associateWith() associateBy() getOrElse() getOrPut() toMutableMap() filter() filterKeys() filterValues() map() mapKeys() mapValues() any() all() maxByOrNull()

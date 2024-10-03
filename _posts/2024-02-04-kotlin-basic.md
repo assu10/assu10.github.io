@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 코틀린 기본 - 데이터 타입, 문자열, 반복문, `in` 키워드, 자바-코틀린 변환"
+title: "Kotlin - 코틀린 기본 - 데이터 타입, 문자열, 반복문, `in` 키워드, 자바-코틀린 변환"
 date: 2024-02-04
 categories: dev
 tags: kotlin

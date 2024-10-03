@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 프로퍼티 위임, 'ReadOnlyProperty', 'ReadWriteProperty', 프로퍼티 위임 도구 (Delegates.observable(), Delegates.vetoable(), Delegates.notNull()), 위임 프로퍼티 컴파일"
+title: "Kotlin - 프로퍼티 위임, 'ReadOnlyProperty', 'ReadWriteProperty', 프로퍼티 위임 도구 (Delegates.observable(), Delegates.vetoable(), Delegates.notNull()), 위임 프로퍼티 컴파일"
 date: 2024-03-24
 categories: dev
 tags: kotlin KProperty ReadOnlyProperty ReadWriteProperty Delegates.observable() Delegates.vetoable() Delegates.notNull()

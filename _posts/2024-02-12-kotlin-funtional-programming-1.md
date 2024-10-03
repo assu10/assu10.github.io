@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 함수형 프로그래밍(1): 람다, 컬렉션 연산, 멤버 참조, 최상위 함수와 프로퍼티"
+title: "Kotlin - 함수형 프로그래밍(1): 람다, 컬렉션 연산, 멤버 참조, 최상위 함수와 프로퍼티"
 date: 2024-02-12
 categories: dev
 tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filterNotNull() any() all() none() find() firstOrNull() lastOrNull() count() filterNot() partition() sumof() sortedBy() minBy() take() drop(), sortedWith() compareBy() times()

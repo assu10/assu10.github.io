@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 객체: 생성자, 패키지, 리스트, 배열, 스프레드 연산자('*'), Set, Map, 클래스, 프로퍼티 접근자, 가시성 변경자"
+title: "Kotlin - 객체: 생성자, 패키지, 리스트, 배열, 스프레드 연산자('*'), Set, Map, 클래스, 프로퍼티 접근자, 가시성 변경자"
 date: 2024-02-09
 categories: dev
 tags: kotlin

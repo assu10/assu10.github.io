@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 지연 계산 초기화('lazy()'), 늦은 초기화('lateinit', '.isInitialized'), backing field, backing property"
+title: "Kotlin - 지연 계산 초기화('lazy()'), 늦은 초기화('lateinit', '.isInitialized'), backing field, backing property"
 date: 2024-03-30
 categories: dev
 tags: kotlin lazy() lateinit .isInitialized backing-field backing-property

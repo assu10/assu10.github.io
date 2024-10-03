@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 객체 지향 프로그래밍(5): object, inner class, 'this@클래스명', companion object"
+title: "Kotlin - 객체 지향 프로그래밍(5): object, inner class, 'this@클래스명', companion object"
 date: 2024-03-03
 categories: dev
 tags: kotlin object, inner class, companion object

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 객체 지향 프로그래밍(1): 인터페이스, SAM(fun interface), init, 부생성자, 상속, 기반클래스 초기화"
+title: "Kotlin - 객체 지향 프로그래밍(1): 인터페이스, SAM(fun interface), init, 부생성자, 상속, 기반클래스 초기화"
 date: 2024-02-24
 categories: dev
 tags: kotlin SAM init constructor open

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 에러 방지(2): 자원 해제('use()'), Logging, 단위 테스트"
+title: "Kotlin - 에러 방지(2): 자원 해제('use()'), Logging, 단위 테스트"
 date: 2024-03-10
 categories: dev
 tags: kotlin use() useLines() forEachLine() authCloseable logging kotlin.test junit5

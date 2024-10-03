@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 함수(1): 확장 함수, 오버로딩, when, enum, data 클래스, 구조 분해 선언"
+title: "Kotlin - 함수(1): 확장 함수, 오버로딩, when, enum, data 클래스, 구조 분해 선언"
 date: 2024-02-10
 categories: dev
 tags: kotlin joinToString pair triple with-index
