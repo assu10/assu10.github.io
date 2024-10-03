@@ -585,7 +585,88 @@ fun main() {
 ```
 
 코틀린 표준 라이브러리에서 Map 의 확장 함수로 프로퍼티 위임을 가능하게 해주는 `getValue()`, `setValue()` 를 제공하기 때문에 
-위에서 _driver.name = "silby"_ 로 설정하면 원본 Map 이 변경된다. 
+위에서 _driver.name = "silby"_ 로 설정하면 원본 Map 이 변경된다.
+
+---
+
+### 2.1.1. 프로퍼티 값을 Map 에 저장
+
+자신의 프로퍼티를 동적으로 정의할 수 있는 객체를 만들 때 위임 프로퍼티를 활용하는 경우가 자주 있다.  
+그런 객체를 확장 가능한 객체 (extendo object) 라고 부르기도 한다.
+
+예를 들어 연락처 관리 시 필수 정보와 추가 정보를 관리해야 한다고 해보자.
+
+이럴 경우 정보를 모두 Map 에 저장하되, 그 Map 을 통해 처리하는 프로퍼티를 통해 필수 정보를 제공하는 방법이 있다.
+
+아래는 값을 Map 에 저장하는 프로퍼티를 직접 정의하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+class Person1 {
+    // 추가 정보
+    private val attributes = hashMapOf<String, String>()
+
+    fun setAttribute(
+        attrName: String,
+        value: String,
+    ) {
+        attributes[attrName] = value
+    }
+
+    // 필수 정보
+    val name: String
+        get() = attributes["name"]!! // 수동으로 Map 에서 꺼냄
+}
+
+fun main() {
+    val p = Person1()
+    val data = mapOf("name" to "Assu", "addr" to "Seoul")
+
+    for ((attrName, value) in data) {
+        p.setAttribute(attrName, value)
+    }
+
+    println(p.name) // Assu
+}
+```
+
+위임 프로퍼티를 활용하면 위의 코드를 간결하게 리팩토링할 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap07
+
+class Person2 {
+    private val attributes = hashMapOf<String, String>()
+
+    fun setAttribute(
+        attrName: String,
+        value: String,
+    ) {
+        attributes[attrName] = value
+    }
+
+    // 위임 프로퍼티로 Map 을 사용
+    val name: String by attributes
+}
+
+fun main() {
+    val p = Person2()
+    val data = mapOf("name" to "Assu", "addr" to "Seoul")
+
+    for ((attrName, value) in data) {
+        p.setAttribute(attrName, value)
+    }
+
+    println(p.name) // Assu
+}
+```
+
+위 코드가 동작하는 이유는 표준 라이브러리가 Map 과 MutableMap 인터페이스에 대해 `getValue()` 와 `setValue()` 확장 함수를 제공하기 때문이다.
+
+Map 에 프로퍼티 값을 저장할 때 자동으로 프로퍼티 이름을 key 로 활용한다.
+
+_p.name_ 은 _attributes.getValue(p, prop)_ 이라는 호출을 대신하고, _attributes.getValue(p, prop)_ 은 다시 _attributes[prop.name]_ 을 통해 구현된다.
 
 ---
 
