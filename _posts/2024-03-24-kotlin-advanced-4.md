@@ -704,6 +704,13 @@ class People(
         }
 }
 ```
+_People_ 코드에서 `field` 키워드를 사용하여 _age_, _salary_ 프로퍼티의 `backing field` 에 접근한다.
+
+> 프로퍼티 접근자 `field` 에 대한 내용은 [9. 프로퍼티 접근자: `field`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90-field) 를 참고하세요.
+
+setter 코드에 중복이 많이 보이는 것을 알 수 있다.
+
+이제 프로퍼티의 값을 저장하고 필요에 따라 통지를 보내주는 클래스를 추출해보자.
 
 main 에서 실행
 
@@ -720,14 +727,6 @@ fun main() {
     p.salary = 200 // Property salary changed from 100 to 200
 }
 ```
-
-_People_ 코드에서 `field` 키워드를 사용하여 _age_, _salary_ 프로퍼티의 `backing-field` 에 접근한다.
-
-> 프로퍼티 접근자 `field` 에 대한 내용은 [9. 프로퍼티 접근자: `field`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90-field) 를 참고하세요.
-
-setter 코드에 중복이 많이 보이는 것을 알 수 있다.
-
-이제 프로퍼티의 값을 저장하고 필요에 따라 통지를 보내주는 클래스를 추출해보자.
 
 ---
 

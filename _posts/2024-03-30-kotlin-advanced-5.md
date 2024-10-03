@@ -23,6 +23,10 @@ tags: kotlin lazy() lateinit .isInitialized backing-field backing-property
   * [2.1. `lateinit`](#21-lateinit)
   * [2.2. `.isInitialized`](#22-isinitialized)
 * [3. `backing field` 와 `backing property`](#3-backing-field-와-backing-property)
+  * [3.1. `backing field`](#31-backing-field)
+  * [3.2. `backing property`](#32-backing-property)
+  * [3.3. `backing field` 와 `backing property` 차이](#33-backing-field-와-backing-property-차이)
+  * [3.4. `backing property` 를 사용하는 경우](#34-backing-property-를-사용하는-경우)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -462,7 +466,200 @@ fun main() {
 
 # 3. `backing field` 와 `backing property`
 
-https://colour-my-memories-blue.tistory.com/6
+자바에서의 프로퍼티와 코틀린에서의 프로퍼티의 의미를 비교해보자.
+
+<**자바에서의 프로퍼티**>  
+- 필드와 접근자 메서드 (getter/setter) 를 묶어서 프로퍼티라 함
+- 프로퍼티라는 개념이 생긴 이유는 데이터를 캡슐화하려는 목적과 연관이 있음
+- 자바 클래스는 기본적으로 필드를 private 로 설정하고 외부에서 값을 가져오거나 변경할 때 getter/setter 를 제공함
+- 이를 통해 캡슐화된 클래스의 고유한 기능은 유지하면서 클라이언트의 요구에 따라 속성값을 확인하거나 변경할 수 있도록 해줌
+
+<**코틀린에서의 프로퍼티**>  
+- 코틀린에서는 필드에 대한 기본 접근자 메서드를 자동으로 만들어주기 때문에 필드 대신 프로퍼티라는 말을 사용함
+- 원한다면 접근자 메서드를 명시적으로 선언할 수도 있음
+
+---
+
+## 3.1. `backing field`
+
+**`backing field` 는 프로퍼티의 값을 저장하기 위한 필드**이다.
+
+코틀린에서 필드는 메모리에 값을 보관하기 위한 프로퍼티의 일부로서만 사용된다.
+
+**`backing field` 는 `field` 식별자를 사용하여 getter/setter 접근자에서 참조 가능**하다.
+
+코틀린에서는 필드를 바로 선언할 수 없고, 프로퍼티로 선언하면 아래의 경우에 자동으로 `backing field` 가 생긴다.
+
+- **프로퍼티가 적어도 하나의 접근자 (getter/setter) 의 기본 구현을 사용** 하는 경우
+- **커스텀 접근자가 `field` 식별자를 통해 해당 접근자를 참조** 하는 경우
+
+> 커스텀 접근자에 대한 좀 더 상세한 내용은 [9. 프로퍼티 접근자: `field`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#9-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC%EC%9E%90-field) 를 참고하세요.
+
+커스텀 setter 에 대한 코틀린 코드
+
+```kotlin
+class A {
+    var counter = 0 // 
+      set(value) {
+          if (value > 0) {
+              field = value // field 를 사용하여 counter 의 backing field 에 접근
+          } 
+      }
+}
+```
+
+위 코드를 보면 _counter_ 프로퍼티를 만들어 0 으로 초기값을 설정하였다.  
+setter 에서 값을 검증한 후 _field = value_ 를 통해 _counter_ 의 값을 변경한다.
+
+`field` 식별자는 오직 프로퍼티 접근자인 getter/setter 에서만 사용 가능하다.
+
+자바로 변환한 코드
+
+```java
+public final class A {
+    private int counter;
+    
+    public final int getCounter() {
+        return this.counter;
+    }
+    
+    public final void setCounter(int value) {
+        if (value > 0) {
+            this.counter = value;
+        }
+    }
+}
+```
+
+자바로 변환한 코드를 보면 _counter_ 필드가 생성되어 있고, getter/setter 가 따로 생성되었다.
+
+즉, 코틀린이 프로퍼티 값을 저장하기 위해서는 자바의 필드가 필요한데 이렇게 **프로퍼티 값을 저장하기 위한 필드를 `backing field`** 라고 한다.
+
+---
+
+아래는 `backing field` 를 사용하지 않는 경우에 대한 예시이다.
+
+`backing field` 를 사용하지 않는 경우 코틀린 코드
+
+```kotlin
+class A {
+    var size = 0
+    var isEmpty: Boolean    // backing field 가 생성되지 않는 경우
+        get() = this.size == 0
+}
+```
+
+자바로 변환한 코드
+
+```java
+public final class A {
+    private int size;
+    
+    // isEmpty 에 대한 필드가 생성되지 않음
+  
+    public final int getSize() {
+        return this.size;
+    }
+    
+    public final void setSize(int val1) {
+        this.size = val1;
+    }
+    
+    public final boolean isEmpty() {
+        return this.size == 0;
+    }
+}
+```
+
+위 코드를 보면 _isEmpty_ 프로퍼티는 메모리에 아무런 값도 저장하지 않는다.  
+따라서 _size_ 와 달리 getter 만 존재하며 필드가 생성되지 않는다.
+
+---
+
+## 3.2. `backing property`
+
+`backing field` 는 필요에 따라 커스텀 getter/setter 를 만드는 경우에도 제약이 존재한다.  
+getter 는 반환 타입이 반드시 프로퍼티의 타입과 같아야 하기 때문이다.
+
+`backing property` 는 prefix 로 `_` 를 붙인다.
+
+아래 코드에서 _result_ 를 가변이 아닌 불변 리스트로 넘기고 싶어도 반환 타입이 무조건 MutableList 이어야 하기 때문에 불가능하다.
+
+```kotlin
+private var result: MutableList<List<String>> = mutableListOf()
+    private set
+```
+
+이럴 경우 아래와 같이 `backing property` 를 사용하면 _result_ 를 불변 리스트로 반환할 수 있다.
+
+```kotlin
+private var _result: MutableList<List<String>> = mutableListOf()
+
+val result: List<List<String>>
+  get() = _result
+```
+
+이렇게 **`backing field` 타입에 맞지 않는 작업을 수행할 때 `backing property` 를 사용하여 이를 가능**하게 할 수 있다.
+
+---
+
+## 3.3. `backing field` 와 `backing property` 차이
+
+`backing field`
+
+```kotlin
+var table: Map<String, Int>? = null 
+    private set 
+    get() {
+      if (field == null) {
+          field = HashMap()
+      }
+      return field ?: throw AssertionError()
+  }
+```
+
+`backing property`
+
+```kotlin
+private var _table: Map<String, Int>? = null 
+
+public val table: Map<String, Int>
+  get() {
+      if (_table == null) {
+          _table = HashMap()
+      }
+        return _table ?: AssertionError()
+  }
+```
+
+위 2개의 코드는 근본적으로는 다르지 않다.
+
+`backing property` 를 사용했을 때는 `backing field` 를 사용하지 않을 수 있다.
+
+---
+
+## 3.4. `backing property` 를 사용하는 경우
+
+아래 2개의 코드를 보자.
+
+```kotlin
+var count: Int = 0
+    private set
+```
+
+_count_ 는 값을 반환할 때 추가적인 작업이 필요하지 않기 때문에 
+기본 getter 로 바로 값을 반환하는 것과 `backing property` 를 이용하여 getter 를 직접 명시해주는 것에 차이가 없다.
+
+```kotlin
+private var _result: MutableList<List<String>> = mutableListOf()
+
+val result: List<List<String>>
+  get() = _result
+```
+
+반면, _result_ 는 기본 getter 로 값을 반환하면 가변인 mutableList 로 반환된다.
+
+이럴 때 `backing property` 를 만들어서 내부에서는 값이 변경되지만 getter 를 통해 값을 넘겨줄 때는 불변 List 로 변경하여 넘길 수 있다.
 
 ---
 
@@ -479,3 +676,5 @@ https://colour-my-memories-blue.tistory.com/6
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
 * [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)
 * [Backing Field와 Backing Properties](https://colour-my-memories-blue.tistory.com/6)
+* [Kotlin doc: backing-fields](https://kotlinlang.org/docs/properties.html#backing-fields)
+* [Kotlin doc: backing-properties](https://kotlinlang.org/docs/properties.html#backing-properties)
