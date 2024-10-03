@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin - 프로퍼티 위임, 'ReadOnlyProperty', 'ReadWriteProperty', 프로퍼티 위임 도구 (Delegates.observable(), Delegates.vetoable(), Delegates.notNull())"
+title:  "Kotlin - 프로퍼티 위임, 'ReadOnlyProperty', 'ReadWriteProperty', 프로퍼티 위임 도구 (Delegates.observable(), Delegates.vetoable(), Delegates.notNull()), 위임 프로퍼티 컴파일"
 date: 2024-03-24
 categories: dev
 tags: kotlin KProperty ReadOnlyProperty ReadWriteProperty Delegates.observable() Delegates.vetoable() Delegates.notNull()
@@ -33,6 +33,7 @@ tags: kotlin KProperty ReadOnlyProperty ReadWriteProperty Delegates.observable()
     * [2.2.4. 위임 프로퍼티 `by` 와 `Delegates.observable()` 를 사용하여 값 추적](#224-위임-프로퍼티-by-와-delegatesobservable-를-사용하여-값-추적)
   * [2.3. `Delegates.vetoable()`](#23-delegatesvetoable)
   * [2.4. `Delegates.notNull()`](#24-delegatesnotnull)
+* [3. 위임 프로퍼티 컴파일 규칙](#3-위임-프로퍼티-컴파일-규칙)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -1136,6 +1137,57 @@ fun main() {
     println(non.nn) // 1
 }
 ```
+
+---
+
+# 3. 위임 프로퍼티 컴파일 규칙
+
+여기서는 위임 프로퍼티가 어떤 방식으로 동작하는지에 대해 알아본다.
+
+위임 프로퍼티가 있는 클래스
+
+```kotlin
+class C {
+    var prop: Type by MyDelegate()
+}
+
+val c = C()
+```
+
+컴파일러는 _MyDelegate_ 클래스의 인스턴스를 감춰진 프로퍼티에 저장하고, 그 감춰진 프로퍼티를 `<delegate>` 라고 한다.
+
+또한 프로퍼티를 표현하기 위해 `KProperty` 타입의 객체를 사용하여, 그 객체를 `<property>` 라고 한다.
+
+위의 클래스에 대해 컴파일러는 아래의 코드를 생성한다.
+
+```kotlin
+class C {
+    private var <delegate> = MyDelegate()
+    var prop: Type
+        get() = <delegate>.getValue(this, <property>)
+        set(value: Type) = <delegate>.setValue(this, <property>, value)
+}
+```
+
+즉, 컴파일러는 모든 프로퍼티 접근자에 대해 `getValue()`, `setValue()` 호출 코드를 생성해준다.
+
+```kotlin
+val x = c.prop
+
+// 아래의 getValue() 호출코드 생성
+val x = <delegate>.getValue(c, <property>)
+```
+
+```kotlin
+c.prop = x 
+
+// 아래의 setValue() 호출코드 생성
+<delegate>.setValue(c, <property>, x)
+```
+
+위의 메커니즘을 이용하여 프로퍼티 값이 저장될 장소를 바꿀 수도 있고 (맵, DB, 쿠키 등), 프로퍼티를 읽거나 쓸 때 벌어지는 일을 변경할 수도 있다. (값 검증, 변경 통지 등)
+
+이 모든 일을 간결한 코드로 달성할 수 있다.
 
 ---
 
