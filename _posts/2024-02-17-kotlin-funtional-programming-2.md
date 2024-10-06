@@ -19,7 +19,7 @@ tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() 
   * [1.1. 함수 타입](#11-함수-타입)
   * [1.2. 함수 인자로 람다나 함수 참조 전달](#12-함수-인자로-람다나-함수-참조-전달)
   * [1.3. 디폴트 값을 지정한 함수 타입 파라메터](#13-디폴트-값을-지정한-함수-타입-파라메터)
-  * [1.5. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`](#15-함수의-반환-타입이-null-인-타입-tointornull-mapnotnull)
+  * [1.4. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`](#14-함수의-반환-타입이-null-인-타입-tointornull-mapnotnull)
   * [1.5. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable](#15-반환-타입이-nullable-타입-vs-함수-전체의-타입이-nullable)
 * [2. 리스트 조작](#2-리스트-조작)
   * [2.1. 묶기 (Zipping): `zip()`, `zipWithNext()`](#21-묶기-zipping-zip-zipwithnext)
@@ -360,7 +360,7 @@ fun main() {
 
 ---
 
-## 1.5. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`
+## 1.4. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`
 
 ```kotlin
 fun main() {
