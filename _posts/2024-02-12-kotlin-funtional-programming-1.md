@@ -267,6 +267,182 @@ fun main() {
 
 함수가 훨씬 간결해진 것을 확인할 수 있다.
 
+[함수 타입](https://assu10.github.io/dev/2024/02/17/kotlin-funtional-programming-2/#11-%ED%95%A8%EC%88%98-%ED%83%80%EC%9E%85)과 람다식은 재활용하기 좋은 코드를 만들 때 매우 유용하다.
+
+예를 들어 웹 사이트 방문 기록의 경우 사이트 경로, 사용자 OS 등등의 정보가 있고 여기서 필요한 통계를 추출해야 하는 경우를 보자.
+
+아래는 하드 코딩한 필터를 사용하여 데이터를 분석하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class SiteVisit(
+    val path: String,
+    val duration: Double, // 사이트에 머문 시간
+    val os: OS,
+)
+
+enum class OS {
+    WINDOWS,
+    LINUX,
+    MAC,
+    IOS,
+    ANDROID,
+}
+
+val log =
+    listOf(
+        SiteVisit("/", 34.0, OS.WINDOWS),
+        SiteVisit("/", 22.0, OS.MAC),
+        SiteVisit("/login", 12.0, OS.WINDOWS),
+        SiteVisit("/signup", 8.0, OS.IOS),
+        SiteVisit("/", 16.3, OS.ANDROID),
+    )
+
+// 윈도우 사용자에 대해 머문 시간의 평균을 하드 코딩한 필터를 사용하여 분석
+val averageWindowsDuration =
+    log
+        .filter { it.os == OS.WINDOWS }
+        .map(SiteVisit::duration)
+        .average()
+
+fun main() {
+    // 23.0
+    println(averageWindowsDuration)
+}
+```
+
+MAC 운영 체제 사용자에 대해서도 같은 통계를 구하려면 _averageWindowsDuration_ 와 비슷한 필터를 또 만들어야 한다.
+
+아래는 중복을 피하기 위해 일반 함수를 통해 중복을 제거한 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class SiteVisit1(
+    val path: String,
+    val duration: Double, // 사이트에 머문 시간
+    val os: OS1,
+)
+
+enum class OS1 {
+    WINDOWS,
+    LINUX,
+    MAC,
+    IOS,
+    ANDROID,
+}
+
+val log1 =
+    listOf(
+        SiteVisit1("/", 34.0, OS1.WINDOWS),
+        SiteVisit1("/", 22.0, OS1.MAC),
+        SiteVisit1("/login", 12.0, OS1.WINDOWS),
+        SiteVisit1("/signup", 8.0, OS1.IOS),
+        SiteVisit1("/", 16.3, OS1.ANDROID),
+    )
+
+// 중복 코드를 별도 함수로 추출하여 확장 함수 선언
+fun List<SiteVisit1>.averageDurationFor(os: OS1) =
+    filter { it.os == os }
+        .map(SiteVisit1::duration)
+        .average()
+
+fun main() {
+    // 22.0
+    println(log1.averageDurationFor(OS1.MAC))
+}
+```
+
+확장 함수로 불필요한 중복을 제거하여 가독성이 훨씬 좋아졌다.
+
+하지만 만일 모바일 디바이스 사용자의 평균 방문 시간을 구하고 싶다면 아래와 같이 또 하드코딩한 필터를 사용해야 한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class SiteVisit2(
+    val path: String,
+    val duration: Double, // 사이트에 머문 시간
+    val os: OS2,
+)
+
+enum class OS2 {
+    WINDOWS,
+    LINUX,
+    MAC,
+    IOS,
+    ANDROID,
+}
+
+val log2 =
+    listOf(
+        SiteVisit2("/", 34.0, OS2.WINDOWS),
+        SiteVisit2("/", 22.0, OS2.MAC),
+        SiteVisit2("/login", 12.0, OS2.WINDOWS),
+        SiteVisit2("/signup", 8.0, OS2.IOS),
+        SiteVisit2("/", 16.3, OS2.ANDROID),
+    )
+
+// 모바일 디바이스 사용자의 평균 방문 시간 (하드 코딩이 들어감)
+val averageMobileDuration =
+    log2
+        .filter { it.os in setOf(OS2.IOS, OS2.ANDROID) }
+        .map(SiteVisit2::duration)
+        .average()
+
+fun main() {
+    // 12.15
+    println(averageMobileDuration)
+}
+```
+
+만일 여기서 IOS 사용자의 '/signup' 페이지의 방문 시간 구하기 와 같은 복잡한 질의를 사용하려면 또 그에 맞는 함수를 만들어야 한다.
+
+이럴 때 람다가 유용하다.
+
+함수 타입을 사용하면 필요한 조건을 파라메터로 뽑아낼 수 있다.
+
+아래는 고차 함수를 사용하여 중복을 제거한 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class SiteVisit3(
+    val path: String,
+    val duration: Double, // 사이트에 머문 시간
+    val os: OS3,
+)
+
+enum class OS3 {
+    WINDOWS,
+    LINUX,
+    MAC,
+    IOS,
+    ANDROID,
+}
+
+val log3 =
+    listOf(
+        SiteVisit3("/", 34.0, OS3.WINDOWS),
+        SiteVisit3("/", 22.0, OS3.MAC),
+        SiteVisit3("/login", 12.0, OS3.WINDOWS),
+        SiteVisit3("/signup", 8.0, OS3.IOS),
+        SiteVisit3("/", 16.3, OS3.ANDROID),
+    )
+
+// 고차 함수를 이용하여 중복 제거
+fun List<SiteVisit3>.averageDurationFor(predicate: (SiteVisit3) -> Boolean) = filter(predicate).map(SiteVisit3::duration).average()
+
+fun main() {
+    // 12.15
+    println(log3.averageDurationFor { it.os in setOf(OS3.IOS, OS3.ANDROID) })
+
+    // 8.0
+    println(log3.averageDurationFor { it.os == OS3.IOS && it.path == "/signup" })
+}
+```
+
 ---
 
 ## 1.7. 람다를 변수에 담기
