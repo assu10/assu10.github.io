@@ -18,9 +18,9 @@ tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() 
 * [1. 고차 함수 (high-order function)](#1-고차-함수-high-order-function)
   * [1.1. 함수 타입](#11-함수-타입)
   * [1.2. 함수 인자로 람다나 함수 참조 전달](#12-함수-인자로-람다나-함수-참조-전달)
-  * [1.3. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`](#13-함수의-반환-타입이-null-인-타입-tointornull-mapnotnull)
-  * [1.4. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable](#14-반환-타입이-nullable-타입-vs-함수-전체의-타입이-nullable)
-  * [1.5. 디폴트 값을 지정한 함수 타입 파라메터](#15-디폴트-값을-지정한-함수-타입-파라메터)
+  * [1.3. 디폴트 값을 지정한 함수 타입 파라메터](#13-디폴트-값을-지정한-함수-타입-파라메터)
+  * [1.5. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`](#15-함수의-반환-타입이-null-인-타입-tointornull-mapnotnull)
+  * [1.5. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable](#15-반환-타입이-nullable-타입-vs-함수-전체의-타입이-nullable)
 * [2. 리스트 조작](#2-리스트-조작)
   * [2.1. 묶기 (Zipping): `zip()`, `zipWithNext()`](#21-묶기-zipping-zip-zipwithnext)
   * [2.2. 평평하게 하기 (Flattening)](#22-평평하게-하기-flattening)
@@ -257,81 +257,7 @@ fun main() {
 
 ---
 
-## 1.3. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`
-
-```kotlin
-fun main() {
-    // 리턴값이 null 이 될 수도 있음
-    val trans: (String) -> Int? =
-        { s: String -> s.toIntOrNull() }
-
-    val result1 = trans("123")
-    val result2 = trans("abc")
-
-    println(result1) // 123
-    println(result2) // null
-
-    val x = listOf("123", "abc")
-  
-    val result3 = x.mapNotNull(trans)
-    val result4 = x.mapNotNull { it.toIntOrNull() }
-  
-    println(result3) // [123]
-    println(result4) // [123]
-}
-```
-
-- `toIntOrNull()`
-  - null 을 반환할 수 있음
-- `mapNotNull()`
-  - List 의 각 원소를 null 이 될 수 있는 값으로 변환 후 변환 결과에서 null 을 제외시킴
-  - `map()` 을 호출하여 얻은 결과 리스트에서 `filterNotNull()` 을 호출한 것과 동일함
-
----
-
-## 1.4. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable
-
-다른 함수처럼 함수 타입에서도 반환 타입이 null 이 될 수 있는 타입으로 지정할 수 있다.
-
-```kotlin
-// 반환 타입이 null
-val canReturnNull: (Int, Int) -> Int? = { x, y -> null }
-```
-
-함수 전체의 타입이 null 이 될 수 있는 타입 변수를 정의할 수도 있다.
-
-```kotlin
-// 함수 타입이 null 일 수 있음
-val funOrNull: ((Int, Int) -> Int)? = null
-```
-
-
-```kotlin
-fun main() {
-    // 반환 타입을 nullable 타입으로 만듦
-    val returnTypeNullable: (String) -> Int? = { null }
-
-    // 함수 전체의 타입을 nullable 타입으로 만듦
-    val mightBeNull: ((String) -> Int)? = null
-
-    val result1 = returnTypeNullable("abc")
-
-    // 컴파일 오류, Reference has a nullable type '((String) -> Int)?', use explicit '?.invoke()' to make a function-like call instead
-    
-    // val result2 = mightBeNull("abc")
-
-    // if 문을 통해 명시적으로 null 검사를 한 것과 같음
-    // mightBeNull 에 저장된 함수를 호출하기 전에 함수 참조 자체가 null 이 아닌지 반드시 검사해야 함
-    val result2 = mightBeNull?.let { it("abc") }
-
-    println(result1) // null
-    println(result2) // null
-}
-```
-
----
-
-## 1.5. 디폴트 값을 지정한 함수 타입 파라메터
+## 1.3. 디폴트 값을 지정한 함수 타입 파라메터
 
 파라메터를 함수 타입으로 선언할 때도 디폴트 값을 정할 수 있다.
 
@@ -431,6 +357,152 @@ fun main() {
 
 위의 _joinToString2()_ 는 제네릭 함수이다.  
 따라서 컬렉션의 원소 타입을 표현하는 `T` 를 타입 파라메터로 받고, _transform_ 람다는 그 `T` 타입의 값을 인자로 받는다.
+
+---
+
+## 1.5. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`
+
+```kotlin
+fun main() {
+    // 리턴값이 null 이 될 수도 있음
+    val trans: (String) -> Int? =
+        { s: String -> s.toIntOrNull() }
+
+    val result1 = trans("123")
+    val result2 = trans("abc")
+
+    println(result1) // 123
+    println(result2) // null
+
+    val x = listOf("123", "abc")
+  
+    val result3 = x.mapNotNull(trans)
+    val result4 = x.mapNotNull { it.toIntOrNull() }
+  
+    println(result3) // [123]
+    println(result4) // [123]
+}
+```
+
+- `toIntOrNull()`
+  - null 을 반환할 수 있음
+- `mapNotNull()`
+  - List 의 각 원소를 null 이 될 수 있는 값으로 변환 후 변환 결과에서 null 을 제외시킴
+  - `map()` 을 호출하여 얻은 결과 리스트에서 `filterNotNull()` 을 호출한 것과 동일함
+
+---
+
+## 1.5. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable
+
+다른 함수처럼 함수 타입에서도 반환 타입이 null 이 될 수 있는 타입으로 지정할 수 있다.
+
+```kotlin
+// 반환 타입이 null
+val canReturnNull: (Int, Int) -> Int? = { x, y -> null }
+```
+
+함수 전체의 타입이 null 이 될 수 있는 타입 변수를 정의할 수도 있다.
+
+```kotlin
+// 함수 타입이 null 일 수 있음
+val funOrNull: ((Int, Int) -> Int)? = null
+```
+
+```kotlin
+fun main() {
+    // 반환 타입을 nullable 타입으로 만듦
+    val returnTypeNullable: (String) -> Int? = { null }
+
+    // 함수 전체의 타입을 nullable 타입으로 만듦
+    val mightBeNull: ((String) -> Int)? = null
+
+    val result1 = returnTypeNullable("abc")
+
+    // 컴파일 오류, Reference has a nullable type '((String) -> Int)?', use explicit '?.invoke()' to make a function-like call instead
+    
+    // val result2 = mightBeNull("abc")
+
+    // if 문을 통해 명시적으로 null 검사를 한 것과 같음
+    // mightBeNull 에 저장된 함수를 호출하기 전에 함수 참조 자체가 null 이 아닌지 반드시 검사해야 함
+    val result2 = mightBeNull?.let { it("abc") }
+
+    println(result1) // null
+    println(result2) // null
+}
+```
+
+null 이 될 수 있는 함수 타입으로 함수를 받으면 그 함수를 직접 호출할 수 없다.
+
+아래처럼 null 여부를 명시적으로 검사하는 것도 방법이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+fun foo(callback: (() -> Unit)?) {
+    // ...
+    
+    if (callback != null) {
+        callback()
+    }
+}
+```
+
+하지만 함수 타입이 `invoke()` 메서드를 구현하는 인터페이스라는 점을 활용하면 위를 더 간결하게 만들 수 있다.
+
+일반 메서드처럼 `invoke()` 도 안전한 호출 구문 `?.` 을 사용하여 `callback?.invoke()` 처럼 호출할 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+// Collection<T> 에 대한 확장 함수 선언
+fun <T> Collection<T>.joinToString3(
+    separator: String = ", ", // 디폴트 파라메터값들 선언
+    prefix: String = "",
+    postfix: String = "",
+    // 함수 타입 파라메터를 선언하면서 람다를 디폴트값으로 지정
+    // null 이 될 수 있는 함수 타입의 파라메터 선언
+    transform: ((T) -> String)? = null,
+): String {
+    val result = StringBuilder(prefix)
+
+    // this 는 수신 객체를 가리킴
+    // 여기서는 T 타입의 원소로 이루어진 컬렉션
+    for ((index, ele) in this.withIndex()) {
+        if (index > 0) {
+            result.append(separator)
+        }
+
+        // 안전한 호출을 사용하여 함수 호출
+        // 람다로 인자를 받지 않은 경우도 함께 처리
+        val str = transform?.invoke(ele) ?: ele.toString()
+
+        result.append(str)
+    }
+    result.append(postfix)
+    return result.toString()
+}
+
+fun main() {
+    val list = listOf(1, 2, 3)
+
+    // 1, 2, 3
+    println(list.joinToString3())
+
+    // (1; 2; 3)
+    println(list.joinToString3(separator = "; ", prefix = "(", postfix = ")"))
+
+    val letters = listOf("Alpha", "Beta")
+
+    // 디폴트 변환 함수 사용
+    println(letters.joinToString3()) // Alpha, Beta
+
+    // 람다를 인자로 전달
+    println(letters.joinToString3 { it.lowercase() }) // alpha, beta
+
+    // 이름 붙인 인자 구문을 사용하여 람다를 포함하는 여러 인자 전달
+    println(letters.joinToString3(separator = "! ", postfix = "~ ", transform = { it.uppercase() })) // ALPHA! BETA~
+}
+```
 
 ---
 
