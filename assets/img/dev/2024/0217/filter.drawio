@@ -1,0 +1,43 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="Jpci7oJ8MIjS0PFKQq6F">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-1" value="&lt;div style=&quot;background-color:#ffffff;color:#080808&quot;&gt;&lt;pre style=&quot;font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:9.8pt;&quot;&gt;&lt;span style=&quot;color:#0033b3;&quot;&gt;fun &lt;/span&gt;&lt;span style=&quot;color:#000000;&quot;&gt;String&lt;/span&gt;.&lt;span style=&quot;color:#00627a;&quot;&gt;filter&lt;/span&gt;&lt;span style=&quot;color:#3f9101;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#000000;&quot;&gt;predicate&lt;/span&gt;: &lt;span style=&quot;color:#0e4a8e;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#000000;&quot;&gt;Char&lt;/span&gt;&lt;span style=&quot;color:#0e4a8e;&quot;&gt;) &lt;/span&gt;-&amp;gt; &lt;span style=&quot;color:#000000;&quot;&gt;Boolean&lt;/span&gt;&lt;span style=&quot;color:#3f9101;&quot;&gt;) &lt;/span&gt;: &lt;span style=&quot;color:#000000;&quot;&gt;String&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="180" y="190" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-2" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;rotation=90;" vertex="1" parent="1">
+          <mxGeometry x="238.13" y="210.88" width="25" height="47.25" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-5" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;rotation=90;" vertex="1" parent="1">
+          <mxGeometry x="358.88" y="200.88" width="25" height="67.25" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-6" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;rotation=90;" vertex="1" parent="1">
+          <mxGeometry x="480.94" y="166.94" width="25" height="135.13" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-7" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="433.38" y="165.63" width="25" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-8" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="516.04" y="158.78" width="25" height="54.21" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-9" value="수신 객체 타입" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="205.63" y="248.13" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-10" value="파라메터 이름" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="324" y="248.13" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-11" value="파라메터 함수 타입" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="437.66" y="248.13" width="111.56" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-12" value="파라메터로 받는 함수의 파라메터 타입" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="140.63" width="126.12" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="O3XPt2Hrfpgtt8cFL7RL-14" value="파라메터로 받는 함수의 반환 타입" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="502.93999999999994" y="140.63" width="126.12" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

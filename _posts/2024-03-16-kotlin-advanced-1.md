@@ -390,7 +390,7 @@ private fun messy(): String {
 }
 
 // buildString() 으로 문자열 생성
-// append() 호출의 수신 책게를 직접 만들고 관리할 필요가 없음
+// append() 호출의 수신 객체를 직접 만들고 관리할 필요가 없음
 private fun clean(): String =
     buildString {
         append("ABCs: ")

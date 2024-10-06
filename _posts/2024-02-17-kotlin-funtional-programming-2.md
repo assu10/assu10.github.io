@@ -125,6 +125,63 @@ val sum: (Int, Int) -> Int = { x, y -> x + y }
 
 함수가 함수 파라메터를 받는 경우 인자로 람다나 함수 참조를 전달할 수 있다.
 
+아래는 간단한 고차 함수를 정의하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+// 함수 타입인 파라메터를 선언
+fun twoAndThree(operation: (Int, Int) -> Int) {
+    
+    // 함수 타입인 파라메터를 호출
+    val result = operation(2, 3)
+    println("result: $result")
+}
+
+fun main() {
+    // result: 5
+    twoAndThree { a, b -> a + b }
+
+    // result: 6
+    twoAndThree { a, b -> a * b }
+}
+```
+
+아래는 표준 라이브러리인 `filter()` 를 직접 구현하는 예시이다.
+
+예시의 단순성을 위해 String 에 대한 `filter()` 를 구현해본다.
+
+![Predicate 함수를 파라메터로 받는 filter 함수 정의](/assets/img/dev/2024/0217/filter.png)
+
+위의 _filter_ 함수는 Predicate 를 술어로 받는다.  
+_predicate_ 파라메터는 문자(Char) 를 파라메터로 받은 후 Boolean 을 반환한다.  
+Predicate 는 인자로 받은 문자가 _filter_ 함수가 돌려주는 결과 문자열에 있으면 true 를 반환하고, 문자열에 없으면 false 를 반환한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+// 문자열의 각 문자를 Predicate 로 넘겨서 반환값이 true 이면 결과에 그 문자를 추가
+fun String.filter(predicate: (Char) -> Boolean): String {
+    val sb = StringBuilder()
+    for (index in indices) {
+        val ele = get(index)
+        // predicate 파라메터로 전달받은 함수 호출
+        if (predicate(ele)) {
+            sb.append(ele)
+        }
+    }
+    return sb.toString()
+}
+
+fun main() {
+    // 람다를 predicate 파라메터로 전달
+    println("abcf".filter { it in 'a'..'z' }) // abcf
+    println("abcㄹ".filter { it in 'a'..'z' }) // abc
+}
+```
+
+---
+
 아래는 표준 라이브러리의 `any()` 를 직접 구현하는 예시이다.
 
 ```kotlin
