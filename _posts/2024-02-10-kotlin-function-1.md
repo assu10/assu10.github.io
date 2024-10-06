@@ -1340,7 +1340,7 @@ for (entry in map.entries) {
 ## 7.3. `withIndex()`
 
 `withIndex()` 는 표준 라이브러리가 List 에 대해 제공하는 확장 함수이다.  
-`withIndex()` 는 컬렉션의 값을 `InexedValue` 라는 타입의 객체에 담아서 반환하여 이 객체를 구조 분해할 수 있다.
+`withIndex()` 는 컬렉션의 값을 `IndexedValue` 라는 타입의 객체에 담아서 반환하여 이 객체를 구조 분해할 수 있다.
 
 아래는 `withIndex()` 를 구조 분해 선언과 조합하여 컬렉션 원소의 인덱스와 값을 따로 변수에 담는 예시이다.
 

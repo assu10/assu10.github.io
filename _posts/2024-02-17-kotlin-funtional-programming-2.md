@@ -20,6 +20,7 @@ tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() 
   * [1.2. 함수 인자로 람다나 함수 참조 전달](#12-함수-인자로-람다나-함수-참조-전달)
   * [1.3. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`](#13-함수의-반환-타입이-null-인-타입-tointornull-mapnotnull)
   * [1.4. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable](#14-반환-타입이-nullable-타입-vs-함수-전체의-타입이-nullable)
+  * [1.5. 디폴트 값을 지정한 함수 타입 파라메터](#15-디폴트-값을-지정한-함수-타입-파라메터)
 * [2. 리스트 조작](#2-리스트-조작)
   * [2.1. 묶기 (Zipping): `zip()`, `zipWithNext()`](#21-묶기-zipping-zip-zipwithnext)
   * [2.2. 평평하게 하기 (Flattening)](#22-평평하게-하기-flattening)
@@ -327,6 +328,109 @@ fun main() {
     println(result2) // null
 }
 ```
+
+---
+
+## 1.5. 디폴트 값을 지정한 함수 타입 파라메터
+
+파라메터를 함수 타입으로 선언할 때도 디폴트 값을 정할 수 있다.
+
+아래는 하드 코딩을 통해 `toString()` 사용 관례를 따르는 _joinToString()_ 함수의 구현 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+// Collection<T> 에 대한 확장 함수 선언
+fun <T> Collection<T>.joinToString(
+    separator: String = ", ", // 디폴트 파라메터값들 선언
+    prefix: String = "",
+    postfix: String = "",
+): String {
+    val result = StringBuilder(prefix)
+
+    // this 는 수신 객체를 가리킴
+    // 여기서는 T 타입의 원소로 이루어진 컬렉션
+    for ((index, ele) in this.withIndex()) {
+        if (index > 0) {
+            result.append(separator)
+        }
+        result.append(ele)  // 각 원소의 분자열을 기본 toString() 메서드를 사용하여 객체를 문자열로 변환
+    }
+    result.append(postfix)
+    return result.toString()
+}
+
+fun main() {
+    val list = listOf(1, 2, 3)
+
+    // 1, 2, 3
+    println(list.joinToString())
+
+    // (1; 2; 3)
+    println(list.joinToString(separator = "; ", prefix = "(", postfix = ")"))
+}
+```
+
+위의 구현은 유연하지만 컬렉션의 각 원소를 문자열로 변환하는 방법에 대해 제어할 수 없다는 단점이 있다.
+
+코드는 `StringBuilder.append(o: Any?)` 를 사용하는데 이 함수는 객체를 항상 `toString()` 메서드를 통해 문자열로 바꾼다.
+
+이런 경우 원소를 문자열로 바꾸는 방법을 람다로 전달하면 된다.
+
+하지만 위의 _joinToString()_ 를 호출할 때마다 매번 람다를 넘기게 되면 기본 동작으로도 충분한 대부분의 경우 함수 호출을 오히려 더 불편하게 만들 수 있으므로 
+람다를 전달하기보다 함수 타입의 파라메터에 대한 디폴트 값을 지정하는 것이 더 좋다.
+
+아래는 함수 타입의 파라메터에 대한 디폴트 값으로 람다 식을 넣은 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+// Collection<T> 에 대한 확장 함수 선언
+fun <T> Collection<T>.joinToString2(
+    separator: String = ", ", // 디폴트 파라메터값들 선언
+    prefix: String = "",
+    postfix: String = "",
+    // 함수 타입 파라메터를 선언하면서 람다를 디폴트값으로 지정
+    transform: (T) -> String = { it.toString() },
+): String {
+    val result = StringBuilder(prefix)
+
+    // this 는 수신 객체를 가리킴
+    // 여기서는 T 타입의 원소로 이루어진 컬렉션
+    for ((index, ele) in this.withIndex()) {
+        if (index > 0) {
+            result.append(separator)
+        }
+        result.append(transform(ele))
+    }
+    result.append(postfix)
+    return result.toString()
+}
+
+fun main() {
+    val list = listOf(1, 2, 3)
+
+    // 1, 2, 3
+    println(list.joinToString2())
+
+    // (1; 2; 3)
+    println(list.joinToString2(separator = "; ", prefix = "(", postfix = ")"))
+
+    val letters = listOf("Alpha", "Beta")
+
+    // 디폴트 변환 함수 사용
+    println(letters.joinToString2()) // Alpha, Beta
+
+    // 람다를 인자로 전달
+    println(letters.joinToString2 { it.lowercase() }) // alpha, beta
+
+    // 이름 붙인 인자 구문을 사용하여 람다를 포함하는 여러 인자 전달
+    println(letters.joinToString2(separator = "! ", postfix = "~ ", transform = { it.uppercase() })) // ALPHA! BETA~
+}
+```
+
+위의 _joinToString2()_ 는 제네릭 함수이다.  
+따라서 컬렉션의 원소 타입을 표현하는 `T` 를 타입 파라메터로 받고, _transform_ 람다는 그 `T` 타입의 값을 인자로 받는다.
 
 ---
 
