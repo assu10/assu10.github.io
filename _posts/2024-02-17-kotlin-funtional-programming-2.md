@@ -21,6 +21,7 @@ tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() 
   * [1.3. 디폴트 값을 지정한 함수 타입 파라메터](#13-디폴트-값을-지정한-함수-타입-파라메터)
   * [1.4. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`](#14-함수의-반환-타입이-null-인-타입-tointornull-mapnotnull)
   * [1.5. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable](#15-반환-타입이-nullable-타입-vs-함수-전체의-타입이-nullable)
+  * [1.6. 함수를 함수에서 반환](#16-함수를-함수에서-반환)
 * [2. 리스트 조작](#2-리스트-조작)
   * [2.1. 묶기 (Zipping): `zip()`, `zipWithNext()`](#21-묶기-zipping-zip-zipwithnext)
   * [2.2. 평평하게 하기 (Flattening)](#22-평평하게-하기-flattening)
@@ -503,6 +504,101 @@ fun main() {
     println(letters.joinToString3(separator = "! ", postfix = "~ ", transform = { it.uppercase() })) // ALPHA! BETA~
 }
 ```
+
+---
+
+## 1.6. 함수를 함수에서 반환
+
+함수가 함수를 반환하는 경우보다 함수가 함수를 인자로 받는 경우가 훨씬 더 많지만 그래도 함수를 반환하는 함수도 유용하다.
+
+예를 들어 사용자가 선택한 배송 수단에 따라 배송비를 계산하는 방법이 달라지는 경우 적절한 로직을 선택해서 함수로 반환하는 함수를 정의하여 사용할 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+enum class Delivery { STANDARD, EXPENDED }
+
+data class Order(
+    val itemCount: Int,
+)
+
+// 함수를 반환하는 함수를 선언 (Order 를 받아서 Double 을 반환하는 함수를 반환)
+fun getShippingCostCalculator(delivery: Delivery): (Order) -> Double {
+    if (delivery == Delivery.EXPENDED) {
+        return { order -> order.itemCount * 3.0 }
+    }
+
+    // 함수에서 람다를 반환
+    return { order -> order.itemCount * 2.0 }
+}
+
+fun main() {
+    // 반환받은 함수를 변수에 저장
+    val calculator = getShippingCostCalculator(Delivery.EXPENDED)
+
+    // 반환받은 함수 호출
+
+    // cost: 9.0
+    println("cost: ${calculator(Order(3))}")
+}
+```
+
+함수를 반환하려면 return 식에 람다나 멤버 참조나 함수 타입의 값을 계산하는 식 등을 넣으면 된다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class Person(
+    val firstName: String,
+    val lastName: String,
+    val phoneNumber: String?,
+)
+
+class ContactListFilters {
+    var prefix: String = ""
+    var onlyWithPhoneNumber: Boolean = false
+
+    // 함수를 반환하는 함수를 정의
+    fun getPredicate(): (Person) -> Boolean {
+        val startsWithPrefix = { p: Person ->
+            p.firstName.startsWith(prefix) ||
+                p.lastName.startsWith(prefix)
+        }
+
+        if (!onlyWithPhoneNumber) {
+            // 함수 타입의 변수 반환
+            return startsWithPrefix
+        }
+
+        // 람다 반환
+        return { startsWithPrefix(it) && it.phoneNumber != null }
+    }
+}
+
+fun main() {
+    val contacts =
+        listOf(
+            Person("AAA", "aaa", "123-4567"),
+            Person("BBB", "bbb", null),
+        )
+
+    val contactListFilters = ContactListFilters()
+
+    with(contactListFilters) {
+        prefix = "A"
+        onlyWithPhoneNumber = true
+    }
+
+    // getPredicate() 가 반환한 함수를 filter 에게 인자로 넘김
+
+    // [Person(firstName=AAA, lastName=aaa, phoneNumber=123-4567)]
+    println(contacts.filter(contactListFilters.getPredicate()))
+}
+```
+
+위에서 _getPredicate()_ 메서드는 `filter()` 함수에게 인자로 넘길 수 있는 함수를 반환한다.
+
+> `with()` 영역 함수에 대한 내용은 [2. 영역 함수 (Scope Function): `let()`, `run()`, `with()`, `apply()`, `also()`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#2-%EC%98%81%EC%97%AD-%ED%95%A8%EC%88%98-scope-function-let-run-with-apply-also) 를 참고하세요.
 
 ---
 
