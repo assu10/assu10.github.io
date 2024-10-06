@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Kotlin - 함수형 프로그래밍(2): 고차 함수, 리스트 조작, Map 생성"
+title: "Kotlin - 함수형 프로그래밍(2): 고차 함수, 리스트 조작, Map"
 date: 2024-02-17
 categories: dev
 tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() groupBy() associateWith() associateBy() getOrElse() getOrPut() toMutableMap() filter() filterKeys() filterValues() map() mapKeys() mapValues() any() all() maxByOrNull()
@@ -16,19 +16,20 @@ tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() 
 
 <!-- TOC -->
 * [1. 고차 함수 (high-order function)](#1-고차-함수-high-order-function)
-  * [1.1. 함수 인자로 람다나 함수 참조 전달](#11-함수-인자로-람다나-함수-참조-전달)
-  * [1.2. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`](#12-함수의-반환-타입이-null-인-타입-tointornull-mapnotnull)
-  * [1.3. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable](#13-반환-타입이-nullable-타입-vs-함수-전체의-타입이-nullable)
+  * [1.1. 함수 타입](#11-함수-타입)
+  * [1.2. 함수 인자로 람다나 함수 참조 전달](#12-함수-인자로-람다나-함수-참조-전달)
+  * [1.3. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`](#13-함수의-반환-타입이-null-인-타입-tointornull-mapnotnull)
+  * [1.4. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable](#14-반환-타입이-nullable-타입-vs-함수-전체의-타입이-nullable)
 * [2. 리스트 조작](#2-리스트-조작)
   * [2.1. 묶기 (Zipping): `zip()`, `zipWithNext()`](#21-묶기-zipping-zip-zipwithnext)
   * [2.2. 평평하게 하기 (Flattening)](#22-평평하게-하기-flattening)
     * [2.2.1. `flatten()`](#221-flatten)
     * [2.2.2. `flatMap()`](#222-flatmap)
-* [3. Map 생성](#3-map-생성)
+* [3. Map](#3-map)
   * [3.1. `groupBy()`](#31-groupby)
   * [3.2. `associateWith()`, `associateBy()`](#32-associatewith-associateby)
   * [3.3. `getOrElse()`, `getOrPut()`, `toMutableMap()`](#33-getorelse-getorput-tomutablemap)
-  * [3.4. `filter()`, `filterKeys()`, `filterValues()`](#34-filter-filterkeys-filtervalues)
+  * [3.4. `filter()`, `filterKeys()`, `filterValues()`, `maxBy()`](#34-filter-filterkeys-filtervalues-maxby)
   * [3.5. `map()`, `mapKeys()`, `mapValues()`](#35-map-mapkeys-mapvalues)
   * [3.6. `any()`, `all()`, `maxByOrNull()`](#36-any-all-maxbyornull)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -47,48 +48,82 @@ tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() 
 
 # 1. 고차 함수 (high-order function)
 
-**람다나 다른 함수를 인자로 받거나, 반환값으로 함수를 돌려주는 함수를 고차 함수**라고 한다.
+**람다나 다른 함수를 인자로 받거나 반환값으로 돌려주는 함수를 고차 함수**라고 한다.
 
 예를 들어 `filter()`, `map()`, `any()` 등이 고차 함수이다.
 
-고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합하여 더 복잡한 연산을 쉽게 정의할 수 있다.  
+<**고차 함수의 장점**>
+
+- 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합하여 더 복잡한 연산을 쉽게 정의할 수 있음
+- 고차 함수로 코드를 더 간결하게 만들 수 있음
+- 코드 중복을 없애고 더 나은 추상화를 구축할 수 있음
 
 > 이런 식으로 고차 함수와 단순한 함수를 조합하여 코드를 작성하는 기법을 **컴비네이터 패턴 (Combinator Pattern)** 이라고 부르며,  
 > 컴비네이터 패턴에서 복잡한 연산을 만들기 위해 값이나 함수를 조합할 때 사용하는 고차 함수를 **컴비네이터 (Combinator)** 라고 한다.
 
-람다는 참조에 저장할 수 있다.
+---
+
+## 1.1. 함수 타입
+
+고차 함수를 정의하려면 함수 타입을 먼저 알아야 한다.
+
+람다를 인자로 받은 함수를 정의하려면 먼저 람다 인자 타입을 어떻게 선언할 수 있는지 알아야 한다.
+
+인자 타입을 정의하기 전에 람다를 로컬 변수에 저장하는 예시를 먼저 보자.
 
 ```kotlin
+val sum = { x: Int, y: Int -> x + y }
+val action = { println(1) }
+```
+
+위의 경우 컴파일러는 _sum_, _action_ 이 함수 타입임을 추론한다.
+
+이제 각 변수에 구체적인 타입 선언을 저장해보자. (= 람다를 참조에 저장)
+
+```kotlin
+// Int 파라메터를 2개 받아서 Int 값을 반환하는 함수
+val sum: (Int, Int) -> Int = { x, y -> x + y }
+
+// 아무 인자도 받지 않고 아무 값도 반환하지 않는 함수
+val action: () -> Unit = { println(1) }
+
 // 람다를 저장한 변수의 타입이 함수 타입임
 val isPlus: (Int) -> Boolean = { it > 0 }
 
+val hello: () -> String = { "Hello~" }
+
 fun main() {
-    // isPlus 는 함수를 반환값으로 돌려줌
-    val result = listOf(1, 2, -3).any(isPlus)
-    println(result) // true
+  // isPlus 는 함수를 반환값으로 돌려줌
+  val result = listOf(1, 2, -3).any(isPlus)
+  println(result) // true
+
+  println(hello()) // Hello~
+  println(sum(1, 2)) // 3
 }
 ```
 
-위에서 _(Int) -> Boolean_ 은 함수 타입이다.  
-**함수 타입은 0 개 이상의 파라메터 타입 목록을 둘러싼 괄호로 시작하고, 화살표 `->` 가 따라오며, 화살표 뒤엔 반환 타입**이 온다. 
+**함수 타입**을 정의하려면 **함수 파라메터의 타입을 괄호 안에 넣고, 화살표 `->` 를 추가한 후 함수의 반환 타입을 지정**한다.
 
-참조를 통해 함수를 호출하는 구문은 일반 함수를 호출하는 구문과 동일하다.
+위에서 _(Int) -> Boolean_, _() -> Unit_ 등 은 함수 타입이다.
+
+[`Unit` 타입](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#43-%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%98-void-unit)은 의미 있는 값을 
+반환하지 않는 함수 반환 타입에 사용되는 특별한 타입이다.
+
+그냥 함수를 정의할 때는 함수의 파라메터 목록 뒤에 오는 `Unit` 반환 타입 지정을 생략해도 되지만, 함수 타입을 선언할 때는 반환 타입을 반드시 명시해야 하므로 `Unit` 을 
+지정해주어야 한다.
+
+변수 타입을 함수 타입으로 지정하면 함수 타입에 있는 파라메터로부터 람다의 파라메터 타입을 유추할 수 있으므로 람다 식 안에서 굳이 파라메터 타입을 적을 필요가 없다.
 
 ```kotlin
-val hello: () -> String = { "Hello~" }
+// x, y 의 타입 생략
 val sum: (Int, Int) -> Int = { x, y -> x + y }
-
-fun main() {
-    println(hello()) // Hello~
-    println(sum(1, 2)) // 3
-}
 ```
 
 ---
 
-## 1.1. 함수 인자로 람다나 함수 참조 전달
+## 1.2. 함수 인자로 람다나 함수 참조 전달
 
-함수가 함수 파라메터를 받는 경우 인자로 람다나 함수 참조를 전달할 수 잇다.
+함수가 함수 파라메터를 받는 경우 인자로 람다나 함수 참조를 전달할 수 있다.
 
 아래는 표준 라이브러리의 `any()` 를 직접 구현하는 예시이다.
 
@@ -164,7 +199,7 @@ fun main() {
 
 ---
 
-## 1.2. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`
+## 1.3. 함수의 반환 타입이 null 인 타입: `toIntOrNull()`, `mapNotNull()`
 
 ```kotlin
 fun main() {
@@ -179,8 +214,10 @@ fun main() {
     println(result2) // null
 
     val x = listOf("123", "abc")
+  
     val result3 = x.mapNotNull(trans)
     val result4 = x.mapNotNull { it.toIntOrNull() }
+  
     println(result3) // [123]
     println(result4) // [123]
 }
@@ -194,7 +231,22 @@ fun main() {
 
 ---
 
-## 1.3. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable
+## 1.4. 반환 타입이 nullable 타입 vs 함수 전체의 타입이 nullable
+
+다른 함수처럼 함수 타입에서도 반환 타입이 null 이 될 수 있는 타입으로 지정할 수 있다.
+
+```kotlin
+// 반환 타입이 null
+val canReturnNull: (Int, Int) -> Int? = { x, y -> null }
+```
+
+함수 전체의 타입이 null 이 될 수 있는 타입 변수를 정의할 수도 있다.
+
+```kotlin
+// 함수 타입이 null 일 수 있음
+val funOrNull: ((Int, Int) -> Int)? = null
+```
+
 
 ```kotlin
 fun main() {
@@ -207,6 +259,7 @@ fun main() {
     val result1 = returnTypeNullable("abc")
 
     // 컴파일 오류, Reference has a nullable type '((String) -> Int)?', use explicit '?.invoke()' to make a function-like call instead
+    
     // val result2 = mightBeNull("abc")
 
     // if 문을 통해 명시적으로 null 검사를 한 것과 같음
@@ -485,7 +538,7 @@ fun main() {
 
 ---
 
-# 3. Map 생성
+# 3. Map
 
 Map 을 사용하면 key 를 사용하여 value 에 빠르게 접근할 수 있다.
 
@@ -562,8 +615,10 @@ fun main() {
 **`associateBy()` 는 `associateWith()` 가 생성하는 연관 관계를 반대 방향으로 하여 Map 을 생성**한다.  
 즉, **셀렉터가 반환한 값이 key** 가 된다.
 
-**`associateBy()` 의 셀렉터는 유일한 key 값을 만들어 내야 한다.** 만일 key 값이 유일하지 않으면 원본값 중 일부가 사라진다.  
-만일 key 값이 유일하지 않으면 같은 key 를 가진 value 중 컬렉션에서 맨 나중에 나타나는 원소가 Map 에 포함된다.
+**`associateBy()` 의 셀렉터는 유일한 key 값을 만들어 내야 한다.**
+
+만일 **key 값이 유일하지 않으면 원본값 중 일부가 사라진다.**    
+만일 **key 값이 유일하지 않으면 같은 key 를 가진 value 중 컬렉션에서 맨 나중에 나타나는 원소가 Map 에 포함**된다.
 
 ```kotlin
 data class Person1(
@@ -577,6 +632,10 @@ val ages1 = listOf(20, 2, 20)
 fun people1(): List<Person1> = names1.zip(ages1) { name, age -> Person1(name, age) }
 
 fun main() {
+
+    // [Person1(name=Assu, age=20), Person1(name=Sibly, age=2), Person1(name=JaeHoon, age=20)]
+    println(people1())
+  
     // associateWith() 사용
     val map: Map<Person1, String> = people1().associateWith { it.name }
 
@@ -639,7 +698,8 @@ fun main() {
 
 `filter()` 와 `map()` 은 컬렉션을 활용할 때 기반이 되는 함수이다.
 
-`filter()` 는 컬렉션을 이터레이션하면서 주어진 람다에 각 원소를 넘겨서 람다가 true 를 반환하는 원소만 모아서 새로운 컬렉션을 만든다.  
+`filter()` 는 컬렉션을 이터레이션하면서 주어진 람다에 각 원소를 넘겨서 람다가 true 를 반환하는 원소만 모아서 새로운 컬렉션을 만든다.
+
 `map()` 은 주어진 람다를 컬렉션의 각 원소에 적용한 결과를 모아서 새로운 컬렉션을 만든다.
 
 Map 의 여러 연산은 List 가 제공하는 연산과 겹친다.
