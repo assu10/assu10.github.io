@@ -645,7 +645,7 @@ val kc = c1(A::class)
 
 **`reified` 는 제네릭 함수를 `inline` 으로 선언**해야 한다.
 
-> `inline` 에 대한 좀 더 상세한 내용은 [2.8. 영역 함수의 인라인: `inline`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#28-%EC%98%81%EC%97%AD-%ED%95%A8%EC%88%98%EC%9D%98-%EC%9D%B8%EB%9D%BC%EC%9D%B8-inline) 을 참고하세요.
+> `inline` 에 대한 좀 더 상세한 내용은 [3. `inline`: 람다의 부가 비용 없애기](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#3-inline-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B6%80%EA%B0%80-%EB%B9%84%EC%9A%A9-%EC%97%86%EC%95%A0%EA%B8%B0) 를 참고하세요.
 
 ```kotlin
 import kotlin.reflect.KClass
