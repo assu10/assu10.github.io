@@ -39,6 +39,8 @@ tags: kotlin use() useLines() forEachLine() authCloseable logging kotlin.test ju
 
 # 1. 자원 해제: `use()`
 
+> [1.5. 자원 관리를 위한 `inline` 된 람다 사용: `withLock()`, `use()`](https://assu10.github.io/dev/2024/03/16/kotlin-inline/#15-%EC%9E%90%EC%9B%90-%EA%B4%80%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%9C-inline-%EB%90%9C-%EB%9E%8C%EB%8B%A4-%EC%82%AC%EC%9A%A9-withlock-use) 와 함께 보면 도움이 됩니다.
+
 [1.4. 자원 해제: `finally`](https://assu10.github.io/dev/2024/03/09/kotlin-error-handling-1/#14-%EC%9E%90%EC%9B%90-%ED%95%B4%EC%A0%9C-finally) 에서 본 것처럼 
 `finally` 절은 try 블록이 어떤 식으로 끝나는지 관계없이 자원을 해제해줄 수 있다.
 

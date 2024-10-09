@@ -20,7 +20,7 @@ tags: kotlin inline
   * [1.2. 인라인 함수의 한계: `noinline`](#12-인라인-함수의-한계-noinline)
   * [1.3. 컬렉션 연산 인라이닝](#13-컬렉션-연산-인라이닝)
   * [1.4. 함수를 `inline` 으로 선언해야 하는 경우](#14-함수를-inline-으로-선언해야-하는-경우)
-  * [1.5. 자원 관리를 위한 `inline` 된 람다 사용: `withLock()`](#15-자원-관리를-위한-inline-된-람다-사용-withlock)
+  * [1.5. 자원 관리를 위한 `inline` 된 람다 사용: `withLock()`, `use()`](#15-자원-관리를-위한-inline-된-람다-사용-withlock-use)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -105,7 +105,7 @@ fun main() {
 
 하지만 동기화에 명시적인 lock 을 사용하면 더 신뢰할 수 있고 관리하기 쉬운 코드를 만들 수 있다.
 
-> 표준 코틀린 라이브러리가 제공하는 `withLock()` 함수에 대해서는 뒤에 나오는 [1.5. 자원 관리를 위한 `inline` 된 람다 사용: `withLock()`](#15-자원-관리를-위한-inline-된-람다-사용-withlock) 를 참고하세요.
+> 표준 코틀린 라이브러리가 제공하는 `withLock()` 함수에 대해서는 뒤에 나오는 [1.5. 자원 관리를 위한 `inline` 된 람다 사용: `withLock()`, `use()`](#15-자원-관리를-위한-inline-된-람다-사용-withlock-use) 를 참고하세요.
 
 코틀린에서 lock 을 건 상태에서 코드를 실행해야 한다면 먼저 `withLock()` 을 써도 될 지 고려해보아야 한다.
 
@@ -359,9 +359,102 @@ JVM 은 코드 실행을 분석해서 가장 이익이 되는 방향으로 호�
 
 ---
 
-## 1.5. 자원 관리를 위한 `inline` 된 람다 사용: `withLock()`
+## 1.5. 자원 관리를 위한 `inline` 된 람다 사용: `withLock()`, `use()`
 
-여기서는 고차 함수를 이용하여 코드를 더 개서하는 방법에 대해 알아본다.
+람다로 중복을 없앨 수 있는 일반적인 패턴 중 하나는 어떤 작업을 하기 전에 자원을 획득하고, 작업을 마친 후 자원을 해제하는 자원 관리이다.
+
+여기서 자원은 파일, lock, Transaction 등이 될 수 있다.
+
+자원 관리 패턴을 만들 때 보통 사용하는 방법은 try/finally 문을 사용하여 try 블록을 시작하기 직전에 자원을 획득하고, finally 블록에서 자원을 해제하는 것이다.
+
+[1.1. 인라이닝이 동작하는 방식](#11-인라이닝이-동작하는-방식) 에서 본 _customSynchronized()_ 가 그런 패턴이다.
+
+_customSynchronized()_ 는 자바의 `synchronized` 문과 똑같은 구문을 제공한다.
+
+```kotlin
+inline fun <T> customSynchronized(lock: Lock, action: () -> T): T {
+    lock.lock()
+    
+    try {
+        return action()
+    } finally {
+        lock.unlock()
+    }
+}
+```
+
+코틀린 라이브러리에는 좀 더 코틀린다운 API 를 통해 같은 기능을 제공하는 `withLock()` 이라는 함수가 있다.
+
+`withLock()` 함수는 `Lock` 인터페이스의 확장 함수이다.
+
+아래는 `withLock()` 의 사용법이다.
+
+```kotlin
+val l: Lock = ...
+
+// lock 을 잠근 후 주어진 동작 수행 
+l.withLock {
+    // lock 에 의해 보호되는 자원 사용
+}
+```
+
+아래는 `withLock()` 의 시그니처이다.
+
+```kotlin
+// lock 을 획득한 후 작업하는 과정을 별도의 함수로 분리함
+public inline fun <T> Lock.withLock(action: () -> T): T {
+    contract { callsInPlace(action, InvocationKind.EXACTLY_ONCE) }
+    lock()
+    try {
+        return action()
+    } finally {
+        unlock()
+    }
+}
+```
+
+---
+
+이런 패턴을 사용할 수 있는 다른 유형의 자원으로 파일이 있다.
+
+자바 7 부터 이를 위한 구문인 `try-with-resource` 문이 생겼다.
+
+아래는 `try-with-resources` 를 사용하여 파일의 각 줄을 읽는 예시이다.
+
+```java
+static String readFirstLineFromFile(String path) throws IOException {
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        return br.readLine();
+    }
+}
+```
+
+> `try-with-resources` 에 대한 내용은 [`try-with-resources` 개선](https://assu10.github.io/dev/2023/07/30/java-java-versions/#try-with-resources-%EA%B0%9C%EC%84%A0) 을 참고하세요.
+
+자바의 `try-with-resources` 와 같은 기능을 제공하는 [`use()`](https://assu10.github.io/dev/2024/03/10/kotlin-error-handling-2/#1-%EC%9E%90%EC%9B%90-%ED%95%B4%EC%A0%9C-use) 라는 함수가 코틀린 표준 라이브러리 안에 들어있다.
+
+위 코드를 `use()` 를 이용하여 작성하면 아래와 같다.
+
+```kotlin
+fun readFirstLineFromFile(path: String): String {
+    // BufferedReader 객체를 만들고 use() 함수를 호출하면서 파일에 대한 연산을 실행할 람다를 넘김
+    BufferedReader(FileReader(path)).use { br ->
+        // 자원(파일)에서 맨 처음 가져온 한 줄을 람다가 아닌 readFirstLineFromFile 에서 반환함
+        return br.readLine()
+    }
+}
+```
+
+`use()` 함수는 닫을 수 있는 (closable) 자원에 대한 확장 함수이며, 람다를 인자로 받는다.
+
+`use()` 는 람다를 호출한 다음 람다의 정상 종료와 무관하게 자원을 확실히 닫아준다.
+
+물론 `use()` 함수로 인라인 함수이다. 따라서 `use()` 를 사용해도 성능에 영향이 없다.
+
+위 코드에서 람다의 본문 안에서 사용한 `return` 은 `non-local return` 이다.  
+이 `return` 문은 람다가 아니라 _readFirstLineFromFile()_ 함수를 끝내면서 값을 반환한다.
+
+> 람다 안에서 `return` 을 사용하는 방법에 대해서는 추후 다룰 예정입니다. (p. 374)
 
 ---
 
