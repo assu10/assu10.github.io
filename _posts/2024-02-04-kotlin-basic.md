@@ -143,7 +143,7 @@ null 이 될 수 있는 타입을 지원함에 따라 컴파일 시점에 Null P
 
 대부분의 코틀린 표준 라이브러리 함수는 인자로 받은 람다 함수를 인라이닝한다.
 
-> `inline` 에 대한 좀 더 상세한 내용은 [3. `inline`: 람다의 부가 비용 없애기](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#3-inline-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B6%80%EA%B0%80-%EB%B9%84%EC%9A%A9-%EC%97%86%EC%95%A0%EA%B8%B0) 를 참고하세요.
+> `inline` 에 대한 좀 더 상세한 내용은 [Kotlin - 'inline'](https://assu10.github.io/dev/2024/03/16/kotlin-inline/) 를 참고하세요.
 
 따라서 람다를 사용해도 새로운 객체가 만들어지지 않으므로 객체 증가로 인한 가비지 컬렉션이 늘어나서 프로그램이 자주 멈추는 일이 없다.
 
