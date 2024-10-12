@@ -3,7 +3,7 @@ layout: post
 title: "Kotlin - 함수형 프로그래밍(1): 람다, 컬렉션 연산, 멤버 참조, 최상위 함수와 프로퍼티"
 date: 2024-02-12
 categories: dev
-tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filterNotNull() any() all() none() find() firstOrNull() lastOrNull() count() filterNot() partition() sumof() sortedBy() minBy() take() drop(), sortedWith() compareBy() times()
+tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filterNotNull() any() all() none() find() firstOrNull() lastOrNull() count() filterNot() partition() sumof() sortedBy() minBy() take() drop() sortedWith() compareBy() times()
 ---
 
 코틀린 여러 함수 기능에 대해 알아본다.
@@ -25,6 +25,10 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
   * [1.7. 람다를 변수에 담기](#17-람다를-변수에-담기)
   * [1.8. 클로저 (Closure)](#18-클로저-closure)
   * [1.9. 람다와 `this`](#19-람다와-this)
+  * [1.10. 람다의 `return`](#110-람다의-return)
+    * [1.10.1. 람다 안의 `return`: 람다를 둘러싼 함수로부터 반환](#1101-람다-안의-return-람다를-둘러싼-함수로부터-반환)
+    * [1.10.2. 람다로부터 반환: 레이블을 이용한 `return`](#1102-람다로부터-반환-레이블을-이용한-return)
+    * [1.10.3. 무명 함수: 기본적으로 로컬 `return`](#1103-무명-함수-기본적으로-로컬-return)
 * [2. 컬렉션 연산: `hashSetOf()`, `arrayListOf()`, `listOf()`, `hashMapOf()`](#2-컬렉션-연산-hashsetof-arraylistof-listof-hashmapof)
   * [2.1. List 연산](#21-list-연산)
   * [2.2. 여러 컬렉션 함수들: `filter()`, `filterNotNull()`, `any()`, `all()`, `none()`, `find()`, `firstOrNull()`, `lastOrNull()`, `count()`](#22-여러-컬렉션-함수들-filter-filternotnull-any-all-none-find-firstornull-lastornull-count)
@@ -614,6 +618,96 @@ onClick 핸들러는 호출될 때마다 _clicks_ 의 값을 증가시키지만 
 이벤트 리스너가 이벤트를 처리하다가 자기 자신의 리스너 등록을 해제해야 한다면 람다를 사용할 수 없다.  
 이런 경우 람다 대신 무명 객체를 사용하여 리스너를 구현해야 한다.  
 무명 객체 안에서는 `this` 가 그 무명 객체 인스턴스 자신을 가리키기 때문에 리스너를 해제하는 API 함수에서 `this` 를 넘길 수 있다.
+
+---
+
+## 1.10. 람다의 `return`
+
+루프와 같은 명령형 코드를 람다로 바꾸면 `return` 문제에 부딪히게 된다.  
+
+루프 중간에 있는 `return` 문의 의미를 이해하기는 쉽다.
+
+하지만 그 루프를 `filter()` 와 같이 람다를 호출하는 함수로 변경하고 인자로 전달하는 람다 안에서 `return` 을 사용하게 되면 혼란에 빠지게 된다.
+
+이제 그 부분에 대해 알아본다.
+
+---
+
+### 1.10.1. 람다 안의 `return`: 람다를 둘러싼 함수로부터 반환
+
+아래 코드에서 이름이 _Assu_ 이면 _lookForAssu()_ 함수로부터 반환된다는 사실을 분명히 알 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class Person3(
+    val name: String,
+    val age: Int,
+)
+
+val person3 = listOf(Person3("Assu", 20), Person3("Silby", 25))
+
+fun lookForAssu(person: List<Person3>) {
+    for (p in person) {
+        if (p.name == "Assu") {
+            println("Found!")
+            return
+        }
+    }
+    println("Not Found!")
+}
+
+fun main() {
+    lookForAssu(person3)    // Found!
+}
+```
+
+위의 for 문을 forEach 로 변경해도 forEach 에 넘긴 람다 안에 있는 `return` 도 위와 동일한 결과이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class Person3(
+    val name: String,
+    val age: Int,
+)
+
+val person3 = listOf(Person3("Assu", 20), Person3("Silby", 25))
+
+fun lookForAssu(person: List<Person3>) {
+    person.forEach {
+        if (it.name == "Assu") {
+            println("Found!")
+            return
+        }
+    }
+    println("Not Found!")
+}
+
+fun main() {
+    lookForAssu1(person3) // Found!
+}
+```
+
+**람다 안에서 `return` 을 사용하면 람다로부터만 반환되는 것이 아니라 그 람다를 호출하는 함수가 실행을 끝내고 반환**된다.
+
+이렇게 **자신을 둘러싸고 있는 블록보다 더 바깥에 있는 다른 블록을 반환하게 만드는 `return` 문을 `non-local return`** 이라고 한다.
+
+**`return` 이 바깥쪽 함수를 반환시킬 수 있을 때는 람다를 인자로 받는 함수가 인라인 함수일 경우일 뿐**이다.  
+위의 forEach 는 인라인 함수이므로 람다 본문과 함께 인라이닝되므로 `return` 식이 바깥쪽 함수인 _lookForAssu()_ 를 반환시키도록 컴파일된다.
+
+하지만 **인라이닝되지 않는 함수에 전달되는 람다 안에서 `return` 을 사용할 수는 없다.**
+
+인라이닝되지 않는 함수에 전달되는 람다를 변수에 저장할 수 있고, 바깥쪽 함수로부터 반환된 뒤에 저장해 둔 람다가 호출될 수도 있다.  
+이런 경우 람다 안의 `return` 이 실행되는 시점이 바깥쪽 함수를 반환시키기에 너무 늦은 시점일 수가 있다.
+
+---
+
+### 1.10.2. 람다로부터 반환: 레이블을 이용한 `return`
+
+---
+
+### 1.10.3. 무명 함수: 기본적으로 로컬 `return`
 
 ---
 
