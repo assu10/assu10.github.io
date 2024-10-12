@@ -331,7 +331,7 @@ fun main() {
 
 ## 1.7. 확장 람다 대신 익명 함수 구문 사용
 
-> 익명 함수에 대한 좀 더 상세한 내용은 [2.3. 익명 함수](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#23-%EC%9D%B5%EB%AA%85-%ED%95%A8%EC%88%98) 를 참고하세요.
+> 익명 함수에 대한 좀 더 상세한 내용은 [2.3. 익명 함수 (Anonymous Function, 무명 함수)](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#23-%EC%9D%B5%EB%AA%85-%ED%95%A8%EC%88%98-anonymous-function-%EB%AC%B4%EB%AA%85-%ED%95%A8%EC%88%98) 를 참고하세요.
 
 아래는 익명 람다 위치에 익명 확장 함수를 사용한 예시이다.
 
@@ -1031,7 +1031,7 @@ fun main() {
 }
 ```
 
-> 익명 함수에 대한 좀 더 상세한 내용은 [2.3. 익명 함수](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#23-%EC%9D%B5%EB%AA%85-%ED%95%A8%EC%88%98) 를 참고하세요.
+> 익명 함수에 대한 좀 더 상세한 내용은 [2.3. 익명 함수 (Anonymous Function, 무명 함수)](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#23-%EC%9D%B5%EB%AA%85-%ED%95%A8%EC%88%98-anonymous-function-%EB%AC%B4%EB%AA%85-%ED%95%A8%EC%88%98) 를 참고하세요.
 
 `takeUnless()` 는 predicate 가 true 이면 null 을 반환하고, false 이면 자기 자신인 this 를 반환한다.
 

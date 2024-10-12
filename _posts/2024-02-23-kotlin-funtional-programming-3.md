@@ -23,7 +23,7 @@ tags: kotlin sequence as-sequence() substring-before() generate-sequence() take(
 * [2. Local 함수](#2-local-함수)
   * [2.1. Local 확장 함수](#21-local-확장-함수)
   * [2.2. 함수 참조를 사용하여 Local 함수 참조](#22-함수-참조를-사용하여-local-함수-참조)
-  * [2.3. 익명 함수](#23-익명-함수)
+  * [2.3. 익명 함수 (Anonymous Function, 무명 함수)](#23-익명-함수-anonymous-function-무명-함수)
   * [2.4. Label (레이블)](#24-label-레이블)
   * [2.5. Local 함수 조작](#25-local-함수-조작)
 * [3. `fold()`](#3-fold)
@@ -484,10 +484,12 @@ fun main() {
 
 ---
 
-## 2.3. 익명 함수
+## 2.3. 익명 함수 (Anonymous Function, 무명 함수)
 
 [2.2. 함수 참조를 사용하여 Local 함수 참조](#22-함수-참조를-사용하여-local-함수-참조) 코드를 보면 _interesting()_ 은 한번만 사용되기 때문에 함수가 아닌 람다로 정의하는 게 나을 것 같지만, _interesting()_ 안에 사용된 return 식 때문에 
 이 함수를 람다로 정의하기 어렵다.
+
+> 익명 함수에 대한 좀 더 자세한 설명은 [1.10.3. 무명 함수(Anonymous Function): 기본적으로 로컬 `return`](https://assu10.github.io/dev/2024/02/12/kotlin-funtional-programming-1/#1103-%EB%AC%B4%EB%AA%85-%ED%95%A8%EC%88%98anonymous-function-%EA%B8%B0%EB%B3%B8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EB%A1%9C%EC%BB%AC-return) 을 참고하세요.
 
 이럴 땐 **익명 함수**를 사용하는 것이 좋다.
 
@@ -596,7 +598,7 @@ fun main() {
 }
 ```
 
-[2.3. 익명 함수](#23-익명-함수) 에서 익명 함수를 람다로 바꾸면 아래와 같다.
+[2.3. 익명 함수 (Anonymous Function, 무명 함수)](#23-익명-함수-anonymous-function-무명-함수) 에서 익명 함수를 람다로 바꾸면 아래와 같다.
 
 익명 함수일 때
 ```kotlin

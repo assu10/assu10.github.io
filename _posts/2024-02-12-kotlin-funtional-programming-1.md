@@ -29,7 +29,7 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
     * [1.10.1. 람다 안의 `return`: 람다를 둘러싼 함수로부터 반환](#1101-람다-안의-return-람다를-둘러싼-함수로부터-반환)
     * [1.10.2. 람다로부터 반환: 레이블을 이용한 `return`](#1102-람다로부터-반환-레이블을-이용한-return)
       * [1.10.2.1. 레이블이 붙은 `this`](#11021-레이블이-붙은-this)
-    * [1.10.3. 무명 함수: 기본적으로 로컬 `return`](#1103-무명-함수-기본적으로-로컬-return)
+    * [1.10.3. 무명 함수(Anonymous Function): 기본적으로 로컬 `return`](#1103-무명-함수anonymous-function-기본적으로-로컬-return)
 * [2. 컬렉션 연산: `hashSetOf()`, `arrayListOf()`, `listOf()`, `hashMapOf()`](#2-컬렉션-연산-hashsetof-arraylistof-listof-hashmapof)
   * [2.1. List 연산](#21-list-연산)
   * [2.2. 여러 컬렉션 함수들: `filter()`, `filterNotNull()`, `any()`, `all()`, `none()`, `find()`, `firstOrNull()`, `lastOrNull()`, `count()`](#22-여러-컬렉션-함수들-filter-filternotnull-any-all-none-find-firstornull-lastornull-count)
@@ -801,12 +801,93 @@ println(a) // [1, 2, 3]
 
 ---
 
-### 1.10.3. 무명 함수: 기본적으로 로컬 `return`
+### 1.10.3. 무명 함수(Anonymous Function): 기본적으로 로컬 `return`
 
 `non-local return` 은 장황하고, 람다 안의 여러 위치에 `return` 식이 들어가야 하는 경우 사용하기 불편하다.
 
 **코틀린은 무명 함수를 통해 코드 블록을 여기저기 전달**할 수 있도록 제공한다.  
 **무명 함수를 사용하면 `non-local return` 을 여러 개 사용해야 하는 코드 블록을 쉽게 작성**할 수 있다.
+
+즉, **본문 여러 곳에서 `return` 을 해야하는 코드 블록을 만들어야 한다면 람다 대신 무명 함수를 사용**하는 것이 좋다.
+
+**무명 함수는 코드 블록을 함수로 넘길 때 사용할 수 있는 다른 방법**이다.
+
+>  무명 함수에 대한 다른 내용은 [2.3. 익명 함수 (Anonymous Function, 무명 함수)](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#23-%EC%9D%B5%EB%AA%85-%ED%95%A8%EC%88%98-anonymous-function-%EB%AC%B4%EB%AA%85-%ED%95%A8%EC%88%98) 를 참고하세요.
+
+무명 함수 안에서 `return` 을 사용하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class Person5(
+    val name: String,
+    val age: Int,
+)
+
+val person5 = listOf(Person5("Assu", 20), Person5("Silby", 25))
+
+// 무명 함수 안에서 return 사용
+fun lookForAssu(person: List<Person5>) {
+    // 람다식 대신 무명 함수 사용
+    person.forEach(fun(p) {
+        if (p.name == "Assu") {
+            // return 은 가장 가까운 함수를 가리킴
+            // 여기서 가장 가까운 함수는 무명 함수임
+            return
+        }
+        println("${p.name} is not Assu")
+    })
+}
+
+fun main() {
+    lookForAssu(person5) // Silby is not Assu
+}
+```
+
+무명 함수와 일반 함수의 차이는 함수 이름이나 파라메터 타입을 생략할 수 있다는 점 뿐이다.
+
+아래는 `filter()` 에 무명 함수를 넘기는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class Person5(
+    val name: String,
+    val age: Int,
+)
+
+val person5 = listOf(Person5("Assu", 20), Person5("Silby", 25))
+
+fun main() {
+    // filter() 에 무명 함수 넘기기
+    val filter = person5.filter(fun(p): Boolean {
+      return p.age < 25
+    })
+
+    println(filter) // [Person5(name=Assu, age=20)]
+}
+```
+
+무명 함수도 일반 함수처럼 반환 타입을 지정해야 한다.
+
+위의 예시처럼 **블록이 본문인 무명 함수는 반환 타입을 명시해야 하지만 아래처럼 식을 본문으로 하는 무명 함수는 반환 타입을 생략**할 수 있다.
+
+```kotlin
+val filter = person5.filter(fun(p) = p.age < 25)
+```
+
+무명 함수 안에서 레이블이 붙지 않은 `return` 은 무명 함수 자체를 반환시킬 뿐 무명 함수를 둘러싼 다른 함수를 반환시키지 않는다.
+
+**`return` 에 적용되는 규칙은 단순히 `return` 은 `fun` 키워드를 사용하여 정의된 가장 안쪽 함수를 반환시킨다는 점**이다.
+
+람다식은 `fun` 을 사용하여 정의되지 않으므로 람다 본문의 `return` 은 람다 밖의 함수를 반환시킨다.  
+무명 함수는 `fun` 을 사용하여 정의되므로 그 함수 자신이 바로 가장 안쪽에 있는 `fun` 으로 정의된 함수가 되므로 무명 함수를 반환시키게 된다.
+
+아래는 `return` 식이 `fun` 키워드로 정의된 함수를 반환시키는 것을 표현한 것이다.
+
+![`return` 은 `fun` 으로 정의된 함수를 반환](/assets/img/dev/2024/0212/return.png)
+
+위 그림에서 `return` 이 굵게 표시한 `fun` 을 반환한다.
 
 ---
 
