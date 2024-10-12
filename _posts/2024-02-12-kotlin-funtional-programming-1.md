@@ -28,6 +28,7 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
   * [1.10. 람다의 `return`](#110-람다의-return)
     * [1.10.1. 람다 안의 `return`: 람다를 둘러싼 함수로부터 반환](#1101-람다-안의-return-람다를-둘러싼-함수로부터-반환)
     * [1.10.2. 람다로부터 반환: 레이블을 이용한 `return`](#1102-람다로부터-반환-레이블을-이용한-return)
+      * [1.10.2.1. 레이블이 붙은 `this`](#11021-레이블이-붙은-this)
     * [1.10.3. 무명 함수: 기본적으로 로컬 `return`](#1103-무명-함수-기본적으로-로컬-return)
 * [2. 컬렉션 연산: `hashSetOf()`, `arrayListOf()`, `listOf()`, `hashMapOf()`](#2-컬렉션-연산-hashsetof-arraylistof-listof-hashmapof)
   * [2.1. List 연산](#21-list-연산)
@@ -707,9 +708,105 @@ fun main() {
 
 ### 1.10.2. 람다로부터 반환: 레이블을 이용한 `return`
 
+람다 식에서도 `local return` 을 사용할 수 있다.
+
+람다 안에서 `local return` 은 for 루프의 `break` 와 비슷한 역할을 한다.
+
+**`local return` 은 람다의 실행을 끝내고 람다를 호출했던 코드의 실행을 계속 이어간다.**
+
+**`local return` 과 `non-local return` 을 구분하기 위해서는 `label` 을 사용**해야 한다.  
+**`return` 으로 실행을 끝내고 싶은 람다 식 앞에 `label` 을 붙이고, `return` 키워드 뒤에 그 `label`** 을 붙이면 된다.
+
+`label` 을 통해 `local return` 을 사용하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap08
+
+data class Person4(
+    val name: String,
+    val age: Int,
+)
+
+val person4 = listOf(Person4("Assu", 20), Person4("Silby", 25))
+
+// 레이블을 사용하여 local return 사용
+fun lookForAssu(person: List<Person4>) {
+    person.forEach label@{
+        // 람다식 앞에 레이블을 붙임
+        if (it.name == "Assu") {
+            return@label // return@label 은 앞에서 정의한 레이블을 참조함
+        }
+
+        // 항상 이 줄이 실행됨
+        println("Assu might be somewhere...")
+    }
+}
+
+fun main() {
+    lookForAssu(person4) // Assu might be somewhere...
+}
+```
+
+**람다식에 레이블을 붙이려면 레이블 이름 뒤에 `@` 문자를 추가한 것을 람다를 여는 `{` 앞에 붙여주면 된다.**  
+람다로부터 반환하려면 `return` 키워드 위에 `@` 문자와 레이블을 붙여주면 된다.
+
+람다식에는 레이블이 2개 이상 붙을 수 없다.
+
+```kotlin
+person.forEach label@{
+    if (it.name == "Assu") {
+        return@label // return@label 은 앞에서 정의한 레이블을 참조함
+    }
+}
+```
+
+위 코드에서 `label@` 이 람다 레이블이고, `return` 뒤에 붙은 `@label` 이 return 식 레이블이다.
+
+람다에 레이블을 붙여서 사용하는 대신 **람다를 인자로 받는 인라인 함수의 이름을 `return` 뒤에 레이블로 사용**해도 된다.
+
+```kotlin
+person.forEach {
+    // 람다식 앞에 레이블을 붙임
+    if (it.name == "Assu") {
+        return@forEach // return@forEach 는 람다식으로부터 반환시킴
+    }
+}
+```
+
+---
+
+#### 1.10.2.1. 레이블이 붙은 `this`
+
+[2.2. `apply()`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#22-apply) 에서 수신 객체 지정 람다에 대해 잠시 설명하였다.
+
+수신 객체 지정 람다의 본문에서는 `this` 참조를 사용하여 묵시적인 컨텍스트 객체 (= 람다를 만들 때 지정한 수신 객체) 를 가리킬 수 있다.
+
+> 수신 객체 지정 람다를 인자로 받는 함수를 작성하는 방법에 대해서는 추후 다룰 예정입니다. (p. 377)
+
+수신 객체 지정 람다 앞에 레이블을 붙인 경우 `this` 뒤에 그 레이블을 붙여서 묵시적인 컨텍스트 객체를 지정할 수 있다.
+
+```kotlin
+val a =
+  // this@sb 를 통해 이 람다의 묵시적 수신 객체에 접근 가능
+  StringBuilder().apply sb@{
+    // this 는 이 위치를 둘러싼 가장 안쪽 영역의 묵시적 수신 객체를 가리킴
+    listOf(1, 2, 3).apply {
+      // 모든 묵시적 수신 객체를 사용할 수 있지만 바깥쪽 묵시적 수신 객체에 접근할 때는 레이블 명시
+      this@sb.append(this.toString())
+    }
+  }
+
+println(a) // [1, 2, 3]
+```
+
 ---
 
 ### 1.10.3. 무명 함수: 기본적으로 로컬 `return`
+
+`non-local return` 은 장황하고, 람다 안의 여러 위치에 `return` 식이 들어가야 하는 경우 사용하기 불편하다.
+
+**코틀린은 무명 함수를 통해 코드 블록을 여기저기 전달**할 수 있도록 제공한다.  
+**무명 함수를 사용하면 `non-local return` 을 여러 개 사용해야 하는 코드 블록을 쉽게 작성**할 수 있다.
 
 ---
 
