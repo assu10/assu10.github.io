@@ -316,6 +316,59 @@ fun main() {
 
 ### 1.2.2. 제네릭 클래스 선언
 
+타입 파라메터를 넣은 꺽쇠 기호 `<>` 를 클래스 혹은 인터페이스 이름 뒤에 붙이면 클래스나 인터페이스를 제네릭하게 만들 수 있다.
+
+타입 파라메터를 이름 뒤에 붙이고 나면 클래스 본문 안에서 타입 파라메터를 다른 일반 타입처럼 사용 가능하다.
+
+**제네릭 클래스를 확장하는 클래스 혹은 제네릭 인터페이스를 구현하는 클래스를 정의하려면 기반 타입의 제네릭 파라메터에 대해 타입 인자를 지정**해야 한다.  
+이 때 구체적인 타입을 넘길수도 있고, 만일 하위 클래스도 제네릭 클래스라면 타입 파라메터로 받은 타입을 넘길수도 있다.
+
+제네릭 인터페이스를 구현하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+interface List<T> {
+    operator fun get(index: Int): T
+}
+
+// List<T> 인터페이스를 구현하는 클래스
+// 구체적인 타입 인자로 String 을 지정하여 List 인터페이스 구현
+class StringList: List<String> {
+    override fun get(index: Int): String {
+        TODO("Not yet implemented")
+    }
+}
+
+// ArrayList 의 제네릭 타입 파라메터 T 를 List 의 타입 인자로 넘김
+class ArrayList<T>: List<T> {
+    override fun get(index: Int): T {
+        TODO("Not yet implemented")
+    }
+}
+```
+
+---
+
+클래스가 자기 자신을 타입 인자로 참조할 수도 있다.
+
+`Comparable` 인터페이스를 구현하는 클래스가 이런 패턴의 예이다.  
+비교 가능한 모든 값은 자신을 같은 타입의 다른 값과 비교하는 방법을 제공한다.
+
+```kotlin
+interface Comparable<T> {
+    fun compareTo(other: T): Int
+}
+
+class String1 : Comparable<String1> {
+    override fun compareTo(other: String1): Int {
+        TODO("Not yet implemented")
+    }
+}
+```
+
+위에서 _String1_ 클래스는 제네릭 Comparable 인터페이스를 구현하면서 그 인터페이스의 타입 파라메터 `T` 로 _String1_ 자신을 지정한다.
+
 ---
 
 ## 1.3. 타입 정보 보존
