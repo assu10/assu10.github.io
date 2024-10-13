@@ -18,6 +18,8 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
 * [1. 제네릭스](#1-제네릭스)
   * [1.1. `Any`](#11-any)
   * [1.2. 제네릭스 정의: `<>`](#12-제네릭스-정의-)
+    * [1.2.1. 제네릭 함수와 프로퍼티](#121-제네릭-함수와-프로퍼티)
+    * [1.2.2. 제네릭 클래스 선언](#122-제네릭-클래스-선언)
   * [1.3. 타입 정보 보존](#13-타입-정보-보존)
   * [1.4. 제네릭 확장 함수](#14-제네릭-확장-함수)
   * [1.5. 타입 파라메터 제약: `filterIsInstance()`](#15-타입-파라메터-제약-filterisinstance)
@@ -218,6 +220,101 @@ fun basicGenerics() {
     ConcreteImplementation().x
 }
 ```
+
+---
+
+### 1.2.1. 제네릭 함수와 프로퍼티
+
+리스트를 다루는 함수 작성 시 특정 타입을 저장하는 리스트 뿐 아니라 모든 리스트 (= 제네릭 리스트) 를 다룰 수 있는 함수가 더 유용하다.  
+이럴 때 제네릭 함수를 사용한다.
+
+**제네릭 함수를 호출할 때는 반드시 구체적 타입으로 타입 인자**를 넘겨야 한다.
+
+대부분의 컬렉션 라이브러리 함수는 제네릭 함수이다.  
+아래는 `slice()` 의 시그니처이다.
+
+```kotlin
+public fun <T> List<T>.slice(indices: IntRange): List<T>
+```
+
+`slice()` 함수는 구체적인 범위 안에 든 원소만을 포함하는 새로운 리스트를 반환한다.
+
+![제네릭 함수 `slice()` 는 `T` 를 타입 파라메터로 받음](/assets/img/dev/2024/0317/type.png)
+
+위를 보면 수신 객체와 반환 타입은 모두 `List<T>` 로, 함수의 타입 파라메터 `T` 가 수신 객체와 반환 타입으로 사용되고 있다.
+
+아래는 `filter()` 의 시그니처이다.
+
+```kotlin
+public inline fun <T> Iterable<T>.filter(predicate: (T) -> Boolean): List<T>
+```
+
+`filter()` 는 `(T) -> Boolean` 타입의 함수를 파라메터로 받는다.
+
+아래는 제네릭 고차 함수를 호출하는 예시이다.
+
+> 고차 함수에 관한 내용은 [1. 고차 함수 (high-order function)](https://assu10.github.io/dev/2024/02/17/kotlin-funtional-programming-2/#1-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%98-high-order-function) 를 참고하세요.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+fun main() {
+    val authors = listOf("Assu", "Silby")
+    val readers = mutableListOf<String>()
+
+    readers.add("Jaehoon")
+    readers.add("Assu")
+
+    val result = readers.filter { it !in authors }
+
+    // [Jaehoon]
+    println(result)
+}
+```
+
+위에서 람다 파라메터에 대해 자동으로 만들어진 변수 `it` 의 타입은 `T` 라는 제네릭 타입이다.  
+(여기서 `T` 는 함수 파라메터 타입인 `(T) -> Boolean` 에서 온 타입임)
+
+---
+
+제네릭 함수를 정의할 때와 마찬가지 방법으로 **제네릭 확장 프로퍼티**를 선언할 수 있다.
+
+아래는 리스트의 마지막 원소 바로 앞에 있는 원소를 반환하는 확장 프로퍼티 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// 제네릭 확장 프로퍼티
+// 모든 리스트 타입에 이 제네릭 확장 프로퍼티 사용 가능
+val <T> List<T>.pre: T
+    get() = this[size - 2]
+
+fun main() {
+    // 제네릭 확장 프로퍼티 사용
+    // 이 호출에서 타입 파라메터 T 는 int 로 추론됨
+    println(listOf(1, 2, 3).pre)
+}
+```
+
+확장이 아닌 일반 프로퍼티는 타입 파라메터를 가질 수 없다.  
+즉, **확장 프로퍼티만 제네릭하게 만들 수 있다**는 의미이다.
+
+클래스 프로퍼티에 여러 타입의 값을 저장할 수는 없으므로 제네릭한 일반 프로퍼티는 말이 되지 않는다.
+
+확장 프로퍼티가 아닌 일반 프로퍼티를 제네릭하게 선언하면 아래와 같은 오류가 발생한다.
+
+```kotlin
+// 컴파일 오류
+// Type parameter of a property must be used in its receiver type
+
+// 확장 프로퍼티가 아닌 일반 프로터티는 제네릭하게 만들 수 없음
+
+//val <T> x: T = TODO()
+```
+
+---
+
+### 1.2.2. 제네릭 클래스 선언
 
 ---
 
