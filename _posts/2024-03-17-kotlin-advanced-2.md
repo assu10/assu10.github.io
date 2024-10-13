@@ -66,13 +66,13 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
 
 이제 기존 클래스와 조합하여 인터페이스를 구현할 수 있고, 이 말을 여러 클래스 계층을 가로질러 인터페이스를 구현하여 사용할 수 있다는 의미이다.
 
-인터페이스는 그 인터페이스만 사용하도록 강제하는데, 이런 제약을 완화하기 위해 코드가 **'미리 정하지 않은 타입' 인 제네릭 타입 파라메터**에 대해 동작하면 더욱 더 일반적인 코드가 될 수 이싿. 
+인터페이스는 그 인터페이스만 사용하도록 강제하는데, 이런 제약을 완화하기 위해 코드가 **'미리 정하지 않은 타입' 인 제네릭 타입 파라메터**에 대해 동작하면 더욱 더 일반적인 코드가 될 수 있다.
 
 ---
 
 ## 1.1. `Any`
 
-자바에서 Object 가 클래스 계층의 최상위 타입이듯 코틀린에서는 `**Any` 타입이 모든 null 이 될 수 없는 타입의 최상위 계층**이다.  
+자바에서 Object 가 클래스 계층의 최상위 타입이듯 코틀린에서는 **`Any` 타입이 모든 null 이 될 수 없는 타입의 최상위 계층**이다.  
 따라서 모든 코틀린 클래스는 `Any` 를 상위 클래스로 가진다.
 
 하지만 자바에서는 wrapper 타입만 Object 를 최상위로 하는 타입 계층만 포함되며, primitive 타입은 그런 계층에 포함되지 않는다.
@@ -82,6 +82,8 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
 하지만 **코틀린에서는 `Any` 가 Int 등의 primitive 타입을 포함한 모든 타입의 최상위 계층**이다.
 
 > 원시 타입과 참조 타입은 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 참고하세요.
+
+> 코틀린의 primitive 타입은 [4.1. primitive 타입: Int, Boolean 등](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#41-primitive-%ED%83%80%EC%9E%85-int-boolean-%EB%93%B1) 을 참고하세요.
 
 자바처럼 코틀린에서도 primitive 타입 값을 `Any` 타입의 변수에 대입하면 자동으로 값을 객체로 감싼다.
 
@@ -99,7 +101,7 @@ val answer: Any = 1
 
 코틀린 함수가 `Any` 를 사용하면 자바 바이트코드의 Object 로 컴파일된다.
 
-모든 코틀린 클래스에는 `toString()`, `equals()`, `hashCode()` 메서드를 포함하는이 이 3 개의 메서드는 `Any` 에 정의된 메서드를 상속한 것이다.
+모든 코틀린 클래스에는 `toString()`, `equals()`, `hashCode()` 메서드를 포함하는데 이 3 개의 메서드는 `Any` 에 정의된 메서드를 상속한 것이다.
 
 java.lang.Object 에 있는 다른 메서드 (`wati()`, `notify()`..) 는 `Any` 에서 사용할 수 없다.  
 따라서 그런 메서드를 호출하고 싶다면 java.lang.Object 타입으로 값을 캐스트해야 한다.
@@ -118,7 +120,7 @@ java.lang.Object 에 있는 다른 메서드 (`wati()`, `notify()`..) 는 `Any` 
 아래는 의사 소통 기능을 제공하는 3가지 타입이 있으며, 이들은 서로 다른 라이브러리에 속해있어서 같은 클래스 계층 구조안에 그냥 넣을 수 없고, 의사 소통에 사용되는 
 함수명도 모두 다른 경우에 대한 예시이다.
 
-`Any` 를 잘못사용 하는 예시
+`Any` 를 잘못 사용 하는 예시
 ```kotlin
 class Person {
     fun speak() = "Hi!"
@@ -223,7 +225,7 @@ fun basicGenerics() {
 [1.6. 타입 소거 (type erasure)](#16-타입-소거-type-erasure) 에 나오는 내용이지만, **제네릭 클래스나 제네릭 함수의 내부 코드는 T 타입에 대해 알 수 없다.**  
 이를 **타입 소거**라고 한다.
 
-**제네릭스는 반환값의 타입 정보를 유지하는 방법으로, 반환값이 원하는 타입인지 명시적으로 검사하고 변환할 필요가 없다.**
+**제네릭스는 반환값의 타입 정보를 유지하는 방법으로 반환값이 원하는 타입인지 명시적으로 검사하고 변환할 필요가 없다.**
 
 예를 들어 아래와 같은 코드는 _Car_ 타입에 대해서만 동작한다.
 
@@ -452,7 +454,9 @@ fun main() {
   // 컴파일 오류
   // 기반 클래스인 Disposable 타입만 가능
   // 다형성인 경우 반환 타입을 기반 타입으로 업캐스트해야함
+  
   // val result4: Recyclable = recyclables.nonGenericConstrainedRandom()
+  
   val result5: Recyclable = recyclables.genericConstrainedRandom()
   val result6: Recyclable = recyclables.genericRandom()
 
@@ -518,7 +522,9 @@ fun main() {
     // 컴파일 오류
     // 기반 클래스인 Disposable 타입만 가능
     // 다형성인 경우 반환 타입을 기반 타입으로 업캐스트해야함
+  
     // val result4: Recyclable = recyclables.nonGenericConstrainedRandom2()
+  
     val result5: Recyclable = recyclables.genericRandom2()
     val result6: Recyclable = recyclables.genericConstrainedRandom2()
 
@@ -557,6 +563,7 @@ fun useList(list: List<Any>) {
   // Cannot check for instance of erased type: List<String>
   // 소거된 타입인 List<String> 의 인스턴스를 검사할 수 없다는 의미
   // 타입 소거 때문에 실행 시점에 제네릭 타입의 타입 파라메터 타입을 검사할 수 없음
+    
   // if (list is List<String>) {}
 }
 
@@ -620,7 +627,7 @@ fun <T: Any> a(kClass: KClass<T>): T {
 Cannot use 'T' as reified type parameter. Use a class instead.
 ```
 
-**타입 정보 T 가 소거되지 때문에 _b()_ 가 컴파일되지 않는 것**이다.  
+**타입 정보 T 가 소거되기 때문에 _b()_ 가 컴파일되지 않는 것**이다.  
 즉, 함수 본문에서 함수의 제네릭 타입 파라메터의 클래스를 사용할 수 없다.
 
 아래와 같이 타입 정보를 전달하여 해결할 수는 있다.
@@ -682,6 +689,7 @@ inline fun <reified T> check(t: Any) = t is T
 // 컴파일 오류
 // reified 가 없으면 타입 정보가 소거되기 때문에 실행 시점에 어떤 객체가 T 의 인스턴스인지 검사 불가
 // Cannot check for instance of erased type: T
+
 // fun <T> check2(t: Any) = t is T
 
 fun main() {
@@ -747,12 +755,14 @@ class InBox<in T>(private var contents: T) {
 
     // 컴파일 오류
     // Type parameter T is declared as 'in' but occurs in 'out' position in type T
+  
     //fun get(): T = contents
 }
 
 class OutBox<out T>(private var contents: T) {
     // 컴파일 오류
     // Type parameter T is declared as 'out' but occurs in 'in' position in type T
+    
 //    fun put(item: T) {
 //        contents = item
 //    }
@@ -812,7 +822,7 @@ Required: Box<Pet>
 Found: Box<Rabbit>
 ```
 
-_petBox_ 에 있는 _put(item: Pet)_ 이 있다.
+_petBox_ 에는 _put(item: Pet)_ 이 있다.
 
 만약 코틀린이 위와 같은 상황에서 오류를 내지 않고 허용한다면 _Cat_ 도 _Pet_ 이므로 _Cat_ 을 _rabbitBox_ 에 넣을 수 있게 되는데 이는 _rabbitBox_ 가 '토끼스러운' 이라는 점을 위반한다.
 
@@ -858,7 +868,7 @@ fun main() {
 > `in` 애너테이션은 상위 타입을 하위 타입에 대입 가능하게 해주고, `out` 애너테이션은 하위 타입을 상위 타입에 대입 가능하게 해줌
 
 [1.9.1. 타입 변성: `in`/`out` 변성 애너테이션](#191-타입-변성-inout-변성-애너테이션) 의 _InBox\<in T\>_ 에는 _get()_ 이 없기 때문에 
-_InBox<\Any\>_ 를 _InBox\<Pet\>_ 이나 _InBox\<Pet\>_ 등 하위 타입에 대입할 수 있다.
+_InBox\<Any\>_ 를 _InBox\<Pet\>_ 이나 _InBox\<Pet\>_ 등 하위 타입에 대입할 수 있다.
 
 ```kotlin
 // InBox<Any> 의 객체를 하위 타입에 대입 가능
@@ -910,12 +920,14 @@ class InBox<in T>(private var contents: T) {
 
     // 컴파일 오류
     // Type parameter T is declared as 'in' but occurs in 'out' position in type T
+  
     //fun get(): T = contents
 }
 
 class OutBox<out T>(private var contents: T) {
     // 컴파일 오류
     // Type parameter T is declared as 'out' but occurs in 'in' position in type T
+    
 //    fun put(item: T) {
 //        contents = item
 //    }
@@ -932,7 +944,7 @@ class OutBox<out T>(private var contents: T) {
 - **_OutBox\<out T\>_**
   - **공변(covariant) 임**
   - _Outbox\<Rabbit\>_ 을 _OutBox\<Pet\>_ 으로 업캐스트하는 방향이 _Rabbit_ 을 _Pet_ 으로 업캐스트하는 방향과 같은 방향으로 변함
-- **_InBox<\in T\>_**
+- **_InBox\<in T\>_**
   - **반공변(contravariant) 임**
   - _InBox\<Pet\>_ 이 _InBox\<Rabbit\>_ 의 하위 타입임
   - _InBox\<Pet\>_ 을 _InBox\<Rabbit\>_ 으로 업캐스트하는 방향이 _Rabbit_ 을 _Pet_ 으로 업캐스트 하는 방향과 반대 방향으로 변함
