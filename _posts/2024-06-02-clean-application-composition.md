@@ -128,6 +128,7 @@ test {
 - 스프링은 클래스패스 스캐닝으로 클래스패스에서 접근 가능한 모든 클래스를 확인하여 `@Component` 애너테이션이 붙은 클래스를 찾음
 - `@Component` 애너테이션이 붙은 각 클래스의 객체를 생성
   - 이 때 클래스는 필요한 모든 필드를 인자로 받는 생성자를 가져야 함 (`@RequiredArgsConstructor`)
+
 ```java
 @RequiredArgsConstructor
 class GetAccountBalanceService implements GetAccountBalanceQuery {
@@ -143,6 +144,7 @@ class GetAccountBalanceService implements GetAccountBalanceQuery {
 스프링이 인식할 수 있는 애너테이션을 직접 만들수도 있다.
 
 WebAdapter.java
+
 ```java
 package com.assu.study.clean_me.common;
 
@@ -207,7 +209,7 @@ public @interface PersistenceAdapter {
   - 일반적인 애플리케이션에서는 필요하다면 한 클래스에 애너테이션 하나 정도는 용인할 수 있는 수준이고, 리팩터링도 쉽게 할 수 있음
   - 하지만 다른 개발자들이 사용할 라이브러리나 프레임워크를 만드는 입장에서는 라이브러리 사용자가 스프링 프레임워크의 의존성에 엮이기 때문에 사용하면 안됨
 - 스프링 전문가가 아니라면 원인을 찾는데 수일이 걸릴 수 있는 부수 효과를 야기할 수 있음
-  - 클래스패스 스캐닝은 단순히 스프링에게 부모 패키지를 알려준 수 이 패키지 않에서 `@Component` 가 붙은 클래스를 찾으라고 지시함
+  - 클래스패스 스캐닝은 단순히 스프링에게 부모 패키지를 알려준 후 이 패키지 안에서 `@Component` 가 붙은 클래스를 찾으라고 지시함
 
 ---
 
@@ -245,12 +247,13 @@ class PersistenceAdapterConfiguration {
 
 빈 자체는 설정 클래스 내의 `@Bean` 애너테이션이 붙은 팩토리 메서드를 통해 생성된다.
 
-위 예시에서 영속성 어댑터는 2개의 리포지토리와 1개의 매퍼를 생성자 입력으로 받는데 스프링은 이 객체들을 자동으로 팩토리 메서드에 대한 입력으로 제공한다.
+위 예시에서 영속성 어댑터는 2개의 레파지토리와 1개의 매퍼를 생성자 입력으로 받는데 스프링은 이 객체들을 자동으로 팩토리 메서드에 대한 입력으로 제공한다.
 
-그럼 스프링은 이 리포지객체들을 어디서 가져오는 걸까?  
+그럼 스프링은 이 리포지객체들을 어디서 가져오는 걸까?
+
 이 객체들이 다른 설정 클래스의 팩토리 메서드에서 수동으로 생성되었다면 스프링이 자동으로 팩토리 메서드의 파라메터로 제공하겠지만 위 예시에서는 `@EnableJpaRepositories` 애너테이션을 사용하여 
 스프링이 직접 생성하도록 하였다.  
-스프링 부트가 `@EnableJpaRepositories` 애너테이션을 발견하면 자동으로 모든 스프링 데이터 리포지토리 인터페이스의 구현체를 제공한다.
+스프링 부트가 `@EnableJpaRepositories` 애너테이션을 발견하면 자동으로 모든 스프링 데이터 레파지토리 인터페이스의 구현체를 제공한다.
 
 _PersistenceAdapterConfiguration_ 설정 클래스를 사용하여 **영속성 계층에서 필요로하는 모든 객체를 인스턴스화하는 매우 한정적인 범위의 영속성 모듈**을 만들었다.  
 이 **설정 클래스는 스프링의 클래스패스 스캐닝을 통해 자동으로 선택될 것이고, 개발자는 어떤 빈이 `application context` 에 등록될 지 제어**할 수 있다.

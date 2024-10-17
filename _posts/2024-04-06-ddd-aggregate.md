@@ -10,7 +10,7 @@ tags: ddd aggregate factory memberOf @EmbeddedId @Embeddable @ElementCollection 
 
 - 애그리거트
 - 애그리거트 루트와 역할
-- 애그리거트와 리포지토리
+- 애그리거트와 레파지토리
 - ID 를 이용한 애그리거트 참조
 
 > 소스는 [github](https://github.com/assu10/ddd/tree/feature/chap03) 에 있습니다.
@@ -470,7 +470,7 @@ Order order = orderRepository.findById(orderId);
 order.cancel();
 ```
 
-> RDBMS 와 JPA 를 이용하여 리포지터리를 구현하는 방법은 [DDD - 리포지토리(1): 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/) 을 참고하세요.
+> RDBMS 와 JPA 를 이용하여 리포지터리를 구현하는 방법은 [DDD - 레파지토리(1): 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/) 을 참고하세요.
 
 ---
 

@@ -25,6 +25,7 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
   * [1.5. 타입 파라메터 제약: `filterIsInstance()`](#15-타입-파라메터-제약-filterisinstance)
     * [1.5.1. 제네릭 타입 파라메터](#151-제네릭-타입-파라메터)
     * [1.5.2. 타입 파라메터 제약으로 지정](#152-타입-파라메터-제약으로-지정)
+      * [1.5.2.1. 타입 파라메터에 둘 이상의 제약 지정: `where`](#1521-타입-파라메터에-둘-이상의-제약-지정-where)
     * [1.5.3. 제네릭하지 않은 타입으로 지정](#153-제네릭하지-않은-타입으로-지정)
     * [1.5.4. 다형성 대신 타입 파라메터 제약을 사용하는 이유](#154-다형성-대신-타입-파라메터-제약을-사용하는-이유)
     * [1.5.5. 타입 파라메터를 사용해야 하는 경우](#155-타입-파라메터를-사용해야-하는-경우)
@@ -474,9 +475,16 @@ fun main() {
 
 ## 1.5. 타입 파라메터 제약: `filterIsInstance()`
 
+**타입 파라메터 제약은 클래스나 함수에 사용할 수 있는 타입 인자를 제한**하는 기능이다.
+
 **타입 파라메터 제약은 제네릭 타입 인자가 다른 클래스를 상속해야 한다고 지정**한다.
 
 예를 들어 \<T: Base\> 는 T 가 Base 타입이거나, Base 에서 파생된 타입이어야 한다는 의미이다.
+
+어떤 타입을 제네릭 타입의 타입 파라메터에 대한 상한으로 지정하면 그 제네릭 타입을 인스턴스화할 때 사용하는 타입 인자는 반드시 그 상한 타입이거나 그 상한 타입의 
+하위 타입이어야 한다.
+
+> 하위 타입과 하위 클래스에 대한 차이는 추후 다룰 예정입니다. (p. 390)
 
 **타입 파라메터 제약으로 Base 를 지정하는 경우**와 **Base 를 상속하는 제네릭하지 않은 타입(= 일반 타입) 의 차이**에 대해 알아보자.
 
@@ -554,6 +562,76 @@ val strings = mutableListOf<String>()
 
 ### 1.5.2. 타입 파라메터 제약으로 지정
 
+제약을 가하려면 타입 파라메터 이름 뒤에 콜론 `:` 을 붙이고 그 뒤에 상한 타입을 명시하면 된다.
+
+```kotlin
+fun <T : Number> List<T>.sum(): T
+```
+
+위 코드의 `<T: Number>` 에서 `T` 는 타입 파라메터이고, `Number` 는 상한 타입이다.
+
+타입 파라메터 `T` 에 대한 상한을 정하고 나면 `T` 타입의 값을 그 상한 타입의 값으로 취급할 수 있다.
+
+상한 타입으로 정의된 Number 의 메서드를 `T` 타입의 값에 대해 호출하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// Number 를 타입 파라메터 상한으로 정함
+fun <T : Number> oneHalf(value: T): Double {
+    // Number 클래스에 정의된 메서드 호출
+    return value.toDouble() / 2.0
+}
+
+fun main() {
+    println(oneHalf(3)) // 1.5
+}
+```
+
+아래는 두 파라메터 사이에서 더 큰 값을 찾는 제네릭 함수이다.  
+서로 비교할 수 있어야 최대값을 찾을 수 있으므로 함수 시그니처에도 두 인자를 서로 비교할 수 있어야 한다는 사실을 지정해야 하는데 그런 내용을 지정하는 방법에 대해 
+보여준다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+import kotlin.Comparable
+
+// 이 함수의 인자들은 비교가 가능해야 함
+fun <T : Comparable<T>> max(
+    first: T,
+    second: T,
+): T =
+    if (first > second) {
+        first
+    } else {
+        second
+    }
+
+fun main() {
+    // bb
+    println(max("aa", "bb")) //  문자열은 알파벳 순으로 비교
+
+    // 22
+    println(max("22", "11"))
+
+    // 서로 비교할 수 없는 값이므로 컴파일 오류
+
+    // println(max("bb", 1))
+}
+```
+
+위 코드에서 `T` 의 상한 타입은 `Comparable<T>` 이다.  
+String 이 `Comparable<String>` 을 확장하므로 String 은 _max()_ 함수에 적합한 타입 인자이다.
+
+_first > second_ 은 코틀린 연산자 관례에 따라 아래처럼 컴파일된다.
+
+```kotlin
+first.compareTo(second) > 0
+```
+
+> 비교 연산자 관례에 대한 내용은 [2.3. `Comparable` 인터페이스 구현 후 `compareTo()` 오버라이드: `compareValuesBy()`](https://assu10.github.io/dev/2024/03/23/kotlin-advanced-3/#23-comparable-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B5%AC%ED%98%84-%ED%9B%84-compareto-%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%93%9C-comparevaluesby) 를 참고하세요.
+
 **타입 파라메터 제약을 사용하면 제네릭 함수 안에서 제약이 이뤄진 타입의 프로퍼티와 함수에 접근이 가능**하다.    
 만일 제약을 사용하지 않으면 _name_ 을 사용할 수 없다.
 
@@ -574,6 +652,37 @@ fun main() {
     println(result2) // [EEE, FFF]
 }
 ```
+
+---
+
+#### 1.5.2.1. 타입 파라메터에 둘 이상의 제약 지정: `where`
+
+드물지만 타입 파라메터에 둘 이상의 제약을 가해야 하는 경우도 있다.
+
+아래는 `CharSequence` 의 맨 끝에 마침표 `.` 가 있는지 검사하는 제네릭 함수이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+fun <T> ensureTrailingPeriod(seq: T)
+        where T : CharSequence, T : Appendable { // 타입 파라메터 제약 목록
+    if (!seq.endsWith('.')) {   // CharSequence 인터페이스의 확장 함수 호출
+        seq.append('.') // Appendable 인터페이스의 메서드 호출
+    }
+}
+
+fun main() {
+    val hello = StringBuilder("Hello world")
+    ensureTrailingPeriod(hello)
+
+    // Hello world.
+    println(hello)
+}
+```
+
+위 코드는 타입 인자가 `CharSequence` 와 `Appendable` 인터페이스를 반드시 구현해야 한다는 사실을 표현한다.
+
+이는 데이터에 접근하는 연산인 `endsWith()` 와 데이터를 변환하는 연산인 `append()` 를 `T` 타입의 값에게 수행할 수 있다는 의미이다.
 
 ---
 
@@ -721,6 +830,8 @@ fun main() {
 
 **타입 파라메터 제약을 사용한 확장 함수**인 _genericConstrainedRandom2()_ 는 **_Disposable_ 에 정의된 _action()_ 에 접근**하면서 _result5_, _result6_ 과 같이 **정확한 
 타입을 반환**할 수 있다.
+
+> 타입 파라메터를 null 이 될 수 없는 타입으로 한정하는 부분에 대해서는 [5.2.2. 타입 파라메터를 null 이 될 수 없는 타입으로 한정](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#522-%ED%83%80%EC%9E%85-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0%EB%A5%BC-null-%EC%9D%B4-%EB%90%A0-%EC%88%98-%EC%97%86%EB%8A%94-%ED%83%80%EC%9E%85%EC%9C%BC%EB%A1%9C-%ED%95%9C%EC%A0%95) 을 참고하세요.
 
 ---
 

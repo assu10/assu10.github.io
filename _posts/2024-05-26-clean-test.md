@@ -745,7 +745,7 @@ insert into activity (id, timestamp, owner_account_id, source_account_id, target
 values (8, '2024-08-09 10:00:00.0', 2, 2, 1, 1000);
 ```
 
-`@DataJpaTest` 애너테이션은 스프링 데이터 리포지토리들을 포함하여 DB 접근에 필요한 객체 네트워크를 인스턴스화해야 함을 스프링에 알려준다.
+`@DataJpaTest` 애너테이션은 스프링 데이터 레파지토리들을 포함하여 DB 접근에 필요한 객체 네트워크를 인스턴스화해야 함을 스프링에 알려준다.
 
 > `@DataJpaTest` 에 대한 좀 더 상세한 내용은  
 > [8. JPA 테스트: @DataJpaTest](https://assu10.github.io/dev/2023/08/27/springboot-test/#8-jpa-%ED%85%8C%EC%8A%A4%ED%8A%B8-datajpatest),   

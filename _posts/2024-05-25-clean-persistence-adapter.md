@@ -142,7 +142,7 @@ test {
 
 DB 연산을 정의하고 있는 포트 인터페이스를 나누는 것에 대해 알아보자.
 
-아래는 특정 엔티티가 필요로하는 모든 DB 연산을 하나의 리포지토리 인터페이스에 넣는 안 좋은 예시이다.
+아래는 특정 엔티티가 필요로하는 모든 DB 연산을 하나의 레파지토리 인터페이스에 넣는 안 좋은 예시이다.
 
 ![하나의 아웃고잉 포트 인터페이스에 모든 서비스가 의존하는 안 좋은 예시](/assets/img/dev/2024/0525/persistence_1.png)
 
@@ -415,7 +415,7 @@ interface ActivityRepository extends JpaRepository<ActivityJpaEntity, Long> {
 }
 ```
 
-JPA 엔티티와 리포지토리를 만들었으니 이제 영속성 기능을 제공하는 **영속성 어댑터**를 구현해본다.
+JPA 엔티티와 레파지토리를 만들었으니 이제 영속성 기능을 제공하는 **영속성 어댑터**를 구현해본다.
 
 AccountPersistenceAdapter.java
 ```java

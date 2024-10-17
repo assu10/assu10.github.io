@@ -752,7 +752,7 @@ $ curl -w %{http_code} -u silby:1111 http://localhost:8080/events/event
 
 ## 3.2. 쿼리에 직접 필터링 적용
 
-리포지토리에 `@PostFilter` 를 적용하면 필요엇는 데이터까지 조회하기 때문에 권장하지 않는다.  
+레파지토리에 `@PostFilter` 를 적용하면 필요엇는 데이터까지 조회하기 때문에 권장하지 않는다.  
 처음부터 필요한 데이터만 선택하려면 쿼리에 직접 SpEL 식을 지정하면 된다.
 
 - 스프링 컨텍스트에 `SecurityEvaluationContextExtension` 형식의 객체 추가

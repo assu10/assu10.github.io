@@ -33,6 +33,7 @@ tags: kotlin
   * [5.1. 하나의 타입 파라메터를 받는 클래스](#51-하나의-타입-파라메터를-받는-클래스)
   * [5.2. 제네릭 타입 파라메터를 받는 클래스: `<T>`](#52-제네릭-타입-파라메터를-받는-클래스-t)
     * [5.2.1. 타입 파라메터의 null 가능성](#521-타입-파라메터의-null-가능성)
+    * [5.2.2. 타입 파라메터를 null 이 될 수 없는 타입으로 한정](#522-타입-파라메터를-null-이-될-수-없는-타입으로-한정)
   * [5.3. universal type: `Any`](#53-universal-type-any)
   * [5.4. 제네릭 함수](#54-제네릭-함수)
   * [5.5. 코틀린에서 제공하는 컬렉션을 위한 제네릭 함수](#55-코틀린에서-제공하는-컬렉션을-위한-제네릭-함수)
@@ -836,6 +837,8 @@ fun main() {
 null 이 될 수 있는 타입을 포함하는 어떤 타입이라도 타입 파라메터를 대신할 수 있으므로 타입 파라메터 `T` 를 클래스나 함수 안에서 타입 이름으로 사용하면 
 이름 끝에 물음표가 없더라도 `T` 가 null 이 될 수 있는 타입이다.
 
+즉, **아무런 상한을 정하지 않은 타입 파라메터는 결과적으로 `Any?` 를 상한으로 정한 파라메터**와 같다.
+
 null 이 될 수 있는 타입 파라메터
 
 ```kotlin
@@ -859,9 +862,38 @@ fun main() {
 ```
 
 위 코드의 _printCode()_ 호출에서 타입 파라메터 `T` 에 대해 추론한 타입은 null 이 될 수 있는 Any? 타입이다.  
-t 파라메터의 타임 이름 `T` 에 물음표가 붙어있지는 않지만 t 는 null 을 받을 수 있다.
+t 파라메터의 타입 이름 `T` 에 물음표가 붙어있지는 않지만 t 는 null 을 받을 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+class Processor<T> {
+    fun process1(value: T) {
+        // value 는 null 이 될 수 있으므로 안전한 호출 사용
+        println(value?.hashCode())
+    }
+
+    fun process2(value: T) {
+        println(value.hashCode())
+    }
+}
+
+fun main() {
+    // Processor 클래스를 null 이 될 수 있는 타입을 사용하여 인스턴스화함
+    val nullableStringProcessor = Processor<String?>()
+
+    nullableStringProcessor.process1(null) // null
+    nullableStringProcessor.process2(null) // 0
+}
+```
+
+위의 _process1()_ 메서드에서 _value_ 파라메터의 타입 `T` 에는 `?` 가 없지만 실제로는 `T` 에 해당하는 타입 인자로 null 이 될 수 있는 타입을 넘길 수도 있다.
 
 **타입 파라메터가 null 이 아님을 확실히 하려면 null 이 될 수 없는 타입 상한 (upper bound) 를 지정**해야 한다.
+
+---
+
+### 5.2.2. 타입 파라메터를 null 이 될 수 없는 타입으로 한정
 
 타입 파라메터에 대해 null 이 될 수 없는 상한을 적용한 예시
 ```kotlin
@@ -887,6 +919,33 @@ fun main() {
     printCode4("1") // 49
 }
 ```
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// null 이 될 수 없는 타입 상한 지정
+class Processor2<T : Any> {
+    fun process2(value: T) {
+        // T 타입의 value 는 null 이 될 수 없으므로 안전한 호출 사용안함
+        println(value.hashCode())
+    }
+}
+
+fun main() {
+    // Processor 클래스를 null 이 될 수 있는 타입을 사용하여 인스턴스화함
+    val nullableStringProcessor = Processor2<String>()
+
+    // 컴파일 오류
+    // nullableStringProcessor.process2(null)
+
+    nullableStringProcessor.process2("ABC") // 64578
+}
+```
+
+위에서 `<T: Any>` 라는 제약은 `T` 타입이 항상 null 이 될 수 없는 타입이 되도록 보장한다.
+
+`Any` 뿐 아니라 다른 null 이 될 수 없는 타입을 사용하여 상한을 정해도 된다.  
+예) `<T: String>`
 
 타입 파라메터는 null 이 될 수 있는 타입을 표시하기 위해 반드시 물음표를 타임 이름 뒤에 붙여야 한다는 규칙의 유일한 예외이다.
 
