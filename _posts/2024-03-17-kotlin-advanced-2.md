@@ -32,14 +32,16 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
   * [1.6. 타입 소거 (type erasure)](#16-타입-소거-type-erasure)
     * [1.6.1. 실행 시점의 제네릭: 타입 검사와 캐스트](#161-실행-시점의-제네릭-타입-검사와-캐스트)
   * [1.7. 함수의 타입 인자에 대한 실체화: `reified`, `KClass`](#17-함수의-타입-인자에-대한-실체화-reified-kclass)
-  * [1.8. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용](#18-reified-를-사용하여-is-를-제네릭-파라메터에-적용)
-  * [1.9. 타입 변성 (type variance)](#19-타입-변성-type-variance)
-    * [1.9.1. 타입 변성: `in`/`out` 변성 애너테이션](#191-타입-변성-inout-변성-애너테이션)
-    * [1.9.2. 타입 변성을 사용하는 이유](#192-타입-변성을-사용하는-이유)
-      * [1.9.2.1. `out` 애너테이션 사용](#1921-out-애너테이션-사용)
-      * [1.9.2.2. `in` 애너테이션 사용](#1922-in-애너테이션-사용)
-    * [1.9.3. 공변(covariant)과 무공변(invariant)](#193-공변covariant과-무공변invariant)
-    * [1.9.4. 함수의 공변적인 반환 타입](#194-함수의-공변적인-반환-타입)
+    * [1.7.1. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용](#171-reified-를-사용하여-is-를-제네릭-파라메터에-적용)
+    * [1.7.2. 실체화한 타입 파라메터 활용: `filterIsInstance()`](#172-실체화한-타입-파라메터-활용-filterisinstance)
+    * [1.7.3. 인라인 함수에서만 `reified` 키워드를 사용할 수 있는 이유](#173-인라인-함수에서만-reified-키워드를-사용할-수-있는-이유)
+  * [1.8. 타입 변성 (type variance)](#18-타입-변성-type-variance)
+    * [1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션)
+    * [1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유)
+      * [1.8.2.1. `out` 애너테이션 사용](#1821-out-애너테이션-사용)
+      * [1.8.2.2. `in` 애너테이션 사용](#1822-in-애너테이션-사용)
+    * [1.8.3. 공변(covariant)과 무공변(invariant)](#183-공변covariant과-무공변invariant)
+    * [1.8.4. 함수의 공변적인 반환 타입](#184-함수의-공변적인-반환-타입)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -531,7 +533,7 @@ val recyclables = items.filterIsInstance<Recyclable>()
 ```
 
 > 위 코드에서 _recyclables_ 는 `reified` 키워드를 사용하여 좀 더 범용적으로 사용할 수 있음  
-> 이에 대한 내용은 [1.8. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용](#18-reified-를-사용하여-is-를-제네릭-파라메터에-적용) 을 참고하세요.
+> 이에 대한 내용은 [1.7.1. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용](#171-reified-를-사용하여-is-를-제네릭-파라메터에-적용) 을 참고하세요.
 
 ---
 
@@ -984,6 +986,20 @@ fun main() {
 
 ## 1.7. 함수의 타입 인자에 대한 실체화: `reified`, `KClass`
 
+코틀린은 제네릭 함수의 본문에서 그 함수의 타입 인자를 가리킬 수 없지만, `inline` 함수 안에서는 타입 인자를 사용할 수 있다.
+
+코틀린 제네릭 타입의 타입 인자 정보는 실행 시점에 지워지기 때문에 제네릭 클래스의 인스턴스가 있어도 그 인스턴스를 만들 때 사용한 타입 인자를 알아낼 수 없다.  
+제네릭 함수의 타입 인자도 마찬가지이다.  
+제네릭 함수가 호출되어도 그 함수의 본문에서는 호출 시 사용된 타입 인자를 알 수 없다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// 컴파일 오류
+// Cannot check for instance of erased type: T
+fun <T> isA(value: Any) = value is T
+```
+
 **제네릭 함수를 호출할 때도 타입 정보가 소거**되기 때문에 함수 안에서는 제네릭 타입 파라메터를 사용해서 할 수 있는 일이 별로 없다.
 
 **함수 인자의 타입 정보를 보존하려면 `reified` 키워드를 추가**하면 된다.
@@ -1039,7 +1055,7 @@ val kc = c1(A::class)
 
 **`reified` 는 제네릭 함수를 `inline` 으로 선언**해야 한다.
 
-> `inline` 에 대한 좀 더 상세한 내용은 [Kotlin - 'inline'](https://assu10.github.io/dev/2024/03/16/kotlin-inline/) 를 참고하세요.
+`KClass<T>` 와 `reified` 를 각각 사용한 예시
 
 ```kotlin
 import kotlin.reflect.KClass
@@ -1065,9 +1081,43 @@ val kd = d<A1>()
 
 ---
 
-## 1.8. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용
+### 1.7.1. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용
 
 > `is` 키워드에 대한 좀 더 상세한 내용은 [2.1. 스마트 캐스트: `is`](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#21-%EC%8A%A4%EB%A7%88%ED%8A%B8-%EC%BA%90%EC%8A%A4%ED%8A%B8-is) 를 참고하세요.
+
+인라인 함수의 타입 파라메터는 실체화되므로 실행 시점에 인라인 함수의 타입 인자를 알 수 있다.
+
+인라인 함수에 대해 간단히 설명하면 어떤 함수에 `inline` 키워드를 붙이면 컴파일러는 그 함수를 호출한 식을 모두 함수 본문으로 바꾼다.  
+함수가 람다를 인자로 사용하는 경우 그 함수를 인라인 함수로 만들면 람다 코드도 함께 인라이닝되고, 그에 따라 무명 클래스 (익명 클래스, Anonymous Class) 와 객체가
+생성되지 않아서 성능이 더 좋아질 수 있다.
+
+> `inline` 에 대한 좀 더 상세한 내용은 [Kotlin - 'inline'](https://assu10.github.io/dev/2024/03/16/kotlin-inline/) 를 참고하세요.
+
+이제 인라인 함수가 유용한 다른 이유인 타입 인자 실체화에 대해 알아본다.
+
+[1.7. 함수의 타입 인자에 대한 실체화: `reified`, `KClass`](#17-함수의-타입-인자에-대한-실체화-reified-kclass) 에 나왔던 코드를 보자.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// 컴파일 오류
+// Cannot check for instance of erased type: T
+fun <T> isA(value: Any) = value is T
+```
+
+위 코드에서 _isA()_ 함수를 인라인 함수로 만들고 타입 파라메터를 `reified` 로 지정하면 _value_ 의 타입이 `T` 의 인스턴스인지 실행 시점에 검사할 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// inline 과 reified 사용
+inline fun <reified T> isB(value: Any) = value is T
+
+fun main() {
+    println(isB<String>("ab")) // true
+    println(isB<String>(123)) // false
+}
+```
 
 ```kotlin
 // 타입 정보를 유지하여 어떤 객체가 특정 타입인지 검사 가능
@@ -1090,7 +1140,37 @@ fun main() {
 
 ---
 
+### 1.7.2. 실체화한 타입 파라메터 활용: `filterIsInstance()`
+
 > [1.5. 타입 파라메터 제약: `filterIsInstance()`](#15-타입-파라메터-제약-filterisinstance) 에서 사용한 타입 계층 코드와 함께 보세요.
+
+실체화한 타입 파라메터를 사용하는 간단한 예시 중 하나는 표준 라이브러리 함수인 `filterIsInstance()` 이다.  
+`filterIsInstance()` 는 인자로 받은 컬렉션의 원소 중에서 타입 인자로 지정한 클래스의 인스턴스만을 모아서 만든 리스트를 반환한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+fun main() {
+    val items = listOf("one", 2, "three")
+
+    // [one, three]
+    println(items.filterIsInstance<String>())
+}
+```
+
+`filterIsInstance()` 의 타입 인자로 `String` 을 지정함으로써 문자열만 필요하다는 사실을 기술하였다.  
+따라서 위 함수의 반환 타입은 `List<String>` 이다.  
+여기서는 타입 인자를 실행 시점에 알 수 있고, `filterIsInstance()` 는 그 타입 인자를 사용하여 리스트의 원소 중 타입 인자와 타입이 일치하는 원소만을 추려낸다.
+
+아래는 `filterIsInstance()` 의 시그니처이다.
+
+```kotlin
+public inline fun <reified R> Iterable<*>.filterIsInstance(): List<@kotlin.internal.NoInfer R> {
+    return filterIsInstanceTo(ArrayList<R>())
+}
+```
+
+`filterIsInstance()` 가 `inline` 과 reified` 키워드를 사용하여 정의되어 있는 것을 알 수 있다.
 
 아래는 특정 하위 타입 _Disposable_ 원소의 name 을 반환하는 예시이다.
 
@@ -1106,11 +1186,55 @@ fun main() {
 }
 ```
 
-참고로 `filterIsInstance()` 도 `reified` 키워드를 사용하여 정의되어 있다.
+인라인 함수에는 실체화한 타입 파라메터가 여러 개 있거나, 실체화한 타입 파라메터와 실체화하지 않은 타입 파라메터가 함께 있을수도 있다.
+
+[1.4. 함수를 `inline` 으로 선언해야 하는 경우](https://assu10.github.io/dev/2024/03/16/kotlin-inline/#14-%ED%95%A8%EC%88%98%EB%A5%BC-inline-%EC%9C%BC%EB%A1%9C-%EC%84%A0%EC%96%B8%ED%95%B4%EC%95%BC-%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0) 에서 
+함수의 파라메터 중 함수 타입인 파라메터가 있고 그 파라메터에 해당하는 인자(람다)를 함께 인라이닝함으로써 얻는 이익이 더 큰 경우에만 함수를 인라인 함수로 만들라고 하였다.
+
+하지만 **이 경우 함수를 인라인 함수로 만드는 이유는 성능 향상이 아닌 실체화한 타입 파라메터를 사용하기 위함**이다.
+
+성능을 좋게 하려면 인라인 함수의 크기를 계속 관찰하여 함수가 커지면 실체화한 타입에 의존하지 않는 부분을 별도의 일반 함수로 뽑아내는 것이 좋다.
 
 ---
 
-## 1.9. 타입 변성 (type variance)
+### 1.7.3. 인라인 함수에서만 `reified` 키워드를 사용할 수 있는 이유
+
+인라인 함수의 경우 컴파일러는 인라인 함수의 본문을 구현한 바이트코드를 그 함수가 호출되는 모든 지점에 삽입한다.
+
+컴파일러는 실체화한 타입 인자를 사용하여 인라인 함수를 호출하는 각 부분의 정확한 타입 인자를 알 수 있다.  
+따라서 컴파일러는 타입 인자로 쓰인 구체적인 클래스를 참조하는 바이트코드를 생성하여 삽입할 수 있다.
+
+아래 코드를 다시 보자.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+fun main() {
+    val items = listOf("one", 2, "three")
+
+    // [one, three]
+    println(items.filterIsInstance<String>())
+}
+```
+
+위 코드의 `filterIsInstance<String>()` 은 결과적으로 아래와 같은 코드를 만들어낸다.
+
+```kotlin
+for (ele in this) {
+    if (ele is String) {    // 특정 클래스 참조
+        dest.add(ele)        
+    }
+}
+```
+
+타입 파라메터가 아니라 구체적인 타입을 사용하므로 만들어진 바이트코드는 실행 시점에 벌어지는 [타입 소거](#16-타입-소거-type-erasure)의 영향을 받지 않는다.
+
+자바 코드에서는 `reified` 타입 파라메터를 사용하는 인라인 함수를 호출할 수 없다.  
+자바에서는 코틀린 인라인 함수를 다른 보통 함수처럼 호출하는데 그런 경우 인라인 함수를 호출해도 실제로 인라이닝되지는 않는다.
+
+---
+
+## 1.8. 타입 변성 (type variance)
 
 제네릭스와 상속을 조합하면 변화가 2차원이 된다.
 
@@ -1121,7 +1245,7 @@ _Container_ 타입의 상하위 타입 관계를 제한**해야 한다.
 
 ---
 
-### 1.9.1. 타입 변성: `in`/`out` 변성 애너테이션
+### 1.8.1. 타입 변성: `in`/`out` 변성 애너테이션
 
 아래는 기본 제네릭 타입, `in T`, `out T` 를 사용한 예시이다.
 
@@ -1164,7 +1288,7 @@ class OutBox<out T>(private var contents: T) {
 
 ---
 
-### 1.9.2. 타입 변성을 사용하는 이유
+### 1.8.2. 타입 변성을 사용하는 이유
 
 `in`, `out` 과 같은 제약이 필요한 이유를 알아보기 위해 아래 타입 계층을 보자.
 
@@ -1176,7 +1300,7 @@ class Rabbit : Pet()
 class Cat : Pet()
 ```
 
-> [1.9.1. 타입 변성: `in`/`out` 변성 애너테이션](#191-타입-변성-inout-변성-애너테이션) 에서 사용된 코드와 함께 보세요.
+> [1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션) 에서 사용된 코드와 함께 보세요.
 
 _Rabbit_ 과 _Cat_ 은 모두 _Pet_ 의 하위 타입이다.
 
@@ -1223,9 +1347,9 @@ _petBox_ 에는 _put(item: Pet)_ 이 있다.
 
 ---
 
-#### 1.9.2.1. `out` 애너테이션 사용
+#### 1.8.2.1. `out` 애너테이션 사용
 
-따라서 [1.9.2. 타입 변성을 사용하는 이유](#192-타입-변성을-사용하는-이유) 의 코드를 아래와 같이 수정할 수 있다.
+따라서 [1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유) 의 코드를 아래와 같이 수정할 수 있다.
 
 ```kotlin
 val outRabbitBox: OutBox<Rabbit> = OutBox(Rabbit())
@@ -1250,7 +1374,7 @@ fun main() {
 
 ---
 
-#### 1.9.2.2. `in` 애너테이션 사용
+#### 1.8.2.2. `in` 애너테이션 사용
 
 > `in` 애너테이션은 상위 타입을 하위 타입에 대입 가능하게 해주고, `out` 애너테이션은 하위 타입을 상위 타입에 대입 가능하게 해줌
 
@@ -1338,7 +1462,7 @@ class OutBox<out T>(private var contents: T) {
 
 ---
 
-### 1.9.3. 공변(covariant)과 무공변(invariant)
+### 1.8.3. 공변(covariant)과 무공변(invariant)
 
 코틀린 표준 라이브러리의 **읽기 전용 List 는 공변**이므로 _List\<Rabbit\>_ 을 _List\<Pet\>_ 에 대입할 수 있다.  
 **반면 MutableList 는 읽기 전용 리스트의 기능에 `add()` 를 추가했기 때문에 무공변**이다.
@@ -1364,7 +1488,7 @@ fun main() {
 
 ---
 
-### 1.9.4. 함수의 공변적인 반환 타입
+### 1.8.4. 함수의 공변적인 반환 타입
 
 함수는 공변적인 반환 타입을 가지기 때문에 오버라이드 하는 함수가 오버라이드 대상 함수보다 더 구체적인 반환 타입을 돌려줘도 된다.
 
