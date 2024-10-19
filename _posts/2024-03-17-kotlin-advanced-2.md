@@ -30,6 +30,7 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
     * [1.5.4. 다형성 대신 타입 파라메터 제약을 사용하는 이유](#154-다형성-대신-타입-파라메터-제약을-사용하는-이유)
     * [1.5.5. 타입 파라메터를 사용해야 하는 경우](#155-타입-파라메터를-사용해야-하는-경우)
   * [1.6. 타입 소거 (type erasure)](#16-타입-소거-type-erasure)
+    * [1.6.1. 실행 시점의 제네릭: 타입 검사와 캐스트](#161-실행-시점의-제네릭-타입-검사와-캐스트)
   * [1.7. 함수의 타입 인자에 대한 실체화: `reified`, `KClass`](#17-함수의-타입-인자에-대한-실체화-reified-kclass)
   * [1.8. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용](#18-reified-를-사용하여-is-를-제네릭-파라메터에-적용)
   * [1.9. 타입 변성 (type variance)](#19-타입-변성-type-variance)
@@ -839,7 +840,7 @@ fun main() {
 
 최초 자바는 제네릭이 없다가 제네릭스를 도입하면서 기존 코드와 호환될 수 있어야 했기 때문에 **제네릭 타입은 컴파일 시점에만 사용**할 수 있고, 
 런타임 바이트코드에는 제네릭 타입 정보가 보존되지 않는다. (=제네릭 클래스나 제네릭 함수의 내부 코드는 T 타입에 대해 알 수 없음)  
-즉, **제네릭 타입의 파라메터 타입이 런타임에는 지워져 버린다.**
+즉, **제네릭 타입의 파라메터 타입 정보가 런타임에는 지워져 버린다.**
 
 이것을 **타입 소거** 라고 한다.
 
@@ -880,6 +881,104 @@ Cannot check for instance of erased type: List<String>
 - 타입 정보를 유지하려면 부가 비용이 많이 듦
   - 제네릭 타입 정보를 저장하면 제네릭 List 나 Map 이 차지하는 메모리가 매우 늘어남
   - 제네릭 객체가 모든 곳에서 타입 파라메터를 실체화하여 저장한다면 제네릭 객체인 Map.Entry 객체로 이루어진 Map 의 경우 Map.Entry 의 모든 키와 값이 부가 타입 정보를 저장해야 함
+
+---
+
+### 1.6.1. 실행 시점의 제네릭: 타입 검사와 캐스트
+
+자바와 마찬가지로 코틀린 제네릭 타입 인자 정보는 런타임에는 지워진다.  
+예) `List<String>` 객체를 만들고 그 안에 문자열을 넣더라도 실행 시점에는 그 객체를 오직 `List` 로만 볼 수 있음  
+그 `List` 객체가 어떤 타입의 원소를 저장하는지 실행 시점에는 알 수 없음
+
+```kotlin
+val list1: List<String> = listOf("a", "b")
+val list2: List<Int> = listOf(1, 2)
+```
+
+컴파일러는 _list1_ 과 _list2_ 를 서로 다른 타입으로 인식하지만 실행 시점에 _list1_ 과 _list2_ 는 단지 단지 `List` 일 뿐 문자열이나 정수의 리스트로 
+선언되었다는 사실은 알 수 없다.  
+(= 즉, 실행 시점에 _list1_ 과 _list2_ 는 완전히 같은 타입의 객체임)
+
+제네릭은 타입 인자를 따로 저장하지 않기 때문에 (= 타입 소거) 실행 시점에 타입 인자를 검사할 수 없다.  
+예) 특정 리스트가 문자열로 이루어진 리스트인지 다른 객체로 이루어진 객체인지 실행 시점에 검사 불가
+
+실행 시점에 어떤 값이 `List` 인지 여부는 알아낼 수 있지만 그 리스트의 원소 타입은 알 수가 없다.
+
+하지만 타입 소거로 인해 저장해야 하는 타입 정보의 크기가 줄어들어서 전반적으로 메모리 사용량이 줄어든다는 장점이 있다.
+
+---
+
+코틀린에서는 타입 인자를 명시하지 않고 제네릭 타입을 사용할 수 없다.  
+그렇다면 어떤 값이 `Set` 이나 `Map` 이 아닌 `List` 라는 사실을 어떻게 확인할 수 있을까?
+
+답은 바로 **스타 프로젝션**을 사용하면 된다.
+
+```kotlin
+if (value is List<*>) {
+  // ...
+}
+```
+
+스타 프로젝션은 자바의 `List<?>` 와 비슷하게 인자를 알 수 없는 제네릭 타입을 표현할 때 사용한다.  
+위 코드에서 _value_ 가 `List` 임을 알 수는 있지만 그 원소 타입은 알 수 없다.
+
+> 스타 프로젝션에 대한 좀 더 상세한 내용은 [6.3. 스타 프로젝션(star projection): `*`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#63-%EC%8A%A4%ED%83%80-%ED%94%84%EB%A1%9C%EC%A0%9D%EC%85%98star-projection-) 을 참고하세요.
+
+---
+
+[안전하지 않은 캐스트 `as`](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#231-%EC%95%88%EC%A0%84%ED%95%98%EC%A7%80-%EC%95%8A%EC%9D%80-%EC%BA%90%EC%8A%A4%ED%8A%B8-as) 와 [안전한 캐스트 `as?`](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#232-%EC%95%88%EC%A0%84%ED%95%9C-%EC%BA%90%EC%8A%A4%ED%8A%B8-as) 에도 여전히 제네릭 타입을 사용할 수 있다.
+
+하지만 기반 클래스는 같지만 타입 인자가 다른 타입으로 캐스팅해도 여전히 캐스팅에 성공한다는 점을 유의해야 한다.  
+실행 시점에는 제네릭 타입의 타입 인자를 알 수 없으므로 캐스팅은 항상 성공한다.
+
+이런 타입 캐스팅을 사용하면 컴파일러는 `unchecked cast (검사할 수 없는 캐스팅)` 경고를 준다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// 제네릭 타입으로 타입 캐스팅
+fun printSum(c: Collection<*>) {
+    // Unchecked cast: Collection<*> to List<Int> 경고뜸
+    // 컴파일은 됨, 즉 캐스팅은 됨
+    val intList = c as? List<Int> ?: throw IllegalArgumentException("List is expected")
+    
+    // 컴파일 오류
+    // sum() 이 호출되지 않음
+    println(intList.sum())
+}
+
+fun main() {
+    printSum(listOf(1, 2))
+}
+```
+
+아래는 알려진 타입 인자를 사용하여 [스마트 캐스트 `is`](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#21-%EC%8A%A4%EB%A7%88%ED%8A%B8-%EC%BA%90%EC%8A%A4%ED%8A%B8-is) 를 이용하여 
+타입 검사를 하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// 알려진 타입 인자를 사용하여 타입 검사
+fun printSum(c: Collection<Int>) {
+    // 컴파일 오류
+    // Cannot check for instance of erased type: List<Int>
+
+//    if (c is List<Int>) {
+//        println(c.sum())
+//    }
+
+    if (c is List<*>) {
+        println("111")
+        println(c.sum())
+    } else {
+        println("222")
+    }
+}
+
+fun main() {
+    printSum(listOf(1, 2)) // 222
+}
+```
 
 ---
 
