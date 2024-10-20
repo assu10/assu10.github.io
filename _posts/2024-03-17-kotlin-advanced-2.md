@@ -36,6 +36,7 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
     * [1.7.2. 실체화한 타입 파라메터 활용: `filterIsInstance()`](#172-실체화한-타입-파라메터-활용-filterisinstance)
     * [1.7.3. 인라인 함수에서만 `reified` 키워드를 사용할 수 있는 이유](#173-인라인-함수에서만-reified-키워드를-사용할-수-있는-이유)
     * [1.7.4. 클래스 참조 대신 실체화한 타입 파라메터 사용: `ServiceLoader`, `::class.java`](#174-클래스-참조-대신-실체화한-타입-파라메터-사용-serviceloader-classjava)
+    * [1.7.5. 실체화한 타입 파라메터의 제약](#175-실체화한-타입-파라메터의-제약)
   * [1.8. 타입 변성 (type variance)](#18-타입-변성-type-variance)
     * [1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션)
     * [1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유)
@@ -1293,6 +1294,31 @@ _ServiceLoader.load(Service::class.java)_ 를 _loadService<Service>()_ 로 사�
 
 _loadService()_ 에서 읽어들일 서비스 클래스를 타입 인자로 지정하였다.  
 클래스를 타입 인자로 지정하면 `::class.java` 라고 쓰는 경우보다 가독성이 더 좋다.
+
+---
+
+### 1.7.5. 실체화한 타입 파라메터의 제약
+
+실체화한 타입 파타메터는 몇 가지 제약이 있다.
+
+<**실체화한 타입 파라메터를 사용할 수 있는 경우**>  
+- **타입 검사와 캐스팅**
+  - `is`, `!is`, `as`, `as?`
+  - [1.7.1. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용](#171-reified-를-사용하여-is-를-제네릭-파라메터에-적용)
+- **코틀린 리플렉션 API**
+  - `::class`
+  - > 해당 내용은 추후 다룰 예정입니다. (p. 403)
+- **코틀린 타입에 대응하는 `java.lang.Class` 얻기**
+  - `::class.java`
+  - [1.7.4. 클래스 참조 대신 실체화한 타입 파라메터 사용: `ServiceLoader`, `::class.java`](#174-클래스-참조-대신-실체화한-타입-파라메터-사용-serviceloader-classjava)
+- **다른 함수를 호출할 때 타입 인자로 사용**
+
+
+<**실체화한 타입 파라메터를 사용할 수 없는 경우**>  
+- 타입 파라메터 클래스의 인스턴스 생성
+- 타입 파라메터 클래스의 [동반 객체](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#4-%EB%8F%99%EB%B0%98-%EA%B0%9D%EC%B2%B4-companion-object) 메서드 호출
+- 실체화한 타입 파라메터를 요구하는 함수를 호출하면서 실체화하지 않은 타입 파라메터로 받은 타입을 타입 인자로 넘기기
+- 클래스, 프로퍼티, 인라인 함수가 아닌 함수의 타입 파라메터를 `reified` 로 지정
 
 ---
 
