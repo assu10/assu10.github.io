@@ -1,0 +1,37 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="A_BiOBGdu0SeoX-MF2WV">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lpjMDve2tVLD67hDuKUC-1" value="고객 서비스" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="235" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="lpjMDve2tVLD67hDuKUC-7" value="고객 상담 라우팅&lt;div&gt;(핵심)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="50" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lpjMDve2tVLD67hDuKUC-8" value="헬프 데스크 시스템&lt;div&gt;(일반)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="160" y="50" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lpjMDve2tVLD67hDuKUC-9" value="전화 시스템&lt;div&gt;(일반)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lpjMDve2tVLD67hDuKUC-10" value="교대 관리 시스템&lt;div&gt;(지원)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="100" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lpjMDve2tVLD67hDuKUC-11" value="헬프 데스크 시스템" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="340" y="20" width="235" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="lpjMDve2tVLD67hDuKUC-12" value="티켓 수명주기&lt;div&gt;(일반)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="50" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lpjMDve2tVLD67hDuKUC-13" value="검색&lt;div&gt;(일반)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="50" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lpjMDve2tVLD67hDuKUC-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.004;entryY=0.557;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="lpjMDve2tVLD67hDuKUC-8" target="lpjMDve2tVLD67hDuKUC-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

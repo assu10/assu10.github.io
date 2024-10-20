@@ -1,0 +1,52 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="59OCSU5qmOeX03Np4BzH">
+    <mxGraphModel dx="1113" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-1" value="일반" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="120" y="40" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-2" value="일반/지원" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-3" value="핵심" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="180" y="40" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-4" value="지원" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="180" y="120" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-5" value="" style="endArrow=block;html=1;rounded=0;dashed=1;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="160" as="sourcePoint" />
+            <mxPoint x="110" y="40" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-6" value="" style="endArrow=block;html=1;rounded=0;dashed=1;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="170" as="sourcePoint" />
+            <mxPoint x="280" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-7" value="높음" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="70" y="40" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-8" value="높음" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="260" y="180" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-9" value="낮음" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="110" y="180" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-10" value="낮음" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="70" y="140" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-11" value="비즈니스 로직 복잡성" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="80" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApKtOIGdR9W1pAGUB7kV-12" value="비즈니스&lt;div&gt;차별화&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="170" y="190" width="70" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
