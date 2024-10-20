@@ -35,6 +35,7 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
     * [1.7.1. `reified` 를 사용하여 `is` 를 제네릭 파라메터에 적용](#171-reified-를-사용하여-is-를-제네릭-파라메터에-적용)
     * [1.7.2. 실체화한 타입 파라메터 활용: `filterIsInstance()`](#172-실체화한-타입-파라메터-활용-filterisinstance)
     * [1.7.3. 인라인 함수에서만 `reified` 키워드를 사용할 수 있는 이유](#173-인라인-함수에서만-reified-키워드를-사용할-수-있는-이유)
+    * [1.7.4. 클래스 참조 대신 실체화한 타입 파라메터 사용: `ServiceLoader`, `::class.java`](#174-클래스-참조-대신-실체화한-타입-파라메터-사용-serviceloader-classjava)
   * [1.8. 타입 변성 (type variance)](#18-타입-변성-type-variance)
     * [1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션)
     * [1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유)
@@ -1231,6 +1232,67 @@ for (ele in this) {
 
 자바 코드에서는 `reified` 타입 파라메터를 사용하는 인라인 함수를 호출할 수 없다.  
 자바에서는 코틀린 인라인 함수를 다른 보통 함수처럼 호출하는데 그런 경우 인라인 함수를 호출해도 실제로 인라이닝되지는 않는다.
+
+---
+
+### 1.7.4. 클래스 참조 대신 실체화한 타입 파라메터 사용: `ServiceLoader`, `::class.java`
+
+**`java.lang.Class` 타입 인자를 파라메터로 받는 API 에 대한 코틀린 Adapter 를 구현하는 경우 실체화한 타입 파라메터를 자주 사용**한다.
+
+`java.lang.Class` 를 사용하는 API 의 예로 JDK 의 `ServiceLoader` 가 있다.
+
+**`ServiceLoader` 는 어떤 추상 클래스나 인터페이스를 표현하는 `java.lang.Class` 를 받아서 그 클래스나 인스턴스를 구현한 인스턴스를 반환**한다.
+
+실체화한 타입 파라메터를 활용해서 이런 API 를 쉽게 호출하는 방법에 대해 알아본다.
+
+표준 자바 API 인 `ServiceLoader` 를 사용하여 서비스를 읽어들이는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+import java.security.Provider.Service
+import java.util.ServiceLoader
+
+fun main() {
+    val serviceImpl = ServiceLoader.load(Service::class.java)
+
+    // java.util.ServiceLoader[java.security.Provider$Service]
+    println(serviceImpl)
+}
+```
+
+위 코드에서 **`::class.java` 구문은 코틀린 클래스에 대응하는 `java.lang.Class` 참조를 얻는 방법**이다.
+
+코틀린의 `Service::class.java` 는 자바의 `Service.class` 와 같다.
+
+> 위 내용에 대해서는 추후 리플렉션에 대해 다룰 때 좀 더 상세히 다룰 예정입니다. (p. 402)
+
+위 예시를 구체화한 타입 파라메터를 사용하여 작성하면 아래와 같다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+import java.security.Provider.Service
+import java.util.ServiceLoader
+
+// 읽어들일 서비스 클래스를 함수의 타입 인자로 지정
+// 타입 파라메터를 reified 로 지정
+inline fun <reified T> loadService(): ServiceLoader<T> {
+    // T::class 로 타입 파라메터의 클래스를 가져옴
+    return ServiceLoader.load(T::class.java)
+}
+
+fun main() {
+    val serviceImpl2 = loadService<Service>()
+
+    println(serviceImpl2)
+}
+```
+
+_ServiceLoader.load(Service::class.java)_ 를 _loadService<Service>()_ 로 사용함으로써 코드가 훨씬 짧아진 것을 알 수 있다.
+
+_loadService()_ 에서 읽어들일 서비스 클래스를 타입 인자로 지정하였다.  
+클래스를 타입 인자로 지정하면 `::class.java` 라고 쓰는 경우보다 가독성이 더 좋다.
 
 ---
 
