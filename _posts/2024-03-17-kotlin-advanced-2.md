@@ -40,7 +40,8 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
   * [1.8. 타입 변성 (type variance)](#18-타입-변성-type-variance)
     * [1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션)
     * [1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유)
-      * [1.8.2.1. `out` 애너테이션 사용](#1821-out-애너테이션-사용)
+      * [1.8.2.1. 클래스, 타입과 하위 타입](#1821-클래스-타입과-하위-타입)
+      * [1.8.2.2. `out` 애너테이션 사용](#1822-out-애너테이션-사용)
       * [1.8.2.2. `in` 애너테이션 사용](#1822-in-애너테이션-사용)
     * [1.8.3. 공변(covariant)과 무공변(invariant)](#183-공변covariant과-무공변invariant)
     * [1.8.4. 함수의 공변적인 반환 타입](#184-함수의-공변적인-반환-타입)
@@ -1324,6 +1325,10 @@ _loadService()_ 에서 읽어들일 서비스 클래스를 타입 인자로 지�
 
 ## 1.8. 타입 변성 (type variance)
 
+**변성은 `List<String>` 과 `List<Any>` 와 같이 기반 타입이 같고, 타입 인자가 다른 여러 타입이 서로 어떤 관계가 있는지 설명하는 개념**이다.
+
+제네릭 클래스나 함수를 정의하는 경우 변경에 대해 꼭 알고 있어야 하며, 변성을 잘 활용하면 불편하지 않으면서도 타입 안정성을 보장하는 API 를 만들 수 있다.
+
 제네릭스와 상속을 조합하면 변화가 2차원이 된다.
 
 만일 T 와 U 사이에 상속 관계가 있을 때 _Container\<T\>_ 라는 제네릭 타입 객체를 _Container\<U\>_ 라는 제네릭 타입 컨테이너 객체에 대입하려 한다고 해보자.
@@ -1377,6 +1382,54 @@ class OutBox<out T>(private var contents: T) {
 ---
 
 ### 1.8.2. 타입 변성을 사용하는 이유
+
+`List<Any>` 타입의 파라메터를 받는 함수에 `List<String>` 을 넘기는 경우 아래와 같은 오류가 발생한다.
+
+아래는 리스트의 내용을 출력하는 함수 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+fun printContents(list: List<Any>) {
+    println(list)
+}
+
+fun main() {
+    // 컴파일 오류
+    // Type mismatch.
+    // Required: com.assu.study.kotlin2me.chap09.List<Any>
+    // Found:kotlin. collections. List<String>
+    
+    printContents(listOf("a", "b"))
+}
+```
+
+리스트를 변경하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+fun addAnswer(list: MutableList<Any>) {
+    list.add(1)
+}
+
+fun main() {
+    // MutableList<String> 타입의 변수 선언
+    val strings = mutableListOf("a", "b")
+
+    // 컴파일 오류
+    // Type mismatch.
+    // Required: MutableList<Any>
+    // Found: MutableList<String>
+    addAnswer(strings)
+}
+```
+
+위 예시는 `MutableList<Any>` 가 필요한 곳에 `MutableList<String>` 을 넘기면 안된다는 사실을 보여준다.
+
+즉, 어떤 함수가 리스트의 원소를 추가하거나 변경한다면 타입 불일치가 생길 수 있어서 `List<Any>` 대신 `List<String>` 을 넘길 수 없다.
+
+> 변경이 아닌 단순 조회 시에도 똑같이 컴파일 오류가 남
 
 `in`, `out` 과 같은 제약이 필요한 이유를 알아보기 위해 아래 타입 계층을 보자.
 
@@ -1435,7 +1488,85 @@ _petBox_ 에는 _put(item: Pet)_ 이 있다.
 
 ---
 
-#### 1.8.2.1. `out` 애너테이션 사용
+#### 1.8.2.1. 클래스, 타입과 하위 타입
+
+타입과 클래스의 차이에 대해 알아보자.
+
+제네릭 클래스가 아닌 클래스에서는 클래스 이름을 바로 타입으로 사용할 수 있다.
+
+```kotlin
+// String 클래스의 인스턴스를 저장하는 변수
+val x: String
+
+// String 클래스 이름을 null 이 될 수 있는 타입에도 사용 가능
+val x: String?
+```
+
+위 코드처럼 모든 코틀린 클래스는 적어도 둘 이상의 타입을 구성할 수 있다.
+
+제네릭 클래스의 경우 올바른 타입을 얻으려면 제네릭 타입의 타입 파라메터를 구체적인 타입 인자로 바꿔주어야 한다.  
+예를 들어 `List` 는 클래스이지만 타입은 아니다.  
+하지만 타입 인자를 치환한 `List<Int>`, `List<String?>` .. 등은 모두 제대로 된 타입이다.
+
+하위 타입(subtype) 은 **타입 A 의 값이 필요한 모든 장소에 타입 B 를 넣어도 아무런 문제가 없을 경우 '타입 B 는 타입 A 의 하위 타입'**이라고 할 수 있다.  
+이는 모든 타입은 자신의 하위 타입이기도 하다는 뜻이다.  
+예를 들어 `Int` 는 `Number` 의 하위 타입이지만 `String` 의 하위 타입은 아니다.
+
+**상위 타입(supertype) 은 하위 타입의 반대**이다.
+
+**A 타입이 B 타입의 하위 타입이라면 B 는 A 의 상위 타입**이다.
+
+![A 가 필요한 모든 곳에 B 를 사용할 수 있으면 B 는 A 의 하위 타입](/assets/img/dev/2024/0317/subtype.png)
+
+**컴파일러는 변수 대입이나 함수 인자 전달 시 매번 하위 타입 검사를 수행**한다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+fun test(i: Int) {
+    // Int 는 Number 의 하위 타입이므로 정상적으로 컴파일됨
+    val n: Number = i
+    
+    fun f(s: String) {
+        println("f()~")
+    }
+    
+    // 컴파일 오류
+    // Int 가 String 의 하위 타입이 아니므로 컴파일되지 않음
+    f(i)
+}
+```
+
+간단한 경우 하위 타입은 하위 클래스와 근본적으로 같다.  
+`Int` 클래스는 `Number` 클래스의 파생 클래스이므로 `Int` 는 `Number` 의 하위 타입이다.
+
+`String` 은 `CharSequence` 인터페이스의 하위 타입인 것처럼 **어떤 인터페이스를 구현하는 클래스의 타입은 그 인터페이스 타입의 하위 타입**이다.
+
+아래는 **null 이 될 수 타입은 하위 타입과 하위 클래스가 같지 않는 경우**를 보여준다.
+
+![null 이 될 수 없는 타입](/assets/img/dev/2024/0317/subtype2.png)
+
+**null 이 될 수 없는 타입 A 는 null 이 될 수 있는 타입 A? 의 하위 타입이지만, A? 는 A 의 하위 타입이 아니다.**
+
+null 이 될 수 있는 타입은 null 이 될 수 없는 타입의 하위 타입이 아니지만 두 타입은 같은 클래스에 해당한다.
+
+**제네릭 타입에 대해 다룰 때 특히 하위 클래스와 하위 타입의 차이는 중요**해진다.
+
+_`List<String>` 타입의 값을 `List<Any>` 를 파라메터로 받는 함수에 전달해도 되는가?_ 에 대한 질문을 하위 타입 관계를 써서 다시 보면
+_`List<String>` 은 `List<Any>` 의 하위 타입인가?_ 이다.
+
+[1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유) 에서 본 것처럼 `MutableList<String>` 을 `MutableList<Any>` 의 하위 타입으로 
+다루면 안되고, 그 반대도 마찬가지이다.  
+즉, `MutableList<String>` 을 `MutableList<Any>` 은 서로 하위 타입이 아니다.
+
+**제네릭 타입을 인스턴스화할 때 타입 인자로 서로 다른 타입이 들어가서 인스턴스 타입 사이의 하위 타입 관계가 성립하지 않으면 그 제네릭 타입을 무공변(invariant)** 라고 한다.  
+예를 들어 `MutableList` 의 경우 A 와 B 가 서로 다르기만 하면 `MutableList<A>` 는 항상 `MutableList<B>` 의 하위 타입이 아니다.
+
+예를 들어 **`List` 의 경우 A 가 B 의 하위 타입일 때 `List<A>` 가 `List<B>` 의 하위 타입인데 이런 클래스나 인터페이스를 공변적(covariant)** 이라고 한다.
+
+---
+
+#### 1.8.2.2. `out` 애너테이션 사용
 
 따라서 [1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유) 의 코드를 아래와 같이 수정할 수 있다.
 
