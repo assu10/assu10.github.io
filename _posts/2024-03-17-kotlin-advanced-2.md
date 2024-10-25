@@ -41,8 +41,9 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure reified kClas
     * [1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션)
     * [1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유)
       * [1.8.2.1. 클래스, 타입과 하위 타입](#1821-클래스-타입과-하위-타입)
-      * [1.8.2.2. `out` 애너테이션 사용](#1822-out-애너테이션-사용)
-      * [1.8.2.2. `in` 애너테이션 사용](#1822-in-애너테이션-사용)
+      * [1.8.2.2. 공변성(covariant): 하위 타입 관계 유지 (`out`)](#1822-공변성covariant-하위-타입-관계-유지-out)
+      * [1.8.2.3. 반공변성(contravariant): 뒤집힌 하위 타입 관계 (`in`)](#1823-반공변성contravariant-뒤집힌-하위-타입-관계-in)
+      * [1.8.2.4. 무공변(invariant), 공변(covariant), 반공변(contravariant)](#1824-무공변invariant-공변covariant-반공변contravariant)
     * [1.8.3. 공변(covariant)과 무공변(invariant)](#183-공변covariant과-무공변invariant)
     * [1.8.4. 함수의 공변적인 반환 타입](#184-함수의-공변적인-반환-타입)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -1375,7 +1376,7 @@ class OutBox<out T>(private var contents: T) {
 }
 ```
 
-`in T` 는 **이 클래스의 멤버 함수가 T 타입의 값을 인자로만 받고, T 타입 값을 반환하지 않는다는 의미**이다.  
+`in T` 는 **이 클래스의 멤버 함수가 T 타입의 값을 인자로만 받고, T 타입 값을 반환하지 않는다는 의미**이다.
 
 `out T` 는 **이 클래스의 멤버 함수가 T 타입의 값을 반환하기만 하고, T 타입의 값을 인자로는 받지 않는다는 의미**이다.
 
@@ -1560,13 +1561,253 @@ _`List<String>` 은 `List<Any>` 의 하위 타입인가?_ 이다.
 즉, `MutableList<String>` 을 `MutableList<Any>` 은 서로 하위 타입이 아니다.
 
 **제네릭 타입을 인스턴스화할 때 타입 인자로 서로 다른 타입이 들어가서 인스턴스 타입 사이의 하위 타입 관계가 성립하지 않으면 그 제네릭 타입을 무공변(invariant)** 라고 한다.  
-예를 들어 `MutableList` 의 경우 A 와 B 가 서로 다르기만 하면 `MutableList<A>` 는 항상 `MutableList<B>` 의 하위 타입이 아니다.
+예를 들어 `MutableList` 의 경우 A 와 B 가 서로 다르기만 하면 `MutableList<A>` 는 항상 `MutableList<B>` 의 하위 타입이 아니므로 `MutableList` 는 무공변이다.
 
 예를 들어 **`List` 의 경우 A 가 B 의 하위 타입일 때 `List<A>` 가 `List<B>` 의 하위 타입인데 이런 클래스나 인터페이스를 공변적(covariant)** 이라고 한다.
 
 ---
 
-#### 1.8.2.2. `out` 애너테이션 사용
+#### 1.8.2.2. 공변성(covariant): 하위 타입 관계 유지 (`out`)
+
+타입 파라메터 `T` 에 붙은 `out` 키워드는 아래를 의미한다.
+- **공변성**
+  - 하위 타입 관계가 유지됨 (_Producer\<Cat\>_ 은 _Producer\<Animal\>_ 의 하위 타입)
+- **사용 제한**
+  - `T` 를 `out` 위치에서만 사용 가능
+
+[1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션) 에서 `out T` 는 **이 클래스의 멤버 함수가 T 타입의 값을 반환하기만 하고, T 타입의 값을 인자로는 받지 않는다는 의미** 라고 하였다.
+
+_A_ 가 _B_ 의 하위 하입일 때 _Producer\<A\>_ 가 _Producer\<B\>_ 의 하위 타입이면 _Producer_ 는 공변적이다.  
+예) _Producer\<Cat\>_ 은 _Producer\<Animal\>_ 의 하위 타입
+
+코틀린에서 제네릭 클래스가 타입 파라메터에 대해 공변적임을 표시하려면 타입 파라메터 이름 앞에 `out` 애너테이션을 넣으면 된다.
+
+```kotlin
+// 클래스가 T 에 대해 공변적이라고 선언
+interface Producer<out T> {
+    fun produce(): T
+}
+```
+
+**클래스 타입 파라메터를 공변적으로 만들면 함수 정의에 사용한 파라메터 타입과 타입 인자의 타입이 정확히 일치하지 않더라도 그 클래스의 인스턴스를 함수 인자나 
+반환값으로 사용할 수 있다.**
+
+아래는 **무공변** 컬렉션 역할을 하는 클래스를 정의하는 예시이다.
+
+```kotlin
+// 무공변 컬렉션 역할을 하는 클래스 정의
+open class Animal {
+    fun feed() = println("feed~")
+}
+
+class Herd<T : Animal> { // 이 타입 파라메터를 무공변성으로 지정
+    val size: Int
+        get() = 1
+
+    operator fun get(i: Int): T  {
+        // ...
+    }
+}
+
+fun feedAll(animals: Herd<Animal>) {
+    for (i in 0 until animals.size) {
+        animals[i].feed()
+    }
+}
+```
+
+아래는 **무공변** 컬렉션 역할을 하는 클래스를 사용하는 예시이다.
+
+```kotlin
+// 무공변 컬렉션 역할을 하는 클래스 사용
+// Cat 은 Animal 임
+open class Cat : Animal() {
+    fun cleanLitter() = println("clean litter~")
+}
+
+fun takeCareOfCats(cats: Herd<Cat>) {
+    for (i in 0 until cats.size) {
+        cats[i].cleanLitter()
+
+        // 컴파일 오류
+        // Type mismatch.
+        // Required:Herd<Animal>
+        // Found:Herd<Cat>
+        
+        //feedAll(cats)
+    }
+}
+```
+
+_Herd_ 클래스의 T 타입 파라메터에 아무 변성도 지정하지 않았기 때문에 _Cat_ 은 _Animal_ 의 하위 타입이 아니다.  
+명시적으로 타입 캐스팅을 사용해서 컴파일 오류를 해결할 수도 있지만 그러면 코드가 장황해지고 실수를 하기 쉽다.  
+또한 타입 불일치를 해결하기 위해 강제 캐스팅을 하는 것을 올바른 방법이 아니다.
+
+_Herd_ 클래스는 List 와 비슷한 API 를 제공하며, 동물을 그 클래스에 추가하거나 변경할 수 없다.  
+따라서 _Herd_ 를 공변적인 클래스로 만들어서 위 문제를 해결할 수 있다.
+
+아래는 **공변적** 컬렉션 역할을 하는 클래스에 대한 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// 무공변 컬렉션 역할을 하는 클래스 정의
+open class Animal2 {
+    fun feed() = println("feed~")
+}
+
+class Herd2<out T : Animal2> { // T 는 이제 공변적임
+    val size: Int
+        get() = 1
+
+    operator fun get(i: Int): T {
+        // ...
+    }
+}
+
+fun feedAll2(animals: Herd2<Animal2>) {
+    for (i in 0 until animals.size) {
+        animals[i].feed()
+    }
+}
+
+// 무공변 컬렉션 역할을 하는 클래스 사용
+// Cat 은 Animal 임
+open class Cat2 : Animal2() {
+    fun cleanLitter() = println("clean litter~")
+}
+
+fun takeCareOfCats2(cats: Herd2<Cat2>) {
+    for (i in 0 until cats.size) {
+        cats[i].cleanLitter()
+
+        // 캐스팅을 할 필요가 없음
+        feedAll2(cats)
+    }
+}
+```
+
+모든 클래스를 공변적으로 만들 수는 없다.
+
+공변적으로 만들면 안전하지 못한 클래스도 있기 때문에 타입 파라메터를 공변적으로 지정하면 클래스 내부에서 그 파라메터를 사용하는 방법을 제한한다.  
+**타입 안전성을 보장하기 위해 공변적 파라메터는 항상 `out` 위치**에 있어야 한다.
+
+**즉, 클래스가 `T` 타입의 값을 생산할 수는 있지만 `T` 타입의 값을 소비할 수는 없다는 의미**이다.    
+**(= 이 클래스의 멤버 함수가 T 타입의 값을 반환하기만 하고, T 타입의 값을 인자로는 받지 않는다는 의미)**
+
+클래스 멤버를 선언할 때 타입 파라메터를 사용할 수 있는 지점은 모두 `in` 과 `out` 위치로 나뉜다.
+
+`T` 라는 타입 파라메터를 선언하고 `T` 를 사용하는 함수가 멤버로 있는 클래스를 생각해보자.
+
+**`T` 가 함수의 반환 타입으로 쓰인다면 `T` 는 `out` 위치에 있다. (= `T` 타입의 값을 생산함)**  
+**`T` 가 함수의 파라메터 타입에 쓰인다면 `T` 는 `in` 위치에 있다. (= `T` 타입의 값을 소비함)**
+
+![in/out 위치](/assets/img/dev/2024/0317/inout.png)
+
+클래스 타입 파라메터 `T` 앞에 `out` 키워드를 붙이면 클래스 안에서 `T` 를 사용하는 메서드가 out 위치에서만 `T` 를 사용하도록 허용한다.  
+**`out` 키워드는 `T` 의 사용법을 제한하며, `T` 로 인해 생기는 하위 타입 관계의 타입 안전성을 보장**한다.
+
+바로 위의 코드에서 _Herd_ 클래스를 보자.
+
+```kotlin
+class Herd2<out T : Animal2> { // T 는 이제 공변적임
+    val size: Int
+        get() = 1
+
+    operator fun get(i: Int): T {   // T 를 반환 타입으로 사용
+        // ...
+    }
+}
+```
+
+_Herd_ 에서 타입 파라메터 `T` 를 사용하는 곳은 오직 get() 메서드의 반환 타입 뿐이다.  
+함수의 반환 타입은 `out` 위치이다.  
+따라서 이 클래스를 공변적으로 선언해도 안전하다.
+
+_Cat_ 이 _Animal_ 의 하위 타입이므로 _Herd\<Animal\>_ 의 get() 을 호출하는 모든 코드는 get() 이 _Cat_ 을 반환해도 아무 문제없다.
+
+---
+
+이제 `List<T>` 인터페이스를 보자.  
+코틀린 List 는 읽기 전용이므로 `T` 타입의 원소를 반환하는 get() 메서드는 있지만 리스트에 `T` 타입의 값을 추가하거나 변경하는 메서드는 없다.  
+**따라서 List 는 공변적**이다.
+
+List\<T\> 시그니처
+
+```kotlin
+public interface List<out E> : Collection<E> {
+    // ...
+    
+    // 읽기 전용 메서드로 E 를 반환하는 메서드만 정의함
+    // 따라서 E 는 항상 out 위치에 사용됨
+    public operator fun get(index: Int): E
+
+    // 여기서도 E 는 out 위치에 있음 
+    public fun subList(fromIndex: Int, toIndex: Int): List<E>
+}
+```
+
+타입 파라메터를 함수의 파라메터 타입이나 반환 타입 뿐 아니라 **다른 타입의 타입 인자**로도 사용할 수 있다.  
+예를 들어 위의 subList() 에서 사용된 `T` 도 out 위치에 있다.
+
+---
+
+**`MutableList<T>` 는 타입 파라메터 `T` 에 대해 공변적인 클래스로 선언할 수 없다.**
+
+`MutableList<T>` 에는 `T` 를 인자로 받아서 그 타입의 값을 반환하는 메서드가 있다.  
+따라서 `T` 가 in 과 out 위치에 동시에 사용된다.
+
+MutableList\<T\> 의 시그니처
+
+```kotlin
+// MutableList 는 E 에 대해 공변적일 수 없음
+public interface MutableList<E> : List<E>, MutableCollection<E> {
+    // ...
+    
+    // 이유는 E 가 in 위치에 쓰이기 때문임
+    override fun add(element: E): Boolean   
+}
+```
+
+---
+
+**생성자 파라메터는 `in`, `out` 어느 쪽도 아니다.**
+
+타입 파라메터가 `out` 이라 해도 그 타입을 여전히 생성자 파라메터 선언에 사용할 수 있다.
+
+```kotlin
+// 생성자 파라메터는 in, out 어느 쪽도 아님
+// 파라메터 타입이 out 이어도 생성자 파라메터에 선언 가능
+class Herd3<out T: Animal2>(vararg animals: T) {
+    // ...
+}
+```
+
+변성은 코드에서 코드에서 위험할 여지가 있는 메서드를 호출할 수 없게 만듦으로써 제네릭 타입의 인스턴스 역할을 하는 클래스 인스턴스를 잘못 사용하는 일이 없도록 
+방지하는 역할을 한다.  
+생성자는 인스턴스를 생성한 뒤 나중에 호출할 수 있는 메서드가 아니므로 생성자는 위험할 여지가 없다.
+
+하지만 val, var 키워드를 생성자 파라메터에 적는다면 getter 나 setter 를 정의하는 것과 같다.  
+따라서 읽기 전용 프로퍼티는 out 위치, 변경 가능 프로퍼티는 in/out 위치 모두에 해당한다.
+
+```kotlin
+class Herd4<T: Animal2>(var animal1: T, vararg animals: T) {
+    // ...
+}
+```
+
+위 코드에서 `T ` 타입인 _animal1_ 프로퍼티가 in 위치에 사용되었기 때문에 T 를 `out` 으로 표시할 수 없다.
+
+---
+
+**변성 규칙 `in`, `out` 은 오직 외부에서 볼 수 있는 `public`, `protected`, `internal` 클래스 API 에만 적용할 수 있다.**
+
+`private` 메서드의 파라메터는 `in` 도 아니고 `out` 도 아닌 위치이다.  
+**변성 규칙은 클래스 외부의 사용자가 클래스를 잘못 사용하는 일을 막기 위한 것이므로 클래스 내부 구현에는 적용되지 않는다.**
+
+> 가시성 변경자에 대한 내용은 [10. 가시성 변경자 (access modifier, 접근 제어 변경자): `public`, `private`, `protected`, `internal`](https://assu10.github.io/dev/2024/02/09/kotlin-object/#10-%EA%B0%80%EC%8B%9C%EC%84%B1-%EB%B3%80%EA%B2%BD%EC%9E%90-access-modifier-%EC%A0%91%EA%B7%BC-%EC%A0%9C%EC%96%B4-%EB%B3%80%EA%B2%BD%EC%9E%90-public-private-protected-internal) 를 참고하세요.
+
+---
 
 따라서 [1.8.2. 타입 변성을 사용하는 이유](#182-타입-변성을-사용하는-이유) 의 코드를 아래와 같이 수정할 수 있다.
 
@@ -1593,11 +1834,13 @@ fun main() {
 
 ---
 
-#### 1.8.2.2. `in` 애너테이션 사용
+#### 1.8.2.3. 반공변성(contravariant): 뒤집힌 하위 타입 관계 (`in`)
+
+[1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션) 에서 `in T` 는 **이 클래스의 멤버 함수가 T 타입의 값을 인자로만 받고, T 타입 값을 반환하지 않는다는 의미** 라고 하였다.
 
 > `in` 애너테이션은 상위 타입을 하위 타입에 대입 가능하게 해주고, `out` 애너테이션은 하위 타입을 상위 타입에 대입 가능하게 해줌
 
-[1.9.1. 타입 변성: `in`/`out` 변성 애너테이션](#191-타입-변성-inout-변성-애너테이션) 의 _InBox\<in T\>_ 에는 _get()_ 이 없기 때문에 
+[1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션) 의 _InBox\<in T\>_ 에는 _get()_ 이 없기 때문에 
 _InBox\<Any\>_ 를 _InBox\<Pet\>_ 이나 _InBox\<Pet\>_ 등 하위 타입에 대입할 수 있다.
 
 ```kotlin
@@ -1665,6 +1908,10 @@ class OutBox<out T>(private var contents: T) {
     fun get(): T = contents
 }
 ```
+
+---
+
+#### 1.8.2.4. 무공변(invariant), 공변(covariant), 반공변(contravariant)
 
 ![Box, OutBox, InBox 하위 타입 관계](/assets/img/dev/2024/0317/generic2.png)
 
