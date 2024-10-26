@@ -1840,6 +1840,85 @@ fun main() {
 
 > `in` 애너테이션은 상위 타입을 하위 타입에 대입 가능하게 해주고, `out` 애너테이션은 하위 타입을 상위 타입에 대입 가능하게 해줌
 
+`Comparator` 인터페이스에는 `compare()` 메서드가 있다.
+
+Comparator 인터페이스 시그니처
+
+```kotlin
+interface Comparator<in T> {
+  // ...
+    
+  // T 를 in 위치에 사용
+  fun compare(o1: T, o2: T): Int
+}
+```
+
+위 인터페이스의 메서드는 `T` 타입의 값을 소비하기만 한다.  
+이는 `T` 가 in 위치에서는 사용된다는 의미이므로 `T` 앞에 `in` 키워드를 붙여야만 한다.
+
+물론 `Comparator` 를 구현하면 그 타입의 하위 타입에 속하는 모든 값을 비교할 수 있다.
+
+`Comparator<Any>` 를 이용하여 모든 타입의 값을 비교하는 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+import kotlin.collections.List
+
+fun main() {
+    val anyComparator = Comparator<Any> { o1, o2 -> o1.hashCode() - o2.hashCode() }
+
+    val strings: List<String> = listOf("bbb", "aaa", "ccc")
+
+    // [aaa, bbb, ccc]
+    println(strings.sortedWith(anyComparator))
+}
+```
+
+위 코드에서 `sortedWith()` 는 `Comparator<String>` 을 요구하므로 String 보다 더 일반적인 타입을 비교할 수 있는 `Comparator<Any>` 타입을 넘겨도 안전하다.
+
+어떤 타입의 객체를 `Comparator` 로 비교할 때 그 타입이나 그 타입의 조상 타입을 비교할 수 있는 `Comparator` 를 사용할 수 있다.  
+이는 `Comparator<Any>` 가 `Comparator<String>` 의 하위 타입이라는 의미이다.
+
+그런데 여기서 `Any` 는 `String` 의 상위 타입이다.  
+따라서 **서로 다른 타입 인자에 대해 `Comparator` 의 하위 타입 관계는 타입 인자의 하위 타입 관계와는 정반대 방향**이다.
+
+---
+
+이제 _Consumer\<T\>_ 를 예시로 하여 반공변성에 대해 알아본다.
+
+**타입 B 가 타입 A 의 하위 타입인 경우 _Consumer\<A\>_ 가 _Consumer\<B\>_ 의 하위 타입인 관계가 성립하면 제네릭 클래스 _Consumer\<T\>_ 는 타입 인자 `T` 에 대해 
+반공변**이다.
+
+A 와 B 의 위치가 서로 바뀐다는 점에 유의하자.  
+즉, 하위 타입 관계가 뒤집힌다고 말한다.  
+예) _Consumer\<Animal\>_ 은 _Consumer\<Cat\>_ 의 하위 타입
+
+아래는 타입 파라메터에 대해 공변성인 클래스와 반공변성인 클래스의 하위 타입 관계이다.
+
+![공변성과 반공변성](/assets/img/dev/2024/0317/inout2.png)
+
+위 그림을 보면 공변성 타입 _Producer\<T\>_ 에서는 타입 인자의 하위 타입 관계가 제네릭 타입에서도 유지되지만, 반공변성 타입인 _Consumer\<T\>_ 에서는 
+타입 인자의 하위 타입 관계가 제네릭 타입으로 오면서 반대로 뒤집힌다.
+
+**`in` 키워드가 붙은 타입은 이 클래스의 메서드 안으로 전달되어 메서드에 의해 소비**된다.
+
+---
+
+**클래스나 인터페이스가 어떤 파라메터에 대해서는 공변적이면서 다른 타입 파라메터에 대해서는 반공변적**일 수도 있다.
+
+`Function` 인터페이스가 바로 그 예이다.
+
+```kotlin
+interface Function<in P, out R> {
+    operator fun invoke(p: P): R
+}
+```
+
+위 함수 `Function` 의 하위 타입 관계는 첫 번째 타입 인자인 _P_ 와는 반대 관계이지만, 두 번째 타입 인자인 _R_ 의 하위 타입 관계와는 같다.
+
+---
+
 [1.8.1. 타입 변성: `in`/`out` 변성 애너테이션](#181-타입-변성-inout-변성-애너테이션) 의 _InBox\<in T\>_ 에는 _get()_ 이 없기 때문에 
 _InBox\<Any\>_ 를 _InBox\<Pet\>_ 이나 _InBox\<Pet\>_ 등 하위 타입에 대입할 수 있다.
 
