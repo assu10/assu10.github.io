@@ -1139,6 +1139,8 @@ fun main() {
 
 ## 6.3. 스타 프로젝션(star projection): `*`
 
+> 스타 프로젝션에 대한 좀 더 상세한 설명은 [2.6. 스타 프로젝션](https://assu10.github.io/dev/2024/03/18/kotlin-advanced-2-1/#26-%EC%8A%A4%ED%83%80-%ED%94%84%EB%A1%9C%EC%A0%9D%EC%85%98) 을 참고하세요.
+
 제네릭 인자 타입을 사용하지 않는다면 스타 프로젝션(star projection) `*` 로 대신할 수 있다.
 
 ```kotlin

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Kotlin - 제네릭스(2): 'reified', 타입 변성 'in'/'out', 공변과 무공변, 타입 프로젝션"
+title: "Kotlin - 제네릭스(2): 'reified', 타입 변성 'in'/'out', 공변과 무공변, 타입 프로젝션, 스타 프로젝션"
 date: 2024-03-18
 categories: dev
 tags: kotlin reified kClass
@@ -32,6 +32,8 @@ tags: kotlin reified kClass
   * [2.4. 함수의 공변적인 반환 타입](#24-함수의-공변적인-반환-타입)
   * [2.5. 사용 지점 변성: 타입이 언급되는 지점에서 변성 지정](#25-사용-지점-변성-타입이-언급되는-지점에서-변성-지정)
     * [2.5.1. 타입 프로젝션](#251-타입-프로젝션)
+  * [2.6. 스타 프로젝션](#26-스타-프로젝션)
+    * [2.6.1. 스타 프로젝션 주의점](#261-스타-프로젝션-주의점)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -1237,6 +1239,286 @@ fun <T> copyData4(source: MutableList<out T>, dest: MutableList<in T>) {
 
 즉, 코틀린의 `MutableList<out T>` 는 자바의 `MutableList<? extends T>` 와 같고, 
 코틀린의 `MutableList<in T>` 는 자바의 `MutableList<? super T>` 와 같다.
+
+---
+
+## 2.6. 스타 프로젝션
+
+> [6.3. 스타 프로젝션(star projection): `*`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#63-%EC%8A%A4%ED%83%80-%ED%94%84%EB%A1%9C%EC%A0%9D%EC%85%98star-projection-) 과 함께 보면 도움이 됩니다.
+
+**제네릭 타입 인자 정보가 없음을 표현할 때 스타 프로젝션을 사용**한다.  
+예) 원소 타입이 알려지지 않은 리스트는 `List<*>` 로 표현
+
+`MutableList<*>` 는 `MutableList<Any?>` 와 같지 않다.  
+(`MutableList<T>` 가 T 에 대해 무공변성이라는 점을 기억하고 있자.)
+
+- **`MutableList<Any?>`**
+  - **모든 타입의 원소를 담을 수 있는 리스트라는 것을 표현**
+- **`MutableList<*>`**
+  - **어떤 정해진 구체적인 타입의 원소만을 담는 리스트이지만 그 원소의 타입을 정확히 모른다는 사실을 표현**
+  - 원소 타입이 어떤 타입인지 모른다고 해서 그 안에 아무 원소나 다 담아도 된다는 의미는 아님
+    - 그 리스트에 담는 값의 타입에 따라서 넘겨준 쪽이 바라는 조건을 깰 수도 있기 때문
+    - 하지만 `MutableList<*>` 타입의 리스트에서 원소를 얻을 수는 있음
+    - 이 때 진짜 원소 타입은 알 수 없지만 어쨌든 그 원소 타입이 `Any?` 의 하위 타입이라는 사실은 분명함 (`Any?` 는 모든 타입의 상위 타입이므로)
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+import kotlin.random.Random
+
+fun main() {
+    val list: MutableList<Any?> = mutableListOf('a', 1, "bbb")
+    val chars = mutableListOf('a', 'b', 'c')
+
+    // MutableList<*> 과 MutableList<Any?> 는 다름
+    val unknownElements: MutableList<*> =
+        if (Random.nextBoolean()) { // list 와 chars 중 랜덤으로 할당
+            list
+        } else {
+            chars
+        }
+
+    // 컴파일 오류
+    // unknownElements.add(3)
+
+    // bb 는 Any? 타입임
+    // 원소를 가져와도 안전함
+    val bb = unknownElements.first()
+
+    // a
+    println(bb)
+}
+```
+
+위에서 _unknownElements.add(3)_ 은 컴파일 오류가 발생한다.  
+위에서 컴파일러는 `MutableList<*>` 를 아웃 프로젝션 타입으로 인식해서 `MutableList<*>` 는 `MutableList<out Any?>` 처럼 동작한다.
+
+어떤 리스트의 원소 타입을 모르더라도 그 리스트에서 안전하게 `Any?` 타입의 원소를 꺼내올 수는 있지만 (`Any?` 는 모든 타입의 상위 타입), 타입을 모르는 리스트에 
+원소를 마음대로 넣을수는 없다.
+
+> 자바의 와일드카드와 비교하면 코틀린의 _MyType\<*\>_ 은 자바의 _MyType\<?\>_ 에 대응함
+
+> **반공변 타입 파라메터에 대한 스타 프로젝션**
+> 
+> _Consumer\<in T\>_ 와 같은 반공변 타입 파라메터에 대한 스타 프로젝션은 _Consumer\<in Nothing\>_ 과 동등함  
+> 결과적으로 이런 스타 프로젝션에서는 T 가 시그니처에 들어가 있는 메서드를 호출할 수 없음
+> 
+> 타입 파라메터가 반공변이라면 제네릭 클래스는 소비자 역할을 하는데 그 클래스가 정확히 T 의 어떤 부분을 사용할 지 알 수 없으므로 반공변 클래스에 무언가를 
+> 소비하게 넘길 수 없음
+
+---
+
+타입 파라메터를 시그니처에서 전혀 언급하지 않거나 데이터를 읽기는 하지만 그 타입에 대해서는 관심이 없는 경우와 같이 **타입 인자 정보가 중요하지 않을 때도 
+스타 프로젝션을 사용**할 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+import kotlin.collections.List
+
+// 모든 리스트를 인자로 받을 수 있음
+fun printFirst(list: List<*>) {
+    if (list.isNotEmpty()) { // 제네릭 타입 파라메터를 사용하지 않음
+        // tmp 는 Anu? 타입이지만 여기서는 그 타입만으로 충분함
+        val tmp = list.first()
+        println(tmp)
+    }
+}
+
+fun main() {
+    // aaa
+    printFirst(listOf("aaa", 222))
+}
+```
+
+[2.5. 사용 지점 변성: 타입이 언급되는 지점에서 변성 지정](#25-사용-지점-변성-타입이-언급되는-지점에서-변성-지정)
+에서 본 _타입 파라메터가 두 개인 데이터 복사 함수_ 예시처럼 스타 프로젝션도 제네릭 파라메터를 도입하여 구현할 수 있다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+import kotlin.collections.List
+
+fun <T> printFirst2(list: List<T>) {
+    if (list.isNotEmpty()) {
+        // tmp 는 T 타입
+        val tmp = list.first()
+        println(tmp)
+    }
+}
+
+fun main() {
+    // 222
+    printFirst2(listOf(222, "aaa"))
+}
+```
+
+스타 프로젝션을 쓰는 쪽이 더 간결하지만 제네릭 타입 파라메터가 어떤 타입인지 굳이 알 필요가 없을 때만 스타 프로젝션을 사용해야 한다.  
+스타 프로젝션을 사용할 때는 값을 만들어내는 메서드만 호출할 수 있고, 그 값의 타입에는 신경쓰면 안된다.
+
+---
+
+### 2.6.1. 스타 프로젝션 주의점
+
+스타 프로젝션 사용 방법과 스타 프로젝션 사용 시 주의할 점에 대해 알아본다.
+
+사용자 입력을 검증하는 _FieldValidator_ 인터페이스를 정의하는데 이 인터페이스에는 `in` 위치에서만 사용되는 타입 파라메터가 있다.  
+따라서 _FieldValidator_ 는 반공변성이다.  
+(String 타입의 필드를 검증하기 위해 Any 타입을 검증하는 _FieldValidator_ 사용 가능, 이는 반공변성이기 때문임)
+
+아래는 String 과 Int 를 검증하는 _FieldValidator_ 인터페이스 정의이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+// T 에 대해 반공변인 인터페이스 정의
+interface FieldValidator<in T> {
+    // T 를 in 위치에서만 사용 (이  메서드는 T 타입의 값은 소비함)
+    fun validate(input: T): Boolean
+}
+
+object DefaultStringValidator : FieldValidator<String> {
+    override fun validate(input: String): Boolean = input.isNotEmpty()
+}
+
+object DefaultIntValidator : FieldValidator<Int> {
+    override fun validate(input: Int): Boolean = input >= 0
+}
+```
+
+> `object` 에 대한 내용은 [1. object](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#1-object) 을 참고하세요.
+
+이제 모든 검증기를 한 컨테이너에 넣고 입력 필드 타입에 따라 적절한 검증기를 사용하는 경우를 생각해보자.
+
+이 경우 Map 에 검증기를 담으면 된다.  
+모든 타입의 검증기를 Map 에 넣을 수 있어야 하므로 코틀린 클래스를 표현하는 `KClass` 를 key 로 하고, _FieldValidator\<*\>_ 를 value 로 하는 Map 을 선언한다.  
+(**_FieldValidator\<*\>_ 는 모든 타입의 검증기를 표현**함)
+
+```kotlin
+fun main() {
+    val validators = mutableMapOf<KClass<*>, FieldValidator<*>>()
+    validators[String::class] = DefaultStringValidator
+    validators[Int::class] = DefaultIntValidator
+}
+```
+
+이제 검증기를 사용해보자.
+
+```kotlin
+// 컴파일 오류
+validators[String::class]!!.validate("Abc")
+```
+
+String 타입의 필드를 _FieldValidator\<*\>_ 타입의 검증기로 검증할 수 없다.  
+컴파일러는 _FieldValidator\<*\>_ 가 어떤 타입을 검증하는 검증기인지 모르기 때문에 String 을 검증하기 위해 그 검증기를 사용하면 위험하다고 판단한다.
+
+위의 컴파일 오류는 **알 수 없는 타입의 검증기에 구체적인 값을 넘기면 안전하지 못하기 때문에 발생하는 오류**이다.
+
+검증기를 원하는 타입으로 캐스팅하면 오류를 해결할 수 있지만 그런 타입 캐스팅은 안전하지 못하고 권장하지도 않는다.  
+하지만 일단 시도는 해보자.
+
+검증기를 가져오면서 명시적으로 타입 캐스팅 사용 (권장하지 않음)
+
+```kotlin
+// 강제 캐스팅
+// Warning- Unchecked cast: FieldValidator<*>? to FieldValidator<String>
+val stringValidator = validators[String::class] as FieldValidator<String>
+
+println(stringValidator.validate("aa")) // true
+println(stringValidator.validate("")) // false
+```
+
+위와 같이 하면 타입 캐스팅 부분에서 실패하지 않고 값을 검증하는 메서드 안에서 실패하게 된다.  
+실행 시점에 모든 제네릭 타입 정보는 사라지므로 타입 캐스팅은 문제가 없지만 검증 메서드 안에서 문제가 발생한다.
+
+명시적으로 타입 캐스팅 시 검증기를 잘못 가져온 경우
+
+```kotlin
+// 검증기를 잘못 가져왔지만 컴파일과 타입 캐스팅 시엔 아무런 문제가 발생하지 않음
+val stringValidator2 = validators[Int::class] as FieldValidator<String>
+
+// 런타임 오류
+// class java.lang.String cannot be cast to class java.lang.Number
+println(stringValidator2.validate(""))
+```
+
+위처럼 명시적으로 강제 캐스팅을 하는 방법은 타입 안전성을 보장할 수도 없고, 실수도 하기 쉽다.  
+한 변수에 여러 타입의 검증기를 보관할 다른 방법을 찾아야 한다.
+
+---
+
+아래는 똑같이 _validators_ Map 을 사용하지만 검증기를 등록하거나 가져오는 작업을 할 때 타입을 제대로 검사할 수 있도록 캡슐화한다.  
+위의 코드처럼 안전하지 않은 캐스팅 `as` 오류를 발생시키지만 _Validators_ 객체가 Map 에 대한 접근을 통제하기 때문에 Map 에 잘못된 값이 들어가지 못하게 제어할 수 있다.
+
+검증기 컬렉션에 대한 접근 캡슐화 (타입 안전성 보장)
+
+```kotlin
+package com.assu.study.kotlin2me.chap09
+
+import kotlin.reflect.KClass
+
+// T 에 대해 반공변인 인터페이스 정의
+interface FieldValidator2<in T> {
+    // T 를 in 위치에서만 사용 (이  메서드는 T 타입의 값은 소비함)
+    fun validate(input: T): Boolean
+}
+
+object DefaultStringValidator2 : FieldValidator2<String> {
+    override fun validate(input: String): Boolean = input.isNotEmpty()
+}
+
+object DefaultIntValidator2 : FieldValidator2<Int> {
+    override fun validate(input: Int): Boolean = input >= 0
+}
+
+object Validators {
+    // 외부에서 이 Map 에 접근할 수 없음
+    private val validators = mutableMapOf<KClass<*>, FieldValidator2<*>>()
+
+    fun <T : Any> registerValidator(
+        kClass: KClass<T>,
+        fieldValidator2: FieldValidator2<T>,
+    ) {
+        // 어떤 클래스와 검증기가 타입이 맞아 떨어지는 경우에만 그 클래스와 검증기 정보를 Map 에 넣음
+        validators[kClass] = fieldValidator2
+    }
+
+    // FieldValidator2<T> 캐스팅이 안전하지 않다는 경고를 무시하게 함
+    @Suppress("UNCHECKED_CAST")
+    operator fun <T : Any> get(kClass: KClass<T>): FieldValidator2<T> =
+        validators[kClass] as? FieldValidator2<T>
+            ?: throw IllegalArgumentException("No Validator for ${kClass.simpleName}")
+}
+
+fun main() {
+    Validators.registerValidator(String::class, DefaultStringValidator2)
+    Validators.registerValidator(Int::class, DefaultIntValidator2)
+
+    // 컴파일 오류
+    // Type mismatch.
+    // Required:String
+    // Found:Int
+
+    // Validators.registerValidator(Int::class, DefaultStringValidator2)
+
+    println(Validators[String::class].validate("aaa")) // true
+    println(Validators[String::class].validate("")) // false
+    println(Validators[Int::class].validate(3)) // true
+
+    // 컴파일 오류
+    // Type mismatch.
+    // Required:Int
+    // Found:String
+
+    // println(Validators[Int::class].validate("bb"))
+}
+```
+
+위 코드에서 안전하지 못한 모든 로직은 클래스 내부로 숨기고, 이렇게 안전하지 못한 부분을 숨김으로써 이제 외부에서 그 부분을 잘못 사용하지 않음을 보장할 수 있다.
+
+이런 패턴은 모든 커스텀 제네릭 클래스를 저장할 때 사용할 수 있다.
+
+안전하지 못한 코드를 별도로 분리하면 그 코드를 잘못 사용하지 못하게 방지할 수 있고, 안전하게 컨테이너를 사용하게 만들 수 있다.
 
 ---
 
