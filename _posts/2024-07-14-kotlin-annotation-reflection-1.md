@@ -28,7 +28,7 @@ tags: kotlin
 * [1. 애너테이션 적용](#1-애너테이션-적용)
 * [2. 애너테이션 대상: 사용 지점 대상](#2-애너테이션-대상-사용-지점-대상)
 * [3. 애너테이션을 활용한 JSON 직렬화 제어](#3-애너테이션을-활용한-json-직렬화-제어)
-* [4. 애너테이션 선언](#4-애너테이션-선언)
+* [4. 애너테이션 선언: `annotation`](#4-애너테이션-선언-annotation)
 * [5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어](#5-메타-애너테이션-애너테이션을-처리하는-방법-제어)
 * [6. 애너테이션 파라메터로 클래스 사용](#6-애너테이션-파라메터로-클래스-사용)
 * [7. 애너테이션 파라메터로 제네릭 클래스 받기](#7-애너테이션-파라메터로-제네릭-클래스-받기)
@@ -271,11 +271,12 @@ import ru.yole.jkid.deserialization.deserialize
 import ru.yole.jkid.serialization.serialize
 import kotlin.test.assertEquals
 
-data class Person(
-    val name: String,
-    val age: Int,
+data class Person2(
+  @JsonName("alias")
+  val firstName: String,
+  @JsonExclude
+  val age: Int? = null,
 )
-
 class PersonTest {
 
     @Test
@@ -298,7 +299,27 @@ class PersonTest {
 
 ---
 
-# 4. 애너테이션 선언
+# 4. 애너테이션 선언: `annotation`
+
+위에서 사용한 @JsonExclude 는 아무 파라메터도 없는 가장 단순한 애너테이션이다.
+
+```kotlin
+@Target(AnnotationTarget.PROPERTY)
+annotation class JsonExclude
+```
+
+일반 클래스와 차이점은 `class` 키워드 앞에 `annotation` 변경자가 붙은 것 외엔 없어보이지만 **애너테이션 클래스는 오직 선언이나 식과 관련있는 메타데이터의 구조를 
+정의하기 때문에 내부에 아무 코드도 들어있을 수 없다.**  
+따라서 컴파일러는 애너테이션 클래스에서 본문을 정의하지 못하게 막는다.
+
+**파라메터가 있는 애너테이션을 정의하려면 애너테이션 클래스의 주생성자에 파라메터를 선언**해야 한다.
+
+```kotlin
+@Target(AnnotationTarget.PROPERTY)
+annotation class JsonName(val name: String)
+```
+
+일반 클래스의 [주생성자 선언 구문](https://assu10.github.io/dev/2024/02/24/kotlin-object-oriented-programming-1/#14-%EC%A3%BC%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80-%EC%B4%88%EA%B8%B0%ED%99%94-%EB%B8%94%EB%A1%9D)과 똑같지만 **애너테이션 클래스에서는 모든 파라메터 앞에 `val` 를 붙여야 한다.**
 
 ---
 
