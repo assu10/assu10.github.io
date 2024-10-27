@@ -29,7 +29,8 @@ tags: kotlin
 * [2. 애너테이션 대상: 사용 지점 대상](#2-애너테이션-대상-사용-지점-대상)
 * [3. 애너테이션을 활용한 JSON 직렬화 제어](#3-애너테이션을-활용한-json-직렬화-제어)
 * [4. 애너테이션 선언: `annotation`](#4-애너테이션-선언-annotation)
-* [5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어](#5-메타-애너테이션-애너테이션을-처리하는-방법-제어)
+* [5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어 `@Target`](#5-메타-애너테이션-애너테이션을-처리하는-방법-제어-target)
+  * [5.1. `@Retention`](#51-retention)
 * [6. 애너테이션 파라메터로 클래스 사용](#6-애너테이션-파라메터로-클래스-사용)
 * [7. 애너테이션 파라메터로 제네릭 클래스 받기](#7-애너테이션-파라메터로-제네릭-클래스-받기)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -323,7 +324,112 @@ annotation class JsonName(val name: String)
 
 ---
 
-# 5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어
+# 5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어 `@Target`
+
+애너테이션 사용을 제어하는 방법과 애너테이션을 다른 애너테이션에 적용하는 방법에 대해 알아본다.
+
+자바와 마찬가지로 코틀린 애너테이션 클래스에도 애너테이션을 붙일 수 있는데 이렇게 **애너테이션 클래스에 적용할 수 있는 애너테이션을 메타 애너테이션**이라고 한다.
+
+표준 라이브러리에 있는 메타 애너테이션 중 가장 흔하게 사용되는 메타 애너테이션은 `@Target` 이다.
+
+```kotlin
+@Target(AnnotationTarget.PROPERTY)
+annotation class JsonExclude
+```
+
+`@Target` 은 적용 가능 대상을 지정하는 메타 애너테이션으로, 애너테이션을 적용할 수 있는 요소의 유형을 지정한다.
+
+**애너테이션 클래스에 대해 구체적인 `@Target` 을 지정하지 않으면 모든 선언에 적용**할 수 있는 애너테이션이 된다.
+
+애너테이션이 붙을 수 있는 대상이 정의된 enum 은 `AnnotationTarget` 에 있다.
+
+```kotlin
+package kotlin.annotation
+
+import kotlin.annotation.AnnotationTarget.*
+
+public enum class AnnotationTarget {
+    /** Class, interface or object, annotation class is also included */
+    CLASS,
+    /** Annotation class only */
+    ANNOTATION_CLASS,
+    /** Generic type parameter */
+    TYPE_PARAMETER,
+    /** Property */
+    PROPERTY,
+    /** Field, including property's backing field */
+    FIELD,
+    /** Local variable */
+    LOCAL_VARIABLE,
+    /** Value parameter of a function or a constructor */
+    VALUE_PARAMETER,
+    /** Constructor only (primary or secondary) */
+    CONSTRUCTOR,
+    /** Function (constructors are not included) */
+    FUNCTION,
+    /** Property getter only */
+    PROPERTY_GETTER,
+    /** Property setter only */
+    PROPERTY_SETTER,
+    /** Type usage */
+    TYPE,
+    /** Any expression */
+    EXPRESSION,
+    /** File */
+    FILE,
+    /** Type alias */
+    @SinceKotlin("1.1")
+    TYPEALIAS
+}
+
+/**
+ * Contains the list of possible annotation's retentions.
+ *
+ * Determines how an annotation is stored in binary output.
+ */
+public enum class AnnotationRetention {
+    /** Annotation isn't stored in binary output */
+    SOURCE,
+    /** Annotation is stored in binary output, but invisible for reflection */
+    BINARY,
+    /** Annotation is stored in binary output and visible for reflection (default retention) */
+    RUNTIME
+}
+
+// ...
+
+```
+
+필요하다면 아래처럼 둘 이상의 대상을 한꺼번에 선언할 수도 있다.
+
+```kotlin
+@Target(AnnotationTarget.CLASS,AnnotationTarget.PROPERTY)
+```
+
+**메타 애너테이션을 직접 만들어야 한다면 `AnnotationTarget.ANNOTATION_CLASS` 를 대상으로 지정**하면 된다.
+
+```kotlin
+@Target(AnnotationTarget.ANNOTATION_CLASS)
+annotation class BindingAnnotation
+
+@BindingAnnotation
+annotation class MyBinding
+```
+
+대상을 `AnnotationTarget.PROPERTY` 로 지정한 애너테이션을 자바 코드에서 사용할 수는 없다.  
+자바에서 그런 애너테이션을 사용해야 한다면 `AnnotationTarget.FIELD` 를 두 번째 대상으로 추가해야 한다.  
+그러면 애너테이션을 코틀린 프로퍼티와 자바 필드에 적용할 수 있다.
+
+---
+
+## 5.1. `@Retention`
+
+`@Retention` 은 정의 중인 애너테이션 클래스를 소스 수준에서만 유지할지, `.class` 파일에 저장할 지, 실행 시점에 리플렉션을 사용하여 접근할 지를 지정하는 
+메타 애너테이션이다.
+
+자바 컴파일러는 기본적으로 애너테이션을 `.class` 파일에는 저장하지만 런타임에는 사용할 수 없게 한다.
+
+하지만 대부분의 애너테이션은 런타임에도 사용할 수 있어야 하므로 코틀린에서는 기본적으로 애너테이션의 `@Retention` 을 `RUNTIME` 으로 지정한다.
 
 ---
 
