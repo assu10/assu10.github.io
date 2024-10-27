@@ -31,7 +31,7 @@ tags: kotlin
 * [4. 애너테이션 선언: `annotation`](#4-애너테이션-선언-annotation)
 * [5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어 `@Target`](#5-메타-애너테이션-애너테이션을-처리하는-방법-제어-target)
   * [5.1. `@Retention`](#51-retention)
-* [6. 애너테이션 파라메터로 클래스 사용](#6-애너테이션-파라메터로-클래스-사용)
+* [6. 애너테이션 파라메터로 클래스 사용: `KClass`](#6-애너테이션-파라메터로-클래스-사용-kclass)
 * [7. 애너테이션 파라메터로 제네릭 클래스 받기](#7-애너테이션-파라메터로-제네릭-클래스-받기)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -424,16 +424,99 @@ annotation class MyBinding
 
 ## 5.1. `@Retention`
 
-`@Retention` 은 정의 중인 애너테이션 클래스를 소스 수준에서만 유지할지, `.class` 파일에 저장할 지, 실행 시점에 리플렉션을 사용하여 접근할 지를 지정하는 
+`@Retention` 은 정의 중인 애너테이션 클래스를 소스 수준에서만 유지할지(`SOURCE`), `.class` 파일에 저장할 지(`BINARY`), 실행 시점에 리플렉션을 사용하여 접근할 지(`RUNTIME`)를 지정하는 
 메타 애너테이션이다.
 
-자바 컴파일러는 기본적으로 애너테이션을 `.class` 파일에는 저장하지만 런타임에는 사용할 수 없게 한다.
+자바 컴파일러는 기본적으로 애너테이션을 `.class` 파일에는 저장(`BINARY`)하지만 런타임에는 사용할 수 없게 한다.
 
 하지만 대부분의 애너테이션은 런타임에도 사용할 수 있어야 하므로 코틀린에서는 기본적으로 애너테이션의 `@Retention` 을 `RUNTIME` 으로 지정한다.
 
 ---
 
-# 6. 애너테이션 파라메터로 클래스 사용
+# 6. 애너테이션 파라메터로 클래스 사용: `KClass`
+
+[5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어 `@Target`](#5-메타-애너테이션-애너테이션을-처리하는-방법-제어-target) 에서 정적인 데이터를 인자로 유지하는 에너테이션을 정의하는 방법에 대해 알아보았다.
+
+하지만 **어떤 클래스를 선언 메타데이터로 참조할 수 있는 기능이 필요할 때**가 있는데, 이럴 때 **클래스 참조를 파라메터로 하는 애너테이션 클래스를 선언**하면 된다.
+
+제이키드의 @DeserializeInterface 는 인터페이스 타입인 프로퍼티에 대해 역직렬화를 제어할 때 사용하는 애너테이션이다.  
+인터페이스의 인스턴스를 직접 만들 수는 없으므로 역직렬화 시 어떤 클래스를 사용하여 인터페이스를 구현할 지 지정할 수 있어야 한다.
+
+@DeserializeInterface 사용 예시
+
+```kotlin
+package com.assu.study.kotlin2me.chap10.jkid.examples
+
+import ru.yole.jkid.DeserializeInterface
+import ru.yole.jkid.deserialization.deserialize
+import ru.yole.jkid.serialization.serialize
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+interface Company {
+    val name: String
+}
+
+data class CompanyImpl(
+    override val name: String,
+) : Company
+
+data class Person3(
+    val name: String,
+    @DeserializeInterface(CompanyImpl::class)
+    val company: Company,
+)
+
+inline fun <reified T : Any> testJsonSerializer(
+    value: T,
+    json: String,
+) {
+    assertEquals(json, serialize(value))
+    assertEquals(value, deserialize(json))
+}
+
+class DeserializeInterfaceTest {
+    @Test
+    fun test() {
+        testJsonSerializer(
+            value = Person3("Assu", CompanyImpl("Silby")),
+            json = """{"company": {"name": "Silby"}, "name": "Assu"}""",
+        )
+    }
+}
+```
+
+직렬화된 _Person3_ 인스턴스를 역직렬화하는 과정에서 _company_ 프로퍼티를 표현하는 JSON 을 읽으면 그 프로퍼티 값에 해당하는 JSON 을 역직렬화하면서 _CompanyImpl_ 의 
+인스턴스를 만들어서 _Person3_ 인스턴스의 _company_ 프로퍼티에 설정한다.
+
+이렇게 역직렬화를 사용할 클래스를 지정하기 위해 @DeserializeInterface 애너테이션의 인자로 _CompanyImpl::class_ 를 넘긴다.
+
+**일반적으로 클래스를 가리키려면 클래스 이름 뒤에 `::class` 키워드**를 붙인다.
+
+클래스 참조를 인자로 받는 애너테이션 정의
+
+```kotlin
+@Target(AnnotationTarget.PROPERTY)
+annotation class DeserializeInterface(val targetClass: KClass<out Any>)
+```
+
+**`KClass` 는 자바 java.lang.Class 타입과 같은 역할을 하는 코틀린 타입**이다.  
+코틀린 클래스에 대한 참조를 저장할 때 `KClass` 타입을 사용한다.
+
+> 이렇게 저장한 클래스 참조로 어떤 기능을 수행할 수 있는지는 추후 다룰 예정입니다. (p. 444)
+
+**`KClass` 의 타입 파라메터는 이 `KClass` 의 인스턴스가 가리키는 코틀린 타입을 지정**한다.  
+예) _CompanyImpl::class_ 의 타입은 _KClass\<CompanyImpl\>_ 이며, 이 타입은 DeserializeInterface 의 파라메터 타입인 _KClass\<out Any\>_ 의 하위 타입임
+
+![KClass 하위 타입 관계](/assets/img/dev/2024/0714/kclass.png)
+
+애너테이션에 인자로 전달한 _CompanyImpl::class_ 의 타입인 _KClass\<CompanyImpl\>_ 은 애너테이션의 파라메터 타입인 _KClass\<out Any\>_ 의 하위 타입이다.
+
+`KClass` 의 타입 파라메터를 쓸 때 `out` 변경자없이 _KClass\<Any\>_ 라고 쓰면 DeserializeInterface 에게 _CompanyImpl::class_ 를 인자로 넘길 수 없고, 
+오직 _Any::class_ 만 넘길 수 있다.
+
+반면 `out`  키워드가 있으면 모든 코틀린 타입 `T` 에 대해 _KClass\<T\>_ 가 _KClass\<out Any\>_ 의 하위 타입이 되므로(= 공변성) DeserializeInterface 의 
+인자로 Any 뿐 아니라 Any 를 확장하는 모든 클래스에 대한 참조를 전달할 수 있다.
 
 ---
 
