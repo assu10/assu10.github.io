@@ -522,6 +522,98 @@ annotation class DeserializeInterface(val targetClass: KClass<out Any>)
 
 # 7. 애너테이션 파라메터로 제네릭 클래스 받기
 
+기본적으로 제이키드는 'primitive 타입이 아닌 프로퍼티'를 중첩된 객체로 직렬화하는데 이런 **기본 동작을 변경하고 싶으면 값을 직렬화하는 로직을 직접 제공**하면 된다.
+
+```kotlin
+package ru.yole.jkid
+
+import kotlin.reflect.KClass
+
+// ...
+
+interface ValueSerializer<T> {
+  fun toJsonValue(value: T): Any?
+  fun fromJsonValue(jsonValue: Any?): T
+}
+
+@Target(AnnotationTarget.PROPERTY)
+annotation class CustomSerializer(val serializerClass: KClass<out ValueSerializer<*>>)
+```
+
+위의 @CustomSerializer 애너테이션은 커스텀 직렬화 클래스에 대한 참조를 인자로 받는다.  
+이 직렬화 클래스는 ValueSerializer 인터페이스를 구현해야 한다.
+
+ValueSerializer 클래스는 제네릭 클래스라서 타입 파라메터가 있다.  
+따라서 ValueSerializer 타입을 참조하려면 항상 타입 인자를 제공해야 한다.  
+하지만 이 애너테이션이 어떤 타입에 대해 사용될 지 모르므로 여기서는 [스타 프로젝션 `*`](https://assu10.github.io/dev/2024/03/18/kotlin-advanced-2-1/#26-%EC%8A%A4%ED%83%80-%ED%94%84%EB%A1%9C%EC%A0%9D%EC%85%98)을 사용할 수 있다.
+
+위 코드에서 아래 부분을 보자.
+```kotlin
+KClass<out ValueSerializer<*>>
+```
+
+- `<out ValueSerializer<*>>`
+  - DateSerializer::class 는 올바른 인자로 받아들이지만 Date::class 는 거부함
+  - CustomSerializer 가 ValueSerializer 를 구현하는 클래스만 인자로 받아들여야 함을 명시
+  - 예를 들어 Date 는 ValueSerializer 를 구현하지 않으므로 _@CustomSerializer(Date::class)_ 는 거부함
+- `out`
+  - ValueSerializer::class 뿐 아니라 ValueSerializer 를 구현하는 모든 클래스를 받아들임
+- `<*>`
+  - ValueSerializer 를 사용하여 어떤 타입의 값이든 직렬화할 수 있도록 허용함
+
+아래는 날짜를 직렬화하는 예시이다.
+
+```kotlin
+package com.assu.study.kotlin2me.chap10.jkid.examples
+
+import ru.yole.jkid.CustomSerializer
+import ru.yole.jkid.ValueSerializer
+import ru.yole.jkid.deserialization.deserialize
+import ru.yole.jkid.serialization.serialize
+import java.text.SimpleDateFormat
+import java.util.Date
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+object DateSerializer : ValueSerializer<Date> {
+    private val dateFormat = SimpleDateFormat("dd-mm-yyyy")
+
+    override fun toJsonValue(value: Date): Any? = dateFormat.format(value)
+
+    override fun fromJsonValue(jsonValue: Any?): Date = dateFormat.parse(jsonValue as String)
+}
+
+data class Person5(
+    val name: String,
+    @CustomSerializer(DateSerializer::class)
+    val birthDate: Date,
+)
+
+inline fun <reified T : Any> testJsonSerializer2(
+    value: T,
+    json: String,
+) {
+    assertEquals(json, serialize(value))
+    assertEquals(value, deserialize(json))
+}
+
+class DateSerializerTest {
+    @Test
+    fun test() {
+        testJsonSerializer2(
+            value = Person5("Assu", SimpleDateFormat("dd-mm-yyyy").parse("01-10-1984")),
+            json = """{"birthDate": "01-10-1984", "name": "Assu"}""",
+        )
+    }
+}
+```
+
+클래스를 애너테이션 인자로 받아야 할 때마다 위와 같은 패턴을 사용할 수 있다.
+
+**클래스를 인자로 받아야 하면 애너테이션 파라메터 타입에 `KClass<out 허용할 클래스 이름>`** 을 쓴다.
+
+**제네릭 클래스를 인자로 받아야 하면 `KClass<out 허용할 클래스 이름<*>>` 처럼 허용할 클래스의 이름 뒤에 스타 프로젝션**을 덧붙인다.
+
 ---
 
 # 참고 사이트 & 함께 보면 좋은 사이트
