@@ -186,9 +186,98 @@ _age_ 프로퍼티를 직렬화할 때는 @JsonName 애너테이션이 없으므
 
 ## 1.3. @CustomSerializer
 
+@CustomSerializer 시그니처
+
+```kotlin
+@Target(AnnotationTarget.PROPERTY)
+annotation class CustomSerializer(val serializerClass: KClass<out ValueSerializer<*>>)
+```
+
+@JsonName 사용 예시
+
+```kotlin
+object DateSerializer : ValueSerializer<Date> {
+  private val dateFormat = SimpleDateFormat("dd-mm-yyyy")
+
+  override fun toJsonValue(value: Date): Any? =
+    dateFormat.format(value)
+
+  override fun fromJsonValue(jsonValue: Any?): Date =
+    dateFormat.parse(jsonValue as String)
+}
+
+data class Person(
+  val name: String,
+  @CustomSerializer(DateSerializer::class) val birthDate: Date
+)
+```
+
+@CustomSerializer 는 _KProperty\<*\>.getSerializer()_ 함수에 기초한다.  
+_KProperty\<*\>.getSerializer()_ 는 @CustomSerializer 를 통해 등록한 _ValueSerializer_ 인스턴스를 반환한다.
+
+```kotlin
+// 프로퍼티의 값을 직렬화하는 직렬화기 가져오기
+fun KProperty<*>.getSerializer(): ValueSerializer<Any?>? {
+    // @CustomSerializer 애너테이션이 있는지 찾음
+    val customSerializerAnn: CustomSerializer = findAnnotation<CustomSerializer>() ?: return null
+  
+    // @CustomSerializer 애너테이션이 있다면 그 애너테이션의 serializerClass 가 직렬화기 인스턴스를 얻기 위해 사용해야 할 클래스임
+    val serializerClass: KClass<out ValueSerializer<*>> = customSerializerAnn.serializerClass
+
+    // 직렬화할 클래스가 object 로 선언하여 싱글턴인 경우 objectInstance 를 통해 싱글턴 인스턴스를 얻어서 모든 객체를 직렬화하면 되므로 
+    // createInstance() 를 호출할 필요가 없음
+    val valueSerializer: ValueSerializer<*> = serializerClass.objectInstance
+            ?: serializerClass.createInstance()
+    
+  return valueSerializer as ValueSerializer<Any?>
+}
+
+interface ValueSerializer<T> {
+  fun toJsonValue(value: T): Any?
+  fun fromJsonValue(jsonValue: Any?): T
+}
+```
+
+_KProperty\<*\>.getSerializer()_ 가 주로 다루는 객체가 `KProperty` 인스턴스이므로 `KProperty` 의 확장 함수로 정의한다.
+
+위 코드에서 @CustomSerializer 의 값으로 클래스와 객체(코틀린의 싱글턴 객체)를 처리하는 방식을 보자.
+
+클래스와 객체 모두 `KClass` 클래스로 표현된다.
+
+다만 객체에는 `object` 선언에 의해 생성된 싱글턴이 가리키는 `objectInstance` 라는 프로퍼티가 있다는 점이 클래스와 다른 점이다.
+
+예를 들어 _DateSerializer_ 를 `object` 로 선언한 경우 `objectInstance` 프로퍼티에 _DateSerializer_ 의 싱글턴 인스턴스가 들어있다.  
+따라서 그 싱글턴 인스턴스를 사용하여 모든 객체를 직렬화하면 되므로 `createInstance()` 를 호출할 필요가 없다.
+
+만일 `KClass` 가 객체인 `object` 가 아닌 일반 클래스를 표현한다면 `createInstance()` 를 호출하여 새 인스턴스를 만들어야 한다.
+
+아래는 _StringBuilder.serializeProperty()_ 에서 _KProperty\<*\>.getSerializer()_ 를 사용하는 코드이다.
+
+```kotlin
+// getSerializer() 를 통해 커스텀 직렬화기를 얻은 후 커스텀 직렬화기의 _toJsonValue()_ 를 호출하여 프로퍼티값을 JSON 형식으로 직렬화함
+// 만일 프로퍼티에 커스텀 직렬화기가 지정되어 있지 않다면 프로퍼티값을 그대로 사용함
+private fun StringBuilder.serializeProperty(
+        prop: KProperty1<Any, *>, obj: Any
+) {
+    val jsonNameAnn = prop.findAnnotation<JsonName>()
+    val propName = jsonNameAnn?.name ?: prop.name
+    serializeString(propName)
+    append(": ")
+
+    val value = prop.get(obj)
+  
+    // 프로퍼티에 대해 정의된 커스텀 직렬화기가 있으면 그 커스텀 직렬화기를 사용하고,  
+    // 커스텀 직렬화기가 없으면 일반적인 방법으로 프로퍼티 직렬화함
+    val jsonValue = prop.getSerializer()?.toJsonValue(value) ?: value
+    serializePropertyValue(jsonValue)
+}
+```
+
 ---
 
 # 2. JSON 파싱과 객체 역직렬화
+
+이제 제이키드에서 역직렬화하는 부분의 전체적인 구조를 살펴보고, 객체를 역직렬화할 때 리플렉션을 어떻게 사용하는지 알아본다.
 
 ---
 
