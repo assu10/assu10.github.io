@@ -1852,7 +1852,7 @@ fun main() {
 val UNIX_LINE_SEPARATOR = "\n"
 ```
 
-최상위 프로퍼티도 다른 프로퍼티처럼 접근자 메서드를 통해 자바 코드에 노출된다.  
+최상위 프로퍼티도 다른 프로퍼티처럼 접근자 메서드(getter/setter) 를 통해 자바 코드에 노출된다.  
 **val 는 getter 가 생성되고, var 는 getter/setter 가 생성**된다.
 
 상수인데 getter 를 사용하면 자연스럽지 못하므로 이 **상수를 public static final 필드로 컴파일하려면 `const` 변경자를 추가**하면 된다.  

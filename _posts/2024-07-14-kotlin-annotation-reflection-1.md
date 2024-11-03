@@ -3,7 +3,7 @@ layout: post
 title: "Kotlin - 애너테이션과 리플렉션(1): 애너테이션"
 date: 2024-07-14
 categories: dev
-tags: kotlin 
+tags: kotlin annotation
 ---
 
 이 포스트에서는 애너테이션에 대해 알아본다.
@@ -122,7 +122,7 @@ fun testMethod() {
 코틀린 소스코드에서 한 선언을 컴파일한 결과가 여러 자바 선언과 대응하는 경우는 자주 있는데 이 때 코틀린 선언과 대응하는 여러 자바 선언에 각각 애너테이션을 붙여야 할 때가 있다.
 
 예를 들어 코틀린 프로퍼티는 기본적으로 자바 필드와 getter 메서드 선언과 대응하고, 프로퍼티가 변경 가능하면 setter 에 대응하는 자바 setter 메서드와 setter 파라메터가 추가된다.  
-만일 주 생성자에서 프로퍼티를 선언하면 이런 접근자 메서드와 파라메터 외에 자바 생성자 파라메터와도 대응된다.
+만일 주 생성자에서 프로퍼티를 선언하면 이런 접근자 메서드(getter/setter) 와 파라메터 외에 자바 생성자 파라메터와도 대응된다.
 
 따라서 **애너테이션을 붙일 때 이런 요소 중에서 어떤 요소에 애너테이션을 붙일 지 표시**할 필요가 있다.
 
@@ -503,6 +503,8 @@ annotation class DeserializeInterface(val targetClass: KClass<out Any>)
 **`KClass` 는 자바 java.lang.Class 타입과 같은 역할을 하는 코틀린 타입**이다.  
 코틀린 클래스에 대한 참조를 저장할 때 `KClass` 타입을 사용한다.
 
+> `KClass` 에 대한 좀 더 상세한 내용은 [2.1. `KClass`](https://assu10.github.io/dev/2024/07/21/kotlin-annotation-reflection-2/#21-kclass) 를 참고하세요.
+
 > 이렇게 저장한 클래스 참조로 어떤 기능을 수행할 수 있는지는 추후 다룰 예정입니다. (p. 444)
 
 **`KClass` 의 타입 파라메터는 이 `KClass` 의 인스턴스가 가리키는 코틀린 타입을 지정**한다.  
@@ -622,8 +624,8 @@ class DateSerializerTest {
 
 * [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
 * [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
-* [jkid 예제 코드](https://github.com/yole/jkid)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
 * [코틀린 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)
+* [jkid 예제 코드](https://github.com/yole/jkid)

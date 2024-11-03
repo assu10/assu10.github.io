@@ -91,6 +91,8 @@ fun <T: Any> a(kClass: KClass<T>): T {
 **`KClass` 는 자바 java.lang.Class 타입과 같은 역할을 하는 코틀린 타입**이다.  
 코틀린 클래스에 대한 참조를 저장할 때 `KClass` 타입을 사용한다.
 
+> `KClass` 에 대한 좀 더 상세한 내용은 [2.1. `KClass`](https://assu10.github.io/dev/2024/07/21/kotlin-annotation-reflection-2/#21-kclass) 를 참고하세요.
+
 제네릭 함수 _b()_ 에서 제네릭 함수 _a()_ 를 호출할 때 제네릭 인자의 타입 정보도 전달하려고 하지만 타입 소거로 인해 컴파일이 되지 않는다.
 
 ```shell
