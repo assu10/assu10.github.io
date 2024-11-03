@@ -54,6 +54,22 @@ JSON 직렬화 과정을 제어하는 애너테이션에 대해 알아보았다.
 
 제이키드에서는 어떤 프로퍼티를 직렬화에서 제외하고 싶을 때 @JsonExclude 애너테이션을 사용한다.
 
+@JsonExclude 시그니처
+
+```kotlin
+@Target(AnnotationTarget.PROPERTY)
+annotation class JsonExclude
+```
+
+@JsonExclude 사용 예시
+
+```kotlin
+data class Person(
+        @JsonName(name = "first_name") val firstName: String,
+        @JsonExclude val age: Int? = null
+)
+```
+
 _StringBuilder.serializeObject()_ 에서 이 애너테이션을 지원하는 방법에 대해 알아본다.
 
 _StringBuilder.serializeObject()_ 구현
@@ -104,6 +120,67 @@ inline fun <reified T> KAnnotatedElement.findAnnotation(): T?
 
 ## 1.2. @JsonName
 
+@JsonName 시그니처
+
+```kotlin
+@Target(AnnotationTarget.PROPERTY)
+annotation class JsonName(val name: String)
+```
+
+@JsonName 사용 예시
+
+```kotlin
+data class Person(
+        @JsonName(name = "first_name") val firstName: String,
+        @JsonExclude val age: Int? = null
+)
+```
+
+사용 예시를 보면 @JsonName 애너테이션의 존재 여부 뿐 아니라 애너테이션에 전달할 인자도 알아야 한다.
+
+아래 _StringBuilder.serializeObject()_ 와 _findAnnotation()_ 의 정의를 다시 보자.
+
+```kotlin
+private fun StringBuilder.serializeObject(obj: Any) {
+    obj.javaClass.kotlin.memberProperties
+            .filter { it.findAnnotation<JsonExclude>() == null }
+            .joinToStringBuilder(this, prefix = "{", postfix = "}") {
+                serializeProperty(it, obj)
+            }
+}
+
+private fun StringBuilder.serializeProperty(
+  prop: KProperty1<Any, *>, obj: Any
+) {
+  // @JsonName 애너테이션이 있으면 그 인스턴스를 얻음
+  val jsonNameAnn = prop.findAnnotation<JsonName>()
+  
+  // 애너테이션에서 name 인자를 찾고, 그런 인자가 없으면 prop.name 을 사용
+  val propName = jsonNameAnn?.name ?: prop.name
+  serializeString(propName)
+  append(": ")
+
+  val value = prop.get(obj)
+  val jsonValue = prop.getSerializer()?.toJsonValue(value) ?: value
+  serializePropertyValue(jsonValue)
+}
+```
+
+```kotlin
+inline fun <reified T> KAnnotatedElement.findAnnotation(): T?
+        = annotations.filterIsInstance<T>().firstOrNull()
+```
+
+위 코드에서 @JsonName 애너테이션이 없다면 _jsonNameAnn_ 은 null 이다.  
+그런 경우 여전히 _prop.name_ 을 JSON 의 프로퍼티 이름으로 사용할 수 있다.  
+만일 프로퍼티에 @JsonName 애너테이션이 있으면 애너테이션이 지정하는 이름을 대신 사용한다.
+
+_Person_ 클래스 인스턴스를 직렬화하는 과정을 살펴보자.
+
+_firstName_ 프로퍼티를 직렬화하는 동안 _jsonNameAnn_ 에는 JsonName 애너테이션 클래스에 해당하는 인스턴스가 들어있으므로 _jsonNameAnn?.name_ 은 
+null 이 아닌 _first_name_ 이며, 직렬화 시 이 이름을 key 로 사용한다.
+
+_age_ 프로퍼티를 직렬화할 때는 @JsonName 애너테이션이 없으므로 프로퍼티 이름인 _age_ 를 key 로 사용한다.
 
 ---
 
