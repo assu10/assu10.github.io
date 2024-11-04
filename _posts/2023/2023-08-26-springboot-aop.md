@@ -798,7 +798,7 @@ public class ElapseLoggingAspect {
 
 **_어드바이스 작성 시 조인 포인트에서 발생하는 예외를 어드바이스 내부에서 직접 처리하는 것은 위험_**하다.
 
-ElapseLoggingAspect 에서도 try-finally 구문만 사용하여 메서드의 실행 시간 로그를 남기고, 대상 객체의 메서드인 getHotelsByName() 에서드에서 발생하는 예외를 
+ElapseLoggingAspect 에서도 try-finally 구문만 사용하여 메서드의 실행 시간 로그를 남기고, 대상 객체의 메서드인 getHotelsByName() 메서드에서 발생하는 예외를 
 그대로 다시 던지도록 loggingPerformance() 메서드 시그니처에 throws Throwable 로 선언되어 있다.
 
 스프링 프레임워크는 RuntimeException 이 발생하면 프레임워크 내부에서 이를 이용하여 처리하는 로직들이 있다.  
