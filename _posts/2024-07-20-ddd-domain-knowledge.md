@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 비즈니스 지식 찾기, 유비쿼터스 언어"
+title:  "DDD - 비즈니스 지식 찾기: 유비쿼터스 언어"
 date: 2024-07-20
 categories: dev
 tags: ddd ubiquitous
