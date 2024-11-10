@@ -52,7 +52,10 @@ tags: kotlin filterIndexed() toCharArray() stringBuilder buildString() buildList
 
 확장 람다는 확장 함수와 비슷하다.
 
-> 확장 함수에 대한 좀 더 상세한 내용은 [1. 확장 함수 (extension function)](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#1-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98-extension-function) 를 참고하세요.
+> 확장 함수에 대한 좀 더 상세한 내용은  
+> [1. 확장 함수 (extension function)](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#1-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98-extension-function),  
+> [4. 확장 함수와 null 이 될 수 있는 타입](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#4-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98%EC%99%80-null-%EC%9D%B4-%EB%90%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%83%80%EC%9E%85),  
+> [5. 상속과 확장](https://assu10.github.io/dev/2024/02/25/kotlin-object-oriented-programming-2/#5-%EC%83%81%EC%86%8D%EA%B3%BC-%ED%99%95%EC%9E%A5) 을 참고하세요.
 
 ```kotlin
 val va: (String, Int) -> String = { str, n ->

@@ -735,7 +735,10 @@ Heater1 이 원하는 기능을 전부 제공하지 못하기 때문에 Heater �
 위에서 _HVAC1_ 클래스를 만든 이유는 _Heater1_ 클래스에 _cool()_ 을 추가하여 _warmAndCool()_ 에서 _warm()_ 과 _cool()_ 을 모두 쓰기 위함이므로 
 확장 함수가 하는 일과 정확히 일치한다.
 
-> 확장 함수에 대한 좀 더 상세한 내용은 [1. 확장 함수 (extension function)](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#1-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98-extension-function) 를 참고하세요.
+> 확장 함수에 대한 좀 더 상세한 내용은  
+> [1. 확장 함수 (extension function)](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#1-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98-extension-function),  
+> [4. 확장 함수와 null 이 될 수 있는 타입](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#4-%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98%EC%99%80-null-%EC%9D%B4-%EB%90%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%83%80%EC%9E%85),  
+> [5. 상속과 확장](https://assu10.github.io/dev/2024/02/25/kotlin-object-oriented-programming-2/#5-%EC%83%81%EC%86%8D%EA%B3%BC-%ED%99%95%EC%9E%A5) 을 참고하세요.
 
 확장 함수를 사용하게 되면 [5.1. 잘못된 상속의 예시](#51-잘못된-상속의-예시) 처럼 상속을 사용할 필요가 없다.
 
