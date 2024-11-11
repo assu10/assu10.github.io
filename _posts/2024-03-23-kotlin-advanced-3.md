@@ -1462,6 +1462,8 @@ fun main() {
 
 **`invoke()` 를 직접 정의하는 가장 흔한 경우는 DSL 을 만드는 경우**이다.
 
+> `invoke()` 관례로 DSL 을 만드는 경우에 대한 좀 더 상세한 내용은 [1. `invoke()` 관례를 사용한 블록 중첩](https://assu10.github.io/dev/2024/08/03/kotlin-dsl-2/#1-invoke-%EA%B4%80%EB%A1%80%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%B8%94%EB%A1%9D-%EC%A4%91%EC%B2%A9) 을 참고하세요.
+
 ```kotlin
 class Func {
     operator fun invoke() = "invoke()~"
