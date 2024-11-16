@@ -796,7 +796,10 @@ fun main() {
 
 수신 객체 지정 람다는 DSL (Domain Specific Language, 영역 특화 언어) 을 만들 때 매우 유용하다.
 
-> 수신 객체 지정 람다를 DSL 정의에 사용하는 방법과 함께 수신 객체 지정 람다를 호출하는 함수를 직접 작성하는 방법에 대해서는 추후 다룰 예정입니다. (p. 241)
+> 수신 객체 지정 람다를 DSL 정의에 사용하는 방법과 함께 수신 객체 지정 람다를 호출하는 함수를 직접 작성하는 방법에 대해서는  
+> [Kotlin - DSL(1): 수신 객체 지정 람다](https://assu10.github.io/dev/2024/07/28/kotlin-dsl-1/),  
+> [Kotlin - DSL(2): `invoke()` 관례, 실전 DSL](https://assu10.github.io/dev/2024/08/03/kotlin-dsl-2/),  
+> 을 참고하세요.
 
 ---
 

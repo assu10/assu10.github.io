@@ -505,7 +505,7 @@ annotation class DeserializeInterface(val targetClass: KClass<out Any>)
 
 > `KClass` 에 대한 좀 더 상세한 내용은 [2.1. `KClass`](https://assu10.github.io/dev/2024/07/21/kotlin-annotation-reflection-2/#21-kclass) 를 참고하세요.
 
-> 이렇게 저장한 클래스 참조로 어떤 기능을 수행할 수 있는지는 추후 다룰 예정입니다. (p. 444)
+> 이렇게 저장한 클래스 참조로 어떤 기능을 수행할 수 있는지는 [1. 리플렉션: 실행 시점에 코틀린 객체 내부 관찰](https://assu10.github.io/dev/2024/07/21/kotlin-annotation-reflection-2/#1-%EB%A6%AC%ED%94%8C%EB%A0%89%EC%85%98-%EC%8B%A4%ED%96%89-%EC%8B%9C%EC%A0%90%EC%97%90-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B0%9D%EC%B2%B4-%EB%82%B4%EB%B6%80-%EA%B4%80%EC%B0%B0) 을 참고하세요.
 
 **`KClass` 의 타입 파라메터는 이 `KClass` 의 인스턴스가 가리키는 코틀린 타입을 지정**한다.  
 예) _CompanyImpl::class_ 의 타입은 _KClass\<CompanyImpl\>_ 이며, 이 타입은 DeserializeInterface 의 파라메터 타입인 _KClass\<out Any\>_ 의 하위 타입임

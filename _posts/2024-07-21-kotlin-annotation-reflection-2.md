@@ -240,7 +240,7 @@ fun main() {
 **`invoke()` 메서드는 정해진 개수의 인자만을 받아들이며 (`KFunction1` 은 1개), 인자 타입은 `KFunction1` 제네릭 인터페이스의 첫 번째 타입 파라메터**와 같다.  
 또한 `invoke()` 를 명시적으로 호출하는 대신 _kFunctionFoo1_ 을 직접 호출할 수도 있다.
 
-> `invoke()` 를 명시적으로 호출하지 않고도 직접 _kFunctionFoo1_ 을 호출할 수 있는 이유에 대해서는 추후 다룰 예정입니다. (p. 450)
+> `invoke()` 를 명시적으로 호출하지 않고도 직접 _kFunctionFoo1_ 을 호출할 수 있는 이유에 대해서는 [1. `invoke()` 관례를 사용한 블록 중첩](https://assu10.github.io/dev/2024/08/03/kotlin-dsl-2/#1-invoke-%EA%B4%80%EB%A1%80%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%B8%94%EB%A1%9D-%EC%A4%91%EC%B2%A9) 을 참고하세요.
 
 `invoke()` 를 통해 함수를 호출하는 예시
 
@@ -507,7 +507,7 @@ private fun StringBuilder.serializeObject(obj: Any) {
 
 위처럼 함수 파라메터를 확장 함수의 수신 객체로 바꾸는 방식은 코틀린에서 흔히 사용하는 패턴이다.
 
-> 함수 파라메터를 확장 함수의 수신 객체로 바꾸는 방식은 코틀린에서 흔히 사용하는 패턴에 대해서는 추후 다룰 예정입니다. (p. 454)
+> 함수 파라메터를 확장 함수의 수신 객체로 바꾸는 방식은 코틀린에서 흔히 사용하는 패턴으로 이에 대한 내용은 [2. 구조화된 API: DSL 에서 수신 객체 지정 DSL 사용](https://assu10.github.io/dev/2024/07/28/kotlin-dsl-1/#2-%EA%B5%AC%EC%A1%B0%ED%99%94%EB%90%9C-api-dsl-%EC%97%90%EC%84%9C-%EC%88%98%EC%8B%A0-%EA%B0%9D%EC%B2%B4-%EC%A7%80%EC%A0%95-dsl-%EC%82%AC%EC%9A%A9) 을 참고하세요.
 
 _StringBuilder.serializeObject()_ 는 `StringBuilder` API 를 확장하지 않는다는 점에 유의하자.    
 _StringBuilder.serializeObject()_ 가 수행하는 연산은 외부에선 전혀 쓸모가 없기 때문에 private 가시성을 지정하여 다른 곳에서는 사용할 수 없게 하였다.  

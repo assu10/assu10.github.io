@@ -1075,15 +1075,18 @@ fun main(args: Array<String>) {
 > 이에 대한 상세한 내용은 [2.1. `lateinit`](https://assu10.github.io/dev/2024/03/30/kotlin-advanced-5/#21-lateinit) 을 참고하세요.
 
 > 요청이 들어오면 비로소 초기화되는 지연 초기화 (lazy initialized) 프로퍼티는 더 일반적인 위임 프로퍼티의 일종이다.  
-> 위임 프로퍼티 및 지연 초기화 프로퍼티에 대해서는 추후 다룰 예정입니다. (p. 171)
+> 위임 프로퍼티 및 지연 초기화 프로퍼티에 대해서는  
+> [Kotlin - 프로퍼티 위임, 'ReadOnlyProperty', 'ReadWriteProperty', 프로퍼티 위임 도구 (Delegates.observable(), Delegates.vetoable(), Delegates.notNull()), 위임 프로퍼티 컴파일](https://assu10.github.io/dev/2024/03/24/kotlin-advanced-4/),  
+> [1. 프로퍼티 초기화 지연](https://assu10.github.io/dev/2024/03/30/kotlin-advanced-5/#1-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%B4%88%EA%B8%B0%ED%99%94-%EC%A7%80%EC%97%B0)  
+> 을 참고하세요.
 
 > 자바 프레임워크와의 호환성을 위해 자바의 특징을 코틀린에서 에뮬레이션하는 애너테이션을 활용할 수 있다.
 > 
 > 예를 들어 `@JvmField` 애너테이션을 프로퍼티에 붙이면 접근자가 없는 public 필드를 노출시켜 준다.  
-> 애너테이션에 대해서는 추후 다룰 예정입니다. (p. 171)
+> 애너테이션에 대해서는 [Kotlin - 애너테이션과 리플렉션(1): 애너테이션](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/) 을 참고하세요.
 
 > `const` 변경자를 사용하면 애너테이션을 더 편하게 다룰 수 있고, primitive 타입이나 String 타입인 값을 애너테이션의 인자로 활용할 수 있다.  
-> 이에 대해서는 추후 다룰 예정입니다. (p. 171)
+> 이에 대해서는 [1. 애너테이션 적용](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#1-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%EC%A0%81%EC%9A%A9) 을 참고하세요.
 
 ---
 

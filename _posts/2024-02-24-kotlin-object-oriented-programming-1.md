@@ -247,7 +247,7 @@ fun main() {
 > 따라서 코틀린에서 함수를 인자로 받을 필요가 있는 함수는 함수형 인터페이스가 아닌 함수 타입을 인자 타입으로 사용해야 함  
 > 코틀린 함수를 사용할 때는 코틀린 컴파일러가 코틀린 람다를 함수형 인터페이스로 변환해주지 않음
 > 
-> 함수 선언에서 함수 타입을 사용하는 방법에 대해서는 추후 다룰 예정입니다. (p. 231)
+> 함수 선언에서 함수 타입을 사용하는 방법에 대해서는 [1. 함수 타입](https://assu10.github.io/dev/2024/02/17/kotlin-funtional-programming-2/#11-%ED%95%A8%EC%88%98-%ED%83%80%EC%9E%85) 을 참고하세요.
 
 단일 추상 메서드 (SAM) 인터페이스는 자바의 개념으로 자바에서는 멤버 함수를 메서드라고 부른다.  
 코틀린에서는 SAM 인터페이스를 정의하는 `fun interface` 라는 문법이 있다.
@@ -278,8 +278,8 @@ fun interface TwoArg {
 
 > 코틀린 `inline` 으로 표시된 코틀린 함수에게 람다를 넘기면 아무런 무명 클래스도 만들어지지 않음  
 > 대부분의 코틀린 확장 함수들은 `inline` 표시가 붙어있음
-> 
-> `inline` 에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다. (p. 233)
+>
+> `inline` 에 대한 좀 더 상세한 내용은 [Kotlin - 'inline'](https://assu10.github.io/dev/2024/03/16/kotlin-inline/) 를 참고하세요.
 
 ---
 
@@ -433,7 +433,7 @@ open class Button3(private val aa: String)
 
 위 클래스는 주생성자가 private 이므로 외부에서는 이 클래스를 인스턴스화할 수 없다.
 
-> `companion object` 안에서 이런 비공개 생성자를 호출하면 좋은데 그 이유는 추후 다룰 예정입니다. (p. 162)
+> `companion object` 안에서 이런 비공개 생성자를 호출하면 좋은데 그 이유는 [4.8. `companion object` 로 객체 생성 제어: Factory Method 패턴](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#48-companion-object-%EB%A1%9C-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%EC%A0%9C%EC%96%B4-factory-method-%ED%8C%A8%ED%84%B4) 을 참고하세요.
 
 ---
 
