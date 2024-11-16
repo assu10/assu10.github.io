@@ -175,7 +175,7 @@ fun main() {
 }
 ```
 
-> `companion object (동반 객체)` 에 대한 좀 더 상세한 설명은 [4. 동반 객체 (companion object)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#4-%EB%8F%99%EB%B0%98-%EA%B0%9D%EC%B2%B4-companion-object) 를 참고하세요.
+> `companion object (동반 객체)` 에 대한 좀 더 상세한 설명은 [4. 동반 객체 (`companion object`)](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#4-%EB%8F%99%EB%B0%98-%EA%B0%9D%EC%B2%B4-companion-object) 를 참고하세요.
 
 > null 이 될 수 있는 타입 `?` 에 대한 좀 더 상세한 내용은 [1. null 이 될 수 있는 타입: `?`](https://assu10.github.io/dev/2024/02/11/kotlin-function-2/#1-null-%EC%9D%B4-%EB%90%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%83%80%EC%9E%85-) 을 참고하세요.
 
@@ -1184,7 +1184,7 @@ operator fun <T: Comparable<T>> T.rangeTo(that: T): ClosedRange<T>
 
 예시 코드에서 `ClosedRange<LocalDate>` 에 대한 확장 함수 `iterator()` 를 정의했기 때문에 LocalDate 의 범위 객체를 for 루프에 사용할 수 있다.
 
-> object 에 대한 내용은 [1. object](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#1-object) 를 참고하세요.
+> `object` 에 대한 내용은 [1. `object`](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#1-object) 를 참고하세요.
 
 > `apply` 에 대한 내용은 2. 영역 함수 (Scope Function): `let()`, `run()`, `with()`, `apply()`, `also()`](https://assu10.github.io/dev/2024/03/16/kotlin-advanced-1/#2-%EC%98%81%EC%97%AD-%ED%95%A8%EC%88%98-scope-function-let-run-with-apply-also) 을 참고하세요.
 

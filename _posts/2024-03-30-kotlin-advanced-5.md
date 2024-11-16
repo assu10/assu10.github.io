@@ -268,7 +268,7 @@ fun main() {
 }
 ```
 
-> object 에 대한 좀 더 상세한 내용은 [1. object](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#1-object) 를 참고하세요.
+> `object` 에 대한 좀 더 상세한 내용은 [1. `object`](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#1-object) 를 참고하세요.
 
 ---
 

@@ -433,7 +433,7 @@ open class Button3(private val aa: String)
 
 위 클래스는 주생성자가 private 이므로 외부에서는 이 클래스를 인스턴스화할 수 없다.
 
-> companion object 안에서 이런 비공개 생성자를 호출하면 좋은데 그 이유는 추후 다룰 예정입니다. (p. 162)
+> `companion object` 안에서 이런 비공개 생성자를 호출하면 좋은데 그 이유는 추후 다룰 예정입니다. (p. 162)
 
 ---
 

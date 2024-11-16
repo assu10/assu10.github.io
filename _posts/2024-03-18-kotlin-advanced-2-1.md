@@ -1391,7 +1391,7 @@ object DefaultIntValidator : FieldValidator<Int> {
 }
 ```
 
-> `object` 에 대한 내용은 [1. object](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#1-object) 을 참고하세요.
+> `object` 에 대한 내용은 [1. `object`](https://assu10.github.io/dev/2024/03/03/kotlin-object-oriented-programming-5/#1-object) 을 참고하세요.
 
 이제 모든 검증기를 한 컨테이너에 넣고 입력 필드 타입에 따라 적절한 검증기를 사용하는 경우를 생각해보자.
 

@@ -6,7 +6,7 @@ categories: dev
 tags: kotlin object, inner class, companion object
 ---
 
-이 포스트에서는 object, inner class, 한정된 `this` (`this@클래스명`), companion object 에 대해 알아본다.
+이 포스트에서는 `object`, inner class, 한정된 `this` (`this@클래스명`), `companion object` 에 대해 알아본다.
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap05) 에 있습니다.
 
@@ -15,25 +15,25 @@ tags: kotlin object, inner class, companion object
 **목차**
 
 <!-- TOC -->
-* [1. object](#1-object)
-  * [1.1. object 기본](#11-object-기본)
-  * [1.2. object 의 상속](#12-object-의-상속)
-  * [1.3. 다른 object 나 클래스 안에 object 내포](#13-다른-object-나-클래스-안에-object-내포)
+* [1. `object`](#1-object)
+  * [1.1. `object` 기본](#11-object-기본)
+  * [1.2. `object` 의 상속](#12-object-의-상속)
+  * [1.3. 다른 `object` 나 클래스 안에 `object` 내포](#13-다른-object-나-클래스-안에-object-내포)
 * [2. 내부 클래스 (inner class)](#2-내부-클래스-inner-class)
   * [2.1. 한정된 `this`: `this@클래스명`](#21-한정된-this-this클래스명)
   * [2.2. inner 클래스 상속](#22-inner-클래스-상속)
-  * [2.3. Local inner 클래스와 익명 inner 클래스](#23-local-inner-클래스와-익명-inner-클래스)
+  * [2.3. Local inner 클래스와 익명 inner 클래스: `object`](#23-local-inner-클래스와-익명-inner-클래스-object)
 * [3. 내부 클래스 (inner class) 와 내포된 클래스 (nested class)](#3-내부-클래스-inner-class-와-내포된-클래스-nested-class)
-* [4. 동반 객체 (companion object)](#4-동반-객체-companion-object)
-  * [4.1. companion object 기본](#41-companion-object-기본)
-  * [4.2. 함수를 companion object 대신 파일 영역에 배치](#42-함수를-companion-object-대신-파일-영역에-배치)
-  * [4.3. companion object 안에서의 프로퍼티](#43-companion-object-안에서의-프로퍼티)
-  * [4.4. 함수를 companion object 영역에 배치](#44-함수를-companion-object-영역에-배치)
-  * [4.5. companion object 를 만들면서 인터페이스 구현](#45-companion-object-를-만들면서-인터페이스-구현)
-  * [4.6. 클래스 위임을 사용하여 companion object 활용](#46-클래스-위임을-사용하여-companion-object-활용)
-  * [4.7. companion object 를 사용하여 인터페이스 구현](#47-companion-object-를-사용하여-인터페이스-구현)
-  * [4.8. companion object 로 객체 생성 제어: Factory Method 패턴](#48-companion-object-로-객체-생성-제어-factory-method-패턴)
-  * [4.9. companion object 생성 시점](#49-companion-object-생성-시점)
+* [4. 동반 객체 (`companion object`)](#4-동반-객체-companion-object)
+  * [4.1. `companion object` 기본](#41-companion-object-기본)
+  * [4.2. 함수를 `companion object` 대신 파일 영역에 배치](#42-함수를-companion-object-대신-파일-영역에-배치)
+  * [4.3. `companion object` 안에서의 프로퍼티](#43-companion-object-안에서의-프로퍼티)
+  * [4.4. 함수를 `companion object` 영역에 배치](#44-함수를-companion-object-영역에-배치)
+  * [4.5. `companion object` 를 만들면서 인터페이스 구현](#45-companion-object-를-만들면서-인터페이스-구현)
+  * [4.6. 클래스 위임을 사용하여 `companion object` 활용](#46-클래스-위임을-사용하여-companion-object-활용)
+  * [4.7. `companion object` 를 사용하여 인터페이스 구현](#47-companion-object-를-사용하여-인터페이스-구현)
+  * [4.8. `companion object` 로 객체 생성 제어: Factory Method 패턴](#48-companion-object-로-객체-생성-제어-factory-method-패턴)
+  * [4.9. `companion object` 생성 시점](#49-companion-object-생성-시점)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -48,16 +48,16 @@ tags: kotlin object, inner class, companion object
 
 ---
 
-# 1. object
+# 1. `object`
 
-## 1.1. object 기본
+## 1.1. `object` 기본
 
-**object 의 인스턴스는 오직 하나만 존재**한다. 이것을 **싱글턴 패턴**이라고도 한다.
+**`object` 의 인스턴스는 오직 하나만 존재**한다. 이것을 **싱글턴 패턴**이라고도 한다.
 
-**object 는 여러 인스턴스가 필요하지 않거나, 명시적으로 인스턴스를 여러 개 생성하는 것을 막고 싶은 경우 논리적으로 한 개체 안에 속한 함수와 프로퍼티를 함께 엮는 방법**이다.
+**`object` 는 여러 인스턴스가 필요하지 않거나, 명시적으로 인스턴스를 여러 개 생성하는 것을 막고 싶은 경우 논리적으로 한 개체 안에 속한 함수와 프로퍼티를 함께 엮는 방법**이다.
 
-**object 의 인스턴스를 직접 생성하는 경우는 절대 없다.**    
-object 를 정의하면 그 object 의 인스턴스가 오직 하나만 생긴다.
+**`object` 의 인스턴스를 직접 생성하는 경우는 절대 없다.**    
+`object` 를 정의하면 그 `object` 의 인스턴스가 오직 하나만 생긴다.
 
 ```kotlin
 object JustOne {
@@ -84,22 +84,22 @@ fun main() {
 }
 ```
 
-**object 키워드가 객체의 구조를 정의하는 동시에 객체를 생성**해버리기 때문에 _JustOne()_ 으로 새로운 인스턴스를 생성할 수 없다.
+**`object` 키워드가 객체의 구조를 정의하는 동시에 객체를 생성**해버리기 때문에 _JustOne()_ 으로 새로운 인스턴스를 생성할 수 없다.
 
-object 키워드는 내부 원소들을 object 로 정의한 객체의 name space 안에 넣는다.  
-**object 가 선언된 파일 안에서만 보이게 하려면 private 를 앞에 붙이면 된다.**
+`object` 키워드는 내부 원소들을 `object` 로 정의한 객체의 name space 안에 넣는다.  
+**`object` 가 선언된 파일 안에서만 보이게 하려면 private 를 앞에 붙이면 된다.**
 
 ---
 
-## 1.2. object 의 상속
+## 1.2. `object` 의 상속
 
-**object 는 다른 클래스나 인터페이스를 상속**할 수 있다.  
+**`object` 는 다른 클래스나 인터페이스를 상속**할 수 있다.  
 
 **특정 인터페이스를 구현해야 하는데 그 구현 내부에 다른 상태가 필요하지 않은 경우 이런 기능이 유용**하다.  
 
 예) java.util.Comparator 인터페이스를 보면 Comparator 구현은 두 객체를 인자로 받아서 그 중 어느 객체가 더 큰지 알려주는 정수를 반환하며, Comparator 안에는 데이터를 저장할 필요가 없음  
 
-따라서 어떤 클래스에 속한 객체를 비교할 때 사용하는 Comparator 는 보통 클래스마다 단 하나씩만 있으면 되므로 Comparator 인스턴스를 만드는 방법으로는 object 선언이 가장 좋은 방법임
+따라서 어떤 클래스에 속한 객체를 비교할 때 사용하는 Comparator 는 보통 클래스마다 단 하나씩만 있으면 되므로 Comparator 인스턴스를 만드는 방법으로는 `object` 선언이 가장 좋은 방법임
 
 ```kotlin
 open class Paint(private val color: String) {
@@ -131,7 +131,7 @@ fun main() {
 }
 ```
 
-**object 의 인스턴스는 단 하나이기 때문에 이 인스턴스가 object 를 사용하는 모든 코드에서 공유**된다.
+**`object` 의 인스턴스는 단 하나이기 때문에 이 인스턴스가 `object` 를 사용하는 모든 코드에서 공유**된다.
 
 아래는 각각 다른 파일이다.
 
@@ -159,20 +159,20 @@ fun main() {
 }
 ```
 
-object 는 인스턴스를 하나만 만들기 때문에 모든 파일에서 _Shared_ 는 동일하다. 
+`object` 는 인스턴스를 하나만 만들기 때문에 모든 파일에서 _Shared_ 는 동일하다. 
 
 _Shared_ 를 private 로 정의하면 다른 파일에서는 이 객체에 접근할 수 없다.
 
 ---
 
-## 1.3. 다른 object 나 클래스 안에 object 내포
+## 1.3. 다른 `object` 나 클래스 안에 `object` 내포
 
-**object 를 함수 안에 넣을 수는 없지만, 다른 object 나 클래스 안에 object 를 내포시킬 수는 있다.**
+**`object` 를 함수 안에 넣을 수는 없지만, 다른 `object` 나 클래스 안에 `object` 를 내포시킬 수는 있다.**
 
-이렇게 클래스 안에 선언된 object 도 인스턴스는 단 하나뿐이다.  
+이렇게 클래스 안에 선언된 `object` 도 인스턴스는 단 하나뿐이다.  
 바깥 클래스의 인스턴스마다 내포된 객체 선언에 해당하는 인스턴스가 하나씩 따로 생기는 것이 아니라는 의미이다.
 
-> 클래스가 내포 클래스이어도 관계없지만, 내부 클래스(inner class) 의 경우엔 내부에 object 를 선언할 수 없음  
+> 클래스가 내포 클래스이어도 관계없지만, 내부 클래스(inner class) 의 경우엔 내부에 `object` 를 선언할 수 없음  
 > 이 내용은 바로 다음인 [2. 내부 클래스 (inner class)](#2-내부-클래스-inner-class) 에 나옵니다.
 
 ```kotlin
@@ -196,7 +196,7 @@ fun main() {
 }
 ```
 
-> 클래스 안에 object 를 넣는 또 다른 방법으로 companion object 가 있는데 이 내용은 [4. 동반 객체 (companion object)](#4-동반-객체-companion-object) 를 참고하세요.
+> 클래스 안에 `object` 를 넣는 또 다른 방법으로 `companion object` 가 있는데 이 내용은 [4. 동반 객체 (companion object)](#4-동반-객체-companion-object) 를 참고하세요.
 
 ---
 
@@ -456,18 +456,18 @@ _Egg.Yolk()_ 에 대한 두 번째 호출은 _BigEgg.Yolk_ 생성자에서 호�
 ## 2.3. Local inner 클래스와 익명 inner 클래스: `object`
 
 `object` 키워드를 싱글턴과 같은 객체를 정의하고 그 객체에 이름을 붙일 때만 사용하지는 않는다.  
-**익명 object 를 정의할 때도 `object` 키워드를 사용**한다.
+**익명 `object` 를 정의할 때도 `object` 키워드를 사용**한다.
 
 **멤버 함수 안에 정의된 클래스를 Local inner 클래스**라고 한다.  
 이런 클래스는 객체 식(object expression) 이나 SAM 변환을 사용하여 익명으로 생성할 수 있다.
 
-**객체 식(익명 object) 은 자바의 익명 내부 클래스 대신 사용**된다.
+**객체 식(익명 `object`) 은 자바의 익명 내부 클래스 대신 사용**된다.
 
 객체 식은 클래스를 정의하고 그 클래스에 속한 인스턴스를 생성하지만, 그 클래스나 인스턴스에 이름을 붙이지는 않는다.
 
-객체 식을 사용하는 방식은 object 선언과 동일하며, 유일한 차이는 object 이름이 빠진다는 점이다.
+객체 식을 사용하는 방식은 `object` 선언과 동일하며, 유일한 차이는 `object` 이름이 빠진다는 점이다.
 
-> object 선언과 달리 익명 object 는 싱글턴이 아님  
+> `object` 선언과 달리 익명 `object` 는 싱글턴이 아님  
 > 객체 식이 쓰일 때마다 새로운 인스턴스가 생성됨
 
 > SAM 변환에 대한 좀 더 상세한 내용은 [1.3. 단일 추상 메서드 (Single Abstract Method, SAM): `fun interface`](https://assu10.github.io/dev/2024/02/24/kotlin-object-oriented-programming-1/#13-%EB%8B%A8%EC%9D%BC-%EC%B6%94%EC%83%81-%EB%A9%94%EC%84%9C%EB%93%9C-single-abstract-method-sam-fun-interface) 를 참고하세요.
@@ -522,7 +522,7 @@ fun main() {
 Local inner 클래스는 함수에 정의된 원소와 함수 정의를 포함하는 외부 클래스 객체의 원소에 접근이 가능하다.  
 그래서 _say_, _emit_, _squeak_ 와 _home()_ 을 _speak()_ 안에서 사용할 수 있다.
 
-위에서 _cat()_ 는 _Pet_ 를 상속하면서 _speak()_ 를 오버라이드하는 클래스의 object 를 반환한다.
+위에서 _cat()_ 는 _Pet_ 를 상속하면서 _speak()_ 를 오버라이드하는 클래스의 `object` 를 반환한다.
 
 ---
 
@@ -715,44 +715,44 @@ class Button2 : View {
 
 ---
 
-# 4. 동반 객체 (companion object)
+# 4. 동반 객체 (`companion object`)
 
-companion object 는 클래스 안에 내포된 객체 중 하나이다.
+`companion object` 는 클래스 안에 내포된 객체 중 하나이다.
 
-companion object 는 팩토리 메서드와 정적 멤버가 들어갈 장소에 사용된다.
+`companion object` 는 팩토리 메서드와 정적 멤버가 들어갈 장소에 사용된다.
 
 코틀린 클래스 안에는 정적인 멤버가 없다. 코틀린은 자바의 `static` 키워드를 지원하지 않는다.  
-대신 코틀린에서는 패키지 수준의 최상위 함수와 object 선언을 활용한다.
+대신 코틀린에서는 패키지 수준의 최상위 함수와 `object` 선언을 활용한다.
 
 - 패키지 수준의 최상위 함수
   - 자바의 정적 메서드 역할을 거의 대신 할 수 있음
-- object 선언
+- `object` 선언
   - 자바의 정적 메서드 역할 중 코틀린의 최상위 함수가 대신할 수 없는 역할이나 정적 필드를 대신함
 
 > 최상위 함수에 대한 상세한 내용은 [4.1. 최상위 함수: `@JvmName`](https://assu10.github.io/dev/2024/02/12/kotlin-funtional-programming-1/#41-%EC%B5%9C%EC%83%81%EC%9C%84-%ED%95%A8%EC%88%98-jvmname) 를 참고하세요.
 
 대부분의 경우 최상위 함수를 활용하는 편을 더 권장하지만 최상위 함수는 private 로 정의된 클래스의 비공개 멤버에 접근할 수 없다.  
-따라서 **클래스의 인스턴스와 관계없이 호출해야 하지만, 클래스의 내부 정보에 접근해야 하는 함수가 필요할 때는 클래스에 내포된 object 선언의 멤버 함수로 정의**해야 한다.
+따라서 **클래스의 인스턴스와 관계없이 호출해야 하지만, 클래스의 내부 정보에 접근해야 하는 함수가 필요할 때는 클래스에 내포된 `object` 선언의 멤버 함수로 정의**해야 한다.
 
 ---
 
-## 4.1. companion object 기본
+## 4.1. `companion object` 기본
 
-동반 객체 (companion object) 안에 있는 함수와 필드는 클래스에 대한 함수와 필드이다.
+동반 객체 (`companion object`) 안에 있는 함수와 필드는 클래스에 대한 함수와 필드이다.
 
-일반 클래스의 원소는 companion object 의 원소에 접근할 수 있지만, companion object 의 원소는 일반 클래스의 원소에 접근할 수 없다.
+일반 클래스의 원소는 `companion object` 의 원소에 접근할 수 있지만, `companion object` 의 원소는 일반 클래스의 원소에 접근할 수 없다.
 
-> companion object 안에 정의되어 있는 원소는 동반 클래스의 인스턴스나 함수를 마음대로 사용 가능함  
-> 다만, 동반 클래스의 멤버는 동반 클래스의 인스턴스에 대해 작용하므로 companion object 의 함수나 프로퍼티가 동반 클래스의 멤버에 접근하려면 
+> `companion object` 안에 정의되어 있는 원소는 동반 클래스의 인스턴스나 함수를 마음대로 사용 가능함  
+> 다만, 동반 클래스의 멤버는 동반 클래스의 인스턴스에 대해 작용하므로 `companion object` 의 함수나 프로퍼티가 동반 클래스의 멤버에 접근하려면 
 > 반드시 동반 클래스의 인스턴스를 함수 파라메터로 받거나 해야 함
 
-[1.3. 다른 object 나 클래스 안에 object 내포](#13-다른-object-나-클래스-안에-object-내포) 에서 본 것처럼 클래스 안에 일반 object 를 정의할 수 있다.  
-**하지만 일반 내포 객체 정의는 내포 object 와 그 객체를 둘러싼 클래스 사이의 연관 관계를 제공하지 않는다.**  
-**내포된 object 의 멤버를 클래스 멤버에서 참조해야 할 때는 내포된 object 의 이름을 항상 명시**해야 한다.  
-**클래스 안에서 companion object 를 정의하면 클래스의 내부에서 companion object 원소를 투명하게 참조 가능**하다.
+[1.3. 다른 `object` 나 클래스 안에 `object` 내포](#13-다른-object-나-클래스-안에-object-내포) 에서 본 것처럼 클래스 안에 일반 `object` 를 정의할 수 있다.  
+**하지만 일반 내포 객체 정의는 내포 `object` 와 그 객체를 둘러싼 클래스 사이의 연관 관계를 제공하지 않는다.**  
+**내포된 `object` 의 멤버를 클래스 멤버에서 참조해야 할 때는 내포된 `object` 의 이름을 항상 명시**해야 한다.  
+**클래스 안에서 `companion object` 를 정의하면 클래스의 내부에서 `companion object` 원소를 투명하게 참조 가능**하다.
 
-companion object 의 프로퍼티나 메서드에 접근하려면 그 companion object 가 정의된 클래스 이름을 사용한다.  
-그 결과 companion object 의 멤버를 사용하는 구문은 자바의 정적 메서드 호출이나 정적 필드 사용 구문과 같아진다.  
+`companion object` 의 프로퍼티나 메서드에 접근하려면 그 `companion object` 가 정의된 클래스 이름을 사용한다.  
+그 결과 `companion object` 의 멤버를 사용하는 구문은 자바의 정적 메서드 호출이나 정적 필드 사용 구문과 같아진다.  
 (인스턴스를 생성할 필요없음)
 
 ```kotlin
@@ -792,7 +792,7 @@ fun main() {
 }
 ```
 
-companion object 를 이용하며면서 핵심 로직과 도우미 로직을 분리하고 싶다면 아래와 같이 companion object 의 확장 함수를 이용하면 된다.
+`companion object` 를 이용하며면서 핵심 로직과 도우미 로직을 분리하고 싶다면 아래와 같이 c`ompanion object` 의 확장 함수를 이용하면 된다.
 
 확장 함수를 사용하기 전의 예시
 ```kotlin
@@ -834,15 +834,15 @@ fun main() {
 }
 ```
 
-companion object 에 대한 확장 함수를 작성하려면 원래 클래스에 비어있는 object 라도 반드시 companion object 가 꼭 있어야 한다.
+`companion object `에 대한 확장 함수를 작성하려면 원래 클래스에 비어있는 `object` 라도 반드시 `companion object` 가 꼭 있어야 한다.
 
 ---
 
-## 4.2. 함수를 companion object 대신 파일 영역에 배치
+## 4.2. 함수를 `companion object` 대신 파일 영역에 배치
 
-**함수가 클래스의 private 멤버에 접근할 필요가 없다면 이 함수를 companion object 에 넣는 대신 파일 영역(최상위 수준)에 정의**하면 된다.  
+**함수가 클래스의 private 멤버에 접근할 필요가 없다면 이 함수를 `companion object` 에 넣는 대신 파일 영역(최상위 수준)에 정의**하면 된다.
 
-**companion object 는 클래스 당 하나만 허용 가능하며, 명확성을 위해 companion object 에 이름을 부여**할 수도 있다.
+**`companion object` 는 클래스 당 하나만 허용 가능하며, 명확성을 위해 `companion object` 에 이름을 부여**할 수도 있다.
 
 ```kotlin
 class WithNamed {
@@ -872,13 +872,13 @@ fun main() {
 }
 ```
 
-companion object 에 이름을 붙이지 않으면 기본으로 _Companion_ 이라는 이름이 부여된다.
+`companion object` 에 이름을 붙이지 않으면 기본으로 _Companion_ 이라는 이름이 부여된다.
 
 ---
 
-## 4.3. companion object 안에서의 프로퍼티
+## 4.3. `companion object` 안에서의 프로퍼티
 
-**companion object 안에서 프로퍼티를 생성하면 이 필드는 메모리 상에 단 하나만 존재**하게 되고, **companion object 와 연관된 클래스의 모든 인스턴스가 이 필드를 공유**한다.
+**`companion object` 안에서 프로퍼티를 생성하면 이 필드는 메모리 상에 단 하나만 존재**하게 되고, **`companion object` 와 연관된 클래스의 모든 인스턴스가 이 필드를 공유**한다.
 
 ```kotlin
 class WithObjectProperty {
@@ -901,13 +901,13 @@ fun main() {
 ```
 
 위에서 _WithObjectProperty_ 의 인스턴스가 몇 개가 생성되었든 _n_ 은 모두 하나의 저장소임을 알 수 있다.  
-_incr()_ 은 **companion object 를 둘러싼 클래스에서 companion object 의 private 멤버에 접근 가능**하다는 것을 보여준다.
+_incr()_ 은 **`companion object` 를 둘러싼 클래스에서 `companion object` 의 private 멤버에 접근 가능**하다는 것을 보여준다.
 
 ---
 
-## 4.4. 함수를 companion object 영역에 배치
+## 4.4. 함수를 `companion object` 영역에 배치
 
-**함수가 오직 companion object 의 프로퍼티만 사용한다면 해당 함수는 companion object 에 넣는 것이 합리적**이다.
+**함수가 오직 `companion object` 의 프로퍼티만 사용한다면 해당 함수는 `companion object` 에 넣는 것이 합리적**이다.
 
 아래와 같이 하면 더 이상 _incr()_ 을 호출할 때 _CompanionObjectFunctions_ 의 인스턴스가 필요하지 않다.
 
@@ -951,14 +951,14 @@ fun main() {
 
 ---
 
-## 4.5. companion object 를 만들면서 인터페이스 구현
+## 4.5. `companion object` 를 만들면서 인터페이스 구현
 
-다른 object 선언과 마찬가지로 companion object 도 인터페이스를 구현할 수 있다.  
-인터페이스를 구현하는 companion object 를 참조할 때 object 를 둘러싼 클래스의 이름을 바로 사용할 수 있다.
+다른 `object` 선언과 마찬가지로 `companion object` 도 인터페이스를 구현할 수 있다.  
+인터페이스를 구현하는 `companion object` 를 참조할 때 `object` 를 둘러싼 클래스의 이름을 바로 사용할 수 있다.
 
-아래 코드에서 _ZICompanion_ 은 _ZIOpen_ 객체를 companion object 로 사용하고,  
+아래 코드에서 _ZICompanion_ 은 _ZIOpen_ 객체를 `companion object` 로 사용하고,  
 _ZICompanionInheritance_ 는 _ZIOpen_ 클래스를 확장하고, 오버라이드 하면서 _ZIOpen_ 객체를 생성한다.  
-_ZIClass_ 는 companion object 를 만들면서 _ZI_ 인터페이스 구현한다.
+_ZIClass_ 는 `companion object` 를 만들면서 _ZI_ 인터페이스 구현한다.
 
 ```kotlin
 interface ZI {
@@ -1018,7 +1018,7 @@ fun main() {
 }
 ```
 
-아래는 companion object 가 인터페이스를 구현하는 또 다른 예시이다.
+아래는 `companion object` 가 인터페이스를 구현하는 또 다른 예시이다.
 ```kotlin
 interface JSONFactory<T> {
     fun fromJSON(jsonText: String): T
@@ -1046,12 +1046,12 @@ fun main() {
 
 ---
 
-## 4.6. 클래스 위임을 사용하여 companion object 활용
+## 4.6. 클래스 위임을 사용하여 `companion object` 활용
 
 > 클래스 위임에 대한 좀 더 상세한 내용은 [1. 클래스 위임 (class delegation)](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#1-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%9C%84%EC%9E%84-class-delegation) 을 참고하세요.
 
-바로 위 코드에서 **companion object 로 사용하고 싶은 클래스가 `open` 이 아니라면 위처럼 companion object 가 클래스를 직접 확장할 수 없다.**  
-대신 **그 클래스가 어떤 인터페이스를 구현한다면 클래스 위임을 사용하여 companion object 가 해당 클래스를 활용**할 수 있다.
+바로 위 코드에서 **`companion object` 로 사용하고 싶은 클래스가 `open` 이 아니라면 위처럼 `companion object` 가 클래스를 직접 확장할 수 없다.**  
+대신 **그 클래스가 어떤 인터페이스를 구현한다면 클래스 위임을 사용하여 `companion object` 가 해당 클래스를 활용**할 수 있다.
 
 ```kotlin
 interface ZI1 {
@@ -1106,9 +1106,9 @@ _ZIDelegationInheritance_ 는 `open` 이 아닌 _ZIClosed_ 클래스를 위임�
 
 ---
 
-## 4.7. companion object 를 사용하여 인터페이스 구현
+## 4.7. `companion object` 를 사용하여 인터페이스 구현
 
-아래에서 _Extend_ 는 companion object (디폴트 이름은 Companion) 를 사용하여 _ZI2_ 인터페이스 구현하고, _Extended_ 인터페이스도 구현한다.  
+아래에서 _Extend_ 는 `companion object` (디폴트 이름은 Companion) 를 사용하여 _ZI2_ 인터페이스 구현하고, _Extended_ 인터페이스도 구현한다.  
 _Extended_ 는 _ZI2_ 인터페이스에 _u()_ 함수를 추가한 인터페이스이다.
 
 _Extended_ 에서 _ZI2_ 에 해당하는 부분은 Companion 을 통해 이미 구현이 제공되므로, _Extend_ 는 _Extended_ 에 추가된 _u()_ 함수만 오버라이드하여 모든 구현을 끝낼 수 있다.
@@ -1150,12 +1150,12 @@ fun main() {
 
 ---
 
-## 4.8. companion object 로 객체 생성 제어: Factory Method 패턴
+## 4.8. `companion object` 로 객체 생성 제어: Factory Method 패턴
 
-companion object 는 private 생성자를 호출하기 좋은 위치이다.  
-companion object 는 자신을 둘러싼 클래스의 모든 private 멤버에 접근할 수 있기 때문에 바깥쪽 클래스의 private 생성자도 호출할 수 있다.  
+`companion object` 는 private 생성자를 호출하기 좋은 위치이다.  
+`companion object` 는 자신을 둘러싼 클래스의 모든 private 멤버에 접근할 수 있기 때문에 바깥쪽 클래스의 private 생성자도 호출할 수 있다.  
 
-따라서 companion object 는 객체 생성을 제어하는 경우에 많이 사용하는데 이 방식은 **팩토리 메서드 패턴**에 해당한다.
+따라서 `companion object` 는 객체 생성을 제어하는 경우에 많이 사용하는데 이 방식은 **팩토리 메서드 패턴**에 해당한다.
 
 아래는 _Numbered2_ 객체로 이루어진 List 생성만 허용하고, 개별 _Numbered2_ 의 생성을 불가하는 예시이다.
 
@@ -1242,14 +1242,14 @@ fun main() {
 }
 ```
 
-팩토리 메서드는 유용하지만 클래스를 확장해야만 하는 경우에는 companion object 멤버를 파생 클래스에서 오버라이드할 수 없으므로 여러 생성자를 사용하는 편이 더 낫다.
+  팩토리 메서드는 유용하지만 클래스를 확장해야만 하는 경우에는 companion object 멤버를 파생 클래스에서 오버라이드할 수 없으므로 여러 생성자를 사용하는 편이 더 낫다.
 
 ---
 
-## 4.9. companion object 생성 시점
+## 4.9. `companion object` 생성 시점
 
-아래 코드를 보면 _CompanionInit()_ 을 호출하여 **_CompanionInit_ 인스턴스가 최초로 생성되는 시점에 companion object 가 단 한번만 생성**된 다는 것을 알 수 있다.  
-또한 **동반 클래스 생성자 생성보다 companion object 생성이 먼저** 일어난다는 것도 알 수 있다.
+  아래 코드를 보면 _CompanionInit()_ 을 호출하여 **_CompanionInit_ 인스턴스가 최초로 생성되는 시점에 `companion object` 가 단 한번만 생성**된 다는 것을 알 수 있다.  
+    또한 **동반 클래스 생성자 생성보다 `companion object` 생성이 먼저** 일어난다는 것도 알 수 있다.
 
 ```kotlin
 class CompanionInit {
