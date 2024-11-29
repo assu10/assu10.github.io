@@ -555,7 +555,7 @@ public class AdminClientSample {
 여기선 토픽이 존재하지 않을 경우를 처리하고 싶은 것 (= 토픽이 존재하지 않으면 토픽 생성) 이므로 _ExecutionException_ 예외를 처리해주어야 함
 
 3) **토픽이 존재할 경우 `Future` 객체는 토픽에 속한 모든 파티션의 목록을 담은 `TopicDescription` 을 리턴**함  
-**`TopicDescription` 엔 파티션별로 어느 브로커가 리더이고, 어디에 replica 가 있고, in-sync replica 가 무엇인지까지 포함**함  
+**`TopicDescription` 엔 파티션별로 어느 브로커가 리더이고, 어디에 replica 가 있고, ISR(In-Sync Replica) 가 무엇인지까지 포함**함  
 주의할 점은 토픽의 설정은 포함되지 않는다는 점임  
 > 토픽 설정에 대한 부분은 추후 다룰 예정입니다. (p. 132)
 

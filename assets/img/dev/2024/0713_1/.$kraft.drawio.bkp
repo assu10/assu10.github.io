@@ -1,0 +1,133 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="K2PWD_79bjw08htXg664">
+    <mxGraphModel dx="954" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-40" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="440" y="504" width="370" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-32" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="590" y="100" width="270" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-31" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="289" y="100" width="281" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-30" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="10" y="100" width="250" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-15" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-1" target="ag4Bz5wpgt5ztPrD3Zub-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-1" value="브로커 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;dashPattern=1 2;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-2" target="ag4Bz5wpgt5ztPrD3Zub-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;dashPattern=1 2;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-2" target="ag4Bz5wpgt5ztPrD3Zub-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-2" target="ag4Bz5wpgt5ztPrD3Zub-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-2" value="브로커 2&lt;div&gt;(컨트롤러)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="220" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-19" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-3" target="ag4Bz5wpgt5ztPrD3Zub-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-3" value="브로커 3" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="300" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-4" value="주키퍼&lt;div&gt;앙상블&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="160" y="220" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-20" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;dashPattern=1 2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-5" target="ag4Bz5wpgt5ztPrD3Zub-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-5" target="ag4Bz5wpgt5ztPrD3Zub-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-5" value="컨트롤러 1&lt;div&gt;(액티브 컨트롤러)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="203" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-24" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-6" target="ag4Bz5wpgt5ztPrD3Zub-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-6" value="브로커 1&lt;div&gt;(Kraft 미지원)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="133" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-22" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-7" target="ag4Bz5wpgt5ztPrD3Zub-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-7" value="브로커 2&lt;div&gt;(Kraft 지원)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="333" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-8" target="ag4Bz5wpgt5ztPrD3Zub-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-8" value="컨트롤러 2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="283" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-9" value="주키퍼&lt;div&gt;앙상블&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="480" y="203" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-26" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-10" target="ag4Bz5wpgt5ztPrD3Zub-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-10" value="브로커 1&lt;div&gt;(Kraft 지원)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="140" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-27" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-11" target="ag4Bz5wpgt5ztPrD3Zub-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-11" value="브로커 2&lt;div&gt;(Kraft 지원)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="220" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-28" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-12" target="ag4Bz5wpgt5ztPrD3Zub-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-12" value="브로커 3&lt;div&gt;(Kraft 지원)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="300" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-13" value="컨트롤러 1&lt;div&gt;(액티브 컨트롤러)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="220" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ag4Bz5wpgt5ztPrD3Zub-14" target="ag4Bz5wpgt5ztPrD3Zub-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-14" value="컨트롤러 2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="300" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-33" value="KRaft 이전" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="420" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-34" value="Bridge Release" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="379.5" y="420" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-35" value="KRaft 이후" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="695" y="420" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;dashed=1;dashPattern=1 2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="448" y="532" as="sourcePoint" />
+            <mxPoint x="498" y="532" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="448" y="570" as="sourcePoint" />
+            <mxPoint x="498" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-38" value="컨트롤러가 변경을 감지하여 다른 브로커에 제어 신호 보냄" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="517" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ag4Bz5wpgt5ztPrD3Zub-39" value="컨트롤러가 아닌 브로커가 주키퍼에 필요한 내용을 자유롭게 씀" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="509" y="555" width="330" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
