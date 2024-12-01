@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kafka - 내부 메커니즘: 파티션 할당, 인덱스, 보존 정책, 로그 압착"
+title:  "Kafka - 내부 메커니즘(2): 파티션 할당, 인덱스, 보존 정책, 로그 압착"
 date: 2024-08-11
 categories: dev
 tags: kafka tiered-storage message-batch control-batch compact tombstone-message

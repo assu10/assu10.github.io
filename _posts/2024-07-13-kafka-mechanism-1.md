@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kafka - 내부 메커니즘: 컨트롤러, `KRaft`, 복제, 요청 처리"
+title:  "Kafka - 내부 메커니즘(1): 컨트롤러, `KRaft`, 복제, 요청 처리"
 date: 2024-07-13
 categories: dev
 tags: kafka kraft isr
