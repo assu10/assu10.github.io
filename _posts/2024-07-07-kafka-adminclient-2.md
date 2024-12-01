@@ -24,7 +24,7 @@ tags: kafka listConsumerGroups() listConsumerGroupOffsets() partitionsToOffsetAn
   * [3.1. 토픽에 파티션 추가: `createPartitions()`](#31-토픽에-파티션-추가-createpartitions)
   * [3.2. 토픽에서 레코드 삭제: `deleteRecords()`](#32-토픽에서-레코드-삭제-deleterecords)
   * [3.3. 리더 선출: `elecLeader()`](#33-리더-선출-elecleader)
-  * [3.4. replica 재할당: `alterPartitionReassignments()`](#34-replica-재할당-alterpartitionreassignments)
+  * [3.4. 레플리카 재할당: `alterPartitionReassignments()`](#34-레플리카-재할당-alterpartitionreassignments)
 * [4. 테스트: `MockAdminClient`](#4-테스트-mockadminclient)
 * [정리하며...](#정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -707,13 +707,13 @@ public class AdminClientSample3 {
 `elecLeader()` 메서드는 2 가지 서로 다른 형태의 리더 선출을 할 수 있게 해준다.
 
 - **선호 리더 선출 (preferred leader election)**
-  - 각 파티션은 선호 리더 (preferred leader) 라 불리는 replica 를 하나씩 가짐
-  - preferred 라는 이름이 붙은 이유는 모든 파티션이 preferred leader replica 를 리더로 삼을 경우 각 브로커마다 할당되는 리더의 개수가 균형을 이루기 때문임
-  - 기본적으로 카프카는 5분마다 선호 리더 replica 가 실제로 리더를 맡고 있는지 확인하여 리더를 맡을 수 있는데도 맡고 있지 않은 경우 해당 replica 를 리더로 삼음
+  - 각 파티션은 선호 리더 (preferred leader) 라 불리는 레플리카를 하나씩 가짐
+  - preferred 라는 이름이 붙은 이유는 모든 파티션이 preferred leader 레플리카를 리더로 삼을 경우 각 브로커마다 할당되는 리더의 개수가 균형을 이루기 때문임
+  - 기본적으로 카프카는 5분마다 선호 리더 레플리카가 실제로 리더를 맡고 있는지 확인하여 리더를 맡을 수 있는데도 맡고 있지 않은 경우 해당 레플리카를 리더로 삼음
   - **[`auto.leader.rebalance.enable`](https://assu10.github.io/dev/2024/06/15/kafka-install/#317-autoleaderrebalanceenable) 가 false 로 설정되어 있거나 아니면 좀 더 빨리 이 과정을 작동시키고 싶을 때 `electLeader()` 메서드 호출**
 - **언클린 리더 선출 (unclean leader election)**
-  - 어느 파티션의 리더 replica 가 사용 불능 상태가 되었는데 다른 replica 들은 리더를 맡을 수 없는 상황일 경우 (보통 데이터가 없어서 그럼) 해당 파티션은 리더가 없게 되고, 따라서 사용 불능 상태가 됨
-  - 이 문제를 해결하는 방법 중 하나는 리더가 될 수 없는 replica 를 그냥 리더로 삼아버리는 언클린 리더 선출을 작동시키는 것임
+  - 어느 파티션의 리더 레플리카가 사용 불능 상태가 되었는데 다른 레플리카들은 리더를 맡을 수 없는 상황일 경우 (보통 데이터가 없어서 그럼) 해당 파티션은 리더가 없게 되고, 따라서 사용 불능 상태가 됨
+  - 이 문제를 해결하는 방법 중 하나는 리더가 될 수 없는 레플리카를 그냥 리더로 삼아버리는 언클린 리더 선출을 작동시키는 것임
   - 이것은 데이터 유실을 초래함 (예전 리더에 쓰여졌지만 새 리더로 복제되지 않은 모든 이벤트는 유실됨)
   - 이렇게 **언클린 리더 선출을 작동시키기 위해서도 `elecLeader()` 메서드 사용** 가능
 
@@ -762,7 +762,7 @@ public class AdminClientSample3 {
     } catch (ExecutionException e) {
       // 2)
       // 클러스터 상태가 좋다면 아무런 작업도 일어나지 않을 것임
-      // 선호 리더 선출과 언클린 리더 선출은 선호 리더가 아닌 replica 가 현재 리더를 맡고 있을 경우에만 수행됨
+      // 선호 리더 선출과 언클린 리더 선출은 선호 리더가 아닌 레플리카가 현재 리더를 맡고 있을 경우에만 수행됨
       if (e.getCause() instanceof ElectionNotNeededException) {
         log.error("All leaders are preferred leaders, no need to do anything.");
       }
@@ -776,29 +776,29 @@ public class AdminClientSample3 {
 만일 파티션 모음이 아닌 null (위에서는 _electableTopics_ 대신 null) 값을 지정하여 실행할 경우 모든 파티션에 대해 지정된 선출 유형 작업을 시작함
 
 2) 클러스터 상태가 좋다면 아무런 작업도 일어나지 않을것임  
-**`electLeaders()` 메서드는 선호 리더 선출과 언클린 리더 선출은 선호 리더가 아닌 replica 가 현재 리더를 맡고 있을 경우에만 수행**됨
+**`electLeaders()` 메서드는 선호 리더 선출과 언클린 리더 선출은 선호 리더가 아닌 레플리카가 현재 리더를 맡고 있을 경우에만 수행**됨
 
 ---
 
-## 3.4. replica 재할당: `alterPartitionReassignments()`
+## 3.4. 레플리카 재할당: `alterPartitionReassignments()`
 
-replica 의 현재 위치를 옮겨야 할 경우가 있다.
+레플리카의 현재 위치를 옮겨야 할 경우가 있다.
 
-- 브로커에 너무 많은 replica 가 올라가 있어서 몇 개를 다른 곳으로 옮겨야 할 경우
-- replica 를 추가할 경우
-- 장비를 내리기 위해 모든 replica 를 다른 장비로 내보내야 하는 경우
+- 브로커에 너무 많은 레플리카가 올라가 있어서 몇 개를 다른 곳으로 옮겨야 할 경우
+- 레플리카를 추가할 경우
+- 장비를 내리기 위해 모든 레플리카를 다른 장비로 내보내야 하는 경우
 - 몇몇 토픽에 대한 요청이 너무 많아서 나머지에서 따로 분리해놓아야 하는 경우
 
-이럴 때 **`alterPartitionReassignment()` 메서드를 사용하면 파티션에 속한 각각의 replica 의 위치를 정밀하게 제어**할 수 있다.
+이럴 때 **`alterPartitionReassignment()` 메서드를 사용하면 파티션에 속한 각각의 레플리카의 위치를 정밀하게 제어**할 수 있다.
 
-**replica 를 하나의 브로커에서 다른 브로커로 재할당하는 일은 브로커 간에 대량의 데이터 복제가 일어난다는 점을 주의**해야 한다.  
+**레플리카를 하나의 브로커에서 다른 브로커로 재할당하는 일은 브로커 간에 대량의 데이터 복제가 일어난다는 점을 주의**해야 한다.  
 사용 가능한 네트워크 대역폭에 주의하고, 필요할 경우 쿼터를 설정하여 복제 작업을 스로틀링 해주는 것이 좋다.  
 쿼터 역시 브로커의 설정이기 때문에 `AdminClient` 를 사용하여 조회/수정 가능하다.
 
 아래는 시나리오는 다음과 같다.
 - ID 가 0인 브로커가 하나 있음
-- 토픽에는 여러 개의 파티션이 있는데, 각각의 파티션은 이 브로커에 하나의 replica 를 갖고 있음
-- 새로운 브로커를 추가해 준 다음 이 토픽의 replica 일부를 새 브로커에 저장하려고 함
+- 토픽에는 여러 개의 파티션이 있는데, 각각의 파티션은 이 브로커에 하나의 레플리카를 갖고 있음
+- 새로운 브로커를 추가해 준 다음 이 토픽의 레플리카 일부를 새 브로커에 저장하려고 함
 
 AdminClientSample3.java
 ```java
@@ -835,28 +835,28 @@ public class AdminClientSample3 {
 
     // ...
 
-    // ======= 새로운 브로커로 파티션 재할당 (replica 재할당)
+    // ======= 새로운 브로커로 파티션 재할당 (레플리카 재할당)
     Map<TopicPartition, Optional<NewPartitionReassignment>> reassignment = new HashMap<>();
 
     // 1)
-    // 파티션 0 에 새로운 replica 를 추가하고, 새 replica 를 ID 가 1인 새 브로커에 배치
+    // 파티션 0 에 새로운 레플리카 를 추가하고, 새 레플리카를 ID 가 1인 새 브로커에 배치
     // 단, 리더는 변경하지 않음
     reassignment.put(
         new TopicPartition(TOPIC_NAME, 0),
         Optional.of(new NewPartitionReassignment(Arrays.asList(0, 1))));
 
     // 2)
-    // 파티션 1 에는 아무런 replica 도 추가하지 않음
-    // 단지 이미 있던 replica 를 새 브로커로 옮겼을 뿐임
-    // replica 가 하나뿐인만큼 이것이 리더가 됨
+    // 파티션 1 에는 아무런 레플리카도 추가하지 않음
+    // 단지 이미 있던 레플리카를 새 브로커로 옮겼을 뿐임
+    // 레플리카가 하나뿐인만큼 이것이 리더가 됨
     reassignment.put(
         new TopicPartition(TOPIC_NAME, 1),
         Optional.of(new NewPartitionReassignment(Arrays.asList(0))));
 
     // 3)
-    // 파티션 2 에 새로운 replica 를 추가하고 이것을 선호 리더로 설정
-    // 다음 선호 리더 선출 시 새로운 브로커에 있는 새로운 replica 로 리더가 바뀌게 됨
-    // 이전 replica 는 팔로워가 될 것임
+    // 파티션 2 에 새로운 레플리카를 추가하고 이것을 선호 리더로 설정
+    // 다음 선호 리더 선출 시 새로운 브로커에 있는 새로운 레플리카로 리더가 바뀌게 됨
+    // 이전 레플리카는 팔로워가 될 것임
     reassignment.put(
         new TopicPartition(TOPIC_NAME, 2),
         Optional.of(new NewPartitionReassignment(Arrays.asList(1, 0))));
@@ -894,16 +894,16 @@ public class AdminClientSample3 {
 }
 ```
 
-1) 파티션 0 에 새로운 replica 를 추가하고, 새 replica 를 ID 가 1인 새 브로커에 배치함  
+1) 파티션 0 에 새로운 레플리카를 추가하고, 새 레플리카를 ID 가 1인 새 브로커에 배치함  
 단, 리더는 변경하지 않음
 
-2) 파티션 1 에는 아무런 replica 를 추가하지 않음  
-단지 이미 있던 replica 를 새 브로커로 옮겼을 뿐임  
-replica 가 하나뿐이므로 이것이 리더가 됨
+2) 파티션 1 에는 아무런 레플리카를 추가하지 않음  
+단지 이미 있던 레플리카를 새 브로커로 옮겼을 뿐임  
+레플리카가 하나뿐이므로 이것이 리더가 됨
 
-3) 파티션 2 에 새로운 replica 를 추가하고 이것을 선호 리더로 설정함  
-다음 선호 리더 선출 시 새로운 브로커에 있는 새로운 replica 로 리더가 변경됨  
-이전 replica 는 팔로워가 될 것임
+3) 파티션 2 에 새로운 레플리카를 추가하고 이것을 선호 리더로 설정함  
+다음 선호 리더 선출 시 새로운 브로커에 있는 새로운 레플리카로 리더가 변경됨  
+이전 레플리카는 팔로워가 될 것임
 
 4) 파티션 3 에 대해서는 진행중인 재할당 작업이 없음  
 하지만 그런 게 있다면 작업이 취소되고, 재할당 작업이 시작되기 전 상태로 원상복구될 것임
@@ -954,7 +954,7 @@ public class TopicCreator {
   public void maybeCreateTopic(String topicName) throws ExecutionException, InterruptedException {
     Collection<NewTopic> topics = new ArrayList<>();
 
-    // 파티션 1개, replica 1개인 토픽 생성
+    // 파티션 1개, 레플리카 1개인 토픽 생성
     topics.add(new NewTopic(topicName, 1, (short) 1));
 
     if (topicName.toLowerCase().startsWith("test")) {

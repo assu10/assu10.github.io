@@ -436,13 +436,13 @@ public class AdminClientSample {
 아래는 토픽이 존재하는지 확인 후 없으면 생성하는 예시이다.  
 **특정 토픽이 존재하는지 확인하는 방법 중 하나는 모든 토픽의 목록을 받은 후 원하는 토픽이 그 안에 있는지 확인**하는 것이다.
 
-큰 클러스터에서 이 방법은 비효율적일수 있고, 때로는 단순히 토픽의 존재 여부 뿐 아니라 해당 토픽이 필요한 만큼의 파티션과 replica 키를 갖고 있는지 확인하는 등 
+큰 클러스터에서 이 방법은 비효율적일수 있고, 때로는 단순히 토픽의 존재 여부 뿐 아니라 해당 토픽이 필요한 만큼의 파티션과 레플리카키를 갖고 있는지 확인하는 등 
 그 이상의 정보가 필요할 수도 있다.
 
 예를 들어 카프카 커넥트와 컨플루언트의 스키마 레지스트리는 설정을 저장하기 위해 카프카 토픽을 사용하는데, 이들은 처음 시작 시 아래 조건을 만족하는 
 설정 토픽이 있는지 확인한다.
 - 하나의 파티션을 가짐, 이는 설정 변경에 온전한 순서를 부여하기 위해 필요함
-- 가용성을 보장하기 위해 3개의 replica 를 가짐
+- 가용성을 보장하기 위해 3개의 레플리카를 가짐
 - 오래된 설정값도 계속해서 저장되도록 토픽에 압착 설정이 되어있음
 
 아래는 예시는 다음의 흐름으로 동작한다.
@@ -501,7 +501,7 @@ public class AdminClientSample {
       log.info("Description of sample topic: {}", topicDescription);
 
       // 토픽이 존재할 경우 Future 객체는 토픽에 속한 모든 파티션의 목록을 담은 TopicDescription 을 리턴함
-      // TopicDescription 는 파티션별로 어느 브로커가 리더이고, 어디에 replica 가 있고, in-sync replica 가 무엇인지까지 포함함
+      // TopicDescription 는 파티션별로 어느 브로커가 리더이고, 어디에 레플리카가 있고, in-sync replica 가 무엇인지까지 포함함
       // 주의할 점은 토픽의 설정은 포함되지 않는다는 점임
       // 토픽 설정에 대해선 추후 다룰 예정
       if (topicDescription.partitions().size() != NUM_PARTITIONS) { // 3)
@@ -519,7 +519,7 @@ public class AdminClientSample {
       log.info("Topic {} does not exist. Going to create it now.", TOPIC_NAME);
 
       // 토픽이 존재하지 않을 경우 새로운 토픽 생성
-      // 토픽 생성 시 토픽의 이름만 필수이고, 파티션 수와 replica 수는 선택사항임
+      // 토픽 생성 시 토픽의 이름만 필수이고, 파티션 수와 레플리카수는 선택사항임
       // 만일 이 값들을 지정하지 않으면 카프카 브로커에 설정된 기본값이 사용됨
       CreateTopicsResult newTopic =
               adminClient.createTopics(
@@ -555,7 +555,7 @@ public class AdminClientSample {
 여기선 토픽이 존재하지 않을 경우를 처리하고 싶은 것 (= 토픽이 존재하지 않으면 토픽 생성) 이므로 _ExecutionException_ 예외를 처리해주어야 함
 
 3) **토픽이 존재할 경우 `Future` 객체는 토픽에 속한 모든 파티션의 목록을 담은 `TopicDescription` 을 리턴**함  
-**`TopicDescription` 엔 파티션별로 어느 브로커가 리더이고, 어디에 replica 가 있고, ISR(In-Sync Replica) 가 무엇인지까지 포함**함  
+**`TopicDescription` 엔 파티션별로 어느 브로커가 리더이고, 어디에 레플리카가 있고, ISR(In-Sync Replica) 가 무엇인지까지 포함**함  
 주의할 점은 토픽의 설정은 포함되지 않는다는 점임  
 > 토픽 설정에 대한 부분은 추후 다룰 예정입니다. (p. 132)
 
@@ -564,7 +564,7 @@ public class AdminClientSample {
 **카프카가 리턴한 에러를 열어보려면 항상 _ExecutionException_ 의 `cause` 를 확인**해보아야 함
 
 5) **토픽이 존재하지 않을 경우 새로운 토픽 생성**  
-토픽 생성 시 토픽의 이름만 필수이고, 파티션 수과 replica 수는 선택사항임  
+토픽 생성 시 토픽의 이름만 필수이고, 파티션 수과 레플리카수는 선택사항임  
 만일 이 값들을 지정하지 않으면 카프카 브로커에 설정된 기본값이 사용됨
 
 6) **토픽이 정상적으로 생성되었는지 확인**  

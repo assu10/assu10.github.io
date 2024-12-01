@@ -112,7 +112,7 @@
         <mxCell id="nXAMyabJaJkwk5kegZRo-36" value="파티션 3" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="50" y="354.5" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="nXAMyabJaJkwk5kegZRo-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" parent="1" source="nXAMyabJaJkwk5kegZRo-40" target="nXAMyabJaJkwk5kegZRo-5" edge="1">
+        <mxCell id="nXAMyabJaJkwk5kegZRo-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="nXAMyabJaJkwk5kegZRo-40" target="nXAMyabJaJkwk5kegZRo-5" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="225" y="210" />
