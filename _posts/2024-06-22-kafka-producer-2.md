@@ -630,7 +630,10 @@ ProducerRecord<String, GenericRecord> record = new ProducerRecord<>(topic, custo
   - 같은 키 값을 갖는 모든 메시지는 같은 파티션에 저장됨
   - 즉, 임의의 프로세스가 전체 파티션 중 일부만 읽어올 경우 특정한 키 값을 갖는 모든 메시지를 읽게 됨
 
-> 키 값은 로그 압착 기능이 활성화된 토픽에서도 중요한 역할을 하는데 상세한 내용은 추후 다룰 예정입니다. (p. 73)
+> 키 값은 로그 압착 기능이 활성화된 토픽에서도 중요한 역할을 하는데 해당 내용은  
+> [6. 보존 정책: 삭제 보존, 압착 보존](https://assu10.github.io/dev/2024/08/11/kafka-mechanism-2/#6-%EB%B3%B4%EC%A1%B4-%EC%A0%95%EC%B1%85-%EC%82%AD%EC%A0%9C-%EB%B3%B4%EC%A1%B4-%EC%95%95%EC%B0%A9-%EB%B3%B4%EC%A1%B4),  
+> [7. 압착(Compact)의 작동 원리](https://assu10.github.io/dev/2024/08/11/kafka-mechanism-2/#7-%EC%95%95%EC%B0%A9compact%EC%9D%98-%EC%9E%91%EB%8F%99-%EC%9B%90%EB%A6%AC)  
+> 를 참고하세요.
 
 > 임의의 프로세스가 전체 파티션 중 일부만 읽어오는 경우에 대한 좀 더 상세한 내용은 [3. 특정 오프셋의 레코드 읽어오기: `seekToBeginning()`, `seekToEnd()`, `seek()`, `assignment()`, `offsetsForTimes()`](https://assu10.github.io/dev/2024/06/29/kafka-consumer-2/#3-%ED%8A%B9%EC%A0%95-%EC%98%A4%ED%94%84%EC%85%8B%EC%9D%98-%EB%A0%88%EC%BD%94%EB%93%9C-%EC%9D%BD%EC%96%B4%EC%98%A4%EA%B8%B0-seektobeginning-seektoend-seek-assignment-offsetsfortimes) 를 참고하세요.
 

@@ -390,7 +390,7 @@ __consumer_offsets
 
 # 3. 브로커 설정
 
-> Kafka 3.3.0 부터 추가된 `KRaft` 모드 설정에 관한 내용은 추후 상세히 다룰 예정입니다. (p. 25)
+> Kafka 3.3.0 부터 추가된 `KRaft` 모드 설정에 관한 내용은 [2. 컨트롤러](https://assu10.github.io/dev/2024/07/13/kafka-mechanism-1/#2-%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC) 를 참고하세요.
 
 > [3. 브로커 설정](#3-브로커-설정) 에서 설명하는 옵션들은 kafka_2.13-3.8.0/config/server.properties 파일 안에 있는 설정 옵션들임
 
