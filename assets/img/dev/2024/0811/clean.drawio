@@ -1,0 +1,52 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="muAOAuQ75J0fDIO9jyYR">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Q4338xrh26HKtcfgZbSf-1" value="0" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-2" value="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-3" value="3" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-4" value="4" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-5" value="6" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-6" value="8" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-7" value="9" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-8" value="10" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-9" value="11" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-10" value="12" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-17" value="" style="endArrow=none;html=1;rounded=0;fontStyle=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="230" y="151" as="sourcePoint" />
+            <mxPoint x="230" y="61" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-18" value="클린 영역" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="155" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4338xrh26HKtcfgZbSf-19" value="더티 영역" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="240" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
