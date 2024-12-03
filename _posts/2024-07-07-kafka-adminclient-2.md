@@ -711,11 +711,15 @@ public class AdminClientSample3 {
   - preferred 라는 이름이 붙은 이유는 모든 파티션이 preferred leader 레플리카를 리더로 삼을 경우 각 브로커마다 할당되는 리더의 개수가 균형을 이루기 때문임
   - 기본적으로 카프카는 5분마다 선호 리더 레플리카가 실제로 리더를 맡고 있는지 확인하여 리더를 맡을 수 있는데도 맡고 있지 않은 경우 해당 레플리카를 리더로 삼음
   - **[`auto.leader.rebalance.enable`](https://assu10.github.io/dev/2024/06/15/kafka-install/#317-autoleaderrebalanceenable) 가 false 로 설정되어 있거나 아니면 좀 더 빨리 이 과정을 작동시키고 싶을 때 `electLeader()` 메서드 호출**
+  - > 파티션의 선호 리더의 좀 더 상세한 내용은  
+    > [3.3. 리더 선출: `elecLeader()`](https://assu10.github.io/dev/2024/07/07/kafka-adminclient-2/#33-%EB%A6%AC%EB%8D%94-%EC%84%A0%EC%B6%9C-elecleader),  
+    > [3.3. 선호 리더(Preferred leader)](https://assu10.github.io/dev/2024/07/13/kafka-mechanism-1/#33-%EC%84%A0%ED%98%B8-%EB%A6%AC%EB%8D%94preferred-leader) 를 참고하세요.
 - **언클린 리더 선출 (unclean leader election)**
   - 어느 파티션의 리더 레플리카가 사용 불능 상태가 되었는데 다른 레플리카들은 리더를 맡을 수 없는 상황일 경우 (보통 데이터가 없어서 그럼) 해당 파티션은 리더가 없게 되고, 따라서 사용 불능 상태가 됨
   - 이 문제를 해결하는 방법 중 하나는 리더가 될 수 없는 레플리카를 그냥 리더로 삼아버리는 언클린 리더 선출을 작동시키는 것임
   - 이것은 데이터 유실을 초래함 (예전 리더에 쓰여졌지만 새 리더로 복제되지 않은 모든 이벤트는 유실됨)
   - 이렇게 **언클린 리더 선출을 작동시키기 위해서도 `elecLeader()` 메서드 사용** 가능
+  - > 언클린 리더 선출에 대한 상세한 내용은 [3.2. 언클린 리더 선출: `unclean.leader.election.enable`](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#32-%EC%96%B8%ED%81%B4%EB%A6%B0-%EB%A6%AC%EB%8D%94-%EC%84%A0%EC%B6%9C-uncleanleaderelectionenable) 을 참고하세요.
 
 AdminClientSample3.java
 ```java
