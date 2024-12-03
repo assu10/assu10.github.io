@@ -130,7 +130,10 @@ _브로커가 6개, 여기에 파티션이 10개, 복제 팩터 (RF, Replication
 - **브로커에 rack 정보가 설정되어 있다면 가능한 각 파티션의 레플리카들을 서로 다른 rack 에 할당**
   - 이렇게 하면 하나의 rack 전체가 작동 불능이 되어도 파티션 전체가 작동 불능이 되는 사태 방지 가능
 
-> `rack` 에 대한 추가 설명은 [5.14. `client.rack`, `replica.selector.class`](https://assu10.github.io/dev/2024/06/23/kafka-consumer-1/#514-clientrack-replicaselectorclass) 를 참고하세요.
+> rack 에 대한 추가 설명은  
+> [2. 파티션 할당](https://assu10.github.io/dev/2024/08/11/kafka-mechanism-2/#2-%ED%8C%8C%ED%8B%B0%EC%85%98-%ED%95%A0%EB%8B%B9),  
+> [3.1. 복제 팩터(레플리카 개수): `replication.factor`, `default.replication.factor`](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#31-%EB%B3%B5%EC%A0%9C-%ED%8C%A9%ED%84%B0%EB%A0%88%ED%94%8C%EB%A6%AC%EC%B9%B4-%EA%B0%9C%EC%88%98-replicationfactor-defaultreplicationfactor)  
+> 를 참고하세요.
 
 위처럼 하기 위해 임의의 브로커(여기서는 4라고 하자)부터 시작하여 라운드 로빈 방식으로 파티션을 할당함으로써 **리더를 결정**한다.  
 그러면 브로커는 6대이니까 아래와 같이 할당된다.
@@ -434,8 +437,8 @@ DB 에서 삭제해줘야하는지 알 수 없기 때문이다.
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [Doc Kafka](https://kafka.apache.org/documentation/)
-* [Blog 카프카에서 계층 저장소(Tiered storage)가 필요한 이유](https://blog.voidmainvoid.net/509)
+* [Blog:  카프카에서 계층 저장소(Tiered storage)가 필요한 이유](https://blog.voidmainvoid.net/509)
 * [KIP-405: Kafka Tiered Storage](https://cwiki.apache.org/confluence/display/KAFKA/KIP-405%3A+Kafka+Tiered+Storage)
 * [Kafka Tiered Storage Early Access Release Notes](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Tiered+Storage+Early+Access+Release+Notes)
-* [KIP-101](https://cwiki.apache.org/confluence/display/KAFKA/KIP-101+-+Alter+Replication+Protocol+to+use+Leader+Epoch+rather+than+High+Watermark+for+Truncation)
-* [KIP-279](https://cwiki.apache.org/confluence/display/KAFKA/KIP-279%3A+Fix+log+divergence+between+leader+and+follower+after+fast+leader+fail+over)
+* [KIP-101: Alter Replication Protocol to use Leader Epoch rather than High Watermark for Truncation](https://cwiki.apache.org/confluence/display/KAFKA/KIP-101+-+Alter+Replication+Protocol+to+use+Leader+Epoch+rather+than+High+Watermark+for+Truncation)
+* [KIP-279: Fix log divergence between leader and follower after fast leader fail over](https://cwiki.apache.org/confluence/display/KAFKA/KIP-279%3A+Fix+log+divergence+between+leader+and+follower+after+fast+leader+fail+over)

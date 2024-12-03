@@ -450,7 +450,7 @@ pom.xml (chap04)
 - `key.deserializer`, `value.deserializer`
   - 바이트 배열을 자바 객체로 변환하는 클래스 지정
 
-반드시 지정해야 하는 건 아니지만 매우 일반적으로 사용되는 네 번째 속성이 있는데 그건 바로 `KafkaConsumer` 인스턴스가 속하는 컨슈머 그룹을 지정하는 `group.id` 이다.  
+반드시 지정해야 하는 건 아니지만 매우 일반적으로 사용되는 네 번째 속성이 있는데 그건 바로 **`KafkaConsumer` 인스턴스가 속하는 컨슈머 그룹을 지정하는 [`group.id`](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#511-groupid)** 이다.  
 어떤 컨슈머 그룹에도 속하지 않는 컨슈머를 생성할 수는 있지만 일반적이지는 않다.
 
 아래는 `KafkaConsumer` 를 생성하는 예시이다.
@@ -823,7 +823,7 @@ public class PollingLoop {
 
 ## 5.10. `auto.offset.reset`
 
-**`auto.offset.reset` 은 컨슈머가 예전에 오프셋을 커밋한 적이 없거나, 커밋된 오프셋이 유효하지 않거나, 파티션을 읽기 시작할 때의 작동을 정의**한다.
+**`auto.offset.reset` 은 컨슈머가 예전에 오프셋을 커밋한 적이 없거나, 커밋된 오프셋이 유효하지 않거나(컨슈머가 브로커에 없는 오프셋 요청), 파티션을 읽기 시작할 때 컨슈머가 해야할 동작을 정의**한다.
 
 커밋된 오프셋이 유효하지 않은 경우는 보통 컨슈머가 오랫동안 읽은 적이 없어서 오프셋의 레코드가 이미 브로커에서 삭제된 경우이다.
 
@@ -831,8 +831,10 @@ public class PollingLoop {
 
 - `latest`
   - 유효한 오프셋이 없을 경우 컨슈머는 가장 최신 레코드(= 컨슈머가 작동하기 시작한 다음부터 쓰여진 레코드)부터 읽기 시작함
+  - 중복 처리는 최소화하지만, 컨슈머가 일부 메시지는 누락할 것이 거의 확실함
 - `earliest`
   - 유효한 오프셋이 없을 경우 파티션의 맨 처음부터 모든 데이터를 읽음
+  - 컨슈머는 많은 메시지들을 중복 처리하게 될 수 있지만, 데이터 유실은 최소화할 수 있음
 - `none`
   - 유효하지 않은 오프셋부터 읽으려 할 경우 예외 발생
 
@@ -844,10 +846,19 @@ public class PollingLoop {
 
 기본값은 true 이다.
 
-언제 오프셋을 커밋할 지 직접 결정하고 싶다면 false 로 설정하면 한다.  
+자동 오프셋 커밋의 장점은 [폴링 루프](https://assu10.github.io/dev/2024/06/23/kafka-consumer-1/#4-%ED%8F%B4%EB%A7%81-%EB%A3%A8%ED%94%84-poll)에서 읽어온 모든 레코드에 대한 처리를 하는 와중에도 처리하지 
+않은 오프셋을 실수로 커밋하는 상황이 벌어지지 않도록 보장해준다.
+
+자동 오프셋 커밋의 단점은 메시지 중복 처리를 개발자가 제어할 수 없다는 점이다.  
+읽어온 메시지 중 일부만을 처리했고 아직 자동 커밋이 되지 않은 상태에서 컨슈머가 멈추면, 컨슈머를 재시작했을 때 메시지 중복 처리를 피할 수 없다.
+
+애플리케이션이 백그라운드에서 처리를 수행하기 위해 다슨 스레드에 레코드를 넘기는 것과 같이 더 복잡한 처리를 해야하는 경우, 직접 오프셋을 커밋해주는 것 외에는 선택지가 없다.  
+자동 커밋 기능이 컨슈머가 읽어오기는 했지만 아직 처리하지 않은 오프셋을 커밋할 수도 있기 때문이다.
+
+따라서 언제 오프셋을 커밋할 지 직접 결정하고 싶다면 false 로 설정하면 한다.  
 **중복을 최소화하고 유실되는 데이터를 방지하려면 false 로 설정**해야 한다.
 
-true 로 설정 시 `auto.commit.interval.ms` 를 사용하여 얼마나 자주 오프셋이 커밋될지 제어할 수 있다.
+true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#514-autocommitintervalms) 를 사용하여 얼마나 자주 오프셋이 커밋될지 제어할 수 있다.
 
 > [1.1. 자동 커밋](https://assu10.github.io/dev/2024/06/29/kafka-consumer-2/#11-%EC%9E%90%EB%8F%99-%EC%BB%A4%EB%B0%8B) 과 함께 보면 도움이 됩니다.
 
@@ -1014,6 +1025,11 @@ true 로 설정 시 `auto.commit.interval.ms` 를 사용하여 얼마나 자주 
 클라이언트 메타데이터와 파티션 메타데이터를 활용하여 읽기 작업에 사용할 최적의 레플리카를 선택하는 커스텀 로직을 직접 구현하여 넣을 수도 있다.  
 읽어올 레플리카를 선택하는 로직을 직접 구현하고 싶으면 `ReplicaSelector` 인터페이스를 구현하는 클래스를 구현한 뒤 `replica.relector.class` 가 
 그 클래스를 가리키게 하면 된다.
+
+> rack 에 대한 추가 설명은  
+> [2. 파티션 할당](https://assu10.github.io/dev/2024/08/11/kafka-mechanism-2/#2-%ED%8C%8C%ED%8B%B0%EC%85%98-%ED%95%A0%EB%8B%B9),  
+> [3.1. 복제 팩터(레플리카 개수): `replication.factor`, `default.replication.factor`](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#31-%EB%B3%B5%EC%A0%9C-%ED%8C%A9%ED%84%B0%EB%A0%88%ED%94%8C%EB%A6%AC%EC%B9%B4-%EA%B0%9C%EC%88%98-replicationfactor-defaultreplicationfactor)  
+> 를 참고하세요.
 
 > **가까운 rack 에서 읽어오기**  
 > 

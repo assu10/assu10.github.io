@@ -192,6 +192,8 @@ pom.xml (chap04)
 **오프셋을 커밋할 때 자동으로 커밋하건 오프셋을 지정하지 않고 하건 상관없이 `poll()` 이 리턴한 마지막 오프셋 바로 다음 오프셋을 커밋하는 것이 기본 동작**이다.  
 수동으로 특정 오프셋을 커밋하거나 특정 오프셋 위치를 탐색(seek) 할 때 위 내용을 주의해야 한다.
 
+> 컨슈머가 명시적으로 오프셋을 커밋하는 것에 대한 상세한 내용은 [5.2. 컨슈머에서 명시적으로 오프셋 커밋](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#52-%EC%BB%A8%EC%8A%88%EB%A8%B8%EC%97%90%EC%84%9C-%EB%AA%85%EC%8B%9C%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%98%A4%ED%94%84%EC%85%8B-%EC%BB%A4%EB%B0%8B) 을 참고하세요.
+
 ---
 
 ## 1.1. 자동 커밋
@@ -225,7 +227,7 @@ pom.xml (chap04)
 [`enable.auto.commit`](https://assu10.github.io/dev/2024/06/23/kafka-consumer-1/#511-enableautocommit) 을 false 로 설정해줌으로써 
 애플리케이션이 명시적으로 커밋하려 할 때만 오프셋이 커밋되게 할 수 있다.
 
-**가장 간단하고 신뢰성있는 커밋 API 는 `commitSync()`** 이다.
+**가장 간단하고 신뢰성 있는 커밋 API 는 `commitSync()`** 이다.
 
 **`commitSync()` 는 `poll()` 이 리턴한 마지막 오프셋을 커밋한 뒤 커밋이 성공적으로 완료되면 리턴, 실패하면 예외를 발생**시킨다.
 
