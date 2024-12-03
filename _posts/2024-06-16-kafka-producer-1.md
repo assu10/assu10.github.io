@@ -533,7 +533,7 @@ public class ProducerSample {
 
 > 쓰기 요청과 `acks` 관계에 대한 내용은 [4.1. 쓰기 요청](https://assu10.github.io/dev/2024/07/13/kafka-mechanism-1/#41-%EC%93%B0%EA%B8%B0-%EC%9A%94%EC%B2%AD) 를 참고하세요.
 
-> 카프카가 보장하는 신뢰성 수준에 대해서는 추후 상세히 다룰 예정입니다. (p. 58)
+> 카프카가 보장하는 신뢰성 수준에 대해서는 [4. 신뢰성 있는 프로듀서 설정](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#4-%EC%8B%A0%EB%A2%B0%EC%84%B1-%EC%9E%88%EB%8A%94-%ED%94%84%EB%A1%9C%EB%93%80%EC%84%9C-%EC%84%A4%EC%A0%95) 을 참고하세요.
 
 <**`acks` 설정 옵션**>
 - **`acks=0`**
