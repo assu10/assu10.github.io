@@ -731,6 +731,10 @@ Producer 의 send() 메서드를 호출했을 때 성공/실패하기까지 걸�
 
 **`max.in.flight.requests.per.connection` 매개변수는 프로듀서가 서버로부터 응답을 받지 못한 상태에서 전송할 수 있는 최대 메시지 수**이다.
 
+> kafka 의 request 는 배치 단위임  
+> `max.in.flight.requests.per.connection` 은 acks 를 받지 않고 한 번에 보낼 수 있는 최대 메시지 배치의 개수  
+> (= acks 를 받지 않고 연속으로 보낼 수 있는 request 의 최대 개수)
+
 이 값을 높게 설정하면 메모리 사용량이 증가하지만 처리량 역시 증가한다.
 
 > 단일 데이터 센터에서 카프카를 설정할 경우 `max.in.fligh.requests.per.connection` 을 2로 설정했을 때 처리량이 최대를 기록했지만, 
@@ -789,6 +793,8 @@ Producer 의 send() 메서드를 호출했을 때 성공/실패하기까지 걸�
 
 멱등적 프로듀서는 매우 중요한 부분이다.
 
+> [4.2. 프로듀서 재시도 설정: `delivery.timeout.ms`, `enable.idempotence`](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#42-%ED%94%84%EB%A1%9C%EB%93%80%EC%84%9C-%EC%9E%AC%EC%8B%9C%EB%8F%84-%EC%84%A4%EC%A0%95-deliverytimeoutms-enableidempotence) 과 함께 보면 도움이 됩니다.
+
 > 멱등적 프로듀서에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다. (p. 64)
 
 신뢰성을 최대화하는 방향으로 프로듀서를 설정할 경우 [`acks=all`](#42-acks) 로 잡고, 실패가 나더라도 충분히 재시도하도록 [`delivery.timeout.ms`](#432-deliverytimeoutms) 를 매우 큰 값으로 잡는다.  
@@ -821,6 +827,7 @@ Producer 의 send() 메서드를 호출했을 때 성공/실패하기까지 걸�
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [Kafka Doc](https://kafka.apache.org/documentation/)
+* [Git:: Kafka](https://github.com/apache/kafka/)
 * [아파치 카프카 프로젝트 위키](https://cwiki.apache.org/confluence/display/KAFKA/Clients)
 * [아파치 카프카 프로토콜](https://kafka.apache.org/protocol.html)
 * [Producer config 정리](https://devidea.tistory.com/90)

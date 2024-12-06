@@ -287,7 +287,7 @@ pom.xml (chap04)
   - 컨슈머가 일정 시간동안 [하트비트](#56-sessiontimeoutms-heartbeatintervalms)를 보내지 못하면 세션이 종료되고, 컨슈머 그룹에서 제외되는데 이 때 리밸런싱이 진행됨
 - **컨슈머 그룹이 읽고 있던 토픽이 변경되었을 경우**
   - 운영자가 토픽에 새로운 파티션을 추가했을 경우
-- **토픽에 파티션 수가 변경될 때 (추가/감쇼ㅗ)**
+- **토픽에 파티션 수가 변경될 때 (추가/감소)**
 
 **리밸런스는 컨슈머 그룹에 쉽고 안전하게 컨슈머를 제거할 수 있도록 해줌과 동시에 높은 가용성(HA)과 규모 가변성 (scalability)을 제공하는 기능이므로 매우 중요**하지만, 
 문제없이 작업이 수행되고 있는 와중이라면 그리 달갑지 않은 기능이기도 하다.
@@ -1094,6 +1094,7 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [Kafka Doc](https://kafka.apache.org/documentation/)
+* [Git:: Kafka](https://github.com/apache/kafka/)
 * [컨슈머 파티션 할당 전략](https://baebalja.tistory.com/629)
 * [`ExecutorService` 를 이용하여 각자의 컨슈머를 갖는 다수의 스레드 시작하는 방법: Introducing the Kafka Consumer: Getting Started with the New Apache Kafka 0.9 Consumer Client](https://www.confluent.io/blog/tutorial-getting-started-with-the-new-apache-kafka-0-9-consumer-client/)
 * [레코드를 읽기오지 않고 메타데이터만 가져오기: Kafka’s Got a Brand-New Poll](https://www.jesse-anderson.com/2020/09/kafkas-got-a-brand-new-poll/)

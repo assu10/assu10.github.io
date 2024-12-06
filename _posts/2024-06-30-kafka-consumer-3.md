@@ -962,6 +962,7 @@ public class StandaloneConsumer {
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [Kafka Doc](https://kafka.apache.org/documentation/)
+* [Git:: Kafka](https://github.com/apache/kafka/)
 * [KIP-206: Add support for UUID serialization and deserialization](https://cwiki.apache.org/confluence/display/KAFKA/KIP-206:+Add+support+for+UUID+serialization+and+deserialization)
 * [KIP-527: Add VoidSerde to Serdes](https://cwiki.apache.org/confluence/display/KAFKA/KIP-527:+Add+VoidSerde+to+Serdes)
 * [KIP-466: Add support for `List<T>` serialization and deserialization](https://cwiki.apache.org/confluence/display/KAFKA/KIP-466:+Add+support+for+List%3CT%3E+serialization+and+deserialization)
