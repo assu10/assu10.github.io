@@ -52,9 +52,17 @@ tags: kafka idempotence-producer transaction
   * [2.4. 트랜잭션 사용법](#24-트랜잭션-사용법)
     * [2.4.1. 카프카 스트림즈 사용: `processing.guarantee`](#241-카프카-스트림즈-사용-processingguarantee)
     * [2.4.2. 트랜잭션 API 직접 사용](#242-트랜잭션-api-직접-사용)
-  * [2.5. 트랜잭션 ID 와 펜싱](#25-트랜잭션-id-와-펜싱)
-  * [2.6. 트랜잭션 작동 원리](#26-트랜잭션-작동-원리)
+  * [2.5. 트랜잭션 ID 와 펜싱(fencing)](#25-트랜잭션-id-와-펜싱fencing)
+  * [2.6. 트랜잭션 작동 원리: `__transaction_state`](#26-트랜잭션-작동-원리-__transaction_state)
+    * [2.6.1. 트랜잭션 API 호출의 내부](#261-트랜잭션-api-호출의-내부)
+      * [2.6.1.1. `producer.initTransactions()`](#2611-producerinittransactions)
+      * [2.6.1.2. `producer.beginTransaction()`](#2612-producerbegintransaction)
+      * [2.6.1.3. `producer.sendOffsetsToTransaction()`](#2613-producersendoffsetstotransaction)
+      * [2.6.1.4. `producer.commitTransaction()`, `producer.abortTransaction()`](#2614-producercommittransaction-produceraborttransaction)
+      * [2.6.1.5. 브로커의 메모리 고갈: `transactional.id.expiration.ms`](#2615-브로커의-메모리-고갈-transactionalidexpirationms)
+      * [2.6.1.6. 트랜잭션이 멈춘 경우: `retention.ms`](#2616-트랜잭션이-멈춘-경우-retentionms)
 * [3. 트랜잭션 성능](#3-트랜잭션-성능)
+* [정리하며..](#정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -284,10 +292,10 @@ tags: kafka idempotence-producer transaction
 
 **이러한 동작을 지원하기 위해 카프카 트랜잭션은 원자적 다수 파티션 쓰기(atomic multipartition write) 기능을 도입**하였다.  
 오프셋을 커밋하는 것과 결과를 쓰는 것은 둘 다 파티션에 메시지를 쓰는 과정을 수반한다는 점에서 착안한 것이다.  
-결과는 출력 토픽에, 오프셋은 [`_consumer_offsets`](https://assu10.github.io/dev/2024/06/29/kafka-consumer-2/#1-%EC%98%A4%ED%94%84%EC%85%8B%EA%B3%BC-%EC%BB%A4%EB%B0%8B-__consumer_offsets) 토픽에 
+결과는 출력 토픽에, 오프셋은 [`__consumer_offsets`](https://assu10.github.io/dev/2024/06/29/kafka-consumer-2/#1-%EC%98%A4%ED%94%84%EC%85%8B%EA%B3%BC-%EC%BB%A4%EB%B0%8B-__consumer_offsets) 토픽에 
 쓰여진 다는 점이 다를 뿐이다.
 
-트랜잭션을 시작해서 출력 토픽과 `_consumer_offsets` 토픽 둘 다에 메시지를 쓰고, 둘 다 성공해서 커밋할 수 있다면 그 다음부터는 '정확히 한 번' 이 알아서 해준다.
+트랜잭션을 시작해서 출력 토픽과 `__consumer_offsets` 토픽 둘 다에 메시지를 쓰고, 둘 다 성공해서 커밋할 수 있다면 그 다음부터는 '정확히 한 번' 이 알아서 해준다.
 
 아래는 읽어온 이벤트의 오프셋을 커밋함과 동시에 2개의 파티션(파티션 0,1)에 원자적 다수 파티션 쓰기를 수행하는 간단한 스트림 처리 애플리케이션이다.
 
@@ -501,6 +509,8 @@ MSA 는 아웃박스라고 불리는 카프카 토픽에 메시지를 쓰는 작
 > - [데모 드라이버(KafkaExactlyOnceDemo.java)](https://github.com/apache/kafka/blob/trunk/examples/src/main/java/kafka/examples/KafkaExactlyOnceDemo.java)
 > - [별개의 스레드에서 돌아가는 '정확히 한 번' 프로세서(ExactlyOnceMessageProcessor.java)](https://github.com/apache/kafka/blob/trunk/examples/src/main/java/kafka/examples/ExactlyOnceMessageProcessor.java)
 
+> 아래 코드에 대한 상세한 설명은 [2.6.1. 트랜잭션 API 호출의 내부](#261-트랜잭션-api-호출의-내부) 을 참고하세요.
+
 '정확히 한 번' 프로세서
 ```java
 package com.assu.study.chap08;
@@ -655,16 +665,192 @@ public class ExactlyOnceMessageProcessor extends Thread {
 
 ---
 
-## 2.5. 트랜잭션 ID 와 펜싱
+## 2.5. 트랜잭션 ID 와 펜싱(fencing)
+
+트랜잭션 ID 를 잘못 할당할 경우 애플리케이션에 에러가 발생하거나, '정확히 한 번' 을 보장할 수 없다.  
+**트랜잭션 ID 할당 시 핵심 요구 조건은 트랜잭션 ID 가 동일 애플리케이션 인스턴스가 재시작했을 때는 일관적으로 유지되어야 하고, 서로 다른 애플리케이션 인스턴스에 대해서는 
+달라야 한다**는 점이다.  
+그렇지 않으면 브로커는 좀비 인스턴스의 요청을 거부할 수가 없다.
+
+> **카프카 버전 2.5 이전 버전에서의 펜싱**
+> 
+> 카프카 버전 2.5 이전 버전에서 펜싱을 보장하는 유일한 방법은 트랜잭션 ID 를 파티션에 정적으로 대응시켜 보내는 것 뿐이었음  
+> 이렇게 하면 각 파티션이 항상 단 하나의 트랜잭션 ID 에 의해 읽혀짐을 보장할 수 있음
+> 
+> 만약 트랜잭션 ID 가 A 인 프로듀서가 토픽 T 에 메시지를 쓰다가 연결이 끊어지고, 트랜잭션 ID 가 B 인 새로운 프로듀서가 대신 들어올 경우, 
+> 연결이 복구된 A 쪽 프로듀서는 좀비이지만 새로운 프로듀서와 트랜잭션 ID 가 다르기 때문에 펜싱되지 않음
+> 
+> 원하는 것은 프로듀서 A 가 언제나 트랜잭션 ID 는 똑같지만, 에포크 값은 더 높은 새로운 프로듀서 A 에 의해 대체되고 좀비가 된 프로듀서는 펜싱되는 것인데 
+> 카프카 2.5 이전 버전가지는 그렇지가 못했음
+> 
+> 즉, 스레드에 할당되는 트랜잭션 ID 는 랜덤하게 결정되고, 동일한 파티션에 쓰기 작업을 할 때 언제나 동일한 트랜잭션 ID 가 쓰일거라는 보장이 없었음
+
+**카프카 버전 2.5 에 소개된 [KIP-447: Producer scalability for exactly once semantics](https://cwiki.apache.org/confluence/display/KAFKA/KIP-447%3A+Producer+scalability+for+exactly+once+semantics) 은 
+트랜잭션 ID 와 컨슈머 그룹 메타데이터를 함께 사용하는 펜싱을 도입**하였다.  
+여기서는 프로듀서의 오프셋 커밋 메서드를 호출할 때 단순한 컨슈머 그룹 ID 가 아닌 컨슈머 그룹 메타데이터를 전달한다.
+
+토픽 T1 에 2개의 파티션이 있고, 이들은 각각 동일한 컨슈머 그룹에 속한 서로 다른 컨슈머가 읽고 있으며, 각 컨슈머는 읽어온 레코드를 트랜잭션적 프로듀서에게 넘겨준다고 하자.  
+트랜잭션 ID 는 각각 a, b 이고, 이 프로듀서들은 각각 토픽 T2 의 파티션 t1, t2 에 결과물을 쓴다.
+
+![트랜잭션적 레코드 프로세서](/assets/img/dev/2024/0818/transaction.png)
+
+이 때 컨슈머 A 와 프로듀서 A 가 포함된 애플리케이션 인스턴스가 좀비가 되서 컨슈머 B 가 토픽 T1 의 두 파티션으로부터의 레코드를 모두 처리하기 시작했다고 하자.
+
+만약 어떤 좀비도 토픽 T2 의 파티션 t0 에 레코드를 쓰지 못하게 하고 싶다면, 컨슈머 B 가 토픽 T1 의 파티션 t0 을 읽어서 트랜잭션 아이디가 b 인 프로듀서가 
+토픽 T2 의 파티션 t0 으로 쓰는 작업 역시 바로 시작할 수 없다.  
+대신, 애플리케이션은 기존 프로듀서의 쓰기를 펜싱하고 토픽 T2 의 파티션 t0 에 무사히 쓰기 작업을 하기 위해 트랜잭션 ID 가 a 인 새로운 프로듀서를 생성해야 할텐데 
+이것은 낭비이다.
+
+![리밸런스 발생 후 레코드 프로세서](/assets/img/dev/2024/0818/transaction2.png)
+
+대신, **트랜잭션에 컨슈머 그룹 정보를 추가하면 프로듀서 B 로부터의 트랜잭션은 다음 세대의 컨슈머 그룹에서 온 것이 명백하므로 문제없이 작업을 진행**할 수 있다.  
+좀비가 된 프로듀서 A 로부터의 트랜잭션은 이전 세대의 컨슈머 그룹에서 온 것이므로 펜싱된다.
 
 ---
 
-## 2.6. 트랜잭션 작동 원리
+## 2.6. 트랜잭션 작동 원리: `__transaction_state`
+
+트랜잭션이 어떻게 작동하는지 몰라서 트랜잭션 API 를 사용할 수는 있지만 이 기능이 내부적으로 어떻게 돌아가는지 어느 정도 알면 트러블슈팅을 할 때 도움이 된다.
+
+카프카 트랜잭션 기능의 기본적인 알고리즘은 찬디-램포트 스냅샷(Chandy-Lamport snapshot) 알고리즘의 영향을 받았다.  
+찬디-램포트 알고리즘은 통신 채널을 통해서 '마커(marker)' 라는 컨트롤 메시지를 보내고, 이 마커의 도착을 기준으로 일관적인 상태를 결정한다.
+
+**카프카 트랜잭션은 다수의 파티션에 대해 트랜잭션의 커밋/중단을 표시하기 위해 마커 메시지를 사용**한다.  
+프로듀서가 트랜잭션을 커밋하기 위해 트랜잭션 코디네이터에 '커밋' 메시지를 보내면 트랜잭션 코디네이터가 트랜잭션에 관련된 모든 파티션에 커밋 마커를 쓴다.
+
+**일부 파티션에만 커밋 메시지가 쓰여진 상태에서 프로듀서가 크래시가 나면 카프카 트랜잭션은 2단계 커밋(two-phase commit) 과 트랜잭션 로그를 사용**하여 이 문제를 해결한다.
+
+- 현재 진행중인 트랜잭션이 존재함을 로그에 기록함(연관된 파티션도 함께 기록함)
+- 로그에 커밋/중단 시도를 기록함
+  - 일단 로그에 남으면 최종적으로는 커밋되거나 중단되어야 함
+- 모든 파티션에 트랜잭션 마커를 씀
+- 트랜잭션이 종료되었음을 로그에 씀
+
+이 기본적인 알고리즘을 구현하기 위해 카프카는 트랜잭션 로그를 필요로 하는데 구체적으로는 `__transaction_state` 라는 이름의 내부 토픽을 사용한다.
+
+---
+
+### 2.6.1. 트랜잭션 API 호출의 내부
+
+[2.4.2. 트랜잭션 API 직접 사용](#242-트랜잭션-api-직접-사용) 의 코드에서 사용한 트랜잭션 API 호출의 흐름을 따라가면서 2단계 커밋과 트랜잭션 로그 알고리즘이 
+어떻게 동작하는지 알아본다.
+
+#### 2.6.1.1. `producer.initTransactions()`
+
+**트랜잭션을 시작하기 전에 프로듀서는 `initTransactions()` 를 호출해서 자신이 트랜잭션 프로듀서임을 등록**한다.  
+이 요청은 이 트랜잭션 프로듀서의 트랜잭션 코디네이터 역할을 맡을 브로커로 보내진다.  
+각 브로커는 전체 프로듀서의 트랜잭션 코디네이터 역할을 나눠서 맡는다.  
+각 트랜잭션 ID 의 트랜잭션 코디네이터는 트랜잭션 ID 에 해당하는 트랜잭션 로그 파티션의 리더 브로커가 맡는다.
+
+`initTransactions()` 는 코디네이터에게 새로운 트랜잭션 ID 를 등록하거나, 기존 트랜잭션 ID 의 에포크 값을 증가시킨다.  
+에포크 값을 증가시키는 이유는 좀비가 되었을 수도 있는 기존 프로듀서들을 펜싱하기 위해서이다.  
+에포크 값이 증가되면 아직 완료되지 않은 트랜잭션들은 중단된다.
+
+---
+
+#### 2.6.1.2. `producer.beginTransaction()`
+
+`producer.beginTransaction()` 는 그냥 이 프로듀서가 현재 진행중인 트랜잭션에 있음을 알려줄 뿐이다.  
+브로커 쪽의 트랜잭션 코디네이터는 여전히 트랜잭션이 시작되었다는 사실을 모른다.
+
+프로듀서가 레코드 전송을 시작하면 프로듀서는 새로운 파티션으로 레코드를 전송할 때마다 브로커에게 `AddPartitionsTotxn` 요청을 보냄으로써 현재 이 프로듀서에 
+진행중인 트랜잭션이 있으며, 레코드가 추가되는 파티션들이 트랜잭션의 일부임을 알린다.  
+그리고 이 정보는 트랜잭션 로그에 기록된다.
+
+---
+
+#### 2.6.1.3. `producer.sendOffsetsToTransaction()`
+
+쓰기 작업이 완료되고 커밋할 준비가 되면 이 트랜잭션에서 처리한 레코드들의 오프셋부터 커밋한다.  
+**오프셋 커밋은 언제 해도 상관없지만, 트랜잭션이 커밋되기 전에는 해줘야 한다.**
+
+`producer.sendOffsetsToTransaction()` 는 트랜잭션 코디네이터로 오프셋과 컨슈머 그룹 ID 를 함께 전달하며, 트랜잭션 코디네이터는 컨슈머 그룹 ID 를 
+사용해서 컨슈머 그룹 코디네이터를 찾아서 컨슈머 그룹이 일반적으로 하는 것과 같은 방식으로 오프셋을 커밋한다.
+
+---
+
+#### 2.6.1.4. `producer.commitTransaction()`, `producer.abortTransaction()`
+
+이제 커밋/중단을 할 차례이다.
+
+`producer.commitTransaction()`, `producer.abortTransaction()` 는 트랜잭션 코디네이터에게 `EndTxn` 요청을 전달한다.  
+트랜잭션 코디네이터는 트랜잭션 로그에 커밋/중단 시도를 기록한다.  
+이 단계가 성공하고 나면 트랜잭션을 커밋/중단하는 것은 트랜잭션 코디네이터에게 달려 있다.
+
+**트랜잭션 코디네이터는 트랜잭션에 포함된 모든 파티션에 커밋 마커를 쓴 다음 트랜잭션 로그에 커밋이 성공적으로 완료되었음을 기록**한다.
+
+만약 커밋 시도는 로그에 기록되었지만 전체 과정이 완료되기 전에 트랜잭션 코디네이터가 종료되거나 크래시가 나면 새로운 트랜잭션 코디네이터가 선출되어 트랜잭션 로그에 대한 
+커밋 작업을 마무리한다.
+
+만약 트랜잭션이 `transaction.timeout.ms` 에 설정된 시간 내에 커밋/중단되지 않으면 트랜잭션 코디네이터는 자동으로 트랜잭션을 중단한다.
+
+---
+
+#### 2.6.1.5. 브로커의 메모리 고갈: `transactional.id.expiration.ms`
+
+트랜잭션 혹은 멱등적 프로듀서로부터 레코드를 전달받는 각 브로커는 메모리상에 프로듀서/트랜잭션 ID 와 프로듀서가 전송한 마지막 배치 5개에 연관된 상태인 시퀀스 넘버, 
+오프셋 등을 저장한다.  
+이 상태는 프로듀서가 정지하고 나서도 `transactional.id.expiration.ms` (기본값 7일) 만큼 저장된다.  
+이렇게 함으로써 프로듀서가 _UNKNOWN_PRODUCER_ID_ 에러없이 작업을 재개할 수 있다.
+
+새로운 멱등적 프로듀서나 트랜잭션 ID 를 매우 빠른 속도로 생성하면서 재사용은 하지 않으면 브로커에 메모리 누수와 같은 현상이 일어날 수 있으며, 이것은 **브로커에 
+메모리 고갈이나 심각한 가비지 수집 문제**를 일으킬 수 있다.  
+예) 초당 3개의 멱등적 프로듀서를 생성하고 이것이 7일동안 누적된다고 하면 프로듀서 상태는 180만개(= 3\*60\*60\*24\*7), 배치 데이터는 900만개, 사용하는 메모리 공간은 5GB 가 됨
+
+**따라서 애플리케이션을 설계할 때 초기화 과정에서 오랫동안 유지되는 프로듀서는 몇 개만 생성하고 애플리케이션이 종료될 때까지 재사용하는 것을 권장**한다.
+
+만일 위와 같은 방법이 불가능하다면([FaaS](https://assu10.github.io/dev/2020/12/30/cloud-service-platform/#7-faas-function-as-a-service) 와 같은 경우 어려움) 
+`transactional.id.expiration.ms` 설정값을 낮춰서 트랜잭션 ID 가 더 빨리 만료되도록 하여, 재활용도 불가능한 오래된 상태가 브로커 메모리의 상당 부분을 
+차지하는 사태를 방지할 수 있다.
+
+---
+
+#### 2.6.1.6. 트랜잭션이 멈춘 경우: `retention.ms`
+
+잘 발생하는 케이스는 아니지만 트랜잭션이 진행중인 파티션의 LSO(Last Stable Offset) 값이 증가하지 않는 경우가 있다. (= 이런 걸 hanging transaction 이라고 함)
+
+행잉 트랜잭션이 발생하면 해당 파티션을 읽어오고 있는, 격리 수준이 `read_committed` 인 컨슈머는 읽기 작업이 멈출 수 있고, 해당 트랜잭션이 로그 보존 기능 등으로 인해
+삭제될 때까지 작업이 재개되지 않는다.  
+따라서 잘 동작하던 컨슈머가 갑자기 멈췄다면 이 현상을 의심해 볼 필요가 있다.
+
+> 로그 보존 기능에 대해서는  
+> [3.2.4. `log.retention.{hours | minutes | ms}`](https://assu10.github.io/dev/2024/06/15/kafka-install/#324-logretentionhours--minutes--ms),  
+> [6. 보존 정책: 삭제 보존, 압착 보존](https://assu10.github.io/dev/2024/08/11/kafka-mechanism-2/#6-%EB%B3%B4%EC%A1%B4-%EC%A0%95%EC%B1%85-%EC%82%AD%EC%A0%9C-%EB%B3%B4%EC%A1%B4-%EC%95%95%EC%B0%A9-%EB%B3%B4%EC%A1%B4)  
+> 를 참고하세요.
+
+이 문제에 대한 해결책은 [KIP-664: Provide tooling to detect and abort hanging transactions](https://cwiki.apache.org/confluence/display/KAFKA/KIP-664%3A+Provide+tooling+to+detect+and+abort+hanging+transactions) 이
+진행중이지만 아직 정식 출지되진 않았다.
+
+위 문제를 해결하려면 `retention.ms` 설정값을 동적으로 잡아줌으로써 문제가 되는 트랜잭션을 삭제하여 해결할 수 있다.
+
+> 동적으로 토픽 설정값을 재정의하는 내용은 추후 다룰 예정입니다. (p. 224)
 
 ---
 
 # 3. 트랜잭션 성능
 
+트랜잭션은 프로듀서에 약간이 오버헤드를 발생시킨다.
+- 프로듀서를 생성해서 사용하는 동안 트랜잭션 ID 등록은 단 한번만 발생함
+- 트랜잭션의 일부로서 파티션들을 등록하는 작업은 각 트랜잭션에 있어서 파티션 별로 최대 한 번씩만 이루어짐
+- 각 트랜잭션이 커밋 요청을 전송하면 파티션마다 커밋 마커가 추가됨
+- 트랜잭션 초기화와 커밋 요청은 동기적으로 동작하므로 성공적으로 완료되거나, 실패하거나, 타임아웃 될대까지 어떤 데이터도 전송되지 않음
+
+프로듀서에 있어서 트랜잭션 오버헤드는 트랜잭션에 포함된 메시지 수와는 무관하다.  
+그렇기 때문에 트랜잭션마다 많은 수의 메시지를 집어넣는 쪽이 상대적으로 오버헤드가 적을 뿐 아니라 동기적으로 실행되는 단계의 수도 줄어들고, 결과적으로 전체 처리량은 올라간다.
+
+컨슈머에 있어서 커밋 마커를 읽어오는 작업에 대해서 약간의 오버헤드가 있다.  
+트랜잭션 기능이 컨슈머 성능에 미치는 핵심적인 영향은 `read_committed` 모드 컨슈머에서는 아직 완료되지 않은 트랜잭션의 레코드들이 리턴되지 않는다는 것이다.  
+트랜잭션 커밋 사이의 간격이 길어질수록 컨슈머는 메시지가 리턴될 때까지 더 오래 기다려야 하고, 결과적으로 종단 지연 역시 그만큼 길어지게 된다.
+
+하지만 컨슈머는 아직 완료되지 않은 트랜잭션에 속하는 메시지들을 버퍼링할 필요가 없으므로 이 때는 처리량이 줄어들지도 않는다.
+
+---
+
+# 정리하며..
+
+멱등적 프로듀서는 재시도 메커니즘에 의해 발생하는 메시지 중복을 방지하고, 트랜잭션은 카프카 스트림즈에 있어서의 '정확히 한 번' 보장의 기반이 된다.
+
+이 2가지는 간단한 설정만으로도 사용이 가능하며, 더 중복이 적고 더 강력한 정확성 보장이 필요한 애플리케이션을 개발할 때 카프카를 사용할 수 있게 해준다.
 
 ---
 
@@ -682,3 +868,5 @@ public class ExactlyOnceMessageProcessor extends Thread {
 * [Blog:: Reliable Microservices Data Exchange With the Outbox Pattern](https://debezium.io/blog/2019/02/19/reliable-microservices-data-exchange-with-the-outbox-pattern/)
 * [KIP-656: MirrorMaker2 Exactly-once Semantics](https://cwiki.apache.org/confluence/display/KAFKA/KIP-656%3A+MirrorMaker2+Exactly-once+Semantics)
 * [KIP-447: Producer scalability for exactly once semantics](https://cwiki.apache.org/confluence/display/KAFKA/KIP-447%3A+Producer+scalability+for+exactly+once+semantics)
+* [FaaS(Function-as-a-Service)란?](https://www.ibm.com/kr-ko/topics/faas)
+* [KIP-664: Provide tooling to detect and abort hanging transactions](https://cwiki.apache.org/confluence/display/KAFKA/KIP-664%3A+Provide+tooling+to+detect+and+abort+hanging+transactions)
