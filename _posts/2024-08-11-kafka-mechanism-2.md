@@ -258,7 +258,7 @@ $ bin/kafka-run-class.sh kafka.tools.DumpLogSegments
   - 타임스탬프 유형(타임스탬프는 클라이언트가 지정할 수도 있고, 브로커가 지정할 수도 있음)
   - 배치가 트랜잭션의 일부 혹은 컨트롤 배치인지의 여부
 - **프로듀서 ID, 프로듀서 에포크, 배치의 첫 번째 시퀀스 넘버**
-  - 모두 정확히 한번의 보장을 위해 사용됨
+  - 모두 정확히 한 번의 보장을 위해 사용됨
 - **배치에 포함된 메시지들의 집합**
 
 > **매직 넘버(Magic Number)**
@@ -437,6 +437,7 @@ DB 에서 삭제해줘야하는지 알 수 없기 때문이다.
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [Doc Kafka](https://kafka.apache.org/documentation/)
+* [Git:: Kafka](https://github.com/apache/kafka/)
 * [Blog:  카프카에서 계층 저장소(Tiered storage)가 필요한 이유](https://blog.voidmainvoid.net/509)
 * [KIP-405: Kafka Tiered Storage](https://cwiki.apache.org/confluence/display/KAFKA/KIP-405%3A+Kafka+Tiered+Storage)
 * [Kafka Tiered Storage Early Access Release Notes](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Tiered+Storage+Early+Access+Release+Notes)

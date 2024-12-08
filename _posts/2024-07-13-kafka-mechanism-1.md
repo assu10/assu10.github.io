@@ -780,6 +780,7 @@ Processor 스레드의 수는 설정 가능하며, 클라이언트 연결로부�
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [Kafka Doc](https://kafka.apache.org/documentation/)
+* [Git:: Kafka](https://github.com/apache/kafka/)
 * [주키퍼 Ephemeral 노드](https://zookeeper.apache.org/doc/r3.4.8/zookeeperProgrammers.html#Ephemeral+Nodes)
 * [주키퍼 와치](https://zookeeper.apache.org/doc/r3.4.8/zookeeperProgrammers.html#ch_zkWatches)
 * [KIP-500: Replace ZooKeeper with a Self-Managed Metadata Quorum](https://cwiki.apache.org/confluence/display/KAFKA/KIP-500%3A+Replace+ZooKeeper+with+a+Self-Managed+Metadata+Quorum)

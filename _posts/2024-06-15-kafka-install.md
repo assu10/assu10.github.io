@@ -1043,6 +1043,7 @@ CPU 는 대게 주요한 병목 지점이 되지 않지만 브로커 하나에 �
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [Kafka Doc](https://kafka.apache.org/documentation/)
+* [Git:: Kafka](https://github.com/apache/kafka/)
 * [Apache Kafka Zookeeper 제거 이유](https://velog.io/@joyfulbean/Apache-Kafka-Zookeeper-%EC%A0%9C%EA%B1%B0-%EC%9D%B4%EC%9C%A0)
 * [Zookeeper 없이 Kafka 시작하기](https://velog.io/@jaymin_e/Kafka-Zookeeper-%EC%97%86%EC%9D%B4-Kafka-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
 * [zookeeper download](https://zookeeper.apache.org/releases.html)

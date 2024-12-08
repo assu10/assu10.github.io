@@ -170,7 +170,7 @@ pom.xml (chap04)
 `poll()` 을 호출할 때마다 카프카에 쓰여진 메시지 중 컨슈머 그룹에 속한 컨슈머들이 아직 읽지 않은 레코드들이 리턴된다.  
 이 말인 즉슨, 이를 이용하여 그룹 내의 컨슈머가 어떤 레코드를 읽었는지 판단할 수 있다는 이야기이다.
 
-카프카의 고유한 특성 중 하나는 많은 JMS (Java Message Service) 큐들이 하는 것처럼 컨슈머로부터 응답을 받는 방식이 아니라 컨슈머가 카프카를 사용하여 
+카프카의 고유한 특성 중 하나는 많은 JMS(Java Message Service) 큐들이 하는 것처럼 컨슈머로부터 응답을 받는 방식이 아니라 컨슈머가 카프카를 사용하여 
 각 파티션의 위치를 추적한다는 것이다.
 
 **파티션에서의 현재 위치를 업데이트하는 작업을 오프셋 커밋** 이라고 한다.  
@@ -753,3 +753,4 @@ public class Seek {
 * [카프카 핵심 가이드](https://www.yes24.com/Product/Goods/118397432)
 * [예제 코드 & 오탈자](https://dongjinleekr.github.io/kafka-the-definitive-guide-v2/)
 * [Kafka Doc](https://kafka.apache.org/documentation/)
+* [Git:: Kafka](https://github.com/apache/kafka/)

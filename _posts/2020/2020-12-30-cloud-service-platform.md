@@ -9,19 +9,20 @@ tags: web network cloud-computing packaged-software iaas paas serverless aas
 이 포스트는 웹 서비스 플랫폼에 관해 간략히 설명한다.
 
 <!-- TOC -->
-  * [1. 클라우드 컴퓨팅](#1-클라우드-컴퓨팅)
-  * [2. 가상화와 클라우드 컴퓨팅의 차이](#2-가상화와-클라우드-컴퓨팅의-차이)
-  * [3. Packaged Software](#3-packaged-software)
-  * [4. IaaS (Infrastructure as a Service)](#4-iaas-infrastructure-as-a-service)
-  * [5. PaaS (Platform as a Service)](#5-paas-platform-as-a-service)
-  * [6. Serverless](#6-serverless)
-  * [7. SaaS (Software as a Service)](#7-saas-software-as-a-service)
+* [1. 클라우드 컴퓨팅](#1-클라우드-컴퓨팅)
+* [2. 가상화와 클라우드 컴퓨팅의 차이](#2-가상화와-클라우드-컴퓨팅의-차이)
+* [3. Packaged Software](#3-packaged-software)
+* [4. IaaS (Infrastructure as a Service)](#4-iaas-infrastructure-as-a-service)
+* [5. PaaS (Platform as a Service)](#5-paas-platform-as-a-service)
+* [6. Serverless](#6-serverless)
+* [7. FaaS (Function as a Service)](#7-faas-function-as-a-service)
+* [8. SaaS (Software as a Service)](#8-saas-software-as-a-service)
   * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
 
-## 1. 클라우드 컴퓨팅
+# 1. 클라우드 컴퓨팅
 
 서로 다른 물리적인 위치에 존재하는 컴퓨터들의 리소스를 가상화 기술로 통합하여 제공하는 기술.  
 개인용 컴퓨터나 기업용 서버에 저장하던 문서를 클라우드에 저장하여 웹 애플리케이션을 이용하여 원하는 작업을 수행할 수 있는 환경.
@@ -31,9 +32,9 @@ tags: web network cloud-computing packaged-software iaas paas serverless aas
 ---
 
 
-## 2. 가상화와 클라우드 컴퓨팅의 차이
+# 2. 가상화와 클라우드 컴퓨팅의 차이
 
-가상화는 기술이고, 클라우드는 방법론  
+가상화는 기술이고, 클라우드는 방법론
 
 가상화는 VMware나 Virtualbox 와 같이 단일한 물리 하드웨어에서 여러 환경이나 자원을 생성할 수 있는 기술이고,  
 클라우드 컴퓨팅은 네트워크, 스토리지 인프라 자원, 서비스, 애플리케이션 등을 사용자에게 제공하는 접근 방식.
@@ -44,7 +45,7 @@ tags: web network cloud-computing packaged-software iaas paas serverless aas
 
 ---
 
-## 3. Packaged Software
+# 3. Packaged Software
 
 ![Packaged Software](/assets/img/dev/2020/1230/packagedsw.png)
 
@@ -53,13 +54,13 @@ tags: web network cloud-computing packaged-software iaas paas serverless aas
 
 ---
 
-## 4. IaaS (Infrastructure as a Service)
+# 4. IaaS (Infrastructure as a Service)
 
 ![IaaS](/assets/img/dev/2020/1230/iaas.png)
 ![IaaS](/assets/img/dev/2020/1230/iaas-1.png)
 
 Infrastructure 레벨을 제공하는 서비스.  
-사용자는 OS 를 직접 올리고 그 상위 계층만 구성.  
+사용자는 OS 를 직접 올리고 그 상위 계층만 구성.
 
 즉, 사업자는 서버/네트워크/스토리지를 제공하고 사용자는 가상 서버에 필요한 프로그램을 설치하여 사용 및 운영 관리.
 
@@ -77,7 +78,7 @@ e.g.) AWS 의 EC2
 
 ---
 
-## 5. PaaS (Platform as a Service)
+# 5. PaaS (Platform as a Service)
 
 ![PaaS](/assets/img/dev/2020/1230/paas.png)
 ![PaaS](/assets/img/dev/2020/1230/paas-1.png)
@@ -103,7 +104,7 @@ PaaS 는 기본적으로 애플리케이션과 플랫폼이 함께 제공되기 
 
 ---
 
-## 6. Serverless
+# 6. Serverless
 
 ![Serverless](/assets/img/dev/2020/1230/serverless.png)
 
@@ -114,7 +115,18 @@ PaaS 는 기본적으로 애플리케이션과 플랫폼이 함께 제공되기 
 
 ---
 
-## 7. SaaS (Software as a Service)
+# 7. FaaS (Function as a Service)
+
+인프라를 관리하지 않고도 이벤트에 대한 응답으로 코드를 실행할 수 있는 클라우드 컴퓨팅 서비스.
+
+Serverless 와 FaaS 는 종종 혼동되는 경우가 많지만, FaaS 는 Serverless 의 하위 집합임.
+
+Serverless 는 컴퓨팅, 스토리지, DB, 메시징, API 게이트웨이 등 서버의 구성/관리/과금이 최종 사용자에게 보이지 않는 모든 서비스 범주에 초점을 맞추고 있는 반면, 
+FaaS 는 Serverless 아키텍처에서 핵심적인 기술이지만 애플리케이션 코드가 이벤트나 요청에 대한 응답으로만 실행되는 이벤트 중심 컴퓨팅 패러다임에 중점을 두고 있음.
+
+---
+
+# 8. SaaS (Software as a Service)
 
 ![SaaS](/assets/img/dev/2020/1230/saas.png)
 ![SaaS](/assets/img/dev/2020/1230/saas-1.png)
@@ -130,9 +142,7 @@ SaaS 특성 상 반드시 인터넷에 접속이 가능해야 하고, 외부에 
 
 ---
 
-
----
-
-## 참고 사이트 & 함께 보면 좋은 사이트
+# 참고 사이트 & 함께 보면 좋은 사이트
 * [클라우드 컴퓨팅, IaaS, PaaS, SaaS이란?](https://wnsgml972.github.io/network/2018/08/14/network_cloud-computing/)
 * [따라하며 배우는 AWS 네트워크 입문](http://www.yes24.com/Product/Goods/93887402)
+* [FaaS(Function-as-a-Service)란?](https://www.ibm.com/kr-ko/topics/faas)
