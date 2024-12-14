@@ -344,7 +344,7 @@ _broker1.hostname.com_, _broker2.hostname.com_ .. 등의 브로커들을 가지�
 
 **어떤 브로커가 클라이언트와 처음으로 연결될지는 그리 중요하지 않기 때문에 부트스트래핑을 위해 _all-brokers.hostname.com_ 을 사용**할 수 있는 것이다.
 
-이것은 매우 편리하지만, **SASL (Simple Authentication and Security Layer) 을 사용하여 인증을 하려고 할 때는 문제**가 생긴다.
+이것은 매우 편리하지만, **SASL(Simple Authentication and Security Layer) 을 사용하여 인증을 하려고 할 때는 문제**가 생긴다.
 
 **SASL 을 사용할 경우 클라이언트는 _all-brokers.hostname_ 에 대해 인증을 하려고 하는데, 서버의 보안 주체 (principal) 는 _broker2.hostname.com_ 이기 때문**이다.
 

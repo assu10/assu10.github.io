@@ -163,7 +163,7 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
         - 로그 파일을 수집하고 적재하는데 사용할 수 있는 강력한 데이터 파이프라인 도구
         - 서로 다른 소스에서 스티리밍 데이터를 받아 다른 대상과 동기화하는 메커니즘을 제공하는 브로커 역할
         - `Log4j` 와 `Logback appenders` 는 스프링부트 마이크로서비스에서 `Logstash` 로 그 메시지를 직접 보내는 데 사용 가능
-        - `Logstash` 는 스트링부트 마이크로서비스로부터 받은 로그 메시지를 `ElasticSearch`, `HDFS` 또는 다른 DB 에 저장
+        - `Logstash` 는 스트링부트 마이크로서비스로부터 받은 로그 메시지를 `ElasticSearch`, `HDFS(Hadoop Distributed File System, 하둡 분산형 파일 시스템)` 또는 다른 DB 에 저장
     - `Fluentd`
         - `LogSpout` 와 마찬가지로 `Logstash` 와 매우 유사하지만 도커 컨테이너 기반 환경에서는 `LogSpout` 이 더 적합함
 - **로그 스트림 처리기**
@@ -180,7 +180,7 @@ MSA 는 복잡한 모놀리식 시스템을 더 작고 다루기 쉬운 부분�
     - <u>로그 저장소로 들어오는 데이터는 인덱싱되어 검색 가능한 형식으로 저장됨</u>
     - 실시간 로그 메시지는 일반적으로 `ElasticSearch` 에 저장됨<br />
       `ElasticSearch` 사용 시 클라이언트가 텍스트 기반 인덱스를 기반으로 쿼리 가능
-    - 대용량 데이터를 처리할 수 있는 `HDFS` 와 같은 NoSQL DB 은 일반적으로 아카이브된 로그 메시지를 저장
+    - 대용량 데이터를 처리할 수 있는 `HDFS(Hadoop Distributed File System, 하둡 분산형 파일 시스템)` 와 같은 NoSQL DB 은 일반적으로 아카이브된 로그 메시지를 저장
     - `MongoDB`, `Cassandra` 는 매월 집계되는 트랜잭션 수와 같은 요약 데이터를 저장하는데 사용
     - 오프라인 로그 처리는 `Hadoop` 의 `MapReduce` 프로그램을 사용하여 수행 가능
 - **로그 대시보드**
