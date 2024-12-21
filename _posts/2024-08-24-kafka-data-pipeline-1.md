@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kafka - 데이터 파이프라인 구축 시 고려사항, 카프카 커넥트와 카프카 클라이언트"
+title:  "Kafka - 데이터 파이프라인(1): 데이터 파이프라인 구축 시 고려사항, 카프카 커넥트와 카프카 클라이언트"
 date: 2024-08-24
 categories: dev
 tags: kafka data-pipeline

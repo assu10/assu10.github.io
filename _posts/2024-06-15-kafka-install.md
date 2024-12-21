@@ -325,7 +325,7 @@ $ kafka_2.13-3.8.0/bin/kafka-server-start.sh -daemon \
 $ pwd
 /Users/Developer/kafka/kafka_2.13-3.8.0
 
-$ kafka kafka_2.13-3.8.0/bin/kafka-topics.sh --bootstrap-server localhost:9092 \
+$ kafka_2.13-3.8.0/bin/kafka-topics.sh --bootstrap-server localhost:9092 \
 --create --replication-factor 1 --partitions 1 --topic test
 Created topic test.
 ```
