@@ -24,10 +24,17 @@ tags: kafka
       * [1.1.1.4. `key.converter`, `value.converter`](#1114-keyconverter-valueconverter)
       * [1.1.1.5. `rest.advertised.host.name`, `rest.advertised.port`](#1115-restadvertisedhostname-restadvertisedport)
   * [1.2. 커넥터 예시: `FileStreamSourceConnector`, `FileStreamSinkConnector`](#12-커넥터-예시-filestreamsourceconnector-filestreamsinkconnector)
-    * [1.2.1. 사전 준비](#121-사전-준비)
+    * [1.2.1. `FileStreamSourceConnector`, `FileStreamSinkConnector` 추가](#121-filestreamsourceconnector-filestreamsinkconnector-추가)
     * [1.2.2. `FileStreamSourceConnector`와 JSON 컨버터 사용](#122-filestreamsourceconnector와-json-컨버터-사용)
     * [1.2.3. `FileStreamSinkConnector` 로 토픽 내용을 파일로 전송](#123-filestreamsinkconnector-로-토픽-내용을-파일로-전송)
   * [1.3. 커넥터 예시: MySQL에서 Elasticsearch 로 데이터 전송](#13-커넥터-예시-mysql에서-elasticsearch-로-데이터-전송)
+    * [1.3.1. 커넥터 추가 및 확인: `ElasticsearchSinkConnector`, `JdbcSinkConnector`, `JdbcSourceConnector`](#131-커넥터-추가-및-확인-elasticsearchsinkconnector-jdbcsinkconnector-jdbcsourceconnector)
+    * [1.3.2. MySQL 테이블 생성 및 데이터 추가](#132-mysql-테이블-생성-및-데이터-추가)
+    * [1.3.2. JDBC 소스 커넥터 설정 및 토픽 확인](#132-jdbc-소스-커넥터-설정-및-토픽-확인)
+      * [1.3.2.1. CDC(Change Data Capture, 변경 데이터 캡처) 와 디비지움 프로젝트](#1321-cdcchange-data-capture-변경-데이터-캡처-와-디비지움-프로젝트)
+    * [1.3.3. 엘라스틱서치 동작 확인](#133-엘라스틱서치-동작-확인)
+    * [1.3.4. 엘라스틱서치 싱크 커넥터 설정](#134-엘라스틱서치-싱크-커넥터-설정)
+    * [1.3.5. 엘라스틱서치 인덱스 확인](#135-엘라스틱서치-인덱스-확인)
   * [1.4. 개별 메시지 변환](#14-개별-메시지-변환)
   * [1.5. 카프카 커넥트 좀 더 자세히](#15-카프카-커넥트-좀-더-자세히)
 * [2. 카프카 커넥트 대안](#2-카프카-커넥트-대안)
@@ -286,7 +293,16 @@ rest.advertised.listener=
 
 ## 1.2. 커넥터 예시: `FileStreamSourceConnector`, `FileStreamSinkConnector`
 
-### 1.2.1. 사전 준비
+> 여기서 사용하는 파일 커넥터는 제한도 많고 신뢰성 보장도 없기 때문에 **실제 프로덕션 파이프라인에서 사용하면 안됨**
+> 
+> 파일에서 데이터를 수집하고자 한다면 아래와 같은 대안들을 사용하는 것을 권장함  
+> [Git:: FilePulse 커넥터](https://github.com/streamthoughts/kafka-connect-file-pulse)  
+> [Git:: FileSystem 커넥터](https://github.com/mmolimar/kafka-connect-fs)  
+> [Git:: SpoolDir](https://github.com/jcustenborder/kafka-connect-spooldir)
+
+---
+
+### 1.2.1. `FileStreamSourceConnector`, `FileStreamSinkConnector` 추가
 
 > 카프카 3.2 버전부터 `FileStreamSourceConnector` 와 `FileStreamSinkConnector` 가 기본 클래스패스에서 제거됨  
 > [Notable changes in 3.2.0](https://kafka.apache.org/documentation/#upgrade_320_notable)
@@ -314,7 +330,7 @@ plugin.path=/Users/kafka/kafka_2.13-3.8.0/opt/kafka-connect-plugins
 $ bin/connect-distributed.sh config/connect-distributed.properties
 ```
 
-이제 사용 가능한 커넥터 목록을 다시 확인해보면 FileStreamSinkConnector 와 FileStreamSourceConnector 가 추가된 것을 확인할 수 있다.
+이제 사용 가능한 커넥터 목록을 다시 확인해보면 `FileStreamSinkConnector` 와 `FileStreamSourceConnector` 가 추가된 것을 확인할 수 있다.
 
 ```shell
 $ curl http://localhost:8083/connector-plugins | jq
@@ -467,6 +483,280 @@ $ curl -X GET http://localhost:8083/connectors
 
 ## 1.3. 커넥터 예시: MySQL에서 Elasticsearch 로 데이터 전송
 
+JDBC source 와 엘라스틱서치 sink 를 빌드하고 설치하는 방법에 대해 알아본다.  
+MySQL 테이블 하나의 내용을 카프카로 보낸 후 다시 엘라스틱서치로 보내서 내용물을 인덱싱한다.
+
+먼저 MySQL 과 엘라스틱서치를 설치한다.
+
+docker 로 MySQL 띄우는 방법은 [3. Rancher Desktop 설치 및 mysql docker container 띄우기](https://assu10.github.io/dev/2022/02/02/rancher-desktop/#3-rancher-desktop-%EC%84%A4%EC%B9%98-%EB%B0%8F-mysql-docker-container-%EB%9D%84%EC%9A%B0%EA%B8%B0) 를 참고하세요.
+
+
+elasticsearch 설치
+
+```shell
+# tap 을 통해 homebrew 가 설치할 수 있는 repository 추가
+$ brew tap elastic/tap
+
+# install
+$ brew install elastic/tap/elasticsearch-full
+
+Data:    /usr/local/var/lib/elasticsearch/elasticsearch/
+Logs:    /usr/local/var/log/elasticsearch/elasticsearch.log
+Plugins: /usr/local/var/elasticsearch/plugins/
+Config:  /usr/local/etc/elasticsearch/
+
+To start elastic/tap/elasticsearch-full now and restart at login:
+  brew services start elastic/tap/elasticsearch-full
+Or, if you don t want/need a background service you can just run:
+  /usr/local/opt/elasticsearch-full/bin/elasticsearch
+==> Summary
+🍺  /usr/local/Cellar/elasticsearch-full/7.17.4: 948 files, 476.2MB, built in 14 seconds
+==> Running `brew cleanup elasticsearch-full`...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see man brew).
+```
+
+---
+
+### 1.3.1. 커넥터 추가 및 확인: `ElasticsearchSinkConnector`, `JdbcSinkConnector`, `JdbcSourceConnector`
+
+사용하려는 커넥터가 현재 있는지 확인하는 방법은 여러 가지가 있다.
+
+- [컨플루언트 허브 웹사이트](https://www.confluent.io/hub/)에서 다운로드
+- [confluentinc git](https://github.com/confluentinc/) 소스 코드에서 직접 빌드
+```shell
+# 커넥터 소스 코드 클론
+$ git clone https://github.com/confluentinc/kafka-connect-elasticsearch
+$ git clone https://github.com/confluentinc/kafka-connect-jdbc
+
+# 프로젝트 빌드
+$ mvn install -DskipTest
+```
+
+빌드가 끝나면 target 디렉터리에 jar 파일이 생성되어 있다.
+
+이제 jdbc 와 elasticsearch **커넥터들을 추가**한다.
+
+_/opt/connectors_ 와 같은 디렉터리를 만든 후 _config/connect-distributed.properties_ 에 `plugin.path=/opt/connectors` 를 넣어준다.
+
+커넥터 저장
+
+```shell
+$ pwd
+/Users/Developer/kafka/opt/connectors
+
+$ ll
+total 0
+drwxr-xr-x  2  staff    64B Dec 22 16:31 elastic
+drwxr-xr-x  2  staff    64B Dec 22 16:31 jdbc
+
+$ cp ./temp/kafka-connect-jdbc/target/kafka-connect-jdbc-10.9.0-SNAPSHOT.jar ./kafka/opt/connectors/jdbc
+$ cp ./temp/kafka-connect-elasticsearch/target/kafka-connect-elasticsearch-14.2.0-SNAPSHOT-package/share/java/kafka-connect-elasticsearch/* ./kafka/opt/connectors/elastic
+```
+
+connect-distributed.properties 수정
+
+```shell
+$ pwd
+/Users/kafka/kafka_2.13-3.8.0/config
+
+$ vi connect-distributed.properteis
+
+plugin.path=/Users/kafka/kafka_2.13-3.8.0/opt/kafka-connect-plugins,/Users/kafka/opt/connectors
+```
+
+이제 [MySQL JDBC 드라이버](https://dev.mysql.com/downloads/connector/j/)를 다운로드하여 _/opt/connectors/jdbc_ 아래 넣어준다.
+
+이제 커넥트 워커를 재시작하여 설치해 준 플러그인들이 잘 보이는지 확인한다.
+
+```shell
+$ bin/connect-distributed.sh config/connect-distributed.properties
+```
+
+```shell
+$ curl http://localhost:8083/connector-plugins | jq
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   824  100   824    0     0  21836      0 --:--:-- --:--:-- --:--:-- 22270
+[
+  {
+    "class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+    "type": "sink",
+    "version": "14.2.0-SNAPSHOT"
+  },
+  {
+    "class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "type": "sink",
+    "version": "10.9.0-SNAPSHOT"
+  },
+  {
+    "class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "type": "source",
+    "version": "10.9.0-SNAPSHOT"
+  },
+  // ...
+]
+```
+
+---
+
+### 1.3.2. MySQL 테이블 생성 및 데이터 추가
+
+이제 JDBC 커넥터를 사용하여 카프카로 데이터를 스트리밍해줄 MySQL 테이블을 생성한다.
+
+```sql
+create table login (username varchar(30), login_time datetime);
+
+insert into login values ('assu', now());
+insert into login values ('silby', now());
+```
+
+---
+
+### 1.3.2. JDBC 소스 커넥터 설정 및 토픽 확인
+
+JDBC 소스 커넥터 설정 시 사용 가능한 옵션들은 [3.5 Kafka Connect Configs](https://kafka.apache.org/documentation/#connectconfigs) 에도 있고, 
+아래처럼 REST API 를 호출하여 볼 수도 있다.
+
+아래는 커넥터 설정의 유효성을 검사할 때 쓰이는 REST API 에 클래스명만 포함되어 있는 설정을 보내는 예시이다. (= 최소한의 커넥터 설정이기도 함)  
+응답은 JSON 형태로 된 모든 사용 가능한 설정에 대한 정의를 준다.
+
+```shell
+$ curl -X PUT -H "Content-Type: application/json" -d '{
+"connector.class": "JdbcSource"
+}' 'http://localhost:8083/connector-plugins/JdbcSourceConnector/config/validate/' | jq
+
+{
+  "config": [
+    {
+      "definition": {
+        // ...
+      }
+    }
+  ]
+  // ...
+}
+```
+
+이제 **JDBC 커넥터를 설정하고 생성**해보자.
+
+```shell
+$ echo '{
+  "name": "mysql-login-connector",
+  "config": {
+    "connector.class": "JdbcSourceConnector",
+    "connection.url": "jdbc:mysql://localhost:13306/kafka?user=root&password=비밀번호",
+    "mode": "timestamp",
+    "table.whitelist": "login",
+    "validate.non.null": false,
+    "timestamp.column.name": "login_time",
+    "topic.prefix": "mysql."
+  }
+}' |
+curl -X POST -H "Content-Type: application/json" -d @- 'http://localhost:8083/connectors'
+
+{
+  "name": "mysql-login-connector",
+  "config": {
+    "connector.class": "JdbcSourceConnector",
+    "connection.url": "jdbc:mysql://localhost:13306/kafka?user=root&password=비밀번호",
+    "mode": "timestamp",
+    "table.whitelist": "login",
+    "validate.non.null": "false",
+    "timestamp.column.name": "login_time",
+    "topic.prefix": "mysql.",
+    "name": "mysql-login-connector"
+  },
+  "tasks": [],
+  "type": "source"
+}
+```
+
+이제 _mysql.login_ 토픽으로부터 제대로 데이터를 읽어오는지 확인해본다.
+
+```shell
+$ bin/kafka-console-consumer.sh --bootstrap-server=localhost:9092 \
+--topic mysql.login --from-beginning | jq
+{
+  "schema": {
+    "type": "struct",
+    "fields": [
+      {
+        "type": "string",
+        "optional": true,
+        "field": "username"
+      },
+      {
+        "type": "int64",
+        "optional": true,
+        "name": "org.apache.kafka.connect.data.Timestamp",
+        "version": 1,
+        "field": "login_time"
+      }
+    ],
+    "optional": false,
+    "name": "login"
+  },
+  "payload": {
+    "username": "assu",
+    "login_time": 1734856216000
+  }
+}
+{
+  "schema": {
+    "type": "struct",
+    "fields": [
+      {
+        "type": "string",
+        "optional": true,
+        "field": "username"
+      },
+      {
+        "type": "int64",
+        "optional": true,
+        "name": "org.apache.kafka.connect.data.Timestamp",
+        "version": 1,
+        "field": "login_time"
+      }
+    ],
+    "optional": false,
+    "name": "login"
+  },
+  "payload": {
+    "username": "silby",
+    "login_time": 1734856216000
+  }
+}
+```
+
+커넥터가 돌아가기 시작했다면 login 테이블에 데이터를 추가할 때마다 _mysql.login_ 토픽에 레코드가 추가된다.
+
+---
+
+#### 1.3.2.1. CDC(Change Data Capture, 변경 데이터 캡처) 와 디비지움 프로젝트
+
+
+
+---
+
+### 1.3.3. 엘라스틱서치 동작 확인
+
+```shell
+# 실행
+$ brew services start elastic/tap/elasticsearch-full
+
+# 확인
+$ curl -X GET localhost:9200
+```
+
+---
+
+### 1.3.4. 엘라스틱서치 싱크 커넥터 설정
+
+---
+
+### 1.3.5. 엘라스틱서치 인덱스 확인
+
 ---
 
 ## 1.4. 개별 메시지 변환
@@ -505,3 +795,10 @@ $ curl -X GET http://localhost:8083/connectors
 * [Git:: Kafka](https://github.com/apache/kafka/)
 * [Blog:: uberJar](https://opennote46.tistory.com/110)
 * [Git:: 스키마 레지스트리 프로젝트](https://github.com/confluentinc/schema-registry)
+* [Git:: FilePulse 커넥터](https://github.com/streamthoughts/kafka-connect-file-pulse)
+* [Git:: FileSystem 커넥터](https://github.com/mmolimar/kafka-connect-fs)
+* [Git:: SpoolDir](https://github.com/jcustenborder/kafka-connect-spooldir)
+* [Blog:: MacOS에 Elasticsearch 설치하기](https://velog.io/@27cean/MacOS%EC%97%90-Elasticsearch-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
+* [컨플루언트 허브 웹사이트](https://www.confluent.io/hub/)
+* [MySQL JDBC 드라이버](https://dev.mysql.com/downloads/connector/j/)
+* [3.5 Kafka Connect Configs](https://kafka.apache.org/documentation/#connectconfigs)
