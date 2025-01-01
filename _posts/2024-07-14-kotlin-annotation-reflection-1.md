@@ -81,7 +81,7 @@ fun main() {
 ---
 
 **애너테이션 인자**로는 아래와 값들이 들어갈 수 있다.
-- primitive 타입의 값
+- [primitive 타입](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#41-primitive-%ED%83%80%EC%9E%85-int-boolean-%EB%93%B1)의 값
 - 문자열
 - enum
 - 클래스 참조

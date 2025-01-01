@@ -10,6 +10,8 @@ tags: kotlin SAM init constructor open
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap05) 에 있습니다.
 
+> 함수형 프로그래밍과 객체 지향 프로그래밍의 차이점에 대해서는 [1.1.3. 함수형 프로그래밍 vs 객체 지향 프로그래밍](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#113-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-vs-%EA%B0%9D%EC%B2%B4-%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D) 을 참고하세요.
+
 ---
 
 **목차**

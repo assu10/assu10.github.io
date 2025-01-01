@@ -10,6 +10,8 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
 
 > 소스는 [github](https://github.com/assu10/kotlin/tree/feature/chap04) 에 있습니다.
 
+> 함수형 프로그래밍에 대한 상세한 설명은 [1.1.2. 함수형 프로그래밍](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#112-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D) 을 참고하세요.
+
 ---
 
 **목차**

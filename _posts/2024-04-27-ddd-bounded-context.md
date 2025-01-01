@@ -13,6 +13,8 @@ tags: ddd bounded-context open-host-service anti-corruption-layer shared-kernel 
 
 > 매핑되는 테이블은 [DDD - ERD](https://assu10.github.io/dev/2024/04/08/ddd-table/) 을 참고하세요.
 
+> [DDD - 도메인 복잡성 관리: 바운디드 컨텍스트](https://assu10.github.io/dev/2024/07/27/ddd-bounded-context/) 와 함께 보면 도움이 됩니다.
+
 ---
 
 **목차**
@@ -183,7 +185,7 @@ logging.level.org.springframework.security=DEBUG
 **각 모델은 명시적으로 구분되는 경계를 가져서 섞이지 않도록 해야 한다.**    
 여러 하위 도메인의 모델이 섞이게 되면 각 하위 도메인별로 다르게 발전하는 요구사항을 모델에 반영하기 어려워진다.
 
-모델은 특정한 컨텍스트 하에서 완전한 의미를 같는다.  
+모델은 특정한 컨텍스트 내에서 완전한 의미를 같는다.  
 예) 같은 제품이라도 카탈로그 컨텍스트와 재고 컨텍스트에서 서로 의미가 다름
 
 이렇게 **구분되는 경계를 갖는 컨텍스트를 DDD 에서는 바운디드 컨텍스트**라고 한다.
@@ -374,6 +376,8 @@ MSA 마다 프로젝트를 생성하므로 바운디드 컨텍스트마다 프�
 - 공유 커널 방식
 - 독립 방식
 
+> [DDD - 바운디드 컨텍스트 연동](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/) 와 함께 보면 도움이 됩니다.
+
 ---
 
 ## 5.1. 공개 호스트 서비스 (Open host service): Anti-corruption Layer
@@ -412,7 +416,7 @@ _RecommendationClient_ 는 외부 시스템의 모델이 자신의 도메인 모
 
 ## 5.2. 공유 커널 (Shared kernel)
 
-두 바운디드 컨텍스트가 같으 모델을 공유하는 경우도 있다.  
+두 바운디드 컨텍스트가 같은 모델을 공유하는 경우도 있다.  
 예를 들어 운영자를 위한 주문 관리툴과 고객을 위한 주문 관리툴이 관리하는 팀이 다를 경우 두 팀은 주문을 표현하는 모델을 공유함으로써 주문과 관련된 중복 설계를 막을 수 있다.
 
 이렇게 **두 개의 바운디드 컨텍스트가 공유하는 모델을 공유 커널**이라고 한다.
