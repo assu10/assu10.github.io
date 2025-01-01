@@ -997,7 +997,7 @@ $ echo '{
   "name": "mysql-login-connector2",
   "config": {
     "connector.class": "JdbcSourceConnector",
-    "connection.url": "jdbc:mysql://localhost:13306/kafka?user=root&password=dlwngus!!^^",
+    "connection.url": "jdbc:mysql://localhost:13306/kafka?user=root&password=비밀번호",
     "mode": "timestamp",
     "table.whitelist": "login",
     "validate.non.null": false,
@@ -1016,7 +1016,7 @@ curl -X POST -H "Content-Type: application/json" -d @- 'http://localhost:8083/co
   "name": "mysql-login-connector2",
   "config": {
     "connector.class": "JdbcSourceConnector",
-    "connection.url": "jdbc:mysql://localhost:13306/kafka?user=root&password=dlwngus!!^^",
+    "connection.url": "jdbc:mysql://localhost:13306/kafka?user=root&password=비밀번호",
     "mode": "timestamp",
     "table.whitelist": "login",
     "validate.non.null": "false",
