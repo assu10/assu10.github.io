@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 레파지토리(1): 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑"
+title:  "DDD - 리포지터리(1): 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑"
 date: 2024-04-07
 categories: dev
 tags: ddd jpa @Embeddable @AttributeOverrides @Entity @Embedded protected @Access AttributeConverter @ElementCollection @CollectionTable @OrderColumn @EmbeddedId @SecondaryTable @AttributeOverride @Inheritance @DiscriminatorColumn @DiscriminatorValue @OneToMany Collections.unmodifiableList()

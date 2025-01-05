@@ -670,7 +670,7 @@ public class Order {
 
 **리포지터리는 애그리거트 단위로 도메인 객체를 저장하고 조회하는 기능을 정의**한다.
 
-주문 애그리거트를 위한 레파지토리
+주문 애그리거트를 위한 리포지터리
 ```java
 package com.assu.study.order.domain;
 
@@ -719,14 +719,14 @@ public class NoOrderException extends RuntimeException {
 
 ![리포지터리 인터페이스는 도메인 모델 영역, 구현 클래스는 인프라스트럭처 영역](/assets/img/dev/2024/0401/repository.png)
 
-> 리포지터리 구현에 대한 상세한 내용은 [DDD - 레파지토리(1): 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/) 을 참고하세요.
+> 리포지터리 구현에 대한 상세한 내용은 [DDD - 리포지터리(1): 엔티티와 JPA 매핑 구현, 엔티티와 밸류 매핑(@Embeddable, @AttributeOverrides, AttributeConverter), 기본 생성자, 필드 접근 방식(@Access), 밸류 컬렉션 매핑](https://assu10.github.io/dev/2024/04/07/ddd-repository-1/) 을 참고하세요.
 
 ---
 
 # 5. 요청 처리 흐름
 
 응용 서비스는 도메인 모델을 이용해서 기능을 구현한다.  
-이 때 기능 구현에 필요한 도메인 객체는 응용 서비스가 직접 리포지터리에서 가져와서 실행하거나, 신규 도메인 객체를 생성해서 레파지토리에 저장한다.
+이 때 기능 구현에 필요한 도메인 객체는 응용 서비스가 직접 리포지터리에서 가져와서 실행하거나, 신규 도메인 객체를 생성해서 리포지터리에 저장한다.
 
 예매 취소와 같은 기능을 제공하는 응용 서비스는 도메인의 상태를 변경하므로 변경 상태가 물리 저장소에 올바르게 반영되도록 트랜잭션을 관리한다.
 
