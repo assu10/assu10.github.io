@@ -8,7 +8,7 @@ tags: kafka adminClient kafkaAdminClient clientdnslookup describeTopics() create
 
 카프카를 관리할 때 여러 CLI, GUI 툴들이 있지만, 클라이언트 애플리케이션에서 직접 관리 명령을 내려야 할 때도 있다.
 
-> 카프카를 관리하는 CLI, GUI 툴은 추후 다룰 예정입니다. (p. 125)
+> 카프카를 관리하는 CLI, GUI 툴은 [2. 카프카 커넥트 대안](https://assu10.github.io/dev/2024/08/25/kafka-data-pipeline-2/#2-%EC%B9%B4%ED%94%84%EC%B9%B4-%EC%BB%A4%EB%84%A5%ED%8A%B8-%EB%8C%80%EC%95%88) 을 참고하세요.
 
 사용자 입력에 기반하여 새로운 토픽을 생성하는 경우는 흔하다.
 
@@ -557,7 +557,7 @@ public class AdminClientSample {
 3) **토픽이 존재할 경우 `Future` 객체는 토픽에 속한 모든 파티션의 목록을 담은 `TopicDescription` 을 리턴**함  
 **`TopicDescription` 엔 파티션별로 어느 브로커가 리더이고, 어디에 레플리카가 있고, ISR(In-Sync Replica) 가 무엇인지까지 포함**함  
 주의할 점은 토픽의 설정은 포함되지 않는다는 점임  
-> 토픽 설정에 대한 부분은 추후 다룰 예정입니다. (p. 132)
+> 토픽 설정에 대한 부분은 [3. 고급 어드민 작업](https://assu10.github.io/dev/2024/07/07/kafka-adminclient-2/#3-%EA%B3%A0%EA%B8%89-%EC%96%B4%EB%93%9C%EB%AF%BC-%EC%9E%91%EC%97%85) 을 참고하세요.
 
 4) **모든 `AdminClient` 의 result 객체는 카프카가 에러 응답을 보낼 경우 _ExecutionException_ 을 발생**시킴  
 그 이유는 `AdminClient` 가 리턴한 객체가 `Future` 객체를 포함하고, `Future` 객체는 다시 예외를 포함하고 있기 때문임  

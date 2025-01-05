@@ -556,7 +556,7 @@ public class ProducerSample {
   - 프로듀서는 메시지가 ISR(In-Sync Replica) 에 전달된 뒤에야 브로커로부터 성공 혹은 에러의 응답을 받음
   - 프로듀서는 메시지가 완전히 커밋될 때까지 계속해서 메시지를 재전송함
   - 최소 2개 이상의 브로커가 해당 메시지를 갖고 있으며 이것은 크래시가 났을 경우에도 유실되기 않기 때문에 가장 안전한 형태임
-    - > 위 부분에 대한 좀 더 상세한 내용은 추후 다룰 예정입니다. (p. 59)
+    - > 위 부분에 대한 좀 더 상세한 내용은 [4.1. 쓰기 요청](https://assu10.github.io/dev/2024/07/13/kafka-mechanism-1/#41-%EC%93%B0%EA%B8%B0-%EC%9A%94%EC%B2%AD) 을 참고하세요.
   - 하지만 `acks=1` 처럼 단순히 브로커 하나가 메시지를 받는 것보다는 더 기다려야 하기 때문에 지연 시간은 좀 더 길어짐
   - 브로커의 [`min.insync.replicas`](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#33-%EC%B5%9C%EC%86%8C-isrin-sync-replica-mininsyncreplicas) 설정과 함께 acks=1 은 응답이 오기 전까지 얼마나 많은 
   레플리카에 메시지가 복제될 것인지를 조절할 수 있게 해줌

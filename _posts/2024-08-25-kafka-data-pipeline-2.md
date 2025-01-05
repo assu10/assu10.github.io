@@ -3,7 +3,7 @@ layout: post
 title:  "Kafka - 데이터 파이프라인(2): 카프카 커넥트"
 date: 2024-08-25
 categories: dev
-tags: kafka
+tags: kafka kafka-connect smt cdc kafka-converter
 ---
 
 이 포스트에서는 아래의 내용에 대해 알아본다.
