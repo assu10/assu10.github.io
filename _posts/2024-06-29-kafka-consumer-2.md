@@ -17,7 +17,7 @@ tags: kafka consumer offset __consumer_offsets commitSync() commitAsync() topicP
 
 <!-- TOC -->
 * [1. 오프셋과 커밋: `__consumer_offsets`](#1-오프셋과-커밋-__consumer_offsets)
-  * [1.1. 자동 커밋](#11-자동-커밋)
+  * [1.1. 자동 커밋: `enable.auto.commit`](#11-자동-커밋-enableautocommit)
   * [1.2. 현재 오프셋 커밋: `commitSync()`](#12-현재-오프셋-커밋-commitsync)
   * [1.3. 비동기적 커밋: `commitAsync()`](#13-비동기적-커밋-commitasync)
     * [1.3.1. 비동기적으로 재시도](#131-비동기적으로-재시도)
@@ -196,7 +196,7 @@ pom.xml (chap04)
 
 ---
 
-## 1.1. 자동 커밋
+## 1.1. 자동 커밋: `enable.auto.commit`
 
 오프셋을 커밋하는 가장 쉬운 방법은 컨슈머가 대신 커밋하도록 하는 것이다.
 

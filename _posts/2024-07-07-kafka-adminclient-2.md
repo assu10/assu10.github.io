@@ -404,7 +404,7 @@ public class AdminClientSample2 {
 오프셋 삭제는 컨슈머를 맨 처음부터 실행시키는 가장 간단한 방법으로 보일수도 있지만, 이것은 컨슈머 설정에 의존한다.
 
 만일 컨슈머가 시작되었는데 커밋된 오프셋을 못 찾을 경우 맨 처음부터 시작하는 것이 맞을까? 아니면 최신 메시지부터 시작하는 것이 맞을까?
-위 2개 중 어떻게 동작할지는 [`auto.offset.reset`](https://assu10.github.io/dev/2024/06/23/kafka-consumer-1/#510-autooffsetreset) 설정값을 갖고 있지 않는 한 알 수 없다.
+위 2개 중 어떻게 동작할지는 [`auto.offset.reset`](https://assu10.github.io/dev/2024/06/23/kafka-consumer-1/#510-autooffsetreset) 설정값을 갖고 있지 않는한 알 수 없다.
 
 **명시적으로 커밋된 오프셋을 맨 앞으로 변경하면 컨슈머는 토픽의 맨 앞에서부터 처리를 시작**하게 된다.  
 즉, **컨슈머가 reset 되는 것**이다.

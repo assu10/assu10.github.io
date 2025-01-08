@@ -860,7 +860,7 @@ public class PollingLoop {
 
 true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#514-autocommitintervalms) 를 사용하여 얼마나 자주 오프셋이 커밋될지 제어할 수 있다.
 
-> [1.1. 자동 커밋](https://assu10.github.io/dev/2024/06/29/kafka-consumer-2/#11-%EC%9E%90%EB%8F%99-%EC%BB%A4%EB%B0%8B) 과 함께 보면 도움이 됩니다.
+> [1.1. 자동 커밋: `enable.auto.commit`](https://assu10.github.io/dev/2024/06/29/kafka-consumer-2/#11-%EC%9E%90%EB%8F%99-%EC%BB%A4%EB%B0%8B-enableautocommit) 과 함께 보면 도움이 됩니다.
 
 > [1.2. 현재 오프셋 커밋: `commitSync()`](https://assu10.github.io/dev/2024/06/29/kafka-consumer-2/#12-%ED%98%84%EC%9E%AC-%EC%98%A4%ED%94%84%EC%85%8B-%EC%BB%A4%EB%B0%8B-commitsync) 과 함께 보면 도움이 됩니다.
 
