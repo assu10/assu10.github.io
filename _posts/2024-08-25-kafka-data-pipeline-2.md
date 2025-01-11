@@ -37,7 +37,7 @@ tags: kafka kafka-connect smt cdc kafka-converter
     * [1.3.5. 엘라스틱서치 인덱스 확인](#135-엘라스틱서치-인덱스-확인)
   * [1.4. SMT(Single Message Transformation, 개별 메시지 변환)](#14-smtsingle-message-transformation-개별-메시지-변환)
     * [1.4.1. SMT 이용](#141-smt-이용)
-    * [1.4.2. 에러 처리와 DTL(Dead Letter Queue, 데드 레터 큐): `error.tolerance`](#142-에러-처리와-dtldead-letter-queue-데드-레터-큐-errortolerance)
+    * [1.4.2. 에러 처리와 데드 레터 큐(Dead Letter Queue): `error.tolerance`](#142-에러-처리와-데드-레터-큐dead-letter-queue-errortolerance)
   * [1.5. 카프카 커넥트 구성 요소](#15-카프카-커넥트-구성-요소)
     * [1.5.1. 커넥터, 태스크(task)](#151-커넥터-태스크task)
       * [1.5.1.1. 커넥터](#1511-커넥터)
@@ -114,7 +114,7 @@ $ pwd
 $ bin/connect-standalone.sh config/connect-standalone.properties
 ```
 
-standalone 모드를 사용하면 모든 커넥터와 태스크들이 하나의 독립 실행 워커에서 돌아한다.  
+standalone 모드를 사용하면 모든 커넥터와 태스크들이 하나의 독립 실행 워커에서 돌아간다.  
 standalone 모드는 커넥터나 태스크가 특정한 장비에서 실행되어야 하는 경우에 사용된다.  
 예) syslog 커넥터가 특정 포트에서 요청을 받고 있을 경우, 이 커넥터가 어느 장비에서 작동 중인지 알아야 함
 
@@ -1056,11 +1056,11 @@ MessageSourceTedt:mysql-login-connector	{"schema":{"type":"struct","fields":[{"t
 
 ---
 
-### 1.4.2. 에러 처리와 DTL(Dead Letter Queue, 데드 레터 큐): `error.tolerance`
+### 1.4.2. 에러 처리와 데드 레터 큐(Dead Letter Queue): `error.tolerance`
 
 변환 기능은 특정 커넥터에 국한되지 않고 모든 커넥터와 사용할 수 있는 커넥터 설정 중 하나인데, 비슷하게 아무 싱크 커넥터에서나 사용 가능한 설정인 `error.tolerance` 가 있다.
 
-`error.tolerance` 를 사용하면 커넥터가 오염된 메시지를 무시하거나, 데드 레커 큐라고 불리는 토픽으로 보내도록 할 수 있다.
+`error.tolerance` 를 사용하면 커넥터가 오염된 메시지를 무시하거나, 데드 레터 큐라고 불리는 토픽으로 보내도록 할 수 있다.
 
 좀 더 자세한 내용은 [Kafka Connect Deep Dive – Error Handling and Dead Letter Queues](https://www.confluent.io/blog/kafka-connect-deep-dive-error-handling-dead-letter-queues/) 에 나와있다.
 
@@ -1186,7 +1186,7 @@ JSON 컨버터는 결과 레코드에 스키마를 포함할 지 여부를 선�
 ### 1.5.4. 오프셋 관리
 
 **오프셋 관리는 워커 프로세스가 커넥터에 제공하는 기능** 중 하나이다.  
-커넥터는 어떤 데이터를 이미 처리했는지 알아야하는데, 이 때 카프카가 제공하는 API 를 사용해서 어느 이벤트가 이미 처리되었는지에 대한 정보를 유기 관리할 수 있다.
+커넥터는 어떤 데이터를 이미 처리했는지 알아야하는데, 이 때 카프카가 제공하는 API 를 사용해서 어느 이벤트가 이미 처리되었는지에 대한 정보를 유지 관리할 수 있다.
 
 ---
 
