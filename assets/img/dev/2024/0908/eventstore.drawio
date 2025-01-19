@@ -1,0 +1,56 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
+  <diagram name="Page-1" id="LRq5mztexUmswwMQOdYc">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="202" as="sourcePoint" />
+            <mxPoint x="364" y="202" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-11" value="리하이드레이션" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QQbL-DXa_lu1ceo_ziRl-3">
+          <mxGeometry x="-0.5195" relative="1" as="geometry">
+            <mxPoint x="12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-1" value="이벤트 스토어" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="110" y="180" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="364" y="219" as="sourcePoint" />
+            <mxPoint x="210" y="219" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-12" value="커밋" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QQbL-DXa_lu1ceo_ziRl-4">
+          <mxGeometry x="-0.6364" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-2" value="애그리거트" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="364" y="190" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-5" value="이벤트" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="140" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-6" value="이벤트" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="150" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-7" value="이벤트" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="160" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-8" value="이벤트" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="234" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-9" value="이벤트" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="244" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="QQbL-DXa_lu1ceo_ziRl-10" value="이벤트" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="254" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
