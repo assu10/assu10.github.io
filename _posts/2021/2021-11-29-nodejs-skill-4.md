@@ -93,11 +93,11 @@ console.log(myEvent.listenerCount('event2'));
 - `removeAllListeners(이벤트명)`
   - 이벤트에 연결된 모든 이벤트 리스너 제거
 - `removeListener(이벤트명, 리스너)`
-  - 이벤트에 연결된 리스터를 하나씩 제거
+  - 이벤트에 연결된 리스너를 하나씩 제거
 - `off(이벤트명, 콜백)`
   - 노드 10 에서 추가된 메서드로 removeListener 와 같은 기능
 - `listenerCount(이벤트명)`
-    - 등록된 리스터의 개수 조회
+    - 등록된 리스너의 개수 조회
 
 `on('data')` 도 겉으론 이벤트를 호출하지 않지만 내부적으로 chunk 를 전달할 때마다 data 이벤트를 emit 하고 있고, 완료되었을 경우 end 이벤트를 emit 한 것이다.
 

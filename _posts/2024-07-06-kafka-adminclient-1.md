@@ -915,4 +915,4 @@ public class AdminClientSample {
 * [KIP-527: Add VoidSerde to Serdes](https://cwiki.apache.org/confluence/display/KAFKA/KIP-527:+Add+VoidSerde+to+Serdes)
 * [KIP-466: Add support for `List<T>` serialization and deserialization](https://cwiki.apache.org/confluence/display/KAFKA/KIP-466:+Add+support+for+List%3CT%3E+serialization+and+deserialization)
 * [Apache Kafka 3.8.0 Release Announcement](https://kafka.apache.org/blog?fbclid=IwAR0K9FLZFzvBJHJlfclqZ8maU1E57gofMapl0LDJPWpTYTssVJaE8obE0Lk#apache_kafka_380_release_announcement)
-* [카프카 보안 - 인증과 인자 (SASL)](https://always-kimkim.tistory.com/entry/kafka101-security)
+* [카프카 보안 - 인증과 인가 (SASL)](https://always-kimkim.tistory.com/entry/kafka101-security)

@@ -40,7 +40,10 @@ $ vi server.properties
 advertised.listeners=PLAINTEXT://127.0.0.1:9092
 ```
 
-> `advertised.listeners` 는 카프카 클라이언트나 커맨드 라인 툴을 브로커와 연결할 때 사용됨
+> `advertised.listeners` 는 카프카 클라이언트나 커맨드 라인 툴을 브로커와 연결할 때 사용됨  
+> 
+> 브로커가 클라이언트와 통신할 때 접근 가능한 주소 설정  
+> 브로커가 클라이언트에게 자신을 알릴 때 사용하는 주소와 포트 지정
 
 zookeeper 재시작
 ```shell
