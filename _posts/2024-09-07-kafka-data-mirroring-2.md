@@ -228,7 +228,7 @@ A->B.topics = .*
 토픽 설정과 접근 제어 목록(ACL, Access Control Level) 을 미러링하면 원본과 대상 토픽이 똑같이 작동하도록 할 수 있다.  
 기본값을 그대로 사용하면 일정 주기로 ACL 을 마이그레이션해 준다.
 
-> 위에 대한 상세한 내용은 추후 다룰 예정입니다. (p. 278)
+> 위에 대한 상세한 내용은 [2.1. `AclAuthorizer`](https://assu10.github.io/dev/2024/09/14/kafka-security-2/#21-aclauthorizer) 를 참고하세요.
 
 대부분의 원본 토픽 설정값은 대상 토픽에 그대로 적용되지만, [`min.insync.replicas`](https://assu10.github.io/dev/2024/06/15/kafka-install/#329-mininsyncreplicas) 등 
 몇 개는 예외이다. 이렇게 동기화에서 제외되는 설정의 목록 역시 커스터마이징 가능하다.

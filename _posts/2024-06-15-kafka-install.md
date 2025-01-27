@@ -908,7 +908,10 @@ log.retention.hours=168
 
 > 클러스터 내부에서의 복제에 대한 내용은 [2. 복제](https://assu10.github.io/dev/2024/08/17/kafka-reliability/#2-%EB%B3%B5%EC%A0%9C) 를 참고하세요.
 
-> 미러링에 대한 내용은 추후 다룰 예정입니다. (p. 35)
+> 미러링에 대한 내용은  
+> [Kafka - 데이터 미러링(1): 다중 클러스터 아키텍처](https://assu10.github.io/dev/2024/08/31/kafka-data-mirroring-1/),    
+> [Kafka - 데이터 미러링(2): 미러메이커](https://assu10.github.io/dev/2024/09/07/kafka-data-mirroring-2/)  
+> 를 참고하세요.
 
 네트워크 인터페이스가 포화 상태에 빠질 경우 클러스터 내부의 복제 작업이 밀려서 클러스터가 취약한 상태로 빠지는 상태는 드물지 않다.
 
