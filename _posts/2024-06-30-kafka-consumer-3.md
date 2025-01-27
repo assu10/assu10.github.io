@@ -17,7 +17,7 @@ tags: kafka consumer consumer.wakeup shutdownHook serdes dereserializer avroDese
 
 <!-- TOC -->
 * [1. 폴링 루프 벗어나기: `consumer.wakeup()`, `ShutdownHook`](#1-폴링-루프-벗어나기-consumerwakeup-shutdownhook)
-* [2. 디시리얼라이저:  `Serdes`](#2-디시리얼라이저-serdes)
+* [2. 디시리얼라이저: `Serdes`](#2-디시리얼라이저-serdes)
   * [2.1. 커스텀 디시리얼라이저](#21-커스텀-디시리얼라이저)
   * [2.2. Avro 디시리얼라이저 사용: `AvroDeserializer`](#22-avro-디시리얼라이저-사용-avrodeserializer)
   * [2.3. `List<T>` 직렬화/역직렬화](#23-listt-직렬화역직렬화)
