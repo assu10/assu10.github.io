@@ -208,6 +208,9 @@ pom.xml (chap04)
 - 해당 토픽 구독
 - 메시지를 받기 시작한 뒤 받은 메시지를 검사한 후 결과를 씀
 
+> 컨슈머 그룹 운영에 대해서는 [2. 컨슈머 그룹: kafka-consumer-groups.sh
+](https://assu10.github.io/dev/2024/09/21/kafka-operation-1/#2-%EC%BB%A8%EC%8A%88%EB%A8%B8-%EA%B7%B8%EB%A3%B9-kafka-consumer-groupssh) 을 참고하세요.
+
 ---
 
 ### 1.1.1. 단일 컨슈머 애플리케이션의 규모 확장을 위한 컨슈머 추가

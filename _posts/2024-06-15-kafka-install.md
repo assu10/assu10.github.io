@@ -320,6 +320,8 @@ $ kafka_2.13-3.8.0/bin/kafka-server-start.sh -daemon \
 
 카프카 브로커가 시작되었으면 클러스터에 토픽 생성, 메시지 쓰기/읽기 등의 명령어를 실행시켜서 동작을 확인해보자.
 
+> [1. 토픽 작업: `kafka-topics.sh`](https://assu10.github.io/dev/2024/09/21/kafka-operation-1/#1-%ED%86%A0%ED%94%BD-%EC%9E%91%EC%97%85-kafka-topicssh) 와 함께 보면 도움이 됩니다.
+
 토픽 생성
 ```shell
 $ pwd
