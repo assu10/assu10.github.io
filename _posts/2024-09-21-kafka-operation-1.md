@@ -3,7 +3,7 @@ layout: post
 title:  "Kafka - 운영(1): 토픽 작업, 컨슈머 그룹 작업, 동적 설정 변경"
 date: 2024-09-21
 categories: dev
-tags: kafka 
+tags: kafka
 ---
 
 이 포스트에서는 카프카 클러스터 운영 시 필요한 툴들에 대해 알아본다.
