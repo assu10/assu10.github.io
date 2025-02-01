@@ -38,7 +38,7 @@ tags: kafka tiered-storage message-batch control-batch compact tombstone-message
   * [4.4. 컨트롤 배치](#44-컨트롤-배치)
 * [5. 인덱스](#5-인덱스)
 * [6. 보존 정책: 삭제 보존, 압착 보존](#6-보존-정책-삭제-보존-압착-보존)
-* [7. 압착(Compact)의 작동 원리](#7-압착compact의-작동-원리)
+* [7. 로그 압착(Compact)의 작동 원리](#7-로그-압착compact의-작동-원리)
 * [8. 삭제된 이벤트: 툼스톤 메시지](#8-삭제된-이벤트-툼스톤-메시지)
 * [9. 토픽이 압착되는 시기: `min.compaction.lag.ms`, `max.compaction.lag.ms`](#9-토픽이-압착되는-시기-mincompactionlagms-maxcompactionlagms)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -342,7 +342,7 @@ $ bin/kafka-run-class.sh kafka.tools.DumpLogSegments
 
 ---
 
-# 7. 압착(Compact)의 작동 원리
+# 7. 로그 압착(Compact)의 작동 원리
 
 각 로그는 아래와 같이 2개의 영역으로 나뉜다.
 
