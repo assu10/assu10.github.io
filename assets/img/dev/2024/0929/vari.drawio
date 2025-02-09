@@ -1,0 +1,69 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="NwbzCwKHywl83ZVor7Zu">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" target="jWig_NFDQ-Rxv6pPRArL-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="237" y="170" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="jWig_NFDQ-Rxv6pPRArL-2" target="jWig_NFDQ-Rxv6pPRArL-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-2" value="&amp;nbsp;&lt;b&gt;프레젠테이션 계층&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="52" y="70" width="370" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-3" value="REST API" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="242" y="80" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-4" value="웹 UI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="152" y="80" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-5" value="CLI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="332" y="80" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="jWig_NFDQ-Rxv6pPRArL-7" target="jWig_NFDQ-Rxv6pPRArL-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-7" value="&amp;nbsp;&lt;b&gt;비즈니스 로직 계층&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="52" y="250" width="370" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-8" value="규칙" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="242" y="260" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-9" value="엔티티" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="152" y="260" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-10" value="프로세스" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="332" y="260" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-11" value="&amp;nbsp;&lt;b&gt;데이터 접근 계층&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="52" y="340" width="370" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-12" value="메시지&lt;div&gt;버스&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="242" y="350" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-13" value="DB" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="152" y="350" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-14" value="Object&lt;div&gt;Storage&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="332" y="350" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-15" value="&amp;nbsp;&lt;b&gt;서비스 계층&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;" vertex="1" parent="1">
+          <mxGeometry x="52" y="160" width="370" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-16" value="액션" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="242" y="170" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-17" value="액션" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="152" y="170" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jWig_NFDQ-Rxv6pPRArL-18" value="액션" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="332" y="170" width="80" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
