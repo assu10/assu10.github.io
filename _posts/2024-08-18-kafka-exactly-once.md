@@ -429,6 +429,8 @@ MSA 는 아웃박스라고 불리는 카프카 토픽에 메시지를 쓰는 작
 위의 패턴을 반전시켜서 DB 를 아웃박스로 사용하고, 릴레이 서비스가 테이블 업데이트 내역을 카프카에 메시지로 쓰게 할 수도 있다.  
 (UK 나 FK 같이 RDBMS 에 제약이 적용되어야 할 때 유용함)
 
+> 아웃박스 패턴에 대한 추가 설명은 [2.1. 아웃박스(Outbox): 최 소 한번 이벤트 발행 보장](https://assu10.github.io/dev/2024/10/05/ddd-communication-pattern/#21-%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4outbox-%EC%B5%9C-%EC%86%8C-%ED%95%9C%EB%B2%88-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%B0%9C%ED%96%89-%EB%B3%B4%EC%9E%A5) 를 참고하세요.
+
 > 디비지움 프로젝트 블로그의 [Reliable Microservices Data Exchange With the Outbox Pattern](https://debezium.io/blog/2019/02/19/reliable-microservices-data-exchange-with-the-outbox-pattern/) 에서 상세한 예제를 볼 수 있다.
 
 ---

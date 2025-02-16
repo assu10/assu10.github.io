@@ -1,0 +1,48 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="sSk6Qt1r4ix_v44Dy52h">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qNS96Quz7m4w54rSOKBH-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="qNS96Quz7m4w54rSOKBH-2" target="qNS96Quz7m4w54rSOKBH-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-14" value="인스턴스화" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="qNS96Quz7m4w54rSOKBH-13">
+          <mxGeometry x="-0.6" y="-1" relative="1" as="geometry">
+            <mxPoint x="19" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-2" value="애플리케이션" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;dashPattern=1 1;" edge="1" parent="1" source="qNS96Quz7m4w54rSOKBH-7" target="qNS96Quz7m4w54rSOKBH-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;dashPattern=1 1;" edge="1" parent="1" source="qNS96Quz7m4w54rSOKBH-7" target="qNS96Quz7m4w54rSOKBH-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;dashPattern=1 1;startArrow=block;startFill=1;" edge="1" parent="1" source="qNS96Quz7m4w54rSOKBH-7" target="qNS96Quz7m4w54rSOKBH-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-7" value="프로세스&lt;div&gt;관리자&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-9" value="목표" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="100" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-12" value="상태" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="280" y="220" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-15" value="목표" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="145" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-16" value="목표" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="190" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qNS96Quz7m4w54rSOKBH-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1" source="qNS96Quz7m4w54rSOKBH-7" target="qNS96Quz7m4w54rSOKBH-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

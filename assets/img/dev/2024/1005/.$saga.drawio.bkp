@@ -1,0 +1,67 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="FSl8jyLsgXbJV5FePseA">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;dashed=1;dashPattern=1 1;endArrow=block;endFill=1;" parent="1" source="l91ATPrcnfZtzcdpXO-Q-1" target="l91ATPrcnfZtzcdpXO-Q-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="90" />
+              <mxPoint x="330" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-1" value="캠페인&lt;div&gt;애그리거트&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="110" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" parent="1" source="l91ATPrcnfZtzcdpXO-Q-2" target="l91ATPrcnfZtzcdpXO-Q-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="90" />
+              <mxPoint x="550" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-11" value="SubmitAdvertisement" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="l91ATPrcnfZtzcdpXO-Q-10" vertex="1" connectable="0">
+          <mxGeometry x="-0.2071" y="2" relative="1" as="geometry">
+            <mxPoint x="28" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;endArrow=block;endFill=1;" parent="1" source="l91ATPrcnfZtzcdpXO-Q-2" target="l91ATPrcnfZtzcdpXO-Q-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="230" />
+              <mxPoint x="150" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-18" value="TrackPublishingConfirmation&lt;div&gt;TrackPublishingRejection&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="l91ATPrcnfZtzcdpXO-Q-17" vertex="1" connectable="0">
+          <mxGeometry x="0.1615" relative="1" as="geometry">
+            <mxPoint x="20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-2" value="캠페인&lt;div&gt;발행 사가&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="310" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;dashed=1;dashPattern=1 1;endArrow=block;endFill=1;" parent="1" source="l91ATPrcnfZtzcdpXO-Q-3" target="l91ATPrcnfZtzcdpXO-Q-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="230" />
+              <mxPoint x="370" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-3" value="퍼블리셔&lt;div&gt;&amp;nbsp;바운디드&lt;/div&gt;&lt;div&gt;컨텍스트&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="510" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-5" value="CampaignActivated" style="shape=message;html=1;html=1;outlineConnect=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="223" y="80" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l91ATPrcnfZtzcdpXO-Q-13" value="PublishingRejected&lt;div&gt;or&lt;/div&gt;&lt;div&gt;PublishingConfirmed&lt;/div&gt;" style="shape=message;html=1;html=1;outlineConnect=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="445" y="220" width="30" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

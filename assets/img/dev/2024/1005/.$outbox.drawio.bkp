@@ -1,0 +1,49 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="5qbX41cNr4lcKcKFbJ2W">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dnMxlid7LKek7n-u05R8-1" value="애플리케이션" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="dnMxlid7LKek7n-u05R8-2" target="dnMxlid7LKek7n-u05R8-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-10" value="발행" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="dnMxlid7LKek7n-u05R8-7">
+          <mxGeometry x="-0.4737" y="-1" relative="1" as="geometry">
+            <mxPoint x="17" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-2" value="메시지&lt;div&gt;릴레이&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="324" y="205" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-3" value="메시지&lt;div&gt;버스&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="205" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="dnMxlid7LKek7n-u05R8-4" target="dnMxlid7LKek7n-u05R8-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-9" value="발행되지 않은 이벤트" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="dnMxlid7LKek7n-u05R8-6">
+          <mxGeometry x="-0.5579" y="-2" relative="1" as="geometry">
+            <mxPoint x="36" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-4" value="실시간&lt;div&gt;데이터처리&lt;/div&gt;&lt;div&gt;DB&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="85" y="190" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="dnMxlid7LKek7n-u05R8-1" target="dnMxlid7LKek7n-u05R8-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-8" value="업데이트된 애거리거트 상태와 도메인 이벤트 커밋" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="dnMxlid7LKek7n-u05R8-5">
+          <mxGeometry x="-0.2" relative="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dnMxlid7LKek7n-u05R8-11" value="ble" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="380" y="410" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
