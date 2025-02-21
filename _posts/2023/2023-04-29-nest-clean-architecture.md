@@ -284,7 +284,7 @@ $ tree -L 2
 
 ### 3.1.2. application layer
 
-이제 UserCreatedEvent 를 처리하는 UserEventHandler 를 application/event 로 옮긴 후 리팩터링한다.
+이제 UserCreatedEvent 를 처리하는 UserEventHandler 를 application/event 로 옮긴 후 리팩토링한다.
 
 /src/users/application/event/user-event.handler.ts
 ```ts

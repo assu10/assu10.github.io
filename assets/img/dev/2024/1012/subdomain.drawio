@@ -1,0 +1,85 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="-2RGGZORHsEN54cSZlC2">
+    <mxGraphModel dx="794" dy="2383" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="239.27707723007006" y="-1036.4502504988639" as="sourcePoint" />
+            <mxPoint x="190.72292276993005" y="-957.5497495011364" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-11" value="기회" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Zl78B8jK06Y2I1rwpZE1-4">
+          <mxGeometry x="0.0141" y="3" relative="1" as="geometry">
+            <mxPoint x="7" y="-21" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-1" value="일반" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="230" y="-1090" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-2" value="지원" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="310" y="-960" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-3" value="핵심" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="150" y="-960" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="253.27707723007006" y="-1029.4502504988639" as="sourcePoint" />
+            <mxPoint x="204.72292276993005" y="-950.5497495011364" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-12" value="상품화" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Zl78B8jK06Y2I1rwpZE1-5">
+          <mxGeometry x="0.4922" y="1" relative="1" as="geometry">
+            <mxPoint x="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285.99707723007003" y="-1038.4502504988639" as="sourcePoint" />
+            <mxPoint x="333.44" y="-959" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-17" value="통합 비용 절감" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Zl78B8jK06Y2I1rwpZE1-7">
+          <mxGeometry x="-0.6692" y="1" relative="1" as="geometry">
+            <mxPoint x="28" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="273.99707723007003" y="-1033.0002504988638" as="sourcePoint" />
+            <mxPoint x="321.44" y="-953.55" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-16" value="상품화" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Zl78B8jK06Y2I1rwpZE1-8">
+          <mxGeometry x="0.4863" y="2" relative="1" as="geometry">
+            <mxPoint x="-6" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="307.5" y="-930.5" as="sourcePoint" />
+            <mxPoint x="212.50292276993005" y="-930.4997495011363" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-14" value="기회" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Zl78B8jK06Y2I1rwpZE1-9">
+          <mxGeometry x="-0.1473" y="-3" relative="1" as="geometry">
+            <mxPoint x="22" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-10" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="308" y="-916" as="sourcePoint" />
+            <mxPoint x="213.00292276993005" y="-915.9997495011363" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zl78B8jK06Y2I1rwpZE1-15" value="단순화" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Zl78B8jK06Y2I1rwpZE1-10">
+          <mxGeometry x="0.6843" y="-2" relative="1" as="geometry">
+            <mxPoint x="8" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
