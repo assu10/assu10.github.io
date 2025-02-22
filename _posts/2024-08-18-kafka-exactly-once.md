@@ -495,9 +495,12 @@ MSA 는 아웃박스라고 불리는 카프카 토픽에 메시지를 쓰는 작
 > `exactly_once_beta` 는 크래시가 나거나 트랜잭션 전송 중에 멈춘 애플리케이션 인스턴스를 처리하는 방식이 조금 다름  
 > 이 기능은 카프카 브로커에서는 2.5, 카프카 스트림즈에서는 2.6 에 도입됨
 > 
-> `exactly_once_beta` 을 사용하면 하나의 트랜잭션적 프로듀서에서 더 많은 파티션을 효율적으로 다룰 수 있게 되고, 그로 인해 카프카 스트림즈 애플리케이션의 확장성이 향상됨
-> 
+> `exactly_once_beta` 을 사용하면 하나의 트랜잭션적 프로듀서에서 더 많은 파티션을 효율적으로 다룰 수 있게 되고, 그로 인해 카프카 스트림즈 애플리케이션의 확장성이 향상됨  
 > [KIP-447: Producer scalability for exactly once semantics](https://cwiki.apache.org/confluence/display/KAFKA/KIP-447%3A+Producer+scalability+for+exactly+once+semantics)
+> 
+> 3.0 부터는 `exactly_once_beta`, `exactly_once` 모두 지원을 중단하고 `exactly_once_v2` 를 지원함  
+> `exactly_once_beta`, `exactly_once` 는 4.0 에서 제거될 예정임  
+> [KIP-732: Deprecate eos-alpha and replace eos-beta with eos-v2](https://cwiki.apache.org/confluence/display/KAFKA/KIP-732%3A+Deprecate+eos-alpha+and+replace+eos-beta+with+eos-v2)
 
 ---
 

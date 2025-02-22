@@ -1,0 +1,51 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="v2WY0b1s9jXQUkq8JLZd">
+    <mxGraphModel dx="1114" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-1" value="프로세서" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="120" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-2" value="로컬 상태에 캐시된 프로필 사본" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="310" y="60" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="cO3CGTBJE5bX_ZbdKQ7w-3" target="cO3CGTBJE5bX_ZbdKQ7w-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-3" value="조인" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="315" y="170" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1" source="cO3CGTBJE5bX_ZbdKQ7w-3" target="cO3CGTBJE5bX_ZbdKQ7w-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="cO3CGTBJE5bX_ZbdKQ7w-5" target="cO3CGTBJE5bX_ZbdKQ7w-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-5" value="클릭 이벤트&lt;div&gt;토픽&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="140" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="cO3CGTBJE5bX_ZbdKQ7w-7" target="cO3CGTBJE5bX_ZbdKQ7w-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-7" value="사용자 프로필&lt;div&gt;토픽&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="200" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="cO3CGTBJE5bX_ZbdKQ7w-8" target="cO3CGTBJE5bX_ZbdKQ7w-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-10" value="변경점 캡처" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="cO3CGTBJE5bX_ZbdKQ7w-9">
+          <mxGeometry x="-0.2" y="-2" relative="1" as="geometry">
+            <mxPoint x="27" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-8" value="사용자 프로필&lt;div&gt;DB&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="150" y="290" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cO3CGTBJE5bX_ZbdKQ7w-13" value="확장된 클릭 이벤트&lt;div&gt;토픽&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="175" width="110" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

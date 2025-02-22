@@ -1,0 +1,40 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="j6xMSaFgQDWfGZX8D1gW">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-1" value="" style="endArrow=block;html=1;rounded=0;endFill=1;strokeWidth=2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="120" as="sourcePoint" />
+            <mxPoint x="440" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-2" value="0" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="110" y="120" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-3" value="5" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="190" y="120" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-6" value="10" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="270" y="120" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-7" value="15" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="350" y="120" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-8" value="윈도우 1" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="70" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-9" value="윈도우 2" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="150" y="70" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-10" value="윈도우 3" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="177" y="70" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gPh0ZpG4tfI45VlG2S2_-11" value="시간" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="90" y="130" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

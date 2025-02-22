@@ -787,7 +787,7 @@ Avro 와 같은 직렬화 라이브러리를 사용할 수 밖에 없었다.
   - [KIP-527: Add VoidSerde to Serdes](https://cwiki.apache.org/confluence/display/KAFKA/KIP-527:+Add+VoidSerde+to+Serdes)
 - 3.0 부터 **`List<T>` 타입 객체 (디)시리얼라이저 추가**
   - 스트림 처리에서 키 값을 기준으로 레코드들을 그룹화하는 것과 같이 집계 처리를 해야할 경우 사용됨
-  - > `List<T>` 타입과 스트림 처리에 대한 내용은 추후 다룰 예정입니다. (p. 120)
+  - > `List<T>` 타입은 스트림 처리에서 키 값을 기준으로 레코드들을 그룹화하는 것과 같이 집계 처리를 해야 할 경우 사용되는데 이에 대한 내용은 [3.2. 로컬 상태와 스트림 처리](https://assu10.github.io/dev/2024/09/29/kafka-stream-1/#32-%EB%A1%9C%EC%BB%AC-%EC%83%81%ED%83%9C%EC%99%80-%EC%8A%A4%ED%8A%B8%EB%A6%BC-%EC%B2%98%EB%A6%AC) 를 참고하세요.
   - [KIP-466: Add support for `List<T>` serialization and deserialization](https://cwiki.apache.org/confluence/display/KAFKA/KIP-466:+Add+support+for+List%3CT%3E+serialization+and+deserialization)
 
 

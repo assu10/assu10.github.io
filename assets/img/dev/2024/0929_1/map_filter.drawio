@@ -1,0 +1,61 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="0lHg1pfsaakG9hdtdhMn">
+    <mxGraphModel dx="1114" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="bOkAXFYaxigK5rWZhQhS-1" target="bOkAXFYaxigK5rWZhQhS-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-1" value="우선 순위가&lt;div&gt;높은 토픽&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="440" y="50" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="bOkAXFYaxigK5rWZhQhS-2" target="bOkAXFYaxigK5rWZhQhS-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-8" value="로그 이벤트" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="bOkAXFYaxigK5rWZhQhS-7">
+          <mxGeometry x="-0.34" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-2" value="토픽" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="50" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="bOkAXFYaxigK5rWZhQhS-3" target="bOkAXFYaxigK5rWZhQhS-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-10" value="에러 이벤트" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#FF66B3;" vertex="1" connectable="0" parent="bOkAXFYaxigK5rWZhQhS-9">
+          <mxGeometry x="-0.5" y="-3" relative="1" as="geometry">
+            <mxPoint x="20" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="bOkAXFYaxigK5rWZhQhS-3" target="bOkAXFYaxigK5rWZhQhS-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-12" value="나머지 이벤트" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#FF66B3;" vertex="1" connectable="0" parent="bOkAXFYaxigK5rWZhQhS-11">
+          <mxGeometry x="-0.2143" y="3" relative="1" as="geometry">
+            <mxPoint x="-2" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-3" value="애플리케이션&lt;div&gt;(분기)&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="250" y="40" width="90" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="bOkAXFYaxigK5rWZhQhS-4" target="bOkAXFYaxigK5rWZhQhS-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-4" value="우선 순위가&lt;div&gt;낮은 토픽&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="255" y="180" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="bOkAXFYaxigK5rWZhQhS-5" target="bOkAXFYaxigK5rWZhQhS-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-5" value="애플리케이션&lt;div&gt;(Avro 형식으로&lt;/div&gt;&lt;div&gt;변환)&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="435" y="167.5" width="90" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="bOkAXFYaxigK5rWZhQhS-6" value="Avro 로그" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="570" y="180" width="80" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
