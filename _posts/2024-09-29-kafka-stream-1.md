@@ -78,7 +78,7 @@ tags: kafka stream
 
 - **요청-응답(Request-Response)**
   - 응답 시간이 1 ms~x ms 수준인 패러다임으로 가장 지연이 적은 패러다임임
-  - 처리 방식이 보통 블로킹 방식이라 요청을 보낸 뒤 응답응ㄹ 받을 때까지 대기하는 것이 보통임
+  - 처리 방식이 보통 블로킹 방식이라 요청을 보낸 뒤 응답을 받을 때까지 대기하는 것이 보통임
   - 데이터베이스 관점에서 이 패러다임을 OLTP(OnLine Transaction Processing) 으로 알려져있음
   - POS(Point-of-sale) 시스템, 결제 시스템, 시간 추적 시스템이 보통 이 패러다임으로 동작함
 - **배치 처리(Batch Processing)**
