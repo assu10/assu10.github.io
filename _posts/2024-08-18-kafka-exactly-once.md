@@ -828,7 +828,7 @@ public class ExactlyOnceMessageProcessor extends Thread {
 
 위 문제를 해결하려면 `retention.ms` 설정값을 동적으로 잡아줌으로써 문제가 되는 트랜잭션을 삭제하여 해결할 수 있다.
 
-> 동적으로 토픽 설정값을 재정의하는 내용은 추후 다룰 예정입니다. (p. 224)
+> 동적으로 토픽 설정값을 재정의하는 내용은 [3.1. 토픽 설정 기본값 재정의: `--add-config`](https://assu10.github.io/dev/2024/09/21/kafka-operation-1/#31-%ED%86%A0%ED%94%BD-%EC%84%A4%EC%A0%95-%EA%B8%B0%EB%B3%B8%EA%B0%92-%EC%9E%AC%EC%A0%95%EC%9D%98---add-config) 를 참고하세요.
 
 ---
 

@@ -236,7 +236,7 @@ $ bin/kafka-configs.sh --bootstrap-server {kafka-broker}:9092 \
 --describe
 ```
 
-> `kafka-configs.sh` 에 대한 내용은 추후 다룰 예정입니다. (p. 335)
+> `kafka-configs.sh` 에 대한 내용은 [3. 동적 설정 변경: `kafka-configs.sh`](https://assu10.github.io/dev/2024/09/21/kafka-operation-1/#3-%EB%8F%99%EC%A0%81-%EC%84%A4%EC%A0%95-%EB%B3%80%EA%B2%BD-kafka-configssh) 을 참고하세요.
 
 ---
 

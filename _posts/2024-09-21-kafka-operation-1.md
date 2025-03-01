@@ -52,7 +52,7 @@ tags: kafka
 `kafka-topics.sh` 는 클러스터 내의 토픽 생성/변경/삭제/정보 조회 등 대부분의 토픽 작업이 가능하다.  
 토픽 설정은 지원이 중단되었으므로 `kafka-configs.sh` 를 사용하는 것을 권장한다.
 
-`kafka-topics.sh` 를 사용할 때는 `--bootstrap-server` 옵션에 연결 ㄹ문자열과 포트를 넣어주어야 한다.
+`kafka-topics.sh` 를 사용할 때는 `--bootstrap-server` 옵션에 연결 문자열과 포트를 넣어주어야 한다.
 
 > [2. 카프카 브로커 설치](https://assu10.github.io/dev/2024/06/15/kafka-install/#2-%EC%B9%B4%ED%94%84%EC%B9%B4-%EB%B8%8C%EB%A1%9C%EC%BB%A4-%EC%84%A4%EC%B9%98) 와 함께 보면 도움이 됩니다.
 

@@ -506,7 +506,7 @@ public class AdminClientSample {
       // 토픽이 존재할 경우 Future 객체는 토픽에 속한 모든 파티션의 목록을 담은 TopicDescription 을 리턴함
       // TopicDescription 는 파티션별로 어느 브로커가 리더이고, 어디에 레플리카가 있고, in-sync replica 가 무엇인지까지 포함함
       // 주의할 점은 토픽의 설정은 포함되지 않는다는 점임
-      // 토픽 설정에 대해선 추후 다룰 예정
+      // 토픽 설정에 대해선 나중에 다룰 예정
       if (topicDescription.partitions().size() != NUM_PARTITIONS) { // 3)
         log.error("Topic has wrong number of partitions: {}", topicDescription.partitions().size());
         // System.exit(1);

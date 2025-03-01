@@ -194,7 +194,7 @@ pom.xml (chap05)
 
 여기서는 `AdminClient` 를 사용하여 프로그램적으로 컨슈머 그룹과 이 그룹들이 커밋한 오프셋을 조회,수정하는 방법에 대해 알아본다.
 
-> 컨슈머 그룹과 이 그룹들이 커밋한 오프셋을 조회,수정하는 기능을 수행하는 외부 툴들에 대해서는 추후 다룰 예정입니다. (p. 136)
+> 컨슈머 그룹과 이 그룹들이 커밋한 오프셋을 조회,수정하는 기능을 수행하는 외부 툴들에 대해서는 [2. 컨슈머 그룹: `kafka-consumer-groups.sh`](https://assu10.github.io/dev/2024/09/21/kafka-operation-1/#2-%EC%BB%A8%EC%8A%88%EB%A8%B8-%EA%B7%B8%EB%A3%B9-kafka-consumer-groupssh) 을 참고하세요.
 
 ---
 
