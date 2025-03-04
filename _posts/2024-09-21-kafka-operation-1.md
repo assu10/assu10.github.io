@@ -85,7 +85,7 @@ $ pwd
 $ ./zKServer.sh start
 /usr/bin/java
 ZooKeeper JMX enabled by default
-Using config: /Users/juhyunlee/Developer/zookeeper/apache-zookeeper-3.9.2-bin/bin/../conf/zoo.cfg
+Using config: /Users/zookeeper/apache-zookeeper-3.9.2-bin/bin/../conf/zoo.cfg
 Starting zookeeper ... STARTED
 
 # 브로커 시작

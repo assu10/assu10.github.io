@@ -473,7 +473,7 @@ $ curl --location 'http://localhost:3000/users' \
 ```
 
 ```shell
-createUser dto:  { name: 'assu', email: 'jh.lee@weversecompany.com', password: 'test' }
+createUser dto:  { name: 'assu', email: 'test@test.com', password: 'test' }
 signupVerifyToken:  b2d8f740-c163-11ed-9057-497683782c6d
 ```
 
