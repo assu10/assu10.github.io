@@ -3,7 +3,7 @@ layout: post
 title:  "인증, JWT, Sliding Session, Refresh Token"
 date: 2023-03-19
 categories: dev
-tags: web auth jwt session token sliding-session refresh-token
+tags: backend auth jwt session token sliding-session refresh-token
 ---
 
 이 포스트는 인증과 JWT 에 대해 알아본다.

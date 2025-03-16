@@ -133,7 +133,7 @@ class TabsComponent {}
 const tabs = new TabsComponent();
 ```
 
-eslint 를 쓰고 있다면 Decorator 생성 시 매개 변수 타입 단에서 아래와 같은 오류가 발생하는데 suppress 하여 사용하면 된다.
+eslint 를 쓰고 있다면 Decorator 생성 시 매개 변수 타입 단에서 아래와 같은 오류가 발생하는데 억제(suppress) 하여 사용하면 된다.
 ![eslint 사용 시 오류](/assets/img/dev/2023/0225/deco_01.png)
 
 

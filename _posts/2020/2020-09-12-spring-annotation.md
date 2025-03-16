@@ -3,7 +3,7 @@ layout: post
 title:  "Spring 어노테이션 정리"
 date: 2020-09-12 10:00
 categories: dev
-tags: web spring-annotation 
+tags: backend spring-annotation 
 ---
 
 스프링 어노테이션에 대한 간단한 요약이다.

@@ -3,7 +3,7 @@ layout: post
 title:  Java Code Convention
 date: 2020-01-16 14:00
 categories: dev
-tags: web java coding-guide code-convention
+tags: backend java coding-guide code-convention
 ---
 
 > 본 code convention 은 Oracle Code Convention을 참고로 하되 약간 변형된 부분이 있음을 알려드립니다.<br />
