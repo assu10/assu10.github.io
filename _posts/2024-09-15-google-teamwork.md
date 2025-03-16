@@ -6,8 +6,6 @@ categories: book
 tags: google-engineer teamwork postmortem
 ---
 
----
-
 <!-- TOC -->
 * [1. 천재 신화](#1-천재-신화)
 * [2. 숨기는 건 해롭다.](#2-숨기는-건-해롭다)
