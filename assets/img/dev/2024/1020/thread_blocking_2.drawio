@@ -1,0 +1,90 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16">
+  <diagram name="Page-1" id="5SsFjIwV7MpsUS-XN4f8">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-1" value="" style="endArrow=block;html=1;rounded=0;endFill=1;strokeWidth=3;" edge="1" parent="1" source="g_ShcOrAThYf8HCXq4l5-24">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="155" as="sourcePoint" />
+            <mxPoint x="450" y="155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-5" value="" style="endArrow=block;html=1;rounded=0;endFill=1;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="235" as="sourcePoint" />
+            <mxPoint x="450" y="235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-8" value="작업 1 수행 도중 작업 2 의 결과가 필요한 상황" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="153" y="60" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-14" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3333FF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="167" y="225" width="163" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-15" value="작업 2 수행" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="219.5" y="239" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-16" value="" style="endArrow=none;html=1;rounded=0;endFill=1;strokeWidth=3;startFill=0;" edge="1" parent="1" target="g_ShcOrAThYf8HCXq4l5-17">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="155" as="sourcePoint" />
+            <mxPoint x="450" y="155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-17" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3333FF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="150" y="145" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-18" value="작업 1 수행" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="153" y="120" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-19" value="스레드 1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="70" y="140" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-20" value="스레드 2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="54.5" y="220" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-23" value="" style="endArrow=block;html=1;rounded=0;endFill=1;strokeWidth=3;" edge="1" parent="1" target="g_ShcOrAThYf8HCXq4l5-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="229" y="155" as="sourcePoint" />
+            <mxPoint x="489" y="155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-21" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3333;strokeColor=none;fontColor=#FF3333;" vertex="1" parent="1">
+          <mxGeometry x="229" y="145" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-25" value="" style="endArrow=block;html=1;rounded=0;endFill=1;strokeWidth=3;" edge="1" parent="1" source="g_ShcOrAThYf8HCXq4l5-21" target="g_ShcOrAThYf8HCXq4l5-24">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="329" y="155" as="sourcePoint" />
+            <mxPoint x="489" y="155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-24" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3333FF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="329" y="145" width="91" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-26" value="스레드 블로킹" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3333;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="244.5" y="120" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-27" value="작업 1 마저 수행" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="329" y="120" width="91" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-28" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="228" y="190" as="sourcePoint" />
+            <mxPoint x="228" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-29" value="" style="endArrow=block;dashed=1;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="329" y="220" as="sourcePoint" />
+            <mxPoint x="329" y="165" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g_ShcOrAThYf8HCXq4l5-30" value="결과 반환" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="g_ShcOrAThYf8HCXq4l5-29">
+          <mxGeometry x="-0.2909" relative="1" as="geometry">
+            <mxPoint x="2" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

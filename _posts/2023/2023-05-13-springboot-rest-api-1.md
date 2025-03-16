@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Boot - HTTP, Spring Web MVC 프레임워크, REST-API"
 date: 2023-05-13
 categories: dev
-tags: springboot web msa http http-status-code rest-api spring-web-mvc 
+tags: springboot backend msa http http-status-code rest-api spring-web-mvc 
 ---
 
 이 포스트에서는 Spring 웹 MVC 프레임워크 내부 동작과 프레임워크에서 제공하는 컴포넌트 Spring bean 들에 대해 알아본다.

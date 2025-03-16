@@ -3,7 +3,7 @@ layout: post
 title:  "Git commit message convention"
 date: 2024-04-22
 categories: dev
-tags: web git-commit-convention
+tags: backend git-commit-convention
 ---
 
 이 포스트에서는 Git Commit Message Convention 에 대해 알아본다.
