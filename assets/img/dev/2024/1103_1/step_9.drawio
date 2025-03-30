@@ -1,0 +1,67 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="gK9mzfNjHlteWK6b4zPo">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DYsywCmerrk-SVAjj5_K-1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="197.5" y="330" width="225" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-2" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="125" y="210" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-3" value="이벤트" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="217.5" y="345" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-4" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="125" y="70" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-5" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d80073;strokeColor=#A50040;rotation=45;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="287.5" y="345" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-6" value="고충점" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="277.5" y="350" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-7" value="커맨드" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="287.5" y="470" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-8" value="고객" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="217.5" y="410" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-9" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="125" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-10" value="정책" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="287.5" y="410" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-12" value="읽기&lt;div&gt;모델&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="357.5" y="345" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-14" value="외부&lt;div&gt;시스템&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="217.5" y="470" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-17" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="210" y="70" width="50" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-18" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="280" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-19" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="280" y="70" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-20" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="280" y="210" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-21" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="354" y="70" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-22" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="354" y="210" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DYsywCmerrk-SVAjj5_K-23" value="애그리거트" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="357.5" y="410" width="40" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

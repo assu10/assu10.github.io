@@ -1,0 +1,40 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="dbwxp2fWKsyNHSSV9Wh-">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="feM94Bl40OyQFZeU7MB3-1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="125" y="260" width="350" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-2" value="주문을&lt;div&gt;배송한다&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="310" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-5" value="이벤트" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="145" y="275" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-6" value="배송이&lt;div&gt;승인됐다&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="230" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-7" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d80073;strokeColor=#A50040;rotation=45;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="215" y="275" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-8" value="고충점" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="205" y="280" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-10" value="커맨드" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="285" y="275" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-11" value="고객" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="345" y="275" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-3" value="정책" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="270" y="90" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="feM94Bl40OyQFZeU7MB3-12" value="정책" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="405" y="275" width="40" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
