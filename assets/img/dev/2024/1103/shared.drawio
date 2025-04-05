@@ -1,0 +1,91 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="4VBtv4m1NMuGwiNcqZK1">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-6" value="공유 스레드풀" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="100" y="120" width="500" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-3" value="Dispatchers.Default 의&amp;nbsp;&lt;div&gt;스레드&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;fontColor=#333333;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="120" y="160" width="150" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-7" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="210" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-8" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="210" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-9" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="265" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-10" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="265" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-13" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="130" y="320" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-11" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="330" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-12" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="330" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-14" value="" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endFill=1;" edge="1" parent="1" source="GQEiuCfF9dU8xJlfsfi5-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="480" as="sourcePoint" />
+            <mxPoint x="195" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-15" value="Dispatchers.Default.limitedParallelism(2)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="79" y="450" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-17" value="Dispatchers.IO 의 스레드" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;fontColor=#333333;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="420" y="160" width="150" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-18" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="210" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-19" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="210" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-20" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="265" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-21" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="265" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-35" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="200" width="130" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-25" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="210" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-26" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="210" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-27" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="265" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-28" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="265" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-33" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="330" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-34" value="스레드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="330" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-36" value="" style="endArrow=block;html=1;rounded=0;exitX=0.838;exitY=0.025;exitDx=0;exitDy=0;exitPerimeter=0;endFill=1;" edge="1" parent="1" source="GQEiuCfF9dU8xJlfsfi5-35">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="480" as="sourcePoint" />
+            <mxPoint x="390" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GQEiuCfF9dU8xJlfsfi5-37" value="Dispatchers.IO.Default.limitedParallelism(4)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="50" width="250" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
