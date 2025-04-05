@@ -1,0 +1,28 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="CtApQJggOBttMEJ4eSkR">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="yQQ1L0m9iQnV6l27IVBU-1" value="스레드풀" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="329" y="170" width="170" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="yQQ1L0m9iQnV6l27IVBU-2" value="Thread-1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="354" y="210" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yQQ1L0m9iQnV6l27IVBU-3" value="Coroutine1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="374" y="250" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yQQ1L0m9iQnV6l27IVBU-4" value="Thread-2" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="354" y="300" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yQQ1L0m9iQnV6l27IVBU-6" value="CoroutineDispatcher" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="130" y="170" width="170" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="yQQ1L0m9iQnV6l27IVBU-7" value="작업 대기열" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="150" y="210" width="130" height="170" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
