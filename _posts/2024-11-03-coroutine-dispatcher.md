@@ -586,7 +586,6 @@ fun main() = runBlocking<Unit> {
 - `Dispatchers.Main` 은 메인 스레드에서 실행되어야 하는 작업을 위한 `CoroutineDispatcher` 객체로 별도의 라이브러리를 추가해야 함
   - 일반적으로 UI 가 있는 애플리케이션에서 UI 업데이트를 위해 사용함
 
-
 ---
 
 # 참고 사이트 & 함께 보면 좋은 사이트
