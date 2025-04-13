@@ -794,7 +794,7 @@ List<OrderView> dtos = orders.stream()
 
 **ID 참조 방식을 사용하면서 `N+1 조회 문제` 가 발생하지 않도록 하려면 조회 전용 쿼리를 사용**하면 된다.
 
-예를 들어 **데이터 조회를 위한 DAO 를 만들고, DAO 의 조회 메서드에서 조인을 이용하여 한 번의 쿼리로 필요한 데이터를 로딩**한다.  
+예를 들어 **데이터 조회를 위한 DAO 를 만들고, DAO 의 조회 메서드에서 조인을 이용하여 한 번의 쿼리로 필요한 데이터를 로딩**한다.
 
 > DAO 에 대한 좀 더 상세한 내용은 [9. Spring bean, Java bean, DTO, VO, DAO](https://assu10.github.io/dev/2023/05/07/springboot-spring/#9-spring-bean-java-bean-dto-vo-dao) 를 참고하세요.
 
