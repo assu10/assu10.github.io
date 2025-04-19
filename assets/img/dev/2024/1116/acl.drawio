@@ -1,0 +1,31 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="UGgdxkDbaGuUdCK8Xaq2">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="aTU7NHnQniY7e1BIC5VY-1" value="업스트림&lt;div&gt;바운디드&lt;/div&gt;&lt;div&gt;컨텍스트&lt;/div&gt;&lt;div&gt;(제공자)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="190" width="90" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="aTU7NHnQniY7e1BIC5VY-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="aTU7NHnQniY7e1BIC5VY-3" target="aTU7NHnQniY7e1BIC5VY-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aTU7NHnQniY7e1BIC5VY-3" value="다운스트림&lt;div&gt;바운디드&lt;/div&gt;&lt;div&gt;컨텍스트&lt;/div&gt;&lt;div&gt;(사용자)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="190" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aTU7NHnQniY7e1BIC5VY-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="aTU7NHnQniY7e1BIC5VY-5" target="aTU7NHnQniY7e1BIC5VY-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aTU7NHnQniY7e1BIC5VY-5" value="다운스트림&lt;div&gt;바운디드&lt;/div&gt;&lt;div&gt;컨텍스트&lt;/div&gt;&lt;div&gt;(사용자)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="300" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aTU7NHnQniY7e1BIC5VY-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="aTU7NHnQniY7e1BIC5VY-6" target="aTU7NHnQniY7e1BIC5VY-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aTU7NHnQniY7e1BIC5VY-6" value="A&lt;div&gt;C&lt;/div&gt;&lt;div&gt;L&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="340" y="260" width="40" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
