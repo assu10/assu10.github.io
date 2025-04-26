@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 아키텍처 패턴(계층형 / 포트와 어댑터 / CQRS)"
+title:  "DDD(1) - 아키텍처 패턴(계층형 / 포트와 어댑터 / CQRS)"
 date: 2024-09-29
 categories: dev
 tags: ddd architecture-pattern layered-architecture oltp cqrs olap

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 진화하는 설계 의사 결정"
+title:  "DDD(1) - 진화하는 설계 의사 결정"
 date: 2024-10-12
 categories: dev
 tags: ddd

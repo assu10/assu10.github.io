@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 커뮤니케이션 패턴(모델 변환, 아웃박스 패턴, 사가 패턴)"
+title:  "DDD(1) - 커뮤니케이션 패턴(모델 변환, 아웃박스 패턴, 사가 패턴)"
 date: 2024-10-05
 categories: dev
 tags: ddd communication-pattern outbox-pattern saga-pattern

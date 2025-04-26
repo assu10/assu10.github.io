@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 도메인 복잡성 관리: 바운디드 컨텍스트"
+title:  "DDD(1) - 도메인 복잡성 관리: 바운디드 컨텍스트"
 date: 2024-07-27
 categories: dev
 tags: ddd bounded-context

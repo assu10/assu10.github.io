@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 계층형 아키텍처 문제점"
 date: 2024-05-06
 categories: dev
-tags: clean
+tags: clean architecture
 ---
 
 **목차**

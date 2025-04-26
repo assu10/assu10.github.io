@@ -1,8 +1,6 @@
 ---
 layout: list
-title: Clean Architecture
+name: Clean Architecture
+title: 'Clean Architecture'
 slug: clean
-category: dev
-menu: false
-order: 41
 ---

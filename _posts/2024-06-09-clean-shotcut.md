@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 의식적으로 지름길 사용"
 date: 2024-06-09
 categories: dev
-tags: clean
+tags: clean architecture
 ---
 
 개발을 하면서 부정적인 지름길을 방지하기 위해서는 먼저 지름길 자체를 파악해야 한다.

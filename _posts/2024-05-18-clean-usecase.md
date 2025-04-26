@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 유스케이스, 입력 유효성 검증, 비즈니스 유효성 검증, 입출력 모델"
 date: 2024-05-18
 categories: dev
-tags: clean usecase rich-domain-model anemic-domain-model
+tags: clean architecture usecase rich-domain-model anemic-domain-model
 ---
 
 [3. 아키텍처적으로 표현력있는 패키지 구조](https://assu10.github.io/dev/2024/05/12/clean-package/#3-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EC%A0%81%EC%9C%BC%EB%A1%9C-%ED%91%9C%ED%98%84%EB%A0%A5%EC%9E%88%EB%8A%94-%ED%8C%A8%ED%82%A4%EC%A7%80-%EA%B5%AC%EC%A1%B0) 에서 본 아키텍처는 

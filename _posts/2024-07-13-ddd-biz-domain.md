@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 비즈니스 도메인 분석"
+title:  "DDD(1) - 비즈니스 도메인 분석"
 date: 2024-07-13
 categories: dev
 tags: ddd 

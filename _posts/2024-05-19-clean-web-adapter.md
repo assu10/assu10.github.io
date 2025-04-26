@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 웹 어댑터 구현"
 date: 2024-05-19
 categories: dev
-tags: clean web-adapter
+tags: clean architecture web-adapter
 ---
 
 육각형 아키텍처에서 외부와의 모든 통신을 어댑터를 통해 이루어지는데 이 포스트에서는 웹 인터페이스를 제공하는 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 이벤트 스토밍"
+title:  "DDD(1) - 이벤트 스토밍"
 date: 2024-11-03
 categories: dev
 tags: ddd event-storming

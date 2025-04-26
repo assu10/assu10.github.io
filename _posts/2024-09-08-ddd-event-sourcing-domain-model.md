@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 이벤트 소싱 도메인 모델 패턴"
+title:  "DDD(1) - 이벤트 소싱 도메인 모델 패턴"
 date: 2024-09-08
 categories: dev
 tags: ddd event-sourcing-domain-model-pattern

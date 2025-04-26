@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 영속성 어댑터 구현, 트랜잭션, 포트 인터페이스"
 date: 2024-05-25
 categories: dev
-tags: clean persistence-adapter
+tags: clean architecture persistence-adapter
 ---
 
 [2.1. 데이터베이스 주도 설계를 유도](https://assu10.github.io/dev/2024/05/06/clean-basic/#21-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%A3%BC%EB%8F%84-%EC%84%A4%EA%B3%84%EB%A5%BC-%EC%9C%A0%EB%8F%84) 에서 

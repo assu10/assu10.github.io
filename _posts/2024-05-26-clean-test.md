@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 테스트"
 date: 2024-05-26
 categories: dev
-tags: clean test bdd @WebMvcTest mockMvc @MockBean dataJpaTest @Import @Sql @SpringBootTest testRestTemplate jGiven
+tags: clean architecture test bdd @WebMvcTest mockMvc @MockBean dataJpaTest @Import @Sql @SpringBootTest testRestTemplate jGiven
 ---
 
 이 포스트에서는 육각형 아키텍처의 테스트 전략에 대해 알아본다.  

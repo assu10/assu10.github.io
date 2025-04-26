@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 아키텍처 경계 강제 (ArchUnit, 빌드 아티팩트)"
 date: 2024-06-08
 categories: dev
-tags: clean archunit build-artifact 
+tags: clean architecture archunit build-artifact 
 ---
 
 일정 규모 이상의 프로젝트는 시간이 지남에 따라 아키텍처가 서서히 무너지게 된다.

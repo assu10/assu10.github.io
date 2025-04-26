@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 패키징 구성"
 date: 2024-05-12
 categories: dev
-tags: clean 
+tags: clean architecture 
 ---
 
 프로젝트를 진행하다보면 점점 바빠져서 패키지 구조가 엉망이 되는 경우가 있다.  

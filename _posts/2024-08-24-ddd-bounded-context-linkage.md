@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 바운디드 컨텍스트 연동"
+title:  "DDD(1) - 바운디드 컨텍스트 연동"
 date: 2024-08-24
 categories: dev
 tags: ddd bounded-context contract

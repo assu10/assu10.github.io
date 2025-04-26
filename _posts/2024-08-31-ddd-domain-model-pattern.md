@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 도메인 모델 패턴"
+title:  "DDD(1) - 도메인 모델 패턴"
 date: 2024-08-31
 categories: dev
 tags: ddd domain-model-pattern

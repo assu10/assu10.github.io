@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 설정 컴포넌트"
 date: 2024-06-02
 categories: dev
-tags: clean classpath-scanning java-config @Component @Configuration @EnableJpaRepositories
+tags: clean architecture classpath-scanning java-config @Component @Configuration @EnableJpaRepositories
 ---
 
 지금까지 유스케이스, 웹 어댑터, 영속성 어댑터를 구현했으니 이제 이것들을 동작하는 애플리케이션으로 조립해야 한다.

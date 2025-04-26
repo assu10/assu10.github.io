@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 트랜잭션 스크립트 패턴, 액티브 레코드 패턴"
+title:  "DDD(1) - 트랜잭션 스크립트 패턴, 액티브 레코드 패턴"
 date: 2024-08-25
 categories: dev
 tags: ddd transaction-script active-record

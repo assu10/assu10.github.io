@@ -3,7 +3,7 @@ layout: post
 title:  "Clean Architecture - 경계 간 매핑 전략"
 date: 2024-06-01
 categories: dev
-tags: clean 
+tags: clean architecture 
 ---
 
 지금까지 웹, 애플리케이션, 도메인, 영속성 계층이 있고, 하나의 유스케이스를 구현하기 위해 각 계층이 어떤 역할을 하는지에 대해 알아보았다.

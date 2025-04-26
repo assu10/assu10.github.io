@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DDD - 휴리스틱 설계"
+title:  "DDD(1) - 휴리스틱 설계"
 date: 2024-10-06
 categories: dev
 tags: ddd heuristic
