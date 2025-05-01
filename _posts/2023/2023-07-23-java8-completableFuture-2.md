@@ -27,7 +27,7 @@ tags: java java8 completable-future
     * [1.3.3. `CompletableFuture` 를 조합하여 할인된 가격 계산: `CompletableFuture.thenCompose()`](#133-completablefuture-를-조합하여-할인된-가격-계산-completablefuturethencompose)
   * [1.4. 서로 독립적인 `CompletableFuture` 와 서로 비독립적인 `CompletableFuture` 합치기: `CompletableFuture.thenCombine()`](#14-서로-독립적인-completablefuture-와-서로-비독립적인-completablefuture-합치기-completablefuturethencombine)
 * [2. `CompletableFuture` 종료 대응 (비동기 동작 완료에 대응)](#2-completablefuture-종료-대응-비동기-동작-완료에-대응)
-  * [2.1. 최저가격 검색 리팩토링: `CompletableFuture.thenAccept()`](#21-최저가격-검색-리팩토링-completablefuturethenaccept)
+  * [2.1. 최저가격 검색 리팩터링: `CompletableFuture.thenAccept()`](#21-최저가격-검색-리팩터링-completablefuturethenaccept)
 * [3. 정리하며..](#3-정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -380,7 +380,7 @@ public static void randomDelay() {
 
 ---
 
-## 2.1. 최저가격 검색 리팩토링: `CompletableFuture.thenAccept()`
+## 2.1. 최저가격 검색 리팩터링: `CompletableFuture.thenAccept()`
 
 모든 가격 정보를 포함할 때까지 리스트 생성을 기다리지 않도록 하려면 상점에 필요한 일련의 연산 정보를 하는 CompletableFuture 의 스트림을
 직접 제어해야 한다.

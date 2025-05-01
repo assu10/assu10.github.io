@@ -708,7 +708,7 @@ fun main() {
 위 예시에서 `this` 는 첫 번재 인자로 전달된 _result_ 이다.  
 _result_ 의 메서드를 _this.append(letter)_ 처럼 `this` 참조를 통해 접근할 수도 있고, _append("\nEnd~")_ 처럼 바로 호출할 수도 있다.
 
-아래는 바로 위 코드를 `with()` 와 식을 본문으로 하는 함수로 리팩토링하여 불필요한 _result_ 변수를 없애는 예시이다.
+아래는 바로 위 코드를 `with()` 와 식을 본문으로 하는 함수로 리팩터링하여 불필요한 _result_ 변수를 없애는 예시이다.
 
 ```kotlin
 package com.assu.study.kotlin2me.chap05
@@ -759,7 +759,7 @@ fun alphabetWith() = with(StringBuilder()) {
 
 `apply()` 함수는 `with()` 와 거의 비슷하며, 유일한 차이는 `apply()` 는 항상 자신에게 전달된 객체 (= 수신 객체)를 반환한다는 점 뿐이다.
 
-위에서 `with()` 를 써서 알바벳을 만드는 함수를 `apply()` 로 리팩토링하면 아래와 같다.
+위에서 `with()` 를 써서 알바벳을 만드는 함수를 `apply()` 로 리팩터링하면 아래와 같다.
 
 ```kotlin
 package com.assu.study.kotlin2me.chap05

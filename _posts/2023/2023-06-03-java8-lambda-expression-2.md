@@ -182,7 +182,7 @@ List<Apple> apples = map(weights, Apple::new);  // map() 메서드로 생성자 
 
 > **Factory Method Pattern (팩토리 메서드 패턴)**  
 > 객체의 생성 코드를 별도의 클래스/메서드로 분리함으로써 객체 생성의 변화에 대비하는데 유용  
-> Factory Method 패턴의 좀 더 상세한 내용은 [Java8 - 리팩토링, 디자인 패턴](https://assu10.github.io/dev/2023/07/01/java8-refactoring/#25-%ED%8C%A9%ED%86%A0%EB%A6%AC-%ED%8C%A8%ED%84%B4-factory-pattern) 의 _2.5. 팩토리 패턴 (Factory Pattern)_ 를 참고하세요.
+> Factory Method 패턴의 좀 더 상세한 내용은 [Java8 - 리팩터링, 디자인 패턴](https://assu10.github.io/dev/2023/07/01/java8-refactoring/#25-%ED%8C%A9%ED%86%A0%EB%A6%AC-%ED%8C%A8%ED%84%B4-factory-pattern) 의 _2.5. 팩토리 패턴 (Factory Pattern)_ 를 참고하세요.
 
 ---
 

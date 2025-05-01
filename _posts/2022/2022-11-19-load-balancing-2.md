@@ -51,7 +51,7 @@ DNS 를 통해 서비스 수행 시 DNS 서버가 필요한데, **DNS 서버는 
   - e.g.) `.`
 - **TLD 네임 서버 (Top Level Domain Name Server)**
   - `.com` 과 같은 최상위 도메인에 대한 네임 서버
-  - 해당 영역에 포함되는 모든 모데인 이름의 정보 유지
+  - 해당 영역에 포함되는 모든 도메인 이름의 정보 유지
   - DNS 요청에 대해 `google.com` 에 대한 권한 있는 네임 서버 주소 반환
   - e.g.) `.com`
 - **권한있는 네임 서버 (Authoritative Name Server)**

@@ -967,7 +967,7 @@ formatter 변수에 주입해도 Spring bean 객체는 변함없이 하나임을
 
 이럴 때는 아래 3가지 방법 중 하나를 적용하여 해결 가능하다.
 
-- DateFormatter 클래스의 SimpleDateFormatter sdf 를 클래스 변수에서 제거하고 parse() 내부에서 new 키워드를 사용하도록 리팩토링  
+- DateFormatter 클래스의 SimpleDateFormatter sdf 를 클래스 변수에서 제거하고 parse() 내부에서 new 키워드를 사용하도록 리팩터링  
 parse() 메서드가 호출될 때마다 매번 SimpleDateFormatter 객체를 생성하므로 멀티 스레드에 안전해짐
 - SimpleDateFormatter 가 아닌 스레드에 안전한 DateTimeFormatter 를 클래스 변수로 사용
 - DateFormatter Spring bean 의 Scope 를 `prototype` 으로 변경하여 getBean() 를 호출할 때마다 DateFormatter 객체가 새로 생성되도록 함

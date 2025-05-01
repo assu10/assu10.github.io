@@ -398,7 +398,7 @@ public class Jsr310JpaConverters {
 
 AttributeConverter 를 사용하면 `@Enumerated` 애너테이션 대신 열거형 클래스의 상수값을 데이터베이스에 변환하여 저장할 수 있다.  
 `@Enumerated` 애너테이션은 EnumType.ORDINAL 혹은 EnumType.STRING 으로만 데이터를 변환할 수 있는 반면, AttributeConverter 는 어떤 값이라도 변환할 수 있다.  
-운영 도중 열거형 상수의 위치나 이름을 바꾸는 리팩토링을 해도 다른 값이나 변환되거나 값이 변환되지 않는 상황을 방지할 수 있다.
+운영 도중 열거형 상수의 위치나 이름을 바꾸는 리팩터링을 해도 다른 값이나 변환되거나 값이 변환되지 않는 상황을 방지할 수 있다.
 
 ---
 
