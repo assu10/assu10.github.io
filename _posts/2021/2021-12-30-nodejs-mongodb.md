@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - mongoDB, mongoose"
 date: 2021-12-30 10:00
 categories: dev
-tags: nodejs mongoDB mongoose
+tags: javascript nodejs mongoDB mongoose
 ---
 
 이 포스트는 몽고디비, 그리고 몽고디비와 노드를 연결시켜주는 라이브러리인 몽구스에 대해 알아본다.

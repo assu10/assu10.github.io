@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Module 설계"
 date: 2023-03-04
 categories: dev
-tags: nestjs module
+tags: javascript nestjs module
 ---
 
 이 포스트는 NestJS 의 Module 설계에 대해 알아본다.

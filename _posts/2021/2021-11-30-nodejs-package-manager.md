@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - 패키지 매니저 (package.json)"
 date: 2021-11-30 10:00
 categories: dev
-tags: nodejs npm package-manager package.json
+tags: javascript nodejs npm package-manager package.json
 ---
 
 이 포스트는 간단한 npm 사용법과 자신의 코드를 npm 에 배포하여 다른 사람들이 사용할 수 있게 하는 방법에 대해 알아본다.

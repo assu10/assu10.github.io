@@ -3,7 +3,7 @@ layout: post
 title:  "Coroutine - 코루틴 빌더, Job"
 date: 2024-11-09
 categories: dev
-tags: coroutine
+tags: kotlin coroutine
 ---
 
 이 포스트에서는 코루틴 빌더 함수인 `launch()` 와 `launch()` 호출 시 반환되는 Job 객체에 대해 알아본다.  

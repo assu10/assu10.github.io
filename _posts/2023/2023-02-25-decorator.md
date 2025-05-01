@@ -3,7 +3,7 @@ layout: post
 title:  "Decorator"
 date: 2023-02-25
 categories: dev
-tags: typescript decorator nestjs
+tags: javascript typescript decorator nestjs
 ---
 
 이 포스트는 ECMAScript 기능인 Decorator 에 대해 알아본다.   

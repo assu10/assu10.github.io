@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - http 모듈로 서버 생성"
 date: 2021-11-29 10:00
 categories: dev
-tags: nodejs
+tags: javascript nodejs
 ---
 
 이 포스트는 실제 서버 동작에 필요한 쿠키와 세션 처리, 요청 주소별 라우팅 방법에 대해 알아본다.

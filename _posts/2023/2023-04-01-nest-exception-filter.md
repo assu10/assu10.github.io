@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Exception Filter"
 date: 2023-04-01
 categories: dev
-tags: nestjs exception-filter
+tags: javascript nestjs exception-filter
 ---
 
 이 포스트는 NestJS 에 예외 필터를 적용하는 방법에 대해 알아본다.

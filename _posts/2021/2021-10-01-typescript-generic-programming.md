@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - Generic 프로그래밍"
 date: 2021-10-01 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 이 포스트는 제네릭 타입에 대해 알아보고, 함수형 프로그래밍 관점에서 제네릭 타입이 어떻게 활용되는지 알아본다.

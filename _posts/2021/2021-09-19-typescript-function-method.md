@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - 함수, 메서드"
 date: 2021-09-19 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 자바스크립트에서 함수는 `function` 키워드와 화살표 `=>` 기호로 만드는 두 가지 방법이 있는데

@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - ramda 라이브러리 (1)"
 date: 2021-09-29 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 이 포스트는 람다(ramda) 함수형 유틸리티 라이브러리의 기능에 대해 알아본다.

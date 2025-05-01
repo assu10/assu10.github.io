@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Database, TypeORM"
 date: 2023-03-12
 categories: dev
-tags: nestjs typeorm
+tags: javascript nestjs typeorm
 ---
 
 이 포스트는 NestJS 에 MySQL 과 TypeORM 을 적용해보는 법에 대해 알아본다.

@@ -3,7 +3,7 @@ layout: post
 title:  "Coroutine - CoroutineDispatcher"
 date: 2024-11-03
 categories: dev
-tags: coroutine coroutineDispatcher dispatchers.default dispatchers.io dispatchers.main newSingleThreadContext newFixedThreadPoolContext
+tags: kotlin coroutine coroutineDispatcher dispatchers.default dispatchers.io dispatchers.main newSingleThreadContext newFixedThreadPoolContext
 ---
 
 이 포스트에서는 `CoroutineDispatcher` 에 대해 알아본다.  

@@ -3,7 +3,7 @@ layout: post
 title:  "Coroutine - 기존 스레드의 한계와 코루틴"
 date: 2024-10-20
 categories: dev
-tags: coroutine
+tags: kotlin coroutine
 ---
 
 이 포스트에서는 JVM 의 프로세스와 스레드에 대해 다룬다.  

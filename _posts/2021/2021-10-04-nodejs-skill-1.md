@@ -3,7 +3,7 @@ layout: post
 title:  "eslint/prettier 셋팅 + Node.js - 기본 개념 (1): 내장 객체, 내장 모듈, util"
 date: 2021-10-04 10:00
 categories: dev
-tags: nodejs
+tags: javascript nodejs
 ---
 
 이 포스트는 노드가 기본적으로 제공하는 객체와 모듈 사용법에 대해 알아본다.<br />

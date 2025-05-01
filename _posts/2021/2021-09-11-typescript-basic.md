@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - 기본"
 date: 2021-09-11 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 이 포스트는 타입스크립트 기본에 대해 알아본다.

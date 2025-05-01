@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - 빅데이터 배치 프로그램"
 date: 2021-10-03 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 이 포스트는 빅데이터 배치 프로그램을 만들어볼 것이다.<br />

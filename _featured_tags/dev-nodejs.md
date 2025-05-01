@@ -1,8 +1,6 @@
 ---
 layout: list
-title: Nodejs
+title: 'Nodejs'
 slug: nodejs
-category: dev
-menu: false
-order: 21
+name: Nodejs
 ---

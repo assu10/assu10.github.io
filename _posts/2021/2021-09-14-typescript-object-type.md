@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - 객체, 타입"
 date: 2021-09-14 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 이 포스트는 타입스크립트 객체와 타입에 대해 알아본다.

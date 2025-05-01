@@ -1,8 +1,6 @@
 ---
 layout: list
-title: Nestjs
+title: 'Nestjs'
 slug: nestjs
-category: dev
-menu: false
-order: 31
+name: Nestjs
 ---

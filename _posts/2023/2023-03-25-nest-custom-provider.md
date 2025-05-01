@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Custom Provider"
 date: 2023-03-25
 categories: dev
-tags: nestjs provider custom-provider
+tags: javascript nestjs provider custom-provider
 ---
 
 이 포스트는 NestJS 의 Custom Provider 에 대해 알아본다.

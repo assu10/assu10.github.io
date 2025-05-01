@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - 기본 개념 (2): 멀티스레드"
 date: 2021-11-20 10:00
 categories: dev
-tags: nodejs
+tags: javascript nodejs
 ---
 
 이 포스트는 노드가 멀티 스레드와 관련된 기능에 대해 알아본다.

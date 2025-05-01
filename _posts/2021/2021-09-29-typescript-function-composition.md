@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - 함수 조합"
 date: 2021-09-29 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 `함수 조합 (function composition)` 은 작은 기능을 하는 여러 함수를 pipe, compose 함수로 조합하여 더 의미있는 함수로 만들어가는 코드 설계 기법이다.<br />

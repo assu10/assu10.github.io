@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - MySQL, 시퀄라이즈"
 date: 2021-12-03 10:00
 categories: dev
-tags: nodejs mysql sequelize
+tags: javascript nodejs mysql sequelize
 ---
 
 이 포스트는 시퀄라이즈의 사용법에 대해 알아본다.

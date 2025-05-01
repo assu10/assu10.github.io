@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - 기본 개념"
 date: 2021-08-01 10:00
 categories: dev
-tags: nodejs
+tags: javascript nodejs
 ---
 
 이 포스트는 Node.js(Mac 기준) 의 기본 개념과 Node.js 을 시작하기에 앞서 알아야 할 내용들에 대해 기술한다.  

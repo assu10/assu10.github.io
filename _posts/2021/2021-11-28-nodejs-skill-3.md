@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - 기본 개념 (3): 파일시스템"
 date: 2021-11-28 10:00
 categories: dev
-tags: nodejs filesystem
+tags: javascript nodejs filesystem
 ---
 
 이 포스트는 노드가 기본적으로 제공하는 객체와 모듈 사용법에 대해 알아본다.<br />

@@ -3,7 +3,7 @@ layout: post
 title:  "Coroutine - async(), Deferred"
 date: 2024-11-10
 categories: dev
-tags: coroutine async withContext deferred awaitAll
+tags: kotlin coroutine async withContext deferred awaitAll
 ---
 
 이 포스트에서는 `async()` 코루틴 빌더에 대해 알아본다.  

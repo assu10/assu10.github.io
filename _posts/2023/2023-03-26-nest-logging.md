@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Logging"
 date: 2023-03-26
 categories: dev
-tags: nestjs logging nest-winston
+tags: javascript nestjs logging nest-winston
 ---
 
 이 포스트는 NestJS 에서 내장 Logger, Custom Logger, 외부 Logger 를 사용하는 방법에 대해 알아본다.

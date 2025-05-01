@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Interface"
 date: 2023-02-26
 categories: dev
-tags: nestjs interface
+tags: javascript nestjs interface
 ---
 
 이 포스트는 NestJS 의 Controller 에 대해 알아본다.    

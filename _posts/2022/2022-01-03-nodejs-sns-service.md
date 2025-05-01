@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - Express 로 SNS 서비스 구현 (Passport, multer)"
 date: 2022-01-03 10:00
 categories: dev
-tags: nodejs passport multer
+tags: javascript nodejs passport multer
 ---
 
 이 포스트는 이전에 포스트한 내용들을 기반으로 로그인, 이미지 업로드, 게시글 작성, 해시태그 검색, 팔로잉 등이 있는

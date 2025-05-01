@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - TypeORM vs Sequelize"
 date: 2023-03-12
 categories: dev
-tags: typescript typeorm
+tags: javascript typescript typeorm
 ---
 
 Typescript 를 지원하는 ORM 은 [TypeORM](https://typeorm.io/), [MikroORM](https://mikro-orm.io/docs/installation), [Sequelize](https://sequelize.org/docs/v6/), Knex.js, Prisma 등이 있다.

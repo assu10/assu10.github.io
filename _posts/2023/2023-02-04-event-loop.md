@@ -3,7 +3,7 @@ layout: post
 title:  "Event Loop"
 date: 2023-02-04
 categories: dev
-tags: nodejs javascript event-loop setImmediate() setTimeout() process.nextTick()
+tags: javascript nodejs javascript event-loop setImmediate() setTimeout() process.nextTick()
 ---
 
 이 포스트는 Single Thread 로 동작하는 Node.js 가 어떻게 Non-Block (비동기) 처리를 할 수 있는지 Event Loop 의 원리를 통해 알아본다.  

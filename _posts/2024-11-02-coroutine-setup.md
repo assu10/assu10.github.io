@@ -3,7 +3,7 @@ layout: post
 title:  "Coroutine - 코루틴 개발환경 셋팅"
 date: 2024-11-02
 categories: dev
-tags: coroutine
+tags: kotlin coroutine
 ---
 
 코틀린은 언어 수준에서 코루틴을 지원하지만 저수준 API 만을 제공하므로 실제 애플리케이션에 사용하기에는 무리가 있다.  

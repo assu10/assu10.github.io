@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Metadata(Reflection Class)"
 date: 2023-04-23
 categories: dev
-tags: nestjs metadata reflection-class reflection-metadata
+tags: javascript nestjs metadata reflection-class reflection-metadata
 ---
 
 이 포스트는 NestJS 에서 빌드 타임에 선언해 둔 메타데이터를 활용하여 런타임에 동작을 제어할 수 있는 Metadata 에 대해 알아본다.

@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Custom Parameter Decorator"
 date: 2023-04-22
 categories: dev
-tags: nestjs parameter-decorator custom-parameter-decorator
+tags: javascript nestjs parameter-decorator custom-parameter-decorator
 ---
 
 이 포스트는 NestJS 에서 라우트 핸들러의 매개변수에 적용할 수 있는 매개변수 데커레이터를 커스텀하여 활용하는 법에 대해 알아본다.

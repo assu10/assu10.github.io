@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - 클린 아키텍처"
 date: 2023-04-29
 categories: dev
-tags: nestjs clean-architecture
+tags: javascript nestjs clean-architecture
 ---
 
 이 포스트는 클린 아키텍처에 대해 알아본다.

@@ -1,8 +1,6 @@
 ---
 layout: list
-title: Typescript
+title: 'Typescript'
 slug: typescript
-category: dev
-menu: false
-order: 22
+name: Typescript
 ---

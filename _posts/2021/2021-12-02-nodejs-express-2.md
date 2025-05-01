@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - Express (2): 라우터, 템플릿 엔진"
 date: 2021-12-02 10:00
 categories: dev
-tags: nodejs express router template-engine
+tags: javascript nodejs express router template-engine
 ---
 
 이 포스트는 Express 의 라우팅과 넌적스 템플릿 엔진에 대해 알아본다.

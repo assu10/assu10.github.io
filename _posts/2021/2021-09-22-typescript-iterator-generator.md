@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - 반복기, 생성기"
 date: 2021-09-22 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 이 포스트는 함수형 프로그래밍의 일부인 선언형 프로그래밍과 함수형 프로그래밍을 가능하게 하는 순수 함수를 다루면서 배열과 튜플에 대해 알아본다. 

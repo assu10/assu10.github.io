@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Health Check"
 date: 2023-04-15
 categories: dev
-tags: nestjs health-check
+tags: javascript nestjs health-check
 ---
 
 이 포스트는 NestJS 에서 HTTP Health Check, TypeORM Health Check, Custom Health Check 하는 법에 대해 알아본다.

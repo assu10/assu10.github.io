@@ -3,7 +3,7 @@ layout: post
 title:  "NestJS - Task Scheduling"
 date: 2023-04-09
 categories: dev
-tags: nestjs task-scheduling
+tags: javascript nestjs task-scheduling
 ---
 
 이 포스트는 NestJS 에서 Task Scheduling 을 선언하는 방법에 대해 알아본다.

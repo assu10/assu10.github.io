@@ -3,7 +3,7 @@ layout: post
 title:  "Typescript - Promise, async/await"
 date: 2021-09-26 10:00
 categories: dev
-tags: typescript
+tags: javascript typescript
 ---
 
 이 포스트는 비동기 API 를 사용하는 코드를 쉽게 작성하는 `Promise` 클래스와 `async/await` 구문에 대해 알아본다.

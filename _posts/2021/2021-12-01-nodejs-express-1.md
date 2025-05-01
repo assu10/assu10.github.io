@@ -3,7 +3,7 @@ layout: post
 title:  "Node.js - Express (1): 미들웨어"
 date: 2021-12-01 10:00
 categories: dev
-tags: nodejs express middleware morgan static body-parser cookie-parser express-session multer
+tags: javascript nodejs express middleware morgan static body-parser cookie-parser express-session multer
 ---
 
 이 포스트는 Express 에 대해 알아본다.
