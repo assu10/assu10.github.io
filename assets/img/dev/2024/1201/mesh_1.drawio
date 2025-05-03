@@ -1,0 +1,68 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="klhL8mEqtw4Sii1JnZog">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-42" value="마케팅 바운디드 컨텍스트" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="60" y="50" width="340" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-34" value="백엔드" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="90" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="xwSGAVkrCLwf-7hvsWma-35" target="xwSGAVkrCLwf-7hvsWma-37" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-41" value="ETL" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="xwSGAVkrCLwf-7hvsWma-40" vertex="1" connectable="0">
+          <mxGeometry x="-0.2258" y="-4" relative="1" as="geometry">
+            <mxPoint x="4" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-35" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="206.5" y="110" width="60" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-36" value="실시간&lt;div&gt;처리 데이터&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="199" y="160" width="75" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-37" value="마케팅&amp;nbsp;&lt;div&gt;분석 모델&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.mesh;" parent="1" vertex="1">
+          <mxGeometry x="339.48" y="115" width="40.52" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-38" value="마케팅 팀" style="verticalLabelPosition=bottom;sketch=0;html=1;fillColor=#282828;strokeColor=none;verticalAlign=top;pointerEvents=1;align=center;shape=mxgraph.cisco_safe.people_places_things_icons.icon1;" parent="1" vertex="1">
+          <mxGeometry x="102.5" y="180" width="35" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" parent="1" source="xwSGAVkrCLwf-7hvsWma-34" target="xwSGAVkrCLwf-7hvsWma-35" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-44" value="판매 바운디드 컨텍스트" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="60" y="280" width="340" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-45" value="백엔드" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="90" y="350" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="xwSGAVkrCLwf-7hvsWma-48" target="xwSGAVkrCLwf-7hvsWma-50" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-47" value="ETL" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="xwSGAVkrCLwf-7hvsWma-46" vertex="1" connectable="0">
+          <mxGeometry x="-0.2258" y="-4" relative="1" as="geometry">
+            <mxPoint x="4" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-48" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="206.5" y="340" width="60" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-49" value="실시간&lt;div&gt;처리 데이터&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="199" y="390" width="75" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-50" value="판매&lt;div&gt;분석 모델&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.mesh;" parent="1" vertex="1">
+          <mxGeometry x="339.48" y="345" width="40.52" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-51" value="판매 팀" style="verticalLabelPosition=bottom;sketch=0;html=1;fillColor=#282828;strokeColor=none;verticalAlign=top;pointerEvents=1;align=center;shape=mxgraph.cisco_safe.people_places_things_icons.icon1;" parent="1" vertex="1">
+          <mxGeometry x="102.5" y="410" width="35" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="xwSGAVkrCLwf-7hvsWma-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" parent="1" source="xwSGAVkrCLwf-7hvsWma-45" target="xwSGAVkrCLwf-7hvsWma-48" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

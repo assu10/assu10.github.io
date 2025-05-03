@@ -1,0 +1,57 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="fXqu_w1rYB3tZzS57s6L">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nuOvf4qAihRL5Xflym3C-1" value="마케팅 바운디드 컨텍스트" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="50" width="380" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-2" value="백엔드" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="nuOvf4qAihRL5Xflym3C-5" target="nuOvf4qAihRL5Xflym3C-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-4" value="ETL" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="nuOvf4qAihRL5Xflym3C-3">
+          <mxGeometry x="-0.2258" y="-4" relative="1" as="geometry">
+            <mxPoint x="4" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-5" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="206.5" y="110" width="60" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-6" value="실시간&lt;div&gt;처리 데이터&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="199" y="160" width="75" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-7" value="마케팅&amp;nbsp;&lt;div&gt;분석 모델&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.mesh;" vertex="1" parent="1">
+          <mxGeometry x="339.48" y="115" width="40.52" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-8" value="마케팅 팀" style="verticalLabelPosition=bottom;sketch=0;html=1;fillColor=#282828;strokeColor=none;verticalAlign=top;pointerEvents=1;align=center;shape=mxgraph.cisco_safe.people_places_things_icons.icon1;" vertex="1" parent="1">
+          <mxGeometry x="102.5" y="180" width="35" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="nuOvf4qAihRL5Xflym3C-2" target="nuOvf4qAihRL5Xflym3C-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-19" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.service_endpoint;rotation=-180;" vertex="1" parent="1">
+          <mxGeometry x="424" y="89" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-20" value="엔드 포인트" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="414" y="109" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-21" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.service_endpoint;rotation=-180;" vertex="1" parent="1">
+          <mxGeometry x="424" y="159" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-22" value="엔드 포인트" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="414" y="179" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="nuOvf4qAihRL5Xflym3C-7" target="nuOvf4qAihRL5Xflym3C-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nuOvf4qAihRL5Xflym3C-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="nuOvf4qAihRL5Xflym3C-7" target="nuOvf4qAihRL5Xflym3C-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
