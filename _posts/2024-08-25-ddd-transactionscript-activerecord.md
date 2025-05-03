@@ -104,11 +104,11 @@ _messageBus.Publish("VISIT TOPIC", new { UserId=userId, VisitDate=visitedOn});
 
 여러 저장 장치에 걸쳐있는 분산 트랜잭션은 복잡하고 확장하기 어려우며 오류가 발생하기 쉬우므로 일반적으로 피하는 방식이다.
 
-> CQRS(Command-Query Responsibility Segregation) 아키텍처 패턴을 사용하여 여러 장치를 다루는 방법은 추후 다룰 예정입니다. (p. 68)
+> CQRS(Command-Query Responsibility Segregation) 아키텍처 패턴을 사용하여 여러 장치를 다루는 방법은 [4. CQRS(Command-Query Responsibility Segregation)](https://assu10.github.io/dev/2024/09/29/ddd-architecture-pattern/#4-cqrscommand-query-responsibility-segregation) 를 참고하세요.
 
 > CQRS 에 대한 추가 설명은 [DDD - CQRS](https://assu10.github.io/dev/2024/05/05/ddd-cqrs/) 를 참고하세요.
 
-> 다른 DB 에 변경사항을 커밋한 후 안정적인 메시지 발행을 가능하게 하는 아웃박스 패턴에 대해서는 추후 다룰 예정입니다. (p. 68)
+> 다른 DB 에 변경사항을 커밋한 후 안정적인 메시지 발행을 가능하게 하는 아웃박스 패턴에 대해서는 [2.1. 아웃박스(Outbox): 최소 한번 이벤트 발행 보장](https://assu10.github.io/dev/2024/10/05/ddd-communication-pattern/#21-%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4outbox-%EC%B5%9C%EC%86%8C-%ED%95%9C%EB%B2%88-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%B0%9C%ED%96%89-%EB%B3%B4%EC%9E%A5) 을 참고하세요.
 
 > 아웃박스 패턴에 대한 추가 설명은 [2.3.2.1. 아웃박스 패턴(outbox pattern)](https://assu10.github.io/dev/2024/08/18/kafka-exactly-once/#2321-%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%8C%A8%ED%84%B4outbox-pattern) 을 참고하세요.
 
@@ -181,8 +181,6 @@ public void execute() {
 
 트랜잭션 스크립트 패턴의 경우 비즈니스 로직이 단순한 지원 하위 도메인에 적합하며, 일반 하위 도메인과 외부 시스템을 연동하기 위한 어댑터로 사용하거나 
 충돌 방지 계층의 일부로 사용할 수도 있다.
-
-> 충돌 방지 계층의 일부로 사용하는 것에 대한 자세한 내용은 추후 다룰 예정입니다. (p. 71)
 
 **트랜잭션 스크립트 패턴의 주요 장점은 단순함**이다.  
 최소한의 추상화로 런타임 성능을 최적화하고, 비즈니스 로직을 이해하기 위한 시간을 최소화한다.

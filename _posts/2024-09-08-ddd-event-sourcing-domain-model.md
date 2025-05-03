@@ -278,7 +278,7 @@ version: 6
 
 실제 필요한 기능을 구현하려면 프로젝션된 모델을 DB 에 유지해야 한다.
 
-> 이를 가능하게 하는 CQRS(command-query responsibility segregation: 명령과 조회의 책임 분리) 패턴은 추후 다룰 예정입니다.
+> 이를 가능하게 하는 CQRS(command-query responsibility segregation: 명령과 조회의 책임 분리) 패턴은 [4. CQRS(Command-Query Responsibility Segregation)](https://assu10.github.io/dev/2024/09/29/ddd-architecture-pattern/#4-cqrscommand-query-responsibility-segregation) 를 참고하세요.
 
 ---
 
@@ -435,7 +435,7 @@ public class TicketState {
 - **아키텍처 복잡성**
   - 이벤트 소싱을 구현하면 수많은 아키텍처의 '유동적인 부분'이 도입되어 전체 설계가 더 복잡해짐
 
-> 어떤 비즈니스 로직 구현 패턴을 사용할지 결정하는데 도움이 되는 법칙에 대해서는 추후 다룰 예정입니다. (p. 121)
+> 어떤 비즈니스 로직 구현 패턴을 사용할지 결정하는데 도움이 되는 법칙에 대해서는 [DDD(1) - 휴리스틱 설계](https://assu10.github.io/dev/2024/10/06/ddd-heuristic/) 를 참고하세요.
 
 ---
 

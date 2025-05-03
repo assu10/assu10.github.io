@@ -38,7 +38,7 @@ tags: ddd communication-pattern outbox-pattern saga-pattern
     * [1.2.1. 유입되는 데이터 집계](#121-유입되는-데이터-집계)
     * [1.2.2. 여러 요청 통합: BFF](#122-여러-요청-통합-bff)
 * [2. 애그리거트 연동](#2-애그리거트-연동)
-  * [2.1. 아웃박스(Outbox): 최 소 한번 이벤트 발행 보장](#21-아웃박스outbox-최-소-한번-이벤트-발행-보장)
+  * [2.1. 아웃박스(Outbox): 최소 한번 이벤트 발행 보장](#21-아웃박스outbox-최소-한번-이벤트-발행-보장)
   * [2.2. 사가(saga): 여러 트랜잭션에 걸친 비즈니스 로직](#22-사가saga-여러-트랜잭션에-걸친-비즈니스-로직)
     * [2.2.1. 사가 패턴의 일관성](#221-사가-패턴의-일관성)
   * [2.3. 프로세스 관리자](#23-프로세스-관리자)
@@ -57,7 +57,7 @@ tags: ddd communication-pattern outbox-pattern saga-pattern
 만일 다운스트림 바운디드 컨텍스트가 업스트림 바운디드 컨텍스트 모델을 따를 수 없다면 바운디드 컨텍스트 모델을 변환하여 커뮤니케이션을 용이하게 하는 것보다 더 정교한 기술이 필요하다.
 
 이 변환을 한쪽 혹은 양쪽 모두에서 처리할 수 있다.
-- 다운스트림 바운디드 컨텍스트에서는 [충돌 방지 계층(ACL) 패턴](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#22-%EC%B6%A9%EB%8F%8C-%EB%B0%A9%EC%A7%80-%EA%B3%84%EC%B8%B5acl-anticorruption-layer-%ED%8C%A8%ED%84%B4)을 사용하여 업스트림 바운디드 컼ㄴ텍스트의 모델을 필요게 맞게 조정
+- 다운스트림 바운디드 컨텍스트에서는 [충돌 방지 계층(ACL) 패턴](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#22-%EC%B6%A9%EB%8F%8C-%EB%B0%A9%EC%A7%80-%EA%B3%84%EC%B8%B5acl-anticorruption-layer-%ED%8C%A8%ED%84%B4)을 사용하여 업스트림 바운디드 컨텍스트의 모델을 필요에 맞게 조정
 - 업스트림 바운디드 컨텍스트에서는 [오픈 호스트 서비스(OHS)](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#23-%EC%98%A4%ED%94%88-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EC%84%9C%EB%B9%84%EC%8A%A4ohs-open-host-service-%ED%8C%A8%ED%84%B4) 의 역할을 하고, 연동 관련 공표된 언어를 사용하여 구현 모델에 대한 변경으로부터 사용자를 보호
 
 모델의 변환 로직은 2가지가 있다.
@@ -122,7 +122,7 @@ stateless 모델 변환을 소유하는 바운디드 컨텍스트는 프록시 �
 또한, 메시지를 공표된 언어로 변환하면 바운디드 컨텍스트의 내부 요구사항을 위한 private event 와 다른 바운디드 컨텍스트와 연동하기 위해 설계된 public event 를 
 구분할 수 있게 된다.
 
-> 위 내용은 추후 좀 더 상세히 다룰 예정입니다. (p. 152)
+> 위 내용에 대한 좀 더 상세한 내용은 [DDD(1) - 이벤트 주도 아키텍처(EDA, Event-Driven Architecture)](https://assu10.github.io/dev/2024/11/30/ddd-event-driven/) 를 참고하세요.
 
 ---
 
@@ -210,7 +210,7 @@ BFF 는 특정 프론트엔트(웹, 모바일 등) 요구사항에 맞춘 백엔
 
 ---
 
-## 2.1. 아웃박스(Outbox): 최 소 한번 이벤트 발행 보장
+## 2.1. 아웃박스(Outbox): 최소 한번 이벤트 발행 보장
 
 아웃박스 패턴은 아래의 흐름으로 동작하여 적어도 한 번 도메인 이벤트의 안정적인 발행을 보장한다.
 
