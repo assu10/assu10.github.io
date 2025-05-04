@@ -3,7 +3,7 @@ layout: post
 title:  "DDD(1) - 이벤트 스토밍"
 date: 2024-11-03
 categories: dev
-tags: ddd event-storming
+tags: ddd architecture event-storming
 ---
 
 이 포스트에서는 효과적으로 지식을 공유하고, 공동의 이해를 구축하며, 소프트웨어를 설계하기 위한 저차원적인 워크샾인 이벤트 스토밍에 대해 알아본다.  
