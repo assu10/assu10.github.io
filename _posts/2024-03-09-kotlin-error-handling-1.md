@@ -480,7 +480,7 @@ fun main() {
 `require()` 를 생성자 안에서 호출하는데, `require()` 는 조건을 만족하지 못하면 _IllegalArgumentException_ 을 반환한다.  
 따라서 **_IllegalArgumentException_ 예외를 던지는 대신에 항상 `require()` 를 사용**할 수 있다.
 
-**`require()` 의 두 번째 파라메터는 String 을 만들어내는 람다**이다.  
+**`require()` 의 두 번째 파라미터는 String 을 만들어내는 람다**이다.  
 **따라서 `require()` 가 예외를 던지기 전까지는 문자열 생성 부가 비용이 들지 않는다.**
 
 위 코드의 `init` 을 아래와 같이 사용할 수도 있다.
@@ -595,13 +595,13 @@ Exception 이 발생하기 때문에 result1~3 까지 주석을 해제하면 위
 
 **성공하면 `requireNotNull()` 의 인자는 자동으로 null 이 아닌 타입으로 스마트 캐스트**된다.  
 
-**`requireNotNull()` 은 null 가능성만 검사하기 때문에 `require()` 와 달리 파라메터가 한 개 뿐인 버전이 더 유용**하다.
+**`requireNotNull()` 은 null 가능성만 검사하기 때문에 `require()` 와 달리 파라미터가 한 개 뿐인 버전이 더 유용**하다.
 
 > 스마트 캐스트에 대한 좀 더 상세한 내용은 [2.1. 스마트 캐스트: `is`](https://assu10.github.io/dev/2024/03/01/kotlin-object-oriented-programming-3/#21-%EC%8A%A4%EB%A7%88%ED%8A%B8-%EC%BA%90%EC%8A%A4%ED%8A%B8-is) 를 참고하세요.
 
 ```kotlin
 fun checkNotNull(n: Int?): Int {
-    // null 일 경우 직접 리턴 메시지 조작 (파라메터가 2개)
+    // null 일 경우 직접 리턴 메시지 조작 (파라미터가 2개)
     requireNotNull(n) {
         "checkNotNull() argument cannot be null~"
     }
@@ -617,7 +617,7 @@ fun main() {
     // Exception in thread "main" java.lang.IllegalArgumentException: checkNotNull() argument cannot be null~
     // val result1 = checkNotNull(n)
 
-    // null 일 경우 디폴트 메시지 사용 (파라메터가 1개)
+    // null 일 경우 디폴트 메시지 사용 (파라미터가 1개)
     // Exception in thread "main" java.lang.IllegalArgumentException: Required value was null.
     // val result2 = requireNotNull(n)
 
@@ -754,7 +754,7 @@ fun main() {
 **위와 같은 방법을 사용하면 오류 처리 시 유용**하다.  
 예를 들어 **예외 타입을 변경하거나 예외를 던지기 전 로그를 남기는 등의 처리가 가능**하다.
 
-**`Nothing` 타입은 아무런 값도 포함하지 않기 때문에 `Nothing` 타입은 함수의 반환 타입이나 반환 타입으로 사용될 타입 파라메터로만 쓸 수 있다.**
+**`Nothing` 타입은 아무런 값도 포함하지 않기 때문에 `Nothing` 타입은 함수의 반환 타입이나 반환 타입으로 사용될 타입 파라미터로만 쓸 수 있다.**
 
 ---
 

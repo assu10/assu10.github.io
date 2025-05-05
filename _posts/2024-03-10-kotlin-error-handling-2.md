@@ -282,7 +282,7 @@ implementation(kotlin("test"))
 
 단위 테스트안에서는 여러 예상 동작을 검증하기 위해 단언문 함수를 실행한다.
 
-단언문 함수로는 실제값과 예상값을 비교하는 `assertEquals()`, 첫 번째 파라메터로 들어오는 Boolean 식이 참인지 검증하는 `assertTrue()` 등이 있다.  
+단언문 함수로는 실제값과 예상값을 비교하는 `assertEquals()`, 첫 번째 파라미터로 들어오는 Boolean 식이 참인지 검증하는 `assertTrue()` 등이 있다.  
 
 아래 코드에서 _test_ 로 시작하는 함수들이 단위 테스트이다.
 

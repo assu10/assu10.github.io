@@ -21,7 +21,7 @@ tags: java java8 lambda-expression method-reference
     * [1.1.2. 생성자 인수가 1개인 경우](#112-생성자-인수가-1개인-경우)
     * [1.1.3. 생성자 인수가 2개인 경우](#113-생성자-인수가-2개인-경우)
 * [2. 람다 표현식과 메서드 레퍼런스 활용](#2-람다-표현식과-메서드-레퍼런스-활용)
-  * [2.1. 동작 파라메터화](#21-동작-파라메터화)
+  * [2.1. 동작 파라미터화](#21-동작-파라미터화)
   * [2.2. 익명 클래스 사용](#22-익명-클래스-사용)
   * [2.3. 람다 표현식 사용](#23-람다-표현식-사용)
   * [2.4. 메서드 레퍼런스 사용](#24-메서드-레퍼런스-사용)
@@ -53,7 +53,7 @@ tags: java java8 lambda-expression method-reference
 > [람다 표현식과 메서드 레퍼런스 활용](#2-람다-표현식과-메서드-레퍼런스-활용) 에서 좀 더 자세한 설명이 있습니다.
 
 
-아래는 [Java8 - 동작 파라메터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/) 의 _3. Comparator 로 정렬_ 에 나왔던 예시이다.
+아래는 [Java8 - 동작 파라미터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/) 의 _3. Comparator 로 정렬_ 에 나왔던 예시이다.
 
 람다 표현식으로 정렬
 ```java
@@ -235,19 +235,19 @@ System.out.println(f2); // Mango{weight=5, color='null'}
 
 이제 정렬에 대해 코드가 개선되는 과정을 다시 한번 되짚어 본다.
 
-## 2.1. 동작 파라메터화
+## 2.1. 동작 파라미터화
 
-> [Java8 - 동작 파라메터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/#3-comparator-%EB%A1%9C-%EC%A0%95%EB%A0%AC) 의 _3. Comparator 로 정렬_ 에 과정이 있습니다.
+> [Java8 - 동작 파라미터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/#3-comparator-%EB%A1%9C-%EC%A0%95%EB%A0%AC) 의 _3. Comparator 로 정렬_ 에 과정이 있습니다.
 
 List 의 sort() 메서드 시그니처는 아래와 같다.
 ```java
 void sort(Comparator<? super E> c)
 ```
 
-Comparator 객체를 인수로 받기 때문에 객체 안에 동작을 포함시키는 방식으로 다양한 정렬 전략을 전달할 수 있다. (=sort() 의 동작이 파라메터화됨)  
+Comparator 객체를 인수로 받기 때문에 객체 안에 동작을 포함시키는 방식으로 다양한 정렬 전략을 전달할 수 있다. (=sort() 의 동작이 파라미터화됨)  
 
 ```java
-// 1 - 동작 파라메터화
+// 1 - 동작 파라미터화
 public static class AppleComparator implements Comparator<Apple> {
   @Override
   public int compare(Apple o1, Apple o2) {
@@ -257,7 +257,7 @@ public static class AppleComparator implements Comparator<Apple> {
 ```
 
 ```java
-// 1 - 동작 파라메터화
+// 1 - 동작 파라미터화
 inventory.sort(new AppleComparator());
 
 // [Apple{weight=10, color='red'}, Apple{weight=100, color='red'}, Apple{weight=150, color='green'}]
@@ -280,7 +280,7 @@ inventory.sort(new Comparator<Apple>() {
 });
 ```
 
-> [Java8 - 동작 파라메터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/#22-%EC%9D%B5%EB%AA%85-%ED%81%B4%EB%9E%98%EC%8A%A4%EB%A1%9C-%EA%B0%9C%EC%84%A0) 의 _2.2. 익명 클래스로 개선_ 과 함께 보면 도움이 됩니다.
+> [Java8 - 동작 파라미터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/#22-%EC%9D%B5%EB%AA%85-%ED%81%B4%EB%9E%98%EC%8A%A4%EB%A1%9C-%EA%B0%9C%EC%84%A0) 의 _2.2. 익명 클래스로 개선_ 과 함께 보면 도움이 됩니다.
 
 ---
 
@@ -304,7 +304,7 @@ inventory.sort((Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight()))
 System.out.println(inventory);
 ```
 
-자바 컴파일러는 람다 표현식이 사용된 콘텍스트를 활용하여 람다의 파라메터 형식을 추론하므로 아래처럼 더 간략히 할 수 있다.
+자바 컴파일러는 람다 표현식이 사용된 콘텍스트를 활용하여 람다의 파라미터 형식을 추론하므로 아래처럼 더 간략히 할 수 있다.
 ```java
 inventory.sort((a1, a2) -> a1.getWeight().compareTo(a2.getWeight()));
 
@@ -336,7 +336,7 @@ import static java.util.Comparator.comparing;
 inventory.sort(comparing((a) -> a.getWeight()));
 ```
 
-> [Java8 - 동작 파라메터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/#23-%EB%9E%8C%EB%8B%A4-%ED%91%9C%ED%98%84%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EA%B0%9C%EC%84%A0) 의 _2.3. 람다 표현식으로 개선_ 과 함께 보면 도움이 됩니다.
+> [Java8 - 동작 파라미터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/#23-%EB%9E%8C%EB%8B%A4-%ED%91%9C%ED%98%84%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EA%B0%9C%EC%84%A0) 의 _2.3. 람다 표현식으로 개선_ 과 함께 보면 도움이 됩니다.
 
 ---
 
@@ -539,7 +539,7 @@ System.out.println(result2); // 3
 
 # 정리하며..
 
-- 람다 표현식은 익명 함수의 일종임, 이름은 없지만 파라메터 리스트/바디/반환 형식을 가지며 예외를 던질 수 있음
+- 람다 표현식은 익명 함수의 일종임, 이름은 없지만 파라미터 리스트/바디/반환 형식을 가지며 예외를 던질 수 있음
 - 함수형 인터페이스는 오직 하나의 추상 메서드만을 정의하는 인터페이스
 - 함수형 인터페이스를 기대하는 곳에서만 람다 표현식 사용 가능
 - java.util.function 패키지는 `Predicate<T>`, `Function<T,R>`, `Supplier<T>`, `Consumer<T>`, `BinaryOperator<T>` 등 자주 사용하는 함수형 인터페이스를 제공함

@@ -659,7 +659,7 @@ assertTath(withoutBlanks).containsExactly("java", "test");
 ## 람다에서 로컬 변수 `var` 사용 가능
 
 람다는 타입을 스킵할 수 있는데 로컬 변수를 사용하는 이유는 `@Nullable` 등의 어노테이션을 사용하기 위해 타입을 명시해야 할 때  
-var 를 사용하려면 괄호를 써야하고, 모든 파라메터에 사용해야 하며, 다른 타입과 혼용하거나 일부 스킵은 불가능함
+var 를 사용하려면 괄호를 써야하고, 모든 파라미터에 사용해야 하며, 다른 타입과 혼용하거나 일부 스킵은 불가능함
 
 ```java
 List<String> list = Arrays.asList("java", "test");

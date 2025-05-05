@@ -649,7 +649,7 @@ public class Chap142Application {
             // aggregate() 는 스트림을 서로 중첩되는 윈도우들도 나눈 뒤(여기서는 1초마다 겹치는 5초 길기의 시간 윈도우)
             // 각 윈도우에 배정된 모든 이벤트에 대해 집계 연산을 적용함
             .<TradeStats>aggregate(
-                // 첫 번째 파라메터는 집계 결과를 저장할 새로운 객체를 받음, 여기서는 TradeStats
+                // 첫 번째 파라미터는 집계 결과를 저장할 새로운 객체를 받음, 여기서는 TradeStats
                 // 이 객체는 각 시간 윈도우에서 알고자하는 모든 통계를 포함하기 위해 생성한 객체로 최저 매도가, 평균 매도가, 거래량을 포함함
                 () -> new TradeStats(),
                 // 실제로 집계를 수행하는 메서드 지정
@@ -658,7 +658,7 @@ public class Chap142Application {
                 (k, v, tradestats) -> tradestats.add(v),
                 Materialized
                     // 윈도우가 적용된 집계 작업에서는 상태를 저장할 로컬 저장소를 유지할 필요가 있음
-                    // aggregate() 의 마지막 파라메터는 상태 저장소 설정임
+                    // aggregate() 의 마지막 파라미터는 상태 저장소 설정임
                     // Materialized 는 저장소를 설정하는데 사용되는 객체로서 여기서는 저장소의 이름을 trade-aggregates 로 함
                     .<String, TradeStats, WindowStore<Bytes, byte[]>>as("trade-aggregates")
                     // 상태 저장소 설정의 일부로서 집계 결과인 Tradestats 를 직렬화/역직렬화하기 위한 Serde 객체를 지정해주어야 함

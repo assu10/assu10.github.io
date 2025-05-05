@@ -100,7 +100,7 @@ DispatcherServlet 이 모든 요청과 응답을 처리하기 때문에 여기�
   - 스프링 웹 MVC 프레임워크에서 제공하므로 표준 스펙이 아님 (스프링 프레임워크에서만 사용 가능)
   - 스프링 프레임워크 내부에서 동작하는 기능
   - 인터셉터를 스프링 애플리케이션에 추가하려면 서블릿 필터와 달라 WebMvcConfigurer 인터페이스에서 제공하는 `addInterceptor()` 메서드를 오버라이드하여 설정
-  - 컨트롤러 클래스의 핸들러 메서드와 같이 처리되므로 핸들러 메서드의 메서드 시그니처나 메서드 파라메터와 같은 정보들을 중간에 가로챌 수 있음
+  - 컨트롤러 클래스의 핸들러 메서드와 같이 처리되므로 핸들러 메서드의 메서드 시그니처나 메서드 파라미터와 같은 정보들을 중간에 가로챌 수 있음
   - 비즈니스 로직에서 발생한 예외 객체를 받아 처리 가능
   - 서블릿 필터와 마찬가지로 특정 URI 에만 적용 가능
 
@@ -139,10 +139,10 @@ public interface HandlerInterceptor {
   - 예외 객체를 사용하여 예외 정보를 참조하거나 처리할 수 있음
 
 스프링 프레임워크는 HandlerInterceptor 인터페이스를 구현하는 여러 구현체를 제공하는데 [LocaleResolver](https://assu10.github.io/dev/2023/08/05/springboot-application-1/#12-webmvcconfigurer-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%84%A4%EC%A0%95) 와 비슷한 역할을 하는 
-`LocaleChangeInterceptor` 는 요청 HTTP 메시지의 URI 에 포함된 파라메터 값을 사용하여 현재 설정된 Locale 객체를 변경하는 역할을 한다.  
-Locale 값을 변경하는 기본 파라메터명은 'locale' 이다.
+`LocaleChangeInterceptor` 는 요청 HTTP 메시지의 URI 에 포함된 파라미터 값을 사용하여 현재 설정된 Locale 객체를 변경하는 역할을 한다.  
+Locale 값을 변경하는 기본 파라미터명은 'locale' 이다.
 
-파라메터값는 언어 태그나 지역 코드를 합친 언어 태그를 사용하고 보통 java.util.Locale 객체의 toString() 값을 사용한다.
+파라미터값는 언어 태그나 지역 코드를 합친 언어 태그를 사용하고 보통 java.util.Locale 객체의 toString() 값을 사용한다.
 
 > en_US 에서 en 은 언어 태그, US 는 지역 태그  
 
@@ -154,7 +154,7 @@ Locale 값을 변경하는 기본 파라메터명은 'locale' 이다.
   - 사용자 요청 메시지에서 Locale 정보를 분석하여 Locale 객체 생성(resolveLocale()) 하고, Locale 객체를 저장(setLocale())
   - Locale 객체는 사용자마다 다른 값이 될 수 있고, 저장 대상이 쿠키, 세션 등이 될 수 있음
 - **LocaleChangeInterceptor**
-  - 저장된 Locale 객체를 HTTP 파라메터를 사용하여 변경함
+  - 저장된 Locale 객체를 HTTP 파라미터를 사용하여 변경함
 
 따라서 두 클래스는 기능을 서로 보완하는 관계이며, LocaleResolver 없이 LocaleChangeInterceptor 혼자 동작하지 않는다.
 
@@ -166,7 +166,7 @@ public class WebConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-    // locale 파라메터값을 Locale 객체로 변경
+    // locale 파라미터값을 Locale 객체로 변경
     localeChangeInterceptor.setParamName("locale");
     // 인터셉터 추가
     registry.addInterceptor(localeChangeInterceptor)
@@ -264,7 +264,7 @@ public class WebConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-    // locale 파라메터값을 Locale 객체로 변경
+    // locale 파라미터값을 Locale 객체로 변경
     localeChangeInterceptor.setParamName("locale");
     System.out.println("--- Interceptor addInterceptors()");
     // 인터셉터 추가
@@ -287,8 +287,8 @@ public class WebConfig implements WebMvcConfigurer {
     FilterRegistrationBean<CharacterEncodingFilter> filterBean = new FilterRegistrationBean<>();
     // 새로 생성한 FilterRegistrationBean 객체에 setFilter() 를 사용하여 CharacterEncodingFilter 서블릿 필터 객체 설정
     filterBean.setFilter(encodingFilter);
-    // 초기 파라메터 설정
-    // 이 때 파라메터 명과 값을 넣으면 서블릿 필터 인터페이스인 Filter 의 init() 메서드 인자인 FilterConfig 객체에서 사용할 수 있음
+    // 초기 파라미터 설정
+    // 이 때 파라미터 명과 값을 넣으면 서블릿 필터 인터페이스인 Filter 의 init() 메서드 인자인 FilterConfig 객체에서 사용할 수 있음
     filterBean.addInitParameter("paramName", "paramValue");
     // 필터를 적용할 URL 패턴 설정
     filterBean.addUrlPatterns("*");
@@ -304,8 +304,8 @@ public class WebConfig implements WebMvcConfigurer {
     LoggingFilter loggingFilter = new LoggingFilter();
     FilterRegistrationBean<LoggingFilter> filterBean = new FilterRegistrationBean<>();
     filterBean.setFilter(loggingFilter);
-    // 초기 파라메터 설정
-    // 이 때 파라메터 명과 값을 넣으면 서블릿 필터 인터페이스인 Filter 의 init() 메서드 인자인 FilterConfig 객체에서 사용할 수 있음
+    // 초기 파라미터 설정
+    // 이 때 파라미터 명과 값을 넣으면 서블릿 필터 인터페이스인 Filter 의 init() 메서드 인자인 FilterConfig 객체에서 사용할 수 있음
     filterBean.addInitParameter("paramName", "paramValue");
     // 필터를 적용할 URL 패턴 설정
     filterBean.addUrlPatterns("*");

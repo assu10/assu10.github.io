@@ -495,7 +495,7 @@ class OrderSummaryDaoIT {
 # 3. 페이징 처리: `Pageable`, `PageRequest`, `Sort`
 
 스프링 데이터 JPA 는 페이징 처리를 위한 `Pageable` 타입을 지원한다.  
-`Sort` 타입과 마찬가지로 find() 메서드에 `Pageable` 타입 파라메터를 사용하면 페이징을 자동으로 처리해준다.
+`Sort` 타입과 마찬가지로 find() 메서드에 `Pageable` 타입 파라미터를 사용하면 페이징을 자동으로 처리해준다.
 
 MemberDataDao.java
 ```java
@@ -507,12 +507,12 @@ import org.springframework.data.repository.Repository;
 import java.util.List;
 
 public interface MemberDataDao extends Repository<MemberData, String> {
-    // 마지막 파라메터로 Pageable 타입을 가짐
+    // 마지막 파라미터로 Pageable 타입을 가짐
     List<MemberData> findByNameLike(String name, Pageable pageable);
 }
 ```
 
-위의 _findByNameLike()_ 는 마지막 파라메터로 `Pageable` 타입을 가진다.  
+위의 _findByNameLike()_ 는 마지막 파라미터로 `Pageable` 타입을 가진다.  
 
 MemberData.java (조회 모델)
 ```java

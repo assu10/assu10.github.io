@@ -198,7 +198,7 @@ public List<Order> findByOrdererId(String ordererId, int startRow, int fetchSize
 }
 ```
 
-애그리거트를 삭제할 때는 애그리거트 객체를 파라메터로 받는다.
+애그리거트를 삭제할 때는 애그리거트 객체를 파라미터로 받는다.
 ```java
 public interface OrderRepository {
     public void delete(Order order);
@@ -602,7 +602,7 @@ public class Order {
 엔티티와 밸류의 생성자는 객체를 생성할 때 필요한 것들을 모두 전달받는다.
 
 _Receiver_ 밸류가 불변 타입이면 생성 시점에 필요한 값을 모두 전달받으므로 값을 변경하는 setter 를 제공하지 않는다.  
-이 말은 **_Receiver_ 불변 클래스에 파라메터가 없는 기본 생성자는 추가할 필요가 없다는 것을 의미**한다.
+이 말은 **_Receiver_ 불변 클래스에 파라미터가 없는 기본 생성자는 추가할 필요가 없다는 것을 의미**한다.
 
 **하지만 DB 에서 데이터를 읽어온 후 매핑된 객체를 생성할 때 기본 생성자를 사용해서 객체를 생성하기 때문에 JPA 에서 `@Entity` 와 `@Embeddable` 클래스를 매핑하려면  
 기본 생성자를 제공**해야 한다.
@@ -719,7 +719,7 @@ public interface AttributeConverter<X, Y> {
 }
 ```
 
-위에서 **파라메터 X 는 밸류 타입이고, Y 는 DB 타입**이다.
+위에서 **파라미터 X 는 밸류 타입이고, Y 는 DB 타입**이다.
 
 Money 를 위한 AttributeConverter 는 아래와 같이 구현할 수 있다.
 

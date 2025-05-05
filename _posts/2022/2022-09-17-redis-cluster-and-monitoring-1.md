@@ -672,8 +672,8 @@ Redis 복제 시스템은 `Master-Slave`, `Master-Slave-Sentinel`, `Partition-Re
 
 Slave 는 ReadOnly 이기 때문에 Master 서버에 장애 발생 시 데이터 유실이 발생할 수 밖에 없는데 이를 방지하기 위헤 복제 서버에서 실시간 full 동기화작업이 수행된다. (Redis 3.2 버전)
 
-실제 동기화 데이터가 적은 경우 불필요한 작업이 발생하기 때문에 Redis 4.0 부터는 부분 동기화 작업이 가능할 수 있도록 `repl-backlog-size` 파라메터를 제공한다.  
-동기화 대상 데이터의 크기가 `repl-backlog-size` 파라메터 크기보다 큰 경우 full sync 작업이 수행된다. 
+실제 동기화 데이터가 적은 경우 불필요한 작업이 발생하기 때문에 Redis 4.0 부터는 부분 동기화 작업이 가능할 수 있도록 `repl-backlog-size` 파라미터를 제공한다.  
+동기화 대상 데이터의 크기가 `repl-backlog-size` 파라미터 크기보다 큰 경우 full sync 작업이 수행된다. 
 
 ```shell
 $ vi redis.conf

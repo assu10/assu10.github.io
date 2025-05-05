@@ -1204,7 +1204,7 @@ public class HotelController {
 `MockMvc` 를 사용하여 테스트 케이스를 작성할 때 주로 아래 클래스들을 함께 사용한다.
 - `MockMvcRequestBuilders`
   - MockMvc 를 사용하여 HTTP 요청을 전달할 때 HTTP 요청을 Mock 객체로 만들 수 있는 기능 제공
-  - 따라서 요청 메시지의 HTTP 헤더나 파라메터, HTTP body 를 설정할 수 있는 메서드 제공
+  - 따라서 요청 메시지의 HTTP 헤더나 파라미터, HTTP body 를 설정할 수 있는 메서드 제공
   - HTTP Request 의 역할
 - `MockMvcResultMatchers`
   - HTTP 응답 메시지를 검증할 수 있는 기능들 제공

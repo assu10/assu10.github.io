@@ -490,7 +490,7 @@ public @interface Autowired {
 }
 ```
 
-`@Autowired` 는 생성자, 메서드, 파라메터, 필드, 애너테이션에 정의 가능하다.  
+`@Autowired` 는 생성자, 메서드, 파라미터, 필드, 애너테이션에 정의 가능하다.  
 `@Autowired` 는 의존성을 주입받는 곳에 표시한다.
 
 
@@ -505,7 +505,7 @@ public @interface Qualifier {
 }
 ```
 
-`@Qualifier` 는 메서드, 파라메터, 필드, 애너테이션에 정의 가능하다. value 속성값은 Spring bean 의 이름이 된다.  
+`@Qualifier` 는 메서드, 파라미터, 필드, 애너테이션에 정의 가능하다. value 속성값은 Spring bean 의 이름이 된다.  
 `@Qualifier` 는 의존성을 주입할 Spring bean 이름을 정의한다. 
 **클래스 타입은 같지만 이름이 다른 여러 Spring bean 이 있을 경우 이 중 정의된 이름의 Spring bean 을 주입받기 위해 사용**한다.  
 (`@Qualifier` 애너테이션이 아닌 [`@Primary`](#81-primary) 로도 처리 가능)  

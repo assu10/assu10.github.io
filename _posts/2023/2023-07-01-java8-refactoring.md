@@ -348,7 +348,7 @@ System.out.println(dishNames2);
 
 ## 1.4. 코드 유연성 개선
 
-코드의 유연성은 [동작 파라메터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/)를 통해 개선할 수 있다.
+코드의 유연성은 [동작 파라미터화](https://assu10.github.io/dev/2023/05/27/java8-behavior-parameterization/)를 통해 개선할 수 있다.
 
 즉, 다양한 람다를 전달하여 동작을 다양하게 표현할 수 있다.
 

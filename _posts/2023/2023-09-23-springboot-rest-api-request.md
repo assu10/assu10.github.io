@@ -1055,7 +1055,7 @@ GET /billing-codes?type=hotel&flight  // 인코딩 전
 GET /billing-codes?type=hotel%26flight  // 인코딩 후
 ```
 
-만일 파라메터값이 한글이면 UTF-8 같은 캐릭터셋으로 인코딩한 후 다시 퍼센트 인코딩을 해야 한다.  
+만일 파라미터값이 한글이면 UTF-8 같은 캐릭터셋으로 인코딩한 후 다시 퍼센트 인코딩을 해야 한다.  
 클라이언트는 URL 을 인코딩하고, 요청을 받은 서버는 디코딩해서 요청한 문자열 값으로 변환한다.  
 스프링 MVC 프레임워크는 자동으로 URL 값을 디코딩하기 때문에 `@PathVariable` 이나 `@RequestParam` 애넡이션을 사용하여 주입받은 변수들은 자동으로 디코딩된다.
 

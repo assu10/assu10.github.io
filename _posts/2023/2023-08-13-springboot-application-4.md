@@ -96,7 +96,7 @@ src > main > resources 경로에 위치한 application.properties 파일은 clas
 ## 1.1. `@Value` 애너테이션
 
 application.properties 파일에 정의된 데이터를 스프링 빈에 주입하려면 `@Value` 애너테이션을 사용한다.  
-`@Value` 애너테이션을 정의하여 데이터를 주입할 수 있는 대상은 클래스 필드와 메서드, 그리고 파라메터이다.
+`@Value` 애너테이션을 정의하여 데이터를 주입할 수 있는 대상은 클래스 필드와 메서드, 그리고 파라미터이다.
 
 메서드에 `@Value` 애너테이션을 정의할 때 해당 메서드는 setter 패턴으로 정의되어 있어야 하기 때문에 메서드에 인자가 필요하며,  
 `@Value` 애너테이션은 프로퍼티 키와 매칭된 데이터를 주입한다.
@@ -301,11 +301,11 @@ public class HotelRoomController {
 스프링 프로파일 값은 `spring.profiles.active` 시스템 환경 변수 값으로 관리 가능하다.
 
 프로파일 변수값은 크게 두 가지 방법으로 설정 가능하다.
-- 애플리케이션을 실행할 때 JVM 파라메터를 사용하여 설정
+- 애플리케이션을 실행할 때 JVM 파라미터를 사용하여 설정
 - `export` 를 사용하여 설정
 
-JVM 파라메터를 추가하려면 `-D` 와 함께 파라메터명과 값을 추가한다.  
-파라메터명은 spring.profiles.active 이므로 `java -jar ./application.jar -Dspring.profiles.active=dev` 이런 식으로 추가한다.
+JVM 파라미터를 추가하려면 `-D` 와 함께 파라미터명과 값을 추가한다.  
+파라미터명은 spring.profiles.active 이므로 `java -jar ./application.jar -Dspring.profiles.active=dev` 이런 식으로 추가한다.
 
 리눅스 계열 OS 에서 java 애플리케이션을 실행할 때는 쉘 스크립트를 사용하는데 이 때 `export` 키워드를 사용하여 환경 변수를 정의할 수 있다.
 

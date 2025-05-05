@@ -263,7 +263,7 @@ public interface Specification<T> extends Serializable {
 }
 ```
 
-**스펙 인터페이스에서 제네릭 타입 파라메터 T 는 JPA 엔티티 타입**이다.
+**스펙 인터페이스에서 제네릭 타입 파라미터 T 는 JPA 엔티티 타입**이다.
 
 아래 조건에 해당하는 스펙을 구현해보자.
 - 엔티티 타입은 _OrderSummary_
@@ -532,7 +532,7 @@ _org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor_
 
 **스펙을 충족하는 엔티티를 검색하고 싶다면 `findAll()` 메서드를 사용**한다.
 
-`findAll()` 메서드는 스펙 인터페이스를 파라메터로 가지며, 스펙 구현체를 전달하면 특정 조건을 충족하는 엔티티 검색이 가능하다.
+`findAll()` 메서드는 스펙 인터페이스를 파라미터로 가지며, 스펙 구현체를 전달하면 특정 조건을 충족하는 엔티티 검색이 가능하다.
 
 OrderSummaryDao.java
 ```java
@@ -546,7 +546,7 @@ import java.util.List;
 
 public interface OrderSummaryDao extends Repository<OrderSummary, String> {
 
-    // 스펙 인터페이스를 파라메터로 갖는 findAll()
+    // 스펙 인터페이스를 파라미터로 갖는 findAll()
     List<OrderSummary> findAll(Specification<OrderSummary> spec);
 }
 ```

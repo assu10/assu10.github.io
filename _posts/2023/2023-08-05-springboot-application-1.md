@@ -153,19 +153,19 @@ public class WebConfig implements WebMvcConfigurer {
 ```java
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-  // Accept 헤더 대신 URI 의 파라메터를 사용하여 request 분석
+  // Accept 헤더 대신 URI 의 파라미터를 사용하여 request 분석
   @Override
   public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
     configurer
-        // 컨텐츠 협상 기능을 사용하기 위한 URI 파라메터명을 contentType 으로 설정
+        // 컨텐츠 협상 기능을 사용하기 위한 URI 파라미터명을 contentType 으로 설정
         .parameterName("contentType")
         // Accept 헤더를 사용한 컨텐츠 협상 기능은 사용하지 않음
         .ignoreAcceptHeader(true)
         // 컨텐츠 협상 과정에서 적합한 값을 찾지 못하면 기본값 application/json 으로 설정
         .defaultContentType(MediaType.APPLICATION_JSON)
-        // URI 파라메터 contentType 값이 json 이면 application/json 으로 간주
+        // URI 파라미터 contentType 값이 json 이면 application/json 으로 간주
         .mediaType("json", MediaType.APPLICATION_JSON)
-        // URI 파라메터 contentType 값이 xml 이면 application/xml 로 간주
+        // URI 파라미터 contentType 값이 xml 이면 application/xml 로 간주
         .mediaType("xml", MediaType.APPLICATION_XML);
   }
 }
@@ -512,7 +512,7 @@ public Callable<HotelRoomResponse> getHotelRoomByPeriod(
 ---
 
 **컨버터를 이용하여 문자열을 enum 상수로 바인딩**할 수도 있다.  
-REST-API 설계 시 특정 도메인의 타입이나 상태를 파라메터로 받을 때가 많다.
+REST-API 설계 시 특정 도메인의 타입이나 상태를 파라미터로 받을 때가 많다.
 
 아래는 문자열을 HotelRoomType enum 변환하는 컨버터 구현체이다.
 
@@ -624,16 +624,16 @@ public class HotelRoomNumberFormatter implements Formatter<HotelRoomNumber> {
 
 - `Converter`, `Formatter`
   - `@PathVariable` 이나  `@RequestParam` 같은 애너테이션과 함께 사용
-  - 애너테이션 설정으로 URI 나 URI 파라메터에 변환할 데이터를 정의하고, 애너테이션이 정의된 변수에 데이터를 변환하여 주입
+  - 애너테이션 설정으로 URI 나 URI 파라미터에 변환할 데이터를 정의하고, 애너테이션이 정의된 변수에 데이터를 변환하여 주입
 - `AugumentResolver`
   - 대상 데이터를 정하지 않고 사용자가 요청한 HTTP 메시지에서 필요한 모든 것을 선택하여 가공 후 객체로 변환
   - 따라서 `@PathVariable` 이나  `@RequestParam` 같은 애너테이션 없이 동작함
-  - 예) 요청 메시지의 헤더, 쿠키, 파라메터, URI 나 요청 메시지 등 모든 정보를 조합하여 변환
+  - 예) 요청 메시지의 헤더, 쿠키, 파라미터, URI 나 요청 메시지 등 모든 정보를 조합하여 변환
 
 `ArgumentResolver` 구현체는 o.s.web.method.support.HandlerMethodArgumentResolver 인터페이스를 구현하면 된다.
 
 `SortHandlerMethodArgumentResolver` 와 `PageableHandlerMethodArgumentResolver` 가 `ArgumentResolver` 의 대표적인 구현 클래스이다.
-사용자 HTTP 요청 메시지의 URL 파라메터를 이용하여 각각 Sort 와 Pageable 객체로 변환하고 주입한다.
+사용자 HTTP 요청 메시지의 URL 파라미터를 이용하여 각각 Sort 와 Pageable 객체로 변환하고 주입한다.
 
 REST-API 에 `X-SPRING-CHANNEL` 헤더가 반드시 필요하고, 클라이언트의 IP 를 포함하여 ClientInfo 클래스로 변환해보자.
 

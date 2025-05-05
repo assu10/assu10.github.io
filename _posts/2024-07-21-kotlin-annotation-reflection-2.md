@@ -81,7 +81,7 @@ tags: kotlin reflection
 
 > `KClass` 대해 좀 더 다양한 내용을 알기 위해  
 > [1. 함수의 타입 인자에 대한 실체화: `reified`, `KClass`](https://assu10.github.io/dev/2024/03/18/kotlin-advanced-2-1/#1-%ED%95%A8%EC%88%98%EC%9D%98-%ED%83%80%EC%9E%85-%EC%9D%B8%EC%9E%90%EC%97%90-%EB%8C%80%ED%95%9C-%EC%8B%A4%EC%B2%B4%ED%99%94-reified-kclass),  
-> [6. 애너테이션 파라메터로 클래스 사용: KClass](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#6-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0%EB%A1%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%82%AC%EC%9A%A9-kclass)  
+> [6. 애너테이션 파라미터로 클래스 사용: KClass](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#6-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0%EB%A1%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%82%AC%EC%9A%A9-kclass)  
 > 와 함께 보면 도움이 됩니다.
 
 java.lang.Class 에 해당하는 `KClass` 를 사용하면 클래스 안에 있는 모든 선언을 열거하고, 각 선언에 접근하거나 클래스의 상위 클래스를 얻는 등의 작업이 가능하다.
@@ -229,15 +229,15 @@ fun main() {
 
 이 함수 참조가 가리키는 함수를 호출하려면 `KCallable.call()` 메서드를 호출한다.
 
-`call()` 에 넘기는 인자 개수와 원래 함수에 정의된 파라메터 개수가 틀리면 _Callable expects 1 arguments, but 2 were provided._ **런타임 에러**가 발생한다.
+`call()` 에 넘기는 인자 개수와 원래 함수에 정의된 파라미터 개수가 틀리면 _Callable expects 1 arguments, but 2 were provided._ **런타임 에러**가 발생한다.
 
 함수 호출을 위해 더 구체적인 메서드를 사용할 수도 있다.
 
-위에서 **_::foo_ 의 타입 _KFunction1\<Int, Unit\>_ 에는 파라메터와 반환값 타입 정보**가 들어있다.  
-여기서 **`1` 은 이 함수의 파라메터가 1개라는 의미**이다.
+위에서 **_::foo_ 의 타입 _KFunction1\<Int, Unit\>_ 에는 파라미터와 반환값 타입 정보**가 들어있다.  
+여기서 **`1` 은 이 함수의 파라미터가 1개라는 의미**이다.
 
 `KFunction1` 인터페이스를 통해 함수를 호출하려면 `invoke()` 메서드를 사용해야 한다.  
-**`invoke()` 메서드는 정해진 개수의 인자만을 받아들이며 (`KFunction1` 은 1개), 인자 타입은 `KFunction1` 제네릭 인터페이스의 첫 번째 타입 파라메터**와 같다.  
+**`invoke()` 메서드는 정해진 개수의 인자만을 받아들이며 (`KFunction1` 은 1개), 인자 타입은 `KFunction1` 제네릭 인터페이스의 첫 번째 타입 파라미터**와 같다.  
 또한 `invoke()` 를 명시적으로 호출하는 대신 _kFunctionFoo1_ 을 직접 호출할 수도 있다.
 
 > `invoke()` 를 명시적으로 호출하지 않고도 직접 _kFunctionFoo1_ 을 호출할 수 있는 이유에 대해서는 [1. `invoke()` 관례를 사용한 블록 중첩](https://assu10.github.io/dev/2024/08/03/kotlin-dsl-2/#1-invoke-%EA%B4%80%EB%A1%80%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%B8%94%EB%A1%9D-%EC%A4%91%EC%B2%A9) 을 참고하세요.
@@ -275,8 +275,8 @@ fun main() {
 
 ### 2.2.1. `KFunctionN` 인터페이스가 생성되는 시기와 방법
 
-`KFunction1` 과 같은 타입은 파라메터 개수가 다른 여러 함수를 표현한다.  
-각 `KFunctionN` 타입은 `KFunction` 을 확장하며, N 과 파라메터 개수가 같은 `invoke()` 메서드를 추가로 포함한다.
+`KFunction1` 과 같은 타입은 파라미터 개수가 다른 여러 함수를 표현한다.  
+각 `KFunctionN` 타입은 `KFunction` 을 확장하며, N 과 파라미터 개수가 같은 `invoke()` 메서드를 추가로 포함한다.
 
 예를 들어 `KFunction2<P1, P2, R>` 에는 `operator fun invoke(p1: P1, p2: P2): R` 선언이 있다.
 
@@ -284,9 +284,9 @@ fun main() {
 
 **따라서 kotlin.reflect 패키지에서 이런 타입의 정의를 찾을수는 없다.**
 
-코틀린에서는 컴파일러가 생성한 합성 타입을 사용하기 때문에 원하는 수만큼 많은 파라메터를 갖는 함수에 대한 인터페이스를 사용할 수 있다.
+코틀린에서는 컴파일러가 생성한 합성 타입을 사용하기 때문에 원하는 수만큼 많은 파라미터를 갖는 함수에 대한 인터페이스를 사용할 수 있다.
 
-합성 타입을 사용하기 때문에 코틀린은 `kotlin-runtime.jar` 의 크기를 줄일 수 있고, 함수 파라메터 개수에 대한 제약을 피할 수 있다.
+합성 타입을 사용하기 때문에 코틀린은 `kotlin-runtime.jar` 의 크기를 줄일 수 있고, 함수 파라미터 개수에 대한 제약을 피할 수 있다.
 
 ---
 
@@ -347,8 +347,8 @@ fun main() {
 
 `KProperty1` 은 제네릭 클래스이다.
 
-위에서 _memberProperty_ 변수는 **`KProperty1<People, Int>` 타입으로 첫 번째 타입 파라메터는 수신 객체 타입, 두 번째 타입 파라메터는 프로퍼티 타입**이다.  
-따라서 수신 객체를 넘길 때는 `KProperty1` 의 타입 파라메터와 일치하는 타입의 객체만을 넘길 수 있고, _memberProperty.get("aa")_ 와 같은 호출은 컴파일이 되지 않는다.
+위에서 _memberProperty_ 변수는 **`KProperty1<People, Int>` 타입으로 첫 번째 타입 파라미터는 수신 객체 타입, 두 번째 타입 파라미터는 프로퍼티 타입**이다.  
+따라서 수신 객체를 넘길 때는 `KProperty1` 의 타입 파라미터와 일치하는 타입의 객체만을 넘길 수 있고, _memberProperty.get("aa")_ 와 같은 호출은 컴파일이 되지 않는다.
 
 `KPeoperty` 인터페이스 시그니처
 
@@ -454,7 +454,7 @@ fun main() {
     // 최상위 수준이나 클래스 안에 정의된 멤버 프로퍼티만 리플렉션으로 접근 가능
     // 컴파일 오류
     // References to variables and parameters are unsupported
-    // (변수와 파라메터에 대한 참조는 지원하지 않음)
+    // (변수와 파라미터에 대한 참조는 지원하지 않음)
   
     // val memberProperty = ::x
 }
@@ -505,9 +505,9 @@ private fun StringBuilder.serializeObject(obj: Any) {
 }
 ```
 
-위처럼 함수 파라메터를 확장 함수의 수신 객체로 바꾸는 방식은 코틀린에서 흔히 사용하는 패턴이다.
+위처럼 함수 파라미터를 확장 함수의 수신 객체로 바꾸는 방식은 코틀린에서 흔히 사용하는 패턴이다.
 
-> 함수 파라메터를 확장 함수의 수신 객체로 바꾸는 방식은 코틀린에서 흔히 사용하는 패턴으로 이에 대한 내용은 [2. 구조화된 API: DSL 에서 수신 객체 지정 DSL 사용](https://assu10.github.io/dev/2024/07/28/kotlin-dsl-1/#2-%EA%B5%AC%EC%A1%B0%ED%99%94%EB%90%9C-api-dsl-%EC%97%90%EC%84%9C-%EC%88%98%EC%8B%A0-%EA%B0%9D%EC%B2%B4-%EC%A7%80%EC%A0%95-dsl-%EC%82%AC%EC%9A%A9) 을 참고하세요.
+> 함수 파라미터를 확장 함수의 수신 객체로 바꾸는 방식은 코틀린에서 흔히 사용하는 패턴으로 이에 대한 내용은 [2. 구조화된 API: DSL 에서 수신 객체 지정 DSL 사용](https://assu10.github.io/dev/2024/07/28/kotlin-dsl-1/#2-%EA%B5%AC%EC%A1%B0%ED%99%94%EB%90%9C-api-dsl-%EC%97%90%EC%84%9C-%EC%88%98%EC%8B%A0-%EA%B0%9D%EC%B2%B4-%EC%A7%80%EC%A0%95-dsl-%EC%82%AC%EC%9A%A9) 을 참고하세요.
 
 _StringBuilder.serializeObject()_ 는 `StringBuilder` API 를 확장하지 않는다는 점에 유의하자.    
 _StringBuilder.serializeObject()_ 가 수행하는 연산은 외부에선 전혀 쓸모가 없기 때문에 private 가시성을 지정하여 다른 곳에서는 사용할 수 없게 하였다.  

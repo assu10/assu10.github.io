@@ -108,7 +108,7 @@ pom.xml
 
 메시지 프로퍼티 파일의 위치는 클래스 패스에 있어야 하며, 스프링 프로젝트 resources 폴더 하위에 생성한다.
 
-프로퍼티 파일 내에서 파라메터는 `{}` 로 그 위치를 정의할 수 있으며, 배열의 인덱스 숫자와 함께 설정한다.
+프로퍼티 파일 내에서 파라미터는 `{}` 로 그 위치를 정의할 수 있으며, 배열의 인덱스 숫자와 함께 설정한다.
 
 ```properties
 # messages_en.properties
@@ -142,7 +142,7 @@ public interface MessageSource {
 
 - 첫 번째 메서드
   - code: 프로퍼티 파일에서 관리하고 있는 메시지와 매핑할 수 있는 고유 키. 예) main.cart.title
-  - args: 메시지에 포함된 파라메터 배열 순서대로 교체할 값
+  - args: 메시지에 포함된 파라미터 배열 순서대로 교체할 값
   - defaultMessage: args 에서 인자를 교체할 때 code 인자와 매핑되는 메시지 프로퍼티가 없으면 인자로 넘긴 defaultMessage 리턴
   - locale: 사용자 언어, Locale 의 언어 코드와 매핑되는 메시지 프로퍼티 파일에서 프로퍼티 값 리턴
 - 두 번째 메서드
@@ -270,10 +270,10 @@ public class WebConfig implements WebMvcConfigurer {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    // 클라이언트가 웹 서버에 리소스를 요청할 때 Accept-Language 헤더가 아닌 파라메터로 Locale 값을 변경하고 싶을 때 LocaleChangeInterceptor 사용
+    // 클라이언트가 웹 서버에 리소스를 요청할 때 Accept-Language 헤더가 아닌 파라미터로 Locale 값을 변경하고 싶을 때 LocaleChangeInterceptor 사용
     LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
 
-    // locale 파라메터값을 Locale 객체로 변경
+    // locale 파라미터값을 Locale 객체로 변경
     // GET /hotels?locale=ko 로 요청 시 Locale 객체를 생성
     localeChangeInterceptor.setParamName("locale");
     System.out.println("--- Interceptor addInterceptors()");
@@ -426,7 +426,7 @@ curl --location 'http://localhost:18080/error?locale=en' | jq
 }
 ```
 
-이렇게 파라메터로 Locale 설정 시 아래와 같은 에러가 난다.
+이렇게 파라미터로 Locale 설정 시 아래와 같은 에러가 난다.
 
 ```shell
 Cannot change HTTP Accept-Language header - use a different locale resolution strategy
@@ -447,7 +447,7 @@ public class WebConfig implements WebMvcConfigurer {
 //    return acceptHeaderLocaleResolver;
 //  }
 
-  // 헤더의 Accept-Language 가 아닌 파라메터로 Locale 값 변경 시 사용
+  // 헤더의 Accept-Language 가 아닌 파라미터로 Locale 값 변경 시 사용
   @Bean(value = "localeResolver")
   public LocaleResolver localeResolver() {
     SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();

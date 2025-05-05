@@ -10,7 +10,7 @@ tags: kotlin annotation
 
 > 소스는 [github](https://github.com/assu10/kotlin-2/tree/feature/chap10) 에 있습니다.
 
-어떤 함수를 호출하려면 그 함수가 정의된 클래스의 이름과 함수 이름, 파라메터 이름 등을 알아야만 한다.
+어떤 함수를 호출하려면 그 함수가 정의된 클래스의 이름과 함수 이름, 파라미터 이름 등을 알아야만 한다.
 
 하지만 애너테이션과 리플렉션을 사용하면 그런 제약을 벗어나서 미리 알지 못하는 임의의 클래스를 다룰 수 있다.
 
@@ -31,8 +31,8 @@ tags: kotlin annotation
 * [4. 애너테이션 선언: `annotation`](#4-애너테이션-선언-annotation)
 * [5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어 `@Target`](#5-메타-애너테이션-애너테이션을-처리하는-방법-제어-target)
   * [5.1. `@Retention`](#51-retention)
-* [6. 애너테이션 파라메터로 클래스 사용: `KClass`](#6-애너테이션-파라메터로-클래스-사용-kclass)
-* [7. 애너테이션 파라메터로 제네릭 클래스 받기](#7-애너테이션-파라메터로-제네릭-클래스-받기)
+* [6. 애너테이션 파라미터로 클래스 사용: `KClass`](#6-애너테이션-파라미터로-클래스-사용-kclass)
+* [7. 애너테이션 파라미터로 제네릭 클래스 받기](#7-애너테이션-파라미터로-제네릭-클래스-받기)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -51,7 +51,7 @@ tags: kotlin annotation
 
 코틀린도 자바처럼 메타데이터를 선언에 추가하면 애너테이션을 처리하는 도구가 컴파일 시점이나 실행 시점에 적절한 처리를 해준다.
 
-`@Deprecated` 애너테이션을 예로 들면 코틀린에서는 `replaceWith` 파라메터를 통해 옛 버전을 대신할 수 있는 패턴을 제시하여, API 사용자는 그 패턴을 보고 
+`@Deprecated` 애너테이션을 예로 들면 코틀린에서는 `replaceWith` 파라미터를 통해 옛 버전을 대신할 수 있는 패턴을 제시하여, API 사용자는 그 패턴을 보고 
 지원이 종료될 API 기능을 더 쉽게 새로운 버전으로 포팅할 수 있다.
 
 ```kotlin
@@ -104,7 +104,7 @@ fun main() {
 애너테이션 인자는 컴파일 시점에 알 수 있어야 하므로 임의의 프로퍼티를 인자로 지정할 수는 없다.  
 프로퍼티를 애너테이션 인자로 사용하려면 그 앞에[`const`](https://assu10.github.io/dev/2024/02/12/kotlin-funtional-programming-1/#42-%EC%B5%9C%EC%83%81%EC%9C%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-const) 변경자를 붙여서 컴파일러가 해당 프로퍼티를 컴파일 시점에 상수로 취급할 수 있도록 해야 한다.
 
-jUnit 의 `@Test` 애너테이션에 `timeout` 파라메터를 사용하여 ms 단위로 타임아웃 시간을 정하는 예시
+jUnit 의 `@Test` 애너테이션에 `timeout` 파라미터를 사용하여 ms 단위로 타임아웃 시간을 정하는 예시
 
 ```kotlin
 const val TEST_TIMEOUT = 100L
@@ -121,8 +121,8 @@ fun testMethod() {
 
 코틀린 소스 코드에서 한 선언을 컴파일한 결과가 여러 자바 선언과 대응하는 경우는 자주 있는데 이 때 코틀린 선언과 대응하는 여러 자바 선언에 각각 애너테이션을 붙여야 할 때가 있다.
 
-예를 들어 코틀린 프로퍼티는 기본적으로 자바 필드와 getter 메서드 선언과 대응하고, 프로퍼티가 변경 가능하면 setter 에 대응하는 자바 setter 메서드와 setter 파라메터가 추가된다.  
-만일 주 생성자에서 프로퍼티를 선언하면 이런 접근자 메서드(getter/setter) 와 파라메터 외에 자바 생성자 파라메터와도 대응된다.
+예를 들어 코틀린 프로퍼티는 기본적으로 자바 필드와 getter 메서드 선언과 대응하고, 프로퍼티가 변경 가능하면 setter 에 대응하는 자바 setter 메서드와 setter 파라미터가 추가된다.  
+만일 주 생성자에서 프로퍼티를 선언하면 이런 접근자 메서드(getter/setter) 와 파라미터 외에 자바 생성자 파라미터와도 대응된다.
 
 따라서 **애너테이션을 붙일 때 이런 요소 중에서 어떤 요소에 애너테이션을 붙일 지 표시**할 필요가 있다.
 
@@ -151,11 +151,11 @@ fun testMethod() {
 - **`set`**
   - 프로퍼티 setter
 - **`receiver`**
-  - 확장 함수나 프로퍼티의 수신 객체 파라메터
+  - 확장 함수나 프로퍼티의 수신 객체 파라미터
 - **`param`**
-  - 생성자 파라메터
+  - 생성자 파라미터
 - **`setparam`**
-  - setter 파라메터
+  - setter 파라미터
 - **`delegate`**
   - [위임 프로퍼티](https://assu10.github.io/dev/2024/03/24/kotlin-advanced-4/)의 위임 인스턴스를 담아둔 필드
 - **`file`**
@@ -199,7 +199,7 @@ fun test(list: List<*>) {
 > - **`@JvmStatic`**
 >   - 메서드, 객체 선언, 동반 객체에 적용 시 그 요소가 자바 정적 메서드로 노출됨
 > - [**`@JvmOverloads`**](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#%EB%94%94%ED%8F%B4%ED%8A%B8-%EA%B0%92%EA%B3%BC-%EC%9E%90%EB%B0%94-jvmoverloads)
->   - 디폴트 파라메터 값이 있는 함수에 대해 컴파일러가 자동으로 오버로딩한 함수 생성
+>   - 디폴트 파라미터 값이 있는 함수에 대해 컴파일러가 자동으로 오버로딩한 함수 생성
 > - **`@JvmField`**
 >   - 프로퍼티에 사용하면 getter 나 setter 가 없는 public 자바 필드로 프로퍼티를 노출시킴
 
@@ -302,7 +302,7 @@ class PersonTest {
 
 # 4. 애너테이션 선언: `annotation`
 
-위에서 사용한 @JsonExclude 는 아무 파라메터도 없는 가장 단순한 애너테이션이다.
+위에서 사용한 @JsonExclude 는 아무 파라미터도 없는 가장 단순한 애너테이션이다.
 
 ```kotlin
 @Target(AnnotationTarget.PROPERTY)
@@ -313,14 +313,14 @@ annotation class JsonExclude
 정의하기 때문에 내부에 아무 코드도 들어있을 수 없다.**  
 따라서 컴파일러는 애너테이션 클래스에서 본문을 정의하지 못하게 막는다.
 
-**파라메터가 있는 애너테이션을 정의하려면 애너테이션 클래스의 주생성자에 파라메터를 선언**해야 한다.
+**파라미터가 있는 애너테이션을 정의하려면 애너테이션 클래스의 주생성자에 파라미터를 선언**해야 한다.
 
 ```kotlin
 @Target(AnnotationTarget.PROPERTY)
 annotation class JsonName(val name: String)
 ```
 
-일반 클래스의 [주생성자 선언 구문](https://assu10.github.io/dev/2024/02/24/kotlin-object-oriented-programming-1/#14-%EC%A3%BC%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80-%EC%B4%88%EA%B8%B0%ED%99%94-%EB%B8%94%EB%A1%9D)과 똑같지만 **애너테이션 클래스에서는 모든 파라메터 앞에 `val` 를 붙여야 한다.**
+일반 클래스의 [주생성자 선언 구문](https://assu10.github.io/dev/2024/02/24/kotlin-object-oriented-programming-1/#14-%EC%A3%BC%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80-%EC%B4%88%EA%B8%B0%ED%99%94-%EB%B8%94%EB%A1%9D)과 똑같지만 **애너테이션 클래스에서는 모든 파라미터 앞에 `val` 를 붙여야 한다.**
 
 ---
 
@@ -433,11 +433,11 @@ annotation class MyBinding
 
 ---
 
-# 6. 애너테이션 파라메터로 클래스 사용: `KClass`
+# 6. 애너테이션 파라미터로 클래스 사용: `KClass`
 
 [5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어 `@Target`](#5-메타-애너테이션-애너테이션을-처리하는-방법-제어-target) 에서 정적인 데이터를 인자로 유지하는 에너테이션을 정의하는 방법에 대해 알아보았다.
 
-하지만 **어떤 클래스를 선언 메타데이터로 참조할 수 있는 기능이 필요할 때**가 있는데, 이럴 때 **클래스 참조를 파라메터로 하는 애너테이션 클래스를 선언**하면 된다.
+하지만 **어떤 클래스를 선언 메타데이터로 참조할 수 있는 기능이 필요할 때**가 있는데, 이럴 때 **클래스 참조를 파라미터로 하는 애너테이션 클래스를 선언**하면 된다.
 
 제이키드의 @DeserializeInterface 는 인터페이스 타입인 프로퍼티에 대해 역직렬화를 제어할 때 사용하는 애너테이션이다.  
 인터페이스의 인스턴스를 직접 만들 수는 없으므로 역직렬화 시 어떤 클래스를 사용하여 인터페이스를 구현할 지 지정할 수 있어야 한다.
@@ -507,14 +507,14 @@ annotation class DeserializeInterface(val targetClass: KClass<out Any>)
 
 > 이렇게 저장한 클래스 참조로 어떤 기능을 수행할 수 있는지는 [1. 리플렉션: 실행 시점에 코틀린 객체 내부 관찰](https://assu10.github.io/dev/2024/07/21/kotlin-annotation-reflection-2/#1-%EB%A6%AC%ED%94%8C%EB%A0%89%EC%85%98-%EC%8B%A4%ED%96%89-%EC%8B%9C%EC%A0%90%EC%97%90-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B0%9D%EC%B2%B4-%EB%82%B4%EB%B6%80-%EA%B4%80%EC%B0%B0) 을 참고하세요.
 
-**`KClass` 의 타입 파라메터는 이 `KClass` 의 인스턴스가 가리키는 코틀린 타입을 지정**한다.  
-예) _CompanyImpl::class_ 의 타입은 _KClass\<CompanyImpl\>_ 이며, 이 타입은 DeserializeInterface 의 파라메터 타입인 _KClass\<out Any\>_ 의 하위 타입임
+**`KClass` 의 타입 파라미터는 이 `KClass` 의 인스턴스가 가리키는 코틀린 타입을 지정**한다.  
+예) _CompanyImpl::class_ 의 타입은 _KClass\<CompanyImpl\>_ 이며, 이 타입은 DeserializeInterface 의 파라미터 타입인 _KClass\<out Any\>_ 의 하위 타입임
 
 ![KClass 하위 타입 관계](/assets/img/dev/2024/0714/kclass.png)
 
-애너테이션에 인자로 전달한 _CompanyImpl::class_ 의 타입인 _KClass\<CompanyImpl\>_ 은 애너테이션의 파라메터 타입인 _KClass\<out Any\>_ 의 하위 타입이다.
+애너테이션에 인자로 전달한 _CompanyImpl::class_ 의 타입인 _KClass\<CompanyImpl\>_ 은 애너테이션의 파라미터 타입인 _KClass\<out Any\>_ 의 하위 타입이다.
 
-`KClass` 의 타입 파라메터를 쓸 때 `out` 변경자없이 _KClass\<Any\>_ 라고 쓰면 DeserializeInterface 에게 _CompanyImpl::class_ 를 인자로 넘길 수 없고, 
+`KClass` 의 타입 파라미터를 쓸 때 `out` 변경자없이 _KClass\<Any\>_ 라고 쓰면 DeserializeInterface 에게 _CompanyImpl::class_ 를 인자로 넘길 수 없고, 
 오직 _Any::class_ 만 넘길 수 있다.
 
 반면 `out`  키워드가 있으면 모든 코틀린 타입 `T` 에 대해 _KClass\<T\>_ 가 _KClass\<out Any\>_ 의 하위 타입이 되므로(= 공변성) DeserializeInterface 의 
@@ -522,7 +522,7 @@ annotation class DeserializeInterface(val targetClass: KClass<out Any>)
 
 ---
 
-# 7. 애너테이션 파라메터로 제네릭 클래스 받기
+# 7. 애너테이션 파라미터로 제네릭 클래스 받기
 
 기본적으로 제이키드는 'primitive 타입이 아닌 프로퍼티'를 중첩된 객체로 직렬화하는데 이런 **기본 동작을 변경하고 싶으면 값을 직렬화하는 로직을 직접 제공**하면 된다.
 
@@ -545,7 +545,7 @@ annotation class CustomSerializer(val serializerClass: KClass<out ValueSerialize
 위의 @CustomSerializer 애너테이션은 커스텀 직렬화 클래스에 대한 참조를 인자로 받는다.  
 이 직렬화 클래스는 ValueSerializer 인터페이스를 구현해야 한다.
 
-ValueSerializer 클래스는 제네릭 클래스라서 타입 파라메터가 있다.  
+ValueSerializer 클래스는 제네릭 클래스라서 타입 파라미터가 있다.  
 따라서 ValueSerializer 타입을 참조하려면 항상 타입 인자를 제공해야 한다.  
 하지만 이 애너테이션이 어떤 타입에 대해 사용될 지 모르므로 여기서는 [스타 프로젝션 `*`](https://assu10.github.io/dev/2024/03/18/kotlin-advanced-2-1/#26-%EC%8A%A4%ED%83%80-%ED%94%84%EB%A1%9C%EC%A0%9D%EC%85%98)을 사용할 수 있다.
 
@@ -612,7 +612,7 @@ class DateSerializerTest {
 
 클래스를 애너테이션 인자로 받아야 할 때마다 위와 같은 패턴을 사용할 수 있다.
 
-**클래스를 인자로 받아야 하면 애너테이션 파라메터 타입에 `KClass<out 허용할 클래스 이름>`** 을 쓴다.
+**클래스를 인자로 받아야 하면 애너테이션 파라미터 타입에 `KClass<out 허용할 클래스 이름>`** 을 쓴다.
 
 **제네릭 클래스를 인자로 받아야 하면 `KClass<out 허용할 클래스 이름<*>>` 처럼 허용할 클래스의 이름 뒤에 스타 프로젝션**을 덧붙인다.
 

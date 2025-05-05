@@ -317,14 +317,14 @@ public class ReservationController {
   public List<Long> getReservationsByPaging(
           @PathVariable Long hotelId,
           @PathVariable String roomNumber,
-          Pageable pageable // @RequestParam 이 없어도 Pageable 클래스를 인자로 선언하면 page, size, sort 파라메터값을 매핑한 Pageagle 객체를 주입함
+          Pageable pageable // @RequestParam 이 없어도 Pageable 클래스를 인자로 선언하면 page, size, sort 파라미터값을 매핑한 Pageagle 객체를 주입함
   ) {
-    System.out.println("page: " + pageable.getPageNumber());  // page 파라메터값 리턴
-    System.out.println("size: " + pageable.getPageSize());  // size 파라메터값 리턴
+    System.out.println("page: " + pageable.getPageNumber());  // page 파라미터값 리턴
+    System.out.println("size: " + pageable.getPageSize());  // size 파라미터값 리턴
     
-    // Pageable 의 getSort() 는 sort 파라메터값과 대응하는 Sort 객체 리턴하고, sort 파라메터는 하나 이상의 값일 수 있음
+    // Pageable 의 getSort() 는 sort 파라미터값과 대응하는 Sort 객체 리턴하고, sort 파라미터는 하나 이상의 값일 수 있음
     // 따라서 Sort 객체는 inner class 인 Sort.order 객체스트림을 구현함
-    // stream() 을 사용하면 클라이언트가 전달한 파라메터 집합 처리 가능
+    // stream() 을 사용하면 클라이언트가 전달한 파라미터 집합 처리 가능
     pageable.getSort().stream().forEach(order -> {
       System.out.println("sort: " + order.getProperty() + ", " + order.getDirection());
     });
@@ -334,7 +334,7 @@ public class ReservationController {
 }
 ```
 
-sort 파라메터에 하나 이상의 데이터는 아래와 같이 설정한다.
+sort 파라미터에 하나 이상의 데이터는 아래와 같이 설정한다.
 
 ```http 
 GET http://localhost:18080/hotels/123/rooms/912/ASSU-123/reservations?page=1&size=30&sort=reservationId,desc&sort=reservationDate,desc
@@ -376,15 +376,15 @@ sort: reservationDate, ASC
 
 ## 2.2. Pageable 자동 설정
 
-application.properties 설정을 통해 Pageable 파라메터 파싱 방법을 변경할 수 있다.
+application.properties 설정을 통해 Pageable 파라미터 파싱 방법을 변경할 수 있다.
 
 application.properties
 ```properties
-# HTTP 파라메터명인 page 대신 pageNum 으로 변경
+# HTTP 파라미터명인 page 대신 pageNum 으로 변경
 spring.data.web.pageable.page-parameter=pageNum
-# HTTP 파라메터명인 size 대신 pageSize 로 변경
+# HTTP 파라미터명인 size 대신 pageSize 로 변경
 spring.data.web.pageable.size-parameter=pageSize
-# HTTP 파라메터명인 sort 대신 sortOrder 로 변경
+# HTTP 파라미터명인 sort 대신 sortOrder 로 변경
 spring.data.web.sort.sort-parameter=sortOrder
 # 페이지 당 포함할 기본 갯수, default 20
 spring.data.web.pageable.default-page-size=50
@@ -411,7 +411,7 @@ sort: reservationId, DESC
 sort: reservationDate, ASC
 ```
 
-HTTP 파라메터명이 page → pageNum 으로 변경되었으므로 기존처럼 page, size, sort 로 넘기면 Pageable 이 파싱하지 못한다.
+HTTP 파라미터명이 page → pageNum 으로 변경되었으므로 기존처럼 page, size, sort 로 넘기면 Pageable 이 파싱하지 못한다.
 
 ---
 

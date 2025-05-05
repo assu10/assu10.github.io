@@ -217,7 +217,7 @@ public class IdGenerator {
   - `path` 와 상호 호환되는 속성
 - `path`
 - `params`
-  - 요청 메시지 중 파라메터 이름과 대응하는 속성
+  - 요청 메시지 중 파라미터 이름과 대응하는 속성
 - `headers`
   - 요청 메시지 중 HTTP 헤더 이름과 대응하는 속성
 - `consumes`

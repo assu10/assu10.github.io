@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "Java8 - 동작 파라메터화"
+title:  "Java8 - 동작 파라미터화"
 date: 2023-05-27
 categories: dev
 tags: java java8 behavior-parameterization
 ---
 
-이 포스트에서는 Java8 에 추가된 기능 중 하나인 동작 파라메터화에 대해 알아본다.  
+이 포스트에서는 Java8 에 추가된 기능 중 하나인 동작 파라미터화에 대해 알아본다.  
 
-- 동작 파라메터화
+- 동작 파라미터화
 - 익명 클래스
 - 람다 표현식
 - Comparator, Runnable
@@ -20,9 +20,9 @@ tags: java java8 behavior-parameterization
 **목차**  
 
 <!-- TOC -->
-* [1. 동작 파라메터화](#1-동작-파라메터화)
+* [1. 동작 파라미터화](#1-동작-파라미터화)
 * [2. 코드 개선](#2-코드-개선)
-  * [2.1. 동작 파라메터화로 개선](#21-동작-파라메터화로-개선)
+  * [2.1. 동작 파라미터화로 개선](#21-동작-파라미터화로-개선)
   * [2.2. 익명 클래스로 개선](#22-익명-클래스로-개선)
   * [2.3. 람다 표현식으로 개선](#23-람다-표현식으로-개선)
   * [2.4. 리스트 형식으로 추상화하여 개선](#24-리스트-형식으로-추상화하여-개선)
@@ -33,15 +33,15 @@ tags: java java8 behavior-parameterization
 
 ---
 
-# 1. 동작 파라메터화
+# 1. 동작 파라미터화
 
-동작 파라메터화란 **아직 어떻게 실행할 지 결정하지 않은 코드 블록**을 의미한다.  
+동작 파라미터화란 **아직 어떻게 실행할 지 결정하지 않은 코드 블록**을 의미한다.  
 이 코드 블록은 나중에 프로그램에서 호출한다.(=코드 블록의 실행이 나중으로 미뤄짐) 
-**나중에 실행될 메서드의 인수로 코드 블록을 전달함으로써 코드 블록에 따라 메서드의 동작이 파라메터화**된다.
+**나중에 실행될 메서드의 인수로 코드 블록을 전달함으로써 코드 블록에 따라 메서드의 동작이 파라미터화**된다.
 
-따라서 동작 파라메터화를 사용하면 자주 변경되는 요구사항에 효과적으로 대응이 가능하다.
+따라서 동작 파라미터화를 사용하면 자주 변경되는 요구사항에 효과적으로 대응이 가능하다.
 
-동작 파라메터화를 추가하기 위해 부가 코드들이 늘어나는데 이것은 람다 표현식으로 해결이 가능하다.
+동작 파라미터화를 추가하기 위해 부가 코드들이 늘어나는데 이것은 람다 표현식으로 해결이 가능하다.
 
 > 람다 표현식에 대한 자세한 내용은 [Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/) 과
 > [Java8 - 람다 표현식 (2): 메서드 레퍼런스, 람다 표현식과 메서드의 조합](http://assu10.github.io/dev/2023/06/03/java8-lambda-expression-2/) 을 참고해주세요.
@@ -95,19 +95,19 @@ System.out.println(weightApples);
 
 ---
 
-## 2.1. 동작 파라메터화로 개선
+## 2.1. 동작 파라미터화로 개선
 
 인수를 값으로 받아서 boolean 값을 반환하는 Predicate 를 사용해보자.
 
 아래처럼 선택 조건을 결정하는 대표 인터페이스를 정의한 후 해당 인터페이스를 구현하여 다양한 선택 조건을 구현할 수 있다.
 
 ```java
-// 2. 동작 파라메터화를 위해 선택 조건을 결정하는 인터페이스
+// 2. 동작 파라미터화를 위해 선택 조건을 결정하는 인터페이스
 public interface ApplePredicate {
   boolean test(Apple apple);
 }
 
-// 2. 동작 파라메터화로 red 사과 필터링 시
+// 2. 동작 파라미터화로 red 사과 필터링 시
 static class AppleRedColorPredicate implements ApplePredicate {
   @Override
   public boolean test(Apple apple) {
@@ -115,7 +115,7 @@ static class AppleRedColorPredicate implements ApplePredicate {
   }
 }
 
-// 2. 동작 파라메터화로 100 이상 필터링 시
+// 2. 동작 파라미터화로 100 이상 필터링 시
 static class AppleWeightPredicate implements ApplePredicate {
   @Override
   public boolean test(Apple apple) {
@@ -134,10 +134,10 @@ static class AppleWeightPredicate implements ApplePredicate {
 위에선 ApplePredicate 가 알고리즘 패밀리이고, AppleRedColorPredicate 와 AppleWeightPredicate 가 전략이다.
 
 이제 호출하는 곳에서 ApplePredicate 객체를 받아서 조건을 검사하도록 해보자.  
-이 말인 즉슨 **메서드가 다양한 동작(=전략)을 받아서 내부적으로 다양한 동작을 할 수 있다는 의미(=동작 파라메터화)**이다.
+이 말인 즉슨 **메서드가 다양한 동작(=전략)을 받아서 내부적으로 다양한 동작을 할 수 있다는 의미(=동작 파라미터화)**이다.
 
 ```java
-// 2. 동작 파라메터화로 사과 필터링
+// 2. 동작 파라미터화로 사과 필터링
 public static List<Apple> filterApples(List<Apple> inventory, ApplePredicate p) {
   List<Apple> result = new ArrayList<>();
   for (Apple apple: inventory) {
@@ -153,18 +153,18 @@ public static List<Apple> filterApples(List<Apple> inventory, ApplePredicate p) 
 
 호출하는 곳은 아래와 같다.
 ```java
-// 2. 동작 파라메터화로 red 사과 필터링 시
+// 2. 동작 파라미터화로 red 사과 필터링 시
 List<Apple> redApples2 = filterApples(inventory, new AppleRedColorPredicate());
 // [Apple{weight=10, color='red'}, Apple{weight=150, color='red'}]
 System.out.println(redApples2);
 
-// 2. 동작 파라메터화로 100 이상 필터링 시
+// 2. 동작 파라미터화로 100 이상 필터링 시
 List<Apple> weightApples2 = filterApples(inventory, new AppleWeightPredicate());
 // [Apple{weight=100, color='green'}, Apple{weight=150, color='red'}]
 System.out.println(weightApples2);
 ```
 
-위에서 말한 것과 같이 전달된 ApplePredicate 객체에 의해 filterApples() 의 동작이 결정된다. (= 동작 파라메터화)
+위에서 말한 것과 같이 전달된 ApplePredicate 객체에 의해 filterApples() 의 동작이 결정된다. (= 동작 파라미터화)
 
 ---
 
@@ -243,7 +243,7 @@ System.out.println(weightApples4);
 
 ```java
 // 5. 리스트 추상화
-public static <T> List<T> filter(List<T> list, Predicate<T> p) {  // 형식 파라메터 T
+public static <T> List<T> filter(List<T> list, Predicate<T> p) {  // 형식 파라미터 T
   List<T> result = new ArrayList<>();
   for (T e: list) {
     if (p.test(e)) {
@@ -287,7 +287,7 @@ default void sort(Comparator<? super E> c) {
 }
 ```
 
-`Comparator<T>` 인터페이스를 구현해서 sort 메서드의 동작을 파라메터화(=다양화)할 수 있다.
+`Comparator<T>` 인터페이스를 구현해서 sort 메서드의 동작을 파라미터화(=다양화)할 수 있다.
 
 `Comparator<T>` 인터페이스
 ```java
@@ -297,7 +297,7 @@ public interface Comparator<T> {
 ```
 
 ```java
-// 6. Comparator 의 compare() 로 List 의 sort() 동작 파라메터화
+// 6. Comparator 의 compare() 로 List 의 sort() 동작 파라미터화
 // 무게가 큰 순으로 정렬
 
 // [Apple{weight=10, color='red'}, Apple{weight=100, color='green'}, Apple{weight=150, color='red'}]

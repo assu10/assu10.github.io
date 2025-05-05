@@ -29,7 +29,7 @@ tags: kotlin coroutine coroutineDispatcher dispatchers.default dispatchers.io di
   * [3.1. 단일 스레드 디스패처 생성: `newSingleThreadContext()`](#31-단일-스레드-디스패처-생성-newsinglethreadcontext)
   * [3.2. 멀티 스레드 디스패처 생성: `newFixedThreadPoolContext()`](#32-멀티-스레드-디스패처-생성-newfixedthreadpoolcontext)
 * [4. `CoroutineDispatcher` 로 코루틴 실행](#4-coroutinedispatcher-로-코루틴-실행)
-  * [4.1. `launch()` 의 파라메터로 `CoroutineDispatcher` 사용](#41-launch-의-파라메터로-coroutinedispatcher-사용)
+  * [4.1. `launch()` 의 파라미터로 `CoroutineDispatcher` 사용](#41-launch-의-파라미터로-coroutinedispatcher-사용)
     * [4.1.1. 단일 스레드 디스패처로 코루틴 실행](#411-단일-스레드-디스패처로-코루틴-실행)
     * [4.1.2. 멀티 스레드 디스패처로 코루틴 실행](#412-멀티-스레드-디스패처로-코루틴-실행)
   * [4.2. 부모 코루틴의 `CoroutineDispatcher` 로 자식 코루틴 실행](#42-부모-코루틴의-coroutinedispatcher-로-자식-코루틴-실행)
@@ -240,7 +240,7 @@ public fun newSingleThreadContext(name: String): CloseableCoroutineDispatcher =
 
 ---
 
-## 4.1. `launch()` 의 파라메터로 `CoroutineDispatcher` 사용
+## 4.1. `launch()` 의 파라미터로 `CoroutineDispatcher` 사용
 
 ### 4.1.1. 단일 스레드 디스패처로 코루틴 실행
 

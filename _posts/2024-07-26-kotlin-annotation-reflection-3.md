@@ -50,7 +50,7 @@ tags: kotlin reflection
 
 직렬화를 제어하는 애너테이션을 어떻게 구현하는지 알아본다.
 
-[3. 애너테이션을 활용한 JSON 직렬화 제어](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#3-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-json-%EC%A7%81%EB%A0%AC%ED%99%94-%EC%A0%9C%EC%96%B4) 와 [7. 애너테이션 파라메터로 제네릭 클래스 받기](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#7-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0%EB%A1%9C-%EC%A0%9C%EB%84%A4%EB%A6%AD-%ED%81%B4%EB%9E%98%EC%8A%A4-%EB%B0%9B%EA%B8%B0) 에서
+[3. 애너테이션을 활용한 JSON 직렬화 제어](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#3-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-json-%EC%A7%81%EB%A0%AC%ED%99%94-%EC%A0%9C%EC%96%B4) 와 [7. 애너테이션 파라미터로 제네릭 클래스 받기](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#7-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0%EB%A1%9C-%EC%A0%9C%EB%84%A4%EB%A6%AD-%ED%81%B4%EB%9E%98%EC%8A%A4-%EB%B0%9B%EA%B8%B0) 에서
 JSON 직렬화 과정을 제어하는 애너테이션에 대해 알아보았다.
 
 특히 @JsonExclude, @JsonName, @CustomSerializer 애너테이션에 대해 알아봤는데 여기서는 이런 애너테이션을 _StringBuilder.serializeObject()_ 가 
@@ -119,8 +119,8 @@ inline fun <reified T> KAnnotatedElement.findAnnotation(): T?
         = annotations.filterIsInstance<T>().firstOrNull()
 ```
 
-위 함수는 [1.4. 클래스 참조 대신 실체화한 타입 파라메터 사용: `ServiceLoader`, `::class.java`](https://assu10.github.io/dev/2024/03/18/kotlin-advanced-2-1/#14-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%B0%B8%EC%A1%B0-%EB%8C%80%EC%8B%A0-%EC%8B%A4%EC%B2%B4%ED%99%94%ED%95%9C-%ED%83%80%EC%9E%85-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0-%EC%82%AC%EC%9A%A9-serviceloader-classjava) 에서 
-설명한 패턴을 사용하여 타입 파라메터를 `reified` 로 만들어서 애너테이션 클래스를 타입 인자로 전달한다.
+위 함수는 [1.4. 클래스 참조 대신 실체화한 타입 파라미터 사용: `ServiceLoader`, `::class.java`](https://assu10.github.io/dev/2024/03/18/kotlin-advanced-2-1/#14-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%B0%B8%EC%A1%B0-%EB%8C%80%EC%8B%A0-%EC%8B%A4%EC%B2%B4%ED%99%94%ED%95%9C-%ED%83%80%EC%9E%85-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0-%EC%82%AC%EC%9A%A9-serviceloader-classjava) 에서 
+설명한 패턴을 사용하여 타입 파라미터를 `reified` 로 만들어서 애너테이션 클래스를 타입 인자로 전달한다.
 
 > `reified` 에 대한 내용은 [1. 함수의 타입 인자에 대한 실체화: `reified`, `KClass`](https://assu10.github.io/dev/2024/03/18/kotlin-advanced-2-1/#1-%ED%95%A8%EC%88%98%EC%9D%98-%ED%83%80%EC%9E%85-%EC%9D%B8%EC%9E%90%EC%97%90-%EB%8C%80%ED%95%9C-%EC%8B%A4%EC%B2%B4%ED%99%94-reified-kclass) 를 참고하세요.
 
@@ -314,7 +314,7 @@ data class Book(
 fun main() {
   val json = """{"title": "TEST1", "author": {"name": "Assu"}}"""
 
-  // 역직렬화할 객체의 타입을 실체화한 타입 파라메터로 deserialize() 에 넘겨서 새로운 객체 인스턴스를 얻음
+  // 역직렬화할 객체의 타입을 실체화한 타입 파라미터로 deserialize() 에 넘겨서 새로운 객체 인스턴스를 얻음
   val book: Book = deserialize<Book>(json)
 
   // Book(title=TEST1, author=Author(name=Assu))
@@ -607,7 +607,7 @@ class ObjectSeed<out T : Any>(
   // targetClass 의 인스턴스를 만들 때 필요한 정보 캐싱
   private val classInfo: ClassInfo<T> = classInfoCache[targetClass]
 
-  // 생성자 파라메터와 값을 연결해주는 맵 생성
+  // 생성자 파라미터와 값을 연결해주는 맵 생성
   // 이를 위해 아래의 변경 가능한 맵 사용
 
   // 간단한 값 프로퍼티 저장
@@ -616,7 +616,7 @@ class ObjectSeed<out T : Any>(
   // 복합 프로퍼티 저장
   private val seedArguments = mutableMapOf<KParameter, Seed>()
 
-  // 생성자 파라메터와 그 값을 연결하는 맵 생성
+  // 생성자 파라미터와 그 값을 연결하는 맵 생성
   private val arguments: Map<KParameter, Any?>
     get() = valueArguments + seedArguments.mapValues { it.value.spawn() }
 
@@ -627,7 +627,7 @@ class ObjectSeed<out T : Any>(
   ) {
     val param = classInfo.getConstructorParameter(propertyName)
 
-    // 생성자 파라메터 값이 간단한 경우 그 값을 기록
+    // 생성자 파라미터 값이 간단한 경우 그 값을 기록
     valueArguments[param] = classInfo.deserializeConstructorArgument(param, value)
   }
 
@@ -641,7 +641,7 @@ class ObjectSeed<out T : Any>(
     // 프로퍼티에 대한 DeserializeInterface 애너테이션이 있다면 그 값을 가져옴
     val deserializeAs = classInfo.getDeserializeClass(propertyName)
 
-    // 파라메터 타입에 따라 ObjectSeed, CollectionSeed 생성 (1)
+    // 파라미터 타입에 따라 ObjectSeed, CollectionSeed 생성 (1)
     val seed =
       createSeedForType(  // 파타메터의 타입을 분석하여 적절히 ObjectSeed, ObjectListSeed, ValueListSeed 중 하나 새엇ㅇ
         deserializeAs ?: param.type.javaType,
@@ -695,7 +695,7 @@ fun Seed.createSeedForType(
 
 여기서는 _ClassInfo.createInstance()_ 가 _targetClass_ 의 인스턴스를 어떻게 만드는지에 대해 알아본다.
 
-최종 결과인 객체 인스턴스를 생성하고, 생성자 파라메터 정보를 캐시하는 _ClassInfo_ 클래스에 대해 알아볼 것이다.
+최종 결과인 객체 인스턴스를 생성하고, 생성자 파라미터 정보를 캐시하는 _ClassInfo_ 클래스에 대해 알아볼 것이다.
 
 그 전에 리플렉션을 통해 객체를 만들 때 사용하는 API 들을 몇 가지 살펴본다.
 
@@ -706,11 +706,11 @@ fun Seed.createSeedForType(
 [2.2. `KCallable`, `KFunction`: `call()`, `invoke()`](https://assu10.github.io/dev/2024/07/21/kotlin-annotation-reflection-2/#22-kcallable-kfunction-call-invoke) 에서 
 인자 리스트를 받아서 함수나 생성자를 호출해주는 `KCallable.call()` 에 대해 알아보았다.
 
-**`KCallable.call()` 은 유용하지만 디폴트 파라메터 값을 지원하지 않는다.**
+**`KCallable.call()` 은 유용하지만 디폴트 파라미터 값을 지원하지 않는다.**
 
-만일 역직렬화 시 생성해야 하는 객체에 디폴트 생성자 파라메터 값이 있고, 그 값을 활용할 수 있다면 JSON 에서 관련 프로퍼티를 꼭 지정하지 않아도 된다.
+만일 역직렬화 시 생성해야 하는 객체에 디폴트 생성자 파라미터 값이 있고, 그 값을 활용할 수 있다면 JSON 에서 관련 프로퍼티를 꼭 지정하지 않아도 된다.
 
-디폴트 파라메터 값이 있다면 `KCallable.call()` 대신 `KCallable.callby()` 를 사용하는 것이 편리하다.
+디폴트 파라미터 값이 있다면 `KCallable.call()` 대신 `KCallable.callby()` 를 사용하는 것이 편리하다.
 
 ```kotlin
 package kotlin.reflect
@@ -724,24 +724,24 @@ public actual interface KCallable<out R> : KAnnotatedElement {
 }
 ```
 
-`KCallable.callby()` 는 파라메터와 파라메터에 해당하는 값을 연결해주는 맵을 인자로 받는다.  
-인자로 받은 맵에서 파라메터를 찾을 수 없을 때 파라메터 디폴트 값이 정의되어 있다면 그 디폴트 값을 사용한다.
+`KCallable.callby()` 는 파라미터와 파라미터에 해당하는 값을 연결해주는 맵을 인자로 받는다.  
+인자로 받은 맵에서 파라미터를 찾을 수 없을 때 파라미터 디폴트 값이 정의되어 있다면 그 디폴트 값을 사용한다.
 
-**`KCallable.callby()` 를 사용하면 파라메터의 순서를 지킬 필요가 없으므로 객체 생성자에 원래 정의된 파라메터 순서에 신경쓰지 않고 JSON 에서 key/value 쌍을 읽어서 
-key 와 일치하는 파라메터를 찾을 후 맵에 파라메터 정보와 값**을 넣을 수 있다.
+**`KCallable.callby()` 를 사용하면 파라미터의 순서를 지킬 필요가 없으므로 객체 생성자에 원래 정의된 파라미터 순서에 신경쓰지 않고 JSON 에서 key/value 쌍을 읽어서 
+key 와 일치하는 파라미터를 찾을 후 맵에 파라미터 정보와 값**을 넣을 수 있다.
 
 이 때 타입 처리에 주의해야 한다.
 
-인자로 받는 _args_ 맵에 들어있는 각 value 의 타입이 생성자의 파라메터 타입과 일치하지 않으면 _IllegalArgument Exception_ 이 발생한다.
+인자로 받는 _args_ 맵에 들어있는 각 value 의 타입이 생성자의 파라미터 타입과 일치하지 않으면 _IllegalArgument Exception_ 이 발생한다.
 
-특히 숫자의 경우 파라메터가 Int, Long, Double 등의 타입 중 어떤 것인지 확인하여 JSON 에 있는 숫자값을 적절한 타입으로 변환해야만 한다.  
-**`KParameter.type` 프로퍼티를 활용하면 파라메터의 타입**을 알 수 있다.
+특히 숫자의 경우 파라미터가 Int, Long, Double 등의 타입 중 어떤 것인지 확인하여 JSON 에 있는 숫자값을 적절한 타입으로 변환해야만 한다.  
+**`KParameter.type` 프로퍼티를 활용하면 파라미터의 타입**을 알 수 있다.
 
 ---
 
 ## 3.2. 값 타입에 따른 직렬화기
 
-타입 변환에는 [7. 애너테이션 파라메터로 제네릭 클래스 받기](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#7-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0%EB%A1%9C-%EC%A0%9C%EB%84%A4%EB%A6%AD-%ED%81%B4%EB%9E%98%EC%8A%A4-%EB%B0%9B%EA%B8%B0) 에서 사용한 
+타입 변환에는 [7. 애너테이션 파라미터로 제네릭 클래스 받기](https://assu10.github.io/dev/2024/07/14/kotlin-annotation-reflection-1/#7-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%84%B0%EB%A1%9C-%EC%A0%9C%EB%84%A4%EB%A6%AD-%ED%81%B4%EB%9E%98%EC%8A%A4-%EB%B0%9B%EA%B8%B0) 에서 사용한 
 _ValueSerializer_ 인스턴스를 똑같이 사용한다.  
 프로퍼티에 @CustomSerializer 애너테이션이 없다면 프로퍼티 타입에 따라 표준 구현을 불러와 사용한다
 
@@ -801,7 +801,7 @@ class ClassInfo<T : Any>(
 }
 ```
 
-`callBy()` 에서드에 생성자 파라메터와 그 값을 연결해주는 맵을 넘기면 객체의 주 생성자를 호출할 수 있다.
+`callBy()` 에서드에 생성자 파라미터와 그 값을 연결해주는 맵을 넘기면 객체의 주 생성자를 호출할 수 있다.
 
 ---
 
@@ -811,8 +811,8 @@ class ClassInfo<T : Any>(
 
 _ClassInfoCache_ 는 리플렉션 연산을 줄이기 위한 클래스이다.
 
-직렬화와 역직렬화에 사용하는 애너테이션들(@JsonName, @CustomSerializer) 은 파라메터가 아니라 프로퍼티에 적용된다.  
-하지만 객체를 역직렬화할 때는 프로퍼티가 아니라 생성자 파라메터를 다뤄야 하므로 애너테이션을 꺼내려면 파라메터에 해당하는 프로퍼티를 찾아야 한다.
+직렬화와 역직렬화에 사용하는 애너테이션들(@JsonName, @CustomSerializer) 은 파라미터가 아니라 프로퍼티에 적용된다.  
+하지만 객체를 역직렬화할 때는 프로퍼티가 아니라 생성자 파라미터를 다뤄야 하므로 애너테이션을 꺼내려면 파라미터에 해당하는 프로퍼티를 찾아야 한다.
 
 JSON 에서 key/value 쌍을 읽을 때마다 이런 검색을 수행하면 코드가 아주 느려질 수 있으므로 클래스 별로 한 번만 검색을 수행하고 검색 결과를 캐시에 넣어둔다.
 
@@ -848,16 +848,16 @@ class ClassInfo<T : Any>(
     cls.primaryConstructor
       ?: throw JKidException("Class ${cls.qualifiedName} doesn't have a primary constructor")
 
-  // JSON 파일의 각 key 에 해당하는 파라메터 저장
+  // JSON 파일의 각 key 에 해당하는 파라미터 저장
   private val jsonNameToParamMap = hashMapOf<String, KParameter>()
 
-  // 각 파라메터에 대한 직렬화기 저장
+  // 각 파라미터에 대한 직렬화기 저장
   private val paramToSerializerMap = hashMapOf<KParameter, ValueSerializer<out Any?>>()
 
   // @DeserializeInterface 애너테이션 인자로 지정한 클래스 저장
   private val jsonNameToDeserializeClassMap = hashMapOf<String, Class<out Any>?>()
 
-  // 초기화 시 각 생성자 파라메터에 해당하는 프로퍼티를 찾아서 애너테이션을 가져옴
+  // 초기화 시 각 생성자 파라미터에 해당하는 프로퍼티를 찾아서 애너테이션을 가져옴
   init {
     constructor.parameters.forEach { cacheDataForParameter(cls, it) }
   }
@@ -921,13 +921,13 @@ class ClassInfo<T : Any>(
     return constructor.callBy(arguments)
   }
 
-  // 생성자에 필요한 필수 파라메터가 맵에 모두 있는지 검증
+  // 생성자에 필요한 필수 파라미터가 맵에 모두 있는지 검증
   // 리플렉션 캐시를 사용하면 이 함수에서 수행하는 과정(역직렬화를 제어하는 애너테이션을 찾는 과정) 을 JSON 데이터에서 발견한
   // 모든 프로퍼티에 대해 반복할 필요없이 프로퍼티 이름별로 단 한번만 수행 가능
   private fun ensureAllParametersPresent(arguments: Map<KParameter, Any?>) {
     for (param in constructor.parameters) {
-      // 파라메터에 디폴트 값이 있으면 param.isOptional 이 true 이므로 그런 파라메터에 대한 인자가 인자 맵에 없어도 문제없음
-      // 파라메터가 null 이 될 수 있는 값이라면 type.isMarkedNullable 이 true 이므로 디폴트 파라메터 값으로 null 을 사용함
+      // 파라미터에 디폴트 값이 있으면 param.isOptional 이 true 이므로 그런 파라미터에 대한 인자가 인자 맵에 없어도 문제없음
+      // 파라미터가 null 이 될 수 있는 값이라면 type.isMarkedNullable 이 true 이므로 디폴트 파라미터 값으로 null 을 사용함
       // 이 두 가지 경우가 모두 아니라면 예외 발생
       if (arguments[param] == null && !param.isOptional && !param.type.isMarkedNullable) {
         throw JKidException("Missing value for parameter ${param.name}")
@@ -944,14 +944,14 @@ class ClassInfo<T : Any>(
 - 코틀린에서는 자바보다 더 넓은 대상에 애너테이션 적용이 가능함
   - 그런 대상으로는 파일과 식이 있음
 - 애너테이션 인자로 primitive 타입 값, 문자열, enum, 클래스 참조, 다른 애너테이션 클래스의 인스턴스, 그리고 지금까지 말한 여러 유형의 값으로 이루어진 배열 사용 가능
-- 애너테이션 클래스를 정의할 때는 본문이 없고, 주 생성자의 모든 파라메터를 val 프로퍼티로 표시한 코틀린 클래스를 사용함
+- 애너테이션 클래스를 정의할 때는 본문이 없고, 주 생성자의 모든 파라미터를 val 프로퍼티로 표시한 코틀린 클래스를 사용함
 - 메타 애너테이션을 사용하여 대상, 애너테이션 유지 방식 등 여러 애너테이션 특성 지정 가능
 - 리플렉션 API 를 통해 실행 시점에 객체의 메서드와 프로퍼티를 열거하고 접근 가능
 - 리플렉션 API 에는 클래스(`KClass`), 함수(`KFunction`) 등 여러 종류의 선언을 표현하는 인터페이스가 있음
 - 클래스를 컴파일 시점에 알고 싶다면 `KClass` 인스턴스를 얻기 위해 `ClassName::class` 사용
 - 하지만 실행 시점에 obj 변수에 담긴 객체로부터 `KClass` 인스턴스를 얻기 위해서는 `obj.javaClass.kotlin` 사용
 - `KFunction`과 `KProperty` 인터페이스는 모두 `KCallable` 을 확장하고, `KCallable` 은 제네릭 `call()` 메서드를 제공함
-- `KFunction0`, `KFunction1` 등의 인터페이스는 모두 파라메터 수가 다른 함수를 표현하며, `invoke()` 메서드를 사용하여 함수를 호출할 수 있음
+- `KFunction0`, `KFunction1` 등의 인터페이스는 모두 파라미터 수가 다른 함수를 표현하며, `invoke()` 메서드를 사용하여 함수를 호출할 수 있음
 - `KProperty0` 은 최상위 프로퍼티나 변수에 접근할 때 사용하는 인터페이스임
 - `KProperty1` 은 수신 객체가 있는 프로퍼티에 접근할 때 사용하는 인터페이스임
 - `KMutableProperty0`, `KMutableProperty1` 은 각각 `KProperty0`, `KProperty1` 을 확장하며, `set()` 메서드를 통해 프로퍼티 값을 변경할 수 있음
