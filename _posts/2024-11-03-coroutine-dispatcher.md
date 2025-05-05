@@ -6,20 +6,6 @@ categories: dev
 tags: kotlin coroutine coroutineDispatcher dispatchers.default dispatchers.io dispatchers.main newSingleThreadContext newFixedThreadPoolContext
 ---
 
-이 포스트에서는 `CoroutineDispatcher` 에 대해 알아본다.  
-제한된 디스패처를 만드는 방법과 제한된 디스패처를 사용해서 코루틴을 실행시키는 방법에 대해 알아본다.  
-미리 정의된 `CoroutineDispatcher` 에는 어떤 것이 있고, 언제 사용해야하는지에 대해서도 알아본다.
-
-- `CoroutineDispatcher` 객체의 역할
-- 제한된 디스패처와 무제한 디스패처의 차이
-- 제한된 디스패처 생성
-- `CoroutineDispatcher` 로 코루틴 실행
-- 코루틴 라이브러리에 미리 정의된 디스패처의 종류와 사용처
-
-> 소스는 [github](https://github.com/assu10/coroutine/tree/feature/chap03) 에 있습니다.
-
----
-
 **목차**
 
 <!-- TOC -->
@@ -42,6 +28,20 @@ tags: kotlin coroutine coroutineDispatcher dispatchers.default dispatchers.io di
 * [정리하며..](#정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
+
+---
+
+이 포스트에서는 `CoroutineDispatcher` 에 대해 알아본다.  
+제한된 디스패처를 만드는 방법과 제한된 디스패처를 사용해서 코루틴을 실행시키는 방법에 대해 알아본다.  
+미리 정의된 `CoroutineDispatcher` 에는 어떤 것이 있고, 언제 사용해야하는지에 대해서도 알아본다.
+
+- `CoroutineDispatcher` 객체의 역할
+- 제한된 디스패처와 무제한 디스패처의 차이
+- 제한된 디스패처 생성
+- `CoroutineDispatcher` 로 코루틴 실행
+- 코루틴 라이브러리에 미리 정의된 디스패처의 종류와 사용처
+
+> 소스는 [github](https://github.com/assu10/coroutine/tree/feature/chap03) 에 있습니다.
 
 ---
 

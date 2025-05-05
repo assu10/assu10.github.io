@@ -6,14 +6,6 @@ categories: dev
 tags: kotlin coroutine
 ---
 
-코틀린은 언어 수준에서 코루틴을 지원하지만 저수준 API 만을 제공하므로 실제 애플리케이션에 사용하기에는 무리가 있다.  
-따라서 코루틴을 사용하기 위해서는 젯브레인스에서 만든 코루틴 라이브러리(kotlinx.coroutines) 을 사용하는 것이 일반적이다.  
-이 라이브러리는 `async`, `await` 같은 고수준 API 를 제공한다.
-
-> 소스는 [github](https://github.com/assu10/coroutine/tree/feature/chap02) 에 있습니다.
-
----
-
 **목차**
 
 <!-- TOC -->
@@ -24,6 +16,14 @@ tags: kotlin coroutine
 * [정리하며..](#정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
+
+---
+
+코틀린은 언어 수준에서 코루틴을 지원하지만 저수준 API 만을 제공하므로 실제 애플리케이션에 사용하기에는 무리가 있다.  
+따라서 코루틴을 사용하기 위해서는 젯브레인스에서 만든 코루틴 라이브러리(kotlinx.coroutines) 을 사용하는 것이 일반적이다.  
+이 라이브러리는 `async`, `await` 같은 고수준 API 를 제공한다.
+
+> 소스는 [github](https://github.com/assu10/coroutine/tree/feature/chap02) 에 있습니다.
 
 ---
 
