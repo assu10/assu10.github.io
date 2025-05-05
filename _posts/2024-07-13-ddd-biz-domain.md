@@ -3,7 +3,7 @@ layout: post
 title:  "DDD(1) - 비즈니스 도메인 분석"
 date: 2024-07-13
 categories: dev
-tags: ddd 
+tags: ddd architecture
 ---
 
 이 포스트에서는 아래 내용에 대해 알아본다.
