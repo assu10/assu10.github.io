@@ -6,8 +6,6 @@ categories: dev
 tags: ddd Sort Pageable PageRequest findFirstN() findFirst() findTop() @Subselect @Immutable @Synchronize
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - 정렬, 페이징
 - 동적 인스턴스, `@Subselect`
 

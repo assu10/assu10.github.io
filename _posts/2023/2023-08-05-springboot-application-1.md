@@ -6,8 +6,6 @@ categories: dev
 tags: springboot msa web-mvc-configurer dispatcher-servlet
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다. 
-
 - 스프링 웹 MVC 프레임워크에서 제공하는 `WebMvcConfigurer` 를 사용하여 애플리케이션 설정
 - `DispatcherServlet` 을 설정하여 기능을 확장하거나 새로 설정
 

@@ -6,7 +6,6 @@ categories: dev
 tags: kafka kafka-connect smt cdc kafka-converter
 ---
 
-이 포스트에서는 아래의 내용에 대해 알아본다.
 - 카프카 커넥트의 기초적인 사용 방법과 기본적인 사용 예제
 - 다른 데이터 통합 시스템과 이것들을 어떻게 카프카와 연동할 수 있는지?
 

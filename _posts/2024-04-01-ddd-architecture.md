@@ -6,8 +6,6 @@ categories: dev
 tags: ddd dip entity value rootEntity
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - 표현/응용/도메인/인프라스트럭처 영역
 - DIP
 - 도메인 영역의 주요 구성 요소

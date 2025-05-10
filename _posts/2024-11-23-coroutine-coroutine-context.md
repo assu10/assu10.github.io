@@ -6,28 +6,6 @@ categories: dev
 tags: kotlin coroutine
 ---
 
-**목차**
-
-<!-- TOC -->
-* [1. CoroutineContext 구성 요소](#1-coroutinecontext-구성-요소)
-* [2. CoroutineContext 구성](#2-coroutinecontext-구성)
-  * [2.1. CoroutineContext 구성](#21-coroutinecontext-구성)
-  * [2.2. CoroutineContext 구성 요소 덮어씌우기](#22-coroutinecontext-구성-요소-덮어씌우기)
-  * [2.3. CoroutineContext 에 Job 생성하여 추가](#23-coroutinecontext-에-job-생성하여-추가)
-* [3. CoroutineContext 구성 요소 접근](#3-coroutinecontext-구성-요소-접근)
-  * [3.1. CoroutineContext 구성 요소의 키](#31-coroutinecontext-구성-요소의-키)
-  * [3.2. 키를 사용하여 CoroutineContext 구성 요소에 접근](#32-키를-사용하여-coroutinecontext-구성-요소에-접근)
-    * [3.2.1. 싱글톤 키를 사용하여 CoroutineContext 구성 요소에 접근: _CoroutineName.Key_](#321-싱글톤-키를-사용하여-coroutinecontext-구성-요소에-접근-_coroutinenamekey_)
-    * [3.2.2. 구성 요소 자체를 키로 사용하여 구성 요소에 접근: _CoroutineName_](#322-구성-요소-자체를-키로-사용하여-구성-요소에-접근-_coroutinename_)
-    * [3.2.3. 구성 요소의 Key 프로퍼티를 사용하여 구성 요소에 접근: _myCoroutineName.key_](#323-구성-요소의-key-프로퍼티를-사용하여-구성-요소에-접근-_mycoroutinenamekey_)
-* [4. CoroutineContext 구성 요소 제거](#4-coroutinecontext-구성-요소-제거)
-  * [4.1. `minusKey()` 함수로 구성 요소 제거](#41-minuskey-함수로-구성-요소-제거)
-* [정리하며..](#정리하며)
-* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
-<!-- TOC -->
-
----
-
 이 포스트에서는 `Job`, `CoroutineDispatcher`, `CoroutineName` 이 CoroutineContext 의 구성 요소라는 것을 이해하고, CoroutineContext 의 구성 요소를
 결합하거나 분리하는 방법에 대해 알아본다.
 
@@ -86,6 +64,29 @@ CoroutineName 은 코루틴에 식별용 이름을 부여할 수 있고, Corouti
 
 > 소스는 [github](https://github.com/assu10/coroutine/tree/feature/chap06) 에 있습니다.
 
+---
+
+**목차**
+
+<!-- TOC -->
+* [1. CoroutineContext 구성 요소](#1-coroutinecontext-구성-요소)
+* [2. CoroutineContext 구성](#2-coroutinecontext-구성)
+  * [2.1. CoroutineContext 구성](#21-coroutinecontext-구성)
+  * [2.2. CoroutineContext 구성 요소 덮어씌우기](#22-coroutinecontext-구성-요소-덮어씌우기)
+  * [2.3. CoroutineContext 에 Job 생성하여 추가](#23-coroutinecontext-에-job-생성하여-추가)
+* [3. CoroutineContext 구성 요소 접근](#3-coroutinecontext-구성-요소-접근)
+  * [3.1. CoroutineContext 구성 요소의 키](#31-coroutinecontext-구성-요소의-키)
+  * [3.2. 키를 사용하여 CoroutineContext 구성 요소에 접근](#32-키를-사용하여-coroutinecontext-구성-요소에-접근)
+    * [3.2.1. 싱글톤 키를 사용하여 CoroutineContext 구성 요소에 접근: CoroutineName.Key](#321-싱글톤-키를-사용하여-coroutinecontext-구성-요소에-접근-coroutinenamekey)
+    * [3.2.2. 구성 요소 자체를 키로 사용하여 구성 요소에 접근: CoroutineName](#322-구성-요소-자체를-키로-사용하여-구성-요소에-접근-coroutinename)
+    * [3.2.3. 구성 요소의 Key 프로퍼티를 사용하여 구성 요소에 접근: myCoroutineName.key](#323-구성-요소의-key-프로퍼티를-사용하여-구성-요소에-접근-mycoroutinenamekey)
+* [4. CoroutineContext 구성 요소 제거](#4-coroutinecontext-구성-요소-제거)
+  * [4.1. `minusKey()` 함수로 구성 요소 제거](#41-minuskey-함수로-구성-요소-제거)
+* [정리하며..](#정리하며)
+* [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+<!-- TOC -->
+
+---
 ---
 
 **개발 환경**
@@ -367,7 +368,7 @@ fun main() {
 따라서 _AbstractCoroutineContextElement(CoroutineName)_ 에서 괄호 안의 _CoroutineName_ 은 타입이 아니라 동반 객체 `CoroutineName.Key` 를 의미한다.  
 이는 코클린 문법상 클래스 내부에서는 동반 객체를 클래스 이름으로도 자동 참조할 수 있기 때문에 가능한 표현이다.
 
-> 좀 더 상세한 내용은 [3.2.2. 구성 요소 자체를 키로 사용하여 구성 요소에 접근](#322-구성-요소-자체를-키로-사용하여-구성-요소에-접근) 을 참고하세요.
+> 좀 더 상세한 내용은 [3.2.2. 구성 요소 자체를 키로 사용하여 구성 요소에 접근: CoroutineName](#322-구성-요소-자체를-키로-사용하여-구성-요소에-접근-coroutinename) 을 참고하세요.
 
 </details>
 <br />
@@ -436,7 +437,7 @@ CoroutineContext 입장에서 Dispatcher.IO, Dispatcher.Default, Dispatchers.Unc
 
 ## 3.2. 키를 사용하여 CoroutineContext 구성 요소에 접근
 
-### 3.2.1. 싱글톤 키를 사용하여 CoroutineContext 구성 요소에 접근: _CoroutineName.Key_
+### 3.2.1. 싱글톤 키를 사용하여 CoroutineContext 구성 요소에 접근: CoroutineName.Key
 
 CoroutineName.Key 를 사용하여 CoroutineContext 객체의 CoroutineName 구성 요소에 접근하는 예시아다.
 
@@ -469,7 +470,7 @@ CoroutineName(MyCoroutine)
 
 ---
 
-### 3.2.2. 구성 요소 자체를 키로 사용하여 구성 요소에 접근: _CoroutineName_
+### 3.2.2. 구성 요소 자체를 키로 사용하여 구성 요소에 접근: CoroutineName
 
 CoroutineContext 의 주요 구성 요소인 CoroutineName, Job, CoroutineDispatcher, CoroutineExceptionHandler, 이들은 모두 클래스 내부에 
 companion object 로 **`CoroutineContext.Key<T>` 를 구현한 Key 객체**를 가지고 있다.  
@@ -515,7 +516,7 @@ context[CoroutineName] == context[CoroutineName.Key]
 
 ---
 
-### 3.2.3. 구성 요소의 Key 프로퍼티를 사용하여 구성 요소에 접근: _myCoroutineName.key_
+### 3.2.3. 구성 요소의 Key 프로퍼티를 사용하여 구성 요소에 접근: myCoroutineName.key
 
 CoroutineContext 의 구성 요소 인스턴스에서 .key 프로퍼티로 접근한 키를 해당 클래스의 companion object 로 선언된 Key 객체와 동일한 참조를 가진다.
 
@@ -647,7 +648,6 @@ JobImpl{Active}@368239c8
 - CoroutineName, CoroutineDispatcher, Job, CoroutineExceptionHandler 는 companion object 인 Key 를 통해 CoroutineContext.Key 를 구현하기 때문에 그 자체를 키로 사용할 수 있음
   - 예) myCoroutineContext\[CoroutineName.Key\] 이것은 myCoroutineContext\[CoroutineName\] 로 대체 가능
 - CoroutineContext 객체에 `minusKey()` 함수를 사용하면 CoroutineContext 객체에서 특정 구성 요소를 제거한 객체를 반환받음
-
 
 ---
 

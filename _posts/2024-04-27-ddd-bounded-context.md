@@ -6,8 +6,6 @@ categories: dev
 tags: ddd bounded-context open-host-service anti-corruption-layer shared-kernel separate-way context-map
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - 바운디드 컨텍스트
 - 바운디드 컨텍스트 간 통합과 관계
 

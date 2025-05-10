@@ -6,8 +6,6 @@ categories: dev
 tags: springboot msa rest-api spring-web-mvc controller-advice response-entity pageable post-mapping put-mapping
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다. 
-
 - 사용자 요청 메시지 검증
 - 예외 처리 기능 설정, 에러 메시지 응답
 - 클라이언트에 파일 전송

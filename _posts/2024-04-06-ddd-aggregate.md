@@ -6,8 +6,6 @@ categories: dev
 tags: ddd aggregate factory memberOf @EmbeddedId @Embeddable @ElementCollection @CollectionTable
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - 애그리거트
 - 애그리거트 루트와 역할
 - 애그리거트와 리포지터리

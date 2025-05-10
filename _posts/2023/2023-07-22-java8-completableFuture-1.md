@@ -6,8 +6,6 @@ categories: dev
 tags: java java8 completable-future
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - 비동기 작업 생성 후 결과 조회
 - Non-block 으로 생산성 높이기
 - 비동기 API 설계 및 구현

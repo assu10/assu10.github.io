@@ -6,7 +6,6 @@ categories: dev
 tags: java java8 localdate parsing formatting temporal-adjusters datetimeformatter datetimeformatterbuilder zoneid zoneoffset
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
 - Java 8 에서 새로운 날짜와 시간 라이브러리를 제공하는 이유
 - 날짜 조작
 - 시간대와 캘린더

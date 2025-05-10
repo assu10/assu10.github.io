@@ -6,8 +6,6 @@ categories: dev
 tags: ddd LockModeType @Lock @QueryHints @Version
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - 애그리거트의 트랜잭션
 - 애그리거트 잠금 기법
 

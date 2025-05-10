@@ -6,8 +6,6 @@ categories: dev
 tags: java java8 completable-future
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - 두 개 이상의 비동기 연산을 파이프라인으로 만들고 합치기
 - 비동기 작업 완료 대응
 

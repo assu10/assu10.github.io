@@ -6,8 +6,6 @@ categories: dev
 tags: ddd jpa @Embeddable @AttributeOverrides @Entity @Embedded protected @Access AttributeConverter @ElementCollection @CollectionTable @OrderColumn @EmbeddedId @SecondaryTable @AttributeOverride @Inheritance @DiscriminatorColumn @DiscriminatorValue @OneToMany Collections.unmodifiableList()
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - JPA 를 이용한 리포지터리 구현
 - 엔티티와 밸류 매핑
 - 밸류 컬렉션 매핑

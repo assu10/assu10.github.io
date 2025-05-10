@@ -6,8 +6,6 @@ categories: dev
 tags: ddd 
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
-
 - 응용(application) 서비스 구현
 - 표현(presentation) 영역의 역할
 - 값 검증과 권한 검사

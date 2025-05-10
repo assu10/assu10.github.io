@@ -6,7 +6,6 @@ categories: dev
 tags: java java8 optional-class optional
 ---
 
-이 포스트에서는 아래 내용에 대해 알아본다.
 - null 레퍼런스의 문제점
 - null 대신 Optional: null 로부터 안전한 도메인 모델 재구현
 - Optional 활용: null 확인 코드 제거
