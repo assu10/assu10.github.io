@@ -118,8 +118,8 @@ A 회사에서 상용 솔루션으로 이용하던 기능에 부족한 점이 �
 다양한 하위 도메인 유형을 수용한다.  
 예) 핵심 하위 도메인은 충돌 방지 계층을 사용하여 모델 보호, 오픈 호스트 서비스를 사용하여 구현 모델의 빈번한 변경으로부터 사용자를 보호
 
-하위 도메인 유형의 변경의 영향을 받는 또 다른 통합 패턴은 [분리형 노선](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#3-%EB%B6%84%EB%A6%AC%ED%98%95-%EB%85%B8%EC%84%A0seperated-ways)이다.  
-지원 하위 도메인과 일반 하위 도메인은 분리형 노선 패턴을 사용할 수 있지만, 핵심 하위 도메인은 한 팀에서만 구현되기 때문에 분리형 노선 패턴을 사용할 수 없고 [사용자-제공자 관계](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#2-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%9C%EA%B3%B5%EC%9E%90-%ED%8C%A8%ED%84%B4-%EA%B7%B8%EB%A3%B9)가 가장 적합하다.
+하위 도메인 유형의 변경의 영향을 받는 또 다른 통합 패턴은 [분리형 노선](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#3-%EB%B6%84%EB%A6%AC%ED%98%95-%EB%85%B8%EC%84%A0seperated-ways-%ED%98%91%EC%97%85-%EB%8C%80%EC%8B%A0-%EA%B0%81%EC%9E%90%EC%9D%98-%EA%B8%B8%EC%9D%84-%EC%84%A0%ED%83%9D)이다.  
+지원 하위 도메인과 일반 하위 도메인은 분리형 노선 패턴을 사용할 수 있지만, 핵심 하위 도메인은 한 팀에서만 구현되기 때문에 분리형 노선 패턴을 사용할 수 없고 [사용자-제공자 관계](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#12-%EA%B3%B5%EC%9C%A0-%EC%BB%A4%EB%84%90shared-kernel-%ED%8C%A8%ED%84%B4)가 가장 적합하다.
 
 구현 전략 관점에서 해심 하위 도메인과 지원 하위 도메인의 구현 방법은 아래와 같다.
 - 핵심 하위 도메인

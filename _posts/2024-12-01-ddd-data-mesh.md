@@ -602,7 +602,7 @@ DDD 에서 바운디드 컨텍스트를 기준으로 경계를 나누고 그 내
 - **유비쿼터스 언어와 도메인 지식 기반 설계**
   - 분석 모델은 **해당 도메인 팀의 언어와 업무 맥락**을 기반으로 설계되어야 함
   - 데이터 웨어하우스와 데이터 레이크는 **도메인 지식없이 만든 통합 모델**이기 때문에 부족함
-- [**오픈 호스트 패턴**](https://assu10.github.io/dev/2024/11/16/ddd-msa/#41-%EC%98%A4%ED%94%88-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EC%84%9C%EB%B9%84%EC%8A%A4ohs-open-host-service)
+- [**오픈 호스트 패턴**](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#23-%EC%98%A4%ED%94%88-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EC%84%9C%EB%B9%84%EC%8A%A4ohs-open-host-service-%ED%8C%A8%ED%84%B4)
   - 실시간 데이터 모델과는 **다른 형태로 외부에 데이터를 제공**하는 것은 오픈 호스트 패턴임
   - 바운디드 컨텍스트에서 **분석 모델 전용 포트를 외부에 노출**하는 것이 이에 해당함
 - [**CQRS 패턴**](https://assu10.github.io/dev/2024/05/05/ddd-cqrs/)
@@ -612,11 +612,11 @@ DDD 에서 바운디드 컨텍스트를 기준으로 경계를 나누고 그 내
 - **분석 모델 간 바운디드 컨텍스트 연동**
   - 분석 유스케이스는 종종 여러 바운디드 컨텍스트의 데이터 제품을 엮어서 구현되는데 이 때 DDD 의 연동 전략을 동일하게 적용 가능
     - 서로 협업해야 하는 경우
-      - [파트너십 패턴](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#11-%ED%8C%8C%ED%8A%B8%EB%84%88%EC%8B%AD-%ED%8C%A8%ED%84%B4)
+      - [파트너십 패턴](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#11-%ED%8C%8C%ED%8A%B8%EB%84%88%EC%8B%ADpartnership-%ED%8C%A8%ED%84%B4)
     - 데이터 충돌을 피해야 하는 경우
       - [충돌 방지 계층](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#22-%EC%B6%A9%EB%8F%8C-%EB%B0%A9%EC%A7%80-%EA%B3%84%EC%B8%B5acl-anticorruption-layer-%ED%8C%A8%ED%84%B4)
     - 데이터 중복을 감수하고 독립성 우선
-      - [분리형 노선 패턴](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#3-%EB%B6%84%EB%A6%AC%ED%98%95-%EB%85%B8%EC%84%A0seperated-ways)
+      - [분리형 노선 패턴](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#3-%EB%B6%84%EB%A6%AC%ED%98%95-%EB%85%B8%EC%84%A0seperated-ways-%ED%98%91%EC%97%85-%EB%8C%80%EC%8B%A0-%EA%B0%81%EC%9E%90%EC%9D%98-%EA%B8%B8%EC%9D%84-%EC%84%A0%ED%83%9D)
 
 데이터 메시는 단순한 분석 인프라 모델이 아니라 **DDD 설계 원칙이 분석 영역으로 확장**된 형태이다.  
 유비쿼터스 언어, 오픈 호스트, CQRS, 바운디드 컨텍스트 연동 패턴 모두가 분석 데이터 모델링에서도 그대로 활용될 수 있다.  

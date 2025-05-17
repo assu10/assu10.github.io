@@ -655,7 +655,7 @@ sequenceDiagram
 
 ![리팩터링한 시스템](/assets/img/dev/2024/1130/tobe.png)
 
-- [OHS(Open Host Service)](https://assu10.github.io/dev/2024/11/16/ddd-msa/#41-%EC%98%A4%ED%94%88-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EC%84%9C%EB%B9%84%EC%8A%A4ohs-open-host-service): 
+- [OHS(Open Host Service)](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#23-%EC%98%A4%ED%94%88-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EC%84%9C%EB%B9%84%EC%8A%A4ohs-open-host-service-%ED%8C%A8%ED%84%B4-%EC%99%B8%EB%B6%80-%EC%97%B0%EB%8F%99%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B0%9C%EB%B0%A9%ED%98%95-%EC%A0%84%EB%9E%B5): 
 사용자 요구 기반 프로젝션 모델을 외부에 노출
 - CRM 은 이벤트를 통한 상태 전송(ECST) 방식으로 프로젝션을 발행하고, 구현 디테일을 감춤
 - 광고최적화는 이벤트 알림을 통해 리포팅의 흐름을 트리거함 → 시간 결합 해소

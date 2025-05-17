@@ -588,10 +588,10 @@ fun printJobState(job: Job) {
 [지난 시간: 1017 ms] 부모 코루틴 실행 완료
 ```
 
-출력된 Job 의 상태값은 보면 '실행 완료 중'인 코루틴이 아직 완료되지 않았으므로 isActive 는 true, 취소 요청을 받거나 실행 완료되지 않았으므로 isCancelled 와 
+출력된 Job 의 상태값은 보면 `실행 완료 중`인 코루틴이 아직 완료되지 않았으므로 isActive 는 true, 취소 요청을 받거나 실행 완료되지 않았으므로 isCancelled 와 
 isCompleted 는 모두 false 가 된다.
 
-<코루틴 상태별 Job 상태표>
+<**코루틴 상태별 Job 상태표**>
 
 | 코루틴 상태  | isActive | isCancelled | isCompleted |
 |:--------|:--------:|:-----------:|:-----------:|
@@ -601,7 +601,6 @@ isCompleted 는 모두 false 가 된다.
 | 실행 완료   |  false   |    false    |    true     |
 | 취소 중    |  false   |    true     |    false    |
 | 취소 완료   |  false   |    true     |    true     |
-
 
 `실행 완료 중`과 `실행 중` Job 상태값은 동일하므로 API 상으로는 구분되지 않고, 일반적으로 둘의 상태를 구분없이 사용한다.  
 하지만 구조적 이해를 위해선 **자식이 끝나야 부모가 끝난다는 의존성**을 명확히 인지하는 것이 중요하다.

@@ -139,14 +139,14 @@ tags: ddd
 
 그리고 최소 바운디드 컨텍스트가 있으면 이들 간의 관계와 [연동 패턴](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/)을 조사한다.
 
-- [사용자-제공자 관계](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#2-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%9C%EA%B3%B5%EC%9E%90-%ED%8C%A8%ED%84%B4-%EA%B7%B8%EB%A3%B9)
+- [사용자-제공자 관계](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#12-%EA%B3%B5%EC%9C%A0-%EC%BB%A4%EB%84%90shared-kernel-%ED%8C%A8%ED%84%B4)
   - 파트너십 관계를 위해 설계되었지만 파트너십이 더 이상 유지되지 않는 컴포넌트의 경우 적절한 사용자-제공자 관계(순응주의자, 충돌 방지 계층, 오픈 호스트 서비스)로 리팩터링
 - [충돌 방지 계층](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#22-%EC%B6%A9%EB%8F%8C-%EB%B0%A9%EC%A7%80-%EA%B3%84%EC%B8%B5acl-anticorruption-layer-%ED%8C%A8%ED%84%B4)
   - 레거시 시스템이 다운스트림 컴포넌트로 확상되는 경향이 있는 비효율적인 모델을 사용하는 경우 레거시 시스템에서 바운디드 컨텍스트를 보호하는데 유용함
   - 업스트림 서비스의 퍼블릭 인터페이스에 대한 잦은 변경으로부터 바운디드 컨텍스트를 보호할 때도 유용함
 - [오픈 호스트 서비스](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#23-%EC%98%A4%ED%94%88-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EC%84%9C%EB%B9%84%EC%8A%A4ohs-open-host-service-%ED%8C%A8%ED%84%B4)
   - 한 컴포넌트 구현 상세에 대한 변경사항이 사용자에게 영향을 미치는 경우 오픈 호스트 서비스로 전환 (= 구현 모델을 퍼블릭 API 에서 분리)
-- [분리형 노선](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#3-%EB%B6%84%EB%A6%AC%ED%98%95-%EB%85%B8%EC%84%A0seperated-ways)
+- [분리형 노선](https://assu10.github.io/dev/2024/08/24/ddd-bounded-context-linkage/#3-%EB%B6%84%EB%A6%AC%ED%98%95-%EB%85%B8%EC%84%A0seperated-ways-%ED%98%91%EC%97%85-%EB%8C%80%EC%8B%A0-%EA%B0%81%EC%9E%90%EC%9D%98-%EA%B8%B8%EC%9D%84-%EC%84%A0%ED%83%9D)
   - 불화의 씨앗이 되는 기능이 비즈니스에 중요하지 않은 경우(= 핵심 하위 도메인이 아닌 경우) 분리선 노선 패턴을 적용하여 마찰의 원인 제거
 
 ---
@@ -164,15 +164,10 @@ tags: ddd
 - 동시에 핫픽스와 기타 긴급 상황을 제외하고, 레거시 바운디드 컨텍스트의 개선과 개발은 중지함
 - 결국 모든 기능은 새로운 바운디드 컨텍스트인 스트랭글러로 마이그레이션되고, 숙주가 죽는 것과 유사하게 레거시 코드베이스는 제거됨
 
-일반적으로 스트랭글러 패턴은 퍼사드 패턴(facade pattern) 과 함께 사용된다.  
+일반적으로 스트랭글러 패턴은 [퍼사드](https://assu10.github.io/dev/2024/12/15/Facade/) 패턴(facade pattern) 과 함께 사용된다.  
 퍼사드 패턴의 얇은 추상화 계층은 퍼블릭 인터페이스 역할을 하며, 레거시 혹은 현대화된 바운디드 컨텍스트로 요청을 전달해 처리하는 역할을 한다.
 
 ![레거시에서 현대화된 시스템으로 기능을 마이그레이션하는 상태에 따라 요청을 전달하는 퍼사드 레이어](/assets/img/dev/2024/1110/migration.png)
-
-> **퍼사드 (facade)**
->
-> 복잡한 서브 시스템을 단순하게 제공하기 위한 인터페이스 제공  
-> 즉, 시스템 구현 내부 내용을 몰라도 쉽게 사용할 수 있도록 하는 패턴
 
 [DDD - 진화하는 설계 의사 결정](https://assu10.github.io/dev/2024/10/12/ddd-evolving-decision/) 에서 전술적 설계 의사결정을 마이그레이션하는 다양한 측면에 대해 알아보았다.  
 하지만 레거시 코드베이스를 현대화할 때는 2가지 미묘한 차이점이 있다.

@@ -249,13 +249,8 @@ fun main() {
 }
 ```
 
-kotlin-logging 라이브러리는 SLF4J 위에 만든 퍼사드(facade)이다.  SLF4J 자체는 여러 가지 로깅 프레임워크 위에 만들어진 추상화이다.  
+kotlin-logging 라이브러리는 SLF4J 위에 만든 [퍼사드(facade)](https://assu10.github.io/dev/2024/12/15/Facade/)이다.  SLF4J 자체는 여러 가지 로깅 프레임워크 위에 만들어진 추상화이다.  
 위에선 `slf4j-simple` 을 구현으로 선택하였다.
-
-> **퍼사드 (facade)**  
-> 
-> 복잡한 서브 시스템을 단순하게 제공하기 위한 인터페이스 제공  
-> 즉, 시스템 구현 내부 내용을 몰라도 쉽게 사용할 수 있도록 하는 패턴
 
 디폴트 설정이 info level 이상 출력하도록 되어있기 때문에 trace() 와 debug() 는 출력되지 않는다.
 
@@ -269,7 +264,7 @@ kotlin-logging 라이브러리는 SLF4J 위에 만든 퍼사드(facade)이다.  
 
 많은 단위 테스트 프레임워크가 있지만 `JUnit` 이 가장 유명하다.  
 
-코틀린 전용 단위 테스트 프레임워크도 있다. **코틀린 표준 라이브러리에는 여러 테스트 라이브러리에 대한 facade 를 제공하는 `kotlin.test` 가 포함**되어 있다.  
+코틀린 전용 단위 테스트 프레임워크도 있다. **코틀린 표준 라이브러리에는 여러 테스트 라이브러리에 대한 [facade](https://assu10.github.io/dev/2024/12/15/Facade/) 를 제공하는 `kotlin.test` 가 포함**되어 있다.  
 따라서 어느 한 라이브러리에 구속될 필요가 없다.
 
 `kotlin.test` 를 사용하려면 build.gradle.kt 의 dependencies 에 아래 내용을 추가한다.  
@@ -407,7 +402,7 @@ tasks.withType<Test> {
 }
 ```
 
-kotlin.test 는 일반적으로 사용되는 함수에 대해 facade 를 제공한다.  
+kotlin.test 는 일반적으로 사용되는 함수에 대해 [facade](https://assu10.github.io/dev/2024/12/15/Facade/) 를 제공한다.  
 예) kotlin.test 의 `assertEquals()` 는 org.junit.jupiter.api.Assertions 클래스의 `assertEquals()` 를 사용
 
 코틀린은 정의와 식에 애너테이션을 허용하는데 예를 들어 `@Test` 애너테이션은 일반 함수를 테스트 함수로 변경해준다.
