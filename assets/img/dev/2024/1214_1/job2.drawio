@@ -1,0 +1,31 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="ntbAOfWoWIZTTScTsXHo">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NYNZojIII6fdXboEe7s0-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="NYNZojIII6fdXboEe7s0-2" target="NYNZojIII6fdXboEe7s0-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NYNZojIII6fdXboEe7s0-2" value="Job&lt;div&gt;runBlocking&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="NYNZojIII6fdXboEe7s0-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="NYNZojIII6fdXboEe7s0-3" target="NYNZojIII6fdXboEe7s0-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NYNZojIII6fdXboEe7s0-3" value="Job&lt;div&gt;Coroutine1&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="180" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="NYNZojIII6fdXboEe7s0-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="NYNZojIII6fdXboEe7s0-5" target="NYNZojIII6fdXboEe7s0-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NYNZojIII6fdXboEe7s0-5" value="Job&lt;div&gt;newJob&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="280" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="NYNZojIII6fdXboEe7s0-6" value="Job&lt;div&gt;Coroutine2&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="380" width="90" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,43 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="kUA_jPrXwn1Jeeo2nP2y">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="hbWDQfvjKqs8I5IxUkYB-2" target="hbWDQfvjKqs8I5IxUkYB-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-2" value="Job&lt;div&gt;runBlocking&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="hbWDQfvjKqs8I5IxUkYB-4" target="hbWDQfvjKqs8I5IxUkYB-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-4" value="Job&lt;div&gt;Coroutine1&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="180" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="hbWDQfvjKqs8I5IxUkYB-6" target="hbWDQfvjKqs8I5IxUkYB-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-6" value="Job&lt;div&gt;newJob&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="280" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-7" value="Job&lt;div&gt;Coroutine2&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="380" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-8" value="실행 완료 중" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="186" y="85" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-9" value="실행 완료 중" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="186" y="185" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-10" value="실행 중" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="186" y="285" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hbWDQfvjKqs8I5IxUkYB-11" value="실행 완료" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="186" y="380" width="70" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
