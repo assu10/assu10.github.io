@@ -1,0 +1,40 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="W4IwoOVVHlYJ1cLkebDR">
+    <mxGraphModel dx="951" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-1" value="운영체제 외 라이브러리" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#fff2cc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="420" y="110" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-2" value="운영체제 라이브러리" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#ffe6cc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="420" y="160" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-3" value="커널" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#F5CB9E;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="420" y="210" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-4" value="하드웨어" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="420" y="260" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-5" value="애플리케이션" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#d5e8d4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="420" y="60" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-10" value="하드웨어" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="220" y="260" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-11" value="애플리케이션" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#d5e8d4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="220" y="60" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-12" value="운영체제" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#b1ddf0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="220" y="110" width="130" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-13" value="하드웨어" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="260" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hioiPLTkNYXXcvoKl7qd-15" value="소프트웨어" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;fillColor=#dae8fc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="130" height="190" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

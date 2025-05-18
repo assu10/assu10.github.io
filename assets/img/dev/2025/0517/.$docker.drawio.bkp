@@ -1,0 +1,37 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="0BL3WmmBu7R28W1M4_mc">
+    <mxGraphModel dx="791" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-3" value="컨테이너 1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#e1d5e7;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="110" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-1" value="애플리케이션 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="80" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-2" value="바이너리/&lt;div&gt;라이브러리&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="130" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-5" value="컨테이너 2" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#b0e3e6;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="170" y="40" width="110" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-6" value="애플리케이션 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="180" y="80" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-7" value="바이너리/&lt;div&gt;라이브러리&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="180" y="130" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-8" value="도커" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="190" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-9" value="운영체제" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s4GOVGu1UPRvp9bPAxra-10" value="하드웨어" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="240" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

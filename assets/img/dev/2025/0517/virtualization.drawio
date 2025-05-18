@@ -1,0 +1,109 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="-7iUtygdzzl26sYZhsni">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-1" value="컨테이너 1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#e1d5e7;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="587" y="90" width="110" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-2" value="애플리케이션 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="597" y="130" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-3" value="바이너리/&lt;div&gt;라이브러리&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="597" y="180" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-4" value="컨테이너 2" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#b0e3e6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="717" y="90" width="110" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-5" value="애플리케이션 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="727" y="130" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-6" value="바이너리/&lt;div&gt;라이브러리&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="727" y="180" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-7" value="도커" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="587" y="240" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-8" value="운영체제" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="587" y="290" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-9" value="하드웨어" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="587" y="340" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-10" value="VM1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#e1d5e7;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="7" y="40" width="110" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-11" value="애플리케이션 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="17" y="80" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-12" value="바이너리/&lt;div&gt;라이브러리&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="17" y="130" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-13" value="VM2" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#b0e3e6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="137" y="40" width="110" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-14" value="애플리케이션 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="147" y="80" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-15" value="바이너리/&lt;div&gt;라이브러리&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="147" y="130" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-16" value="하이퍼바이저" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="7" y="240" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-17" value="호스트 운영체제" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="7" y="290" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-18" value="하드웨어" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="7" y="340" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-19" value="게스트&lt;div&gt;운영체제&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="17" y="180" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-20" value="게스트&lt;div&gt;운영체제&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="147" y="180" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-21" value="VM1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#e1d5e7;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="297" y="90" width="110" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-22" value="애플리케이션 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="307" y="130" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-23" value="바이너리/&lt;div&gt;라이브러리&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="307" y="180" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-24" value="VM2" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#b0e3e6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="427" y="90" width="110" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-25" value="애플리케이션 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="437" y="130" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-26" value="바이너리/&lt;div&gt;라이브러리&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="437" y="180" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-27" value="하이퍼바이저" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="297" y="290" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-29" value="하드웨어" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="297" y="340" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-30" value="게스트&lt;div&gt;운영체제&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D1A7E6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="307" y="230" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-31" value="게스트&lt;div&gt;운영체제&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70D6DB;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="437" y="230" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-32" value="호스트 가상화" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="87" y="410" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-33" value="하이퍼바이저 가상화" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="352" y="410" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bAjfcmFsqWDQRzWxy-Zf-34" value="컨테이너 가상화" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="642" y="410" width="130" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
