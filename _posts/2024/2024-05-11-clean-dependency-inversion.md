@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Clean Architecture - 의존성 역전 (Dependency Inversion Principle)"
+title:  "Clean Architecture - 단일 책임 원칙(SRP)과 의존성 역전 (DIP)"
 date: 2024-05-11
 categories: dev
 tags: clean architecture dip dependency-inversion-principle srp hexagonal

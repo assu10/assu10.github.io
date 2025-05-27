@@ -147,7 +147,10 @@ null 이 될 수 있는 타입을 지원함에 따라 컴파일 시점에 Null P
 #### 1.1.2.1. 함수형 동작: 예측 가능한 도메인 로직을 위한 순수 함수 설계
 
 도메인 모델에서 복잡성이 증가할수록 중요한 것은 **예측 가능한 로직 구성**과 **테스트 용이성 확보**이다.  
-이를 위한 강력한 전략 중 하나가 바로 **함수형 동작**, 즉 **[순수 함수](https://assu10.github.io/dev/2021/09/21/typescript-array-tuple/#31-%EC%88%9C%EC%88%98-%ED%95%A8%EC%88%98) 기반의 도메인 로직 설계**이다.
+이를 위한 강력한 전략 중 하나가 바로 **함수형 동작**, 즉 **[순수 함수](https://assu10.github.io/dev/2021/09/21/typescript-array-tuple/#31-%EC%88%9C%EC%88%98-%ED%95%A8%EC%88%98) 기반의 도메인 로직 설계**이다.  
+
+> 도메인 모델은 순수 함수형 코드로 작성할 때의 이점은 [1.1.4. 명령형 셸과 함수형 코어 패턴(Imperative shell with functional core)](https://assu10.github.io/dev/2025/05/25/architecture-flexible-software-architecture-principles/#114-%EB%AA%85%EB%A0%B9%ED%98%95-%EC%85%B8%EA%B3%BC-%ED%95%A8%EC%88%98%ED%98%95-%EC%BD%94%EC%96%B4-%ED%8C%A8%ED%84%B4imperative-shell-with-functional-core) 을 참고하세요.
+
 
 함수형 동작은 **수학 함수처럼 입력값이 같으면 항상 같은 출력을 반환하는 순수 함수(pure function)** 를 기반으로 한 설계이다.  
 **외부 상태를 변경하지 않으며**, 입력값만을 바탕으로 출력을 생성한다.  
@@ -199,20 +202,6 @@ fun recordQuoteLine(
 - 시스템 안정성과 테스트 커버리지가 크게 향상된다.
 
 복잡성을 피하는 유일한 방법은 **코드 단순화**이며, 함수형 동작을 이를 위한 가장 효과적인 도구 중 하나이다.
-
-
-
-함수형 동작은 도메인 서비스 또는 애그리거트 내부에서 부수효과 없이 규칙을 계산할 때 유용하다.
-
-함수형 코어 접근 방식을 활용하면 코드는 더 예측 가능하고 쉽게 테스트할 수 있으며, 추론하기 쉬워진다.
-
-코드 깊숙한 곳에 숨어있는 부수 효과를 가진 기능이 도출되어 의도하지 않은 결과를 가져오는 것을 피하려면 '부수 효과 없는 함수'를 사용하는 것이 좋다.
-
-밸류 타입은 함수형 동작을 구현하기 위한 한 가지 방법의 예이다. 부수 효과를 피할 수 없을 때는 각 작업의 구현에 대한 깊은 이해없니는 작업 결과를 예측할 수 없다.
-부수 효과의 복잡성이 커지만 품질을 보장할 수 없ㄴ느데 이를 피하는 유일한 방법은 코드를 단순화하는 것이며, 여기에는 최소한의 함수형 동작을 사용하는 것이 포함될 수 있다.
-
-
-함수형 패러다임의 또 다른 중요한 이점은 함수의 출력 타입이 다른 함수의 입력 타입과 일치하면 다른 순수 함수를 쉽게 조합할 수 있다는 것이다.
 
 ---
 
@@ -1551,12 +1540,13 @@ java 를 kotlin 으로 변환하고 싶을 때는 java 코드를 복사하여 ko
 
 # 참고 사이트 & 함께 보면 좋은 사이트
 
-*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 을 기반으로 스터디하며 정리한 내용들입니다.*
+*본 포스트는 브루스 에켈, 스베트라아 이사코바 저자의 **아토믹 코틀린** 과 드리트리 제메로프, 스베트라나 이사코바 저자의 **Kotlin In Action** 과 반 버논, 토마스 야스쿨라 저자의 **전략적 모놀리스와 마이크로서비스**를 을 기반으로 스터디하며 정리한 내용들입니다.*
 
 * [아토믹 코틀린](https://www.yes24.com/Product/Goods/117817486)
 * [아토믹 코틀린 예제 코드](https://github.com/gilbutITbook/080301)
 * [Kotlin In Action](https://www.yes24.com/Product/Goods/55148593)
 * [Kotlin In Action 예제 코드](https://github.com/AcornPublishing/kotlin-in-action)
+* [전략적 모놀리스와 마이크로서비스](https://www.yes24.com/product/goods/144267386)
 * [Kotlin Github](https://github.com/jetbrains/kotlin)
 * [코틀린 doc](https://kotlinlang.org/docs/home.html)
 * [코틀린 lib doc](https://kotlinlang.org/api/latest/jvm/stdlib/)
