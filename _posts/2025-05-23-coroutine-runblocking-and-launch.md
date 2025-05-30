@@ -19,6 +19,7 @@ tags: kotlin coroutine run-blocking launch
 * [2. runBlocking 코루틴의 하위에 생성된 코루틴의 동작](#2-runblocking-코루틴의-하위에-생성된-코루틴의-동작)
 * [3. `runBlocking()` 함수와 `launch()` 함수의 동작 차이](#3-runblocking-함수와-launch-함수의-동작-차이)
 * [4. `runBlocking()` vs `launch()`](#4-runblocking-vs-launch)
+* [정리하며..](#정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -250,6 +251,13 @@ fun getElapsedTime(startTime: Long): String {
 |   사용 목적   | 일반 코드와 코루틴 간 연결 | 비동기 작업 실행        |
 |   사용 위치   | main 함수, 테스트 코드 | 코루틴 컨텍스트 어디서나    |
 | 하위 코루틴 실행 | 즉시 실행 & 차단      | 예약 실행 & 비차단      |
+
+---
+
+# 정리하며..
+
+- `runBlocking()` 코루틴 빌더는 **코루틴이 완료될 때까지 호출 스레드를 차단**하며, **블로킹 방식으로 코루틴을 실행**한다.
+- `launch()` 코루틴 빌더는 **호출 스레드를 차단하지 않고 비동기적으로 코루틴을 실행**한다.
 
 ---
 
