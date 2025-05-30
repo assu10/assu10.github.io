@@ -340,7 +340,7 @@ public void changePassword(MemberId memberId, String oldPw, String newPw) {
 
 # 3. 응용 서비스 구현
 
-응용 서비스는 표현 영역과 도메인 영역을 연결하는 매개체 역할을 하는데 이는 디자인 패턴에서 [퍼사드 (facade)](https://assu10.github.io/dev/2024/12/15/Facade/) 와 같은 역할을 한다.
+응용 서비스는 표현 영역과 도메인 영역을 연결하는 매개체 역할을 하는데 이는 디자인 패턴에서 [퍼사드 (facade)](https://assu10.github.io/dev/2024/12/15/facade/) 와 같은 역할을 한다.
 
 ---
 

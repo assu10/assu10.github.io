@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Coroutine - runBlocking() 과 launch() 차이"
+title:  "Coroutine - 구조화된 동시성과 부모-자식 관계(3): `runBlocking()` 과 `launch() 차이`"
 date: 2025-05-23
 categories: dev
 tags: kotlin coroutine run-blocking launch
@@ -26,7 +26,7 @@ tags: kotlin coroutine run-blocking launch
 
 # 1. `runBlocking()` 함수의 동작 방식
 
-`runBlocking()` 은 코루틴을 시작하면서 호출 스레드를 차단(blocking) 한다는 특징은 가진 코루틴 빌더 함수이다.  
+`runBlocking()` 은 코루틴을 시작하면서 호출 스레드를 차단(blocking) 한다는 특징을 가진 코루틴 빌더 함수이다.  
 (= 코루틴을 시작하면서 현재 스레드를 차단함)
 
 `runBlocking()` 함수가 호출되면 새로운 코루틴인 runBlocking 코루틴이 실행되는데, 이 코루틴은 실행이 완료될 때까지 호출부의 스레드를 차단(block) 하고 사용한다.
@@ -195,12 +195,12 @@ fun getElapsedTime(startTime: Long): String {
 ![runBlocking 코루틴 하위에 생성된 runBlocking 코루틴 동작](/assets/img/dev/2025/0523/runBlocking4.webp)
 
 - runBlocking 코루틴은 **호출부의 스레드(여기서는 메인 스레드)를 차단하고 점유**한다.
-- 따라서 하위 runBlocking 이 실행되는 동안 메인 스레드를 다른 작업을 할 수 없다.
+- 따라서 하위 runBlocking 이 실행되는 동안 메인 스레드는 다른 작업을 할 수 없다.
 - 하위 코루틴이 모두 완료된 뒤에서 "지난 시간"이 출력되며, 약 1초가 소요된 것을 확인할 수 있다.
 
 ---
 
-**`lauch()` 은 실행 시 호출부 스레드를 차단하지 않는다.**
+**`launch()` 은 실행 시 호출부 스레드를 차단하지 않는다.**
 
 따라서 launch 코루틴이 delay 와 같은 작업으로 실제로 스레드를 사용하지 않는 동안 스레드를 다른 작업에 사용될 수 있다.
 
@@ -239,9 +239,6 @@ fun getElapsedTime(startTime: Long): String {
 - launch 는 **호출부의 스레드를 차단하지 않기 때문에** 바로 "지난 시간" 이 출력된다.
 - 이후 launch 코루틴이 스레드를 사용할 수 있을 때(여기서는 메인 스레드가 자유로워 졌을 때) 실행된다.
 - launch 코루틴이 delay 로 인해 1초간 대기하는 동안 메인 스레드는 다른 작업이 자유롭게 사용할 수 있다.
-
-launch 코루틴은 스레드를 차단하지 않기 때문에 자신이 사용할 수 있는 스레드(메인 스레드)가 자유로워지고 나서야 실행되며, launch 코루틴이 delay 로 인해 1초간 
-대기하는 동안에 메인 스레드는 다른 작업이 자유롭게 사용할 수 있다.
 
 ---
 
