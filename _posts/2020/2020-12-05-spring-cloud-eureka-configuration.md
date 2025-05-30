@@ -172,7 +172,7 @@ com.netflix.discovery.DiscoveryClient    : Completed cache refresh task for disc
     
 - **`eureka.client.disable-delta`**
     - 캐싱 시 변경된 부분만 업데이트할 지 여부 (디폴트 false)
-    - false 로 설정 서 대역폭 낭비이므로 true 로 설정할 것   
+    - false 로 설정 시 대역폭 낭비이므로 true 로 설정할 것
         
 ```yaml
 eureka:

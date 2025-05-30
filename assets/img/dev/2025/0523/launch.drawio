@@ -1,0 +1,114 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="Gdw6tFk_5ZNuL8Hu21dR">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-1" value="" style="endArrow=block;html=1;rounded=0;endFill=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="256" as="sourcePoint" />
+            <mxPoint x="590" y="256" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;" edge="1" parent="1" source="Wf7kAeKF3E9_kbN9zElK-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="216" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="240" y="236" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="281" y="236" width="20" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-7" value="메인 스레드에서 runBlocking() 호출" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="190" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-8" value="하위 코루틴&lt;div&gt;종료 출력&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="467.5" y="330" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-9" value="" style="endArrow=none;dashed=1;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;opacity=50;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="490" as="sourcePoint" />
+            <mxPoint x="281" y="76" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-12" value="runBlocking&amp;nbsp; 코루틴 실행 시작 지점" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="230" y="490" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-13" value="runBlocking&amp;nbsp; 코루틴 실행 종료 지점" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="490" y="490" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-14" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="440" y="560" width="20" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-15" value="runBlocking 코루틴" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="465" y="570" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-16" value="메인 스레드" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="130" y="241" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-17" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="620" width="20" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-18" value="하위 runBlocking 코루틴" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="467" y="630" width="143" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-19" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="301" y="236" width="20" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;endArrow=none;startFill=0;" edge="1" parent="1" source="Wf7kAeKF3E9_kbN9zElK-21" target="Wf7kAeKF3E9_kbN9zElK-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-21" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="525" y="243" width="20" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-22" value="launch 호출" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="281" y="100" width="106" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-23" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;dashed=1;startFill=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="Wf7kAeKF3E9_kbN9zElK-34" target="Wf7kAeKF3E9_kbN9zElK-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="360" as="sourcePoint" />
+            <mxPoint x="784" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-24" value="1초간 대기" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="395" y="291" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-25" value="delay(1000) 호출" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="314" y="330" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-26" value="지난 시간 출력" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="301" y="160" width="105" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-27" value="" style="endArrow=none;dashed=1;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;opacity=50;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="545" y="490" as="sourcePoint" />
+            <mxPoint x="545" y="74" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-31" value="" style="endArrow=block;startArrow=block;html=1;rounded=0;startFill=1;endFill=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="281" y="410" as="sourcePoint" />
+            <mxPoint x="540" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-32" value="runBlocking 코루틴을 호출한&lt;div&gt;메인 스레드가 차단되는 구간&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#d5e8d4;strokeColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="330" y="420" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.094;entryY=0.983;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;startFill=0;" edge="1" parent="1" source="Wf7kAeKF3E9_kbN9zElK-4" target="Wf7kAeKF3E9_kbN9zElK-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;endArrow=none;startFill=0;" edge="1" parent="1" source="Wf7kAeKF3E9_kbN9zElK-34" target="Wf7kAeKF3E9_kbN9zElK-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-34" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="321" y="243" width="20" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.095;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;startFill=0;" edge="1" parent="1" source="Wf7kAeKF3E9_kbN9zElK-19" target="Wf7kAeKF3E9_kbN9zElK-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
