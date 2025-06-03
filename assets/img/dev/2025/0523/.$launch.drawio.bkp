@@ -51,7 +51,7 @@
         <mxCell id="Wf7kAeKF3E9_kbN9zElK-17" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
           <mxGeometry x="440" y="620" width="20" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Wf7kAeKF3E9_kbN9zElK-18" value="하위&amp;nbsp; launch 코루틴" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="Wf7kAeKF3E9_kbN9zElK-18" value="하위 runBlocking 코루틴" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="467" y="630" width="143" height="20" as="geometry" />
         </mxCell>
         <mxCell id="Wf7kAeKF3E9_kbN9zElK-19" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
