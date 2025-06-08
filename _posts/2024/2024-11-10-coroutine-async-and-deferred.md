@@ -436,7 +436,7 @@ fun main() = runBlocking<Unit> {
 public suspend fun <T> withContext(context: CoroutineContext, block: suspend CoroutineScope.() -> T): T
 ```
 
-`withContext()` 함수가 호출되면 함수의 이자로 설정된 CoroutineContext 객체를 사용하여 block 람다식을 실행하고, 완료되면 그 결과를 반환한다.  
+`withContext()` 함수가 호출되면 함수의 인자로 설정된 CoroutineContext 객체를 사용하여 block 람다식을 실행하고, 완료되면 그 결과를 반환한다.  
 `withContext()` 함수를 호출한 코루틴은 인자로 받은 CoroutineContext 객체를 사용하여 block 람다식을 실행하며, block 람다식을 모두 실행하면 다시 기존의 CoroutineContext 
 객체를 사용하여 코루틴을 재개한다.
 

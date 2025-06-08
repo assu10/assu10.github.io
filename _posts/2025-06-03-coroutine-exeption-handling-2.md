@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Coroutine - 예외 처리(2): 예외 처리 방법"
-date: 2025-05-30
+date: 2025-06-03
 categories: dev
 tags: kotlin coroutine coroutine-exception-handler async cancellation-exception withtimeout job-cancellation-exception withtieoutornull
 ---
@@ -664,14 +664,14 @@ Process finished with exit code 0
 
 ---
 
-## 4.3. `withTimeOut()` 을 사용해 코루틴의 실행 시간 제한
+## 4.3. `withTimeout()` 을 사용해 코루틴의 실행 시간 제한
 
-`withTimeOut()` 함수는 코루틴 실행 시간을 제한할 수 있다.
+`withTimeout()` 함수는 코루틴 실행 시간을 제한할 수 있다.
 
-`withTimeOut()` 함수는 특정 시간이 초과되면 **작업을 강제로 중단**시키고, `TimeoutCancellationException` 을 발생시켜 해당 코루틴만 취소한다.  
+`withTimeout()` 함수는 특정 시간이 초과되면 **작업을 강제로 중단**시키고, `TimeoutCancellationException` 을 발생시켜 해당 코루틴만 취소한다.  
 이 예외는 `CacellationException` 의 하위 클래스이므로 **부모 코루틴으로 전파되지 않으며**, 프로그램 종료없이 안전하게 사용 가능하다.
 
-`withTimeOut()` 시그니처
+`withTimeout()` 시그니처
 ```kotlin
 public suspend fun <T> withTimeout(timeMillis: Long, block: suspend CoroutineScope.() -> T): T
 ```
@@ -712,15 +712,15 @@ Process finished with exit code 0
 - 이 예외는 부모 코루틴으로 전파되지 않기 때문에 Parent 코루틴은 영향을 받지 않고 정상 실행됨
 - `TimeoutCancellationException` 은 `CancellationException` 의 하위 클래스이므로 **취소만 유도하고 예외 전파는 하지 않음**
 
-`withTimeOut()` 사용 시엔 반드시 **예외를 try-catch 로 잡거나**, **취소 로직을 처리**해야 안전한 종료가 가능하다.  
-`withTimeOut()` 에 설정된 제한 시간을 초과하면 **지연되던 블록은 즉시 취소**된다.  
+`withTimeout()` 사용 시엔 반드시 **예외를 try-catch 로 잡거나**, **취소 로직을 처리**해야 안전한 종료가 가능하다.  
+`withTimeout()` 에 설정된 제한 시간을 초과하면 **지연되던 블록은 즉시 취소**된다.  
 `TimeoutCancellationException` 을 catch 하여 타임아웃 시 예외 메시지를 별도로 처리할 수 있다.
 
-`withTimeOut()` 함수는 실행 시간이 제한되어야 할 필요가 있는 네트워크 호출의 실행 시간 제한, IO 작업, 사용자 입력 제한 등에 사용된다.
+`withTimeout()` 함수는 실행 시간이 제한되어야 할 필요가 있는 네트워크 호출의 실행 시간 제한, IO 작업, 사용자 입력 제한 등에 사용된다.
 
 ---
 
-### 4.3.1. `withTimeOut()` 의 try-catch
+### 4.3.1. `withTimeout()` 의 try-catch
 
 ```kotlin
 package chap08
@@ -748,15 +748,15 @@ e: kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 2000 m
 Process finished with exit code 0
 ```
 
-결과를 보면 `withTimeOut()` 에서 발생한 예외가 catch 문에 잡혀 로그가 출력되는 것을 확인할 수 있다.
+결과를 보면 `withTimeout()` 에서 발생한 예외가 catch 문에 잡혀 로그가 출력되는 것을 확인할 수 있다.
 
 ---
 
-### 4.3.2. `withTimeOutOrNull()`
+### 4.3.2. `withTimeoutOrNull()`
 
-`withTimeOut()` 은 예외를 던지지만, `withTimeOutOrNull()` 은 null 을 반환한다.
+`withTimeout()` 은 예외를 던지지만, `withTimeoutOrNull()` 은 null 을 반환한다.
 
-`withTimeOutOrNull()` 은 `withTimeOut()` 과 동일하게 **작업 시간 제한**을 두되, 시간이 초과될 경우 `TimeoutCancellationException` 을 **던지지 않고 null 을 반환**한다.  
+`withTimeoutOrNull()` 은 `withTimeout()` 과 동일하게 **작업 시간 제한**을 두되, 시간이 초과될 경우 `TimeoutCancellationException` 을 **던지지 않고 null 을 반환**한다.  
 이로 인해 **예외 처리 없이도 안전하게 timeout 상황을 감지**할 수 있다.
 
 
@@ -787,10 +787,10 @@ Process finished with exit code 0
 ```
 
 - delay(2000L) 로 작업은 제한 시간 1초를 초과함
-- `withTimeOutOrNull()` 은 예외를 던지지 않고 null 반환
+- `withTimeoutOrNull()` 은 예외를 던지지 않고 null 반환
 - 예외 없이 null 을 출력하고 정상 종료됨
 
-`withTimeOutOrNull()` 은 아래와 같은 상황에 사용된다.
+`withTimeoutOrNull()` 은 아래와 같은 상황에 사용된다.
 - **예외 발생 없이 timeout 을 처리하고 싶은 경우**
 - **타임아웃 여부만으로 분기 처리를 하고 싶은 경우**
 - 예) 캐시 조회 또는 외부 서비스 호출 실패 시 fallback 처리 등
