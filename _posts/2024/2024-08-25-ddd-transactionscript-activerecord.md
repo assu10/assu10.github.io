@@ -126,7 +126,7 @@ _messageBus.Publish("VISIT TOPIC", new { UserId=userId, VisitDate=visitedOn});
 
 여러 저장 장치에 걸쳐있는 분산 트랜잭션은 복잡하고 확장하기 어려우며 오류가 발생하기 쉬우므로 일반적으로 피하는 방식이다.
 
-> CQRS(Command-Query Responsibility Segregation) 아키텍처 패턴을 사용하여 여러 장치를 다루는 방법은 [4. CQRS(Command-Query Responsibility Segregation)](https://assu10.github.io/dev/2024/09/29/ddd-architecture-pattern/#4-cqrscommand-query-responsibility-segregation) 를 참고하세요.
+> CQRS(Command-Query Responsibility Segregation) 아키텍처 패턴을 사용하여 여러 장치를 다루는 방법은 [DDD - CQRS](https://assu10.github.io/dev/2024/05/05/ddd-cqrs/) 를 참고하세요.
 
 > CQRS 에 대한 추가 설명은 [DDD - CQRS](https://assu10.github.io/dev/2024/05/05/ddd-cqrs/) 를 참고하세요.
 
@@ -164,7 +164,7 @@ _execute()_ 메서드는 void 타입이므로 데이터를 반환하지는 않�
 이런 문제를 해결하는 방법은 2가지 정도가 있다.
 
 - **[멱등적(Idempotent)](https://assu10.github.io/dev/2024/05/04/ddd-event-2/)으로 구현**
-- **낙관적 동시성 제어(Optimistic concurrency control) 사용**
+- **[낙관적 잠금(Optimistic Lock)](https://assu10.github.io/dev/2024/04/21/ddd-aggregate-transaction/#3-%EB%B9%84%EC%84%A0%EC%A0%90-%EC%9E%A0%EA%B8%88-%EB%82%99%EA%B4%80%EC%A0%81-%EC%9E%A0%EA%B8%88-optimistic-lock-version) 사용**
 
 **멱등적으로 구현**하기 위해 사용자에게 카운터 값을 전달하도록 요청할 수 있다.  
 카운터 값을 제공하기 위해 호출자는 먼저 현재 값을 읽고 로컬에서 증가시킨 뒤 그 값을 매개변수로 제공해야 한다.
@@ -180,7 +180,7 @@ public void execute() {
 
 위와 같이 구현할 경우 작업을 여러 번 실행하더라도 최종 결과는 변경되지 않는다.
 
-**낙관적 동시성 제어**를 사용하기 위해 해당 메서드를 호출하기 전에 카운터의 현재 값을 읽어서 그대로 매개변수로 제공한다.  
+**낙관적 잠금**를 사용하기 위해 해당 메서드를 호출하기 전에 카운터의 현재 값을 읽어서 그대로 매개변수로 제공한다.  
 _execute()_ 에서는 호출자가 처음 읽은 값과 동일한 경우에만 카운터 값을 업데이트한다.
 
 ```java

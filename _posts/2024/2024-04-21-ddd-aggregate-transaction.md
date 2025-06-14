@@ -330,6 +330,8 @@ public interface MemberRepository extends Repository<Member, MemberId> {
 
 # 3. 비선점 잠금 (낙관적 잠금, Optimistic Lock): `@Version`
 
+> [2.1.1. 낙관적 동시성 제어(OCC, Optimistic Concurrency Control)](https://assu10.github.io/dev/2024/09/08/ddd-event-sourcing-domain-model/#211-%EB%82%99%EA%B4%80%EC%A0%81-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4occ-optimistic-concurrency-control) 와 함께 보면 도움이 됩니다.
+
 선점 잠금으로 모든 트랜잭션 충돌 문제가 해결되는 것은 아니다.
 
 아래는 선점 잠금으로 해결할 수 없는 상황의 예시이다.
