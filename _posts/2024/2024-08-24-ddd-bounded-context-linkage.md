@@ -503,6 +503,7 @@ DB 직접 접근은 단기 편의, 장기적 혼란의 씨앗이다.
 - **DRY(Don't Repeat Yourself) 위반**
   - 기능 증복, 데이터 중복, 유지보수 중복
   - DRY 원칙은 코드의 중복이 아니라 지식의 중복을 피하라는 의미임
+  - 다른 2개의 컨텍스트에서 '정책'에 관한 모델을 생성하는 것은 서로 다른 모델ㄹ에 있는 코드의 일부 측면이 유사하더라도 DRY 를 위반하는 것이 아님
 - [**사일로화**](https://assu10.github.io/dev/2024/11/24/architecture-strategic-learning-tools/#23-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EB%A5%BC-%EC%99%84%EC%84%B1%ED%95%98%EB%8A%94-%ED%8C%80-%EC%A0%84%EB%9E%B5-%ED%8C%80-%ED%86%A0%ED%8F%B4%EB%A1%9C%EC%A7%80%EC%99%80-%EC%97%AD-%EC%BD%98%EC%9B%A8%EC%9D%B4-%ED%8C%A8%ED%84%B4)
   - 다른 팀이 어떤 기능을 갖고 있는지 모르게 되어 협업 기회 상실
 - **전사적 전략 부재**
