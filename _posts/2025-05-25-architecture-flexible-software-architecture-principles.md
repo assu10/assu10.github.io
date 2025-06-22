@@ -498,7 +498,7 @@ fun handleOrderRequest(req: HttpRequest) {
 하지만 모듈형 모놀리스를 서버리스 기반으로 배포하면 마이크로서비스 수준의 확장성을 확보할 수 있다.  
 예) AWS Lambda, Google Cloud Functions 등으로 모놀리스의 일부 기능만 이벤트 기반으로 분리 실행
 
-> 이 부분에 대한 좀 더 상세한 내용은 추후 살펴볼 예정입니다. (p. 291)
+> 이 부분에 대한 좀 더 상세한 내용은 [7. 서버리스와 FaaS: 인프라 걱정없는 이벤트 기반 설계](https://assu10.github.io/dev/2025/06/01/architecture-event-driven-architecture-guide/#7-%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4%EC%99%80-faas-%EC%9D%B8%ED%94%84%EB%9D%BC-%EA%B1%B1%EC%A0%95%EC%97%86%EB%8A%94-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EA%B8%B0%EB%B0%98-%EC%84%A4%EA%B3%84) 를 참고하세요.
 
 ---
 
@@ -511,7 +511,7 @@ fun handleOrderRequest(req: HttpRequest) {
 - 각 서비스가 독립 프로세스로 실행됨
 - 하나의 서비스 장애가 전체 시스템 중단으로 연결되지 않음
 - 단, 적절한 설계 없이는 복원성을 보장하지 않음
-  - > 이에 대한 내용은 추후 다룰 예정입니다. (p. 292)
+  - > 이에 대한 내용은 [1. MSA 로 전환 전 알아야 할 분산 장애와 회복 전략](https://assu10.github.io/dev/2025/06/22/architecture-monolith-to-msa-transition/#1-msa-%EB%A1%9C-%EC%A0%84%ED%99%98-%EC%A0%84-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EB%B6%84%EC%82%B0-%EC%9E%A5%EC%95%A0%EC%99%80-%ED%9A%8C%EB%B3%B5-%EC%A0%84%EB%9E%B5) 을 참고하세요.
 
 <br />
 
