@@ -376,6 +376,8 @@ tags: kafka stream
 **이 때 DB 테이블에 가해지는 모든 변경점을 이벤트 스트림에 담을 수 있다면 스트림 처리 작업이 이 이벤트 스트림을 받아와서 캐시를 업데이트하는데 사용하도록 할 수 있다.**  
 DB 의 변경 내역을 이벤트 스트림으로 받아오는 것을 [CDC(Change Data Capture)](#24-스트림-테이블-이원성stream-table-duality) 라고 하며, 카프카 커넥트는 CDC 를 수행하여 DB 테이블을 변경 이벤트 스트림으로 변환할 수 있는 커넥터가 여럿 있다.
 
+> CDC 에 대한 좀 더 상세한 내용은 [1.3.2.1. CDC(Change Data Capture, 변경 데이터 캡처) 와 디비지움 프로젝트](https://assu10.github.io/dev/2024/08/25/kafka-data-pipeline-2/#1321-cdcchange-data-capture-%EB%B3%80%EA%B2%BD-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%BA%A1%EC%B2%98-%EC%99%80-%EB%94%94%EB%B9%84%EC%A7%80%EC%9B%80-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8) 를 참고하세요.
+
 ![테이블과 이벤트 스트림을 조인하는 토폴로지](/assets/img/dev/2024/0929_1/stream_table_join.png)
 
 위 그림을 보면 스트림 처리에 있어서 외부 데이터 저장소의 필요성을 제거하였다.  

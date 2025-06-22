@@ -759,12 +759,39 @@ $ bin/kafka-console-consumer.sh --bootstrap-server=localhost:9092 \
 모든 RDBMS 는 트랜잭션 로그를 포함하며, 대부분 외부 시스템이 트랜잭션 로그를 직접 읽어갈 수 있도록 하고 있다.  
 이렇게 **트랜잭션 로그를 읽음으로써 RDBMS 레코드의 변경을 탐지하는 방식을 CDC(Change Data Capture, 변경 데이터 캡처)** 라고 한다.
 
+<**작동 방식**>
+- RDBMS 의 **트랜잭션 로그**를 외부 시스템이 모니터링
+- 로그에 기록된 변경 사항을 추출하여 **변경 이벤트 스트림으로 전환**
+
+<br />
+
+<**장점**>
+- 데이터 변경을 **가장 정확하게 감지**
+- DB 부하 거의 업음 (트랜잭션 로그 테일링)
+- 레거시 시스템의 **애플리케이션 코드/DB 스키마에 영향없이 구현 가능**
+- Debezium 같은 오픈소스 커넥터 존재
+
+> **트랜잭션 로그 테일링(Transaction Log Tailing)**  
+> DB 트랜잭션 로그를 실시간으로 읽어 데이터가 언제, 무엇이, 어떻게 변경되었는지를 감지하는 방식
+
+<br />
+
+<**단점**>
+- DB 와 메시징 시스템(Kafka 등) 연동 구성 필요
+- 트랜잭션 순서 보장 및 이벤트 중복 처리 전략 필요
+- 도입 및 운영 초기 복잡도 조재
+
+<br />
+
 CDC 방식은 위에서 설명한 특정 필드와 SQL 문을 사용하는 것에 비해 훨씬 정확하고 효율적이다.
 
 대부분의 최신 [`ETL(Extract-Transform-Load)`](https://assu10.github.io/dev/2024/08/24/kafka-data-pipeline-1/#151-etlextract-transform-load) 시스템들은 CDC 를 
 데이터 저장소로써 사용한다.
 
-[디비지움 프로젝트](https://debezium.io/) 는 다양한 DB 에 대한 오픈소스 CDC 커넥터를 제공한다.
+[디비지움 프로젝트](https://debezium.io/) 는 Kafka Connect 기반으로 동작하며, 다양한 DB 에 대한 오픈소스 CDC 커넥터를 제공한다.
+- 지원하는 DB(2025.06 기준)
+  - 오픈소스 DB 커넥터: PostgreSQL, MySQL, MongoDB, Vitess, Cassandra
+  - 상용(엔터프라이즈) DB 커넥터: IBM Db2, Oracle, SQL Server
 
 만일 **RDBMS 에서 카프카로의 데이터 스트리밍을 해야한다면 Debezium 에 포함된 CDC 커넥터를 사용할 것을 강력히 권장**한다.
 
