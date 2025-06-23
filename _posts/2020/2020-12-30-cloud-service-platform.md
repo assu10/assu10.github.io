@@ -3,7 +3,7 @@ layout: post
 title:  "클라우드 컴퓨팅, IaaS, PaaS, Serverless, SaaS"
 date: 2020-12-30 10:00
 categories: dev
-tags: web network cloud-computing packaged-software iaas paas serverless aas
+tags: backend network cloud-computing packaged-software iaas paas serverless aas
 ---
 
 이 포스트는 웹 서비스 플랫폼에 관해 간략히 설명한다.

@@ -3,7 +3,7 @@ layout: post
 title:  "리버스 엔지니어링(Reverse-Engineering)"
 date: 2025-06-22
 categories: dev
-tags: web reverse-engineering
+tags: backend reverse-engineering
 ---
 
 리버스 엔지니어링은 소스 코드, DB 등 현존하는 시스템의 구조를 분석하고 파악하는 과정이다.  

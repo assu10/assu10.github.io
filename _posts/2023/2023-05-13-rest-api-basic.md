@@ -3,7 +3,7 @@ layout: post
 title:  "REST-API"
 date: 2023-05-13
 categories: dev
-tags: web rest-api
+tags: backend rest-api
 ---
 
 이 포스트에서는 REST-API 의 특징과 설계 시 유의할 점에 대해 알아본다.

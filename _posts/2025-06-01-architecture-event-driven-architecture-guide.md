@@ -3,7 +3,7 @@ layout: post
 title:  "Architecture - 분산 시스템을 위한 이벤트 중심 아키텍처 설계"
 date: 2025-06-01
 categories: dev
-tags: architecture ddd web event-driven distributed-system choreography orchestration actor-model event-sourcing cqrs serverless
+tags: architecture ddd event-driven distributed-system choreography orchestration actor-model event-sourcing cqrs serverless
 ---
 
 대규모 분산 시스템에서 장애 전파를 줄이고, 비동기 워크플로를 유연하게 처리하기 위한 핵심 전략은 무엇일까?  
