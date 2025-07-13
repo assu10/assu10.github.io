@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "구글 엔지니어는 이렇게 일한다: 소프트웨어 엔지니어링"
-date: 2024-08-11
+date: 2025-07-12
 categories: book
 tags: google-engineer software-engineering
 ---
