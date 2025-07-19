@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "구글 엔지니어는 이렇게 일한다: 지식 공유"
-date: 2025-07-19
+date: 2025-07-18
 categories: book
 tags: google-engineer developer-culture knowledge-sharing psychological-safety engineering-leadership team-collaboration ask-culture tech-documentation code-review learning-organization
 ---
