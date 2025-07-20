@@ -491,7 +491,7 @@ fun main() {
 ## 4.2. 스프레드 연산자: `*`
 
 Array 를 만들기 위해서 `listOf()` 처럼 `arrayOf()` 를 사용한다.  
-**Array 는 항상 가변 객체**이다.  
+**Array 는 항상 가변 객체**이다.
 
 
 배열에 들어있는 원소를 `vararg` 로 넘길 때 코틀린과 자바의 구문이 다르다.  
@@ -525,7 +525,7 @@ fun main() {
 ```
 
 JVM 에서 primitive 타입은 byte, char, short, int, long, float, boolean 이다.  
-primitive 타입은 `IntArray`, `ByteArray` 등과 같은 특별한 배열 타입을 지원한다.  
+primitive 타입은 `IntArray`, `ByteArray` 등과 같은 특별한 배열 타입을 지원한다.
 
 반면, **Array\<Int\> 는 정수값이 담긴 Int 객체에 대한 참조를 모아둔 배열로써, IntArray 보다 훨씬 더 많은 메모리를 차지하고, 처리 속도도 늦다.**
 

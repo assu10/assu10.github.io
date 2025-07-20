@@ -189,8 +189,8 @@ for 루프는 저수준으로 작동하며, 기본값을 박싱/언박싱할 필
 > Stream.iterate() 는 [Java8 - Stream 활용 (2): 리듀싱, 숫자형 스트림, 스트림 생성](https://assu10.github.io/dev/2023/06/10/java8-stream-2-1/#341-streamiterate) 의
 > _3.4.1. `Stream.iterate()`_ 를 참고하세요.
 
-> boxing/unboxing 에 대한 내용은 [Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/) 의
-> _2.4. 기본형(primitive type) 특화_ 를 참고하세요.
+> boxing/unboxing 에 대한 내용은 [2.4. 기본형(primitive type) 특화](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 
+> 를 참고하세요.
 
 리듀싱 과정을 시작하는 시점에 전체 숫자 리스트가 준비되지 않았기 때문에 스트림을 병렬 처리하도록 chunk 로 분할할 수 없다.  
 따라서 스레드를 병렬로 처리하도록 설정해서 각각의 합계가 다른 스레드에서 수행되었지만 결국 순차 처리와 크게 다른 점이 없어 스레드를 할당하는 오버헤드만 증가하게 되었다.

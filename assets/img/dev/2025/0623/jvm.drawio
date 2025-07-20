@@ -1,0 +1,22 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="KxP7KiyUbh-kwUJ-LEGE">
+    <mxGraphModel dx="829" dy="866" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="M85fg27qLbuHTA-N-L0M-1" value="JVM" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="100" y="110" width="250" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="M85fg27qLbuHTA-N-L0M-2" value="Thread&lt;div&gt;Stack Area&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="160" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="M85fg27qLbuHTA-N-L0M-3" value="Thread&lt;div&gt;Stack Area&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="160" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="M85fg27qLbuHTA-N-L0M-4" value="Heap Area" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="220" width="210" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
