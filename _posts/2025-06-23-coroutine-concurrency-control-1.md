@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Coroutine - 실행 제어와 공유 상태의 동시성 문제(1): 공유 상태 문제 해결, `CoroutineStart`"
+title:  "Coroutine - 실행 제어와 공유 상태의 동시성 제어(1): Mutex, Atomic, CoroutineStart"
 date: 2025-06-23
 categories: dev
-tags: kotlin coroutine
+tags: kotlin coroutine concurrency multi-threading synchronization race-condition memory-visibility shared-state mutex atomic atomicinteger atomicreference volatile coroutinestart
 ---
 
 멀티 스레드 환경에서 공유 상태를 사용하는 복수의 코루틴이 있을 때의 데이터 동기화 문제, CoroutineStart 옵션을 통해 코루틴의 실행 방법을 바꾸는 방법, 
