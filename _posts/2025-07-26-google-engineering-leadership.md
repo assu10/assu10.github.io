@@ -62,7 +62,7 @@ tags: google-engineer engineering-leadership team-culture career-growth servant-
 
 **엔지니어링 관리자: '사람'에 집중하는 성장 촉진자**
 
-"우리 팀이 어떻게 하면 더 성장하고 행복할까?"
+_"우리 팀이 어떻게 하면 더 성장하고 행복할까?"_
 
 엔지니어링 관리자는 자신이 관리하는 팀의 구성원 모두(테크 리드 포함)의 **성과, 생산성, 행복**을 책임져야 한다.
 
@@ -82,7 +82,7 @@ tags: google-engineer engineering-leadership team-culture career-growth servant-
 
 **테크 리드: '기술'에 집중하는 방향키**
 
-"우리 제품에 가장 적합한 기술과 아키텍처는 무엇일까?"
+_"우리 제품에 가장 적합한 기술과 아키텍처는 무엇일까?"_
 
 테크 리드는 제품의 기술적인 면, 즉 **기술과 관련한 결정과 선택, 아키텍처, 우선순위, 성능**과 일반적인 프로젝트 관리를 책임진다.
 
