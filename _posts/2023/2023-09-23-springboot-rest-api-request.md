@@ -134,7 +134,7 @@ pom.xml
 
 > `HttpMessageConverter` 의 좀 더 자세한 내용은 [Spring Boot - 웹 애플리케이션 구축 (2): HttpMessageConverter, ObjectMapper](https://assu10.github.io/dev/2023/08/06/springboot-application-2/#11-httpmessageconverter-%EC%84%A4%EC%A0%95) 의 _1.1. `HttpMessageConverter` 설정_ 를 참고하세요.
 
-`o.s.http.converter.HttpMessageConverter` 는 스프링 MVC 프레임워크에서 컨텐츠 타입에 따라 메시지를 변환하는 역할을 하기 때문에 서버에 요청하는 메시지와 응답받은 메시지를 
+`o.s.http.converter.HttpMessageConverter` 는 스프링 MVC 프레임워크에서 콘텐츠 타입에 따라 메시지를 변환하는 역할을 하기 때문에 서버에 요청하는 메시지와 응답받은 메시지를 
 자바 객체로 변환할 때 `HttpMessageConverter` 를 사용한다.  
 이 때 Content-type 헤더에 정의된 값에 따라 적절한 `HttpMessageConverter` 가 동작한다.  
 RestTemplate 기본 생성자 내부에는 기본 설정으로 `HttpMessageConverter` 객체들을 생성하고 내부 변수인 messageConverters 에 할당한다.

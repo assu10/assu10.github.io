@@ -734,7 +734,7 @@ microservice_a:
 
 ### pages
 
-pages 는 static 컨텐츠 업로드 시 사용한다.
+pages 는 static 콘텐츠 업로드 시 사용한다.
 
 - 모든 static contents 는 public/ 디렉터리 아래 있어야 함
 - public/ 디렉터리에 대한 경로가 있는 아티팩트가 정의되어야 함

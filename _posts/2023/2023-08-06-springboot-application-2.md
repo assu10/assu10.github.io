@@ -119,8 +119,8 @@ public class WebConfig implements WebMvcConfigurer {
 `configureMessageConverters()` 는 프레임워크에서 제공하는 기본 설정 대신 직접 설정한 대로 동작하고,  
 `extendMessageConverters()` 는 프레임워크에서 제공하는 기본 설정에 새로운 `HttpMessageConverter` 들이 추가되어 동작한다.
 
-`HttpMessageConverter` 는 컨텐츠 타입에 따라 데이터 변환 여부를 설정하는데 이 콘텐츠 타입은 사용자 요청이나 응답 메시지의 헤더에 사용된다.  
-HTTP 메시지 바디의 컨텐츠 타입을 의미하는 `Content-type` 이나 클라이언트가 처리할 수 있는 컨텐츠 타입을 의미하는 `Accept` 헤더의 값으로 사용된다.
+`HttpMessageConverter` 는 콘텐츠 타입에 따라 데이터 변환 여부를 설정하는데 이 콘텐츠 타입은 사용자 요청이나 응답 메시지의 헤더에 사용된다.  
+HTTP 메시지 바디의 콘텐츠 타입을 의미하는 `Content-type` 이나 클라이언트가 처리할 수 있는 콘텐츠 타입을 의미하는 `Accept` 헤더의 값으로 사용된다.
 
 아래는 `MappingJackson2HttpMessageConverter` 와 `MappingJackson2XmlHttpMessageConverter` 의 생성자 부분이다.
 

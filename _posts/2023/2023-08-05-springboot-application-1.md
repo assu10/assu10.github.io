@@ -146,7 +146,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 ### 1.2.2. `configureContentNegotiation()`
 
-콘텐츠 타입을 확인하고 적절한 ViewResolver 를 찾는 일련의 과정을 컨텐츠 협상(content Negotiation) 이라고 한다.
+콘텐츠 타입을 확인하고 적절한 ViewResolver 를 찾는 일련의 과정을 콘텐츠 협상(content Negotiation) 이라고 한다.
 
 ```java
 @Configuration
@@ -155,11 +155,11 @@ public class WebConfig implements WebMvcConfigurer {
   @Override
   public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
     configurer
-        // 컨텐츠 협상 기능을 사용하기 위한 URI 파라미터명을 contentType 으로 설정
+        // 콘텐츠 협상 기능을 사용하기 위한 URI 파라미터명을 contentType 으로 설정
         .parameterName("contentType")
-        // Accept 헤더를 사용한 컨텐츠 협상 기능은 사용하지 않음
+        // Accept 헤더를 사용한 콘텐츠 협상 기능은 사용하지 않음
         .ignoreAcceptHeader(true)
-        // 컨텐츠 협상 과정에서 적합한 값을 찾지 못하면 기본값 application/json 으로 설정
+        // 콘텐츠 협상 과정에서 적합한 값을 찾지 못하면 기본값 application/json 으로 설정
         .defaultContentType(MediaType.APPLICATION_JSON)
         // URI 파라미터 contentType 값이 json 이면 application/json 으로 간주
         .mediaType("json", MediaType.APPLICATION_JSON)

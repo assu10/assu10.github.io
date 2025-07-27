@@ -83,7 +83,7 @@ HTTP Response 메시지
 HTTP 1.1 200 OK
 
 // header
-Content-type: text/html // body 에 포함된 데이터가 어떤 종류의 컨텐츠인지 클라이언트에 알려줌
+Content-type: text/html // body 에 포함된 데이터가 어떤 종류의 콘텐츠인지 클라이언트에 알려줌
 Content-length: 12345
 
 // message body

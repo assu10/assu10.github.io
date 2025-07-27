@@ -308,7 +308,7 @@ zuul:
 ![수동 매핑 호출](/assets/img/dev/2020/0826/event3.png)
 
 
-API 게이트웨이의 일반적인 패턴은 모든 서비스 호출 앞에 /api 처럼 레이블을 붙여 컨텐츠 경로를 구별한다.
+API 게이트웨이의 일반적인 패턴은 모든 서비스 호출 앞에 /api 처럼 레이블을 붙여 콘텐츠 경로를 구별한다.
 Zuul 의 `prefix` 프로퍼티가 이러한 기능을 지원한다.
 
 **config-repo > zuulserver > application.yaml**
