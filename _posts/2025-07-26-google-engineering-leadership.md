@@ -211,7 +211,7 @@ tags: google-engineer engineering-leadership team-culture career-growth servant-
 
 # 3. 당신은 '감독관'인가, '조력자'인가?
 
-"관리자는 밥맛이야."
+_"관리자는 밥맛이야."_
 
 많은 엔지니어들이 '관리자'라는 직책에 대해 한번쯤 가져봤을 법한 생각이다.  
 이러한 부정적인 인식은 어디서 시작되었을까?  
@@ -369,7 +369,7 @@ tags: google-engineer engineering-leadership team-culture career-growth servant-
 
 ## 4.4. '일단 뽑고 보자'는 채용 기준 타협
 
-**"A급 인재는 A급 인재를 뽑고, B급 인재는 C급 인재를 뽑는다." - 스티브 잡스**
+_"A급 인재는 A급 인재를 뽑고, B급 인재는 C급 인재를 뽑는다." - 스티브 잡스_
 
 프로젝트는 급한데 인력은 부족할 때, '이만하면 괜찮겠지' 라며 채용 기준을 낮추고 싶은 유혹에  빠지기 쉽다.  
 하지만 이는 팀에 돌이킬 수 없는 손실을 입히는 최악의 결정 중 하나이다.
