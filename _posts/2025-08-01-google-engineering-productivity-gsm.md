@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "구글 엔지니어는 이렇게 일한다: 엔지니어링 생산성 측정 및 개선"
-date: 2025-08-02
+date: 2025-08-01
 categories: book
 tags: google-engineer engineering-productivity gsm-framework google metrics data-driven performance-measurement team-culture 엔지니어링-생산성 개발자-생산성 데이터-기반-의사결정 성과-측정 조직-문화
 ---
