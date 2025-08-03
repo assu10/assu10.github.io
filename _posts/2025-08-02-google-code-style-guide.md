@@ -3,7 +3,7 @@ layout: post
 title: "구글 엔지니어는 이렇게 일한다: 지속 가능한 코드를 위한 규칙과 지침"
 date: 2025-08-02
 categories: book
-tags: google-engineer 코딩-규칙, style-guide, 코드-품질, sustainable-code, 코드-일관성, engineering-culture, 자동화, code-formatter, 가독성, code-review, 확장성
+tags: google-engineer 코딩-규칙 style-guide 코드-품질 sustainable-code 코드-일관성 engineering-culture 자동화 code-formatter 가독성 code-review 확장성
 ---
 
 대부분의 엔지니어링 조직에는 코드베이스를 관리하는 규칙이 있다. 코드 포맷팅, 명명 방식 등을 규정한다. 그리고 엔지니어 대부분은 조직에서 허용하는 정책 범위 안에서 
