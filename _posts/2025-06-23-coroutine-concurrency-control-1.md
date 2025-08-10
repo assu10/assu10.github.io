@@ -32,9 +32,10 @@ tags: kotlin coroutine concurrency multi-threading synchronization race-conditio
     * [1.5.3. 원자적 객체 사용의 한계: 스레드 블로킹](#153-원자적-객체-사용의-한계-스레드-블로킹)
     * [1.5.4. 원자성 있는 객체를 사용 시 하는 흔한 실수](#154-원자성-있는-객체를-사용-시-하는-흔한-실수)
 * [2. `CoroutineStart` 의 옵션들](#2-coroutinestart-의-옵션들)
-  * [2.1. `CoroutineStart.DEFAULT`: 즉시 스케쥴링](#21-coroutinestartdefault-즉시-스케쥴링)
+  * [2.1. `CoroutineStart.DEFAULT`: 즉시 스케줄링](#21-coroutinestartdefault-즉시-스케줄링)
   * [2.2. `CoroutineStart.ATOMIC`: 취소 불가능한 시작 보장하기](#22-coroutinestartatomic-취소-불가능한-시작-보장하기)
   * [2.3. `CoroutineStart.UNDISPATCHED`: 디스패처를 건너뛰는 즉시 실행](#23-coroutinestartundispatched-디스패처를-건너뛰는-즉시-실행)
+* [정리하며..](#정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -46,7 +47,7 @@ tags: kotlin coroutine concurrency multi-threading synchronization race-conditio
 고려해야 한다.  
 특히 **멀티 스레드 환경**에서 여러 코루틴이 동시에 **가변 변수(mutable variable)** 를 읽고 수정하면 심각한 버그로 이어질 수 있다.
 
-여기서는 공유 상태로 인해 발생하는 대표적인 문제 2가지인 **메모리 가시성(memory visibility) 와 경쟁 상태(race condition)** 에 대해 알아본다.
+여기서는 공유 상태로 인해 발생하는 대표적인 문제 2가지인 **메모리 가시성(memory visibility)과 경쟁 상태(race condition)** 에 대해 알아본다.
 
 ---
 
@@ -125,7 +126,7 @@ JVM 은 하드웨어의 메모리 계층 구조(CPU 캐시 ↔ 메인 메모리)
 
 ## 1.2. JVM 의 메모리 공간이 하드웨어 메모리 구조와 연결되는 방식
 
-멀티 스레드 환경에서 발생하는 메모리 가시성 문제(Memory Visibility) 와 경쟁 상태(Race Condition) 을 이해하려면, JVM 이 사용하는 메모리 구조와 
+멀티 스레드 환경에서 발생하는 메모리 가시성 문제(Memory Visibility) 와 경쟁 상태(Race Condition)를 이해하려면, JVM 이 사용하는 메모리 구조와 
 실제 하드웨어의 메모리 계층 구조가 어떻게 연결되는지를 먼저 살펴볼 필요가 있다.
 
 ---
@@ -138,7 +139,7 @@ JVM 은 가상 머신으로, 아래와 같은 구조로 메모리를 분리해 �
 
 - **Thread Stack Area(스택 영역)**
   - 각 스레드마다 독립적으로 할당되는 메모리 공간
-  - [Primitive Type](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#41-primitive-%ED%83%80%EC%9E%85-int-boolean-%EB%93%B1) 데이터나 힙 영역에 저장된 객체에 대한 참조(주소값)울 저장함
+  - [Primitive Type](https://assu10.github.io/dev/2024/02/04/kotlin-basic/#41-primitive-%ED%83%80%EC%9E%85-int-boolean-%EB%93%B1) 데이터나 힙 영역에 저장된 객체에 대한 참조(주소값)을 저장함
 - **Heap Area(힙 영역)**
   - 모든 스레드가 공유하는 메모리 공간
   - 객체, 배열 등 크고 복잡한 데이터를 저장함
@@ -195,18 +196,18 @@ JVM 은 가상 머신으로, 아래와 같은 구조로 메모리를 분리해 �
 - 스레드가 CPU 에 할당되면, 해당 스레드의 상태(Context) 는 CPU 레지스터에 로드됨
 - 스레드 전환 시 현재 상태는 저장(Context Save), 새로운 스레드를 CPU 레지스터에 다시 복원(Context Restore) 하는데 이것이 **문맥 전환(Context Switching)** 임
 
-이런 구조에서 각 스레드를 독립적인 CPU 캐시를 활용하게 되고, 이 캐시가 메인 메모리가 즉시 동기화되지 않으면 아래와 같은 문제가 발생한다.
+이런 구조에서 각 스레드를 독립적인 CPU 캐시를 활용하게 되고, 이 캐시가 메인 메모리와 즉시 동기화되지 않으면 아래와 같은 문제가 발생한다.
 
 > 하나의 프로세스는 여러 개의 스레드를 가질 수 있음  
 > 프로세스는 OS 위에서 실행되는 논리적 단위이고, CPU 는 프로그램을 실제 실행하는 물리적인 연산 장치임  
 > 프로세스는 CPU 에 할당되어야만 실행됨  
-> 즉, OS 는 다수의 프로세스를 스케쥴링하고, CPU 코어들은 매 순간마다 한 개의 스레드만 실행함
+> 즉, OS 는 다수의 프로세스를 스케줄링하고, CPU 코어들은 매 순간마다 한 개의 스레드만 실행함
 
 ---
 
 **메모리 가시성 문제의 흐름**
 
-공유 상태에 대한 메모리 가시성 문제는 하나의 스레드가 다른 스레드가 변경된 상태를 확인하지 못하는 것으로, 서로 다른 CPU 에서 실행되는 스레드들에서 공유 상태를 조회하고 
+공유 상태에 대한 메모리 가시성 문제는 하나의 스레드가 다른 스레드가 변경한 상태를 확인하지 못하는 것으로, 서로 다른 CPU 에서 실행되는 스레드들에서 공유 상태를 조회하고 
 업데이트할 때 생기는 문제이다.
 
 ![공유 상태 초기화 및 첫 번째 스레드의 연산](/assets/img/dev/2025/0623/shared_1.webp)
@@ -354,7 +355,7 @@ fun main() = runBlocking<Unit> {
 
 경쟁 상태를 해결하려면, 여러 스레드가 동시에 변수에 접근하지 못하도록 **lock 이나 원자적 계산(atomic operation)** 을 도입해야 한다.
 
-- **synchronize 블록**
+- **synchronized 블록**
   - JVM 레벨에서 lock 을 걸어 단일 스레드만 접근 허용
 - **AtomicInteger**
   - 연산 자체를 원자적(atomic)으로 처리하는 클래스
@@ -381,7 +382,7 @@ fun main() = runBlocking<Unit> {
 
 **코루틴 전용 동기화 도구: `Mutex`**
 
-코틀린 코루틴에서는 임계 영역을 만들기위한 동기화 도구로 Mutex 클래스를 제공한다.
+코틀린 코루틴에서는 임계 영역을 만들기 위한 동기화 도구로 Mutex 클래스를 제공한다.
 - mutex.lock() 을 호출하면 해당 코루틴이 락을 획득할 때까지 **일시 중단(suspend)** 된다.
 - 락을 보유한 코루틴이 mutex.unlock() 을 호출해 락을 해제할 때까지 **다른 코루틴은 임계 영역에 진입할 수 없다.**
 
@@ -468,7 +469,7 @@ withLock() 은 **락 획득부터 해제까지는 하나의 블록으로 보장*
 |   권장 사용    | 코루틴 기반 동시성 제어      | 스레드 기반 동기화 제어 |
 
 
-코루틴이 **Mutex 객체의 lock()** 함수를 호출했는데 이미 다른 코루틴에 의해 Mutex 객체에 락이 걸려있으면 코루틴은 기존의 락이 해제될 때가지 **스레드를 양보하고 일시 중단**한다.  
+코루틴이 **Mutex 객체의 lock()** 함수를 호출했는데 이미 다른 코루틴에 의해 Mutex 객체에 락이 걸려있으면 코루틴은 기존의 락이 해제될 때끼지 **스레드를 양보하고 일시 중단**한다.  
 이를 통해 코루틴이 일시 중단되는 동안 스레드가 블로킹되지 않도록 해서 **스레드에서 다른 작업이 실행**될 수 있도록 한다.
 이후 기존의 **락이 해제되면 코루틴이 재개되어 Mutex 객체의 락을 획득**한다.
 
@@ -534,7 +535,7 @@ val countChangeDispatcher = newSingleThreadContext("countChangeThread")
 fun main() = runBlocking<Unit> {
     withContext(Dispatchers.Default) {
         repeat(10_000) {
-            launch { // count 값을 변경시킬대만 사용
+            launch { // count 값을 변경시킬때만 사용
                 increaseCount()
             }
         }
@@ -763,7 +764,7 @@ public fun CoroutineScope.launch(
 
 ---
 
-## 2.1. `CoroutineStart.DEFAULT`: 즉시 스케쥴링
+## 2.1. `CoroutineStart.DEFAULT`: 즉시 스케줄링
 
 `CoroutineStart.DEFAULT` 는 **코루틴 빌더 함수를 호출한 즉시 코루틴의 실행을 `CoroutineDispatcher` 객체에 예약(schedule)**하며, 코루틴 빌더 함수를 호출한 코루틴은 계속해서 실행된다.  
 여기서 핵심은 '실행'이 아니라 **'예약'**이라는 점이다.  
@@ -834,7 +835,7 @@ fun main() = runBlocking{
 - `launch()` 로 생성된 _job_ 은 runBlocking 이 main 스레드를 양보할 때까지 `실행 대기 상태`에 놓임
 - job.cancel() 이 호출됨
   - _job_ 은 아직 코드 실행을 시작하지 않았으므로, 즉시 `취소 완료(Cancelled)` 상태가 됨
-- 작업 2 가 출력된 후 ruBlocking 이 종료될 때, _job_ 은 이미 취소되었으므로 작업 1 은 출력되지 않음
+- 작업 2 가 출력된 후 runBlocking 이 종료될 때, _job_ 은 이미 취소되었으므로 작업 1 은 출력되지 않음
 
 ```shell
 [main @coroutine#1] 작업 2
@@ -910,7 +911,7 @@ Process finished with exit code 0
 
 코드를 보면 작업 2, 1 순서로 실행된다.
 
-launch 코루틴은 즉시 스케쥴링되지만, 호출자인 runBlocking 코루틴이 main 스레드를 계속 사용하므로 대기하다가 runBlocking 코루틴의 코드가 모두 실행되고 나서야 
+launch 코루틴은 즉시 스케줄링되지만, 호출자인 runBlocking 코루틴이 main 스레드를 계속 사용하므로 대기하다가 runBlocking 코루틴의 코드가 모두 실행되고 나서야 
 launch 코루틴이 실행된다.
 
 ![`CoroutineStart.DEFAULT` 의 동작](/assets/img/dev/2025/0623/default.webp)
@@ -950,7 +951,7 @@ Process finished with exit code 0
 
 ---
 
-`UNDISPATCHED` 를 사용할 때 반드시 알아야 할 주의할 점은 이 **'디스패처를 건너뛰는' 특권은 오직 코루틴이 시작될 때, 첫 번재 중단점을 만나기 전까지만 유효**하다는 점이다.
+`UNDISPATCHED` 를 사용할 때 반드시 알아야 할 주의할 점은 이 **'디스패처를 건너뛰는' 특권은 오직 코루틴이 시작될 때, 첫 번째 중단점을 만나기 전까지만 유효**하다는 점이다.
 
 만일 코루틴 내부에 `delay()` 나 `withContext()` 같은 중단 함수를 만나 **일시 중단되었다가 재개될 때는 원래의 동작대로 디스패처를 거쳐 실행**된다.
 
@@ -972,8 +973,8 @@ fun main() = runBlocking<Unit> {
 ```
 
 - launch 코루틴이 `UNDISPATCHED` 옵션으로 호출되어 main 스레드에서 즉시 실행을 시작하고 첫 번째 println() 을 출력함
-- delay(100L) 을 만나 코루틴이 이시 중단됨
-- 100ms 후 코루틴이 재개될 준비가 되면, 이번에는 디스패처를 건너뛰지 않고 **정상적으로 main 스레드의 디스패처에 의해 스케쥴링되어 실행**됨. 그리고 두 번째 println() 을 출력함
+- delay(100L) 을 만나 코루틴이 일시 중단됨
+- 100ms 후 코루틴이 재개될 준비가 되면, 이번에는 디스패처를 건너뛰지 않고 **정상적으로 main 스레드의 디스패처에 의해 스케줄링되어 실행**됨. 그리고 두 번째 println() 을 출력함
 
 ```shell
 [main @coroutine#2] 일시 중단 전에는 CoroutineDispatcher 를 거치지 않고 실행됨
@@ -986,6 +987,24 @@ fun main() = runBlocking<Unit> {
 
 이처럼 **`UNDISPATCHED` 는 특정 상황에서 즉각적인 실행을 보장할 때 유용**하지만, **중단 이후에는 동작 방식이 변경되므로 코드의 흐름을 예측하기 어렵게** 만들 수 있다.  
 따라서 이 옵션은 코루틴의 동작 메커니즘을 명확히 이해하고, **매우 제한적인 경우에만 신중하게 사용**해야 한다.
+
+---
+
+# 정리하며..
+
+멀티스레드 환경에서 여러 코루틴이 **공유 상태**에 접근할 때 마주하는 **메모리 가시성**과 **경쟁 상태**라는 두 가지 난관을 살펴보았다.  
+그리고 이 문제들이 CPU 캐시와 메인 메모리 간의 데이터 불일치, 원자적이지 않은 연산 과정에서 비롯됨을 확인했다.
+
+이러한 데이터 정합성 문제를 해결하기 위해 아래 내용들과 각 해결책의 원리, 장단점을 알아보았다.
+- `@Volatile` 로 메모리 가시성을 확보하는 방법
+- `Mutex` 의 `withLock()` 으로 임계 영역(Critical Section) 을 안전하게 보호하여 경쟁 상태를 원천 차단하는 방법
+- `newSingleThreadContext` 를 활용한 **전용 스레드**로 공유 자원 접근을 직렬화하는 전략
+- `Atomic` 객체를 사용해 연산 자체를 원자적으로 만드는 기법
+
+나아가 `CoroutineStart` 옵션 (DEFAULT, LAZY, ATOMIC, UNDISPATCHED) 을 통해 **코루틴의 실행 시점과 방식을 세밀하게 제어**하며 코드의 동작을 예측 가능하게 
+만드는 방법에 대해서도 알아보았다.
+
+견고하고 효율적인 동시성 애플리케이션을 구축하기 위해서는 코루틴의 내부 동작 원리를 정확히 이해하고, 마주한 상황에 가장 적합한 동기화 도구를 선택해야 한다.
 
 ---
 

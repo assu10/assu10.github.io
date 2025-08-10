@@ -244,7 +244,7 @@ Process finished with exit code 0
 
 ## 2.2. `join()` 과 `await()` 의 동작 방식
 
-코틀린에서 `join()` 과 `await()` 은 모두 **다른 코루틴의 완료를 기다리는 일시 중단 함수**이다.
+코틀린에서 [`join()`](https://assu10.github.io/dev/2024/11/09/coroutine-builder-job/#1-join-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%BD%94%EB%A3%A8%ED%8B%B4-%EC%88%9C%EC%B0%A8-%EC%B2%98%EB%A6%AC) 과 [`await()`](https://assu10.github.io/dev/2024/11/10/coroutine-async-and-deferred/#12-await-%EB%A1%9C-%EA%B2%B0%EA%B3%BC%EA%B0%92-%EC%88%98%EC%8B%A0) 는 모두 **다른 코루틴의 완료를 기다리는 일시 중단 함수**이다.
 - **`join()`**: Job 타입의 코루틴이 **모두 종료될 때까지 대기**
 - **`await()`**: Deferred 타입의 코루틴이 **결과를 반환할 때까지 대기**
 

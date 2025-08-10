@@ -131,6 +131,8 @@ kotlin.code.style=official
 
 Job 객체는 순차 처리가 필요한 상황을 위해 `join()` 을 제공하여 먼저 처리되어야 하는 코루틴의 실행이 완료될 때까지 호출부의 코루틴이 일시 중단하도록 만들 수 있다.
 
+> `join()` 과 `await()` 의 차이는 [2.2. `join()` 과 `await()` 의 동작 방식](https://assu10.github.io/dev/2025/06/08/coroutine-thread-yielding/#22-join-%EA%B3%BC-await-%EC%9D%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D) 을 참고하세요.
+
 ---
 
 ## 1.1. 순차 처리가 안될 경우의 문제

@@ -1,0 +1,48 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="KeZGlaYKyL9aWBcVlhCP">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-22" value="스레드풀&lt;br&gt;DefaultDispatcher-worker-1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="520" y="150" width="240" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-23" value="Dispatchers.Unconfined" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="250" y="100" width="230" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-24" value="작업 대기열" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="270" y="150" width="190" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-25" value="launch 코루틴" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="540" y="210" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-26" value="CoroutineDispatcher 를 거치지 않고 자신을 호출한&amp;nbsp;&lt;div&gt;스레드에서 바로 실행&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3333;" vertex="1" parent="1">
+          <mxGeometry x="280" y="241" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-27" value="runBlocking 코루틴" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="540" y="280" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-28" value="" style="endArrow=blockThin;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="40" y="274" as="sourcePoint" />
+            <mxPoint x="250" y="273.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-29" value="launch 코루틴 실행 요청" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ESi31qKTC0WWTbOVzuZl-28">
+          <mxGeometry x="-0.3333" relative="1" as="geometry">
+            <mxPoint x="35" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;" edge="1" parent="1" source="ESi31qKTC0WWTbOVzuZl-31" target="ESi31qKTC0WWTbOVzuZl-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-31" value="launch 코루틴" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;opacity=40;" vertex="1" parent="1">
+          <mxGeometry x="30" y="210" width="190" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ESi31qKTC0WWTbOVzuZl-32" value="중단" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#f8cecc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="528" y="290" width="30" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
