@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "AI/ML - 인공지능 개념 이해"
+title:  "AI - 인공지능 개념 이해"
 date: 2025-08-15
 categories: dev
 tags: ai ml machine-learning artificial-intelligence generative-ai supervised-learning unsupervised-learning reinforcement-learning classification regression clustering dimensionality-reduction ai-guide ml-fundamentals
