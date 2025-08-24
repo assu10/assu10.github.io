@@ -1032,7 +1032,7 @@ class TopicCreatorTest {
 
 위에서 브로커를 생성했지만, 테스트를 실행하는 도중에 실제로 실행되는 브로커는 하나도 없다.
 
-> `spy()`, `mock()` 에 대한 내용은 [3. Jest Unit Test](https://assu10.github.io/dev/2023/04/30/nest-test/#3-jest-unit-test) 를 참고하세요.
+> `spy()`, `mock()` 에 대한 내용은 [3. Jest Unit Test](https://assu10.github.io/dev/2023/04/30/nest-test/#31-test-double) 를 참고하세요.
 
 아파치 카프카는 `MockAdminClient` 를 test jar 에 담아서 공개하므로 아래와 같은 dependency 를 추가해야 한다.
 ```xml

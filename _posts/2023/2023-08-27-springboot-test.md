@@ -1009,7 +1009,7 @@ given(this.hotelRoomRepository.findById(any()))
 즉, 위 설명을 조합해보면 '어떤 인자값을 사용하더라도 hotelRoomRepository.findById() 메서드를 호출하면 willReturn() 메서드의 인자인 HotelRoomEntity 
 객체를 응답한다' 라는 의미이다.
 
-> dummy, fake, spy, stub, mock 에 대한 차이는 [NestJS - 테스트 자동화](https://assu10.github.io/dev/2023/04/30/nest-test/#3-jest-unit-test) 를 참고하세요.
+> dummy, fake, spy, stub, mock 에 대한 차이는 [NestJS - 테스트 자동화](https://assu10.github.io/dev/2023/04/30/nest-test/#31-test-double) 를 참고하세요.
 
 > Mockito 라이브러리에서는 BDDMockito.java 와 같이 스텁을 만들 수 있는 Mockito.java 클래스를 제공함  
 > BDDMockito 클래스가 Mockito 클래스를 상속받기 때문에 두 클래스가 제공하는 메서드는 거의 같음  

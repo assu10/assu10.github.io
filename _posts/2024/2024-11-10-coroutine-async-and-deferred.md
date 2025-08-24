@@ -611,7 +611,8 @@ fun main() = runBlocking<Unit >{
 위 결과를 보면 runBlocking 함수의 block 람다식을 실행하는 코루틴이 모두 _coroutine#1_ 으로 같은 것을 볼 수 있다.  
 즉, `withContext()` 함수는 새로운 코루틴을 만드는 대신 기존의 코루틴에서 CoroutineContext 객체만 바꿔서 실행한다.  
 위 코드에서는 CoroutineContext 객체가 Main 에서 Dispatchers.IO 로 바뀌었기 때문에 백그라운드 스레드(DefaultDispatcher-worker-1)에서 실행된다.  
-(Dispatcher 가 다르면 스레드가 바뀔 가능성이 있는 것이고, Dispatcher 가 같거나 내부 스레드풀이 동일 ㅅ레드를 재상용하는 경우엔 스레드가 안 바뀔 수도 있음)
+(Dispatcher 가 다르면 스레드가 바뀔 가능성이 있는 것이고, Dispatcher 가 같거나 내부 스레드풀이 동일 스레드를 재사용하는 경우엔 스레드가 안 바뀔 수도 있음)
+
 `withContext()` 함수가 block 람다식을 벗어나면 원래의 CoroutineContext 객체를 사용하여 실행된다. (위 코드에서는 다시 main 스레드를 사용하는 것을 볼 수 있음)
 
 `withContext()` 함수가 호출되면 코루틴의 실행 환경이 `withContext()` 함수의 context 인자값으로 변경되어 실행되며, 이를 **컨텍스트 스위칭**이라고 한다.  
@@ -779,7 +780,7 @@ main 함수에서는 runBlocking() 함수를 호출하여 runBlocking 코루틴�
 [main @coroutine#1] 코루틴 실행~
 ```
 
-모든 코루틴이 runBlocking 코루틴(coroutine#1) 인데 스레드가 메인 스레드에서 myThread1, myThread2 로 전환되고 다시 메인 스렐드로 돌아온다.  
+모든 코루틴이 runBlocking 코루틴(coroutine#1) 인데 스레드가 메인 스레드에서 myThread1, myThread2 로 전환되고 다시 메인 스레드로 돌아온다.  
 이렇게 `withContext()` 함수를 CoroutineDispatcher 객체와 함께 사용하면 코루틴이 자유롭게 스레드를 전환할 수 있다.  
 좀 더 정확히 말하면 코루틴이 실행되는데 사용하는 CoroutineDispatcher 객체를 자유롭게 변경할 수 있다.
 

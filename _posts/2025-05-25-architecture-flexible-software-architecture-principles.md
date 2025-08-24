@@ -197,7 +197,7 @@ fun handleOrderRequest(req: HttpRequest) {
 <**명령형 셸과 함수형 코어 패턴 장점**>
 - **테스트 용이성 극대화**
   - 순수 함수는 **의존성 없이도 테스트 가능**
-  - [mock, stub, spy](https://assu10.github.io/dev/2023/04/30/nest-test/#3-jest-unit-test) 없이도 단위 테스트 작성 가능
+  - [mock, stub, spy](https://assu10.github.io/dev/2023/04/30/nest-test/#31-test-double) 없이도 단위 테스트 작성 가능
   - 테스트에 대한 고급 지식이 없어도 테스트 작성이 쉬움
 - **부수 효과 명확히 분리**
   - 비즈니스 로직(코어)는 외부 시스템에 영향을 주지 않음
