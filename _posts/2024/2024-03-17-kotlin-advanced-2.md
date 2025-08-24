@@ -751,7 +751,7 @@ fun main() {
 제네릭을 사용한 _genericConstrainedRandom()_, _genericRandom()_ 는 파생 클래스인 _Recyclable_ 도 만들 수 있다.
 
 _genericConstrainedRandom()_ 는 _Disposable_ 의 멤버를 전혀 사용하지 않으므로 T에 걸린 _:Disposable_ 타입 파라미터 제약이 의미가 없어서 결국 
-타입 파라미터 제약을 걸지 않은 _genericRandom()_ 과 동일하다. (= 타입 파라미터 제약을 사용할 필요없이 일반 제네릭으로 사용해도 되는 케이스)
+타입 파라미터 제약을 걸지 않은 _genericRandom()_ 과 동일하다. (= 타입 파라미터 제약을 사용할 필요 없이 일반 제네릭으로 사용해도 되는 케이스)
 
 ---
 

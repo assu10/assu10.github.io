@@ -448,7 +448,7 @@ System.out.println("isAllLowerCase: " + v2.validate("aaa")); // true
 
 StrategyValidation 인터페이스는 [함수형 인터페이스](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#12-%ED%95%A8%EC%88%98%ED%98%95-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-functional-interface)이며, Predicate\<String\> 과 같은 함수 디스크립터(String -> boolean) 를 갖는다.
 
-따라서 StrategyIsNumericValidation, StrategyIsAllLowerCaseValidation 와 같은 구현 클래스(ConcreteStrategyA,B)를 생성할 필요없이 바로 람다 표현식을 전달하면 코드가 간결해진다.
+따라서 StrategyIsNumericValidation, StrategyIsAllLowerCaseValidation 와 같은 구현 클래스(ConcreteStrategyA,B)를 생성할 필요 없이 바로 람다 표현식을 전달하면 코드가 간결해진다.
 
 검증 활용
 ```java

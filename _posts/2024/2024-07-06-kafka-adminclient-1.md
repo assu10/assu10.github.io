@@ -869,7 +869,7 @@ public class AdminClientSample {
       // 각각의 설정 변경 작업은 설정 항목 (= 설정의 이름과 설정값. 여기서는 cleanup.policy 가 설정 이름이고, compact 가 설정값) 과 작업 유형으로 이루어짐
       // 카프카에서는 4가지 형태의 설정 변경이 가능함
       // 설정값을 잡아주는 SET / 현재 설정값을 삭제하고 기본값으로 되돌리는 DELETE / APPEND / SUBSTRACT
-      // APPEND 와 SUBSTRACT 는 목록 형태의 설정에만 사용 가능하며, 이걸 사용하면 전체 목록을 주고받을 필요없이 필요한 설정만 추가/삭제 가능함
+      // APPEND 와 SUBSTRACT 는 목록 형태의 설정에만 사용 가능하며, 이걸 사용하면 전체 목록을 주고받을 필요 없이 필요한 설정만 추가/삭제 가능함
       configOp.add(new AlterConfigOp(compaction, AlterConfigOp.OpType.SET)); // 3)
       Map<ConfigResource, Collection<AlterConfigOp>> alterConfigs = new HashMap<>();
       alterConfigs.put(configResource, configOp);
@@ -897,7 +897,7 @@ public class AdminClientSample {
 위에서 설정 항목은 설정의 이름과 설정값을 의미함 (여기서는 `cleanup.policy` 가 설정의 이름이고, `compact` 가 설정값)  
 **카프카에서는 4가지 형태의 설정 변경이 가능**함
 **설정값을 잡아주는 `SET` / 현재 설정값을 삭제하고 기본값으로 되돌리는 `DELETE` / `APPEND` / `SUBSTRACT`**  
-`APPEND` 와 `SUBSTRACT` 는 목록 형태의 설정에만 사용 가능하며, 이걸 사용하면 전체 목록을 주고받을 필요없이 필요한 설정만 추가/삭제 가능함
+`APPEND` 와 `SUBSTRACT` 는 목록 형태의 설정에만 사용 가능하며, 이걸 사용하면 전체 목록을 주고받을 필요 없이 필요한 설정만 추가/삭제 가능함
 
 상세한 설정값을 얻어오는 것은 비상 상황에서 큰 도움이 된다.  
 예를 들어 업그레이드를 하다가 실수로 브로커 설정 파일이 깨진 상황에서 이러한 이슈가 있다는 것을 첫 번째 브로커의 재시작 실패를 보고서야 알아차렸을 때 

@@ -381,7 +381,7 @@ fun main() = runBlocking<Unit> {
 - **`Dispatchers.Main`**
   - 메인 스레드를 사용하기 위한 `CoroutineDispatcher`
 
-따라서 **개발자들은 매번 새로운 `CoroutineDispatcher` 객체를 만들 필요없이 제공되는 `CoroutineDispatcher` 객체를 사용하여 코루틴을 실행**하면 된다.
+따라서 **개발자들은 매번 새로운 `CoroutineDispatcher` 객체를 만들 필요 없이 제공되는 `CoroutineDispatcher` 객체를 사용하여 코루틴을 실행**하면 된다.
 
 ---
 
@@ -397,7 +397,7 @@ fun main() = runBlocking<Unit> {
 
 즉, `Dispatchers.IO` 를 사용하면 여러 입출력 작업을 동시에 수행할 수 있다.
 
-`Dispatchers.IO` 는 싱글톤 인스턴스이므로 매번 new IO Dispatcher() 처럼 만들 필요없이, `launch()` 함수의 인자로 곧바로 넘겨서 사용할 수 있다.
+`Dispatchers.IO` 는 싱글톤 인스턴스이므로 매번 new IO Dispatcher() 처럼 만들 필요 없이, `launch()` 함수의 인자로 곧바로 넘겨서 사용할 수 있다.
 
 - **"`Dispatchers.IO` 는 싱글톤 인스턴스이므로"**  
 `Dispatchers.IO` 는 코루틴에서 I/O 작업에 최적화된 `CoroutineDispatcher` 객체이며, **`Dispatchers.IO` 애플리케이션 전체에서 하나만 생성되어 재사용**하게 된다.  
@@ -462,7 +462,7 @@ fun main() = runBlocking<Unit> {
 대용량 데이터를 처리해야 하는 작업처럼 CPU 연산이 필요한 작업을 **CPU 바운드 작업**이라고 한다.
 
 `Dispatchers.Default` 는 CPU 바운드 작업이 필요할 때 사용하는 `CoroutineDispatcher` 이며, `Dispatchers.Default` 도 그 자체로 싱글톤 인스턴스이기 때문에 
-new Default Dispatcher() 처럼 인스턴스를 만들 필요없이 아래와 같이 바로 사용할 수 있다.
+new Default Dispatcher() 처럼 인스턴스를 만들 필요 없이 아래와 같이 바로 사용할 수 있다.
 
 ```kotlin
 package chap03

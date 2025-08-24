@@ -308,7 +308,7 @@ RuleDiscounter ruleDiscounter = new DroolsRuleDiscounter();
 CalculateDiscountService disService = new CalculateDiscountService(ruleDiscounter);
 ```
 
-따라서 **만일 구현 기술을 변경하더라도 응용 영역인 _CalculateDiscountService_ 는 변경할 필요없이, 저수준 구현 객체를 생성하는 코드만 변경**하면 된다.
+따라서 **만일 구현 기술을 변경하더라도 응용 영역인 _CalculateDiscountService_ 는 변경할 필요 없이, 저수준 구현 객체를 생성하는 코드만 변경**하면 된다.
 
 ```java
 // 사용할 저수준 구현 객체 변경

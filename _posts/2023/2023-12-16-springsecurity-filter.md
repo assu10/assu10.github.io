@@ -393,7 +393,7 @@ $ curl -w "%{http_code}" --header 'Authorization: 2221'  http://localhost:8080/h
 401%
 ```
 
-이 경우 `UserDetailsService` 를 구성하지 않았기 때문에 스프링 부트가 자동으로 구성하지만 위와 같이 사용자의 개념이 없는 시나리오에서는 `UserDetailsService` 필요없이 
+이 경우 `UserDetailsService` 를 구성하지 않았기 때문에 스프링 부트가 자동으로 구성하지만 위와 같이 사용자의 개념이 없는 시나리오에서는 `UserDetailsService` 필요 없이 
 서버의 엔드포인트 호출을 요청하는 사용자만 검증한다. (실제 운영 시에 이런 경우는 거의 없긴 하다)
 
 만일 `UserDetailsService` 구성 요소가 필요하지 않아서 기본 `UserDetailsService` 를 비활성화하려면 아래와 같이 부트 스트랩 클래스에 설정해주면 된다.

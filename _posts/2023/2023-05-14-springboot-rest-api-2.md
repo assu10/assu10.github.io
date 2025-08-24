@@ -478,7 +478,7 @@ public Class Test {
 > **static**  
 > 보통 `public static final String Str = "AAA";` 이렇게 static 과 final 을 같이 쓰는 경우가 많음  
 > static 은 변수나 함수에 붙는 키워드로 메모리에 한 번만 할당되어 메모리를 효율적으로 사용 가능함 (=같은 주소값을 공유하여 모든 곳에서 변수 하나로 공유 가능)  
-> final 은 그 값을 계속 사용한다는 의미이므로 메모리 낭비할 필요없이 하나로 쓰도록 static 과 final 을 같이 사용하는 케이스가 많음
+> final 은 그 값을 계속 사용한다는 의미이므로 메모리 낭비할 필요 없이 하나로 쓰도록 static 과 final 을 같이 사용하는 케이스가 많음
 >
 > 주의할 점은 위의 `blank final 변수` 형태일 경우 인스턴스마다 다른 값을 갖기 때문에 final 이어도 초기화가 다르게 된다면 static 을 사용하지 않음
 

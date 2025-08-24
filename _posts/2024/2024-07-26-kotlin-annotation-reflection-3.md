@@ -923,7 +923,7 @@ class ClassInfo<T : Any>(
 
   // 생성자에 필요한 필수 파라미터가 맵에 모두 있는지 검증
   // 리플렉션 캐시를 사용하면 이 함수에서 수행하는 과정(역직렬화를 제어하는 애너테이션을 찾는 과정) 을 JSON 데이터에서 발견한
-  // 모든 프로퍼티에 대해 반복할 필요없이 프로퍼티 이름별로 단 한번만 수행 가능
+  // 모든 프로퍼티에 대해 반복할 필요 없이 프로퍼티 이름별로 단 한번만 수행 가능
   private fun ensureAllParametersPresent(arguments: Map<KParameter, Any?>) {
     for (param in constructor.parameters) {
       // 파라미터에 디폴트 값이 있으면 param.isOptional 이 true 이므로 그런 파라미터에 대한 인자가 인자 맵에 없어도 문제없음

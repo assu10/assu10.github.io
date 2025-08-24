@@ -362,7 +362,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 ```
 
 static 미들웨어는 정적인 파일들을 제공하는 라우터 역할을 한다.<br />
-기본적으로 제공되기 때문에 따로 설치할 필요없이 express 객체 안에서 꺼내쓰면 된다.
+기본적으로 제공되기 때문에 따로 설치할 필요 없이 express 객체 안에서 꺼내쓰면 된다.
 
 `app.use('요청 경로', express.static('실제 경로'))`
 

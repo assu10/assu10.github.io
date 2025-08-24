@@ -293,7 +293,7 @@ public class ProjectConfig {
             .csrf(AbstractHttpConfigurer::disable)  // cstf 비활성화
             .authorizeHttpRequests(authz -> {
               authz.requestMatchers(HttpMethod.GET, "/aa").authenticated(); // GET /aa 인증 필요
-              authz.requestMatchers(HttpMethod.POST, "/aa").permitAll(); // POST /aa 는 인증 필요없이 모두 접근 허용
+              authz.requestMatchers(HttpMethod.POST, "/aa").permitAll(); // POST /aa 는 인증 필요 없이 모두 접근 허용
               authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 모두 요청 거부
             })
             .httpBasic(Customizer.withDefaults());
@@ -364,7 +364,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       .csrf(AbstractHttpConfigurer::disable)  // cstf 비활성화
       .authorizeHttpRequests(authz -> {
         authz.requestMatchers("/aa/bb/**").authenticated(); // /aa/bb 로 시작하는 모든 경로는 인증 필요
-        authz.anyRequest().permitAll(); // 그 외의 엔드포인트는 모두 인증 필요없이 접근 가능
+        authz.anyRequest().permitAll(); // 그 외의 엔드포인트는 모두 인증 필요 없이 접근 가능
       })
       .httpBasic(Customizer.withDefaults());
   return http.build();

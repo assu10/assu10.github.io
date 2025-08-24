@@ -57,7 +57,7 @@ import { TaskService } from './task.service';
 export class BatchModule {}
 ```
 
-`ScheduleModule` 은 forRoot() 메서드를 통해 가져오는데 이 과정에서 NestJS 는 스케쥴러를 초기화하여 앱에 선언한 Cron Job 과 Timeout, Interval 등을 등록한다.  
+`ScheduleModule` 은 forRoot() 메서드를 통해 가져오는데 이 과정에서 NestJS 는 스케줄러를 초기화하여 앱에 선언한 Cron Job 과 Timeout, Interval 등을 등록한다.  
 Timeout 은 스케쥴링이 끝나는 시각을 의미한다.
 
 Task Scheduling 은 모든 모듈이 예약된 작업을 로드하고 확인하는 `onApplicationBootstrap` 생명주기 Hook 이 발생할 때 등록된다.

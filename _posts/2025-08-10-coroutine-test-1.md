@@ -12,8 +12,7 @@ tags: kotlin coroutine unittest testing kotlinx-coroutines-test runTest TestScop
 
 - **코틀린 Unit Test** 기초
 - **테스트 더블(Test Double)**을 활용한 의존성 주입 객체 테스트
-- `kotlinx-coroutine-test` 라이브러리의 핵심 기능과 사용법
-- 실제 코루틴 코드를 테스트하는 실전 예시
+- `kotlinx-coroutines-test` 라이브러리의 핵심 기능과 사용법
 
 > 소스는 [github](https://github.com/assu10/coroutine/tree/feature/chap12) 에 있습니다.
 
@@ -43,6 +42,7 @@ tags: kotlin coroutine unittest testing kotlinx-coroutines-test runTest TestScop
   * [3.4. `runTest()` 를 사용해 테스트](#34-runtest-를-사용해-테스트)
     * [3.4.1. `runTest()` 함수의 람다식에서 `TestScope` 사용](#341-runtest-함수의-람다식에서-testscope-사용)
       * [3.4.1.1. `launch()`와 함께 사용할 때: `advanceUntilIdle()` 이 필요한 이유](#3411-launch와-함께-사용할-때-advanceuntilidle-이-필요한-이유)
+      * [3.4.1.2. `join()` 을 사용한 예외 케이스](#3412-join-을-사용한-예외-케이스)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -51,9 +51,9 @@ tags: kotlin coroutine unittest testing kotlinx-coroutines-test runTest TestScop
 # 1. 단위 테스트 기초
 
 여기서는 코루틴 테스트에 중점을 두므로, 단위 테스트의 모든 것을 다루기 보다는 코루틴 테스트에 필요한 최소한의 내용에 집중한다.
-따라서 단위 테스트 시 일반적으로 사용되는 Mokito, MockK 같은 라이브러리들은 생략하고 테스트를 진행하는데 필수적인 JUnit5 만을 사용한다.
+따라서 단위 테스트 시 일반적으로 사용되는 Mockito, MockK 같은 라이브러리들은 생략하고 테스트를 진행하는데 필수적인 JUnit5 만을 사용한다.
 
-단위(Unit) 이란 명확하게 정의된 역할을 수행하는 코드의 집합이다. 특정 동작을 실행하는 개별 함수, 클래스, 모듈 모두 하나의 Unit 이 될 수 있다.
+단위(Unit)란 명확하게 정의된 역할을 수행하는 코드의 집합이다. 특정 동작을 실행하는 개별 함수, 클래스, 모듈 모두 하나의 Unit 이 될 수 있다.
 
 단위 테스트는 바로 이러한 Unit 이 예상대로 정확하게 동작하는지 확인하기 위해 자동화된 테스트를 작성하고 실행하는 프로세스이다.
 
@@ -99,7 +99,7 @@ tasks.test {
 
 - **`testImplementation()`**
   - **테스트 코드를 컴파일하고 실행**하는데 사용하는 의존성을 설정
-  - JUit 의 `@Test` 애너테이션과 같은 API 들이 여기에 해당함
+  - JUnit의 `@Test` 애너테이션과 같은 API 들이 여기에 해당함
 - **`testRuntimeOnly()`**
   - 컴파일할 때는 필요 없지만, **테스트를 실행하는 시점(Runtime)**에 필요한 의존성 설정
   - JUnit 테스트를 실제로 구동하는 테스트 엔진이 대표적인 예
@@ -107,7 +107,7 @@ tasks.test {
 이렇게 설정된 의존성들은 테스트 소스 코드 경로(src/test)에서만 유효하다. 따라서 앱의 프로덕션 빌드에는 포함되지 않아 최종 결과물(APK, JAR 등)의 크기가 
 불필요하게 커지는 것을 방지할 수 있다.
 
-tasks.test 블록의 `useJUnitPlatform()` 설정은 Gradle 이 테스트를 실행할 때 **JUnit 플랫폼을 사용하도록 지정**한다.
+tasks.test 블록의 `useJUnitPlatform()` 설정은 Gradle이 테스트를 실행할 때 **JUnit 플랫폼을 사용하도록 지정**한다.
 
 ---
 
@@ -260,7 +260,7 @@ data class UserProfile(
 ```
 
 여기서 한 가지 문제가 있다. `UserProfileFetcher` 를 테스트하고 싶은데, 2개의 Repository 의 실제 구현체가 없다. 설령 실제 구현체(예: DB 에 접근하는 코드)가 
-있다 하더라도, `UserProfileFetcher` 를 테스트할 대 사용하면 아래와 같은 문제가 생긴다.
+있다 하더라도, `UserProfileFetcher` 를 테스트할 때 사용하면 아래와 같은 문제가 생긴다.
 
 **"테스트는 다른 구현체에 영향을 받지 않고 독립적으로 수행되어야 한다."**
 
@@ -336,9 +336,9 @@ class StubUserNameRepository(
 
 #### 1.4.1.2. Fake
 
-Fake 는 실제 객체처럼 동작하도록 좀 더 복잡한 로직을 구현한 모방 객체이다. 실제 구현(DB, 네트워크)를 더 가벼운 방식(인메모리)으로 대체하여 동작을 시뮬레이션 한다.
+Fake 는 실제 객체처럼 동작하도록 좀 더 복잡한 로직을 구현한 모방 객체이다. 실제 구현(DB, 네트워크)를 더 가벼운 방식(인메모리)으로 대체하여 동작을 시뮬레이션한다.
 
-`UserPhoneNumberRepository` 의 실제 구현체가 로컬 DB 를 사용한다고 가정하고, 이를 흉내내는 Fake 객체를 만들면 아래와 같ㄴ다.
+`UserPhoneNumberRepository` 의 실제 구현체가 로컬 DB 를 사용한다고 가정하고, 이를 흉내내는 Fake 객체를 만들면 아래와 같다.
 
 FakeUserPhoneNumberRepository.kt
 ```kotlin
@@ -442,9 +442,9 @@ class UserProfileFetcherTest {
 하지만 매번 테스트를 위해 인터페이스의 모든 함수를 구현하는 테스트 더블 클래스를 만드는 것은 매우 비효율적이다.
 
 이런 반복적이고 번거로운 작업을 해결하기 위해 **모킹(Mocking) 라이브러리**가 등장했다.  
-코틀린에서는 **Mokito** 나 **MockK** 같은 라이브러리가 널리 사용되며, 단 몇 줄의 코드로 테스트 더블을 동적으로 생성해준다.
+코틀린에서는 **Mockito** 나 **MockK** 같은 라이브러리가 널리 사용되며, 단 몇 줄의 코드로 테스트 더블을 동적으로 생성해준다.
 
-또한, 실제 단위 테스트는 단순히 반환값을 비교하는 것을 넘어 아래와 같은 다양한 측면을 검증하낟.
+또한, 실제 단위 테스트는 단순히 반환값을 비교하는 것을 넘어 아래와 같은 다양한 측면을 검증한다.
 - 테스트 대상 객체의 **상태가 어떻게 변화**하는가?
 - 테스트 대상 객체가 의존 객체의 함수를 **올바른 순서와 횟수로 호출**하는가?
 
@@ -550,14 +550,14 @@ class RepeatAddWithDelayUseCase {
 <br />
 
 <details markdown="1">
-<summary><strong>잠깐! 왜 `withContext()` 를 사용하지 않았을까? (CPU-bound vs I/O bound) (펼쳐보기)</strong></summary>
+<summary><strong>잠깐! 왜 `withContext()` 를 사용하지 않았을까? (CPU-bound vs I/O-bound) (펼쳐보기)</strong></summary>
 
 이전 `RepeatAddUseCase` 에서는 `withContext(Dispatchers.Default)` 를 사용했지만, 이번 `RepeatAddWithDelayUseCase` 에서는 사용하지 않았다.  
 그 이유는 작업의 성격이 다르기 때문이다.
 
 - **CPU-bound 작업**
   - 복잡한 연산처럼 **CPU 를 계속 사용**하는 작업
-  - 이런 작업을 메인 스렏에서 수행하면 UI가 멈추는(ANR, Application Not Responding) 현상이 발생할 수 있으므로, `withContext()`를 통해 백그라운드 스레드로 작업을 전환해야 함
+  - 이런 작업을 메인 스레드에서 수행하면 UI가 멈추는(ANR, Application Not Responding) 현상이 발생할 수 있으므로, `withContext()`를 통해 백그라운드 스레드로 작업을 전환해야 함
   - 예) 대규모 데이터 정렬, 이미지/영상 인코딩, 반복문을 통한 복잡한 계산 등
 - **I/O-bound 작업**
   - 네트워크 요청, 파일 읽기/쓰기, DB 쿼리처럼 **외부 리소스의 응답을 기다리는 작업이 대부분**인 작업
@@ -674,7 +674,7 @@ class TestCoroutineScheduler {
 > 해당 코드는 최종적으로 사용될 `runTest()` 함수의 내부 동작을 이해하기 위한 과정이므로 해당 코드는 참고만 할 것
 
 `TestCoroutineScheduler` 객체만으로는 코루틴을 실행할 수 없다.  
-`TestCoroutineScheduler` 에 맞춰 동작할 일꾼인 CoroutineDispatcher 가 필요하다. `kotlinx-coroutine-test` 는 `StandardTestDispatcher` 라는 
+`TestCoroutineScheduler` 에 맞춰 동작할 일꾼인 CoroutineDispatcher 가 필요하다. `kotlinx-coroutines-test` 는 `StandardTestDispatcher` 라는 
 테스트용 Dispatcher 를 제공한다.
 
 `StandardTestDispatcher` 를 생성할 때 `TestCoroutineScheduler` 를 인자로 넘겨주면, 해당 Dispatcher 에서 실행되는 코루틴들은 우리가 제어하는 가상 시간을 따르게 된다.
@@ -733,7 +733,7 @@ class TestCoroutineScheduler {
 ```
 
 위 코드는 `TestCoroutineScheduler` 의 동작 원리를 명확하게 보여준다.  
-코루틴 내의 delay()는 `advanceByTime()` 으로 가상 시간을 진행시켜야만 비로소 완료된다.
+코루틴 내의 delay()는 `advanceTimeBy()`로 가상 시간을 진행시켜야만 비로소 완료된다.
 
 실제 테스트에서 이렇게 시간을 수동으로 여러 번 조절하는 경우는 거의 없다.  
 하지만 이 메커니즘을 이해하는 것은 라이브러리의 다른 고급 기능을 파악하는데 큰 도움이 된다.
@@ -744,7 +744,7 @@ class TestCoroutineScheduler {
 
 > 해당 코드는 최종적으로 사용될 `runTest()` 함수의 내부 동작을 이해하기 위한 과정이므로 해당 코드는 참고만 할 것
 
-실제 테스트에서는 '코루틴이 끝날 떼까지 시간을 감고 결과를 확인'하는 경우가 대부분이다. 매번 delay() 시간을 계산하여 `advanceTimeBy()`를 호출하는 것은 매우 번거롭다.
+실제 테스트에서는 '코루틴이 끝날 때까지 시간을 감고 결과를 확인'하는 경우가 대부분이다. 매번 delay() 시간을 계산하여 `advanceTimeBy()`를 호출하는 것은 매우 번거롭다.
 
 이런 경우를 위해 `advanceUntilIdle()` 함수가 존재한다.  
 이 함수는 스케줄러에 대기 중인 모든 작업이 완료될 때까지 가상 시간을 **한 번에** 진행시킨다.
@@ -765,7 +765,7 @@ import org.junit.jupiter.api.Test
 class TestCoroutineScheduler {
     @Test
     fun `advanceUntilIdle() 사용`() {
-        // 테스트 환경 설정(스케쥴러는 Dispatcher 가 내부적으로 관리)
+        // 테스트 환경 설정(스케줄러는 Dispatcher 가 내부적으로 관리)
         val testDispatcher: TestDispatcher = StandardTestDispatcher()
         val testCoroutineScope: CoroutineScope = CoroutineScope(context = testDispatcher)
 
@@ -797,7 +797,7 @@ class TestCoroutineScheduler {
 > 해당 코드는 최종적으로 사용될 `runTest()` 함수의 내부 동작을 이해하기 위한 과정이므로 해당 코드는 참고만 할 것
 
 앞선 코드에서 `TestCoroutineScheduler` 객체를 직접 생성하고, `StandardTestDispatcher()` 에 주입하는 과정을 살펴보았다.  
-하지만 코루틴 테스트 라이브러리를 이 과정을 더 간결하게 해준다.
+하지만 코루틴 테스트 라이브러리는 이 과정을 더 간결하게 해준다.
 
 결론부터 말하면, **`StandardTestDispatcher()` 는 내부적으로 `TestCoroutineScheduler` 를 자동으로 생성하고 관리**한다.
 
@@ -810,18 +810,18 @@ public fun StandardTestDispatcher(
     scheduler ?: TestMainDispatcher.currentTestScheduler ?: TestCoroutineScheduler(), name)
 ```
 
-scheduler 파라메터는 null 을 허용하며, 기본적으로 null 이다.  
+scheduler 파라미터는 null 을 허용하며, 기본적으로 null 이다.  
 이 경우 `StandardTestDispatcher` 내부에서 `TestCoroutineScheduler()` 를 직접 생성하여 사용한다.
 
-따라서 `TestCoroutineScheduler` 를 직접 생성할 필요없이 `StandardTestDispatcher()` 만 호출하면 된다.  
-그리고 필요하다면 생성된 Dispatcher 의 scheduler 프로퍼티는 통해 내부 스케쥴러에 접근할 수 있다.
+따라서 `TestCoroutineScheduler` 를 직접 생성할 필요 없이 `StandardTestDispatcher()` 만 호출하면 된다.  
+그리고 필요하다면 생성된 Dispatcher 의 scheduler 프로퍼티를 통해 내부 스케줄러에 접근할 수 있다.
 
 이미 [3.1.3. `advanceUntilIdle()` 로 모든 코루틴 실행](#313-advanceuntilidle-로-모든-코루틴-실행) 의 예시에서 이 방식을 사용했다.
 
 ```kotlin
 // TestCoroutineScheduler 를 직접 생성하지 않음
 val testDispatcher: TestDispatcher = StandardTestDispatcher()
-// dispatcher 의 scheduler 프로퍼티를 통해 스케쥴러 기능 사용
+// dispatcher 의 scheduler 프로퍼티를 통해 스케줄러 기능 사용
 testDispatcher.scheduler.advanceUntilIdle()
 ```
 
@@ -833,7 +833,7 @@ testDispatcher.scheduler.advanceUntilIdle()
 
 > 해당 코드는 최종적으로 사용될 `runTest()` 함수의 내부 동작을 이해하기 위한 과정이므로 해당 코드는 참고만 할 것
 
-`StandardTestDispatcher()` 덕분에 `TestCoroutineScheduler` 스케쥴러 생성 코드를 사라졌지만, 여전히 아래와 같은 코드가 반복된다.
+`StandardTestDispatcher()` 덕분에 `TestCoroutineScheduler` 스케줄러 생성 코드는 사라졌지만, 여전히 아래와 같은 코드가 반복된다.
 
 ```kotlin
 val testDispatcher: TestDispatcher = StandardTestDispatcher()
@@ -842,9 +842,9 @@ val testCoroutineScope: CoroutineScope = CoroutineScope(context = testDispatcher
 
 이 두 줄의 코드를 하나로 합쳐주는 것이 바로 `TestScope()` 이다.
 
-`TestScope()` 는 테스트에 필요한 `TestDispatcher` 와 `TestCoroutineScheduler` 를 모두 내장하고 있는 튻한 CoroutineScope 이다.
+`TestScope()` 는 테스트에 필요한 `TestDispatcher` 와 `TestCoroutineScheduler` 를 모두 내장하고 있는 특별한 CoroutineScope 이다.
 
-`TestScope()` 를 사용하면 `advanceTimeBy()`, `advanceUntilIdle()` 같은 스케쥴러 함수들과 `currentTime` 같은 프로퍼티들을 Scope 에서 직접 호출할 수 있다.  
+`TestScope()` 를 사용하면 `advanceTimeBy()`, `advanceUntilIdle()` 같은 스케줄러 함수들과 `currentTime` 같은 프로퍼티들을 Scope 에서 직접 호출할 수 있다.  
 예) testScope.scheduler.advanceUntilIdle() 대신 testScope.advanceUntilIdle() 사용
 
 이전 코드를 `TestScope()` 를 사용하도록 수정하면 아래와 같다.
@@ -877,7 +877,7 @@ class TestCoroutineScheduler {
             result = 2
         }
 
-        // Then: scheduler 에 접근할 필요없이 Scope 에서 바로 시간 제어 함수 호출
+        // Then: scheduler 에 접근할 필요 없이 Scope 에서 바로 시간 제어 함수 호출
         testCoroutineScope.advanceUntilIdle()
         assertEquals(2, result)
     }
@@ -997,7 +997,7 @@ class TestCoroutineSchedulerTest {
 `runTest()` 는 **자신이 직접 실행하는** suspend 함수에 대해서만 시간을 자동으로 진행시킨다.  
 launch, async 등으로 생성된 **새로운 자식 코루틴에 대해서는 자동으로 시간을 진행시키지 않는다.**
 
-이것은 여러 코루틴을 동시에 실행하는 병렬/동시성 테스트를 이해 의도적으로 설계된 동작이다.  
+이것은 여러 코루틴을 동시에 실행하는 병렬/동시성 테스트를 위해 의도적으로 설계된 동작이다.  
 만일 launch 가 즉시 실행된다면 모든 코루틴이 순차적으로 진행되어 동시성 테스트가 불가능해지기 때문이다.  
 `runTest()` 의 테스트 환경은 기본적으로 단일 스레드 위에서 동작하기 때문에 launch 가 여러 개 있으면 순차적으로 실행된다.  
 `runTest()` 에서 launch 는 '즉시 실행'이 아니라 '작업 예약'이다.  
@@ -1039,6 +1039,9 @@ class TestCoroutineSchedulerTest {
 ```
 
 ---
+
+#### 3.4.1.2. `join()` 을 사용한 예외 케이스
+
 만일 runTest() 코루틴의 자식 코루틴을 생성하는 것이 아니라 runTest() 로 생성한 작업(Job) 에 대해 [`join()`](https://assu10.github.io/dev/2024/11/09/coroutine-builder-job/#1-join-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%BD%94%EB%A3%A8%ED%8B%B4-%EC%88%9C%EC%B0%A8-%EC%B2%98%EB%A6%AC)
 함수를 호출하면 어떻게 될까?  
 join() 자체도 일시 중단 함수이므로, `runTest()` 의 자동 시간 메커니즘이 동작한다.  

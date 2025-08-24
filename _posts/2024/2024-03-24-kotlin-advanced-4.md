@@ -265,7 +265,7 @@ fun main() {
 ## 1.3. `ReadOnlyProperty` 인터페이스 상속
 
 [1.1. 프로퍼티가 val 인 경우: `KProperty`](#11-프로퍼티가-val-인-경우-kproperty) 에서 
-**위임 클래스인 _BasicRead_, _BasicReadWrite_ 모두 어떤 인터페이스도 구현할 필요없이, 단순이 필요한 함수 이름과 시그니처만 만족하면 위임 역할을 수행**할 수 있다.
+**위임 클래스인 _BasicRead_, _BasicReadWrite_ 모두 어떤 인터페이스도 구현할 필요 없이, 단순이 필요한 함수 이름과 시그니처만 만족하면 위임 역할을 수행**할 수 있다.
 
 하지만 원한다면 `ReadOnlyProperty` 인터페이스를 상속할 수도 있다.
 
