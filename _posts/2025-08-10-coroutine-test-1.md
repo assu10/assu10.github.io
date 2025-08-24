@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Coroutine - 코루틴 단위 테스트(1): "
+title:  "Coroutine - 코루틴 단위 테스트(1): 코루틴 테스트 라이브러리 runTest()"
 date: 2025-08-10
 categories: dev
 tags: kotlin coroutine unittest testing kotlinx-coroutines-test runTest TestScope TestDispatcher virtual-time runBlocking TestDouble Stub Fake JUnit5 concurrency parallelism delay suspend
