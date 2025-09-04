@@ -48,7 +48,7 @@ tags: ai ml deep-learning neural-network loss-function error gradient-descent ba
 '예' 또는 '아니오'처럼 두 개의 선택지 중 하나를 맞추는 문제를 [이진 분류](https://assu10.github.io/dev/2025/08/15/ai-ml-learning-methods-guide/#21-%EC%A7%80%EB%8F%84-%ED%95%99%EC%8A%B5supervised-learning-%EC%A0%95%EB%8B%B5%EC%9D%84-%EC%95%8C%EB%A0%A4%EC%A3%BC%EB%A9%B0-%EA%B0%80%EB%A5%B4%EC%B9%98%EA%B8%B0)라고 한다.
 
 모델이 모든 데이터에 대해 예측을 수행하면, 우리는 이 전체 예측이 얼마나 정답에서 벗어났는지 하나의 값으로 계산해야 한다. 이 때 주로 사용하는 손실 함수가 바로 
-**이진 교차 엔트로피이(Binary Cross-Entropy)**다.
+**이진 교차 엔트로피(Binary Cross-Entropy)**이다.
 
 이진 교차 엔트로피의 핵심 원리는 아래와 같다.
 - 모델이 **정답을 높은 확률로 예측했다면(잘 맞췄다면)** 오차를 **0에 가깝게** 부여
