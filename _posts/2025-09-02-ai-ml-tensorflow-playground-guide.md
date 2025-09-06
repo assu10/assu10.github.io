@@ -62,7 +62,7 @@ tags: ai ml tensorflow-playground deep-learning machine-learning neural-network 
   - 분류: 데이터를 주어진 카테고리(여기서는 주황색/파란색)로 나누는 문제
   - 회귀: 연속적인 숫자 값을 예측하는 문제(예: 키에 따른 몸무게 예측)
 
-좌측에 있는 옵션들을 [4. 데이터 입력 형태 선택](#4-데이터-입력-형태-선택) 에 나옵니다.
+좌측에 있는 옵션들을 [4. 데이터 입력 형태 선택](#4-데이터-입력-형태-선택) 에서 설명합니다.
 
 ---
 
@@ -77,7 +77,7 @@ tags: ai ml tensorflow-playground deep-learning machine-learning neural-network 
 학습이 성공적으로 완료되었다는 신호이다. 이 때는 중단 버튼을 눌러 학습을 멈춰도 좋다.
 
 텐서플로 플레이그라운드는 모델의 성능을 객관적으로 평가하기 위해 **훈련 데이터(training data)**와 **검증 데이터(test data)**로 나누어 사용한다.  
-'Show test data' 체크박스를 클릭하면 학습에 사용되지 않은 검증 데이터를 표시해주어 눈으로 확인할 수 다.
+'Show test data' 체크박스를 클릭하면 학습에 사용되지 않은 검증 데이터를 표시해주어 눈으로 확인할 수 있다.
 
 이 두 데이터에 대한 모델의 성능은 각각 아래의 값으로 나타난다.
 - **Test loss(검증 손실)**
@@ -103,7 +103,7 @@ tags: ai ml tensorflow-playground deep-learning machine-learning neural-network 
 
 **깊이: 은닉층(Hidden Layers)**
 
-입력층과 출력층 사이에 여러 개의 **히든 레이어**를 추가하면, 신경망의 층이 깊어지며 이를 **심층 신경망(DNN, Deep Neural Network)**라고 한다.  
+입력층과 출력층 사이에 여러 개의 **히든 레이어**를 추가하면, 신경망의 층이 깊어지며 이를 **심층 신경망(DNN, Deep Neural Network)**이라고 한다.  
 층이 깊어질수록 데이터의 더욱 복잡하고 추상적인 특징을 학습할 수 있어 정교한 모델을 만들 수 있다.  
 하지만 그만큼 계산량이 늘어나 학습 시간이 길어지는 단점이 있다.
 
@@ -128,7 +128,7 @@ tags: ai ml tensorflow-playground deep-learning machine-learning neural-network 
 
 ![데이터 입력 형태](/assets/img/dev/2025/0902/data.png)
 
-화면 좌측 상단의 DATA 패널에서 학습에 사용할 데이터셋의 형태(원형, 나선형 등)을 선택하고, 아래 3가지 주요 파라미터를 조절할 수 있다.
+화면 좌측 상단의 DATA 패널에서 학습에 사용할 데이터셋의 형태(원형, 나선형 등)를 선택하고, 아래 3가지 주요 파라미터를 조절할 수 있다.
 
 - **Ratio of training to test data(훈련 데이터와 테스트 데이터의 비율)**
   - **의미**
@@ -143,7 +143,7 @@ tags: ai ml tensorflow-playground deep-learning machine-learning neural-network 
     - 데이터에 의도적으로 추가하는 **오류**
   - **설명**
     - Noise를 추가하면 데이터의 경계가 불분명해진다. 예를 들어 주황색 점들 사이에 파란색 점이 섞여들어가는 식이다.
-    - 이는 모델이 데이터의 아주 세세한 부분까지 전부 외워버리는 **과적합(overfitting)**을 방지하고, 데이터의 전반적인 패턴을 학습하도록 유도하여 **모델의 예측력을 높이는데 도움**을 준다.
+    - 이는 모델이 데이터의 아주 세세한 부분까지 전부 외워버리는 **과적합(overfitting)**을 방지하고, 데이터의 전반적인 패턴을 학습하도록 유도하여 **모델의 예측력을 높이는 데 도움**을 준다.
   - **예시**
     - 일부러 오타나 약간의 오류가 섞인 연습 문제를 풀게 해서, 핵심 개념을 더 확실히 이해하도록 만드는 훈련 방식
 - **Batch size**
