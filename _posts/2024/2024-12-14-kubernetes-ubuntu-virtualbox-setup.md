@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kubernetes - 우분투 환경 구성"
+title:  "Docker, Kubernetes - 우분투 환경 구성"
 date: 2024-12-14
 categories: dev
 tags: devops kubernetes docker virtualbox vm virtual-machine ubuntu

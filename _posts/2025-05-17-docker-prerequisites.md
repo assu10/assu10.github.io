@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Kubernetes - 도커를 이해하기 위한 사전 지식과 핵심 개념"
+title:  "Docker - 도커를 이해하기 위한 사전 지식과 핵심 개념"
 date: 2025-05-17 10:00:00
 categories: dev
-tags: devops kubernetes docker
+tags: devops docker
 ---
 
 도커는 개발-배포-운영의 경계를 허물며 효율적인 환경 일관성과 빠른 배포를 가능하게 해주는 컨테이너 기반 기술이다.  
@@ -299,9 +299,9 @@ tags: devops kubernetes docker
 - 하이퍼바이저를 통해 여러 개의 **가상머신(VM)** 생성
 - 각 VM은 **게스트 운영체제**를 포함하여 완전한 독립 환경 제공
 
-🛠️ 대표 도구: VirtualBox, VMware Workstation
+대표 도구: VirtualBox, VMware Workstation
 
-💡 **하이퍼바이저(Hypervisor)**
+**하이퍼바이저(Hypervisor)**
 - 가상 머신을 생성하고 관리하는 소프트웨어
 - 예) VMware, VirtualBox, Hyper-V
 - 하이퍼바이저는 보통 호스트 OS 위에 설치됨(Type 2), 또는 하드웨어 위에 직접 설치될 수도 있음(Type 1)
@@ -315,7 +315,7 @@ tags: devops kubernetes docker
   - 따라서 부팅 시 가상머신을 선택하게 됨
 - 성능은 뛰어나지만 관리가 복잡함
 
-🛠️ 대표 도구: VMware ESXi, Microsoft Hyper-V, Xen
+대표 도구: VMware ESXi, Microsoft Hyper-V, Xen
 
 ---
 
@@ -325,7 +325,7 @@ tags: devops kubernetes docker
 - 컨테이너 안에는 애플리케이션 + 필요한 바이너리/라이브러리만 포함
 - **게스트 운영체제가 필요없음**
 
-🛠️ 대표 도구: Docker, Kubernetes
+대표 도구: Docker, Kubernetes
 
 ---
 
@@ -339,7 +339,7 @@ tags: devops kubernetes docker
 | 실행 단위  | 운영체제 단위      | 애플리케이션 단위                |
 |  이식성   | 제한적          | 매우 높음 (이미지화된 패키지로 이동 가능) |
 
-📌 도커는 가상머신처럼 전체 운영체제를 포함하지 않고, **커널을 공유하면서 격리된 프로세스만 실행**하기 때문에 훨씬 빠르고 가볍다.
+도커는 가상머신처럼 전체 운영체제를 포함하지 않고, **커널을 공유하면서 격리된 프로세스만 실행**하기 때문에 훨씬 빠르고 가볍다.
 
 ---
 
@@ -408,7 +408,7 @@ tags: devops kubernetes docker
 - **REST API** 를 통해 도커 데몬과 통신
 - CLI 와 데몬은 **로컬 또는 원격에서도 통신 가능**
 
-> 📌 Ubuntu 나 macOS 터미널에서 사용하는 docker 명령어는 사실상 Docker CLI 이다.
+> Ubuntu 나 macOS 터미널에서 사용하는 docker 명령어는 사실상 Docker CLI 이다.
 
 ---
 
