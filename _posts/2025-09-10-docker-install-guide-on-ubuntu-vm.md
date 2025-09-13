@@ -23,7 +23,7 @@ tags: devops docker ubuntu install-guide container virtual-machine devops kubern
 
 **개발 환경**
 
-- Ubuntu 25.04
+- Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
 
@@ -142,7 +142,7 @@ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev
 
 # 2. 도커 설치
 
-[1. 사전 준비 사항](#1-사전-준비-사항)을 통해 도커 공식 리포지포티를 인식하게 되었으니, 이제 본격적으로 도커 엔진(Docker Engine)을 설치한다.
+[1. 사전 준비 사항](#1-사전-준비-사항)을 통해 도커 공식 리포지토리를 인식하게 되었으니, 이제 본격적으로 도커 엔진(Docker Engine)을 설치한다.
 
 **도커 패키지 설치**
 
