@@ -36,7 +36,7 @@ AI 와 머신러닝 프로젝트를 시작하기에 앞서, 가장 기본이 되
 
 # 1. 변수
 
-```shell
+```python
 # 숫자 변수 선언 및 연산
 a = 2
 b = 10
@@ -57,7 +57,7 @@ print(hello) # 결과: 안녕하세요
 파이썬은 할당된 값에 따라 자동으로 자료형을 결정한다.  
 `type()` 함수를 사용하면 해당 변수가 어떤 자료형인지 확인할 수 있다.
 
-```shell
+```python
 a = 2
 hello = '안녕하세요'
 print(type(a))     # <class 'int'>
@@ -73,7 +73,7 @@ print(type(a))     # <class 'float'>
 
 때로는 특정 자료형을 다른 자료형으로 강제 변환해야할 필요가 있다. 예를 들어 문자열로 저장된 숫자를 실제 숫자처럼 연산하고 싶을 때 사용한다.
 
-```shell
+```python
 string2int = '10'
 print(type(string2int))           # <class 'str'>
 
@@ -90,7 +90,7 @@ print(type(converted_float))      # <class 'float'>
 
 # 2. 배열(List)
 
-```shell
+```python
 mylist = [1, 2, 3]
 print(mylist)       # [1, 2, 3]
 
@@ -112,7 +112,7 @@ print(mylist[-1])   # 마지막 원소: 3
 슬라이싱은 리스트의 특정 범위를 잘라내어 새로운 리스트를 만드는 기능이다.  
 `리스트[시작인덱스:끝인덱스]` 형태로 사용하며, **끝 인덱스 바로 앞까지**의 원소를 가져온다는 점을 기억해야 한다.
 
-```shell
+```python
 mylist2 = [1, 3, 5, 7, 9, 11, 13, 15]
 
 # 인덱스 2부터 5까지 (6번째 원소 앞까지)
@@ -140,7 +140,7 @@ NumPy 는 다차원 배열 객체와 이를 처리하기 위한 효율적인 함
 `import numpy as np` 를 통해 라이브러리를 불러온 후, `np.array()` 함수를 사용하여 파이썬 리스트를 NumPy 배열로 변환할 수 있다.  
 `.shape` 속성으로 배열의 형태(차원과 크기)를 확인할 수 잇다.
 
-```shell
+```python
 import numpy as np
 
 narray = np.array([1, 3, 5, 7, 9])
@@ -159,7 +159,7 @@ print(narray.shape) # (5,)
 
 아래와 같은 배열은 2x5 배열이라고 하고, 숫자 6은 2행 3열에 있다.
 
-```shell
+```python
 # 2행 5열의 2차원 배열 생성
 darray = np.array([[1, 3, 5, 7, 9], [2, 4, 6, 8, 10]])
 print(darray)
@@ -176,7 +176,7 @@ print(darray.shape) # (2, 5)
 NumPy 의 가장 강력한 기능 중 하나는 `reshape()` 함수를 통해 배열의 형태를 자유자재로 변경할 수 있다는 점이다.  
 단, 변경 전후의 총원소 개수는 동일해야 한다.
 
-```shell
+```python
 # (2, 5) 형태의 배열을 (5, 2) 형태로 변경
 d52 = darray.reshape(5, 2)
 print(d52)
@@ -203,7 +203,7 @@ NumPy 는 특정 값으로 채워진 배열을 쉽게 생성할 수 있는 다�
 - `np.ones()`: 모든 원소가 1인 배열 생성
 
 **0으로 된 넘파이 배열 생성: `zeros()`**
-```shell
+```python
 # 모든 원소가 0인 (2, 5) 형태의 실수 배열 생성
 zeros_float = np.zeros((2, 5))
 print(zeros_float)
@@ -222,7 +222,7 @@ NumPy는 정밀한 과학 및 수치 계산에 특화된 라이브러리이므�
 ---
 
 **1으로 된 넘파이 배열 생성**
-```shell
+```python
 ones = np.ones((2,5))
 print(ones)
 
@@ -245,7 +245,7 @@ array([[1., 1., 1., 1., 1.],
 
 #### 3.4.1.1. `rand()`
 
-```shell
+```python
 # 0~1 사이의 무작위 값 3개 생성
 r = np.random.rand(3)
 print(r)
@@ -255,7 +255,7 @@ array([0.30226897, 0.56284468, 0.55792285])
 
 많은 수를 만들어 보면 정말 0~1 사이의 균등한 분포로 만들어지는지 확인할 수 있다.
 
-```shell
+```python
 import matplotlib.pyplot as plt # 그래프를 그리기 위해 matplotlib 라이브러리 사용
 r1000 = np.random.rand(1000)
 plt.hist(r1000) # r1000변수값을 히스토그램으로 표시
@@ -270,7 +270,7 @@ plt.grid() # 히스토그램을 격자 무늬 형태로 표시
 
 #### 3.4.1.2. `normal()`
 
-```shell
+```python
 # 평균 0, 표준편차 1인 정규 분포에서 무작위 값 3개 생성
 rn = np.random.normal(0, 1, 3)
 print(rn)
@@ -280,7 +280,7 @@ print(rn)
 
 이제 무작위 값 1000개를 만들어보자.
 
-```shell
+```python
 rn1000 = np.random.normal(0, 1, 1000)
 plt.hist(rn1000)
 plt.grid()
@@ -294,7 +294,7 @@ plt.grid()
 
 #### 3.4.1.3. `randint()`
 
-```shell
+```python
 # 1~100 사이의 무작위 정수 5개 생성
 ni = np.random.randint(1, 100, 5)
 print(ni)
@@ -311,7 +311,7 @@ array([25,  3, 52, 19, 35])
 `seed()` 함수는 이 규칙의 시작점을 고정하여, 코드를 다시 실행해도 항상 동일한 난수 시퀀스가 생성되도록 한다.  
 이는 실험 결과를 재현하고 디버깅하는 데 매우 중요하다.
 
-```shell
+```python
 # seed를 고정하지 않으면 매번 다른 결과가 나옴
 print(np.random.rand(3)) # [0.111 0.222 0.333]
 print(np.random.rand(3)) # [0.444 0.555 0.666]
