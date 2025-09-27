@@ -154,7 +154,7 @@ tags: ai ml machine-learning deep-learning neural-network activation-function we
 
 ![시그모이드 함수](/assets/img/dev/2025/0831/sigmoid.png)
 ![하이퍼볼릭탄젠트 함수](/assets/img/dev/2025/0831/hyper2.png)
-![렐루 함수](/assets/img/dev/2025/0831/ReLU.png)
+![렐루 함수](/assets/img/dev/2025/0831/relu.png)
 
 렐루 함수의 규칙은 매우 직관적이다.
 - 입력(x)이 0보다 크면: **입력값을 그대로 출력**(x=y)

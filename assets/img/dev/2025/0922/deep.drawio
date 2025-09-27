@@ -1,0 +1,68 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="wooRKATXb2n0_phyfQrj">
+    <mxGraphModel dx="1114" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="urfZgq2wVofDytDhVUH--9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="urfZgq2wVofDytDhVUH--1" target="urfZgq2wVofDytDhVUH--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--1" value="Data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="110" y="280" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="urfZgq2wVofDytDhVUH--2" target="urfZgq2wVofDytDhVUH--3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--2" value="심층 신경망" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="220" y="280" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--3" value="예측 결과&lt;div&gt;(Output)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="280" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--4" value="실제 정답" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="470" y="280" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="urfZgq2wVofDytDhVUH--5" target="urfZgq2wVofDytDhVUH--3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="urfZgq2wVofDytDhVUH--5" target="urfZgq2wVofDytDhVUH--4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="urfZgq2wVofDytDhVUH--5" target="urfZgq2wVofDytDhVUH--6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--5" value="비교" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="414" y="210" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="urfZgq2wVofDytDhVUH--6" target="urfZgq2wVofDytDhVUH--8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--17" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontStyle=1" vertex="1" connectable="0" parent="urfZgq2wVofDytDhVUH--14">
+          <mxGeometry x="-0.3973" y="-1" relative="1" as="geometry">
+            <mxPoint x="-5" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="urfZgq2wVofDytDhVUH--6" target="urfZgq2wVofDytDhVUH--7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--18" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontStyle=1" vertex="1" connectable="0" parent="urfZgq2wVofDytDhVUH--15">
+          <mxGeometry x="-0.5816" relative="1" as="geometry">
+            <mxPoint x="21" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--6" value="오차가 있는가?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="391" y="130" width="126" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="urfZgq2wVofDytDhVUH--7" target="urfZgq2wVofDytDhVUH--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--7" value="다시 학습" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="220" y="210" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="urfZgq2wVofDytDhVUH--8" value="성공" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="590" y="125" width="80" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
