@@ -57,7 +57,7 @@ import matplotlib.pyplot as plt
 **`from tensorflow.keras.models import Sequential`**
 
 딥러닝 신경망은 여러 개의 레이어가 순차적으로 쌓여있는 구조를 가진다.  
-입력층에서 시작해 은닉을, 출력층으로 데이터가 한 방향으로 흐르는 가장 기본적인 모델을 **순차(Sequential) 모델**이라고 한다.  
+입력층에서 시작해 은닉층을 거쳐 출력층으로 데이터가 한 방향으로 흐르는 가장 기본적인 모델을 **순차(Sequential) 모델**이라고 한다.  
 `Sequential` 은 바로 이 순차 모델의 뼈대를 만들어주는 핵심 함수이다.
 
 **`from tensorflow.keras.layers import Dense, Activation`**  
@@ -82,7 +82,7 @@ import matplotlib.pyplot as plt
 이미지 데이터를 숫자의 배열로 다룰 때 중요한 역할을 한다.
 
 **`import matplotlib.pyplot as plt`**
-**맷플로립**은 데이터와 모델의 학습 결과르 그래프로 시각화하여 우리가 직관적으로 이해할 수 있도록 돕는 라이브러리이다.  
+**맷플롯립**은 데이터와 모델의 학습 결과르 그래프로 시각화하여 우리가 직관적으로 이해할 수 있도록 돕는 라이브러리이다.  
 학습 과정이나 예측 결과를 눈으로 직접 확인할 때 사용된다.
 
 ---
@@ -132,7 +132,7 @@ y_test shape (10000,)
 이미지 데이터(x_train, x_test)에 대해 2가지 중요한 작업을 수행한다.
 
 **데이터 형태 변경(Reshaping)**  
-현재 이미지 데이터는 (28, 28) 형태의 2차원 배열이다. 여기서 만들 인공 신경망의 입력층은 데치터를 1차원 배열, 즉 한 줄로 된 데이터 형태로 받도록 설계할 것이다.  
+현재 이미지 데이터는 (28, 28) 형태의 2차원 배열이다. 여기서 만들 인공 신경망의 입력층은 데이터를 1차원 배열, 즉 한 줄로 된 데이터 형태로 받도록 설계할 것이다.  
 따라서 [reshape()](https://assu10.github.io/dev/2025/09/05/ai-ml-python-basic-for-ai-1/#33-%EB%84%98%ED%8C%8C%EC%9D%B4-%EB%B0%B0%EC%97%B4-%ED%98%95%ED%83%9C-%EB%B3%80%EA%B2%BD-reshape)을 통해 28*28 크기의 이미지를 784개(28*28=784)의 픽셀이 나열된 한 줄짜리 데이터로 펼쳐줄 것이다.  
 인공지능을 만들 때 항상 입력 데이터를 한 줄로 만들 필요는 없다. 모델을 설계하는 방식에 따라 입력 형태는 바뀐다.
 
@@ -213,7 +213,7 @@ Y_test matrix shape (10000, 10)
 
 ![4개의 층으로 된 인공지능 모델](/assets/img/dev/2025/0922/four.png)
 
-데이터 준비가 되었으니, 이제 신경만 모델(Neural Network Model)을 설계해보자.  
+데이터 준비가 되었으니, 이제 신경망 모델(Neural Network Model)을 설계해보자.  
 정보를 처리하고 판단을 내리는 레이어들을 쌓아올려서 모델을 만들어보자.
 
 <**모델 아키텍처 구상**>  
@@ -287,9 +287,9 @@ Model: "sequential_7"
  Non-trainable params: 0 (0.00 B)
 ```
 
-모델은 시퀀설 모델로 구성되어 있다.
-레이어를 나타내는 Layer 부분과 레이어의 모습을 나타내는 Output Shape 부분, 모델이 학습해야 할 파라메터([가중치와 편향](https://assu10.github.io/dev/2025/08/31/ai-ml-neural-network-weights-and-activation-functions/#1-%EC%8B%A0%ED%98%B8%EB%A5%BC-%EC%A0%84%EB%8B%AC%ED%95%A0-%EB%95%8C-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B0%80%EC%A4%91%EC%B9%98weight%EC%99%80-%ED%8E%B8%ED%96%A5bias))의 개수를 나타내는 Param 부분으로 나누어져 있다.  
-파라메터의 숫자가 클수록 모델의 표현력은 높아지지만, 더 많은 데이터와 계산 자원이 필요하다.
+모델은 시퀀셜 모델로 구성되어 있다.
+레이어를 나타내는 Layer 부분과 레이어의 모습을 나타내는 Output Shape 부분, 모델이 학습해야 할 파라미터([가중치와 편향](https://assu10.github.io/dev/2025/08/31/ai-ml-neural-network-weights-and-activation-functions/#1-%EC%8B%A0%ED%98%B8%EB%A5%BC-%EC%A0%84%EB%8B%AC%ED%95%A0-%EB%95%8C-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B0%80%EC%A4%91%EC%B9%98weight%EC%99%80-%ED%8E%B8%ED%96%A5bias))의 개수를 나타내는 Param 부분으로 나누어져 있다.  
+파라미터의 숫자가 클수록 모델의 표현력은 높아지지만, 더 많은 데이터와 계산 자원이 필요하다.
 
 - 첫 번째 Dense 층(은닉층 1)
   - (784개의 입력 * 512개 뉴런) + 512개의 편향 = 401,920개의 파라미터
@@ -363,7 +363,7 @@ model.fit(X_train, Y_train,
 **`model.fit(X_train, Y_train, batch_size=128, epochs=10, verbose=1)`**  
 - **X_train, Y_train**: 학습에 사용할 입력 데이터와 정답(레이블)
 - **batch_size**: 모델이 한 번에 학습할 데이터의 개수로 60,000개의 데이터를 128개의 작은 묶음으로 나누어 학습을 진행하면 더 안정적이고 효율적이다.
-- **epoch**: 전체 데이터 훈련의 반복 회수
+- **epoch**: 전체 데이터 훈련의 반복 횟수
 - **verbose**: `fit()` 함수의 결과값을 출력하는 방법
   - 0: 아무런 표시를 하지 않음
   - 1: 에포크별 진행 사항을 알려줌
@@ -586,7 +586,7 @@ plt.show()
 사람이 보기에도 애매한 글씨나, 숫자간의 유사성('5'와 '3', '8'과 '3'처럼 구조적으로 비슷한 숫자들) 등은 모델도 구분하기 힘들다.
 
 이 결과를 통해 모델을 개선할 방향을 엿볼 수 있다.  
-예를 들어 이미지를 약간씩 회전시키거나 변형하여 데이터의 다양성을 늘리는 데이터 증강(Data Augmentation) 기버버을 사용하거나, 이미지 인식에 더 특화된 
+예를 들어 이미지를 약간씩 회전시키거나 변형하여 데이터의 다양성을 늘리는 데이터 증강(Data Augmentation) 기법을 사용하거나, 이미지 인식에 더 특화된 
 [합성곱 신경망(CNN, Convolutional Neural Network)](https://assu10.github.io/dev/2025/09/03/ai-ml-deep-learning-model-architectures/#1-%ED%95%A9%EC%84%B1%EA%B3%B1-%EC%8B%A0%EA%B2%BD%EB%A7%9Dcnn-convolutional-neural-network-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%EB%B3%B4%EB%8A%94-%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5)과 같은 더 발전된 모델 구조를 사용하면 이런 애매한 이미지들을 더 잘 분류할 수 있을 것이다.
 
 ---
