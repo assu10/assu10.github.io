@@ -43,9 +43,9 @@ tags: ai ml deep-learning artificial-intelligence neural-networks ANN CNN RNN ge
 <!-- TOC -->
 * [머신러닝의 학습 방법 vs 머신러닝의 알고리즘](#머신러닝의-학습-방법-vs-머신러닝의-알고리즘)
 * [1. 합성곱 신경망(CNN, Convolutional Neural Network): 이미지를 '보는' 인공지능](#1-합성곱-신경망cnn-convolutional-neural-network-이미지를-보는-인공지능)
-* [2. 순환 신경망(RNN, Recurrent Neural Network): 시간의 흐름과 맥락을 기억하는 모델](#2-순환-신경망rnn-Recurrent-neural-network-시간의-흐름과-맥락을-기억하는-모델)
+* [2. 순환 신경망(RNN, Recurrent Neural Network): 시간의 흐름과 맥락을 기억하는 모델](#2-순환-신경망rnn-recurrent-neural-network-시간의-흐름과-맥락을-기억하는-모델)
 * [3. 스케치 RNN으로 순환 신경망 체험](#3-스케치-rnn으로-순환-신경망-체험)
-* [4. 생성 신경망(Generative Neural Network): AI의 창의성](#4-생성-신경망generative-neural-network-ai-의-창의성)
+* [4. 생성 신경망(Generative Neural Network): AI의 창의성](#4-생성-신경망generative-neural-network-ai의-창의성)
   * [4.1. 이미지 생성 인공지능의 시작: 생성적 적대 신경망(GAN)](#41-이미지-생성-인공지능의-시작-생성적-적대-신경망gan)
   * [4.2. 이미지 생성의 새로운 지평을 열다: 디퓨전 모델](#42-이미지-생성의-새로운-지평을-열다-디퓨전-모델)
   * [4.3. GAN vs 디퓨전 모델](#43-gan-vs-디퓨전-모델)
