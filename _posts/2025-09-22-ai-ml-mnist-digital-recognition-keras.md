@@ -3,7 +3,7 @@ layout: post
 title:  "AI - 숫자 인식 인공지능 만들기"
 date: 2025-09-22
 categories: dev
-tags: ai ml deep-learning keras tensorflow mnist python ai ml neural-network classification data-preprocessing model-training model-evaluation one-hot-encoding
+tags: ai ml deep-learning keras tensorflow mnist python neural-network classification data-preprocessing model-training model-evaluation one-hot-encoding
 ---
 
 이번 포스팅에서는 딥러닝의 가장 대표적인 입문 과제인 '손글씨 숫자 인식' 인공지능을 직접 만들어보면서 인공지능이 어떻게 이미지를 보고 그 의미를 파악하는지 알아본다.
