@@ -358,6 +358,54 @@ _Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation._
 무엇이 너를 이 바다로 이끌었나?
 ```
 
+전체 코드
+```python
+from google.colab import userdata
+from huggingface_hub import login
+
+hf_token = userdata.get('LLAMA_HF_TOKEN')
+
+print(f"현재 로드된 토큰 (앞/뒤 5자리): {hf_token[:5]}...{hf_token[-5:]}")
+
+login(token = hf_token)
+print("설정 완료")
+
+import torch
+from transformers import pipeline
+
+pipe = pipeline(
+    "text-generation",
+    model = "meta-llama/Llama-3.2-3B-Instruct",
+    dtype = torch.bfloat16,
+    device_map = "auto",
+    token = hf_token  # <-- 이 인자를 명시적으로 추가
+)
+
+# 대화형 프롬프트를 위한 messages 리스트 정의
+messages = [
+    {
+        "role": "system", # 시스템 역할
+        "content": "You are a pirate chatbot who always responds in pirate speak!"
+    },
+    {
+        "role": "user", # 유저 역할
+        "content": "Who are you?"
+    }
+]
+
+# 파이프라인을 실행하여 응답 생성
+outputs = pipe(
+    messages,
+    max_new_tokens=256 # 최대 생성 토큰 수 제한
+)
+
+# 생성된 응답만 추출하여 출력
+assistant_response = outputs[0]["generated_text"][-1]
+
+print(f"--- AI 응답 (Role: {assistant_response['role']}) ---")
+print(assistant_response['content'])
+```
+
 ---
 
 # 참고 사이트 & 함께 보면 좋은 사이트
