@@ -173,6 +173,8 @@ RAG 시스템의 핵심 구성 요소인 LLM을 메모리에 로드한다. RAG�
 
 phi-4와 같은 특정 모델은 사용 전 접근 동의가 필요할 수 있다. 이를 위해 Colab 환경에서 허깅페이스에 로그인한다.
 
+다음으로 [허깅페이스 허브에 접근하기 위한 인증 토큰을 설정](https://assu10.github.io/dev/2025/10/19/ai-ml-llm-huggingface-colab-tutorial/#2-%ED%97%88%EA%B9%85%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%A0%91%EA%B7%BC-%EC%BD%94%EB%93%9C-%EB%B0%9C%EA%B8%89)한다.
+
 ```python
 # LLM 양자화하여 불러오기
 from google.colab import userdata
