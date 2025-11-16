@@ -3,7 +3,7 @@ layout: post
 title:  "Docker - 우분투 가상 머신에 도커 설치"
 date: 2025-09-10 10:00:00
 categories: dev
-tags: devops docker ubuntu install-guide container virtual-machine devops kubernetes 도커-설치 우분투
+tags: devops docker ubuntu install-guide container virtual-machine kubernetes 도커-설치 우분투
 ---
 
 이 포스트에서는 PC 환경을 깨끗하게 유지하면서도 독립된 실습 공간을 마련하기 위해 가상 머신(Virtual Machine)에 도커를 설치하는 과정에 대해 알아본다.
@@ -276,7 +276,7 @@ To generate this message, Docker took the following steps:
 1. `docker` 클라이언트(터미널의 명령어)가 `dockerd` 데몬(백그라운드 서비스)에게 요청을 보냈다.
 2. `dockerd` 데몬은 로컬 시스템에 `hello-world` 이미지가 없는 것을 확인하고, 인터넷을 통해 공식 이미지 저장소인 Docker Hub 에서 이미지를 다운로드했다.
 3. `dockerd` 데몬은 다운로드한 이미지를 기반으로 새로운 컨테이너를 생성하고 실행했다.
-4. `dockerd` 데몬은 실행된 컨테이너의 출력 결과를 다시 `docker` 클라이언트로 보내주었고, 그 결과가 우리 터미널에 표시되었다.
+4. `dockerd` 데몬은 실행된 컨테이너의 출력 결과를 다시 `docker` 클라이언트로 보내주었고, 그 결과가 터미널에 표시되었다.
 
 ---
 

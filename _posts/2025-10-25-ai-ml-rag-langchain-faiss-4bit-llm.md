@@ -357,7 +357,7 @@ LLM은 한 번에 처리할 수 있는 텍스트 길이에 한계가 있으므�
 ## 5.1. RAG 추론 함수 정의
 
 [1. RAG(Retrieval-Augmented Generation): 검색 증강 생성 작동 원리](#1-ragretrieval-augmented-generation-검색-증강-생성-작동-원리) 에서 말한
-**2단계: 검색 및 생성(Retrieval & Generation) - 참고 자료를 참고하여 답변하기** 을 수행하는 함수를 정의한다.
+**2단계: 검색 및 생성(Retrieval & Generation) - 참고 자료를 참고하여 답변하기** 를 수행하는 함수를 정의한다.
 
 ```python
 # RAG 로 모델 추론 함수 정의
@@ -408,7 +408,7 @@ def rag_generate(query, top_k=2):
 
 **2.증강(Augment)**  
 검색된 _results_ 의 텍스트 내용(page_content)을 _context_ 라는 하나의 문자열로 합친다.  
-그리고 LLM에게 '이 _context_를 참고해서 _query_에 답해'라는 명령 프롬프트(_messages_)를 구성한다.  
+그리고 LLM에게 '이 context를 참고해서 _query_에 답해'라는 명령 프롬프트(_messages_)를 구성한다.  
 이것이 바로 RAG의 '증강(Augment)' 단계이다.
 
 **3.생성(Generate)**  
@@ -442,7 +442,7 @@ print("===대답", outputs[0]["generated_text"][2])
 따라서 개인정보보호위원회는 딥시크와 같은 서비스가 국내외의 개인정보 보호 규정을 준수하도록 하기 위해 다양한'}
 ```
 
-결과에서 볼 수 있듯이, phi-4 모델은 자신이 사전에 학습한 지식이 아니라 우리가 _faiss_index_를 통해 제공한 deepseek.pdf 의 내용을 참고하여 '개인정보 보호 우려'라는 
+결과에서 볼 수 있듯이, phi-4 모델은 자신이 사전에 학습한 지식이 아니라 우리가 _faiss_index_ 를 통해 제공한 deepseek.pdf 의 내용을 참고하여 '개인정보 보호 우려'라는 
 핵심적인 이유와 그 근거를 상세히 답변하고 있다.
 
 이것이 바로 RAG가 LLM의 환각 현상을 줄이고, 최신 정보나 특정 문서에 기반한 신뢰도 높은 답변을 생성하는 핵심 원리이다.

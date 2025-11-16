@@ -1,0 +1,72 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="stk0wynZJaMq07sbnaWl">
+    <mxGraphModel dx="920" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-1" value="도커 클라이언트" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#C925D1;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.command_line_interface;" vertex="1" parent="1">
+          <mxGeometry x="120" y="180" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;endArrow=block;endFill=1;strokeColor=#FF3333;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="388.304210150307" y="200.24621086472348" as="sourcePoint" />
+            <mxPoint x="520" y="200.20000000000005" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="480" y="200" />
+              <mxPoint x="480" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-11" value="pull/push" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontStyle=1;fontColor=#FF3333;" vertex="1" connectable="0" parent="HjJZHatSZuq_RUXMVcJN-5">
+          <mxGeometry x="-0.1997" y="4" relative="1" as="geometry">
+            <mxPoint x="2" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#00994D;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330.5133692861025" y="243" as="sourcePoint" />
+            <mxPoint x="210" y="243" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="290" y="243" />
+              <mxPoint x="290" y="243" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-13" value="response" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontStyle=1;fontColor=#00994D;" vertex="1" connectable="0" parent="HjJZHatSZuq_RUXMVcJN-7">
+          <mxGeometry x="0.1536" y="-1" relative="1" as="geometry">
+            <mxPoint x="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-2" value="도커 호스트" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="1">
+          <mxGeometry x="330" y="160" width="61.6" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-3" value="도커 레지스트리" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.registry;" vertex="1" parent="1">
+          <mxGeometry x="520" y="160" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.382;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;strokeColor=#FF3333;strokeWidth=2;" edge="1" parent="1" source="HjJZHatSZuq_RUXMVcJN-1" target="HjJZHatSZuq_RUXMVcJN-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-10" value="request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontStyle=1;fontColor=#FF3333;" vertex="1" connectable="0" parent="HjJZHatSZuq_RUXMVcJN-4">
+          <mxGeometry x="-0.5851" relative="1" as="geometry">
+            <mxPoint x="27" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;endArrow=none;startFill=1;startArrow=block;strokeColor=#00994D;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390.304210150307" y="244.24621086472348" as="sourcePoint" />
+            <mxPoint x="522" y="244.20000000000005" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="482" y="244" />
+              <mxPoint x="482" y="244" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HjJZHatSZuq_RUXMVcJN-12" value="image data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontStyle=1;fontColor=#00994D;" vertex="1" connectable="0" parent="HjJZHatSZuq_RUXMVcJN-9">
+          <mxGeometry x="-0.3516" y="4" relative="1" as="geometry">
+            <mxPoint x="45" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

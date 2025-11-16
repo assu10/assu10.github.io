@@ -34,7 +34,7 @@ tags: devops docker
 
 **개발 환경**
 
-- Ubuntu 25.04
+- Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
 
@@ -386,7 +386,7 @@ tags: devops docker
 |:--------:|:------------------------------|:----------------------------------|
 |   운영체제   | 하드웨어와 사용자/프로그램 사이를 중계하는 소프트웨어 | Windows, Linux, macOS             |
 | 호스트 운영체제 | 가상화 소프트웨어를 실행하는 실제 머신의 OS     | Windows11(VMware 위에서 Ubuntu 실행 중) |
-| 게스트 운영체제 | 가상 머신 내에 설치된 OS               | Ubuntu 22.04 (VirtualBox 내 실행)    |
+| 게스트 운영체제 | 가상 머신 내에 설치된 OS               | Ubuntu 24.04.2 LTS (VirtualBox 내 실행)    |
 
 
 ---

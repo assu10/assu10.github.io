@@ -1,0 +1,31 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="xvxEjxSMzHqzrH8wR3h0">
+    <mxGraphModel dx="1114" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="l1nRdG-YuAku22GMN7uj-9" value="이미지" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=14;fillColor=#f5f5f5;fontColor=#333333;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="230" y="70" width="270" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="l1nRdG-YuAku22GMN7uj-6" value="레이어" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=14;fillColor=#fff2cc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="250" y="200" width="230" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="l1nRdG-YuAku22GMN7uj-2" value="레이어 0 -&amp;nbsp;37b49b813d9c" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=40;verticalAlign=bottom;fillColor=#d5e8d4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="270" y="330" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="l1nRdG-YuAku22GMN7uj-3" value="레이어 1 -&amp;nbsp;5bd36c08acb8" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=40;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="270" y="310" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="l1nRdG-YuAku22GMN7uj-4" value="레이어 n -&amp;nbsp;d5606296ed56" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=40;fillColor=#d5e8d4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="270" y="240" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="l1nRdG-YuAku22GMN7uj-7" value="config" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="260" y="150" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="l1nRdG-YuAku22GMN7uj-8" value="python: 3.13.7 -&amp;nbsp;2deb0891e ..." style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="110" width="180" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

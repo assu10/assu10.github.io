@@ -27,7 +27,7 @@ tags: devops kubernetes docker virtualbox vm virtual-machine ubuntu
 
 **개발 환경**
 
-- Ubuntu 25.04
+- Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
 
