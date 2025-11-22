@@ -3,7 +3,7 @@ layout: post
 title:  "Docker - 도커 기초(1): 기초 명령어"
 date: 2025-09-11 10:00:00
 categories: dev
-tags: devops docker 도커 도커-기초 도커-입문 도커-명령어 docker-cli 도커-이미지 docker-image 도커-컨테이너 docker-container docker-run docker-pull docker-commit docker-rm devops 데브옵스 컨테이너 가상화
+tags: devops docker 도커 도커-기초 도커-입문 도커-명령어 docker-cli 도커-이미지 docker-image 도커-컨테이너 docker-container docker-run docker-pull docker-commit docker-rm 데브옵스 컨테이너 가상화
 ---
 
 이 포스트에서는 도커의 가장 기초적인 개념부터 실제 운영에 필수적인 요소까지 차근차근 알아본다.  
@@ -11,8 +11,6 @@ tags: devops docker 도커 도커-기초 도커-입문 도커-명령어 docker-c
 
 기초 개념을 알아본 후에는 실습을 통해 필수적인 **도커 명령어**들을 익힌다.  
 이미지를 다운로드하고, 컨테이너를 실행, 조회, 접속, 삭제하는 모든 과정을 직접 해본다.
-
-마지막으로 애플리케이션을 컨테이너 환경에서 안정적으로 운영하기 위해 알아야 할 **네트워크**와 **스토리지** 개념까지 알아본다.
 
 ---
 

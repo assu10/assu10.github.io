@@ -1,0 +1,42 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="hd3EHeLKufmJ2pxGFmie">
+    <mxGraphModel dx="1114" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-8" value="도커 호스트" style="rounded=1;html=1;verticalAlign=top;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="155" y="120" width="340" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-5" value="컨테이너" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="240" y="170" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;startFill=0;" edge="1" parent="1" source="vEAXC3D_hXWAyPDx5dKa-1" target="vEAXC3D_hXWAyPDx5dKa-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-1" value="eth0 - 172.17.0.2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="220" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;startFill=0;" edge="1" parent="1" source="vEAXC3D_hXWAyPDx5dKa-3" target="vEAXC3D_hXWAyPDx5dKa-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-3" value="docker0 - 172.17.0.1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=bottom;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="240" y="310" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-2" value="vethXXXX" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="270" y="310" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="vEAXC3D_hXWAyPDx5dKa-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="325" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-4" value="enp0s3 - 10.0.2.4" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="240" y="420" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vEAXC3D_hXWAyPDx5dKa-10" value="외부 네트워크" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="520" width="70" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
