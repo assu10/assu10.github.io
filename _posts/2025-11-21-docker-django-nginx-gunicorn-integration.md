@@ -3,7 +3,7 @@ layout: post
 title:  "Docker - Django, Nginx, Gunicorn 연동"
 date: 2025-11-21 10:00:00
 categories: dev
-tags: devops docker kubernetes django nginx gunicorn python pyenv yaml container-infrastructure web-service-deployment devops port-forwarding dockerfile
+tags: devops docker kubernetes django nginx gunicorn python pyenv yaml container-infrastructure web-service-deployment port-forwarding dockerfile
 ---
 
 이 포스트에서는 도커의 기초 명령어와 핵심 기능들을 활용하여 실제 작동하는 애플리케이션을 구축해본다.  
@@ -12,7 +12,6 @@ tags: devops docker kubernetes django nginx gunicorn python pyenv yaml container
 아래와 같은 실무적인 인프라 구성을 목표로 한다.
 - **Pyenv**를 활용한 독립적인 파이썬 가상 환경 구축
 - **YAML** 파일의 문법과 개념 이해(설정 파일 관리)
-- **Docker Compose**를 활용한 다중 컨테이너 오케스트레이션
 
 ---
 
