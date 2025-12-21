@@ -34,7 +34,7 @@ MSA (MicroService Architecture) 대해 검토를 하다 보면 분산 시스템�
 
 본 예제는 아래와 같은 흐름으로 진행이 됩니다.
 
-![그림으로 이해하는 API 호출 흐름](/assets/img/dev/2020/0618/0618_1.jpg)
+![API 호출 흐름](/assets/img/dev/2020/0618/0618_1.jpg)
 
 Provider (localhost:9090) 는 `member/{id}` 말고도 여러 API 들을 제공하는 API 서버입니다.
 

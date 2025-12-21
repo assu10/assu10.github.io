@@ -3,7 +3,7 @@ layout: post
 title:  "Kubernetes - Pod 실행, Deployment 관리(Scale/Rollout/Rollback)"
 date: 2025-12-07 10:00:00
 categories: dev
-tags: devops kubernetes k9s pod deployment replicaset scaling rollout rollback manifest yaml container-orchestration
+tags: devops kubernetes k8s pod deployment replicaset scaling rollout rollback manifest yaml container-orchestration
 ---
 
 쿠버네티스는 컨테이너 오케스트레이션의 표준이다.  
