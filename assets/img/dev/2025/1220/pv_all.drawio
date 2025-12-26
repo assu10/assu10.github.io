@@ -1,0 +1,152 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="wnNsePrXhv2IIPaBuqXi">
+    <mxGraphModel dx="1114" dy="851" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-26" value="NFS 서버: 10.0.2.6(myserver03)" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="955" y="10" width="250" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-29" value="PersistentVolume" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;verticalAlign=top;fontStyle=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="990" y="79" width="180" height="177.5" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-28" value="/tmp/k8s-pv" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="159" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-24" value="쿠버네티스&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=right;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" width="760" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-18" value="노드: mysever02" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="220" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-16" value="파드:&lt;div&gt;nginx-volume-04&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#a0522d;strokeColor=#6D1F00;fontColor=#ffffff;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="83" y="60" width="178" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-15" value="Container:&lt;div&gt;nginx-test01&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="104" y="110" width="136" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-1" value="&lt;div style=&quot;font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px; white-space: pre;&quot;&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;&lt;span style=&quot;color: #800000;&quot;&gt;apiVersion&lt;/span&gt;: &lt;span style=&quot;color: #0000ff;&quot;&gt;v1&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;&lt;span style=&quot;color: #800000;&quot;&gt;kind&lt;/span&gt;: &lt;span style=&quot;color: #0000ff;&quot;&gt;Pod&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;&lt;span style=&quot;color: #800000;&quot;&gt;metadata&lt;/span&gt;:&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: rgb(128, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;background-color: rgb(102, 0, 0);&quot;&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;nginx-volume-04&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;&lt;span style=&quot;color: #800000;&quot;&gt;spec&lt;/span&gt;:&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;  &lt;span style=&quot;color: #800000;&quot;&gt;nodeSelector&lt;/span&gt;:&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;    &lt;span style=&quot;color: #800000;&quot;&gt;kubernetes.io/hostname&lt;/span&gt;: &lt;span style=&quot;color: #0000ff;&quot;&gt;myserver02&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;  &lt;span style=&quot;color: #800000;&quot;&gt;containers&lt;/span&gt;:&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59);&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;    - &lt;/span&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(128, 0, 0);&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 255); background-color: rgb(204, 153, 255);&quot;&gt;nginx-test01&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;      &lt;span style=&quot;color: #800000;&quot;&gt;image&lt;/span&gt;: &lt;span style=&quot;color: #0000ff;&quot;&gt;nginx:latest&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;      &lt;span style=&quot;color: #800000;&quot;&gt;volumeMounts&lt;/span&gt;:&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;        - &lt;span style=&quot;color: #800000;&quot;&gt;name&lt;/span&gt;: &lt;span style=&quot;color: #0000ff;&quot;&gt;nfs-pv-01&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59);&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;          &lt;/span&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(128, 0, 0);&quot;&gt;mountPath&lt;/span&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 255); background-color: rgb(255, 204, 153);&quot;&gt;/mount01&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;  &lt;span style=&quot;color: #800000;&quot;&gt;volumes&lt;/span&gt;: &lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;    - &lt;span style=&quot;color: #800000;&quot;&gt;name&lt;/span&gt;: &lt;span style=&quot;color: #0000ff;&quot;&gt;nfs-pv-01&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;      &lt;span style=&quot;color: #800000;&quot;&gt;persistentVolumeClaim&lt;/span&gt;:&lt;/div&gt;&lt;div style=&quot;color: rgb(59, 59, 59); background-color: rgb(255, 255, 255);&quot;&gt;        &lt;span style=&quot;color: #800000;&quot;&gt;claimName&lt;/span&gt;: &lt;span style=&quot;color: #0000ff;&quot;&gt;pvc-01&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="20" y="400" width="280" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-2" value="&lt;div style=&quot;color: #3b3b3b;background-color: #ffffff;font-family: Menlo, Monaco, &#39;Courier New&#39;, monospace;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #800000;&quot;&gt;apiVersion&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;v1&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #800000;&quot;&gt;kind&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;PersistentVolumeClaim&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #800000;&quot;&gt;metadata&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;pvc-01&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #800000;&quot;&gt;spec&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;accessModes&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;    - &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;ReadWriteOnce&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;resources&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;requests&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;      &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;storage&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;30Mi&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;storageClassName&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;pv-test-01&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="350" y="400" width="220" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-3" value="&lt;div style=&quot;color: #3b3b3b;background-color: #ffffff;font-family: Menlo, Monaco, &#39;Courier New&#39;, monospace;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #800000;&quot;&gt;apiVersion&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;v1&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #800000;&quot;&gt;kind&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;PersistentVolume&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #800000;&quot;&gt;metadata&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;pv-01&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #800000;&quot;&gt;spec&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;accessModes&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;    - &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;ReadWriteOnce&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;capacity&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;storage&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;100Mi&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;persistentVolumeReclaimPolicy&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;Retain&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;storageClassName&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;pv-test-01&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;nfs&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;server&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #098658;&quot;&gt;10.0.2.6&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;  &lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;path&lt;/span&gt;&lt;span style=&quot;color: #3b3b3b;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #0000ff;&quot;&gt;/tmp/k8s-pv&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="630" y="400" width="290" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;dashed=1;strokeWidth=2;" edge="1" parent="1" source="F3ZcK1h0Cix-mIg24o_m-5" target="F3ZcK1h0Cix-mIg24o_m-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="614" />
+              <mxPoint x="240" y="669" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-5" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=none;strokeColor=#97D077;" vertex="1" parent="1">
+          <mxGeometry x="134" y="604" width="76" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-6" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=none;strokeColor=#97D077;" vertex="1" parent="1">
+          <mxGeometry x="104" y="659" width="76" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=none;startFill=0;strokeWidth=2;" edge="1" parent="1" source="F3ZcK1h0Cix-mIg24o_m-8" target="F3ZcK1h0Cix-mIg24o_m-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="704" />
+              <mxPoint x="330" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-8" value="pvc-01" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d80073;strokeColor=none;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="152" y="694" width="58" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-9" value="pvc-01" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d80073;strokeColor=none;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="404" y="460" width="58" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=none;startFill=0;strokeWidth=2;" edge="1" parent="1" source="F3ZcK1h0Cix-mIg24o_m-11" target="F3ZcK1h0Cix-mIg24o_m-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-11" value="pv-test-01" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#66B2FF;strokeColor=#66B2FF;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="492" y="586" width="78" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-12" value="pv-test-01" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#66B2FF;strokeColor=#66B2FF;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="775" y="584" width="78" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-14" value="/mount01&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;nfs_test.txt&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="122" y="160" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-19" value="PersistentVolumeClaim:&lt;div&gt;pvc-01&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="340" y="60" width="178" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-20" value="PersistentVolume:&lt;div&gt;pv-01&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="597" y="60" width="178" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-21" value="nginx-volume-04" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#a0522d;strokeColor=none;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="76" y="460" width="114" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-22" value="nginx-text01" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#e1d5e7;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="104" y="550" width="114" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-23" value="mount01" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="170" y="624" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-27" value="txt" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.document" vertex="1" parent="1">
+          <mxGeometry x="1090" y="191.5" width="40" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-30" value="10.0.2.6" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#f8cecc;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="717" y="617" width="78" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.078;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;startFill=0;dashed=1;strokeWidth=2;" edge="1" parent="1" source="F3ZcK1h0Cix-mIg24o_m-30" target="F3ZcK1h0Cix-mIg24o_m-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1240" y="630" />
+              <mxPoint x="1240" y="20" />
+              <mxPoint x="1205" y="20" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;dashed=1;strokeWidth=2;" edge="1" parent="1" source="F3ZcK1h0Cix-mIg24o_m-32" target="F3ZcK1h0Cix-mIg24o_m-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-32" value="/tmp/k8s-pv" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#f5f5f5;strokeColor=none;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="704" y="637" width="78" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-34" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="480" y="170.5" as="sourcePoint" />
+            <mxPoint x="630" y="170.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-35" value="" style="endArrow=none;html=1;rounded=0;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="480" y="190.5" as="sourcePoint" />
+            <mxPoint x="630" y="190.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-38" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="174.5" as="sourcePoint" />
+            <mxPoint x="360" y="174.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-39" value="" style="endArrow=none;html=1;rounded=0;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="194.5" as="sourcePoint" />
+            <mxPoint x="360" y="194.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-40" value="" style="endArrow=block;html=1;rounded=0;endFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="199" as="sourcePoint" />
+            <mxPoint x="1040" y="199" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3ZcK1h0Cix-mIg24o_m-41" value="" style="endArrow=none;html=1;rounded=0;endFill=1;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="219" as="sourcePoint" />
+            <mxPoint x="1040" y="219" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
