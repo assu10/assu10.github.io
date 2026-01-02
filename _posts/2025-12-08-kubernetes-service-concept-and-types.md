@@ -12,7 +12,6 @@ tags: devops kubernetes docker k8s service networking clusterip nodeport loadbal
 - LoadBalancer
 - ExternalName
 
-
 ---
 
 **목차**

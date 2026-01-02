@@ -839,7 +839,7 @@ assu@myserver01:~/work/ch05$ tree -L 3
 ```
 
 Nginx 이미지를 빌드하기 전에 해당 디렉터리를 확인해본다.
-default.conf 에서 여전히 _djangotest:8000_을 바라보고 있기 때문이다.  
+default.conf 에서 여전히 *djangotest:8000*을 바라보고 있기 때문이다.  
 Dockerfile도 수정하지 않고 그대로 사용한다.
 
 ```shell
