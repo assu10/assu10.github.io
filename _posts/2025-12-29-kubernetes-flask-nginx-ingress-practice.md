@@ -510,10 +510,13 @@ spec:
 사용자가 *http://domain/test02/hello* 로 접근한다고 가정해보자.  
 Flask 애플리케이션은 보통 루트(`/`)나 */hello* 경로를 기다린다. */test02* 라는 접두사는 인그레스 라우팅용이지 앱 용이 아니다.
 - `path: /test02(/|$)(.*)`
-  - URL을 분석하여 */test02* 뒤의 나머지 부분(*hello*)을  두 번째 그룹 `(.*)`으로 캡처한다.
+  - URL을 분석하여 */test02* 뒤의 나머지 부분(*hello*)을 두 번째 그룹 `(.*)`으로 캡처한다.
 - `rewrite-target: /$2`
   - 캡처한 그룹 (`$2`)을 `/` 뒤에 붙여서 서비스로 전달한다.
   - 즉, */test02/hello* 요청은 */hello*로 바뀌어 파드로 전달된다.
+
+> 인그레스 설정값에 대한 좀 더 상세한 설명은 [6. 인그레스로 하나의 서비스 배포](https://assu10.github.io/dev/2025/12/22/kubernetes-ingress-helm-metallb-baremetal-loadbalancer/#6-%EC%9D%B8%EA%B7%B8%EB%A0%88%EC%8A%A4%EB%A1%9C-%ED%95%98%EB%82%98%EC%9D%98-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B0%B0%ED%8F%AC)
+> 를 참고하세요.
 
 ---
 
