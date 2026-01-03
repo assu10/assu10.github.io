@@ -11,7 +11,7 @@ tags: devops kubernetes k8s ingress django flask nginx microservices path-based-
 를 통해 각 애플리케이션을 쿠버네티스 클러스터 위에서 인그레스를 통해 외부로 노출하는 과정에 대해 알아보았다.
 
 이번 포스트에서는 쿠버네티스 인그레스의 가장 강력한 기능 중 하나인 **단일 진입점을 통한 다중 서비스 라우팅(Path-based Routing)**을 구현해본다.  
-(두 개의 개별 서비스를 하나의 인그레스 리소스를 통해 통합 관리하고 라우팅하는 [Fan-out](https://assu10.github.io/dev/2025/05/27/fanout/) 패턴)
+(두 개의 개별 서비스를 하나의 인그레스 리소스를 통해 통합 관리하고 라우팅하는 [Fan-out](https://assu10.github.io/dev/2025/05/27/fanout/) 패턴)  
 즉, 하나의 도메인(IP)에서 경로(path)에 따라 Django 서비스와 Flask 서비스로 분기 처리하는 아키텍처를 구성한다.  
 이는 MSA에서 매우 흔하게 사용되는 패턴이다.
 
