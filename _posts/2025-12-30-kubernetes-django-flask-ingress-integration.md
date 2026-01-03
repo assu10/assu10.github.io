@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kubernetes - 쿠버네티스로 웹 서비스 배포(3): 인그레스를 활용한 Flask & Django 동시 배포"
-date: 2025-12-29 10:00:00
+date: 2025-12-30 10:00:00
 categories: dev
 tags: devops kubernetes k8s ingress django flask nginx microservices path-based-routing fanout load-balancing service-discovery url-rewriting
 ---
