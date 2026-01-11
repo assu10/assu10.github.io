@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kubernetes - MetalLB와 Ingress(온프레미스 쿠버네티스 LoadBalancer 문제 해결)"
+title:  "Kubernetes - MetalLB와 Ingress, Helm(헬름)"
 date: 2025-12-22 10:00:00
 categories: dev
 tags: devops kubernetes k8s helm ingress nginx-ingress-controller metallb bare-metal on-premise loadbalancer l7-loadbalancer service-exposure routing
@@ -44,6 +44,7 @@ AWS나 GCP 같은 퍼블릭 클라우드 환경에서는 LoadBalancer 타입의 
 - Host OS: Mac Apple M3 Max
 - Memory: 48 GB
 - Kubernetes Cluster: Custom Setup (Bare-metal style on VM)
+- Kubernetes: v1.29.15
 
 ---
 

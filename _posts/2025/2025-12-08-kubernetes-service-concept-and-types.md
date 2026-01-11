@@ -46,6 +46,7 @@ tags: devops kubernetes docker k8s service networking clusterip nodeport loadbal
 - Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
+- Kubernetes: v1.29.15
 
 ---
 

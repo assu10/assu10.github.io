@@ -45,6 +45,7 @@ tags: devops kubernetes k8s statefulset-vs-deployment statefulset headless-servi
 - Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
+- Kubernetes: v1.29.15
 
 ---
 

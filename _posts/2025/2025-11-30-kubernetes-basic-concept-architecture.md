@@ -37,6 +37,7 @@ tags: devops kubernetes k8s docker container-orchestration cluster-architecture 
 - Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
+- Kubernetes: v1.29.15
 
 ---
 
@@ -47,7 +48,7 @@ tags: devops kubernetes k8s docker container-orchestration cluster-architecture 
 구글의 사내 프로젝트에서 시작되어 2014년에 대중에게 처음 발표되었다.  
 2016년에는 쿠버네티스 환경을 위한 패키지 관리 도구인 **헬름(Helm)**이 발표되었다.
 
-> 헬름(Helm)은 쿠버네티스 리소스를 패키지 단위(Chart)로 관리할 수 있게 해주는 도구로 추후 다룰 예정입니다. (p. 228)
+> 헬름(Helm)은 쿠버네티스 리소스를 패키지 단위(Chart)로 관리할 수 있게 해주는 도구로 좀 더 상세한 내용은 [2. 헬름(Helm) 개념](https://assu10.github.io/dev/2025/12/22/kubernetes-ingress-helm-metallb-baremetal-loadbalancer/#2-%ED%97%AC%EB%A6%84helm-%EA%B0%9C%EB%85%90)을 참고하세요.
 
 ---
 

@@ -269,7 +269,7 @@ FROM python:3.13.9
 WORKDIR /usr/src/app
 
 # 현재 디렉터리의 모든 파일을 컨테이너로 복사
-COPY . .
+COPY .. .
 
 # pip 업그레이드 및 의존성 패키지 설치
 RUN python -m pip install --upgrade pip

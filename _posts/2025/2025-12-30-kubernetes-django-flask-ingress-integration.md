@@ -34,6 +34,7 @@ tags: devops kubernetes k8s ingress django flask nginx microservices path-based-
 - Guest OS: Ubuntu 24.04.2 LTS
 - Host OS: Mac Apple M3 Max
 - Memory: 48 GB
+- Kubernetes: v1.29.15
 
 ---
 

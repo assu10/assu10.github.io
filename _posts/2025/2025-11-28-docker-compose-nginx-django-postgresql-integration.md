@@ -251,12 +251,13 @@ psycopg2-binary==2.9.10
 **3) Dockerfile 작성 및 빌드**
 
 Dockerfile 은 예전과 동일하게 사용한다.
+
 ```dockerfile
 FROM python:3.13.9
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY .. .
 
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt

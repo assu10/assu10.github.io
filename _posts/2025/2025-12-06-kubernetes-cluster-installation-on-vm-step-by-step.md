@@ -45,6 +45,7 @@ AWS EKS나 Google GKE와 같은 Managed Service를 이용하면 버튼 몇 번�
 - Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
+- Kubernetes: v1.29.15
 
 ---
 

@@ -50,6 +50,7 @@ tags: devops kubernetes k8s pod deployment replicaset scaling rollout rollback m
 - Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
+- Kubernetes: v1.29.15
 
 ---
 
@@ -173,7 +174,7 @@ Pod 의 정보를 보면 Pod 이름은 hello-world 이고, 상태와 재시작 �
 STATUS가 CrashLoopBackOff 라면 컨테이너가 재시작되기 전에 대기하고 있는 상태이다.
 
 > `service/kubernetes` 는 쿠버네티스 API 통신을 위한 기본 서비스이므로 삭제하면 안된다.  
-> 서비스(Service)에 대해서는 추후 다룰 예정입니다. (p. 268)
+> 서비스(Service)에 대한 내용은 [Kubernetes - 서비스(ClusterIP, NodePort, LoadBalancer, ExternalName)](https://assu10.github.io/dev/2025/12/08/kubernetes-service-concept-and-types/)를 참고하세요.
 
 테스트가 끝났으면 파드를 삭제한다.
 

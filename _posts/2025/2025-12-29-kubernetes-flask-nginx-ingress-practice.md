@@ -44,6 +44,7 @@ tags: devops kubernetes k8s deployment service ingress sidecar-pattern clusterip
 - Guest OS: Ubuntu 24.04.2 LTS
 - Host OS: Mac Apple M3 Max
 - Memory: 48 GB
+- Kubernetes: v1.29.15
 
 ---
 
@@ -138,12 +139,13 @@ Dockerfile  myapp  requirements.txt
 ```
 
 **Dockerfile**
+
 ```dockerfile
 FROM python:3.13.9
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY .. .
 
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
@@ -279,7 +281,7 @@ server{
 여기서 `proxy_pass` 주소를 *127.0.0.1:8001*로 변경했다. 이는 **Nginx 컨테이너와 Flask 컨테이너가 동일한 네트워크 네임스페이스를 공유**한다는 것을 의미한다.
 
 Kubernetes에서 **파드**는 하나의 논리적인 호스트와 같아서, 파드 내부의 컨테이너들은 localhost를 통해 서로 통신할 수 있다.  
-즉, 우리는 추후 배포 단계에서 **하나의 파드 안에 Nginx와 Flask 컨테이너를 함께 배치(멀티 컨테이너 파드 패턴 혹은 [Sidecar 패턴](https://assu10.github.io/dev/2025/12/20/sidecar-pattern/))**할 것임을 알 수 있다.
+즉, 우리는 나중에 배포 단계에서 **하나의 파드 안에 Nginx와 Flask 컨테이너를 함께 배치(멀티 컨테이너 파드 패턴 혹은 [Sidecar 패턴](https://assu10.github.io/dev/2025/12/20/sidecar-pattern/))**할 것임을 알 수 있다.
 
 ---
 

@@ -48,6 +48,7 @@ CD를 구현해본다.
 - Guest OS: Ubuntu 24.04.2 LTS
 - Host OS: Mac Apple M3 Max
 - Memory: 48 GB
+- Kubernetes: v1.29.15
 
 ---
 
@@ -321,7 +322,7 @@ FROM python:3.13.9
 WORKDIR /usr/src/app
 
 # 현재 디렉터리의 모든 파일을 컨테이너의 작업 디렉터리로 복사
-COPY . .
+COPY .. .
 
 # pip를 최신 버전으로 업그레이드하고, 의존성 패키지를 설치
 RUN python -m pip install --upgrade pip

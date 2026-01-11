@@ -44,6 +44,7 @@ tags: devops kubernetes k8s container-storage volume emptydir hostpath persisten
 - Ubuntu 24.04.2 LTS
 - Mac Apple M3 Max
 - Memory 48 GB
+- Kubernetes: v1.29.15
 
 ---
 
