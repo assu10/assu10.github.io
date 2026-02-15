@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - HyperLogLog"
 date: 2022-08-06 10:00
 categories: dev
-tags: redis hyperloglog
+tags: db redis hyperloglog
 ---
 
 이 포스트는 Redis 의 데이터 타입 중 하나인 `HyperLogLog` 타입에 대해 알아본다.

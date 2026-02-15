@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - Hash"
 date: 2022-07-20 10:00
 categories: dev
-tags: redis hash
+tags: db redis hash
 ---
 
 이 포스트는 Redis 의 데이터 타입 중 하나인 `Hash` 타입에 대해 알아본다.

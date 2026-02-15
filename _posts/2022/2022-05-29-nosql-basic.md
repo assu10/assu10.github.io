@@ -3,7 +3,7 @@ layout: post
 title:  "NoSQL 개념"
 date: 2022-05-29 10:00
 categories: dev
-tags: redis
+tags:  db redis
 ---
 
 이 포스트는 NoSQL 의 종류와 그 중 Key-Value DB 인 Redis 에 대해 알아본다.

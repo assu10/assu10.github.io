@@ -3,7 +3,7 @@ layout: post
 title:  "Redis 기본, 데이터 처리 명령어, String"
 date: 2022-06-01 10:00
 categories: dev
-tags: redis
+tags: db redis
 ---
 
 이 포스트는 NoSQL 의 종류와 그 중 Key-Value DB 인 Redis, 그리고 데이터 타입 중 하나인 `String` 에 대해 알아본다.  

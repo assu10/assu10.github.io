@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - Transaction, Index, User Authentication"
 date: 2022-08-28 10:00
 categories: dev
-tags: redis transaction index authentication
+tags: db redis transaction index authentication
 ---
 
 이 포스트는 Redis 의 Transaction 관리 방법과 보안/인증에 대해 알아본다.  

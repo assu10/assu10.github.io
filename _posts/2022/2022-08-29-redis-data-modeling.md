@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - 데이터 모델링"
 date: 2022-08-29 10:00
 categories: dev
-tags: redis data-modeling
+tags: db redis data-modeling
 ---
 
 이 포스트는 Redis 의 데이터 모델링에 관해 알아본다.   

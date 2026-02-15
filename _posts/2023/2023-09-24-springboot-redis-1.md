@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Boot - Redis 와 스프링 캐시(1): Spring Data Redis, Lettuce"
 date: 2023-09-24
 categories: dev
-tags: springboot msa redis spring-data-redis lettuce redis-connection-factory
+tags: springboot msa redis db spring-data-redis lettuce redis-connection-factory
 ---
 
 이 포스트에서는 Spring Data Redis 와 Lettuce 라이브러리로 스프링 애플리케이션에서 레디스를 사용하는 방법에 대해 알아본다.

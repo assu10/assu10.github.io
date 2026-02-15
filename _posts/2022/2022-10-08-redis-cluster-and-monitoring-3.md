@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - Redis Cluster & Monitoring (3)"
 date: 2022-10-08 10:00
 categories: dev
-tags: redis 
+tags: db redis
 ---
 
 이 포스트는 Redis Logging 과 Monitoring 에 대해 알아본다.

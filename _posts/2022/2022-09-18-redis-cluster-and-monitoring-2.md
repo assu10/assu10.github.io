@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - Redis Cluster & Monitoring (2)"
 date: 2022-09-18 10:00
 categories: dev
-tags: redis 
+tags: db redis
 ---
 
 이 포스트는 Redis Cluster 를 구축하는 방법에 대해 알아본다.   

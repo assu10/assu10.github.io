@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - 아키텍쳐"
 date: 2022-09-03 10:00
 categories: dev
-tags: redis 
+tags: db redis
 ---
 
 이 포스트는 Redis 운영 시 알아야 할 아키텍쳐에 관해 알아본다.   

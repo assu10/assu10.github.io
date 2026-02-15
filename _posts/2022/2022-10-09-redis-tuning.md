@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - Redis 튜닝"
 date: 2022-10-09 10:00
 categories: dev
-tags: redis 
+tags: db redis
 ---
 
 이 포스트는 Redis 튜닝에 대해 알아본다.

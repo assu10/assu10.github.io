@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - Sorted Set"
 date: 2022-07-30 10:00
 categories: dev
-tags: redis zset sorted-set
+tags: db redis zset sorted-set
 ---
 
 이 포스트는 Redis 의 데이터 타입 중 하나인 `Set` 타입에 대해 알아본다.

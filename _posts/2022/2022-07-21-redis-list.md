@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - List"
 date: 2022-07-21 10:00
 categories: dev
-tags: redis list
+tags: db redis list
 ---
 
 이 포스트는 Redis 의 데이터 타입 중 하나인 `List` 타입에 대해 알아본다.

@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - Redis Cluster & Monitoring (1)"
 date: 2022-09-17 10:00
 categories: dev
-tags: redis 
+tags: db redis
 ---
 
 이 포스트는 Redis 의 복제 시스템 구성과 FailOver 처리에 대해 알아본다.

@@ -3,7 +3,7 @@ layout: post
 title:  "Redis - RedisJSON"
 date: 2022-08-07 10:00
 categories: dev
-tags: redis rejson RedisJSON
+tags: db redis rejson RedisJSON
 ---
 
 이 포스트는 Redis 의 확장 모듈 중 하나인 `RedisJSON` 에 대해 알아본다.  

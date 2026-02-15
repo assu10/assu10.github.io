@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Boot - Redis 와 스프링 캐시(5): Sorting"
 date: 2023-10-08
 categories: dev
-tags: springboot msa redis zset redis-sorting z-set-operations
+tags: springboot msa redis db zset redis-sorting z-set-operations
 ---
 
 이 포스트에서는 레디스의 자료 구조 중 Sorted Set(`ZSet`) 을 이용한 정렬에 대해 알아본다.

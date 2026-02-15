@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Boot - Redis 와 스프링 캐시(3): 분산락, CyclicBarrier"
 date: 2023-10-01
 categories: dev
-tags: springboot msa redis cyclic-barrier
+tags: springboot msa redis db cyclic-barrier
 ---
 
 이 포스트에서는 분산락을 어떻게 생성하는지, 데이터베이스의 트랜잭션과 레디스 락을 사용하여 분산락을 처리하는 방법에 대해 알아본다.

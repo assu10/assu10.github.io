@@ -3,7 +3,7 @@ layout: post
 title:  "Spring Cloud - Stream, 분산 캐싱 (2/2)"
 date: 2020-10-02 10:00
 categories: dev
-tags: msa eda event-driven-architecture mda message-driven-architecture spring-cloud-stream redis caching  
+tags: msa db eda event-driven-architecture mda message-driven-architecture spring-cloud-stream redis caching  
 ---
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
