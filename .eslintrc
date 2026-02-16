@@ -1,11 +1,14 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint-config-airbnb",
+  "extends": "eslint-config-airbnb-base",
   "env": {
     "browser": true
   },
   "globals": {
     "loadCSS": true,
     "loadJSDeferred": true
+  },
+  "rules": {
+    "function-paren-newline": "off"
   }
 }
