@@ -1,10 +1,10 @@
 ---
 layout: list
-title: ETC
-slug: etc
+title: AI
+slug: ai
 menu: true
 submenu: true
-order: 7
+order: 2
 description: >
-  잡동사니 
+  AI 활용
 ---
