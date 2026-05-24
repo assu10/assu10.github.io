@@ -64,13 +64,25 @@
   <br/>
 <script>
   mermaid.initialize({
-    startOnLoad: true,
+    startOnLoad: false,
     theme: 'neutral',
     flowchart: {
       curve: 'basis',
       useMaxWidth: true,
       htmlLabels: true
     }
+  });
+
+  document.addEventListener('DOMContentLoaded', async function () {
+    // Jekyll/Kramdown 은 ```mermaid 를 .language-mermaid code 로 변환 →
+    // Mermaid v11 이 인식하는 <pre class="mermaid"> 로 교체 후 실행
+    document.querySelectorAll('.language-mermaid code').forEach(function (code) {
+      const pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = code.textContent;
+      code.closest('.language-mermaid').replaceWith(pre);
+    });
+    await mermaid.run();
   });
 </script>
 {% endunless %}
