@@ -25,7 +25,7 @@ body, main {
 }
 
 html {
-  font-size: $root-font-size; // 16px 고정 (반응형 크기 변동 제거)
+  font-size: $root-font-size-small; // 15px 고정 (반응형 크기 변동 제거)
 }
 
 // @media print {
