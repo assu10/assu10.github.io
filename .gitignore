@@ -43,6 +43,7 @@ _posts_ing
 assu10.github.io
 node_modules
 .sass-cache
+.jekyll-cache
 .jekyll-metadata
 *.gem
 

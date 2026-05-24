@@ -1,0 +1,9 @@
+# -----------------------------------------------
+#  Local development overrides
+#  Usage: bundle exec jekyll serve --config _config.yml,_config_dev.yml
+# -----------------------------------------------
+
+# SCSS 캐시 비활성화 — 변경사항이 즉시 반영됨
+sass:
+  style:             expanded  # 로컬에서는 압축 없이 (빌드 속도↑)
+  cache:             false
