@@ -1,6 +1,8 @@
 .sidebar {
   color: rgba(255,255,255,.75);
   text-align: left;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
 
   &::before {
     /* make sidebar slightly darker to increase text readability (when using a background image) */

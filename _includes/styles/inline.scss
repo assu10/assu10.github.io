@@ -1,8 +1,6 @@
 @import "variables";
 @import "mixins";
 
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
 @import "pooleparty/base-inline";
 // @import "pooleparty/base";
 @import "pooleparty/type-inline";
@@ -46,5 +44,16 @@
   {% assign font_heading = font_heading | split:',' | shift | join:',' %}
 {% endunless %}
 
-html { font-family: 'Nanum Gothic', 'sans-serif'; }
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .heading { font-family: 'Nanum Gothic', 'sans-serif'; }
+html { font-family: {{ font }}; }
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .heading { font-family: {{ font_heading }}; }
+
+/* ── Font weight overrides ── */
+body                  { font-weight: 400; }
+h1, h2, h3,
+h4, h5, h6,
+.h1, .h2, .h3,
+.h4, .h5, .h6,
+.heading              { font-weight: 700; }
+
+/* 영문 강조: IBM Plex Sans SemiBold */
+strong, b             { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; }

@@ -30,14 +30,14 @@ image:               /assets/img/main_left.jpg
 color:               '#4f86aa'
 
 # The font used for headings. Expects a string that is a valid CSS font-family value.
-font_heading:        "'Noto Sans KR', 'sans-serif'"
+font_heading:        "'IBM Plex Sans KR', 'IBM Plex Sans', sans-serif"
 
 # The text font. Expects a string that is a valid CSS font-family value.
-font:                "'Noto Sans KR', 'sans-serif'"
+font:                "'IBM Plex Sans KR', 'IBM Plex Sans', sans-serif"
 
 # The string encoding what fonts to fetch from Google Fonts.
 # See: https://qwtel.com/hydejack/docs/configuration/
-google_fonts:        Lato
+google_fonts:        "IBM+Plex+Sans+KR:300,400,500,700|IBM+Plex+Sans:300,400,500,600,700"
 
 # If you do not use a Google Fonts, uncomment the line below
 # no_google_fonts:     true
