@@ -73,16 +73,21 @@
     }
   });
 
-  document.addEventListener('DOMContentLoaded', async function () {
-    // Jekyll/Kramdown 은 ```mermaid 를 .language-mermaid code 로 변환 →
-    // Mermaid v11 이 인식하는 <pre class="mermaid"> 로 교체 후 실행
+  // 이 스크립트는 post.html 콘텐츠 하단에 위치 → DOM 이 이미 준비된 상태
+  // Jekyll/Kramdown: ```mermaid → .language-mermaid code
+  // Mermaid v11 기대값: <pre class="mermaid">
+  (function () {
+    var nodes = [];
     document.querySelectorAll('.language-mermaid code').forEach(function (code) {
-      const pre = document.createElement('pre');
+      var pre = document.createElement('pre');
       pre.className = 'mermaid';
       pre.textContent = code.textContent;
       code.closest('.language-mermaid').replaceWith(pre);
+      nodes.push(pre);
     });
-    await mermaid.run();
-  });
+    if (nodes.length > 0) {
+      mermaid.run({ nodes: nodes });
+    }
+  })();
 </script>
 {% endunless %}
