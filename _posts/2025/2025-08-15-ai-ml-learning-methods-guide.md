@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 인공지능 개념 이해"
 date: 2025-08-15
-categories: dev
-tags: ai ml machine-learning artificial-intelligence generative-ai supervised-learning unsupervised-learning reinforcement-learning classification regression clustering dimensionality-reduction ai-guide ml-fundamentals
+categories: ai
+tags: ai llm ml machine-learning artificial-intelligence generative-ai supervised-learning unsupervised-learning reinforcement-learning classification regression clustering dimensionality-reduction ai-guide ml-fundamentals
 ---
 
 최근 몇 년간 인공지능(AI, Artificial Intelligence) 은 기술 업계의 가장 뜨거운 화두이다.  

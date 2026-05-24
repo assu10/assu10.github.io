@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - LangChain과 4-bit LLM으로 RAG 구축"
 date: 2025-10-25
-categories: dev
-tags: ai ml rag llm langchain faiss bitsandbytes quantization 4-bit-quantization transformers pypdf retrieval-augmented-generation vector-database embeddings phi-4 hallucination
+categories: ai
+tags: ai llm ml rag langchain faiss bitsandbytes quantization 4-bit-quantization transformers pypdf retrieval-augmented-generation vector-database embeddings phi-4 hallucination
 ---
 
 최근 챗GPT와 같은 LLM 서비스는 사용자가 PDF나 텍스트 파일을 업로드하고, 해당 파일의 내용을 기반으로 대화를 나누는 기능을 제공한다. 이러한 시스템은 과연 어떤 

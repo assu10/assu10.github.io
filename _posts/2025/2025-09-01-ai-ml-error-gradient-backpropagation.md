@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 인공 신경망의 학습 원리: 오차, 경사 하강법, 오차 역전파법"
 date: 2025-09-01
-categories: dev
-tags: ai ml deep-learning neural-network loss-function error gradient-descent backpropagation differentiation weight
+categories: ai
+tags: ai ml llm deep-learning neural-network loss-function error gradient-descent backpropagation differentiation weight
 ---
 
 [AI - 인공 신경망 신호 전달 원리: 가중치, 편향, 활성화 함수](https://assu10.github.io/dev/2025/08/31/ai-ml-neural-network-weights-and-activation-functions/) 에서 

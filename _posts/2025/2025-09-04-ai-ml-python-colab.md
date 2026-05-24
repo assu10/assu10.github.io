@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 파이썬과 코랩(Colab)"
 date: 2025-09-04
-categories: dev
-tags: ai ml python google-colab deep-learning programming-language interpreter beginner development-environment gpu
+categories: ai
+tags: ai ml llm python google-colab deep-learning programming-language interpreter beginner development-environment gpu
 ---
 
 이 포스트에서는 왜 파이썬이 AI/ML 분야의 표준 언어로 자리 잡았는지, 그리고 복잡한 설정 없이 누구나 즉시 시작할 수 있는 강력한 도구 '구글 코랩(Google Colab)'에 

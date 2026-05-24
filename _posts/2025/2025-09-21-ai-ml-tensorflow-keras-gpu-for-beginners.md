@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 딥러닝 개발 환경: Tensorflow, Keras, GPU"
 date: 2025-09-22
-categories: dev
-tags: ai ml tensorflow keras gpu tpu deep-learning machine-learning ai-framework cpu colab python
+categories: ai
+tags: ai llm ml tensorflow keras gpu tpu deep-learning machine-learning ai-framework cpu colab python
 ---
 
 만일 우리가 순수한 프로그래밍 언어만으로 딥러닝 모델의 모든 것을, 즉 신경망의 각 계층부터 [역전파(Backpropagation)](https://assu10.github.io/dev/2025/09/01/ai-ml-error-gradient-backpropagation/#22-%EC%97%AC%EB%9F%AC-%EA%B0%80%EC%A4%91%EC%B9%98%EB%A5%BC-%EC%B0%A8%EB%A1%80%EB%A1%9C-%EB%B3%80%EA%B2%BD%ED%95%B4-%EB%82%98%EA%B0%80%EB%8A%94-%EC%98%A4%EC%B0%A8-%EC%97%AD%EC%A0%84%ED%8C%8C%EB%B2%95backpropagation) 

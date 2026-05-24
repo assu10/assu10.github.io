@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 파이썬(2): 반복문, 조건문, 딕셔너리, 리스트 컴프리헨션, 람다, map(), filter(), 클래스/객체"
 date: 2025-09-06
-categories: dev
-tags: ai ml python generative-ai llm for-loop dictionary list-comprehension lambda map filter class object python-basics
+categories: ai
+tags: ai llm ml python generative-ai for-loop dictionary list-comprehension lambda map filter class object python-basics
 ---
 
 이 포스트에서는 반복문과 조건문, 딕셔너리, 리스트 컴프리헨션, 람다, `map()`, `filter()`, 마지막으로 클래스와 객체에 대해 알아본다.

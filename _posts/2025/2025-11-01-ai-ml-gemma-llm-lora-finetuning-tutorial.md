@@ -2,7 +2,7 @@
 layout: post
 title:  "AI - Gemma 1B 모델 LoRA 파인튜닝"
 date: 2025-11-01
-categories: dev
+categories: ai
 tags: ai ml llm gemma fine-tuning peft lora sft hugging-face transformers trl colab tutorial
 ---
 

@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 인공 신경망 신호 전달 원리: 가중치, 편향, 활성화 함수"
 date: 2025-08-31
-categories: dev
-tags: ai ml machine-learning deep-learning neural-network activation-function weights bias sigmoid relu softmax normalization
+categories: ai
+tags: ai ml llm machine-learning deep-learning neural-network activation-function weights bias sigmoid relu softmax normalization
 ---
 
 인공 신경망은 우리 뇌의 동작 방식, 특히 뉴런의 정보 처리 과정에서 영감을 얻어 탄생했다.  

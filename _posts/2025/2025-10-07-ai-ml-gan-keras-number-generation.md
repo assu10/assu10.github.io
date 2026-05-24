@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 숫자 생성 인공지능"
 date: 2025-10-07
-categories: dev
-tags: ai ml deep-learning python keras tensorflow gan mnist neural-network image-generation tutorial 인공지능 머신러닝 딥러닝 파이썬 케라스 이미지생성 튜토리얼
+categories: ai
+tags: ai llm ml deep-learning python keras tensorflow gan mnist neural-network image-generation tutorial 인공지능 머신러닝 딥러닝 파이썬 케라스 이미지생성 튜토리얼
 ---
 
 [AI - 숫자 인식 인공지능 만들기](https://assu10.github.io/dev/2025/09/22/ai-ml-mnist-digital-recognition-keras/) 에서 인공지능이 어떻게 이미지를 

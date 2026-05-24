@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 수학 없이 이해하는 딥러닝, 인공 신경망의 기본 원리"
 date: 2025-08-30
-categories: dev
-tags: ai ml deep-learning ann dnn neural-network machine-learning feature inference training supervised-learning classification regression
+categories: ai
+tags: ai ml llm deep-learning ann dnn neural-network machine-learning feature inference training supervised-learning classification regression
 ---
 
 딥러닝의 화려한 성과 뒤에는 복잡한 '수학'이라는 뼈대가 숨어 있다.  

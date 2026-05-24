@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - Colab(T4)에서 Llama 3 8B 모델 4비트 양자화(NF4)로 구동"
 date: 2025-10-24
-categories: dev
-tags: ai ml llm quantization 4bit 8bit nf4 bitsandbytes transformers llama3 colab t4-gpu huggingface bnbconfig auto-quantization floating-point bf16 fp16
+categories: ai
+tags: ai llm ml quantization 4bit 8bit nf4 bitsandbytes transformers llama3 colab t4-gpu huggingface bnbconfig auto-quantization floating-point bf16 fp16
 ---
 
 최근 AI/ML 분야, 특히 LLM 의 발전 속도는 경이로울 지경이다.  

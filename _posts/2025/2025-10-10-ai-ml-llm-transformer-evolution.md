@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 생성형 인공지능 원리"
 date: 2025-10-10
-categories: dev
-tags: ai ml llm large-language-model natural-language-processing nlp transformer rnn lstm gru seq2seq attention self-attention multi-head-attention encoder decoder bert gpt tokenization embedding auto-regressive masked-language-model mlm
+categories: ai
+tags: ai llm ml large-language-model natural-language-processing nlp transformer rnn lstm gru seq2seq attention self-attention multi-head-attention encoder decoder bert gpt tokenization embedding auto-regressive masked-language-model mlm
 ---
 
 챗GPT 는 이제 많은 사람들의 일상과 업무에 깊숙이 자리 잡은 강력한 도구이다.  

@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - Colab 에서 LLM 실행"
 date: 2025-10-19
-categories: dev
-tags: ai ml llm open-source-llm hugging-face google-colab pytorch transformers llama llama-3 text-generation pipeline bfloat16 safetensors cuda gpu system-prompt
+categories: ai
+tags: ai llm ml open-source-llm hugging-face google-colab pytorch transformers llama llama-3 text-generation pipeline bfloat16 safetensors cuda gpu system-prompt
 ---
 
 지금 우리는 인공지능 열풍의 한가운데 서 있다. 이는 마치 19세기 미국 서부 개척 시대의 Gold Rush 를 연상케 한다.  

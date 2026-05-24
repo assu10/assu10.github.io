@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 파이썬(1): 변수, 배열, NumPy"
 date: 2025-09-05
-categories: dev
-tags: ai ml python numpy variable array list slicing numpy-array numpy-random reshape seed
+categories: ai
+tags: ai llm ml python numpy variable array list slicing numpy-array numpy-random reshape seed
 ---
 
 AI 와 머신러닝 프로젝트를 시작하기에 앞서, 가장 기본이 되는 도구인 파이썬의 핵심 문법을 익히는 것은 필수이다.  

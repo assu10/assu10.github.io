@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 다양한 딥러닝 기술: CNN, RNN, 디퓨전 모델"
 date: 2025-09-03
-categories: dev
-tags: ai ml deep-learning artificial-intelligence neural-networks ANN CNN RNN generative-model diffusion-model machine-learning
+categories: ai
+tags: ai ml llm deep-learning artificial-intelligence neural-networks ANN CNN RNN generative-model diffusion-model machine-learning
 ---
 
 우리가 인공지능(AI)이라고 부르는 기술의 근간에는 **인공 신경망(ANN, Artificial Neural Network)**이 있다.  

@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 텐서플로 플레이그라운드로 딥러닝 시작"
 date: 2025-09-02
-categories: dev
-tags: ai ml tensorflow-playground deep-learning machine-learning neural-network 인공지능 딥러닝 머신러닝 신경망 텐서플로 feature-engineering hyperparameter overfitting
+categories: ai
+tags: ai ml llm tensorflow-playground deep-learning machine-learning neural-network 인공지능 딥러닝 머신러닝 신경망 텐서플로 feature-engineering hyperparameter overfitting
 ---
 
 인공 신경망, 딥러닝 등 복잡한 이론들은 머릿속을 맴돌기만 하고, 명확한 개념이 잡히지 않아 답답할 수도 있다.  

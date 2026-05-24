@@ -2,8 +2,8 @@
 layout: post
 title:  "AI - 전염병 예측 인공지능"
 date: 2025-09-29
-categories: dev
-tags: ai ml machine-learning deep-learning python time-series forecasting rnn regression keras scikit-learn pandas data-preprocessing normalization rmse covid-19-prediction
+categories: ai
+tags: ai llm ml machine-learning deep-learning python time-series forecasting rnn regression keras scikit-learn pandas data-preprocessing normalization rmse covid-19-prediction
 ---
 
 전 세계를 강타했던 코로나 19 팬데믹은 우리에게 데이터의 중요성을 다시 한번 알려주었다. 매일 발표되는 확진자 수 데이터는 단순한 숫자를 넘어, 미래를 예측하고 대비하기 위한 
