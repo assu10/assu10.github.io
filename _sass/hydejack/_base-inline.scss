@@ -24,28 +24,8 @@ body, main {
   }
 }
 
-@media screen and (min-width: $break-point-1) {
-  html {
-    font-size: $root-font-size-medium;
-  }
-}
-
-@media screen and (min-width: $break-point-2) {
-  html {
-    font-size: $root-font-size;
-  }
-}
-
-@media screen and (min-width: $break-point-4) {
-  html {
-    font-size: $root-font-size-small;
-  }
-}
-
-@media screen and (min-width: $break-point-font-large) {
-  html {
-    font-size: $root-font-size-large;
-  }
+html {
+  font-size: $root-font-size; // 16px 고정 (반응형 크기 변동 제거)
 }
 
 // @media print {
