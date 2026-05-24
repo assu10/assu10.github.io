@@ -63,31 +63,22 @@
   </div>
   <br/>
 <script>
+  // Kramdown 은 ```mermaid 를 <pre><code class="language-mermaid"> 로 변환
+  // Mermaid v11 이 인식하는 <pre class="mermaid"> 로 교체 후 렌더링
   mermaid.initialize({
     startOnLoad: false,
     theme: 'neutral',
-    flowchart: {
-      curve: 'basis',
-      useMaxWidth: true,
-      htmlLabels: true
-    }
+    flowchart: { curve: 'basis', useMaxWidth: true, htmlLabels: true }
   });
 
-  // 이 스크립트는 post.html 콘텐츠 하단에 위치 → DOM 이 이미 준비된 상태
-  // Jekyll/Kramdown: ```mermaid → .language-mermaid code
-  // Mermaid v11 기대값: <pre class="mermaid">
   (function () {
-    var nodes = [];
-    document.querySelectorAll('.language-mermaid code').forEach(function (code) {
+    document.querySelectorAll('code.language-mermaid').forEach(function (code) {
       var pre = document.createElement('pre');
       pre.className = 'mermaid';
       pre.textContent = code.textContent;
-      code.closest('.language-mermaid').replaceWith(pre);
-      nodes.push(pre);
+      code.parentNode.replaceWith(pre);
     });
-    if (nodes.length > 0) {
-      mermaid.run({ nodes: nodes });
-    }
+    mermaid.run();
   })();
 </script>
 {% endunless %}
