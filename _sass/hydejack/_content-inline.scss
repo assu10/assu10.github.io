@@ -21,7 +21,7 @@
 
   @media screen and (min-width: $break-point-4) {
     float:left;
-    width:100%;
+    width: calc(100% - 27rem); // 22rem(left) + 5rem(right) 제외
     max-width: none;
     margin-left: 22rem;
     margin-right:5rem;
