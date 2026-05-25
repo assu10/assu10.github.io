@@ -15,23 +15,25 @@
   }
 
   @media screen and (min-width: $break-point-3) {
-    max-width: 42rem;
+    max-width: 55rem;
     margin-left: 21rem;
   }
 
   @media screen and (min-width: $break-point-4) {
     float:left;
-    width:100%;
+    width: calc(100% - 27rem); // 22rem(left) + 5rem(right) 제외
+    max-width: none;
     margin-left: 22rem;
     margin-right:5rem;
   }
 
   @media screen and (min-width: $break-point-5) {
-    max-width: 60rem;
+    max-width: none;
   }
 
   @media screen and (min-width: $break-point-dynamic) {
-      margin-left: 25rem;
-      margin-right:8rem;
+    margin-left: 25rem;
+    margin-right: 8rem;
+    width: calc(100% - 33rem); // 25rem(left) + 8rem(right) 제외
   }
 }

@@ -63,7 +63,22 @@
   </div>
   <br/>
 <script>
-  mermaid.initialize({startOnLoad:true});
-  window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  // Kramdown 은 ```mermaid 를 <pre><code class="language-mermaid"> 로 변환
+  // Mermaid v11 이 인식하는 <pre class="mermaid"> 로 교체 후 렌더링
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'neutral',
+    flowchart: { curve: 'basis', useMaxWidth: true, htmlLabels: true }
+  });
+
+  (function () {
+    document.querySelectorAll('code.language-mermaid').forEach(function (code) {
+      var pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = code.textContent;
+      code.parentNode.replaceWith(pre);
+    });
+    mermaid.run();
+  })();
 </script>
 {% endunless %}

@@ -9,3 +9,5 @@
 make serve       # 캐시 없이 서버 실행
 make clean       # 캐시 수동 삭제
 ```
+
+실행 후 http://localhost:4000 으로 접속
