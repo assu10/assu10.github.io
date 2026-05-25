@@ -133,7 +133,7 @@ Commands:
 
 ## 1.2. Routing: `@Controller`, `@Get`
 
-app.contoller.ts
+app.controller.ts
 ```ts
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
@@ -184,7 +184,7 @@ NestJS 는 request 와 함께 전달되는 데이터를 핸들러가 다룰 수 
 > **핸들러**  
 > request 를 처리할 요소로 컨트롤러가 해당 역할을 함
 
-app.contoller.ts
+app.controller.ts
 ```ts
 import { Request } from 'express';
 import { Controller, Get, Req } from '@nestjs/common';

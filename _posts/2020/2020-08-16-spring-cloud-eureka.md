@@ -369,7 +369,7 @@ C:\event-service\target>java -Dserver.port=8070 -jar event-service-0.0.1-SNAPSHO
 
 - 스프링 디스커버리 클라이언트
     - 디스커버리 클라이언트와 표준 스프링 RestTemplate 클래스를 사용
-    - `@EnableDiscoveryClinet` 사용
+    - `@EnableDiscoveryClient` 사용
     - DiscoveryClient 를 직접 호출하면 서비스 목록이 반환되지만, 목록에서 서비스를 선택할 책임은 사용자에게 있음
       (=리본 클라이언트 부하 분산 못 함)
     - 서비스 호출에 사용할 URL 을 직접 생성해야 함

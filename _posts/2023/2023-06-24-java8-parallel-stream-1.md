@@ -604,7 +604,7 @@ ForkJoinPool 에서 실행되는 마지막 invoke() 의 반환값은 ForkJoinSum
 - LongStream.rangeClosed() 으로 1 ~ n (8) 까지의 배열 생성
 - 생성한 배열을 ForkJoinSumCalculator 로 전달하여 태스크 생성
 - 생성한 태스크를 ForkJoinPool 로 전달 (invoke())
-- compute() 메서드는 병렬로 실행할 수 있을 만큼 태스크가 작아졌는지 확인하며, 태스크가 아직 크다고 판단되면 숫자를 반으로 분할하여 새로운 새로운 ForkJoinSumCalculator 로 할당
+- compute() 메서드는 병렬로 실행할 수 있을 만큼 태스크가 작아졌는지 확인하며, 태스크가 아직 크다고 판단되면 숫자를 반으로 분할하여 새로운 ForkJoinSumCalculator 로 할당
 - 다시 ForkJoinPool 은 생성된 ForkJoinSumCalculator 를 실행, 주어진 조건인 THRESHOLD 를 만족할 때까지 이 과정이 재귀적으로 반복되어 태스크 분할
 - 각 서브 태스크는 순차적으로 처리되어 포킹 프로세스으로 만들어진 이진 트리의 태스크를 루트에서 역순으로 방문하여 부분 결과를 합쳐 최종 결과를 계산 후 반환
 

@@ -184,7 +184,7 @@ fun main() {
 
 ## 1.2. 중간 연산(intermediate), 최종 연산(terminal): `substringBefore()`
 
-Sequence 연산에는 중간 연산과 최종 연산이 잇다.
+Sequence 연산에는 중간 연산과 최종 연산이 있다.
 - **중간 연산**
   - 결과로 다른 Sequence 를 반환
   - `filter()`, `map()` 은 중간 연산

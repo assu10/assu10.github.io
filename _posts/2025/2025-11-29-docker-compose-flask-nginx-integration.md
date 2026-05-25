@@ -398,7 +398,7 @@ assu@myserver01:~/work/ch06/ex02/myNginx02f$ docker image build . -t mynginx02f
  => => transferring dockerfile: 217B
 ```
 
-빌드가 완료되면 Flask 이미지와 Nginx 이미지가 모두 준비된 것을 확인할 수 잇다.
+빌드가 완료되면 Flask 이미지와 Nginx 이미지가 모두 준비된 것을 확인할 수 있다.
 
 ```shell
 assu@myserver01:~/work/ch06/ex02/myNginx02f$ docker image ls

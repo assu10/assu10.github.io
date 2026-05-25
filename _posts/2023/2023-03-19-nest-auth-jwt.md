@@ -42,7 +42,7 @@ tags: backend auth jwt session token sliding-session refresh-token
 브라우저에는 데이터를 저장할 수 있는 3개의 공간이 있다.
 
 - [세션 스토리지](https://developer.mozilla.org/ko/docs/Web/API/Window/sessionStorage)
-  - 현재 열려있는 브라우저를 닫거나 새로운 탭/창응ㄹ 열면 데이터 삭제
+  - 현재 열려있는 브라우저를 닫거나 새로운 탭/창을 열면 데이터 삭제
 - [로컬 스토리지](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)
   - 창을 닫아도 데이터가 남아있음
 - [쿠키](https://developer.mozilla.org/ko/docs/Web/HTTP/Cookies)

@@ -638,7 +638,7 @@ JobImpl{Active}@368239c8
     - 코루틴을 조작하는데 사용
   - CoroutineExceptionHandler 객체
     - 코루틴의 예외 처리
-- CoroutineContext 객체는 키-값 쌍으로 구성 요소를 관리하며, 동일한 키에 중복된 값을 허용하지 않으므로 각 구성 요소는 한 개씩만 가질 수 잇음
+- CoroutineContext 객체는 키-값 쌍으로 구성 요소를 관리하며, 동일한 키에 중복된 값을 허용하지 않으므로 각 구성 요소는 한 개씩만 가질 수 있음
 - 구성 요소의 동반 객체로 선언된 key 프로퍼티를 사용하여 키 값에 접근할 수 있음
   - 예) CoroutineName 의 키 값은 CoroutineName.Key 를 통해 접근할 수 있음
 - 키를 연산자 함수인 `get()` 과 함께 사용하여 CoroutineContext 객체에 설정된 구성 요소에 접근할 수 있음

@@ -227,7 +227,7 @@ public class EventService {
 
 Event 의 owner 특성이 로그인한 사용자의 이름과 같은 값만 허용한다는 의미이다.  
 등호 연산자의 왼쪽에 `filterObjct` 를 이용하며, `filterObject` 는 목록의 객체를 매개 변수로 참조하므로 여기서는 Event 형식이다.  
-등호 연산자의 오른쪽에는 `authentication` 객체를 이용하며, 인증응ㄹ 수행한 후 `SecurityContext` 에서 이용 가능한 `authentication` 객체를 곧바로 참조할 수 있다.
+등호 연산자의 오른쪽에는 `authentication` 객체를 이용하며, 인증을 수행한 후 `SecurityContext` 에서 이용 가능한 `authentication` 객체를 곧바로 참조할 수 있다.
 
 /controller/EventController.java
 ```java

@@ -369,7 +369,7 @@ $ curl -w "%{http_code}" -u user:da4f412b-6c4a-4322-aab7-ca8d2fd3d9fc http://loc
 | 클래스                                                 | 설명                                                                                                                                     |
 |:----------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
 | `DelegatingSecurityContextExecutor`                 | - `Executor` 인터페이스를 구현<br /> - `Executor` 객체를 장식하면 `SecurityContext` 를 해당 풀에 의해 생성된 스레드로 전달하는 기능을 제공                                   |
-| `DelegatingSecurityContextExecutorService`          | - `ExecutorServie` 인터페이스를 구현<br /> - `ExecutorService` 객체를 장식하면 `SecurityContext` 를 해당 풀에 의해 생성된 스레드로 전달하는 기능을 제공                      |
+| `DelegatingSecurityContextExecutorService`          | - `ExecutorService` 인터페이스를 구현<br /> - `ExecutorService` 객체를 장식하면 `SecurityContext` 를 해당 풀에 의해 생성된 스레드로 전달하는 기능을 제공                      |
 | `DelegatingSecurityContextScheduledExecutorService` | - `ScheduledExecutorService` 인터페이스를 구현<br /> - `ScheduledExecutorService` 객체를 장식하면 `SecurityContext` 를 해당 풀에 의해 생성된 스레드로 전달하는 기능을 제공   |
 | `DelegatingSecurityContextRunnable`                 | - `Runnable` 인터페이스를 구현<br /> - 다른 스레드에서 실행되며 응답을 반환하지 않는 작업을 나타냄<br /> - `Runnable` 기능에 더해 새로운 스레드에서 이용하기 위해 `SecurityContext` 를 전파 가능 |
 | `DelegatingSecurityContextCallable`                         | - `Callable` 인터페이스를 구현<br /> - 다른 스레드에서 실행되며 최종적으로 응답을 반환하는 작업을 나타냄<br /> - `Callable` 기능에 더해 새로운 스레드에서 이용하기 위해 `SecurityContext` 를 전파 가능 |

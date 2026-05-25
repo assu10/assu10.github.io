@@ -357,7 +357,7 @@ mypostgres03   latest    b54b1d0939f2   2 years ago     432MB
 
 ![전체 프로세스](/assets/img/dev/2025/1129/service.png)
 
-호스트에서 웹 브라우저를 실행한 후 127.0.0.1:80 d에 접속하면 포트 포워딩을 통해 10.0.2.4:80 ㅇ로 트래픽이 전달된다. 
+호스트에서 웹 브라우저를 실행한 후 127.0.0.1:80에 접속하면 포트 포워딩을 통해 10.0.2.4:80으로 트래픽이 전달된다. 
 이후 nginxtest 컨테이너를 거쳐 djangotest 컨테이너에 접속할 수 있으며, djangotest 컨테이너는 postgretest 컨테이너를 통해 데이터베이스를 활용한다.
 
 ---
@@ -510,7 +510,7 @@ postgretest
 
 > 해당 내용을 도커 컴포즈로 구성하는 부분은 [3.7. 도커 컴포즈와 로컬 PostgreSQL 연동](#37-도커-컴포즈와-로컬-postgresql-연동)에 있습니다.
 
-[1. Nginx, Django, PostgreSQL 컨테이너 연동](#1-nginx-django-postgresql-컨테이너-연동)에서는 에서는 Nginx, Django, PostgreSQL을 모두 컨테이너로 구동하였다.
+[1. Nginx, Django, PostgreSQL 컨테이너 연동](#1-nginx-django-postgresql-컨테이너-연동)에서는 Nginx, Django, PostgreSQL을 모두 컨테이너로 구동하였다.
 
 하지만 실무에서는 DB는 기존 VM이나 베어메탈 서버에 직접 설치하여 운영하고, 웹 애플리케이션만 컨테이너로 배포하는 하이브리드 구성도 매우 빈번하게 사용된다.  
 이번에는 PostgreSQL을 호스트(로컬)에 직접 설치하고, 도커 컨테이너 내부의 Django가 호스트의 DB에 접속하는 방법을 다룬다.

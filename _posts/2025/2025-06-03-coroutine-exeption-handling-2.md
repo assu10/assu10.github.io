@@ -610,7 +610,7 @@ fun main() = runBlocking<Unit>(context = CoroutineName("runBlocking 코루틴"))
 - 하지만 `CancellationException` 는 **코루틴 자체를 취소하는 용도**이므로 예외가 부모 코루틴으로 전파되지 않음
 - Coroutine2 만 종료되고, 나머지 코루틴은 **정상 실행**
 
-만일 Coroutine2 코루틴에서 발생한 예외가 Exception, RuntimeException 이었다면 예외가 부모로 전파되어 구조화된 코루틴 전체가 취소되었을 것ㅇ다.
+만일 Coroutine2 코루틴에서 발생한 예외가 Exception, RuntimeException 이었다면 예외가 부모로 전파되어 구조화된 코루틴 전체가 취소되었을 것이다.
 
 ```shell
 [main @runBlocking 코루틴#1] 코루틴 실행
@@ -708,7 +708,7 @@ fun main() = runBlocking<Unit>(CoroutineName("Parent")) {
 Process finished with exit code 0
 ```
 
-- Child 코루틴은 2초 동안 대기하려 했지만 withTimeout(1000L) 으로 인ㅇ해 1초 후 `TimeoutCancellationException` 발생
+- Child 코루틴은 2초 동안 대기하려 했지만 withTimeout(1000L) 으로 인해 1초 후 `TimeoutCancellationException` 발생
 - 이 예외는 부모 코루틴으로 전파되지 않기 때문에 Parent 코루틴은 영향을 받지 않고 정상 실행됨
 - `TimeoutCancellationException` 은 `CancellationException` 의 하위 클래스이므로 **취소만 유도하고 예외 전파는 하지 않음**
 

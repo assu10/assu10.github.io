@@ -474,7 +474,7 @@ for (int i=0; i<10; i++) {
 }
 ```
 
-즉, 이렇게 함수형 인터페이스는 제네릭을 사용하기 때문에 primitive type 사용이 불가하여 primitive type 을 사용하게 되면 auto boxing 이 이 수행되는데
+즉, 이렇게 함수형 인터페이스는 제네릭을 사용하기 때문에 primitive type 사용이 불가하여 primitive type 을 사용하게 되면 auto boxing 이 수행되는데
 다량의 배치 작업 시 auto-boxing 으로 인한 오버 헤드가 발생한다.
 
 이러한 오버 헤드를 없애기 위해 Java8 에서는 primitive type 을 입출력으로 사용하는 상황에서 auto-boxing 을 피할 수 있도록 primitive type 에 특화된

@@ -555,7 +555,7 @@ interface House: Building { // 상속
 }
 ```
 
-클래스가 성장하면 여러 가지 관련이 없는 요솓ㄹ을 책임져야 한다.  
+클래스가 성장하면 여러 가지 관련이 없는 요소들을 책임져야 한다.  
 합성은 각 요소를 서로 분리시킬 때 도움이 된다.  
 **합성을 사용하면 클래스의 복잡한 로직을 단순화**할 수 있다.
 
@@ -848,9 +848,9 @@ _X_, _Y_ 에 _f()_ 라는 멤버 함수가 있는 것처럼 보이지만 이 둘
 
 코틀린 컬렉션은 거의 자바 컬렉션이지만 코틀린 라이브러리는 다수의 확장 함수를 추가해서 자바 컬렉션을 함수형 스타일의 컬렉션으로 변경시켜 준다.
 
-코틀린 표준 라이브러리의 `Sequnece` 인터페이스에는 멤버 함수가 하나만 들어있고, [나머지 Sequence 함수는 모두 확장](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/)이다.
+코틀린 표준 라이브러리의 `Sequence` 인터페이스에는 멤버 함수가 하나만 들어있고, [나머지 Sequence 함수는 모두 확장](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/)이다.
 
-> `Sequnece` 의 좀 더 상세한 내용은 [1. 시퀀스 (Sequence)](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#1-시퀀스-sequence-constrainonce) 를 참고하세요.
+> `Sequence` 의 좀 더 상세한 내용은 [1. 시퀀스 (Sequence)](https://assu10.github.io/dev/2024/02/23/kotlin-funtional-programming-3/#1-시퀀스-sequence-constrainonce) 를 참고하세요.
 
 코틀린은 **필수적인 메서드만 정의하여 포함하는 간단한 인터페이스를 만들고, 모든 부가 함수를 확장으로 정의**하는 것을 철학으로 하고 있다.
 

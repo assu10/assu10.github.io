@@ -1626,7 +1626,7 @@ WebClient 는 비동기 논블로킹 프레임워크에서 HTTP 통신을 하는
 서버-클라이언트 모델과 달리 클라이언트가 처리량을 조절해서 배압(back-pressure) 이라고 한다.  
 
 리액티브 스트림의 핵심은 `Mono` 와 `Flux` 이다. 이들을 사용하면 배압을 사용할 수 있기 때문이다.  
-WebClient 의 `retrieve()` 나 `exchange()` 를 사용하면 `Mono` 와 `Flux` 를 사용할 수 잇다.
+WebClient 의 `retrieve()` 나 `exchange()` 를 사용하면 `Mono` 와 `Flux` 를 사용할 수 있다.
 
 스프링 MVC 프레임워크는 `Mono` 와 `Flux` 를 사용하여 리액티브 스트림을 사용할 수 없다.  
 그래서 일련의 과정을 거쳐서 스프링 MVC 에서 사용할 수 있는 객체로 변환해야 한다.  

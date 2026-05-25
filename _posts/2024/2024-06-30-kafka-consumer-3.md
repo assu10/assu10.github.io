@@ -379,7 +379,7 @@ public class SimpleMovingAvgNewConsumer {
     } catch (WakeupException e) {
       // ignore for shutdown
       // 다른 스레드에서 wakeup() 을 호출할 경우, 폴링 루프에서 WakeupException 발생
-      // 발생된 예외를 잡아줌으로써 애플리케이션이 예기치않게 종료되지 않도록 할 수 있지만 딱히 뭔가를 추가적으로 해 줄 필요ㅇ는 없음
+      // 발생된 예외를 잡아줌으로써 애플리케이션이 예기치않게 종료되지 않도록 할 수 있지만 딱히 뭔가를 추가적으로 해 줄 필요는 없음
     } finally {
       // 컨슈머 종료 전 닫아서 리소스 정리
       movingAvg.consumer.close();

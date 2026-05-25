@@ -886,7 +886,7 @@ val list1: List<String> = listOf("a", "b")
 val list2: List<Int> = listOf(1, 2)
 ```
 
-컴파일러는 _list1_ 과 _list2_ 를 서로 다른 타입으로 인식하지만 실행 시점에 _list1_ 과 _list2_ 는 단지 단지 `List` 일 뿐 문자열이나 정수의 리스트로 
+컴파일러는 _list1_ 과 _list2_ 를 서로 다른 타입으로 인식하지만 실행 시점에 _list1_ 과 _list2_ 는 단지 `List` 일 뿐 문자열이나 정수의 리스트로 
 선언되었다는 사실은 알 수 없다.  
 (= 즉, 실행 시점에 _list1_ 과 _list2_ 는 완전히 같은 타입의 객체임)
 

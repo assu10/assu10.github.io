@@ -298,7 +298,7 @@ hello-world   latest    ca9905c726f0   3 months ago   5.2kB
   - 이미지의 버전 정보이다.
 - **IMAGE ID**
   - 로컬환경에서 해당 이미지를 식별하는 고유 ID 이다.
-  - 다운로드할 때의 DIGEST 값과 다른데, 이는 다운로드할 때의 DIGEST 값은 도커 레지스트리에 존재하는 이미지의 DIGEST 값이고, `docker image ls` 의 결과값으로 나오는 IMAGE ID 값은 다운로드한 후에 로컬에서 할당받은 IMAGE ID 값이기 때문ㄴ이다.
+  - 다운로드할 때의 DIGEST 값과 다른데, 이는 다운로드할 때의 DIGEST 값은 도커 레지스트리에 존재하는 이미지의 DIGEST 값이고, `docker image ls` 의 결과값으로 나오는 IMAGE ID 값은 다운로드한 후에 로컬에서 할당받은 IMAGE ID 값이기 때문이다.
 - **CREATED**
   - 이미지가 생성된 시점이다.
 - **SIZE**
@@ -577,7 +577,7 @@ assu@myserver01:~$ docker container run -it ubuntu
 root@fce5aebdb10a:/#
 ```
 
-기존 우분투 이미지에는 `ifconfig` 명령어가 없다. 확인해보면 _command not found_ 오류가 ㄱ발생한다.
+기존 우분투 이미지에는 `ifconfig` 명령어가 없다. 확인해보면 _command not found_ 오류가 발생한다.
 ```shell
 # 컨테이너 내부 IP 를 확인하기 위해 ifconfig 를 입력해도 net-tools 가 미설치되어 있어서 확인 불가 
 root@fce5aebdb10a:/# ifconfig

@@ -250,7 +250,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import lombok.NonNull;
 
-// 현재 계좌의 전체 계좌 활동 리스트에서 특정 범위의 계좌 활동만 볼수있는 범위
+// 현재 계좌의 전체 계좌 활동 리스트에서 특정 범위의 계좌 활동만 볼 수 있는 범위
 public class ActivityWindow {
   // 범위 안에서의 계좌 활동 리스트
   private List<Activity> activities;

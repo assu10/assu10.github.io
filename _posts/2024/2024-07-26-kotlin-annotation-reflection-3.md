@@ -643,7 +643,7 @@ class ObjectSeed<out T : Any>(
 
     // 파라미터 타입에 따라 ObjectSeed, CollectionSeed 생성 (1)
     val seed =
-      createSeedForType(  // 파타메터의 타입을 분석하여 적절히 ObjectSeed, ObjectListSeed, ValueListSeed 중 하나 새엇ㅇ
+      createSeedForType(  // 파라미터의 타입을 분석하여 적절히 ObjectSeed, ObjectListSeed, ValueListSeed 중 하나 생성
         deserializeAs ?: param.type.javaType,
         isList,
       )
@@ -665,7 +665,7 @@ class ObjectSeed<out T : Any>(
 > 를 참고하세요.
 
 ```kotlin
-// 파타메터의 타입을 분석하여 적절히 ObjectSeed, ObjectListSeed, ValueListSeed 중 하나 생성
+// 파라미터의 타입을 분석하여 적절히 ObjectSeed, ObjectListSeed, ValueListSeed 중 하나 생성
 fun Seed.createSeedForType(
     paramType: Type,
     isList: Boolean,

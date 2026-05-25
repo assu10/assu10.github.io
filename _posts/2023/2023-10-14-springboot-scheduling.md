@@ -276,7 +276,7 @@ public @interface Scheduled {
   long initialDelay() default -1L;
   String initialDelayString() default "";
 
-  // @Scheduled 에 설정된 시간 시간 단위는 ms 로, 이를 변경할 때 사용하는 속성
+  // @Scheduled 에 설정된 시간 단위는 ms 로, 이를 변경할 때 사용하는 속성
   // TimeUnit 에 설정된 상수를 사용하여 설정함
   TimeUnit timeUnit() default TimeUnit.MILLISECONDS;
 }

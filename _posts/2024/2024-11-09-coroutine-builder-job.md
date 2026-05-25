@@ -774,7 +774,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-    val job: Job = launch(start = CoroutineStart.LAZY) { // 생성 상태의 Job 새엇ㅇ
+    val job: Job = launch(start = CoroutineStart.LAZY) { // 생성 상태의 Job 생성
         delay(1000)
     }
     printJobState(job)
