@@ -73,7 +73,7 @@ paginate_path:       '/page-:num/'
 # no_mark_external:    true
 
 # Uncomment this line if third party plugins fail to work with dynimically loaded pages
-# disable_push_state:  true
+disable_push_state:  true
 
 # Uncomment this line if want to disable the touch drawer on mobile
 # disable_drawer: true
