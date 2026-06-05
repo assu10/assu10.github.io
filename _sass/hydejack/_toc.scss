@@ -82,26 +82,10 @@
 
 // Floating TOC: show only at 1400px+ where there is enough space beside content.
 // Inline #toc-wrapper is always visible (not hidden at any width).
-// Push content left so the fixed TOC panel does not overlap.
+// Content width is controlled in inline.scss via #_main.content (higher specificity).
 @media screen and (min-width: 1400px) {
   #toc-float {
     display: block;
-  }
-
-  .content {
-    margin-right: 256px !important;
-    max-width: calc(100% - 17rem - 256px);
-    padding-right: 1rem;
-  }
-}
-
-// At break-point-4 (88em = 1408px), layout switches to float
-@media screen and (min-width: $break-point-4) {
-  .content {
-    width: calc(100% - 18rem - 256px) !important;
-    max-width: none;
-    margin-right: 0 !important;
-    padding-right: 0;
   }
 }
 

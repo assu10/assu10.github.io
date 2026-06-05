@@ -55,5 +55,36 @@ h4, h5, h6,
 .h4, .h5, .h6,
 .heading              { font-weight: 700; }
 
-/* 영문 강조: IBM Plex Sans SemiBold */
+/* bold: slightly darker than body text (#333 -> #111) */
 strong, b             { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; }
+
+/* bold inside blockquotes: slightly darker than blockquote text (~#7a7a7a) */
+blockquote strong,
+blockquote b          { color: #6a6a6a; }
+
+/* Smooth scroll for TOC anchor navigation */
+html { scroll-behavior: smooth; }
+
+/* Offset headings so fixed navbar doesn't cover them */
+.markdown-body h1[id],
+.markdown-body h2[id],
+.markdown-body h3[id],
+.markdown-body h4[id],
+.markdown-body h5[id],
+.markdown-body h6[id] { scroll-margin-top: 4rem; }
+
+/* Floating TOC: push content away from the fixed right panel.
+   Uses #_main.content (specificity 1,1,0) to override all .content rules. */
+@media screen and (min-width: 1400px) {
+  #_main.content {
+    margin-right: 256px;
+    max-width: calc(100% - 17rem - 256px);
+  }
+}
+@media screen and (min-width: $break-point-4) {
+  #_main.content {
+    width: calc(100% - 18rem - 256px);
+    max-width: none;
+    margin-right: 0;
+  }
+}

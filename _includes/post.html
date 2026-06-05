@@ -121,6 +121,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('scroll', updateActive, { passive: true });
   updateActive();
+
+  // Keep content width clear of the floating TOC panel.
+  // Inline element.style overrides all CSS regardless of specificity.
+  var main = document.getElementById('_main');
+  function adjustForToc() {
+    if (!main) return;
+    var tocStyle = window.getComputedStyle(tocFloat);
+    if (tocStyle.display === 'none' || tocStyle.position !== 'fixed') {
+      main.style.width = '';
+      main.style.maxWidth = '';
+      return;
+    }
+    var tocLeft = tocFloat.getBoundingClientRect().left;
+    var contentLeft = main.getBoundingClientRect().left;
+    var available = Math.floor(tocLeft - contentLeft - 16); // 16px gap
+    if (available > 100) {
+      main.style.width = available + 'px';
+      main.style.maxWidth = 'none';
+    }
+  }
+  adjustForToc();
+  window.addEventListener('resize', adjustForToc, { passive: true });
 })();
 });
 </script>
