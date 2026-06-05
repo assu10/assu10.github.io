@@ -141,12 +141,12 @@
 </style>
 
 {% capture style_url %}{% link assets/css/hydejack.css %}?v=6.4.0{% endcapture %}
-<link rel="preload" href="{{ style_url | absolute_url }}" as="style" onload="this.rel='stylesheet'">
+<link rel="preload" href="{{ style_url | relative_url }}" as="style" onload="this.rel='stylesheet'">
 
 {% include page-style.html %}
 
 <noscript>
-  <link rel="stylesheet" href="{{ style_url | absolute_url }}">
+  <link rel="stylesheet" href="{{ style_url | relative_url }}">
   {% assign font = site.font | default:"'Sans-serif'" %}
   {% assign font_heading = site.font_heading | default:"'E' %}
   {% assign google_fonts = site.google_fonts | default:"Roboto+Slab:700|Noto+Serif:400,400i,700,700i" %}

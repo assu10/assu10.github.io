@@ -4,7 +4,7 @@
     {
       "name": "toc-preview",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4001"],
+      "runtimeArgs": ["-m", "http.server", "4001", "--directory", "_site"],
       "port": 4001
     },
     {

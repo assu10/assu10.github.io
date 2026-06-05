@@ -1,3 +1,110 @@
+// Floating TOC panel (fixed, right side, desktop only)
+#toc-float {
+  display: none;
+
+  @media screen and (min-width: 1200px) {
+    display: block;
+    position: fixed;
+    right: 1rem;
+    top: 5rem;
+    width: 220px;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px 14px 16px;
+    z-index: 9;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    .toc-float-title {
+      font-size: 0.78em;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      a {
+        display: block;
+        padding: 3px 8px;
+        font-size: 0.82em;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #555;
+        line-height: 1.4;
+        transition: background 0.15s, color 0.15s;
+
+        &:hover {
+          background: rgba($delta, 0.08);
+          color: $delta;
+        }
+
+        &.toc-active {
+          background: rgba($delta, 0.12);
+          color: $delta;
+          font-weight: 600;
+        }
+      }
+
+      // top-level items
+      > li > a {
+        font-size: 0.85em;
+        font-weight: 500;
+        color: #333;
+        padding: 4px 8px;
+      }
+
+      > li > a:hover,
+      > li > a.toc-active {
+        color: $delta;
+      }
+
+      ul {
+        padding-left: 10px;
+        ul { padding-left: 10px; }
+      }
+    }
+  }
+}
+
+// Floating TOC: show only at 1400px+ where there is enough space beside content.
+// Inline #toc-wrapper is always visible (not hidden at any width).
+// Push content left so the fixed TOC panel does not overlap.
+@media screen and (min-width: 1400px) {
+  #toc-float {
+    display: block;
+  }
+
+  .content {
+    margin-right: 256px !important;
+    max-width: calc(100% - 17rem - 256px);
+    padding-right: 1rem;
+  }
+}
+
+// At break-point-4 (88em = 1408px), layout switches to float
+@media screen and (min-width: $break-point-4) {
+  .content {
+    width: calc(100% - 18rem - 256px) !important;
+    max-width: none;
+    margin-right: 0 !important;
+    padding-right: 0;
+  }
+}
+
 #toc-wrapper {
   background: #f8f9fa;
   border-radius: 8px;

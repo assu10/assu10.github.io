@@ -81,4 +81,47 @@
     mermaid.run();
   })();
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+(function() {
+  var tocFloat = document.getElementById('toc-float');
+  var tocWrapper = document.getElementById('toc-wrapper');
+  if (!tocFloat || !tocWrapper) return;
+
+  // Clone TOC links into float panel
+  var titleEl = tocFloat.querySelector('.toc-float-title');
+  var clone = tocWrapper.cloneNode(true);
+  clone.removeAttribute('id');
+  tocFloat.appendChild(clone);
+
+  // Collect headings and links
+  var headings = Array.from(
+    document.querySelectorAll('.markdown-body h1[id], .markdown-body h2[id], .markdown-body h3[id], .markdown-body h4[id]')
+  );
+  var links = Array.from(tocFloat.querySelectorAll('a[href^="#"]'));
+
+  function updateActive() {
+    var active = null;
+    var threshold = Math.round(window.innerHeight * 0.35);
+    for (var i = headings.length - 1; i >= 0; i--) {
+      if (headings[i].getBoundingClientRect().top <= threshold) {
+        active = headings[i].id;
+        break;
+      }
+    }
+    links.forEach(function(link) {
+      var id = decodeURIComponent(link.getAttribute('href').slice(1));
+      if (id === active) {
+        link.classList.add('toc-active');
+      } else {
+        link.classList.remove('toc-active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+})();
+});
+</script>
 {% endunless %}

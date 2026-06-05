@@ -10,20 +10,20 @@
 
   @media screen and (min-width: $break-point-2) {
     padding: 4rem 1rem 12rem;
-    margin-left: 19rem;
+    margin-left: 15rem;
     margin-right:3rem;
   }
 
   @media screen and (min-width: $break-point-3) {
     max-width: 55rem;
-    margin-left: 21rem;
+    margin-left: 17rem;
   }
 
   @media screen and (min-width: $break-point-4) {
     float:left;
-    width: calc(100% - 27rem); 
+    width: calc(100% - 23rem);
     max-width: none;
-    margin-left: 22rem;
+    margin-left: 18rem;
     margin-right:5rem;
   }
 
@@ -32,8 +32,8 @@
   }
 
   @media screen and (min-width: $break-point-dynamic) {
-    margin-left: 25rem;
+    margin-left: 21rem;
     margin-right: 8rem;
-    width: calc(100% - 33rem); 
+    width: calc(100% - 29rem);
   }
 }
