@@ -13,9 +13,7 @@ GEM
     eventmachine (1.2.7)
     eventmachine (1.2.7-x64-mingw32)
     fast-stemmer (1.0.2)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x64-mingw32)
-    ffi (1.17.0-x86_64-darwin)
+    ffi (1.17.0)
     forwardable-extended (2.6.0)
     http_parser.rb (0.6.0)
     i18n (0.9.5)
@@ -67,7 +65,6 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    wdm (0.1.1)
     webrick (1.7.0)
 
 PLATFORMS
@@ -75,6 +72,7 @@ PLATFORMS
   universal-darwin-24
   x64-mingw32
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   classifier-reborn
@@ -84,7 +82,6 @@ DEPENDENCIES
   jekyll-redirect-from (~> 0.12)
   jekyll-sitemap (~> 1.0)
   kramdown-parser-gfm
-  wdm (>= 0.1.0)
   webrick (~> 1.7)
 
 BUNDLED WITH
