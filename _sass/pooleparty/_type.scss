@@ -120,6 +120,6 @@ blockquote {
   float: right;
 
   &::after {
-    content: " \2192"; // →
+    content: " \2192"; 
   }
 }

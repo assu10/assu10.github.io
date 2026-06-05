@@ -1,2 +1,79 @@
-#markdown-toc {
+#toc-wrapper {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 1.5rem;
+
+  > ul {
+    list-style: none;
+    counter-reset: toc-counter;
+    padding: 0;
+    margin: 0;
+
+    > li {
+      counter-increment: toc-counter;
+      margin: 4px 0;
+
+      > a {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none;
+        background: transparent;
+        transition: background 0.2s;
+
+        &::before {
+          content: counter(toc-counter, decimal-leading-zero);
+          font-size: 11px;
+          font-weight: 700;
+          color: #fff;
+          background: $delta;
+          min-width: 22px;
+          height: 22px;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+
+        &:hover {
+          background: rgba($delta, 0.08);
+        }
+      }
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 32px;
+    margin: 2px 0;
+
+    a {
+      display: block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      background: transparent;
+      text-decoration: none;
+
+      &:hover {
+        background: rgba($delta, 0.06);
+        color: $delta;
+      }
+    }
+
+    ul {
+      padding-left: 14px;
+
+      a {
+        font-size: 0.85em;
+        color: #888;
+      }
+    }
+  }
 }

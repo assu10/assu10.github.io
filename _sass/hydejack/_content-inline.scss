@@ -21,7 +21,7 @@
 
   @media screen and (min-width: $break-point-4) {
     float:left;
-    width: calc(100% - 27rem); // 22rem(left) + 5rem(right) 제외
+    width: calc(100% - 27rem); 
     max-width: none;
     margin-left: 22rem;
     margin-right:5rem;
@@ -34,6 +34,6 @@
   @media screen and (min-width: $break-point-dynamic) {
     margin-left: 25rem;
     margin-right: 8rem;
-    width: calc(100% - 33rem); // 25rem(left) + 8rem(right) 제외
+    width: calc(100% - 33rem); 
   }
 }

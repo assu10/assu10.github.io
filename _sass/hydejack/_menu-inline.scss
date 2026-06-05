@@ -21,7 +21,7 @@
   color: $gray!important;
 
   &::after {
-    content: "\2630"; // ☰
+    content: "\2630"; 
   }
 
   @media screen and (min-width: $break-point-2) {

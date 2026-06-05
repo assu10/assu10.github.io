@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "toc-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4001"],
+      "port": 4001
+    },
+    {
+      "name": "jekyll",
+      "runtimeExecutable": "bundle",
+      "runtimeArgs": ["exec", "jekyll", "serve", "--port", "4000", "--no-watch"],
+      "port": 4000
+    }
+  ]
+}

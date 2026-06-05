@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>TOC Style Preview</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 30px; }
+  h1 { text-align: center; margin-bottom: 30px; color: #333; font-size: 20px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1100px; margin: 0 auto; }
+  .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .card-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 14px; }
+
+  /* 스타일 A: 사이드바 카드 스타일 (현재와 유사하지만 정돈됨) */
+  .style-a { background: #1e2530; border-radius: 8px; padding: 20px; }
+  .style-a .toc-title { color: #6be3a7; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; border-bottom: 1px solid #2d3748; padding-bottom: 8px; }
+  .style-a ul { list-style: none; }
+  .style-a li { margin: 2px 0; }
+  .style-a a { color: #cbd5e0; text-decoration: none; font-size: 14px; display: block; padding: 4px 8px; border-radius: 4px; transition: all 0.2s; }
+  .style-a a:hover { background: #2d3748; color: #6be3a7; }
+  .style-a ul ul { padding-left: 14px; }
+  .style-a ul ul a { font-size: 13px; color: #718096; }
+  .style-a ul ul ul { padding-left: 12px; }
+  .style-a ul ul ul a { font-size: 12px; color: #4a5568; }
+
+  /* 스타일 B: 라인 강조 스타일 */
+  .style-b { border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; background: #fff; }
+  .style-b .toc-title { font-size: 13px; font-weight: 700; color: #1FC489; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+  .style-b ul { list-style: none; border-left: 2px solid #e2e8f0; padding-left: 0; margin-left: 4px; }
+  .style-b li { position: relative; }
+  .style-b a { color: #4a5568; text-decoration: none; font-size: 14px; display: block; padding: 5px 14px; transition: all 0.15s; border-left: 2px solid transparent; margin-left: -2px; }
+  .style-b a:hover { color: #1FC489; border-left-color: #1FC489; background: rgba(31,196,137,0.05); }
+  .style-b ul ul { padding-left: 14px; border-left: none; }
+  .style-b ul ul a { font-size: 13px; color: #718096; }
+  .style-b ul ul ul { padding-left: 12px; }
+  .style-b ul ul ul a { font-size: 12px; color: #a0aec0; }
+
+  /* 스타일 C: 번호 배지 스타일 */
+  .style-c { background: #f8f9fa; border-radius: 8px; padding: 20px; }
+  .style-c .toc-title { font-size: 13px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .style-c .toc-title::after { content: ''; flex: 1; height: 1px; background: #dee2e6; }
+  .style-c > ul { list-style: none; counter-reset: toc-counter; }
+  .style-c > ul > li { counter-increment: toc-counter; margin: 6px 0; }
+  .style-c > ul > li > a { color: #222; text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: flex-start; gap: 10px; padding: 6px 10px; border-radius: 6px; transition: background 0.2s; }
+  .style-c > ul > li > a::before { content: counter(toc-counter, decimal-leading-zero); font-size: 11px; font-weight: 700; color: white; background: #1FC489; min-width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .style-c > ul > li > a:hover { background: #e8f8f3; }
+  .style-c ul ul { list-style: none; padding-left: 32px; }
+  .style-c ul ul a { color: #666; font-size: 13px; text-decoration: none; display: block; padding: 3px 6px; border-radius: 4px; }
+  .style-c ul ul a:hover { color: #1FC489; background: rgba(31,196,137,0.06); }
+  .style-c ul ul ul { padding-left: 12px; }
+  .style-c ul ul ul a { font-size: 12px; color: #999; }
+
+  /* 스타일 D: 미니멀 인덱스 스타일 */
+  .style-d { background: white; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; }
+  .style-d .toc-title { font-size: 12px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .style-d ul { list-style: none; }
+  .style-d li { margin: 0; }
+  .style-d a { color: #555; text-decoration: none; font-size: 13.5px; display: flex; align-items: center; padding: 6px 0; border-bottom: 1px dashed #f0f0f0; gap: 8px; transition: color 0.2s; }
+  .style-d a::before { content: '→'; color: #ddd; font-size: 11px; transition: color 0.2s; flex-shrink: 0; }
+  .style-d a:hover { color: #1FC489; }
+  .style-d a:hover::before { color: #1FC489; }
+  .style-d ul ul { list-style: none; padding-left: 16px; }
+  .style-d ul ul a { font-size: 12.5px; color: #888; border-bottom: none; padding: 3px 0; }
+  .style-d ul ul a::before { content: '·'; }
+  .style-d ul ul ul { padding-left: 12px; }
+  .style-d ul ul ul a { font-size: 12px; color: #aaa; }
+</style>
+</head>
+<body>
+<h1>목차(TOC) 스타일 예시</h1>
+<div class="grid">
+
+  <!-- Style A -->
+  <div class="card">
+    <div class="card-label">A. 다크 사이드바 스타일</div>
+    <div class="style-a">
+      <div class="toc-title">목차</div>
+      <ul>
+        <li><a href="#">1. 요구사항 및 규모 추정</a>
+          <ul>
+            <li><a href="#">1.1. 기능 요구사항</a></li>
+            <li><a href="#">1.2. 비기능 요구사항</a></li>
+            <li><a href="#">1.3. 개략적 규모 추정</a></li>
+          </ul>
+        </li>
+        <li><a href="#">2. 개략적 아키텍처와 지리 정보 인덱싱 알고리즘</a>
+          <ul>
+            <li><a href="#">2.1. 개략적 설계안 및 핵심 컴포넌트</a>
+              <ul>
+                <li><a href="#">2.1.1. 엔드포인트 및 API 설계</a></li>
+                <li><a href="#">2.1.2. 데이터 모델링 및 MySQL 채택 이유</a></li>
+              </ul>
+            </li>
+            <li><a href="#">2.2. 주변 사업장 검색 알고리즘</a>
+              <ul>
+                <li><a href="#">2.2.3. 지오해시(Geohash)</a></li>
+                <li><a href="#">2.2.4. 쿼드트리(Quadtree)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#">3. 상세 설계: DB 샤딩, 초고효율 공간 캐싱</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Style B -->
+  <div class="card">
+    <div class="card-label">B. 좌측 라인 강조 스타일</div>
+    <div class="style-b">
+      <div class="toc-title">목차</div>
+      <ul>
+        <li><a href="#">1. 요구사항 및 규모 추정</a>
+          <ul>
+            <li><a href="#">1.1. 기능 요구사항</a></li>
+            <li><a href="#">1.2. 비기능 요구사항</a></li>
+            <li><a href="#">1.3. 개략적 규모 추정</a></li>
+          </ul>
+        </li>
+        <li><a href="#">2. 개략적 아키텍처와 지리 정보 인덱싱 알고리즘</a>
+          <ul>
+            <li><a href="#">2.1. 개략적 설계안 및 핵심 컴포넌트</a>
+              <ul>
+                <li><a href="#">2.1.1. 엔드포인트 및 API 설계</a></li>
+                <li><a href="#">2.1.2. 데이터 모델링 및 MySQL 채택 이유</a></li>
+              </ul>
+            </li>
+            <li><a href="#">2.2. 주변 사업장 검색 알고리즘</a>
+              <ul>
+                <li><a href="#">2.2.3. 지오해시(Geohash)</a></li>
+                <li><a href="#">2.2.4. 쿼드트리(Quadtree)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#">3. 상세 설계: DB 샤딩, 초고효율 공간 캐싱</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Style C -->
+  <div class="card">
+    <div class="card-label">C. 번호 배지 스타일</div>
+    <div class="style-c">
+      <div class="toc-title">목차</div>
+      <ul>
+        <li><a href="#">요구사항 및 규모 추정</a>
+          <ul>
+            <li><a href="#">1.1. 기능 요구사항</a></li>
+            <li><a href="#">1.2. 비기능 요구사항</a></li>
+            <li><a href="#">1.3. 개략적 규모 추정</a></li>
+          </ul>
+        </li>
+        <li><a href="#">개략적 아키텍처와 지리 정보 인덱싱 알고리즘</a>
+          <ul>
+            <li><a href="#">2.1. 개략적 설계안 및 핵심 컴포넌트</a>
+              <ul>
+                <li><a href="#">2.1.1. 엔드포인트 및 API 설계</a></li>
+                <li><a href="#">2.1.2. 데이터 모델링 및 MySQL 채택 이유</a></li>
+              </ul>
+            </li>
+            <li><a href="#">2.2. 주변 사업장 검색 알고리즘</a>
+              <ul>
+                <li><a href="#">2.2.3. 지오해시(Geohash)</a></li>
+                <li><a href="#">2.2.4. 쿼드트리(Quadtree)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#">상세 설계: DB 샤딩, 초고효율 공간 캐싱</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Style D -->
+  <div class="card">
+    <div class="card-label">D. 미니멀 인덱스 스타일</div>
+    <div class="style-d">
+      <div class="toc-title">목차</div>
+      <ul>
+        <li><a href="#">1. 요구사항 및 규모 추정</a>
+          <ul>
+            <li><a href="#">1.1. 기능 요구사항</a></li>
+            <li><a href="#">1.2. 비기능 요구사항</a></li>
+            <li><a href="#">1.3. 개략적 규모 추정</a></li>
+          </ul>
+        </li>
+        <li><a href="#">2. 개략적 아키텍처와 지리 정보 인덱싱 알고리즘</a>
+          <ul>
+            <li><a href="#">2.1. 개략적 설계안 및 핵심 컴포넌트</a>
+              <ul>
+                <li><a href="#">2.1.1. 엔드포인트 및 API 설계</a></li>
+                <li><a href="#">2.1.2. 데이터 모델링 및 MySQL 채택 이유</a></li>
+              </ul>
+            </li>
+            <li><a href="#">2.2. 주변 사업장 검색 알고리즘</a>
+              <ul>
+                <li><a href="#">2.2.3. 지오해시(Geohash)</a></li>
+                <li><a href="#">2.2.4. 쿼드트리(Quadtree)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#">3. 상세 설계: DB 샤딩, 초고효율 공간 캐싱</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
