@@ -14,10 +14,14 @@
     color: #1FC489;
   }
 
-  /* 본문 인라인 코드: 색상 상속, 배경만 표시 */
+  /* 인라인 코드: 색상 상속, 연한 배경, 좌우 여백 축소 */
   .markdown-body code {
     color: inherit;
     background-color: rgba(0, 0, 0, 0.06);
+    border: none;
+    border-radius: 3px;
+    padding: 3px 0;
+    font-size: 0.85em;
   }
 
   :focus {
