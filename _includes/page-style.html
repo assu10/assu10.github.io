@@ -1,22 +1,23 @@
 <style id="_pageStyle">
 {% capture page_style %}
-  .content a {
+  /* 본문 링크 (markdown-body 내부만) */
+  .markdown-body a {
     color: {{ color }};
     border-color: fade-out({{ color }}, 0.8);
-    font-weight: 600;
-  }
-
-  .content a:hover {
-    border-color: {{ color }};
-    background-color: {{ color }};
-    color: white;
     border-radius: 2px;
     padding: 2px 4px;
   }
 
-  /* 목차: 첫 레벨만 bold, 나머지는 regular */
-  #toc-wrapper ul ul a {
-    font-weight: 400;
+  .markdown-body a:hover {
+    border-color: #1FC489;
+    background-color: rgba(31, 196, 137, 0.15);
+    color: #1FC489;
+  }
+
+  /* 본문 인라인 코드: 색상 상속, 배경만 표시 */
+  .markdown-body code {
+    color: inherit;
+    background-color: rgba(0, 0, 0, 0.06);
   }
 
   :focus {

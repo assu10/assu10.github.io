@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var tocWrapper = document.getElementById('toc-wrapper');
   if (!tocFloat || !tocWrapper) return;
 
-  // Clone TOC links into float panel
-  var titleEl = tocFloat.querySelector('.toc-float-title');
-  var clone = tocWrapper.cloneNode(true);
-  clone.removeAttribute('id');
+  // Clone only the ul from toc-wrapper so #toc-float > ul > li > a selector works
+  var tocUl = tocWrapper.querySelector(':scope > ul');
+  if (!tocUl) return;
+  var clone = tocUl.cloneNode(true);
   tocFloat.appendChild(clone);
 
   // Collect headings and links

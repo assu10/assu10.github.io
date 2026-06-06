@@ -62,6 +62,15 @@ strong, b             { font-family: 'IBM Plex Sans', sans-serif; font-weight: 6
 blockquote strong,
 blockquote b          { color: #6a6a6a; }
 
+/* 인라인 코드: 배경만 표시, 글자색은 주변 텍스트와 동일 */
+p code, li code, td code, blockquote code, h1 code, h2 code, h3 code, h4 code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+  padding: 0.15em 0.4em;
+  font-size: 0.85em;
+}
+
 /* Smooth scroll for TOC anchor navigation */
 html { scroll-behavior: smooth; }
 

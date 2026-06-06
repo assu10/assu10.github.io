@@ -37,8 +37,16 @@
         border-radius: 4px;
         text-decoration: none;
         color: #555;
+        font-weight: 400;
         line-height: 1.4;
         transition: background 0.15s, color 0.15s;
+
+        code {
+          color: inherit;
+          background-color: rgba(0, 0, 0, 0.06);
+          border-radius: 3px;
+          font-size: 0.9em;
+        }
 
         &:hover {
           background: rgba($delta, 0.08);
@@ -52,23 +60,23 @@
         }
       }
 
-      // top-level items
-      > li > a {
-        font-size: 0.85em;
-        font-weight: 500;
-        color: #333;
-        padding: 4px 8px;
-      }
-
-      > li > a:hover,
-      > li > a.toc-active {
-        color: $delta;
-      }
-
       ul {
         padding-left: 10px;
         ul { padding-left: 10px; }
       }
+    }
+
+    // top-level only: bold + blue (direct child ul > li > a)
+    > ul > li > a {
+      font-size: 0.85em;
+      font-weight: 600;
+      color: #4f86aa;
+      padding: 4px 8px;
+    }
+
+    > ul > li > a:hover,
+    > ul > li > a.toc-active {
+      color: $delta;
     }
   }
 }
@@ -132,6 +140,13 @@
       font-size: 0.9em;
       background: transparent;
       text-decoration: none;
+
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.06);
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
 
       &:hover {
         background: rgba($delta, 0.06);

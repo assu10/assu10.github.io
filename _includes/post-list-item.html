@@ -3,7 +3,7 @@
 
 <li class="h4">
   <a href="{{ post.url | relative_url }}" data-flip="title">
-    <span>{{ post.title }}</span>
+    <span>{{ post.title | markdownify | remove: '<p>' | remove: '</p>' | strip }}</span>
   </a>
   <small><time datetime="{{ post.date | date_to_xmlschema }}">
     {{ post.date | date: "%Y-%m-%d" }}
