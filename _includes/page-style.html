@@ -1,9 +1,13 @@
 <style id="_pageStyle">
 {% capture page_style %}
-  /* 본문 링크 (markdown-body 내부만) */
-  .markdown-body a {
+  /* 모든 .content 링크 색상 */
+  .content a {
     color: {{ color }};
     border-color: fade-out({{ color }}, 0.8);
+  }
+
+  /* 본문 링크 hover/padding (post body만) */
+  .markdown-body a {
     border-radius: 2px;
     padding: 2px 4px;
   }

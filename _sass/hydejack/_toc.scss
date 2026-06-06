@@ -1,9 +1,15 @@
 // Floating TOC panel (fixed, right side, desktop only)
+// shown only when JS adds .toc-has-content class
 #toc-float {
   display: none;
 
+  &.toc-has-content {
+    @media screen and (min-width: 1200px) {
+      display: block;
+    }
+  }
+
   @media screen and (min-width: 1200px) {
-    display: block;
     position: fixed;
     right: 1rem;
     top: 5rem;
@@ -84,7 +90,7 @@
 // Inline #toc-wrapper is always visible (not hidden at any width).
 // Content width is controlled in inline.scss via #_main.content (higher specificity).
 @media screen and (min-width: 1400px) {
-  #toc-float {
+  #toc-float.toc-has-content {
     display: block;
   }
 }

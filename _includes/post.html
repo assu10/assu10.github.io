@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!tocUl) return;
   var clone = tocUl.cloneNode(true);
   tocFloat.appendChild(clone);
+  tocFloat.classList.add('toc-has-content');
 
   // Collect headings and links
   var headings = Array.from(
