@@ -307,6 +307,50 @@ RDBMS나 NoSQL 어느 쪽이든 사용 가능하다.
 초경량 메시지 버스이다.  
 레디스 펍/섭에 새로운 토픽을 추가하는 것은 아주 값싼 연산이다.
 
+아래는 레디스 펍/섭의 동작 원리이다.
+```mermaid
+graph LR
+%% 노드 스타일 정의
+  classDef user fill:#ffffff,stroke:#333333,stroke-width:2px;
+  classDef channel fill:#fff9f4,stroke:#ff9800,stroke-width:2px;
+  classDef friend fill:#ffffff,stroke:#333333,stroke-width:2px;
+  classDef invisible fill:none,stroke:none,font-weight:bold;
+
+%% ★ 박스 위에 띄울 투명 텍스트 노드
+  TitleText["위치 정보가 갱신되었다는<br>이벤트를 발행하려는 사용자들"]:::invisible
+  TitleText ~~~ Publishers
+
+%% 1. 발행자 영역 (좌측)
+  subgraph Publishers ["위치 정보 발행자"]
+    User1["👤 사용자 1"]:::user
+    User2["👤 사용자 2"]:::user
+  end
+
+%% 2. 레디스 펍/섭 영역 (중앙)
+  subgraph RedisPubSub ["레디스 펍/섭 (Redis Pub/Sub)"]
+    Ch1[("🛢️ 사용자 1의 채널")]:::channel
+    Ch2[("🛢️ 사용자 2의 채널")]:::channel
+  end
+
+%% 3. 구독자 영역 (우측)
+  subgraph Subscribers ["구독 관계의 친구들 (Subscribers)"]
+    Friend1["👥 친구 1"]:::friend
+    Friend2["👥 친구 2"]:::friend
+    Friend3["👥 친구 3"]:::friend
+  end
+
+%% 데이터 흐름
+  User1 -->|이벤트 발행| Ch1
+  User2 -->|이벤트 발행| Ch2
+  Ch1 -->|친구에게 전달| Friend1
+  Ch2 -->|친구에게 전달| Friend2
+  Ch2 -->|친구에게 전달| Friend3
+
+  style Publishers fill:none,stroke:#999999,stroke-width:1px,stroke-dasharray: 5 5;
+  style RedisPubSub fill:none,stroke:#999999,stroke-width:1px,stroke-dasharray: 5 5;
+  style Subscribers fill:none,stroke:#999999,stroke-width:1px,stroke-dasharray: 5 5;
+```
+
 
 
 ---
