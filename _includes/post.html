@@ -63,40 +63,22 @@
   </div>
   <br/>
 <script>
-  mermaid.initialize({
-    startOnLoad: false,
-    theme: 'neutral',
-    flowchart: { curve: 'basis', useMaxWidth: true, htmlLabels: true }
-  });
-
-  (function () {
-    document.querySelectorAll('code.language-mermaid').forEach(function (code) {
-      var pre = document.createElement('pre');
-      pre.className = 'mermaid';
-      pre.textContent = code.textContent;
-      code.parentNode.replaceWith(pre);
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'neutral',
+      useMaxWidth: true,
+      flowchart: { curve: 'basis', useMaxWidth: true, htmlLabels: true }
     });
-    var result = mermaid.run();
-    function fixViewBox() {
-      document.querySelectorAll('pre.mermaid svg').forEach(function (svg) {
-        try {
-          var bbox = svg.getBBox();
-          var pad = 12;
-          svg.setAttribute('viewBox',
-            (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' +
-            (bbox.width + pad * 2) + ' ' + (bbox.height + pad * 2));
-          svg.setAttribute('width', bbox.width + pad * 2);
-          svg.style.maxWidth = '100%';
-          svg.style.height = 'auto';
-        } catch (e) {}
+
+    (function () {
+      document.querySelectorAll('code.language-mermaid').forEach(function (code) {
+        var pre = document.createElement('pre');
+        pre.className = 'mermaid';
+        pre.textContent = code.textContent;
+        code.parentNode.replaceWith(pre);
       });
-    }
-    if (result && typeof result.then === 'function') {
-      result.then(fixViewBox);
-    } else {
-      setTimeout(fixViewBox, 500);
-    }
-  })();
+      mermaid.run();
+    })();
 </script>
 <script src="{{ '/assets/js/post-toc.js' | relative_url }}"></script>
 {% endunless %}
