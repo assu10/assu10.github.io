@@ -3,6 +3,7 @@
   .content a {
     color: {{ color }};
     border-color: fade-out({{ color }}, 0.8);
+    font-weight: 600;
   }
 
   .content a:hover {
@@ -13,18 +14,9 @@
     padding: 2px 4px;
   }
 
-  /* 목차: 첫 레벨만 bold */
-  #toc-wrapper > ul > li > a {
-    font-weight: 600;
-  }
-
-  /* 본문 링크: bold 처리 */
-  .content > p a,
-  .content > ul > li > a,
-  .content > ol > li > a,
-  .content > blockquote a,
-  .content > table a {
-    font-weight: 600;
+  /* 목차: 첫 레벨만 bold, 나머지는 regular */
+  #toc-wrapper ul ul a {
+    font-weight: 400;
   }
 
   :focus {
