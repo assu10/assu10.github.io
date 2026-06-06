@@ -56,6 +56,49 @@
     font-size: inherit;
   }
 
+  /* ── GitHub Light 코드 블록 테마 ── */
+  pre {
+    background-color: #f6f8fa;
+    border: none;
+    border-radius: 6px;
+  }
+
+  /* comments */
+  .highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
+    color: #6a737d;
+    font-style: italic;
+  }
+  /* keywords */
+  .highlight .k, .highlight .kc, .highlight .kd,
+  .highlight .kn, .highlight .kp, .highlight .kr { color: #d73a49; font-weight: normal; }
+  /* strings */
+  .highlight .s, .highlight .sb, .highlight .sc, .highlight .sd,
+  .highlight .s2, .highlight .se, .highlight .sh, .highlight .si,
+  .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss { color: #032f62; }
+  /* numbers */
+  .highlight .m, .highlight .mf, .highlight .mh,
+  .highlight .mi, .highlight .mo, .highlight .il { color: #005cc5; }
+  /* functions */
+  .highlight .nf { color: #6f42c1; font-weight: normal; }
+  /* class names */
+  .highlight .nc { color: #6f42c1; font-weight: bold; }
+  /* built-ins */
+  .highlight .nb { color: #005cc5; }
+  /* variables */
+  .highlight .nv, .highlight .vc,
+  .highlight .vg, .highlight .vi { color: #e36209; }
+  /* operators */
+  .highlight .o, .highlight .ow { color: #d73a49; }
+  /* tags */
+  .highlight .nt { color: #22863a; }
+  /* attributes */
+  .highlight .na { color: #6f42c1; }
+  /* error */
+  .highlight .err { color: #b31d28; background-color: #ffdce0; }
+  /* diff */
+  .highlight .gd { color: #b31d28; background-color: #ffdce0; }
+  .highlight .gi { color: #22863a; background-color: #dcffe4; }
+
   :focus {
     outline-color: {{ color }};
   }
