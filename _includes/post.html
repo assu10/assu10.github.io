@@ -66,8 +66,7 @@
     mermaid.initialize({
       startOnLoad: false,
       theme: 'neutral',
-      useMaxWidth: false,
-      flowchart: { curve: 'basis', useMaxWidth: false, htmlLabels: true }
+      flowchart: { curve: 'basis', useMaxWidth: true, htmlLabels: true }
     });
 
     (function () {
@@ -77,9 +76,12 @@
         pre.textContent = code.textContent;
         code.parentNode.replaceWith(pre);
       });
-      document.fonts.ready.then(function () {
-        mermaid.run();
-      });
+      function render() { mermaid.run(); }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(render);
+      } else {
+        render();
+      }
     })();
 </script>
 <script src="{{ '/assets/js/post-toc.js' | relative_url }}"></script>

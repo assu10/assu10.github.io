@@ -70,8 +70,8 @@
     margin-bottom: 0;
   }
 
-pre.mermaid { background: none; overflow-x: auto; overflow-y: visible; }
-pre.mermaid svg { overflow: visible !important; height: auto; }
+pre.mermaid { background: none; overflow: hidden; max-width: 100%; }
+pre.mermaid svg { display: block; width: 100% !important; max-width: 100% !important; height: auto !important; }
 
   /* GitHub Light code block theme */
   pre {
