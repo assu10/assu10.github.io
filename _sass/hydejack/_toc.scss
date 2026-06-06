@@ -109,13 +109,13 @@
 
     > li {
       counter-increment: toc-counter;
-      margin: 4px 0;
+      margin: 2px 0;
 
       > a {
         display: flex;
         align-items: flex-start;
         gap: 10px;
-        padding: 6px 10px;
+        padding: 4px 10px;
         border-radius: 6px;
         font-weight: 500;
         text-decoration: none;
@@ -136,11 +136,11 @@
   ul {
     list-style: none;
     padding-left: 32px;
-    margin: 2px 0;
+    margin: 1px 0;
 
     a {
       display: block;
-      padding: 3px 8px;
+      padding: 2px 8px;
       border-radius: 4px;
       font-size: 0.9em;
       background: transparent;
