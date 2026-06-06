@@ -913,3 +913,4 @@ sequenceDiagram
 * [힐베르트 곡선(Hilbert curve)](https://en.wikipedia.org/wiki/Hilbert_curve)
 * [지오펜스(Geofence)](https://en.wikipedia.org/wiki/Geofence)
 * [영역 지정 알고리즘(Region Cover Algorithm)](https://s2.inair.space/)
+* [책에 나온 링크들 모음](https://github.com/alex-xu-system/bytebytego/blob/main/system_design_links_vol2.md)
