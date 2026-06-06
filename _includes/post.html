@@ -11,7 +11,7 @@
     <p class="post-date heading">
       <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
       {% include tag-list.html tags=post.categories meta=site.featured_categories start_with="in " separator=" / " %}
-      {% include tag-list.html tags=post.tags meta=site.featured_tags start_with="on " separator=", " %}
+      {% include tag-list.html tags=post.tags meta=site.featured_tags start_with="on " separator=" " %}
     </p>
 
     {% include message.html text=post.description %}

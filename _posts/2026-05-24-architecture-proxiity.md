@@ -3,7 +3,7 @@ layout: post
 title:  "Architecture - 근접성 서비스(Geohash, Quadtree)"
 date: 2026-05-24 10:00:00
 categories: dev
-tags: dev architecture system-design proximity-service lbs geohash quadtree redis database-sharding 대규모시스템설계 근접성서비스 위치기반서비스 지오해시 쿼드트리 레디스 캐싱 아키텍처 시스템디자인
+tags: architecture system-design proximity-service lbs geohash quadtree redis database-sharding 대규모시스템설계 근접성서비스 위치기반서비스 지오해시 쿼드트리 레디스 캐싱 아키텍처 시스템디자인
 ---
 
 
