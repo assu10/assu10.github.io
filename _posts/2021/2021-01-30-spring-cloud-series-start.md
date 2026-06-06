@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "이 블로그의 MSA 에 사용된 인스턴스 포트 정보 및 서비스 시작법"
+title:  "이 블로그의 MSA 에 사용된 인스턴스 포트 정보 및 서비스 시작법"
 date: 2021-01-30 10:00
 categories: dev
 tags: msa centralized-log sleuth open-zipkin
@@ -12,23 +12,23 @@ tags: msa centralized-log sleuth open-zipkin
 (제가 헷갈려서 정리해놓은 글..)
 
 <!-- TOC -->
- * [1. 인스턴스 포트 정리](#1-인스턴스-포트-정리)
- * [2. 사전 기동 서비스들](#2-사전-기동-서비스들)
- * [3. 로그 서비스들](#3-로그-서비스들)
+  * [1. 인스턴스 포트 정리](#1-인스턴스-포트-정리)
+  * [2. 사전 기동 서비스들](#2-사전-기동-서비스들)
+  * [3. 로그 서비스들](#3-로그-서비스들)
 <!-- TOC -->
 
 ---
 
 ## 1. 인스턴스 포트 정리
 
-|    마이크로서비스명    | 사용 포트   |
+|       마이크로서비스명       | 사용 포트      |
 |:--------------------:|:-----------|
-|    Eureka    | 8762, 8763 |
-|     Zuul     | 5555    |
-|  Config Server   | 8889    |
-| Event MicroService | 8070, 8071 |
-| Member MicroService | 8090, 8091 |
-|     Auth     | 8901    |
+|        Eureka        | 8762, 8763 |
+|         Zuul         | 5555       |
+|    Config Server     | 8889       |
+|  Event MicroService  | 8070, 8071 |
+| Member MicroService  | 8090, 8091 |
+|         Auth         | 8901       |
 
 ---
 
@@ -38,7 +38,7 @@ Kafka 는 Zookeeper 를 사용하기 때문에 주키퍼부터 실행한 후 Kaf
 (윈도우 환경이라면 C:\myhome\03_Study\kafka_2.13-2.6.0\logs 의 log 먼저 모두 삭제)
 
 ```shell
--- 주키퍼 실행
+--  주키퍼 실행
 C:\myhome\03_Study\kafka_2.13-2.6.0\bin\windows> .\zookeeper-server-start.bat ..\..\config\zookeeper.properties
 
 -- Spring Cloud Stream Kafka 실행

@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Coroutine - 스레드 양보: 서브루틴과 실행 스레드 전환"
+title:  "Coroutine - 스레드 양보: 서브루틴과 실행 스레드 전환"
 date: 2025-06-08
 categories: dev
 tags: kotlin coroutine thread subroutine delay yield await thread-switching-concurrency
 ---
 
-코루틴을 처음 접하면 종종 **서브루틴(subroutine)**과의 차이부터 헷갈리기 시작한다. 
+코루틴을 처음 접하면 종종 **서브루틴(subroutine)**과의 차이부터 헷갈리기 시작한다.  
 여기서는 **서브루틴과 코루틴의 구조적 차이**를 짚고, 코루틴이 **협력적(concurrent)**으로 동작하기 위해 **어떻게 스레드를 양보**하는지, 그리고 일시 중단된 코루틴이 **재개될 때 
 어떤 스레드에서 실행**되는지 살펴본다.
 
@@ -22,14 +22,14 @@ tags: kotlin coroutine thread subroutine delay yield await thread-switching-conc
 
 <!-- TOC -->
 * [1. 서브루틴(subroutine)과 코루틴](#1-서브루틴subroutine과-코루틴)
- * [1.1. 서브루틴(subroutine)과 코루틴의 차이](#11-서브루틴subroutine과-코루틴의-차이)
+  * [1.1. 서브루틴(subroutine)과 코루틴의 차이](#11-서브루틴subroutine과-코루틴의-차이)
 * [2. 코루틴의 스레드 양보](#2-코루틴의-스레드-양보)
- * [2.1. `delay()` 일시 중단 함수의 스레드 양보](#21-delay-일시-중단-함수의-스레드-양보)
- * [2.2. `join()` 과 `await()` 의 동작 방식](#22-join-과-await-의-동작-방식)
- * [2.3. `yield()` 의 스레드 양보](#23-yield-의-스레드-양보)
+  * [2.1. `delay()` 일시 중단 함수의 스레드 양보](#21-delay-일시-중단-함수의-스레드-양보)
+  * [2.2. `join()` 과 `await()` 의 동작 방식](#22-join-과-await-의-동작-방식)
+  * [2.3. `yield()` 의 스레드 양보](#23-yield-의-스레드-양보)
 * [3. 코루틴의 실행 스레드](#3-코루틴의-실행-스레드)
- * [3.1. 코루틴의 실행 스레드는 고정이 아니다](#31-코루틴의-실행-스레드는-고정이-아니다)
- * [3.2. 스레드를 양보하지 않으면 실행 스레드가 바뀌지 않는다.](#32-스레드를-양보하지-않으면-실행-스레드가-바뀌지-않는다)
+  * [3.1. 코루틴의 실행 스레드는 고정이 아니다](#31-코루틴의-실행-스레드는-고정이-아니다)
+  * [3.2. 스레드를 양보하지 않으면 실행 스레드가 바뀌지 않는다.](#32-스레드를-양보하지-않으면-실행-스레드가-바뀌지-않는다)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -39,8 +39,8 @@ tags: kotlin coroutine thread subroutine delay yield await thread-switching-conc
 
 ---
 
-루틴은 특정 작업을 수행하는 명령의 집합으로 함수나 메서드를 뜻한다. 
-그 중에서도 **서브루틴은 다른 함수 내부에서 호출되는 함수**를 의미하며, 호출한 함수(루틴)은 서브루틴의 실행이 끝날 때까지 **스레드를 양보하지 않고 기다린다.** 
+루틴은 특정 작업을 수행하는 명령의 집합으로 함수나 메서드를 뜻한다.  
+그 중에서도 **서브루틴은 다른 함수 내부에서 호출되는 함수**를 의미하며, 호출한 함수(루틴)은 서브루틴의 실행이 끝날 때까지 **스레드를 양보하지 않고 기다린다.**  
 즉, **서브루틴은 실행이 완료되기 전까지 실행 흐름을 다른 곳에 넘기지 않는다.**
 
 ---
@@ -65,17 +65,17 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 
 fun main() = runBlocking<Unit>{
- launch {
-  while (true) {
-   println("[${Thread.currentThread().name}] 자식 코루틴에서 작업 실행 중")
-   yield() // 스레드 사용 권한 양보
+  launch {
+    while (true) {
+      println("[${Thread.currentThread().name}] 자식 코루틴에서 작업 실행 중")
+      yield() // 스레드 사용 권한 양보
+    }
   }
- }
 
- while (true) {
-  println("[${Thread.currentThread().name}] 부모 코루틴에서 작업 실행 중")
-  yield() // 스레드 사용 권한 양보
- }
+  while (true) {
+    println("[${Thread.currentThread().name}] 부모 코루틴에서 작업 실행 중")
+    yield() // 스레드 사용 권한 양보
+  }
 }
 ```
 
@@ -97,11 +97,11 @@ Process finished with exit code 130 (interrupted by signal 2:SIGINT)
 
 <**서브루틴 vs 코루틴**>
 
-|  항목  | 서브루틴     | 코루틴          |
+|   항목   | 서브루틴         | 코루틴                    |
 |:------:|:-------------|:-----------------------|
-| 실행 방식 | 호출되면 완료까지 실행 | 실행 중에도 중단 가능      |
-| 스레드 점유 | 반환 전까지 점유  | 필요 시 `yield()` 로 양보 가능 |
-|  특징  | 동기적, 직선적 흐름 | 협력적, 동시적 흐름      |
+| 실행 방식  | 호출되면 완료까지 실행 | 실행 중에도 중단 가능           |
+| 스레드 점유 | 반환 전까지 점유    | 필요 시 `yield()` 로 양보 가능 |
+|   특징   | 동기적, 직선적 흐름  | 협력적, 동시적 흐름            |
 
 코루틴은 **서로 협력적으로 실행되기 위해 명시적으로 스레드를 양보**하며, 이런 동작은 비동기 작업을 효율적으로 처리하는 기반이 된다. 
 따라서 코루틴이 협력적으로 동작하기 위해서는 코루틴이 작업을 하지 않는 시점에 스레드 사용 권한을 양보하고 일시 중단해야 한다.
@@ -112,25 +112,25 @@ Process finished with exit code 130 (interrupted by signal 2:SIGINT)
 
 # 2. 코루틴의 스레드 양보
 
-코루틴은 작업 도중 스레드가 더 이상 필요하지 않은 시점이 오면 **스스로 스레드를 양보**할 수 있다. 
+코루틴은 작업 도중 스레드가 더 이상 필요하지 않은 시점이 오면 **스스로 스레드를 양보**할 수 있다.  
 양보된 스레드는 **다른 코루틴의 실행에 재사용**되며, 이것이 코루틴이 **적은 수의 스레드로 많은 작업을 처리할 수 있는 비결**이다.
 
 - **스레드를 할당하는 주체 vs 양보하는 주체**
- - **CoroutineDispatcher**: 코루틴을 어느 스레드에서 실행시킬지를 결정하는 역할
- - **코루틴 자신**: 실행 중인 스레드를 **양보할지 말지를 스스로 결정함**
+  - **CoroutineDispatcher**: 코루틴을 어느 스레드에서 실행시킬지를 결정하는 역할
+  - **코루틴 자신**: 실행 중인 스레드를 **양보할지 말지를 스스로 결정함**
 
-즉, Dispatcher 는 코루틴에게 "스레드를 양보하라"고 **강제할 수 없다.** 
+즉, Dispatcher 는 코루틴에게 "스레드를 양보하라"고 **강제할 수 없다.**  
 **코루틴 내부에서 명시적으로 스레드 양보를 요청하는 코드**가 있어야만 실제 양보가 발생한다.
 
 코루틴이 스레드를 양보하도록 만드는 대표적인 일시 중단 함수(suspend) 는 아래와 같다.
 - **`delay()`**
- - 일정 시간 동안 **일시 중단** 후, 다시 실행 가능한 상태로 진입함
+  - 일정 시간 동안 **일시 중단** 후, 다시 실행 가능한 상태로 진입함
 - **`join()`**
- - 다른 Job(코루틴)의 완료를 **기다리며 스레드를 양보**함
+  - 다른 Job(코루틴)의 완료를 **기다리며 스레드를 양보**함
 - **`await()`**
- - Deferred 결과가 준비될 때까지 **대기하면서 스레드를 양보**함
+  - Deferred 결과가 준비될 때까지 **대기하면서 스레드를 양보**함
 - **`yield()`**
- - **즉시 스레드를 양보**하고 다른 코루틴에 실행 기회 제공
+  - **즉시 스레드를 양보**하고 다른 코루틴에 실행 기회 제공
 
 각 함수는 모두 스레드 사용을 잠시 멈추고 다른 코루틴이 실행될 수 있도록 기회를 제공한다.
 
@@ -138,8 +138,8 @@ Process finished with exit code 130 (interrupted by signal 2:SIGINT)
 
 ## 2.1. `delay()` 일시 중단 함수의 스레드 양보
 
-`delay()` 는 **일정 시간 동안 코루틴을 일시 중단(suspend)** 시키는 함수이다. 
-이 함수가 호출되면 **코루틴은 현재 점유 중인 스레드를 즉시 반환**하고, 지정된 시간이 지나면 다시 **스레드를 할당받아 작업을 재개**한다. 
+`delay()` 는 **일정 시간 동안 코루틴을 일시 중단(suspend)** 시키는 함수이다.  
+이 함수가 호출되면 **코루틴은 현재 점유 중인 스레드를 즉시 반환**하고, 지정된 시간이 지나면 다시 **스레드를 할당받아 작업을 재개**한다.  
 즉, `delay()` 는 스레드를 점유하지 않고 기다릴 수 있게 해주는 대표적인 스레드 양보 함수이다.
 
 코루틴의 스레드 양보 기능은 여러 코루틴이 동시에 실행되는 상황에서 더욱 강력하게 작동한다.
@@ -154,13 +154,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
- val startTime: Long = System.currentTimeMillis()
- repeat(10) {
-  launch {
-   delay(1000L) // 1초 동안 코루틴 일시 중단
-   println("[${Thread.currentThread().name}] [${getElapsedTime(startTime)}] 코루틴 $it 실행 완료")
+  val startTime: Long = System.currentTimeMillis()
+  repeat(10) {
+    launch {
+      delay(1000L) // 1초 동안 코루틴 일시 중단
+      println("[${Thread.currentThread().name}] [${getElapsedTime(startTime)}] 코루틴 $it 실행 완료")
+    }
   }
- }
 }
 
 fun getElapsedTime(startTime: Long): String = "지난 시간: ${System.currentTimeMillis() - startTime} ms"
@@ -196,13 +196,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  val startTime: Long = System.currentTimeMillis()
-  repeat(10) {
-    launch {
-      Thread.sleep(1000L) // 1초 동안 스레드 블로킹 (코루틴의 스레드 점유 유지)
-      println("[${Thread.currentThread().name}] [${getElapsedTime(startTime)}] 코루틴 $it 실행 완료")
+    val startTime: Long = System.currentTimeMillis()
+    repeat(10) {
+        launch {
+            Thread.sleep(1000L) // 1초 동안 스레드 블로킹 (코루틴의 스레드 점유 유지)
+            println("[${Thread.currentThread().name}] [${getElapsedTime(startTime)}] 코루틴 $it 실행 완료")
+        }
     }
-  }
 }
 
 fun getElapsedTime(startTime: Long): String = "지난 시간: ${System.currentTimeMillis() - startTime} ms"
@@ -229,15 +229,15 @@ Process finished with exit code 0
 
 <**`delay()` vs `Thread.sleep()`**>
 
-|  항목   | `delay()`      | `Thread.sleep()`  |
+|    항목     | `delay()`           | `Thread.sleep()`   |
 |:---------:|:--------------------|:-------------------|
-| 일시 중단 방식 | 비동기 일시 중단 (suspend) | 스레드 블로킹 (blocking) |
-| 스레드 점유  | 일시 중단 중 스레드 반납   | 스레드 계속 점유     |
-| 병렬 실행 가능성 | 높음 (다른 코루틴이 실행됨)  | 낮음 (직렬 처리됨)    |
-| 성능 및 확장성 | 매우 우수        | 낮음         |
+| 일시 중단 방식  | 비동기 일시 중단 (suspend) | 스레드 블로킹 (blocking) |
+|  스레드 점유   | 일시 중단 중 스레드 반납      | 스레드 계속 점유          |
+| 병렬 실행 가능성 | 높음 (다른 코루틴이 실행됨)    | 낮음 (직렬 처리됨)        |
+| 성능 및 확장성  | 매우 우수               | 낮음                 |
 
-`delay()` 는 코루틴이 **스레드 양보를 통해 비동기적으로 대기**하게 만들어 준다. 
-이는 **적은 수의 스레드로 많은 작업을 동시에 처리할 수 있는 핵심 메커니즘**이다. 
+`delay()` 는 코루틴이 **스레드 양보를 통해 비동기적으로 대기**하게 만들어 준다.  
+이는 **적은 수의 스레드로 많은 작업을 동시에 처리할 수 있는 핵심 메커니즘**이다.  
 반면, `Thread.sleep()` 은 코루틴의 장점을 무력화시키는 **동기 블로킹 호출**이므로 피하는 것이 좋다.
 
 ---
@@ -259,14 +259,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  val job = launch {
-    println("[${Thread.currentThread().name}] 1. launch 코루틴 작업 시작")
-    delay(1000L) // 1초간 대기
-    println("[${Thread.currentThread().name}] 2. launch 코루틴 작업 완료")
-  }
-  println("[${Thread.currentThread().name}] 3. runBlocking 코루틴이 곧 일시 중단되고 메인 스레드가 양보됨")
-  job.join() // job 내부의 코드가 모두 실행될 때까지(= launch 코루틴이 끝날 때까지) 메인 스레드 일시 중단
-  println("[${Thread.currentThread().name}] 4. runBlocking 메인 스레드에 분배되어 작업이 다시 재개됨")
+    val job = launch {
+        println("[${Thread.currentThread().name}] 1. launch 코루틴 작업 시작")
+        delay(1000L) // 1초간 대기
+        println("[${Thread.currentThread().name}] 2. launch 코루틴 작업 완료")
+    }
+    println("[${Thread.currentThread().name}] 3. runBlocking 코루틴이 곧 일시 중단되고 메인 스레드가 양보됨")
+    job.join() // job 내부의 코드가 모두 실행될 때까지(= launch 코루틴이 끝날 때까지) 메인 스레드 일시 중단
+    println("[${Thread.currentThread().name}] 4. runBlocking 메인 스레드에 분배되어 작업이 다시 재개됨")
 }
 ```
 
@@ -300,10 +300,10 @@ Process finished with exit code 0
 Process finished with exit code 0
 ```
 
-`job.join()` 을 호출하지 않으면 runBlocking 코루틴은 스레드 양보없이 바로 4번 로그를 출력한다. 
+`job.join()` 을 호출하지 않으면 runBlocking 코루틴은 스레드 양보없이 바로 4번 로그를 출력한다.  
 즉, launch 코루틴의 작업이 끝나기 전에 runBlocking 이 먼저 종료되는 흐름이다.
 
-이렇게 `join()`, `await()` 가 호출되면 호출부의 코루틴은 스레드를 양보하고 일시 중단하며, `join()`, `await()` 의 대상이 된 코루틴이 실행 완료될 때까지 재개되지 않는다. 
+이렇게 `join()`, `await()` 가 호출되면 호출부의 코루틴은 스레드를 양보하고 일시 중단하며, `join()`, `await()` 의 대상이 된 코루틴이 실행 완료될 때까지 재개되지 않는다.  
 이는 **코루틴 간 정확한 실행 순서를 제어**하거나, **동기화된 흐름을 만들고 싶을 때 유용**하다.
 
 이렇게 코루틴은 개발자가 직접 스레드 양보를 호출하지 않아도 스레드 양보를 자동으로 처리한다.
@@ -313,8 +313,8 @@ Process finished with exit code 0
 
 ## 2.3. `yield()` 의 스레드 양보
 
-`delay()`, `join()` 같은 일시 중단 함수들은 **내부적으로 스레드 양보를 자동으로 수행**한다. 
-하지만 **명시적으로 스레드를 양보해야 하는 상황**도 있다. 
+`delay()`, `join()` 같은 일시 중단 함수들은 **내부적으로 스레드 양보를 자동으로 수행**한다.  
+하지만 **명시적으로 스레드를 양보해야 하는 상황**도 있다.  
 그 대표적인 예가 무한 루프와 같은 코드에서 **직접 `yield()` 를 호출**해야 하는 경우이다.
 
 문제가 되는 상황 예시 코드
@@ -327,20 +327,20 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  val job = launch {
-    while (this.isActive) {
-      println("작업 중")
+    val job = launch {
+        while (this.isActive) {
+            println("작업 중")
+        }
     }
-  }
-  delay(100) // 100ms 대기(스레드 양보)
-  job.cancel() // 코루틴 취소
+    delay(100) // 100ms 대기(스레드 양보)
+    job.cancel() // 코루틴 취소
 }
 ```
 
 기대한 동작은 아래와 같다.
 - runBlocking 코루틴이 100ms 동안 대기(`delay()`로 스레드 양보)
 - 그 동안 launch 실행되어 "작업 중" 출력
-- 100ms 후 `job.cancel()` 이 호출되어 launch 코루틴은 코루틴이 활성화되어 있는지를 체크하는 `isActive` 체크로 종료
+- 100ms 후 `job.cancel()` 이 호출되어 launch 코루틴은 코루틴이 활성화되어 있는지를 체크하는  `isActive` 체크로 종료
 
 하지만 실제 동작은 아래처럼 launch 코루틴이 취소되지 않고 "작업 중"이 무한히 출력된다.
 ```shell
@@ -367,14 +367,14 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 
 fun main() = runBlocking<Unit> {
-  val job = launch {
-    while (this.isActive) {
-      println("작업 중")
-      yield() // 스레드 양보
+    val job = launch {
+        while (this.isActive) {
+            println("작업 중")
+            yield() // 스레드 양보
+        }
     }
-  }
-  delay(100) // 100ms 대기(스레드 양보)
-  job.cancel() // 코루틴 취소
+    delay(100) // 100ms 대기(스레드 양보)
+    job.cancel() // 코루틴 취소
 }
 ```
 
@@ -406,7 +406,7 @@ Process finished with exit code 0
 
 코루틴은 `delay()` 같은 일시 중단 함수 호출 후, 다시 실행되면서 **처음 실행되던 스레드가 아닌 다른 스레드에서 재개될 수 있다.**
 
-이는 코루틴을 실행하는 CoroutineDispatcher 가 **사용 가능한 스레드 중 하나에 코루틴을 분배**하기 때문이다. 
+이는 코루틴을 실행하는 CoroutineDispatcher 가 **사용 가능한 스레드 중 하나에 코루틴을 분배**하기 때문이다.  
 즉, **코루틴의 실행 스레드는 고정되지 않으며, 재개 시마다 바뀔 수 있다.**
 
 ```kotlin
@@ -419,16 +419,16 @@ import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit>{
-  val dispatcher: ExecutorCoroutineDispatcher = newFixedThreadPoolContext(2, "MyThread")
-  launch(dispatcher) {
-    repeat(5) {
-      // launch 코루틴의 실행 중인 스레드 출력
-      println("[${Thread.currentThread().name}] 코루틴 실행 일시 중단")
-      delay(100L) // 코루틴 일시 중단 (= 스레드 양보)
-      // launch 코루틴이 재개되면 코루틴을 실행 중인 스레드 출력
-      println("[${Thread.currentThread().name}] 코루틴 실행 재개")
+    val dispatcher: ExecutorCoroutineDispatcher = newFixedThreadPoolContext(2, "MyThread")
+    launch(dispatcher) {
+        repeat(5) {
+            // launch 코루틴의 실행 중인 스레드 출력
+            println("[${Thread.currentThread().name}] 코루틴 실행 일시 중단")
+            delay(100L) // 코루틴 일시 중단 (= 스레드 양보)
+            // launch 코루틴이 재개되면 코루틴을 실행 중인 스레드 출력
+            println("[${Thread.currentThread().name}] 코루틴 실행 재개")
+        }
     }
-  }
 }
 ```
 
@@ -464,7 +464,7 @@ Process finished with exit code 0
 
 > 코루틴이 스레드를 양보하지 않으면 코루틴을 사용하는 이점이 모두 사라지게 되므로 이렇게 코드를 만드는 것은 지양해야 한다.
 
-코루틴은 **일시 중단(suspend) 지점이 있을 때만 재개 시점에 다른 스레드로 옮겨갈 수 있다.** 
+코루틴은 **일시 중단(suspend) 지점이 있을 때만 재개 시점에 다른 스레드로 옮겨갈 수 있다.**  
 즉, `delay()`, `yield()`, `withContext()` 등 일시 중단 함수를 사용해서 스레드를 양보하고, 이후 CoroutineDispatcher 가 적절한 스레드에 
 재할당할 수 있다.
 
@@ -480,16 +480,16 @@ import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit>{
-  val dispatcher: ExecutorCoroutineDispatcher = newFixedThreadPoolContext(2, "MyThread")
-  launch(dispatcher) {
-    repeat(5) {
-      // launch 코루틴의 실행 중인 스레드 출력
-      println("[${Thread.currentThread().name}] 스레드를 점유한 채로 대기")
-      Thread.sleep(100L) // 스레드를 점유한 채로 100ms 대기
-      // launch 코루틴이 재개되면 코루틴을 실행 중인 스레드 출력
-      println("[${Thread.currentThread().name}] 점유한 스레드에서 마저 실행")
+    val dispatcher: ExecutorCoroutineDispatcher = newFixedThreadPoolContext(2, "MyThread")
+    launch(dispatcher) {
+        repeat(5) {
+            // launch 코루틴의 실행 중인 스레드 출력
+            println("[${Thread.currentThread().name}] 스레드를 점유한 채로 대기")
+            Thread.sleep(100L) // 스레드를 점유한 채로 100ms 대기
+            // launch 코루틴이 재개되면 코루틴을 실행 중인 스레드 출력
+            println("[${Thread.currentThread().name}] 점유한 스레드에서 마저 실행")
+        }
     }
-  }
 }
 ```
 
@@ -514,8 +514,8 @@ Process finished with exit code 0
 즉, 코루틴은 `Thread.sleep()` 이 아니라 `delay()` 같은 suspend 함수를 사용했을 때 진정한 효율을 발휘한다.
 
 
-코루틴의 핵심 이점 중 하나는 **스레드를 점유하지 않고도 병렬 처리처럼 동작**할 수 있다는 점이다. 
-하지만 `Thread.sleep()` 을 사용할 경우, 코루틴은 스레드를 양보하지 않고 점유한 채로 대기하게 되어 스레드 전환의 이점이 사라지므로 위와 같은 코드를 지양해야 한다. 
+코루틴의 핵심 이점 중 하나는 **스레드를 점유하지 않고도 병렬 처리처럼 동작**할 수 있다는 점이다.  
+하지만 `Thread.sleep()` 을 사용할 경우, 코루틴은 스레드를 양보하지 않고 점유한 채로 대기하게 되어 스레드 전환의 이점이 사라지므로 위와 같은 코드를 지양해야 한다.  
 `Thread.sleep()` 은 코루틴의 장점인 **비동기 처리**와 **스레드 효율성**을 해친다.
 
 ---

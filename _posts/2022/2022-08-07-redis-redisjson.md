@@ -1,30 +1,30 @@
 ---
 layout: post
-title: "Redis - RedisJSON"
+title:  "Redis - RedisJSON"
 date: 2022-08-07 10:00
 categories: dev
 tags: db redis rejson RedisJSON
 ---
 
-이 포스트는 Redis 의 확장 모듈 중 하나인 `RedisJSON` 에 대해 알아본다. 
+이 포스트는 Redis 의 확장 모듈 중 하나인 `RedisJSON` 에 대해 알아본다.  
 
 <!-- TOC -->
 * [1. Redis 확장 모듈](#1-redis-확장-모듈)
 * [2. RedisJSON 설치](#2-redisjson-설치)
 * [3. RedisJSON 사용](#3-redisjson-사용)
- * [3.1. `JSON.SET`, `JSON.GET`](#31-jsonset-jsonget)
- * [3.2. `JSON.STRLEN`, `JSON.STRAPPEND`](#32-jsonstrlen-jsonstrappend-)
- * [3.3. `JSON.NUMINCRBY`, `JSON.NUMMULTBY`](#33-jsonnumincrby-jsonnummultby-)
- * [3.4. `JSON.DEL`](#34-jsondel)
- * [3.5. `JSON.FORGET`](#35-jsonforget)
- * [3.6. `JSON.ARRAPPEND`, `JSON.ARRINSERT`, `JSON.ARRTRIM`, `JSON.ARRPOP`](#36-jsonarrappend-jsonarrinsert-jsonarrtrim-jsonarrpop)
- * [3.7. `JSON.OBJLEN`, `JSON.OBJKEYS`](#37-jsonobjlen-jsonobjkeys)
- * [3.8. `INDENT`, `NEWLINE`, `SPACE`](#38-indent-newline-space)
+  * [3.1. `JSON.SET`, `JSON.GET`](#31-jsonset-jsonget)
+  * [3.2. `JSON.STRLEN`, `JSON.STRAPPEND`](#32-jsonstrlen-jsonstrappend-)
+  * [3.3. `JSON.NUMINCRBY`, `JSON.NUMMULTBY`](#33-jsonnumincrby-jsonnummultby-)
+  * [3.4. `JSON.DEL`](#34-jsondel)
+  * [3.5. `JSON.FORGET`](#35-jsonforget)
+  * [3.6. `JSON.ARRAPPEND`, `JSON.ARRINSERT`, `JSON.ARRTRIM`, `JSON.ARRPOP`](#36-jsonarrappend-jsonarrinsert-jsonarrtrim-jsonarrpop)
+  * [3.7. `JSON.OBJLEN`, `JSON.OBJKEYS`](#37-jsonobjlen-jsonobjkeys)
+  * [3.8. `INDENT`, `NEWLINE`, `SPACE`](#38-indent-newline-space)
 * [`make` 오류 시](#make-오류-시)
- * [`make` 버전 업데이트 처리](#make-버전-업데이트-처리)
- * [`rust` 설치](#rust-설치)
+  * [`make` 버전 업데이트 처리](#make-버전-업데이트-처리)
+  * [`rust` 설치](#rust-설치)
 * [`JSONPath`](#jsonpath)
- * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -86,23 +86,23 @@ $ redis-server /usr/local/etc/redis.conf
 46246:C 27 Aug 2022 13:30:34.844 # Configuration loaded
 46246:M 27 Aug 2022 13:30:34.845 * Increased maximum number of open files to 10032 (it was originally set to 256).
 46246:M 27 Aug 2022 13:30:34.845 * monotonic clock: POSIX clock_gettime
-        _._
-      _.-``__ ''-._
-   _.-``  `. `_. ''-._      Redis 7.0.4 (00000000/0) 64 bit
- .-`` .-```. ```\/  _.,_ ''-._
- (  '   ,    .-` | `,  )   Running in standalone mode
- |`-._`-...-` __...-.``-._|'` _.-'|   Port: 6379
- |  `-._  `._  /   _.-'  |   PID: 46246
- `-._  `-._ `-./ _.-'  _.-'
- |`-._`-._  `-.__.-'  _.-'_.-'|
- |  `-._`-._    _.-'_.-'  |      https://redis.io
- `-._  `-._`-.__.-'_.-'  _.-'
- |`-._`-._  `-.__.-'  _.-'_.-'|
- |  `-._`-._    _.-'_.-'  |
- `-._  `-._`-.__.-'_.-'  _.-'
-   `-._  `-.__.-'  _.-'
-     `-._    _.-'
-       `-.__.-'
+                _._
+           _.-``__ ''-._
+      _.-``    `.  `_.  ''-._           Redis 7.0.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 46246
+  `-._    `-._  `-./  _.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |           https://redis.io
+  `-._    `-._`-.__.-'_.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |
+  `-._    `-._`-.__.-'_.-'    _.-'
+      `-._    `-.__.-'    _.-'
+          `-._        _.-'
+              `-.__.-'
 
 46246:M 27 Aug 2022 13:30:34.846 # WARNING: The TCP backlog setting of 511 cannot be enforced because kern.ipc.somaxconn is set to the lower value of 128.
 46246:M 27 Aug 2022 13:30:34.846 # Server initialized
@@ -130,23 +130,23 @@ $ redis-server
 46320:C 27 Aug 2022 13:30:59.966 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
 46320:M 27 Aug 2022 13:30:59.967 * Increased maximum number of open files to 10032 (it was originally set to 256).
 46320:M 27 Aug 2022 13:30:59.967 * monotonic clock: POSIX clock_gettime
-        _._
-      _.-``__ ''-._
-   _.-``  `. `_. ''-._      Redis 7.0.4 (00000000/0) 64 bit
- .-`` .-```. ```\/  _.,_ ''-._
- (  '   ,    .-` | `,  )   Running in standalone mode
- |`-._`-...-` __...-.``-._|'` _.-'|   Port: 6379
- |  `-._  `._  /   _.-'  |   PID: 46320
- `-._  `-._ `-./ _.-'  _.-'
- |`-._`-._  `-.__.-'  _.-'_.-'|
- |  `-._`-._    _.-'_.-'  |      https://redis.io
- `-._  `-._`-.__.-'_.-'  _.-'
- |`-._`-._  `-.__.-'  _.-'_.-'|
- |  `-._`-._    _.-'_.-'  |
- `-._  `-._`-.__.-'_.-'  _.-'
-   `-._  `-.__.-'  _.-'
-     `-._    _.-'
-       `-.__.-'
+                _._
+           _.-``__ ''-._
+      _.-``    `.  `_.  ''-._           Redis 7.0.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 46320
+  `-._    `-._  `-./  _.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |           https://redis.io
+  `-._    `-._`-.__.-'_.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |
+  `-._    `-._`-.__.-'_.-'    _.-'
+      `-._    `-.__.-'    _.-'
+          `-._        _.-'
+              `-.__.-'
 
 46320:M 27 Aug 2022 13:30:59.967 # WARNING: The TCP backlog setting of 511 cannot be enforced because kern.ipc.somaxconn is set to the lower value of 128.
 46320:M 27 Aug 2022 13:30:59.967 # Server initialized
@@ -198,7 +198,7 @@ OK
 
 ---
 
-## 3.2. `JSON.STRLEN`, `JSON.STRAPPEND` 
+## 3.2. `JSON.STRLEN`, `JSON.STRAPPEND`  
 
 - `JSON.STRLEN` : 문자열의 길이 조회
 - `JSON.STRAPPEND` : 문자열 추가
@@ -216,7 +216,7 @@ OK
 
 ---
 
-## 3.3. `JSON.NUMINCRBY`, `JSON.NUMMULTBY` 
+## 3.3. `JSON.NUMINCRBY`, `JSON.NUMMULTBY`  
 
 - `JSON.NUMINCRBY`
 - `JSON.NUMMULTBY`
@@ -272,10 +272,10 @@ OK
 
 ```shell
 127.0.0.1:6379> JSON.forget test
-(integer) 1 # 삭제 완료
+(integer) 1  # 삭제 완료
 
 127.0.0.1:6379> JSON.forget test
-(integer) 0 # 삭제할 것이 없음
+(integer) 0  # 삭제할 것이 없음
 ```
 
 ---
@@ -329,8 +329,8 @@ OK
 
 127.0.0.1:6379> JSON.OBJKEYS obj $
 1) 1) "name"
-  2) "lastSeen"
-  3) "loggedOut"
+   2) "lastSeen"
+   3) "loggedOut"
 127.0.0.1:6379> JSON.OBJKEYS obj
 1) "name"
 2) "lastSeen"
@@ -354,18 +354,18 @@ $ redis-cli --raw
 
 127.0.0.1:6379> JSON.GET obj INDENT "\t" NEWLINE "\n" SPACE " " $
 [
-    {
-        "name": "Leonard Cohen",
-        "lastSeen": 1478476800,
-        "loggedOut": true
-    }
+        {
+                "name": "Leonard Cohen",
+                "lastSeen": 1478476800,
+                "loggedOut": true
+        }
 ]
 
 127.0.0.1:6379> JSON.GET obj INDENT "\t" NEWLINE "\n" SPACE " "
 {
-    "name": "Leonard Cohen",
-    "lastSeen": 1478476800,
-    "loggedOut": true
+        "name": "Leonard Cohen",
+        "lastSeen": 1478476800,
+        "loggedOut": true
 }
 ```
 
@@ -377,7 +377,7 @@ $ redis-cli --raw
 
 ```shell
 $ make
-deps/readies/mk/main:6: *** GNU Make version is too old. Aborting.. Stop.
+deps/readies/mk/main:6: *** GNU Make version is too old. Aborting..  Stop.
 
 $ make -v
 GNU Make 3.81
@@ -385,7 +385,7 @@ GNU Make 3.81
 $ brew install homebrew/core/make
 Warning: make 4.3 is already installed, it's just not linked. --> 이미 4.3 버전이 설치되어 있다고 나옴
 To link this version, run:
- brew link make
+  brew link make
 ```
 
 `.zshrc` 파일에 아래 내용 추가

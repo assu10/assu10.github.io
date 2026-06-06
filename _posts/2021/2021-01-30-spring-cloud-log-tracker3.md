@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring Cloud - Sleuth, Open Zipkin 을 이용한 분산 추적 (3/4) - 로그 추적을 위한 Sleuth 사용"
+title:  "Spring Cloud - Sleuth, Open Zipkin 을 이용한 분산 추적 (3/4) - 로그 추적을 위한 Sleuth 사용"
 date: 2021-01-30 10:00
 categories: dev
 tags: msa centralized-log sleuth open-zipkin
@@ -10,10 +10,10 @@ tags: msa centralized-log sleuth open-zipkin
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 <!-- TOC -->
- * [1. Spring Cloud Sleuth 와 Open Zipkin](#1-spring-cloud-sleuth-와-open-zipkin-)
- * [2. Sleuth](#2-sleuth)
-  * [2.1. 마이크로서비스에 Sleuth 추가](#21-마이크로서비스에-sleuth-추가)
- * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [1. Spring Cloud Sleuth 와 Open Zipkin](#1-spring-cloud-sleuth-와-open-zipkin-)
+  * [2. Sleuth](#2-sleuth)
+    * [2.1. 마이크로서비스에 Sleuth 추가](#21-마이크로서비스에-sleuth-추가)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -36,12 +36,12 @@ tags: msa centralized-log sleuth open-zipkin
 `Spring Cloud Sleuth` 와 `Open Zipkin` 의 역할은 각각 아래와 같다.
 
 - **Sleuth**
-  - 상관관계 ID 를 사용하여 HTTP 호출을 추적하는 스프링 클라우드 프로젝트
-  - 생성 중인 추적 데이터를 Open Zipkin 에 공급할 수 있는 **연결 고리(hook)을 제공**
-  - 생성된 상관관계 ID 를 모든 시스템 호출로 통과시키기 위해 필터를 추가하고, 다른 스프링 컴포넌트와 상호 작용하는 방식으로 활용
+    - 상관관계 ID 를 사용하여 HTTP 호출을 추적하는 스프링 클라우드 프로젝트
+    - 생성 중인 추적 데이터를 Open Zipkin 에 공급할 수 있는 **연결 고리(hook)을 제공**
+    - 생성된 상관관계 ID 를 모든 시스템 호출로 통과시키기 위해 필터를 추가하고, 다른 스프링 컴포넌트와 상호 작용하는 방식으로 활용
 - **Open Zipkin**
-  - **여러 서비스 사이의 트랜잭션 흐름**을 보여주는 오픈 소스 기반의 **데이터 시각화** 도구
-  - 트랜잭션을 컴포넌트별로 분해하고 **성능 과열점(hotspot) 이 어디서 발생했는지 시각적으로 확인** 가능
+    - **여러 서비스 사이의 트랜잭션 흐름**을 보여주는 오픈 소스 기반의 **데이터 시각화** 도구
+    - 트랜잭션을 컴포넌트별로 분해하고 **성능 과열점(hotspot) 이 어디서 발생했는지 시각적으로 확인** 가능
 
 ---
 
@@ -50,14 +50,14 @@ tags: msa centralized-log sleuth open-zipkin
 분산 로그 추적은 `구간(span)` 과 `추적(trace)` 개념으로 동작한다.
 
 - **구간(span)**
-  - 하나의 작업 단위
-  - 전체 트랜잭션에서 고유한 숫자
-  - 예를 들어 하나의 서비스 호출은 64bit 의 `스팬 ID(span ID)` 로 식별됨 
+    - 하나의 작업 단위
+    - 전체 트랜잭션에서 고유한 숫자
+    - 예를 들어 하나의 서비스 호출은 64bit 의 `스팬 ID(span ID)` 로 식별됨  
 - **추적(trace)**
-  - 여러 개의 구간으로 이루어진 한 세트의 트리 구조
-  - 전체 트랜잭션의 일부를 나타내는 고유 ID
-  - `추적 ID(trace ID)` 를 사용하여 서비스의 호출을 처음부터 끝까지 추적 가능
-  
+    - 여러 개의 구간으로 이루어진 한 세트의 트리 구조
+    - 전체 트랜잭션의 일부를 나타내는 고유 ID
+    - `추적 ID(trace ID)` 를 사용하여 서비스의 호출을 처음부터 끝까지 추적 가능
+    
 아마 위의 설명만으론 잘 이해가 되지 않을 수 있는데 아래 그림을 보면 이해하는데 도움이 될 것이다.
 
 ![추적 아이디(Trace ID)와 구간 아이디(Span ID)](/assets/img/dev/2021/0130/trace-spanid.png)
@@ -89,15 +89,15 @@ Sleuth를 적용하는 방법은 매우 간단하다.<br />
 **member-service, event-service > pom.xml**
 ```xml
 <dependency>
-  <groupId>org.springframework.cloud</groupId>
-  <artifactId>spring-cloud-starter-sleuth</artifactId>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-sleuth</artifactId>
 </dependency>
 ```
 
 이제 각 서비스는 아래와 같은 기능을 할 수 있다.
 
 - 서비스로 들어오는 모든 HTTP 호출을 검사하고 그 호출에서 Sleuth의 추적 정보가 존재하는지 확인한다.
- 추적 정보가 있다면 마이크로서비스로 전달된 추적 정보를 수집하여 로깅을 위해 서비스에 제공한다.
+  추적 정보가 있다면 마이크로서비스로 전달된 추적 정보를 수집하여 로깅을 위해 서비스에 제공한다.
 - 서비스에서 나가는 모든 HTTP 호출과 스프링이 메시징 채널의 메시지에 삽입한다.
 
 이제 두 개의 마이크로서비스를 통과하는 API 호출 후 의존성을 추가하기 전과 후의 로그를 비교해보자.<br />
@@ -106,19 +106,19 @@ Sleuth를 적용하는 방법은 매우 간단하다.<br />
 **Sleuth 의존성 추가 전**
 ```shell
 -- member-service
-2021-01-30 20:46:40.566 INFO 22744 --- [nio-8090-exec-1] MemberController   : [MEMBER] gift/{name} logging...name is ASSU.
+2021-01-30 20:46:40.566  INFO 22744 --- [nio-8090-exec-1] MemberController      : [MEMBER] gift/{name} logging...name is ASSU.
 
 -- event-service
-2021-01-30 20:46:40.919 INFO 21756 --- [nio-8070-exec-1] EventController    : [EVENT] Gift is ASSU logging...gift is {}.
+2021-01-30 20:46:40.919  INFO 21756 --- [nio-8070-exec-1] EventController       : [EVENT] Gift is ASSU logging...gift is {}.
 ```
 
 **Sleuth 의존성 추가 후**
 ```shell
 -- member-service
-2021-01-30 20:48:25.056 INFO [,e6fcd377c5c46bd9,e6fcd377c5c46bd9,true] 15792 --- [nio-8090-exec-1] MemberController   : [MEMBER] gift/{name} logging...name is ASSU.
+2021-01-30 20:48:25.056  INFO [,e6fcd377c5c46bd9,e6fcd377c5c46bd9,true] 15792 --- [nio-8090-exec-1] MemberController      : [MEMBER] gift/{name} logging...name is ASSU.
 
 -- event-service
-2021-01-30 20:48:25.438 INFO [,e6fcd377c5c46bd9,15a21c3858c0b1e0,true] 22052 --- [nio-8070-exec-1] EventController    : [EVENT] Gift is ASSU logging...gift is {}.
+2021-01-30 20:48:25.438  INFO [,e6fcd377c5c46bd9,15a21c3858c0b1e0,true] 22052 --- [nio-8070-exec-1] EventController       : [EVENT] Gift is ASSU logging...gift is {}.
 ```
 
 INFO 다음에 이상한 문구가 찍힌 것이 보일텐데 각 항목의 의미는 아래와 같다.

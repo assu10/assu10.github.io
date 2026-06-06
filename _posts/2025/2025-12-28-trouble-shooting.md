@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "TroubleShooting - `docker push` 시 `denied: requested access to the resource is denied`"
+title:  "TroubleShooting - `docker push` 시 `denied: requested access to the resource is denied`"
 date: 2025-12-28
 categories: dev
 tags: trouble_shooting

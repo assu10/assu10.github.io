@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Typescript - TypeORM vs Sequelize"
+title:  "Typescript - TypeORM vs Sequelize"
 date: 2023-03-12
 categories: dev
 tags: javascript typescript typeorm
@@ -19,7 +19,7 @@ Typescript 를 지원하는 ORM 은 [TypeORM](https://typeorm.io/), [MikroORM](h
 
 [npm trends](https://npmtrends.com/) 에서 기간 당 다운로드 수, Github Stars 등을 확인할 수 있다.
 
-아래는 Sequelize 와 TypeORM 의 최근 5년간 다운로드 수와 Stars 수 이다. 
+아래는 Sequelize 와 TypeORM 의 최근 5년간 다운로드 수와 Stars 수 이다.  
 [https://npmtrends.com/sequelize-vs-typeorm](https://npmtrends.com/sequelize-vs-typeorm)
 
 ![Downloads](/assets/img/dev/2023/0312_1/downloads.png)

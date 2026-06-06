@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "떡볶이"
+title:  "떡볶이"
 date: 2023-06-04 10:00
 categories: cooking
 tags: cooking 떡볶이

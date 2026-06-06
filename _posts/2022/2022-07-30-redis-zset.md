@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Redis - Sorted Set"
+title:  "Redis - Sorted Set"
 date: 2022-07-30 10:00
 categories: dev
 tags: db redis zset sorted-set
@@ -10,28 +10,28 @@ tags: db redis zset sorted-set
 
 <!-- TOC -->
 * [1. `Sorted Set`](#1-sorted-set)
- * [1.1. `ZADD`](#11-zadd)
-  * [1.1.1. [`NX`|`XX`]](#111-nxxx)
-  * [1.1.2. [`GT`|`LT`]](#112-gtlt)
-  * [1.1.3. [`CH`]](#113-ch)
-  * [1.1.4. [`INCR`]](#114-incr)
- * [1.2. `ZRANGE`, `ZREVRANGE`](#12-zrange-zrevrange)
-  * [1.2.1. [`BYSCORE`|`BYLEX`], [`LIMIT offset count`]](#121-byscorebylex-limit-offset-count)
-  * [1.2.2. [`REV`]](#122-rev)
- * [1.3. `ZRANK`, `ZREVRANK`](#13-zrank-zrevrank)
- * [1.4. `ZSCORE`](#14-zscore)
- * [1.5. `ZCARD`](#15-zcard)
- * [1.6. `ZCOUNT`](#16-zcount)
- * [1.7. `ZSCAN`](#17-zscan)
- * [1.8. `ZPOPMIN`, `ZPOPMAX`](#18-zpopmin-zpopmax)
- * [1.9. `ZREM`, `ZREMRANGEBYRANK`, `ZREMRANGEBYSCORE`](#19-zrem-zremrangebyrank-zremrangebyscore)
- * [1.10. `ZINCRBY`](#110-zincrby)
- * [1.11. `ZUNION`, `ZINTER`, `ZDIFF`](#111-zunion-zinter-zdiff)
-  * [1.11.1. `ZUNION`](#1111-zunion)
-  * [1.11.2. `ZINTER`](#1112-zinter)
-  * [1.11.3. `ZDIFF`](#1113-zdiff)
- * [1.12. `ZUNIONSTORE`, `ZINTERSTORE`, `ZDIFFSTORE`](#112-zunionstore-zinterstore-zdiffstore)
- * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [1.1. `ZADD`](#11-zadd)
+    * [1.1.1. [`NX`|`XX`]](#111-nxxx)
+    * [1.1.2. [`GT`|`LT`]](#112-gtlt)
+    * [1.1.3. [`CH`]](#113-ch)
+    * [1.1.4. [`INCR`]](#114-incr)
+  * [1.2. `ZRANGE`, `ZREVRANGE`](#12-zrange-zrevrange)
+    * [1.2.1. [`BYSCORE`|`BYLEX`], [`LIMIT offset count`]](#121-byscorebylex-limit-offset-count)
+    * [1.2.2. [`REV`]](#122-rev)
+  * [1.3. `ZRANK`, `ZREVRANK`](#13-zrank-zrevrank)
+  * [1.4. `ZSCORE`](#14-zscore)
+  * [1.5. `ZCARD`](#15-zcard)
+  * [1.6. `ZCOUNT`](#16-zcount)
+  * [1.7. `ZSCAN`](#17-zscan)
+  * [1.8. `ZPOPMIN`, `ZPOPMAX`](#18-zpopmin-zpopmax)
+  * [1.9. `ZREM`, `ZREMRANGEBYRANK`, `ZREMRANGEBYSCORE`](#19-zrem-zremrangebyrank-zremrangebyscore)
+  * [1.10. `ZINCRBY`](#110-zincrby)
+  * [1.11. `ZUNION`, `ZINTER`, `ZDIFF`](#111-zunion-zinter-zdiff)
+    * [1.11.1. `ZUNION`](#1111-zunion)
+    * [1.11.2. `ZINTER`](#1112-zinter)
+    * [1.11.3. `ZDIFF`](#1113-zdiff)
+  * [1.12. `ZUNIONSTORE`, `ZINTERSTORE`, `ZDIFFSTORE`](#112-zunionstore-zinterstore-zdiffstore)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -67,10 +67,10 @@ $ redis-cli
 ```shell
 127.0.0.1:6379> help zadd
 
- ZADD key [NX|XX] [GT|LT] [CH] [INCR] score member [score member ...]
- summary: Add one or more members to a sorted set, or update its score if it already exists
- since: 1.2.0
- group: sorted-set
+  ZADD key [NX|XX] [GT|LT] [CH] [INCR] score member [score member ...]
+  summary: Add one or more members to a sorted set, or update its score if it already exists
+  since: 1.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -92,7 +92,7 @@ $ redis-cli
 5) "user3"
 6) "3"
 
-127.0.0.1:6379> zadd user:userNumber 5 assu # 이미 존재하는 member 는 score 업데이트
+127.0.0.1:6379> zadd user:userNumber 5 assu  # 이미 존재하는 member 는 score 업데이트
 (integer) 0
 127.0.0.1:6379> zrange user:userNumber 0 -1 withscores
 1) "user2"
@@ -121,10 +121,10 @@ $ redis-cli
 5) "assu"
 6) "5"
 
-127.0.0.1:6379> zadd user:userNumber NX 4 user4 # NX: user4 member 가 존재하지 않으므로 추가 
+127.0.0.1:6379> zadd user:userNumber NX 4 user4  # NX: user4 member 가 존재하지 않으므로 추가 
 (integer) 1
 
-127.0.0.1:6379> zadd user:userNumber NX 5 user4 # NX: user4 member 가 존재하므로 추가하지 않음
+127.0.0.1:6379> zadd user:userNumber NX 5 user4  # NX: user4 member 가 존재하므로 추가하지 않음
 (integer) 0
 
 127.0.0.1:6379> zrange user:userNumber 0 -1 withscores
@@ -133,7 +133,7 @@ $ redis-cli
 3) "user3"
 4) "3"
 5) "user4"
-6) "4" # NX: user4 member 가 존재하므로 추가하지 않음
+6) "4"  # NX: user4 member 가 존재하므로 추가하지 않음
 7) "assu"
 8) "5"
 ```
@@ -151,7 +151,7 @@ $ redis-cli
 7) "assu"
 8) "5"
 
-127.0.0.1:6379> zadd user:userNumber XX 5 user4 # XX: user4 member 가 존재하므로 score 를 5 로 업데이트함
+127.0.0.1:6379> zadd user:userNumber XX 5 user4  # XX: user4 member 가 존재하므로 score 를 5 로 업데이트함
 (integer) 0
 
 127.0.0.1:6379> zrange user:userNumber 0 -1 withscores
@@ -164,7 +164,7 @@ $ redis-cli
 7) "user4"
 8) "5"
 
-127.0.0.1:6379> zadd user:userNumber XX 6 user6 # XX: user6 member 가 존재하지 않으므로 추가하지 않음
+127.0.0.1:6379> zadd user:userNumber XX 6 user6  # XX: user6 member 가 존재하지 않으므로 추가하지 않음
 (integer) 0
 
 127.0.0.1:6379> zrange user:userNumber 0 -1 withscores
@@ -231,10 +231,10 @@ $ redis-cli
 
 추가된 새 elements 갯수에서 **변경된 총 elements 의 갯수**로 반환 값을 수정한다.
 
-> 변경된 elements: **새로 추가된 elements** + **기존에 존재하는데 score 가 업데이트된 elements** 
-> (기존과 동일한 score 를 가진 elements 는 포함되지 않음) 
+> 변경된 elements: **새로 추가된 elements** + **기존에 존재하는데 score 가 업데이트된 elements**  
+> (기존과 동일한 score 를 가진 elements 는 포함되지 않음)  
 >
-> 일반적으로 `ZADD` 의 반환 값은 추가된 새로운 elements 의 갯수만 계산하며, 
+> 일반적으로 `ZADD` 의 반환 값은 추가된 새로운 elements 의 갯수만 계산하며,  
 > `CH` 옵션을 사용하지 않으면 수정된 갯수는 리턴하지 않는다.
 
 ```shell
@@ -301,17 +301,17 @@ $ redis-cli
 ```shell
 127.0.0.1:6379> help zrange
 
- ZRANGE key min max [BYSCORE|BYLEX] [REV] [LIMIT offset count] [WITHSCORES]
- summary: Return a range of members in a sorted set
- since: 1.2.0
- group: sorted-set
+  ZRANGE key min max [BYSCORE|BYLEX] [REV] [LIMIT offset count] [WITHSCORES]
+  summary: Return a range of members in a sorted set
+  since: 1.2.0
+  group: sorted-set
 
 127.0.0.1:6379> help zrevrange
 
- ZREVRANGE key start stop [WITHSCORES]
- summary: Return a range of members in a sorted set, by index, with scores ordered from high to low
- since: 1.2.0
- group: sorted-set
+  ZREVRANGE key start stop [WITHSCORES]
+  summary: Return a range of members in a sorted set, by index, with scores ordered from high to low
+  since: 1.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -525,23 +525,23 @@ score 를 기준으로 역순으로 조회한다.
 
 ## 1.3. `ZRANK`, `ZREVRANK`
 
-`ZRANK` 는 낮은 score 기준으로 해당 member 의 index 를 조회하는 명령어이고, 
+`ZRANK` 는 낮은 score 기준으로 해당 member 의 index 를 조회하는 명령어이고,  
 `ZREVRANK` 는 높은 score 기준으로 해당 member 의 index 를 조회하는 명령어이다.
 
 ```shell
 127.0.0.1:6379> help zrank
 
- ZRANK key member
- summary: Determine the index of a member in a sorted set
- since: 2.0.0
- group: sorted-set
+  ZRANK key member
+  summary: Determine the index of a member in a sorted set
+  since: 2.0.0
+  group: sorted-set
 
 127.0.0.1:6379> help zrevrank
 
- ZREVRANK key member
- summary: Determine the index of a member in a sorted set, with scores ordered from high to low
- since: 2.0.0
- group: sorted-set
+  ZREVRANK key member
+  summary: Determine the index of a member in a sorted set, with scores ordered from high to low
+  since: 2.0.0
+  group: sorted-set
 ```
 
 ```shell
@@ -572,10 +572,10 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zscore
 
- ZSCORE key member
- summary: Get the score associated with the given member in a sorted set
- since: 1.2.0
- group: sorted-set
+  ZSCORE key member
+  summary: Get the score associated with the given member in a sorted set
+  since: 1.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -604,10 +604,10 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zcard
 
- ZCARD key
- summary: Get the number of members in a sorted set
- since: 1.2.0
- group: sorted-set
+  ZCARD key
+  summary: Get the number of members in a sorted set
+  since: 1.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -624,10 +624,10 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zcount
 
- ZCOUNT key min max
- summary: Count the members in a sorted set with scores within the given values
- since: 2.0.0
- group: sorted-set
+  ZCOUNT key min max
+  summary: Count the members in a sorted set with scores within the given values
+  since: 2.0.0
+  group: sorted-set
 ```
 
 ```shell
@@ -657,10 +657,10 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zscan
 
- ZSCAN key cursor [MATCH pattern] [COUNT count]
- summary: Incrementally iterate sorted sets elements and associated scores
- since: 2.8.0
- group: sorted-set
+  ZSCAN key cursor [MATCH pattern] [COUNT count]
+  summary: Incrementally iterate sorted sets elements and associated scores
+  since: 2.8.0
+  group: sorted-set
 ```
 
 ```shell
@@ -674,33 +674,33 @@ score 를 기준으로 역순으로 조회한다.
 127.0.0.1:6379> zscan user:userName 0 match user1 count 3
 1) "0"
 2) 1) "user1"
-  2) "10"
+   2) "10"
 
 127.0.0.1:6379> zscan user:userName 0 match user* count 3
 1) "0"
-2) 1) "user1"
-  2) "10"
-  3) "user2"
-  4) "20"
-  5) "user3"
-  6) "30"
-  7) "user4"
-  8) "40"
-  9) "user5"
-  10) "50"
+2)  1) "user1"
+    2) "10"
+    3) "user2"
+    4) "20"
+    5) "user3"
+    6) "30"
+    7) "user4"
+    8) "40"
+    9) "user5"
+   10) "50"
 
 127.0.0.1:6379> zscan user:userName 0 count 3
 1) "0"
-2) 1) "user1"
-  2) "10"
-  3) "user2"
-  4) "20"
-  5) "user3"
-  6) "30"
-  7) "user4"
-  8) "40"
-  9) "user5"
-  10) "50"
+2)  1) "user1"
+    2) "10"
+    3) "user2"
+    4) "20"
+    5) "user3"
+    6) "30"
+    7) "user4"
+    8) "40"
+    9) "user5"
+   10) "50"
 ```
 
 ---
@@ -712,17 +712,17 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zpopmin
 
- ZPOPMIN key [count]
- summary: Remove and return members with the lowest scores in a sorted set
- since: 5.0.0
- group: sorted-set
+  ZPOPMIN key [count]
+  summary: Remove and return members with the lowest scores in a sorted set
+  since: 5.0.0
+  group: sorted-set
 
 127.0.0.1:6379> help zpopmax
 
- ZPOPMAX key [count]
- summary: Remove and return members with the highest scores in a sorted set
- since: 5.0.0
- group: sorted-set
+  ZPOPMAX key [count]
+  summary: Remove and return members with the highest scores in a sorted set
+  since: 5.0.0
+  group: sorted-set
 ```
 
 ```shell
@@ -810,10 +810,10 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zrem
 
- ZREM key member [member ...]
- summary: Remove one or more members from a sorted set
- since: 1.2.0
- group: sorted-set
+  ZREM key member [member ...]
+  summary: Remove one or more members from a sorted set
+  since: 1.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -876,10 +876,10 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zremrangebyrank
 
- ZREMRANGEBYRANK key start stop
- summary: Remove all members in a sorted set within the given indexes
- since: 2.0.0
- group: sorted-set
+  ZREMRANGEBYRANK key start stop
+  summary: Remove all members in a sorted set within the given indexes
+  since: 2.0.0
+  group: sorted-set
 ```
 
 ```shell
@@ -916,10 +916,10 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zremrangebyscore
 
- ZREMRANGEBYSCORE key min max
- summary: Remove all members in a sorted set within the given scores
- since: 1.2.0
- group: sorted-set
+  ZREMRANGEBYSCORE key min max
+  summary: Remove all members in a sorted set within the given scores
+  since: 1.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -952,10 +952,10 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zincrby
 
- ZINCRBY key increment member
- summary: Increment the score of a member in a sorted set
- since: 1.2.0
- group: sorted-set
+  ZINCRBY key increment member
+  summary: Increment the score of a member in a sorted set
+  since: 1.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -992,16 +992,16 @@ score 를 기준으로 역순으로 조회한다.
 ```shell
 127.0.0.1:6379> help zunion
 
- ZUNION numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX] [WITHSCORES]
- summary: Add multiple sorted sets
- since: 6.2.0
- group: sorted-set
+  ZUNION numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX] [WITHSCORES]
+  summary: Add multiple sorted sets
+  since: 6.2.0
+  group: sorted-set
 ```
 
 합집합을 수행하는데 동일한 member 가 있을 경우 score 를 합산하여 보여준다.
 
-set1 = { (1,A), (2,B), (3,C) } 
-set2 = { ......... (4,B), (5,C), (6,D) } 
+set1 = { (1,A), (2,B), (3,C) }  
+set2 = { ......... (4,B), (5,C), (6,D) }  
 result = { (1,A), **(6,B)**, **(8,C)**, (6,D) }
 
 ```shell
@@ -1037,10 +1037,10 @@ result = { (1,A), **(6,B)**, **(8,C)**, (6,D) }
 
 `WEIGHTS` 사용
 
-set1 = { (1,A), (2,B), (3,C) } ......... → { (1x2,A), (2x2,B), (3x2,C) } 
-set2 = { ......... (4,B), (5,C), (6,D) } → { ............ (4x3,B), (5x3,C), (6x3,D) }  
+set1 = { (1,A), (2,B), (3,C) } ......... → { (1x2,A), (2x2,B), (3x2,C) }  
+set2 = { ......... (4,B), (5,C), (6,D) } → { ............ (4x3,B), (5x3,C), (6x3,D) }   
 result = { (2,A), (4+12,B), (6+15,C), (18,D)}
-    = { (2,A), (16,B), (21,C), (18,D)}
+       = { (2,A), (16,B), (21,C), (18,D)}
 
 ```shell
 127.0.0.1:6379> zrange set1 0 -1 withscores
@@ -1077,9 +1077,9 @@ result = { (2,A), (4+12,B), (6+15,C), (18,D)}
 
 `AGGREGATE` 사용
 
-set1 = { (1,A), (2,B), (3,C) } 
-set2 = { ......... (4,B), (5,C), (6,D) } 
-min result = { (1,A), **(2,B)**, **(3,C)**, (6,D)} 
+set1 = { (1,A), (2,B), (3,C) }  
+set2 = { ......... (4,B), (5,C), (6,D) }  
+min result = { (1,A), **(2,B)**, **(3,C)**, (6,D)}  
 max result = { (1,A), **(4,B)**, **(5,C)**, (6,D)}
 
 ```shell
@@ -1157,10 +1157,10 @@ max result = { (1,A), **(4,B)**, **(5,C)**, (6,D)}
 ```shell
 127.0.0.1:6379> help zinter
 
- ZINTER numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX] [WITHSCORES]
- summary: Intersect multiple sorted sets
- since: 6.2.0
- group: sorted-set
+  ZINTER numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX] [WITHSCORES]
+  summary: Intersect multiple sorted sets
+  since: 6.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -1204,10 +1204,10 @@ max result = { (1,A), **(4,B)**, **(5,C)**, (6,D)}
 ```shell
 127.0.0.1:6379> help zdiff
 
- ZDIFF numkeys key [key ...] [WITHSCORES]
- summary: Subtract multiple sorted sets
- since: 6.2.0
- group: sorted-set
+  ZDIFF numkeys key [key ...] [WITHSCORES]
+  summary: Subtract multiple sorted sets
+  since: 6.2.0
+  group: sorted-set
 ```
 
 ```shell
@@ -1226,11 +1226,11 @@ max result = { (1,A), **(4,B)**, **(5,C)**, (6,D)}
 5) "d"
 6) "6"
 
-127.0.0.1:6379> zdiff 2 set1 set2 withscores # set1 에만 있는 member 조회
+127.0.0.1:6379> zdiff 2 set1 set2 withscores  # set1 에만 있는 member 조회
 1) "a"
 2) "1"
 
-127.0.0.1:6379> zdiff 2 set2 set1 withscores # set2 에만 있는 member 조회
+127.0.0.1:6379> zdiff 2 set2 set1 withscores  # set2 에만 있는 member 조회
 1) "d"
 2) "6"
 ```
@@ -1244,24 +1244,24 @@ max result = { (1,A), **(4,B)**, **(5,C)**, (6,D)}
 ```shell
 127.0.0.1:6379> help zunionstore
 
- ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
- summary: Add multiple sorted sets and store the resulting sorted set in a new key
- since: 2.0.0
- group: sorted-set
+  ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
+  summary: Add multiple sorted sets and store the resulting sorted set in a new key
+  since: 2.0.0
+  group: sorted-set
 
 127.0.0.1:6379> help zinterstore
 
- ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
- summary: Intersect multiple sorted sets and store the resulting sorted set in a new key
- since: 2.0.0
- group: sorted-set
+  ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
+  summary: Intersect multiple sorted sets and store the resulting sorted set in a new key
+  since: 2.0.0
+  group: sorted-set
 
 127.0.0.1:6379> help zdiffstore
 
- ZDIFFSTORE destination numkeys key [key ...]
- summary: Subtract multiple sorted sets and store the resulting sorted set in a new key
- since: 6.2.0
- group: sorted-set
+  ZDIFFSTORE destination numkeys key [key ...]
+  summary: Subtract multiple sorted sets and store the resulting sorted set in a new key
+  since: 6.2.0
+  group: sorted-set
 ```
 
 ```shell

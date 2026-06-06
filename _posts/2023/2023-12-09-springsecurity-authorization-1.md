@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한"
+title:  "Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한"
 date: 2023-12-09
 categories: dev
 tags: spring-security permit-all deny-all role authority
@@ -18,9 +18,9 @@ tags: spring-security permit-all deny-all role authority
 
 <!-- TOC -->
 * [1. 권한과 역할에 따라 접근 제한](#1-권한과-역할에-따라-접근-제한)
- * [1.1. 사용자 '권한'을 기준으로 모든 엔드포인트에 접근 제한](#11-사용자-권한을-기준으로-모든-엔드포인트에-접근-제한)
- * [1.2. 사용자 '역할'을 기준으로 모든 엔드포인트에 접근 제한](#12-사용자-역할을-기준으로-모든-엔드포인트에-접근-제한)
- * [1.3. 모든 엔드포인트에 대한 접근 제한: `denyAll()`](#13-모든-엔드포인트에-대한-접근-제한-denyall)
+  * [1.1. 사용자 '권한'을 기준으로 모든 엔드포인트에 접근 제한](#11-사용자-권한을-기준으로-모든-엔드포인트에-접근-제한)
+  * [1.2. 사용자 '역할'을 기준으로 모든 엔드포인트에 접근 제한](#12-사용자-역할을-기준으로-모든-엔드포인트에-접근-제한)
+  * [1.3. 모든 엔드포인트에 대한 접근 제한: `denyAll()`](#13-모든-엔드포인트에-대한-접근-제한-denyall)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -71,21 +71,21 @@ package org.springframework.security.core;
 import java.io.Serializable;
 
 public interface GrantedAuthority extends Serializable {
- String getAuthority();
+  String getAuthority();
 }
 ```
 
 `UserDetails` 인터페이스 일부
 ```java
 public interface UserDetails extends Serializable {
- Collection<? extends GrantedAuthority> getAuthorities();
- 
- // ...
+  Collection<? extends GrantedAuthority> getAuthorities();
+  
+  // ...
 }
 ```
 
-사용자를 나타내는 `UserDetails` 는 `GrantedAuthority` 인스턴스의 컬렉션을 갖는다. 
-사용자에게 허가된 모든 권한을 반환하도록 `getAuthorities()` 를 구현해야 한다. 
+사용자를 나타내는 `UserDetails` 는 `GrantedAuthority` 인스턴스의 컬렉션을 갖는다.  
+사용자에게 허가된 모든 권한을 반환하도록 `getAuthorities()` 를 구현해야 한다.  
 인증이 완료되면 사용자의 세부 정보에 권한이 포함되며, 애플리케이션은 이를 바탕으로 권한 부여를 한다.
 
 ---
@@ -97,18 +97,18 @@ public interface UserDetails extends Serializable {
 권한을 기반으로 엔드포인트에 대한 액세스는 3가지 방법으로 구성할 수 있다.
 
 - `hasAuthority()`
- - 제한을 구성하는 하나의 권한만 매개변수로 받음
- - 해당 권한이 있는 사용자만 엔드포인트 호출 가능
+  - 제한을 구성하는 하나의 권한만 매개변수로 받음
+  - 해당 권한이 있는 사용자만 엔드포인트 호출 가능
 - `hadAnyAuthority()`
- - 제한을 구성하는 권한을 하나 이상 받음
- - 해당 권한들 중 하나라도 있으면 엔드포인트 호출 가능
+  - 제한을 구성하는 권한을 하나 이상 받음
+  - 해당 권한들 중 하나라도 있으면 엔드포인트 호출 가능
 - `access()`
- - SpEL (Spring Expression Language) 를 기반으로 권한 부여 규칙을 구축하기 때문에 액세스를 구성하는 무한한 가능성이 있음
- - 하지만 코드 가독성 및 디버그가 어려워 추천하지 않음
- - 위의 2가지 메서드를 적용할 수 없을 때만 이용하는 것이 좋음 
- 예) 낮 12~1시까지만 요청 허용 등..
+  - SpEL (Spring Expression Language) 를 기반으로 권한 부여 규칙을 구축하기 때문에 액세스를 구성하는 무한한 가능성이 있음
+  - 하지만 코드 가독성 및 디버그가 어려워 추천하지 않음
+  - 위의 2가지 메서드를 적용할 수 없을 때만 이용하는 것이 좋음  
+  예) 낮 12~1시까지만 요청 허용 등..
 
-이제 구성 클래스에 `InMemoryUserDetailsManager` 를 `UserDetailsService` 로 등록하고, 이 인스턴스에서 관리할 사용자를 2명 등록해본다. 
+이제 구성 클래스에 `InMemoryUserDetailsManager` 를 `UserDetailsService` 로 등록하고, 이 인스턴스에서 관리할 사용자를 2명 등록해본다.  
 그리고 권한 부여 구성을 추가한다.
 
 > 소스는 [github](https://github.com/assu10/spring-security/tree/feature/chap0701) 에 있습니다.
@@ -131,59 +131,59 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class ProjectConfig {
- @Bean // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
- public UserDetailsService userDetailsService() {
-  InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+  @Bean // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
+  public UserDetailsService userDetailsService() {
+    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
-  // UserDetailsService 에서 관리하도록 사용자 추가
-  UserDetails user1 = User.withUsername("assu")
-    .password("1111")
-    .authorities("READ")
-    .build();
+    // UserDetailsService 에서 관리하도록 사용자 추가
+    UserDetails user1 = User.withUsername("assu")
+        .password("1111")
+        .authorities("READ")
+        .build();
 
-  UserDetails user2 = User.withUsername("silby")
-    .password("2222")
-    .authorities("WRITE")
-    .build();
+    UserDetails user2 = User.withUsername("silby")
+        .password("2222")
+        .authorities("WRITE")
+        .build();
 
-  manager.createUser(user1);
-  manager.createUser(user2);
+    manager.createUser(user1);
+    manager.createUser(user2);
 
-  return manager;
- }
+    return manager;
+  }
 
- @Bean
- public PasswordEncoder passwordEncoder() {
-  return NoOpPasswordEncoder.getInstance();
- }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return NoOpPasswordEncoder.getInstance();
+  }
 
- // HTTP Basic 방식을 명시적으로 설정
- @Bean
- public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  // HTTP Basic 방식을 명시적으로 설정
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-//  http.authorizeHttpRequests(authz ->
-//      authz.anyRequest() // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-//        .authenticated()) // 인증된 유저만 접근 허용
-//    .httpBasic(Customizer.withDefaults());
+//    http.authorizeHttpRequests(authz ->
+//            authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+//                .authenticated()) // 인증된 유저만 접근 허용
+//        .httpBasic(Customizer.withDefaults());
 
-  http.authorizeHttpRequests(authz ->
-      authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-        .hasAuthority("WRITE"))  // WRITE 권한이 있는 유저만 접근 허용
-    .httpBasic(Customizer.withDefaults());
+    http.authorizeHttpRequests(authz ->
+            authz.anyRequest()    // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+                .hasAuthority("WRITE"))   // WRITE 권한이 있는 유저만 접근 허용
+        .httpBasic(Customizer.withDefaults());
 
 
-//  http.authorizeHttpRequests(authz ->
-//      authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-//        .hasAnyAuthority("WRITE", "READ"))  // WRITE, READ 권한 중 하나라도 있는 유저만 접근 허용
-//    .httpBasic(Customizer.withDefaults());
+//    http.authorizeHttpRequests(authz ->
+//            authz.anyRequest()    // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+//                .hasAnyAuthority("WRITE", "READ"))   // WRITE, READ 권한 중 하나라도 있는 유저만 접근 허용
+//        .httpBasic(Customizer.withDefaults());
 
-//  http.authorizeHttpRequests(authz ->
-//      authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-//      .permitAll())  // 인증 여부과 관계없이 모든 요청에 인증 없이 요청 가능
-//    .httpBasic(Customizer.withDefaults());
+//    http.authorizeHttpRequests(authz ->
+//            authz.anyRequest()    // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+//            .permitAll())   // 인증 여부과 관계없이 모든 요청에 인증 없이 요청 가능
+//        .httpBasic(Customizer.withDefaults());
 
-  return http.build();
- }
+    return http.build();
+  }
 }
 ```
 
@@ -199,18 +199,18 @@ $ curl -w "%{http_code}" -u assu:1112 http://localhost:8080/hello
 403%
 
 # 인증이 없을 경우 401 Unauthorized 
- $ curl -w "%{http_code}" http://localhost:8080/hello
+ $ curl -w "%{http_code}"  http://localhost:8080/hello
 401%
 ```
 
 - `authorizedRequests()`
- - 엔드포인트에 권한 부여 규칙 지정
+  - 엔드포인트에 권한 부여 규칙 지정
 - `anyRequest()`
- - 이용된 URL 이나 HTTP 방식에 관계없이 모든 요청에 대해 규칙 적용
+  - 이용된 URL 이나 HTTP 방식에 관계없이 모든 요청에 대해 규칙 적용
 - `permitAll()`
- - 인증 여부와 관계없이 모든 요청에 대해 접근 허용
+  - 인증 여부와 관계없이 모든 요청에 대해 접근 허용
 - `hasAuthority()`, `hasAnyAuthority()`
- - 조건에 해당하는 권한이 있는 유저만 접근 허용
+  - 조건에 해당하는 권한이 있는 유저만 접근 허용
 
 ---
 
@@ -224,12 +224,12 @@ $ curl -w "%{http_code}" -u assu:1112 http://localhost:8080/hello
 
 **역할은 사용자가 수행할 수 있는 작업의 그룹**을 의미한다.
 
-애플리케이션에서 역할을 이용하면 권한을 정의할 필요가 없다. 
+애플리케이션에서 역할을 이용하면 권한을 정의할 필요가 없다.  
 이 때 권한은 개념상으로만 존재하며, 애플리케이션에서는 하나 이상의 작업을 포함하는 역할만 정의하면 된다.
 
 역할도 권한처럼 같은 `GrantedAuthority` 계약으로 나타낸다.
 
-**역할을 정의할 때 역할 이름은 `ROLE_` 접두사로 시작**해야 한다. 
+**역할을 정의할 때 역할 이름은 `ROLE_` 접두사로 시작**해야 한다.  
 **구현할 때 이 접두사로 역할과 권한 간의 차이**를 나타낸다.
 
 아래는 사용자 역할에 따라 엔드포인트 접근을 제한하는 예시이다.
@@ -254,60 +254,60 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class ProjectConfig {
- @Bean // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
- public UserDetailsService userDetailsService() {
-  InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+  @Bean // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
+  public UserDetailsService userDetailsService() {
+    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
-  // UserDetailsService 에서 관리하도록 사용자 추가
-  UserDetails user1 = User.withUsername("assu")
-    .password("1111")
-    .authorities("ROLE_ADMIN") // ROLE_ 접두사가 있으면 GrantedAuthority 는 역할을 나타냄
-    .build();
+    // UserDetailsService 에서 관리하도록 사용자 추가
+    UserDetails user1 = User.withUsername("assu")
+        .password("1111")
+        .authorities("ROLE_ADMIN")  // ROLE_ 접두사가 있으면 GrantedAuthority 는 역할을 나타냄
+        .build();
 
-  UserDetails user2 = User.withUsername("silby")
-    .password("2222")
-    .roles("MANAGER") // roles() 로 지정시엔 ROLE_ 접두사를 붙이지 않음
-    .build();
+    UserDetails user2 = User.withUsername("silby")
+        .password("2222")
+        .roles("MANAGER") // roles() 로 지정시엔 ROLE_ 접두사를 붙이지 않음
+        .build();
 
-  manager.createUser(user1);
-  manager.createUser(user2);
+    manager.createUser(user1);
+    manager.createUser(user2);
 
-  return manager;
- }
+    return manager;
+  }
 
- @Bean
- public PasswordEncoder passwordEncoder() {
-  return NoOpPasswordEncoder.getInstance();
- }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return NoOpPasswordEncoder.getInstance();
+  }
 
- // HTTP Basic 방식을 명시적으로 설정
- @Bean
- public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  // HTTP Basic 방식을 명시적으로 설정
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-//  http.authorizeHttpRequests(authz ->
-//      authz.anyRequest() // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-//        .authenticated()) // 인증된 유저만 접근 허용
-//    .httpBasic(Customizer.withDefaults());
+//    http.authorizeHttpRequests(authz ->
+//            authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+//                .authenticated()) // 인증된 유저만 접근 허용
+//        .httpBasic(Customizer.withDefaults());
 
-  http.authorizeHttpRequests(authz ->
-      authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-        .hasRole("ADMIN"))  // ADMIN 역할이 있는 유저만 접근 허용
-    .httpBasic(Customizer.withDefaults());
-
-
-//  http.authorizeHttpRequests(authz ->
-//      authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-//        .hasAnyRole("ADMIN", "MANAGER"))  // ADMIN, MANAGER 역할 중 하나라도 있는 유저만 접근 허용
-//    .httpBasic(Customizer.withDefaults());
+    http.authorizeHttpRequests(authz ->
+            authz.anyRequest()    // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+                .hasRole("ADMIN"))   // ADMIN 역할이 있는 유저만 접근 허용
+        .httpBasic(Customizer.withDefaults());
 
 
-//  http.authorizeHttpRequests(authz ->
-//      authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-//      .permitAll())  // 인증 여부과 관계없이 모든 요청에 인증 없이 요청 가능
-//    .httpBasic(Customizer.withDefaults());
+//    http.authorizeHttpRequests(authz ->
+//            authz.anyRequest()    // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+//                .hasAnyRole("ADMIN", "MANAGER"))   // ADMIN, MANAGER 역할 중 하나라도 있는 유저만 접근 허용
+//        .httpBasic(Customizer.withDefaults());
 
-  return http.build();
- }
+
+//    http.authorizeHttpRequests(authz ->
+//            authz.anyRequest()    // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+//            .permitAll())   // 인증 여부과 관계없이 모든 요청에 인증 없이 요청 가능
+//        .httpBasic(Customizer.withDefaults());
+
+    return http.build();
+  }
 }
 ```
 
@@ -316,31 +316,31 @@ public class ProjectConfig {
 ```java
 @Configuration
 public class ProjectConfig {
- @Bean 
- public UserDetailsService userDetailsService() {
-  UserDetails user1 = User.withUsername("assu")
-      .password("1111")
-      .authorities("ROLE_ADMIN") // ROLE_ 접두사가 있으면 GrantedAuthority 는 역할을 나타냄
-      .build();
-  
-  UserDetails user2 = User.withUsername("silby")
-      .password("2222")
-      .roles("MANAGER") // roles() 로 지정시엔 ROLE_ 접두사를 붙이지 않음
-      .build();
-  // ...
- }
+  @Bean 
+  public UserDetailsService userDetailsService() {
+    UserDetails user1 = User.withUsername("assu")
+            .password("1111")
+            .authorities("ROLE_ADMIN")  // ROLE_ 접두사가 있으면 GrantedAuthority 는 역할을 나타냄
+            .build();
+    
+    UserDetails user2 = User.withUsername("silby")
+            .password("2222")
+            .roles("MANAGER") // roles() 로 지정시엔 ROLE_ 접두사를 붙이지 않음
+            .build();
+    // ...
+  }
 
- // ...
- 
- // HTTP Basic 방식을 명시적으로 설정
- @Bean
- public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-  http.authorizeHttpRequests(authz ->
-          authz.anyRequest()
-              .hasRole("ADMIN"))  // ADMIN 역할이 있는 유저만 접근 허용
-      .httpBasic(Customizer.withDefaults());
   // ...
- }
+  
+  // HTTP Basic 방식을 명시적으로 설정
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests(authz ->
+                    authz.anyRequest()
+                            .hasRole("ADMIN"))   // ADMIN 역할이 있는 유저만 접근 허용
+            .httpBasic(Customizer.withDefaults());
+    // ...
+  }
 }
 ```
 
@@ -362,7 +362,7 @@ $ curl -w "%{http_code}" -u assu:1112 http://localhost:8080/hello
 401%
 
 # 인증이 없는 경우 401 Unauthorized 
-$ curl -w "%{http_code}" http://localhost:8080/hello
+$ curl -w "%{http_code}"  http://localhost:8080/hello
 401%
 ```
 
@@ -370,25 +370,25 @@ $ curl -w "%{http_code}" http://localhost:8080/hello
 
 ## 1.3. 모든 엔드포인트에 대한 접근 제한: `denyAll()`
 
-`permitAll()` 은 인증에 상관없이 모든 요청에 대한 접근을 허용한다. 
+`permitAll()` 은 인증에 상관없이 모든 요청에 대한 접근을 허용한다.  
 반대로 `denyAll()` 은 모든 요청에 대한 접근을 제한한다.
 
 ```java
 http.authorizeHttpRequests(authz ->
-    authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-    .permitAll())  // 인증 여부과 관계없이 모든 요청에 인증 없이 요청 가능
-  .httpBasic(Customizer.withDefaults());
+        authz.anyRequest()    // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+        .permitAll())   // 인증 여부과 관계없이 모든 요청에 인증 없이 요청 가능
+    .httpBasic(Customizer.withDefaults());
 
 
 http.authorizeHttpRequests(authz ->
-    authz.anyRequest()  // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
-    .permitAll())  // 인증 여부과 관계없이 모든 요청 거부
-  .httpBasic(Customizer.withDefaults());
+        authz.anyRequest()    // 이용된 URL 이나 HTTP 방식과 관계없이 모든 요청에 대해 규칙 적용
+        .permitAll())   // 인증 여부과 관계없이 모든 요청 거부
+    .httpBasic(Customizer.withDefaults());
 ```
 
 `denyAll()` 은 아래와 같은 상황에서 필요할 수 있다.
 
-pathParameter 로 이메일 주소를 받는 엔드포인트가 있을 때 _@aassuCompany.com_ 으로 끝나는 요청만 허용하고, 다른 이메일 주소 형식은 거부할 때 `denyAll()` 을 사용할 수 있다. 
+pathParameter 로 이메일 주소를 받는 엔드포인트가 있을 때 _@aassuCompany.com_ 으로 끝나는 요청만 허용하고, 다른 이메일 주소 형식은 거부할 때 `denyAll()` 을 사용할 수 있다.  
 
 > 경로와 HTTP 방식, pathParameter 를 기준으로 액세스 제한을 하는 방법은 [Spring Security - 권한 부여(2): 경로, HTTP Method 에 따른 엑세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-2/) 을 참고하세요.
 

@@ -1,26 +1,26 @@
 ---
 layout: post
-title: "GitLab CI/CD Pipeline 구성"
+title:  "GitLab CI/CD Pipeline 구성"
 date: 2020-10-09 10:00
 categories: dev
-tags: devops gitlab gitlab-runner ci cd 
+tags: devops gitlab gitlab-runner ci cd  
 ---
 
 이 글은 GitLab CI/CD Pipeline 에 대해 설명합니다.
 
 <!-- TOC -->
- * [CI/CD 파이프라인](#cicd-파이프라인)
- * [수동 배포 설정](#수동-배포-설정)
- * [수동 job 실행 시 변수 설정](#수동-job-실행-시-변수-설정)
- * [CI/CD 파이프라인 그룹화](#cicd-파이프라인-그룹화)
- * [파이프라인 아키텍처](#파이프라인-아키텍처)
-  * [파이프라인 아키텍처 - Basic](#파이프라인-아키텍처---basic)
-  * [파이프라인 아키텍처 - DAG (Directed Acyclic Graph)](#파이프라인-아키텍처---dag-directed-acyclic-graph)
-  * [파이프라인 아키텍처 - Child/Parent Pipelines](#파이프라인-아키텍처---childparent-pipelines)
- * [효율적인 파이프라인 구성](#효율적인-파이프라인-구성)
- * [파이프라인 스케쥴링](#파이프라인-스케쥴링)
- * [Artifact 사이즈](#artifact-사이즈)
- * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [CI/CD 파이프라인](#cicd-파이프라인)
+  * [수동 배포 설정](#수동-배포-설정)
+  * [수동 job 실행 시 변수 설정](#수동-job-실행-시-변수-설정)
+  * [CI/CD 파이프라인 그룹화](#cicd-파이프라인-그룹화)
+  * [파이프라인 아키텍처](#파이프라인-아키텍처)
+    * [파이프라인 아키텍처 - Basic](#파이프라인-아키텍처---basic)
+    * [파이프라인 아키텍처 - DAG (Directed Acyclic Graph)](#파이프라인-아키텍처---dag-directed-acyclic-graph)
+    * [파이프라인 아키텍처 - Child/Parent Pipelines](#파이프라인-아키텍처---childparent-pipelines)
+  * [효율적인 파이프라인 구성](#효율적인-파이프라인-구성)
+  * [파이프라인 스케쥴링](#파이프라인-스케쥴링)
+  * [Artifact 사이즈](#artifact-사이즈)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -59,38 +59,38 @@ tags: devops gitlab gitlab-runner ci cd
 
 ```yaml
 stages:
- - test
- - build
- - deploy
+  - test
+  - build
+  - deploy
 
 test:
- stage: test
- script: echo "Running tests"
+  stage: test
+  script: echo "Running tests"
 
 build:
- stage: build
- script: echo "Building the app"
+  stage: build
+  script: echo "Building the app"
 
 deploy_staging:
- stage: deploy
- script:
-  - echo "Deploy to staging server"
- environment:
-  name: staging
-  url: https://staging.example.com
- only:
-  - master
+  stage: deploy
+  script:
+    - echo "Deploy to staging server"
+  environment:
+    name: staging
+    url: https://staging.example.com
+  only:
+    - master
 
 deploy_prod:
- stage: deploy
- script:
-  - echo "Deploy to production server"
- environment:
-  name: production
-  url: https://example.com
- when: manual
- only:
-  - master
+  stage: deploy
+  script:
+    - echo "Deploy to production server"
+  environment:
+    name: production
+    url: https://example.com
+  when: manual
+  only:
+    - master
 ```
 
 ![프로덕션 환경에서는 수동 배포하도록 구성된 파이프라인<br />(출처 : https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)](/assets/img/dev/2020/1009/manual.jpg)
@@ -117,60 +117,60 @@ deploy_prod:
 
 ```yaml
 stages:
- - build
- - test
- - deploy
+  - build
+  - test
+  - deploy
 
-variables:  # 전역 변수
- NAME: 'assu'
+variables:    # 전역 변수
+  NAME: 'assu'
 
-build-phase:   # 임의의 job 이름..
- stage: build
- tags:
-  - ci-tag
- except:
-  - dev
- before_script:
-  - echo 'build-phase before script, except dev'
- script:
-  - chcp 65001  # UTF-8 설정
-  - echo 'build-phase script, except dev'
- after_script:
-  - echo 'build-phase after_script, except dev'
+build-phase:      # 임의의 job 이름..
+  stage: build
+  tags:
+    - ci-tag
+  except:
+    - dev
+  before_script:
+    - echo 'build-phase before script, except dev'
+  script:
+    - chcp 65001    # UTF-8 설정
+    - echo 'build-phase script, except dev'
+  after_script:
+    - echo 'build-phase after_script, except dev'
 
-test-phase:   # 임의의 job 이름
- stage: test
- tags:
-  - ci-tag
- except:
-  - dev
- before_script:
-  - echo 'build-phase before script, except dev'
- script:
-  - chcp 65001  # UTF-8 설정
-  - echo 'build-phase script, except dev' $NAME
- after_script:
-  - echo 'build-phase after_script, except dev'
+test-phase:      # 임의의 job 이름
+  stage: test
+  tags:
+    - ci-tag
+  except:
+    - dev
+  before_script:
+    - echo 'build-phase before script, except dev'
+  script:
+    - chcp 65001    # UTF-8 설정
+    - echo 'build-phase script, except dev' $NAME
+  after_script:
+    - echo 'build-phase after_script, except dev'
 
-deploy-phase:   # 임의의 job 이름
- stage: deploy
- tags:
-  - ci-tag
- when: manual
- only:
-  - master
- before_script:
-  - echo 'deploy-phase before script, except dev'
- script:
-  - chcp 65001  # UTF-8 설정
-  - echo 'deploy-phase script, except dev'$NAME
- after_script:
-  - echo 'deploy-phase after_script, except dev'
+deploy-phase:      # 임의의 job 이름
+  stage: deploy
+  tags:
+    - ci-tag
+  when: manual
+  only:
+    - master
+  before_script:
+    - echo 'deploy-phase before script, except dev'
+  script:
+    - chcp 65001    # UTF-8 설정
+    - echo 'deploy-phase script, except dev'$NAME
+  after_script:
+    - echo 'deploy-phase after_script, except dev'
 ```
 
 ```shell
 Running with gitlab-runner 13.6.0~beta.126.g34d8ad75 (34d8ad75)
- on ci-test xxxxxxxx
+  on ci-test xxxxxxxx
 Preparing the "shell" executor
 00:00
 Using Shell executor...
@@ -190,9 +190,9 @@ $ echo 'deploy-phase before script, except dev'
 deploy-phase before script, except dev
 $ chcp 65001
 Active code page: 65001
-$ echo 'deploy-phase script, except dev'$NAME     # 변수 출력
+$ echo 'deploy-phase script, except dev'$NAME         # 변수 출력
 deploy-phase script, except dev
-assu      # 변수 출력
+assu            # 변수 출력
 Running after_script
 00:01
 Running after script...
@@ -207,55 +207,55 @@ Job succeeded
 
 ```yaml
 stages:
- - build
- - test
- - deploy
+  - build
+  - test
+  - deploy
 
-variables:  # 전역 변수
- NAME: 'assu'
+variables:    # 전역 변수
+  NAME: 'assu'
 
-build-phase:   # 임의의 job 이름..
- stage: build
- tags:
-  - ci-tag
- except:
-  - dev
- before_script:
-  - echo 'build-phase before script, except dev'
- script:
-  - chcp 65001  # UTF-8 설정
-  - echo 'build-phase script, except dev'
- after_script:
-  - echo 'build-phase after_script, except dev'
+build-phase:      # 임의의 job 이름..
+  stage: build
+  tags:
+    - ci-tag
+  except:
+    - dev
+  before_script:
+    - echo 'build-phase before script, except dev'
+  script:
+    - chcp 65001    # UTF-8 설정
+    - echo 'build-phase script, except dev'
+  after_script:
+    - echo 'build-phase after_script, except dev'
 
-test-phase:   # 임의의 job 이름
- stage: test
- tags:
-  - ci-tag
- except:
-  - dev
- before_script:
-  - echo 'build-phase before script, except dev'
- script:
-  - chcp 65001  # UTF-8 설정
-  - echo "build-phase script, except dev $NAME"  # 변수 출력 시엔 큰 따옴표로 묶어주어야 함
- after_script:
-  - echo 'build-phase after_script, except dev'
+test-phase:      # 임의의 job 이름
+  stage: test
+  tags:
+    - ci-tag
+  except:
+    - dev
+  before_script:
+    - echo 'build-phase before script, except dev'
+  script:
+    - chcp 65001    # UTF-8 설정
+    - echo "build-phase script, except dev $NAME"   # 변수 출력 시엔 큰 따옴표로 묶어주어야 함
+  after_script:
+    - echo 'build-phase after_script, except dev'
 
-deploy-phase:   # 임의의 job 이름
- stage: deploy
- tags:
-  - ci-tag
- when: manual
- only:
-  - master
- before_script:
-  - echo 'deploy-phase before script, except dev'
- script:
-  - chcp 65001  # UTF-8 설정.
-  - echo "deploy-phase script, except dev $NAME $NICK1 $NICK2"  # NAME 은 전역 변수로 셋팅, 나머진 job 페이지에서 셋팅
- after_script:
-  - echo 'deploy-phase after_script, except dev'
+deploy-phase:      # 임의의 job 이름
+  stage: deploy
+  tags:
+    - ci-tag
+  when: manual
+  only:
+    - master
+  before_script:
+    - echo 'deploy-phase before script, except dev'
+  script:
+    - chcp 65001    # UTF-8 설정.
+    - echo "deploy-phase script, except dev $NAME $NICK1 $NICK2"    # NAME 은 전역 변수로 셋팅, 나머진 job 페이지에서 셋팅
+  after_script:
+    - echo 'deploy-phase after_script, except dev'
 ```
 
 ![수동 job 페이지 위치)](/assets/img/dev/2020/1009/job.jpg)
@@ -265,7 +265,7 @@ deploy-phase:   # 임의의 job 이름
 
 ```shell
 Running with gitlab-runner 13.6.0~beta.126.g34d8ad75 (34d8ad75)
- on ci-test xxxxxxxx
+  on ci-test xxxxxxxx
 Preparing the "shell" executor
 00:00
 Using Shell executor...
@@ -286,7 +286,7 @@ deploy-phase before script, except dev
 $ chcp 65001
 Active code page: 65001
 $ echo "deploy-phase script, except dev $NAME $NICK1 $NICK2"
-deploy-phase script, except dev assu TEST  # 변수 출력 (대소문자 가리지 않음)
+deploy-phase script, except dev assu TEST    # 변수 출력 (대소문자 가리지 않음)
 Running after_script
 00:01
 Running after script...
@@ -313,19 +313,19 @@ Job succeeded
 
 ```yaml
 build ruby 1/3:
- stage: build
- script:
-  - echo "ruby1"
+  stage: build
+  script:
+    - echo "ruby1"
 
 build ruby 2/3:
- stage: build
- script:
-  - echo "ruby2"
+  stage: build
+  script:
+    - echo "ruby2"
 
 build ruby 3/3:
- stage: build
- script:
-  - echo "ruby3"
+  stage: build
+  script:
+    - echo "ruby3"
 ```
 
 ![그룹화된 파이프라인<br />(출처 : https://docs.gitlab.com/ee/ci/pipelines/index.html)](/assets/img/dev/2020/1009/group2.jpg)
@@ -337,11 +337,11 @@ build ruby 3/3:
 파이프라인 아키텍쳐는 3가지로 분류할 수 있다.
 
 - **Basic**<br />
-  - 간단한 프로젝트에 적합
+    - 간단한 프로젝트에 적합
 - **DAG (Directed Acyclic Graph)**<br />
-  - 복잡한 프로젝트에 적합
+    - 복잡한 프로젝트에 적합
 - **Child/Parent Pipelines**<br />
-  - 독립적으로 정의된 구성 요소가 많은 프로젝트에 적합
+    - 독립적으로 정의된 구성 요소가 많은 프로젝트에 적합
 
 ---
 
@@ -355,55 +355,55 @@ GitLab 에서 가장 간단한 구조의 파이프라인으로 빌드 stage 의 
 
 ```yaml
 stages:
- - build
- - test
- - deploy
+  - build
+  - test
+  - deploy
 
 build_a:
- stage: build
- tags:
-  - ci-tag
- script:
-  - echo "This job builds something."
+  stage: build
+  tags:
+    - ci-tag
+  script:
+    - echo "This job builds something."
 
 build_b:
- stage: build
- tags:
-  - ci-tag
- script:
-  - echo "This job builds something else."
+  stage: build
+  tags:
+    - ci-tag
+  script:
+    - echo "This job builds something else."
 
 test_a:
- stage: test
- tags:
-  - ci-tag
- script:
-  - echo "This job tests something. It will only run when all jobs in the"
-  - echo "build stage are complete."
+  stage: test
+  tags:
+    - ci-tag
+  script:
+    - echo "This job tests something. It will only run when all jobs in the"
+    - echo "build stage are complete."
 
 test_b:
- stage: test
- tags:
-  - ci-tag
- script:
-  - echo "This job tests something else. It will only run when all jobs in the"
-  - echo "build stage are complete too. It will start at about the same time as test_a."
+  stage: test
+  tags:
+    - ci-tag
+  script:
+    - echo "This job tests something else. It will only run when all jobs in the"
+    - echo "build stage are complete too. It will start at about the same time as test_a."
 
 deploy_a:
- stage: deploy
- tags:
-  - ci-tag
- script:
-  - echo "This job deploys something. It will only run when all jobs in the"
-  - echo "test stage complete."
+  stage: deploy
+  tags:
+    - ci-tag
+  script:
+    - echo "This job deploys something. It will only run when all jobs in the"
+    - echo "test stage complete."
 
 deploy_b:
- stage: deploy
- tags:
-  - ci-tag
- script:
-  - echo "This job deploys something else. It will only run when all jobs in the"
-  - echo "test stage complete. It will start at about the same time as deploy_a."
+  stage: deploy
+  tags:
+    - ci-tag
+  script:
+    - echo "This job deploys something else. It will only run when all jobs in the"
+    - echo "test stage complete. It will start at about the same time as deploy_a."
 ```
 
 ---
@@ -424,58 +424,58 @@ GitLab 은 deploy_a 를 시작한다.
 
 ```yaml
 stages:
- - build
- - test
- - deploy
+  - build
+  - test
+  - deploy
 
 build_a:
- stage: build
- tags:
-  - ci-tag
- script:
-  - echo "This job builds something quickly."
+  stage: build
+  tags:
+    - ci-tag
+  script:
+    - echo "This job builds something quickly."
 
 build_b:
- stage: build
- tags:
-  - ci-tag
- script:
-  - echo "This job builds something else slowly."
+  stage: build
+  tags:
+    - ci-tag
+  script:
+    - echo "This job builds something else slowly."
 
 test_a:
- stage: test
- tags:
-  - ci-tag
- needs: [build_a]
- script:
-  - echo "This test job will start as soon as build_a finishes."
-  - echo "It will not wait for build_b, or other jobs in the build stage, to finish."
+  stage: test
+  tags:
+    - ci-tag
+  needs: [build_a]
+  script:
+    - echo "This test job will start as soon as build_a finishes."
+    - echo "It will not wait for build_b, or other jobs in the build stage, to finish."
 
 test_b:
- stage: test
- tags:
-  - ci-tag
- needs: [build_b]
- script:
-  - echo "This test job will start as soon as build_b finishes."
-  - echo "It will not wait for other jobs in the build stage to finish."
+  stage: test
+  tags:
+    - ci-tag
+  needs: [build_b]
+  script:
+    - echo "This test job will start as soon as build_b finishes."
+    - echo "It will not wait for other jobs in the build stage to finish."
 
 deploy_a:
- stage: deploy
- tags:
-  - ci-tag
- needs: [test_a]
- script:
-  - echo "Since build_a and test_a run quickly, this deploy job can run much earlier."
-  - echo "It does not need to wait for build_b or test_b."
+  stage: deploy
+  tags:
+    - ci-tag
+  needs: [test_a]
+  script:
+    - echo "Since build_a and test_a run quickly, this deploy job can run much earlier."
+    - echo "It does not need to wait for build_b or test_b."
 
 deploy_b:
- stage: deploy
- tags:
-  - ci-tag
- needs: [test_b]
- script:
-  - echo "Since build_b and test_b run slowly, this deploy job will run much later."
+  stage: deploy
+  tags:
+    - ci-tag
+  needs: [test_b]
+  script:
+    - echo "Since build_b and test_b run slowly, this deploy job will run much later."
 ```
 
 ---
@@ -485,10 +485,10 @@ deploy_b:
 구성을 여러 파일로 분리 후 `trigger` 키워드를 통해 파이프라인을 구성하는 방법으로 구성 파일을 간단하게 유지 관리할 수 있다.
 
 - **rules**<br />
-  - 예를 들어 해당 영역이 변경된 경우만 하위 파이프라인을 트리거함
+    - 예를 들어 해당 영역이 변경된 경우만 하위 파이프라인을 트리거함
 - **include**<br /> 
-  - 외부의 yaml 파일을 포함시킴으로써 CI/CD 구성을 여러 파일로 나누어 긴 구성 파일의 가독성을 높임
-  - 모든 프로젝트에 대한 전역 변수와 같은 중복 구성을 방지할 수 있음
+    - 외부의 yaml 파일을 포함시킴으로써 CI/CD 구성을 여러 파일로 나누어 긴 구성 파일의 가독성을 높임
+    - 모든 프로젝트에 대한 전역 변수와 같은 중복 구성을 방지할 수 있음
 
 좀 더 자세한 내용은 [rules](https://docs.gitlab.com/ee/ci/yaml/README.html#rules) 와
 [include](https://docs.gitlab.com/ee/ci/yaml/README.html#include) 를 참고하세요.
@@ -501,87 +501,87 @@ a 디렉터리 안의 내용이 변경되면 a 디렉터리에 위한 gitlab-ci.
 
 ```yaml
 stages:
- - triggers
+  - triggers
 
 trigger_a:
- stage: triggers
- trigger:
-  include: a/.gitlab-ci.yml
- rules:
-  - changes:
-    - a/*
+  stage: triggers
+  trigger:
+    include: a/.gitlab-ci.yml
+  rules:
+    - changes:
+        - a/*
 
 trigger_b:
- stage: triggers
- trigger:
-  include: b/.gitlab-ci.yml
- rules:
-  - changes:
-    - b/*
+  stage: triggers
+  trigger:
+    include: b/.gitlab-ci.yml
+  rules:
+    - changes:
+        - b/*
 ```
 
 /a/.gitlab-ci.yml 에 위치한 구성 파일이고, DAG 기법을 사용하기 위해 `needs` 키워드를 사용하였다.
 
 ```yaml
 stages:
- - build
- - test
- - deploy
+  - build
+  - test
+  - deploy
 
 build_a:
- stage: build
- tags:
-  - ci-tag
- script:
-  - echo "This job builds something."
+  stage: build
+  tags:
+    - ci-tag
+  script:
+    - echo "This job builds something."
 
 test_a:
- stage: test
- tags:
-  - ci-tag
- needs: [build_a]
- script:
-  - echo "This job tests something."
+  stage: test
+  tags:
+    - ci-tag
+  needs: [build_a]
+  script:
+    - echo "This job tests something."
 
 deploy_a:
- stage: deploy
- tags:
-  - ci-tag
- needs: [test_a]
- script:
-  - echo "This job deploys something."
+  stage: deploy
+  tags:
+    - ci-tag
+  needs: [test_a]
+  script:
+    - echo "This job deploys something."
 ```
 
 /b/.gitlab-ci.yml 에 위치한 구성 파일이고, DAG 기법을 사용하기 위해 `needs` 키워드를 사용하였다.
 
 ```yaml
 stages:
- - build
- - test
- - deploy
+  - build
+  - test
+  - deploy
 
 build_b:
- stage: build
- tags:
-  - ci-tag
- script:
-  - echo "This job builds something else."
+  stage: build
+  tags:
+    - ci-tag
+  script:
+    - echo "This job builds something else."
 
 test_b:
- stage: test
- tags:
-  - ci-tag
- needs: [build_b]
- script:
-  - echo "This job tests something else."
+  stage: test
+  tags:
+    - ci-tag
+  needs: [build_b]
+  script:
+    - echo "This job tests something else."
 
 deploy_b:
- stage: deploy
- tags:
-  - ci-tag
- needs: [test_b]
- script:
-  - echo "This job deploys something else."
+  stage: deploy
+  tags:
+    - ci-tag
+  needs: [test_b]
+  script:
+    - echo "This job deploys something else."
 ```
 
 ---

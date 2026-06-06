@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java8 - Stream 활용 (2): Quiz (2)"
+title:  "Java8 - Stream 활용 (2): Quiz (2)"
 date: 2023-06-11
 categories: dev
 tags: java java8 stream fibonacci
@@ -15,15 +15,15 @@ _3.4. 함수로 무한 스트림 생성_ 과 관련된 퀴즈 포스트입니다
 
 피보나치 수열과 피보나치 수열 집합 구하기
 
-> 피보나치 수열 
-> 첫째 및 둘째 항이 1이며 그 뒤의 모든 항은 바로 앞 두 항의 합인 수열이다.  
+> 피보나치 수열  
+> 첫째 및 둘째 항이 1이며 그 뒤의 모든 항은 바로 앞 두 항의 합인 수열이다.    
 > 0,1,1,2,3,5,8,13,21,...
-> 처음 여섯 항은 각각 1, 1, 2, 3, 5, 8이다. 
+> 처음 여섯 항은 각각 1, 1, 2, 3, 5, 8이다.  
 > 편의상 0번째 항을 0으로 두기도 한다.
 
 피보나치 수열 집합: (0,1), (1,1), (1,2), (2,3), (3,5)...
 
-T -> T 의 함수 디스크립터를 갖는 UnaryOperator\<T\> 를 인수로 받는 Stream.iterate() 를 이용한다. 
+T -> T 의 함수 디스크립터를 갖는 UnaryOperator\<T\> 를 인수로 받는 Stream.iterate() 를 이용한다.  
 (0,1) 과 같은 집합을 만든 후 이것을 초기값으로 사용한다.
 ```java
 new int[]{0,1}
@@ -36,8 +36,8 @@ new int[]{0,1}
 ### 피보나치 수열 집합 (Stream.iterate())
 ```java
 Stream.iterate(new int[]{0,1}, t -> new int[]{t[1], t[0]+t[1]})
-    .limit(20)
-    .forEach(t -> System.out.println("(" + t[0] + "," + t[1] + ")"));
+        .limit(20)
+        .forEach(t -> System.out.println("(" + t[0] + "," + t[1] + ")"));
 ```
 
 ```shell
@@ -54,9 +54,9 @@ Stream.iterate(new int[]{0,1}, t -> new int[]{t[1], t[0]+t[1]})
 ### 피보나치 수열 (Stream.iterate())
 ```java
 List<Integer> fib = Stream.iterate(new int[]{0,1}, t -> new int[]{t[1], t[0]+t[1]})
-    .limit(10)
-    .map(t -> t[0])
-    .collect(Collectors.toList());
+        .limit(10)
+        .map(t -> t[0])
+        .collect(Collectors.toList());
 
 // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 System.out.println(fib);
@@ -70,21 +70,21 @@ System.out.println(fib);
 
 ```java
 IntSupplier fib2 = new IntSupplier() {
- private int previous = 0;
- private int current = 1;
- @Override
- public int getAsInt() { // 객체 상태가 바뀌며 새로운 값 생성
-  int oldPrevious = this.previous;
-  int nextValue = this.previous + this.current;
-  this.previous = this.current;
-  this.current = nextValue;
+  private int previous = 0;
+  private int current = 1;
+  @Override
+  public int getAsInt() { // 객체 상태가 바뀌며 새로운 값 생성
+    int oldPrevious = this.previous;
+    int nextValue = this.previous + this.current;
+    this.previous = this.current;
+    this.current = nextValue;
 
-  return oldPrevious;
- }
+    return oldPrevious;
+  }
 };
 
 IntStream fib2Stream = IntStream.generate(fib2)
-    .limit(10);
+        .limit(10);
 
 fib2Stream.forEach(System.out::println);
 ```

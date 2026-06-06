@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Redis - Redis Cluster & Monitoring (3)"
+title:  "Redis - Redis Cluster & Monitoring (3)"
 date: 2022-10-08 10:00
 categories: dev
 tags: db redis
@@ -11,10 +11,10 @@ tags: db redis
 <!-- TOC -->
 * [1. Master 서버를 이용한 Slave 서버 복구](#1-master-서버를-이용한-slave-서버-복구)
 * [2. Logging & Monitoring](#2-logging--monitoring)
- * [2.1. Logging 정보](#21-logging-정보)
- * [2.2. Monitoring](#22-monitoring)
+  * [2.1. Logging 정보](#21-logging-정보)
+  * [2.2. Monitoring](#22-monitoring)
 * [3. Subscribe & Publish](#3-subscribe--publish)
- * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -23,15 +23,15 @@ tags: db redis
 
 ```shell
 $ ps -ef | grep redis
- 501 33217 86892  0 11:51AM ttys001  0:09.78 redis-server *:5001 [cluster]
- 501 33245 87641  0 11:51AM ttys002  0:09.83 redis-server *:5002 [cluster]
- 501 33562 87884  0 11:53AM ttys003  0:09.24 redis-server *:5003 [cluster]
- 501 54382 88134  0 3:52PM ttys004  0:00.00 grep --color=auto --exclude-dir=.bzr --exclude-dir=CVS --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn --exclude-dir=.idea --exclude-dir=.tox redis
- 501 33594 23473  0 11:53AM ttys005  0:09.46 redis-server *:5004 [cluster]
- 501 33623 23658  0 11:53AM ttys006  0:09.71 redis-server *:5005 [cluster]
- 501 33651 23814  0 11:54AM ttys007  0:08.98 redis-server *:5006 [cluster]
- 501 44397 41564  0 1:48PM ttys008  0:03.44 redis-server *:5007 [cluster]
- 501 42058 41712  0 1:35PM ttys009  0:05.33 redis-server *:5008 [cluster]
+  501 33217 86892   0 11:51AM ttys001    0:09.78 redis-server *:5001 [cluster]
+  501 33245 87641   0 11:51AM ttys002    0:09.83 redis-server *:5002 [cluster]
+  501 33562 87884   0 11:53AM ttys003    0:09.24 redis-server *:5003 [cluster]
+  501 54382 88134   0  3:52PM ttys004    0:00.00 grep --color=auto --exclude-dir=.bzr --exclude-dir=CVS --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn --exclude-dir=.idea --exclude-dir=.tox redis
+  501 33594 23473   0 11:53AM ttys005    0:09.46 redis-server *:5004 [cluster]
+  501 33623 23658   0 11:53AM ttys006    0:09.71 redis-server *:5005 [cluster]
+  501 33651 23814   0 11:54AM ttys007    0:08.98 redis-server *:5006 [cluster]
+  501 44397 41564   0  1:48PM ttys008    0:03.44 redis-server *:5007 [cluster]
+  501 42058 41712   0  1:35PM ttys009    0:05.33 redis-server *:5008 [cluster]
 ```
 
 master 5002 를 바라보는 slave 5005 를 강제종료한다.
@@ -39,14 +39,14 @@ master 5002 를 바라보는 slave 5005 를 강제종료한다.
 $ kill -9 33623
 
 $ ps -ef | grep redis
- 501 33217 86892  0 11:51AM ttys001  0:10.73 redis-server *:5001 [cluster]
- 501 33245 87641  0 11:51AM ttys002  0:10.79 redis-server *:5002 [cluster]
- 501 33562 87884  0 11:53AM ttys003  0:09.94 redis-server *:5003 [cluster]
- 501 56179 88134  0 4:17PM ttys004  0:00.00 grep --color=auto --exclude-dir=.bzr --exclude-dir=CVS --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn --exclude-dir=.idea --exclude-dir=.tox redis
- 501 33594 23473  0 11:53AM ttys005  0:10.43 redis-server *:5004 [cluster]
- 501 33651 23814  0 11:54AM ttys007  0:09.69 redis-server *:5006 [cluster]
- 501 44397 41564  0 1:48PM ttys008  0:04.06 redis-server *:5007 [cluster]
- 501 42058 41712  0 1:35PM ttys009  0:06.03 redis-server *:5008 [cluster]
+  501 33217 86892   0 11:51AM ttys001    0:10.73 redis-server *:5001 [cluster]
+  501 33245 87641   0 11:51AM ttys002    0:10.79 redis-server *:5002 [cluster]
+  501 33562 87884   0 11:53AM ttys003    0:09.94 redis-server *:5003 [cluster]
+  501 56179 88134   0  4:17PM ttys004    0:00.00 grep --color=auto --exclude-dir=.bzr --exclude-dir=CVS --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn --exclude-dir=.idea --exclude-dir=.tox redis
+  501 33594 23473   0 11:53AM ttys005    0:10.43 redis-server *:5004 [cluster]
+  501 33651 23814   0 11:54AM ttys007    0:09.69 redis-server *:5006 [cluster]
+  501 44397 41564   0  1:48PM ttys008    0:04.06 redis-server *:5007 [cluster]
+  501 42058 41712   0  1:35PM ttys009    0:06.03 redis-server *:5008 [cluster]
 ```
 
 ```shell
@@ -80,7 +80,7 @@ vars currentEpoch 8 lastVoteEpoch 8
 ```
 
 ```shell
-$ redis-server /usr/local/etc/redis-cluster/5005/redis-5005.conf # 5005 서버 재기동
+$ redis-server /usr/local/etc/redis-cluster/5005/redis-5005.conf  # 5005 서버 재기동
 ```
 
 ---
@@ -90,43 +90,43 @@ $ redis-server /usr/local/etc/redis-cluster/5005/redis-5005.conf # 5005 서버 �
 ## 2.1. Logging 정보
 
 - `loglevel`
- - *loglevel notice*
-  - debug (a lot of information, useful for development/testing)
-  - verbose (many rarely useful info, but not a mess like the debug level)
-  - notice (moderately verbose, what you want in production probably)
-  - warning (only very important / critical messages are logged)
+  - *loglevel notice*
+    - debug (a lot of information, useful for development/testing)
+    - verbose (many rarely useful info, but not a mess like the debug level)
+    - notice (moderately verbose, what you want in production probably)
+    - warning (only very important / critical messages are logged)
 
 - `logfile`
- - *logfile "/usr/local/var/db/redis/redis_6379.log"*
+  - *logfile "/usr/local/var/db/redis/redis_6379.log"*
 
 - `syslog-enalbed`
- - *syslog-enabled no*
- - 시스템 로그 정보 수집 여부
+  - *syslog-enabled no*
+  - 시스템 로그 정보 수집 여부
 
 - `syslog-ident`
- - *syslog-ident redis*
- - 시스템 로그 식별자
+  - *syslog-ident redis*
+  - 시스템 로그 식별자
 
 ---
 
 ## 2.2. Monitoring
 
 - `latency-monitor-threshold`
- - *latency-monitor-threshold 25*: 25ms 이상 소요되는 작업을 수집 분석
+  - *latency-monitor-threshold 25*: 25ms 이상 소요되는 작업을 수집 분석
 
 ```shell
 $ redis-cli -h 127.0.0.1 -p 6379
 
-127.0.0.1:6379> debug sleep .25 # 0.25 초 이상 소요된 작업 수집
+127.0.0.1:6379> debug sleep .25  # 0.25 초 이상 소요된 작업 수집
 OK
 
 127.0.0.1:6379> latency latest # 조건을 만족하는 작업 리스트
 1) 1) "command"
-  2) (integer) 1665733787
-  3) (integer) 338
-  4) (integer) 338
-  
-127.0.0.1:6379> latency doctor # advice report 제공
+   2) (integer) 1665733787
+   3) (integer) 338
+   4) (integer) 338
+   
+127.0.0.1:6379> latency doctor  # advice report 제공
 Dave, I have observed latency spikes in this Redis instance. You don't mind talking about it, do you Dave?
 
 1. command: 1 latency spikes (average 338ms, mean deviation 0ms, period 49.00 sec). Worst all time event 338ms.
@@ -139,15 +139,15 @@ I have a few advices for you:
 
 latency 상태 모니터링
 ```shell
-$ redis-cli -h 127.0.0.1 -p 6379 --latency
+$ redis-cli -h 127.0.0.1 -p 6379  --latency
 min: 0, max: 17, avg: 4.25 (1601 samples)^C
 ```
 
 ```shell
-$ redis-cli -h 127.0.0.1 -p 6379 --bigkeys
+$ redis-cli -h 127.0.0.1 -p 6379  --bigkeys
 
 # Scanning the entire keyspace to find biggest keys as well as
-# average sizes per key type. You can use -i 0.1 to sleep 0.1 sec
+# average sizes per key type.  You can use -i 0.1 to sleep 0.1 sec
 # per 100 SCAN commands (not usually needed).
 
 

@@ -16,17 +16,17 @@ tags: kotlin finally require() requireNotNull() check() nothing todo()
 
 <!-- TOC -->
 * [1. 예외 처리](#1-예외-처리)
- * [1.1. 커스텀 에러 타입 정의](#11-커스텀-에러-타입-정의)
- * [1.2. 복구](#12-복구)
- * [1.3. 예외 하위 타입](#13-예외-하위-타입)
- * [1.4. 자원 해제: `finally`](#14-자원-해제-finally)
- * [1.5. try 를 식으로 사용](#15-try-를-식으로-사용)
+  * [1.1. 커스텀 에러 타입 정의](#11-커스텀-에러-타입-정의)
+  * [1.2. 복구](#12-복구)
+  * [1.3. 예외 하위 타입](#13-예외-하위-타입)
+  * [1.4. 자원 해제: `finally`](#14-자원-해제-finally)
+  * [1.5. try 를 식으로 사용](#15-try-를-식으로-사용)
 * [2. 검사 명령](#2-검사-명령)
- * [2.1. 사전 조건: `require()`](#21-사전-조건-require)
- * [2.2. `File`, `Paths`](#22-file-paths)
- * [2.3. `requireNotNull()`](#23-requirenotnull)
- * [2.4. 사후 조건: `check()`](#24-사후-조건-check)
- * [2.5. `assert()`](#25-assert)
+  * [2.1. 사전 조건: `require()`](#21-사전-조건-require)
+  * [2.2. `File`, `Paths`](#22-file-paths)
+  * [2.3. `requireNotNull()`](#23-requirenotnull)
+  * [2.4. 사후 조건: `check()`](#24-사후-조건-check)
+  * [2.5. `assert()`](#25-assert)
 * [3. `Nothing` 타입: `TODO()`](#3-nothing-타입-todo)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -50,7 +50,7 @@ tags: kotlin finally require() requireNotNull() check() nothing todo()
 
 표준 라이브러리의 예외로 충분하지 못한 경우 _Exception_ 이나 _Exception_ 의 하위 타입을 상속한 새로운 예외 타입을 정의할 수 있다.
 
-`throw` 식은 `Throwable` 의 하위 타입을 요구한다. 
+`throw` 식은 `Throwable` 의 하위 타입을 요구한다.  
 **새로운 예외 타입을 정의하려면 _Exception_ 을 상속**하면 된다. (_Exception_ 은 `Throwable` 을 확장함)
 
 ```kotlin
@@ -61,8 +61,8 @@ open class Exception2(desc: String) : Exception(desc)
 class Exception3(desc: String) : Exception2(desc)
 
 fun main() {
-  throw Exception1(11)
-  //throw Exception3("abc")
+    throw Exception1(11)
+    //throw Exception3("abc")
 }
 ```
 
@@ -92,7 +92,7 @@ fun func2() = func1()
 fun func3() = func2()
 
 fun main() {
-  func3()
+    func3()
 }
 ```
 
@@ -105,11 +105,11 @@ Exception in thread "main" assu.study.kotlinme.chap06.exceptionHandling.Exceptio
 	at assu.study.kotlinme.chap06.exceptionHandling.StacktraceKt.main(Stacktrace.kt)
 ```
 
-예외가 처음 던져진 _func1()_ 이 _func1()_ 을 호출한 _func2()_ 로 한 단계 올라가고, _func2()_ 를 호출한 _func3()_ 으로 한 단계 더 전달된다. 
+예외가 처음 던져진 _func1()_ 이 _func1()_ 을 호출한 _func2()_ 로 한 단계 올라가고, _func2()_ 를 호출한 _func3()_ 으로 한 단계 더 전달된다.  
 이런 식으로 함수 호출 체인의 가장 위쪽인 _main()_ 으로 전달된다.
 
-이 과정에서 예외와 일치하는 exception handler 가 있으면 예외를 catch 한다. 
-`exception handler` 를 찾으면 핸들러 검색이 끝나고 핸들러가 종료된다. 
+이 과정에서 예외와 일치하는 exception handler 가 있으면 예외를 catch 한다.  
+`exception handler` 를 찾으면 핸들러 검색이 끝나고 핸들러가 종료된다.  
 
 만일 일치하는 핸들러는 잡지 못하면 콘솔에 stack trace 를 출력하면서 종료된다.
 
@@ -123,44 +123,44 @@ open class Exception222(desc: String) : Exception(desc)
 class Exception333(desc: String) : Exception222(desc)
 
 fun toss(which: Int) =
-  when (which) {
-    1 -> throw Exception111(111)
-    2 -> throw Exception222("222")
-    3 -> throw Exception333("333")
-    else -> "ok"
-  }
+    when (which) {
+        1 -> throw Exception111(111)
+        2 -> throw Exception222("222")
+        3 -> throw Exception333("333")
+        else -> "ok"
+    }
 
 fun test(which: Int): Any? =
-  try {
-    toss(which)
-  } catch (e: Exception111) {
-    println("1 e: $e")
-    println("1 e.message: ${e.message}")
-    println("1 e.value: ${e.value}")
-    e.message
-  } catch (e: Exception333) {
-    println("3 e: $e")
-    println("3 e.message: ${e.message}")
-    // println("1 e.value: ${e.value}")
-    e.message
-  } catch (e: Exception222) {
-    println("2 e: $e")
-    println("2 e.message: ${e.message}")
-    // println("3 e.value: ${e.value}")
-    e.message
-  }
+    try {
+        toss(which)
+    } catch (e: Exception111) {
+        println("1 e: $e")
+        println("1 e.message: ${e.message}")
+        println("1 e.value: ${e.value}")
+        e.message
+    } catch (e: Exception333) {
+        println("3 e: $e")
+        println("3 e.message: ${e.message}")
+        // println("1 e.value: ${e.value}")
+        e.message
+    } catch (e: Exception222) {
+        println("2 e: $e")
+        println("2 e.message: ${e.message}")
+        // println("3 e.value: ${e.value}")
+        e.message
+    }
 
 fun main() {
-  println(test(0)) // ok
-  println(test(1)) // 111
-  println(test(2)) // 222
-  println(test(3)) // 333
+    println(test(0)) // ok
+    println(test(1)) // 111
+    println(test(2)) // 222
+    println(test(3)) // 333
 }
 ```
 
-자바 코드와 다른 점은 `throws` 절이 코드에 없다는 점이다. 
-자바에서는 함수를 작성할 때 함수 선언 뒤에 `throws IOException` 을 붙여야 한다. 
-IOException 이 체크 예외이기 때문인데 자바에서는 체크 예외를 명시적으로 처리해야 한다. 
+자바 코드와 다른 점은 `throws` 절이 코드에 없다는 점이다.  
+자바에서는 함수를 작성할 때 함수 선언 뒤에 `throws IOException` 을 붙여야 한다.  
+IOException 이 체크 예외이기 때문인데 자바에서는 체크 예외를 명시적으로 처리해야 한다.  
 
 **어떤 함수가 던질 가능성이 있는 예외나 그 함수가 호출한 다른 함수에서 발생할 수 있는 예외를 모두 `catch` 로 처리**해야 하며, **처리하지 않은 예외는 `throws` 절에 명시**해야 한다.
 
@@ -195,28 +195,28 @@ open class Exception2222(desc: String) : Exception(desc)
 class Exception3333(desc: String) : Exception2222(desc)
 
 fun toss1(which: Int) =
-  when (which) {
-    1 -> throw Exception1111(111)
-    2 -> throw Exception2222("222")
-    3 -> throw Exception3333("333")
-    else -> "ok"
-  }
+    when (which) {
+        1 -> throw Exception1111(111)
+        2 -> throw Exception2222("222")
+        3 -> throw Exception3333("333")
+        else -> "ok"
+    }
 
 fun catchOrder(which: Int) =
-  try {
-    toss1(which)
-  } catch (e: Exception1111) {
-    "handler for Exception1111 got ${e.message}"
-  } catch (e: Exception2222) {
-    "handler for Exception2222 got ${e.message}"
-  } catch (e: Exception3333) {
-    "handler for Exception3333 got ${e.message}"
-  }
+    try {
+        toss1(which)
+    } catch (e: Exception1111) {
+        "handler for Exception1111 got ${e.message}"
+    } catch (e: Exception2222) {
+        "handler for Exception2222 got ${e.message}"
+    } catch (e: Exception3333) {
+        "handler for Exception3333 got ${e.message}"
+    }
 
 fun main() {
-  println(catchOrder(1)) // handler for Exception1111 got wrong value: 111
-  println(catchOrder(2)) // handler for Exception2222 got 222
-  println(catchOrder(3)) // handler for Exception2222 got 333
+    println(catchOrder(1))  // handler for Exception1111 got wrong value: 111
+    println(catchOrder(2))  // handler for Exception2222 got 222
+    println(catchOrder(3))  // handler for Exception2222 got 333
 }
 ```
 
@@ -224,9 +224,9 @@ fun main() {
 
 ## 1.3. 예외 하위 타입
 
-너무 많은 예외 타입을 만드는 것은 코드의 복잡도를 높힌다. 
+너무 많은 예외 타입을 만드는 것은 코드의 복잡도를 높힌다.  
 
-간단한 규칙으로, **처리 방식이 달라야 한다면 다른 예외 타입**을 사용하여 이를 구분하는 것이 좋고, 
+간단한 규칙으로, **처리 방식이 달라야 한다면 다른 예외 타입**을 사용하여 이를 구분하는 것이 좋고,  
 **처리 방식이 같다면 동일한 예외 타입을 쓰면서 생성자 인자를 다르게 주는 방식**으로 구체적인 정보를 전달하는 것이 좋다.
 
 아래는 잘못된 값을 전달하여 발생하는 표준 라이브러리인 _IllegalArgumentException_ 발생 예시이다.
@@ -235,24 +235,24 @@ fun main() {
 
 ```kotlin
 fun testCode(code: Int) {
-  if (code <= 1000) {
-    throw IllegalArgumentException("code must be > 1000: $code")
-  }
+    if (code <= 1000) {
+        throw IllegalArgumentException("code must be > 1000: $code")
+    }
 }
 
 fun main() {
-  try {
-    // A1 은 16진수로 161
-    testCode("A1".toInt(16))
-  } catch (e: IllegalArgumentException) {
-    println(e.message) // code must be > 1000: 161
-  }
+    try {
+        // A1 은 16진수로 161
+        testCode("A1".toInt(16))
+    } catch (e: IllegalArgumentException) {
+        println(e.message)  // code must be > 1000: 161
+    }
 
-  try {
-    testCode("0".toInt(1))
-  } catch (e: IllegalArgumentException) {
-    println(e.message) // radix 1 was not in valid range 2..36
-  }
+    try {
+        testCode("0".toInt(1))
+    } catch (e: IllegalArgumentException) {
+        println(e.message)  // radix 1 was not in valid range 2..36
+    }
 }
 ```
 
@@ -264,32 +264,32 @@ fun main() {
 package assu.study.kotlinme.chap06.exceptionHandling
 
 class IncorrectInputException1(
- message: String,
+  message: String,
 ) : Exception(message)
 
 fun checkCode(code: Int) {
- if (code <= 1000) {
-  throw IncorrectInputException1("code must be > 1000: $code")
- }
+  if (code <= 1000) {
+    throw IncorrectInputException1("code must be > 1000: $code")
+  }
 }
 
 fun main() {
- try {
-  // A1 은 16진수로 161
-  checkCode("A1".toInt(16))
- } catch (e: IncorrectInputException1) {
-  println(e.message) // code must be > 1000: 161
- } catch (e: IllegalArgumentException) {
-  println("produces error ${e.message}")
- }
+  try {
+    // A1 은 16진수로 161
+    checkCode("A1".toInt(16))
+  } catch (e: IncorrectInputException1) {
+    println(e.message) // code must be > 1000: 161
+  } catch (e: IllegalArgumentException) {
+    println("produces error ${e.message}")
+  }
 
- try {
-  checkCode("1".toInt(1))
- } catch (e: IncorrectInputException1) {
-  println(e.message)
- } catch (e: IllegalArgumentException) {
-  println("produces error ${e.message}") // produces error radix 1 was not in valid range 2..36
- }
+  try {
+    checkCode("1".toInt(1))
+  } catch (e: IncorrectInputException1) {
+    println(e.message)
+  } catch (e: IllegalArgumentException) {
+    println("produces error ${e.message}") // produces error radix 1 was not in valid range 2..36
+  }
 }
 ```
 
@@ -299,7 +299,7 @@ fun main() {
 
 > 자원을 해제하는 좀 더 나은 방법이 있으므로 아래 내용은 참고만 할 것
 
-> `finally` 절은 자원 해제 도중 예외 발생 시 대응이 불가하므로 자원을 해제할 때는 `use()` 를 사용함  
+> `finally` 절은 자원 해제 도중 예외 발생 시 대응이 불가하므로 자원을 해제할 때는 `use()` 를 사용함    
 > 이 부분에 대한 상세한 내용은 [1. 자원 해제: `use()`](https://assu10.github.io/dev/2024/03/10/kotlin-error-handling-2/#1-%EC%9E%90%EC%9B%90-%ED%95%B4%EC%A0%9C-use) 참고하세요.
 
 실패를 피할 수 없을 때 자원을 자동으로 해제하게 만들면 다른 부분이 계속 안전하게 실행될 수 있다.
@@ -308,26 +308,26 @@ fun main() {
 
 ```kotlin
 fun checkValue(value: Int) {
-  try {
-    println(value)
-    if (value <= 0) {
-      throw IllegalArgumentException("value must be positive: $value")
+    try {
+        println(value)
+        if (value <= 0) {
+            throw IllegalArgumentException("value must be positive: $value")
+        }
+    } finally {
+        println("finally for $value")
     }
-  } finally {
-    println("finally for $value")
-  }
 }
 
 fun main() {
-  val result = listOf(10, -10)
+    val result = listOf(10, -10)
 
-  result.forEach {
-    try {
-      checkValue(it)
-    } catch (e: IllegalArgumentException) {
-      println("catch for main: ${e.cause}, ${e.message}")
+    result.forEach {
+        try {
+            checkValue(it)
+        } catch (e: IllegalArgumentException) {
+            println("catch for main: ${e.cause}, ${e.message}")
+        }
     }
-  }
 }
 ```
 
@@ -347,37 +347,37 @@ data class Switch(var on: Boolean = false, var result: String = "ok")
 
 // Switch 클래스를 리턴
 fun testFinally(i: Int): Switch {
- val sw = Switch()
- try {
-  sw.on = true
-  when (i) {
-   0 -> throw IllegalArgumentException()
-   2 -> throw BadRequestException()
-   1 -> return sw
+  val sw = Switch()
+  try {
+    sw.on = true
+    when (i) {
+      0 -> throw IllegalArgumentException()
+      2 -> throw BadRequestException()
+      1 -> return sw
+    }
+  } catch (e: IllegalArgumentException) {
+    sw.result = "exception~"
+    println("catch~")
+  } finally {
+    sw.on = false
+    println("finally~")
   }
- } catch (e: IllegalArgumentException) {
-  sw.result = "exception~"
-  println("catch~")
- } finally {
-  sw.on = false
-  println("finally~")
- }
- return sw
+  return sw
 }
 
 fun main() {
- // catch~
- // finally~
- // Switch(on=false, result=exception~)
- println(testFinally(0))
+  // catch~
+  // finally~
+  // Switch(on=false, result=exception~)
+  println(testFinally(0))
 
- // finally~
- // Switch(on=false, result=ok)
- println(testFinally(1))
+  // finally~
+  // Switch(on=false, result=ok)
+  println(testFinally(1))
 
- // finally~
- // Exception in thread "main" org.apache.coyote.BadRequestException
- println(testFinally(2)) // Switch(on=false, result=ok)
+  // finally~
+  // Exception in thread "main" org.apache.coyote.BadRequestException
+  println(testFinally(2)) // Switch(on=false, result=ok)
 }
 ```
 
@@ -396,18 +396,18 @@ import java.io.BufferedReader
 import java.io.StringReader
 
 fun readNumber(reader: BufferedReader) {
-  val number =
-    try {
-      Integer.parseInt(reader.readLine()) // 이 식의 값이 try 식의 값이 됨
-    } catch (e: NumberFormatException) {
-      return // 예외가 발생하면 catch 블록 다음의 코드는 실행되지 않음
-    }
-  println(number)
+    val number =
+        try {
+            Integer.parseInt(reader.readLine()) // 이 식의 값이 try 식의 값이 됨
+        } catch (e: NumberFormatException) {
+            return  // 예외가 발생하면 catch 블록 다음의 코드는 실행되지 않음
+        }
+    println(number)
 }
 
 fun main() {
-  val reader = BufferedReader(StringReader("not a number"))
-  readNumber(reader) // 아무것도 출력되지 않음
+    val reader = BufferedReader(StringReader("not a number"))
+    readNumber(reader) // 아무것도 출력되지 않음
 }
 ```
 
@@ -420,18 +420,18 @@ import java.io.BufferedReader
 import java.io.StringReader
 
 fun readNumber2(reader: BufferedReader) {
-  val number =
-    try {
-      Integer.parseInt(reader.readLine()) // 이 식의 값이 try 식의 값이 됨
-    } catch (e: NumberFormatException) {
-      null // 예외가 발생하면 null 을 사용
-    }
-  println(number)
+    val number =
+        try {
+            Integer.parseInt(reader.readLine()) // 이 식의 값이 try 식의 값이 됨
+        } catch (e: NumberFormatException) {
+            null // 예외가 발생하면 null 을 사용
+        }
+    println(number)
 }
 
 fun main() {
-  val reader = BufferedReader(StringReader("not a number"))
-  readNumber2(reader) // null
+    val reader = BufferedReader(StringReader("not a number"))
+    readNumber2(reader) // null
 }
 ```
 
@@ -461,33 +461,33 @@ fun main() {
 
 ```kotlin
 data class Month(val monthNumber: Int) {
-  init {
-    require(monthNumber in 1..12) {
-      "Month out of range: $monthNumber"
+    init {
+        require(monthNumber in 1..12) {
+            "Month out of range: $monthNumber"
+        }
     }
-  }
 }
 
 fun main() {
-  // Month(monthNumber=1)
-  println(Month(1))
+    // Month(monthNumber=1)
+    println(Month(1))
 
-  // Exception in thread "main" java.lang.IllegalArgumentException: Month out of range: 13
-  println(Month(13))
+    // Exception in thread "main" java.lang.IllegalArgumentException: Month out of range: 13
+    println(Month(13))
 }
 ```
 
-`require()` 를 생성자 안에서 호출하는데, `require()` 는 조건을 만족하지 못하면 _IllegalArgumentException_ 을 반환한다. 
+`require()` 를 생성자 안에서 호출하는데, `require()` 는 조건을 만족하지 못하면 _IllegalArgumentException_ 을 반환한다.  
 따라서 **_IllegalArgumentException_ 예외를 던지는 대신에 항상 `require()` 를 사용**할 수 있다.
 
-**`require()` 의 두 번째 파라미터는 String 을 만들어내는 람다**이다. 
+**`require()` 의 두 번째 파라미터는 String 을 만들어내는 람다**이다.  
 **따라서 `require()` 가 예외를 던지기 전까지는 문자열 생성 부가 비용이 들지 않는다.**
 
 위 코드의 `init` 을 아래와 같이 사용할 수도 있다.
 
 ```kotlin
 init {
-  require(monthNumber in 1..12)
+    require(monthNumber in 1..12)
 }
 ```
 
@@ -508,35 +508,35 @@ import java.nio.file.Paths
 var targetDir = File("DataFiles")
 
 class DataFile(val fileName: String) : File(targetDir, fileName) {
-  init {
-    if (!targetDir.exists()) {
-      targetDir.mkdir()
+    init {
+        if (!targetDir.exists()) {
+            targetDir.mkdir()
+        }
     }
-  }
 
-  fun erase() {
-    if (exists()) {
-      delete()
+    fun erase() {
+        if (exists()) {
+            delete()
+        }
     }
-  }
 
-  fun reset(): File {
-    erase()
-    createNewFile()
-    return this
-  }
+    fun reset(): File {
+        erase()
+        createNewFile()
+        return this
+    }
 }
 
 fun main() {
-  println(DataFile("Test.txt").reset().toString())  // DataFiles/Test.txt
-  println(Paths.get("DataFiles", "Test.txt").toString()) // DataFiles/Test.txt
+    println(DataFile("Test.txt").reset().toString())    // DataFiles/Test.txt
+    println(Paths.get("DataFiles", "Test.txt").toString())  // DataFiles/Test.txt
 }
 ```
 
 `File` 클래스는 운영체제 수준의 파일을 조작하여 데이터를 읽고 쓴다.
 
-`Paths` 클래스는 오버로드한 `get()` 만 제공한다. 
-`get()` 은 String 을 여러 개 받아서 `Path` 객체를 만든다. 
+`Paths` 클래스는 오버로드한 `get()` 만 제공한다.  
+`get()` 은 String 을 여러 개 받아서 `Path` 객체를 만든다.  
 `Path` 객체는 운영체제와 독립적으로 디렉터리 경로를 표현한다.
 
 ---
@@ -546,41 +546,41 @@ fun main() {
 
 ```kotlin
 fun getTrace(fileName: String): List<String> {
-  // 파일명이 file_ 로 시작하는지 확인
-  require(fileName.startsWith("file_")) {
-    "$fileName must start with 'file_'"
-  }
+    // 파일명이 file_ 로 시작하는지 확인
+    require(fileName.startsWith("file_")) {
+        "$fileName must start with 'file_'"
+    }
 
-  // 파일이 존재하는지 확인
-  val file = DataFile(fileName)
-  require(file.exists()) {
-    "$fileName doesn't exists"
-  }
+    // 파일이 존재하는지 확인
+    val file = DataFile(fileName)
+    require(file.exists()) {
+        "$fileName doesn't exists"
+    }
 
-  // 파일이 비어있는지 확인
-  val lines = file.readLines()
-  require(lines.isNotEmpty()) {
-    "$fileName is empty"
-  }
+    // 파일이 비어있는지 확인
+    val lines = file.readLines()
+    require(lines.isNotEmpty()) {
+        "$fileName is empty"
+    }
 
-  return lines
+    return lines
 }
 
 fun main() {
-  DataFile("file_empty.txt").writeText("")
-  DataFile("file_assu.txt").writeText("assu aa bb cc")
+    DataFile("file_empty.txt").writeText("")
+    DataFile("file_assu.txt").writeText("assu aa bb cc")
 
-  // Exception in thread "main" java.lang.IllegalArgumentException: wrong_name.txt must start with 'file_'
-  // val result1 = getTrace("wrong_name.txt")
+    // Exception in thread "main" java.lang.IllegalArgumentException: wrong_name.txt must start with 'file_'
+    // val result1 = getTrace("wrong_name.txt")
 
-  // Exception in thread "main" java.lang.IllegalArgumentException: file_nonexistence.txt doesn't exists
-  // val result2 = getTrace("file_nonexistence.txt")
+    // Exception in thread "main" java.lang.IllegalArgumentException: file_nonexistence.txt doesn't exists
+    // val result2 = getTrace("file_nonexistence.txt")
 
-  // Exception in thread "main" java.lang.IllegalArgumentException: file_empty.txt is empty
-  // val result3 = getTrace("file_empty.txt")
- 
-  val result4 = getTrace("file_assu.txt")
-  println(result4) // [assu aa bb cc]
+    // Exception in thread "main" java.lang.IllegalArgumentException: file_empty.txt is empty
+    // val result3 = getTrace("file_empty.txt")
+  
+    val result4 = getTrace("file_assu.txt")
+    println(result4) // [assu aa bb cc]
 }
 ```
 
@@ -590,10 +590,10 @@ Exception 이 발생하기 때문에 result1~3 까지 주석을 해제하면 위
 
 ## 2.3. `requireNotNull()`
 
-**`requireNotNull()` 은 첫 번째 인자가 null 인지 검사한 후 null 이 아니면 그 값을 돌려준다.** 
+**`requireNotNull()` 은 첫 번째 인자가 null 인지 검사한 후 null 이 아니면 그 값을 돌려준다.**  
 만일 **null 이면 _IllegalArgumentException_ 을 발생**시킨다.
 
-**성공하면 `requireNotNull()` 의 인자는 자동으로 null 이 아닌 타입으로 스마트 캐스트**된다. 
+**성공하면 `requireNotNull()` 의 인자는 자동으로 null 이 아닌 타입으로 스마트 캐스트**된다.  
 
 **`requireNotNull()` 은 null 가능성만 검사하기 때문에 `require()` 와 달리 파라미터가 한 개 뿐인 버전이 더 유용**하다.
 
@@ -601,28 +601,28 @@ Exception 이 발생하기 때문에 result1~3 까지 주석을 해제하면 위
 
 ```kotlin
 fun checkNotNull(n: Int?): Int {
-  // null 일 경우 직접 리턴 메시지 조작 (파라미터가 2개)
-  requireNotNull(n) {
-    "checkNotNull() argument cannot be null~"
-  }
+    // null 일 경우 직접 리턴 메시지 조작 (파라미터가 2개)
+    requireNotNull(n) {
+        "checkNotNull() argument cannot be null~"
+    }
 
-  // requireNotNull() 호출이 n 을 null 이 될 수 없을 값으로 스마트캐스트 해주므로
-  // n 에 대해 더 이상 null 검사를 할 필요가 없음
-  return n * 9
+    // requireNotNull() 호출이 n 을 null 이 될 수 없을 값으로 스마트캐스트 해주므로
+    // n 에 대해 더 이상 null 검사를 할 필요가 없음
+    return n * 9
 }
 
 fun main() {
-  val n: Int? = null
+    val n: Int? = null
 
-  // Exception in thread "main" java.lang.IllegalArgumentException: checkNotNull() argument cannot be null~
-  // val result1 = checkNotNull(n)
+    // Exception in thread "main" java.lang.IllegalArgumentException: checkNotNull() argument cannot be null~
+    // val result1 = checkNotNull(n)
 
-  // null 일 경우 디폴트 메시지 사용 (파라미터가 1개)
-  // Exception in thread "main" java.lang.IllegalArgumentException: Required value was null.
-  // val result2 = requireNotNull(n)
+    // null 일 경우 디폴트 메시지 사용 (파라미터가 1개)
+    // Exception in thread "main" java.lang.IllegalArgumentException: Required value was null.
+    // val result2 = requireNotNull(n)
 
-  val result3 = checkNotNull(1)
-  println(result3)  // 9
+    val result3 = checkNotNull(1)
+    println(result3)    // 9
 }
 ```
 
@@ -646,23 +646,23 @@ fun main() {
 val resultFile = DataFile("result.txt")
 
 fun createResultFile(create: Boolean) {
-  if (create) {
-    resultFile.writeText("result\n ok")
-  }
+    if (create) {
+        resultFile.writeText("result\n ok")
+    }
 
-  check(resultFile.exists()) {
-    "$resultFile.name doesn't exist~"
-  }
+    check(resultFile.exists()) {
+        "$resultFile.name doesn't exist~"
+    }
 }
 
 fun main() {
-  resultFile.erase()
+    resultFile.erase()
 
-  // Exception in thread "main" java.lang.IllegalStateException: DataFiles/result.txt.name doesn't exist~
-  // val result1 = createResultFile(false)
+    // Exception in thread "main" java.lang.IllegalStateException: DataFiles/result.txt.name doesn't exist~
+    // val result1 = createResultFile(false)
 
-  // DataFiles/result.txt 가 생성됨
-  createResultFile(true)
+    // DataFiles/result.txt 가 생성됨
+    createResultFile(true)
 }
 ```
 
@@ -690,8 +690,8 @@ fun main() {
 
 **`Nothing` 은 함수가 결코 반환되지 않는다는 사실을 표현하는 반환 타입**이다.
 
-코틀린에서는 결코 성공적으로 값을 돌려주는 일이 없으므르 반환값이라는 개념 자체가 의미없는 함수가 일부 존재한다. 
-예) 테스트 라이브러리들은 _fail()_ 이라는 함수를 제공하는 경우가 많은데 _fail()_ 은 특별한 메시지가 들어있는 예외를 던져서 현재 테스트를 실패시킴 
+코틀린에서는 결코 성공적으로 값을 돌려주는 일이 없으므르 반환값이라는 개념 자체가 의미없는 함수가 일부 존재한다.  
+예) 테스트 라이브러리들은 _fail()_ 이라는 함수를 제공하는 경우가 많은데 _fail()_ 은 특별한 메시지가 들어있는 예외를 던져서 현재 테스트를 실패시킴  
 다른 예로는 무한 루프를 도는 함수는 결코 값을 반환하지 않고, 정상적으로 끝나지 않음
 
 이런 함수를 호출하는 코드를 분석할 때 함수가 정상적으로 끝나지 않는다는 사실을 알면 유용하며, 그런 경우를 표현하기 위해 `Nothing` 타입을 반환 타입으로 사용한다.
@@ -703,12 +703,12 @@ fun main() {
 아래는 무한 루프를 발생시키는 함수이므로 결코 반환되지 않기 때문에 반환 타입이 `Nothing` 이다.
 ```kotlin
 fun infinite(): Nothing {
-  while (true) {
-  }
+    while (true) {
+    }
 }
 ```
 
-실용적인 예시로는 **내장 함수인 `TODO()`** 가 있다. 
+실용적인 예시로는 **내장 함수인 `TODO()`** 가 있다.  
 **`TODO()` 는 반환 타입이 `Nothing` 이고, 항상 _NotImplementedError_ 를 던진다.**
 
 ```kotlin
@@ -717,41 +717,41 @@ fun later(s: String): String = TODO("later()~")
 fun later2(s: String): Int = TODO()
 
 fun main() {
-  // Exception in thread "main" kotlin.NotImplementedError: An operation is not implemented: later()~
-  // later("hello")
+    // Exception in thread "main" kotlin.NotImplementedError: An operation is not implemented: later()~
+    // later("hello")
 
-  // Exception in thread "main" kotlin.NotImplementedError: An operation is not implemented.
-  later2("hello")
+    // Exception in thread "main" kotlin.NotImplementedError: An operation is not implemented.
+    later2("hello")
 }
 ```
 
 `TODO()` 는 `Nothing` 타입을 반환하지만 위의 _later()_, _later2()_ 는 `Nothing` 이 아닌 String, Int 타입을 반환한다.
 
-**`Nothing` 은 모든 타입과 호환 가능**하다. 
+**`Nothing` 은 모든 타입과 호환 가능**하다.  
 즉, `Nothing` 타입은 모든 다른 타입의 하위 타입으로 취급된다.
 
-_later()_, _later2()_ 은 앞으로 함수를 구현해야 한다는 사실을 알려주는 예외를 발생시킨다. 
+_later()_, _later2()_ 은 앞으로 함수를 구현해야 한다는 사실을 알려주는 예외를 발생시킨다.  
 
 **`TODO()` 는 자세한 세부 사항을 채워넣기 전에 모든 것이 맞아떨어지는지 검증하기 위해 코드를 스케치할 때 유용**하다.
 
 ---
 
-아래 코드에서 _fail()_ 은 상상 예외를 던지기 때문에 반환 타입이 `Nothing` 이다. 
+아래 코드에서 _fail()_ 은 상상 예외를 던지기 때문에 반환 타입이 `Nothing` 이다.  
 _fail()_ 을 호출하는게 명시적으로 예외를 던지는 것보다 가독성이 좋고, 간결하다.
 
 ```kotlin
 // 항상 예외를 던지므로 반환 타입이 Nothing
 fun fail(i: Int): Nothing {
-  throw Exception("fail $i")
+    throw Exception("fail $i")
 }
 
 fun main() {
-  // Exception in thread "main" java.lang.Exception: fail 1
-  fail(1)
+    // Exception in thread "main" java.lang.Exception: fail 1
+    fail(1)
 }
 ```
 
-**위와 같은 방법을 사용하면 오류 처리 시 유용**하다. 
+**위와 같은 방법을 사용하면 오류 처리 시 유용**하다.  
 예를 들어 **예외 타입을 변경하거나 예외를 던지기 전 로그를 남기는 등의 처리가 가능**하다.
 
 **`Nothing` 타입은 아무런 값도 포함하지 않기 때문에 `Nothing` 타입은 함수의 반환 타입이나 반환 타입으로 사용될 타입 파라미터로만 쓸 수 있다.**
@@ -764,24 +764,24 @@ fun main() {
 class BadData(m: String) : Exception(m)
 
 fun checkObject(obj: Any?): String =
-  if (obj is String) {
-    obj
-  } else {
-    throw BadData("Need String, got $obj")
-  }
+    if (obj is String) {
+        obj
+    } else {
+        throw BadData("Need String, got $obj")
+    }
 
 fun testObj(checkObj: (obj1: Any?) -> String) {
-  println(checkObj("abc")) // abc
+    println(checkObj("abc")) // abc
 
-  // Exception in thread "main" assu.study.kotlinme.chap06.nothingType.BadData: Need String, got null
-  // println(checkObj(null))
+    // Exception in thread "main" assu.study.kotlinme.chap06.nothingType.BadData: Need String, got null
+    // println(checkObj(null))
 
-  // Exception in thread "main" assu.study.kotlinme.chap06.nothingType.BadData: Need String, got 111
-  println(checkObj(111))
+    // Exception in thread "main" assu.study.kotlinme.chap06.nothingType.BadData: Need String, got 111
+    println(checkObj(111))
 }
 
 fun main() {
-  testObj(::checkObject)
+    testObj(::checkObject)
 }
 ```
 
@@ -789,14 +789,14 @@ fun main() {
 
 ```kotlin
 fun checkObject(obj: Any?): String =
-  if (obj is String) {
-    obj
-  } else {
-    throw BadData("Need String, got $obj")
-  }
+    if (obj is String) {
+        obj
+    } else {
+        throw BadData("Need String, got $obj")
+    }
 ```
 
-위에서 **if 문의 하나는 String 타입이고, else 문은 Nothing 타입이므로 String 으로도 취급**할 수 있다. 
+위에서 **if 문의 하나는 String 타입이고, else 문은 Nothing 타입이므로 String 으로도 취급**할 수 있다.  
 **따라서 전체 if 식은 String 타입**이 된다.
 
 ---
@@ -812,17 +812,17 @@ fun failWithBadData(obj: Any?): Nothing = throw BadData2("Need String, got $obj"
 fun checkObject2(obj: Any?): String = (obj as? String) ?: failWithBadData(obj)
 
 fun testObj2(checkObj: (obj1: Any?) -> String) {
-  println(checkObj("abc")) // abc
+    println(checkObj("abc")) // abc
 
-  // Exception in thread "main" assu.study.kotlinme.chap06.nothingType.BadData2: Need String, got null
-  // println(checkObj(null))
+    // Exception in thread "main" assu.study.kotlinme.chap06.nothingType.BadData2: Need String, got null
+    // println(checkObj(null))
 
-  // Exception in thread "main" assu.study.kotlinme.chap06.nothingType.BadData2: Need String, got 111
-  println(checkObj(111))
+    // Exception in thread "main" assu.study.kotlinme.chap06.nothingType.BadData2: Need String, got 111
+    println(checkObj(111))
 }
 
 fun main() {
-  testObj2(::checkObject2)
+    testObj2(::checkObject2)
 }
 ```
 
@@ -834,28 +834,28 @@ fun main() {
 
 ```kotlin
 fun main() {
-  val none: Nothing? = null
+    val none: Nothing? = null
 
-  var nullableString: String? = null
-  nullableString = "aaa"
-  nullableString = none
-  println(nullableString) // null
+    var nullableString: String? = null
+    nullableString = "aaa"
+    nullableString = none
+    println(nullableString) // null
 
-  val nullableInt: Int? = none
-  println(nullableInt) // null
+    val nullableInt: Int? = none
+    println(nullableInt) // null
 
-  // null 값만 있는 List 로 초기화
-  val listNone: List<Nothing?> = listOf(null)
-  val ints: List<Int?> = listOf(null)
-  println(listNone)  // [null]
-  println(ints)  // [null]
+    // null 값만 있는 List 로 초기화
+    val listNone: List<Nothing?> = listOf(null)
+    val ints: List<Int?> = listOf(null)
+    println(listNone)   // [null]
+    println(ints)   // [null]
 }
 ```
 
 위 코드에서 _none_ 과 null 의 타입은 모두 _Nothing?_ (null 이 될 수 있는 Nothing) 이므로 둘 다 _nullableString_ 과 _nullableInt_ 에 대입 가능하다.
 
 
-아래에서 _listNone_ 은 null 값만 들어있는 List 로 초기화됐다. 
+아래에서 _listNone_ 은 null 값만 들어있는 List 로 초기화됐다.  
 컴파일러는 _listNone_ 의 타입이 List\<Nothing?\> 이라고 추론한다.
 
 따라서 **null 이 될 수 있는 타입이 원소인 리스트를 가리키는 변수를 null 만 들어있는 List 로 초기화하고 싶을 때에는 이런 식 (_List\<Nothing?\>_) 으로 원소의 타입을 명시**해야 한다. 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Node.js - 기본 개념 (3): 파일시스템"
+title:  "Node.js - 기본 개념 (3): 파일시스템"
 date: 2021-11-28 10:00
 categories: dev
 tags: javascript nodejs filesystem
@@ -14,15 +14,15 @@ tags: javascript nodejs filesystem
 > - 파일 시스템 접근
 > - 동기 메서드와 비동기 메서드
 > - Buffer 와 스트림
->  - Buffer
->  - 스트림
->  - Piping
->  - Buffer vs 스트림 메모리 사용량 비교
+>   - Buffer
+>   - 스트림
+>   - Piping
+>   - Buffer vs 스트림 메모리 사용량 비교
 > - 기타 fs 메서드
->  - `fs.access`, `fs.mkdir`, `fs.open`, `fs.rename`
->  - `fs.readdir`, `fs.unlink`, `fs.rmdir`
->  - `fs.copyFile`
->  - `fs.watch`
+>   - `fs.access`, `fs.mkdir`, `fs.open`, `fs.rename`
+>   - `fs.readdir`, `fs.unlink`, `fs.rmdir`
+>   - `fs.copyFile`
+>   - `fs.watch`
 > - 스레드풀
 
 ---
@@ -38,21 +38,21 @@ readFile.js
 ```javascript
 const fs = require('fs');
 fs.readFile('./readme.txt', (err, data) => {
- if (err) {
-  throw err;
- }
- console.log('data: ', data);
- console.log('data.toString(): ', data.toString());
+  if (err) {
+    throw err;
+  }
+  console.log('data: ', data);
+  console.log('data.toString(): ', data.toString());
 });
 ```
 
 ```shell
-data: <Buffer 72 65 61 64 20 6d 65 7e>
-data.toString(): read me~
+data:  <Buffer 72 65 61 64 20 6d 65 7e>
+data.toString():  read me~
 ```
 
 위에서 **파일 경로는 현재 파일 기준이 아니라 node 명령어를 실행하는 콘솔 기준**이다.<br />
-예를 들어 C:/ 디렉터리에서 node folder/file.js 를 실행하면 C:/folder/readme.txt 가 실행되는 게 아니라 C:/readme.txt
+예를 들어 C:/ 디렉터리에서  node folder/file.js 를 실행하면 C:/folder/readme.txt 가 실행되는 게 아니라 C:/readme.txt
 가 실행된다.
 
 readFile 의 결과물은 Buffer 로 제공된다.
@@ -64,18 +64,18 @@ readFilePromise.js
 const fs = require('fs').promises;
 
 fs.readFile('./readme.txt')
- .then(data => {
-  console.log('data: ', data);
-  console.log('data.toString(): ', data.toString());
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(data => {
+    console.log('data: ', data);
+    console.log('data.toString(): ', data.toString());
+  })
+  .catch(err => {
+    console.error(err);
+  });
 ```
 
 ```shell
-data: <Buffer 72 65 61 64 20 6d 65 7e>
-data.toString(): read me~
+data:  <Buffer 72 65 61 64 20 6d 65 7e>
+data.toString():  read me~
 ```
 
 
@@ -86,15 +86,15 @@ writeFile.js
 const fs = require('fs').promises;
 
 fs.writeFile('./writeme.txt', '글 입력')
- .then(() => {
-  return fs.readFile('./writeme.txt');
- })
- .then(data => {
-  console.log(data.toString());
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(() => {
+    return fs.readFile('./writeme.txt');
+  })
+  .then(data => {
+    console.log(data.toString());
+  })
+  .catch(err => {
+    console.error(err);
+  });
 ```
 
 ---
@@ -111,28 +111,28 @@ const fs = require('fs').promises;
 console.log('START');
 
 fs.readFile('./readme.txt')
- .then(data => {
-  console.log('1 번: ', data.toString());
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(data => {
+    console.log('1 번: ', data.toString());
+  })
+  .catch(err => {
+    console.error(err);
+  });
 
 fs.readFile('./readme.txt')
- .then(data => {
-  console.log('2 번: ', data.toString());
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(data => {
+    console.log('2 번: ', data.toString());
+  })
+  .catch(err => {
+    console.error(err);
+  });
 
 fs.readFile('./readme.txt')
- .then(data => {
-  console.log('3 번: ', data.toString());
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(data => {
+    console.log('3 번: ', data.toString());
+  })
+  .catch(err => {
+    console.error(err);
+  });
 
 console.log('END');
 ```
@@ -140,9 +140,9 @@ console.log('END');
 ```shell
 START
 END
-2 번: read me~
-3 번: read me~
-1 번: read me~
+2 번:  read me~
+3 번:  read me~
+1 번:  read me~
 ```
 
 비동기 메서드들은 백그라운드에 해당 파일을 읽으라고만 요청하고 다음 작업으로 넘어가기 때문에 바로 *console.log('END');* 를 실행한다.<br />
@@ -184,9 +184,9 @@ console.log('END');
 
 ```shell
 START
-1 번: read me~
-2 번: read me~
-3 번: read me~
+1 번:  read me~
+2 번:  read me~
+3 번:  read me~
 END
 ```
 
@@ -204,21 +204,21 @@ const fs = require('fs').promises;
 console.log('START');
 
 fs.readFile('./readme.txt')
- .then(data => {
-  console.log('1 번: ', data.toString());
-  return fs.readFile('./readme.txt');
- })
- .then(data => {
-  console.log('2 번: ', data.toString());
-  return fs.readFile('./readme.txt');
- })
- .then(data => {
-  console.log('3 번: ', data.toString());
-  return fs.readFile('./readme.txt');
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(data => {
+    console.log('1 번: ', data.toString());
+    return fs.readFile('./readme.txt');
+  })
+  .then(data => {
+    console.log('2 번: ', data.toString());
+    return fs.readFile('./readme.txt');
+  })
+  .then(data => {
+    console.log('3 번: ', data.toString());
+    return fs.readFile('./readme.txt');
+  })
+  .catch(err => {
+    console.error(err);
+  });
 
 console.log('END');
 ```
@@ -226,9 +226,9 @@ console.log('END');
 ```shell
 START
 END
-1 번: read me~
-2 번: read me~
-3 번: read me~
+1 번:  read me~
+2 번:  read me~
+3 번:  read me~
 ```
 
 ---
@@ -261,21 +261,21 @@ console.log('alloc(): ', buffer3);
 ```
 
 ```shell
-from(): <Buffer eb b2 84 ed 8d bc eb a1 9c 20 eb b0 94 ea bf 94 eb b3 b4 ec 84 b8 ec 9a 94>
-length: 25
-toString(): 버퍼로 바꿔보세요
-concat(): 하나 둘 셋
-alloc(): <Buffer 00 00 00 00 00>
+from():  <Buffer eb b2 84 ed 8d bc eb a1 9c 20 eb b0 94 ea bf 94 eb b3 b4 ec 84 b8 ec 9a 94>
+length:  25
+toString():  버퍼로 바꿔보세요
+concat():  하나 둘 셋
+alloc():  <Buffer 00 00 00 00 00>
 ```
 
 - `from(문자열)`
- - 문자열을 Buffer 로 변경, length 는 Buffer 의 바이트 크기
+  - 문자열을 Buffer 로 변경, length 는 Buffer 의 바이트 크기
 - `toString(Buffer)`
- - Buffer 를 다시 문자열로 변경, base64, hex 인수를 넣으면 해당 인코딩으로 변환 가능
+  - Buffer 를 다시 문자열로 변경, base64, hex 인수를 넣으면 해당 인코딩으로 변환 가능
 - `concat(배열)`
- - 배열 안에 든 Buffer 들을 하나로 합침
+  - 배열 안에 든 Buffer 들을 하나로 합침
 - `alloc(바이트)`
- - 빈 Buffer 를 생성, 바이트를 인수로 넣으면 해당 크기의 Buffer 생성
+  - 빈 Buffer 를 생성, 바이트를 인수로 넣으면 해당 크기의 Buffer 생성
 
 ---
 
@@ -302,27 +302,27 @@ const readStream = fs.createReadStream('./readme2.txt', { highWaterMark: 16 });
 const data = [];
 
 readStream.on('data', chunk => {
- data.push(chunk);
- console.log('data: ', chunk, chunk.length);
+  data.push(chunk);
+  console.log('data: ', chunk, chunk.length);
 });
 
 readStream.on('end', () => {
- console.log('end: ', Buffer.concat(data).toString());
+  console.log('end: ', Buffer.concat(data).toString());
 });
 
 readStream.on('error', err => {
- console.error(err);
+  console.error(err);
 });
 ```
 
 ```shell
-data: <Buffer ec a1 b0 ea b8 88 ec 94 a9 20 eb 82 98 eb 88 a0> 16
-data: <Buffer ec 84 9c 20 ec a0 84 eb 8b ac eb 90 a9 eb 8b 88> 16
-data: <Buffer eb 8b a4 2e 20 eb 82 98 eb 88 a0 ec a7 84 20 ec> 16
-data: <Buffer a1 b0 ea b0 81 ec 9d 80 20 63 68 75 6e 6b 20 eb> 16
-data: <Buffer 9d bc ea b3 a0 20 ed 95 a9 eb 8b 88 eb 8b a4 2e> 16
-data: <Buffer 20 ed 95 98 ed 95 98 ed 95 98> 10
-end: 조금씩 나눠서 전달됩니다. 나눠진 조각은 chunk 라고 합니다. 하하하
+data:  <Buffer ec a1 b0 ea b8 88 ec 94 a9 20 eb 82 98 eb 88 a0> 16
+data:  <Buffer ec 84 9c 20 ec a0 84 eb 8b ac eb 90 a9 eb 8b 88> 16
+data:  <Buffer eb 8b a4 2e 20 eb 82 98 eb 88 a0 ec a7 84 20 ec> 16
+data:  <Buffer a1 b0 ea b0 81 ec 9d 80 20 63 68 75 6e 6b 20 eb> 16
+data:  <Buffer 9d bc ea b3 a0 20 ed 95 a9 eb 8b 88 eb 8b a4 2e> 16
+data:  <Buffer 20 ed 95 98 ed 95 98 ed 95 98> 10
+end:  조금씩 나눠서 전달됩니다. 나눠진 조각은 chunk 라고 합니다. 하하하
 ```
 
 `createReadStream` 로 읽기 Stream 을 만든 후 `data`, `end`, `error` 등의 이벤트 리스너를 붙여서 사용한다.<br />
@@ -338,7 +338,7 @@ const fs = require('fs');
 
 const writeStream = fs.createWriteStream('./writeme2.txt');
 writeStream.on('finish', () => {
- console.log('파일 쓰기 완료');
+  console.log('파일 쓰기 완료');
 });
 
 writeStream.write('글을 쓰자.\n');
@@ -399,9 +399,9 @@ const fs = require('fs');
 const writeStream = fs.createWriteStream('./bigFile.txt');
 
 for (let i = 0; i <= 10000000; i++) {
- writeStream.write(
-  '엄청나게 큰 파일입니다. 엄청나게 큰 파일입니다. 엄청나게 큰 파일입니다.!\n ',
- );
+  writeStream.write(
+    '엄청나게 큰 파일입니다. 엄청나게 큰 파일입니다. 엄청나게 큰 파일입니다.!\n ',
+  );
 }
 writeStream.end();
 ```
@@ -422,15 +422,15 @@ console.log('after memory: ', process.memoryUsage().rss);
 ```
 
 ```shell
-before memory: 22237184
-before memory: {
- rss: 22986752,
- heapTotal: 4796416,
- heapUsed: 3992896,
- external: 277845,
- arrayBuffers: 11146
+before memory:  22237184
+before memory:  {
+  rss: 22986752,
+  heapTotal: 4796416,
+  heapUsed: 3992896,
+  external: 277845,
+  arrayBuffers: 11146
 }
-after memory: 1063510016
+after memory:  1063510016
 ```
 
 처음에 22MB 였던 메모리 용량이 1GB 가 넘은 것을 확인할 수 있다.<br />
@@ -450,13 +450,13 @@ const writeStream = fs.createWriteStream('./bigFile3.txt');
 readStream.pipe(writeStream);
 
 readStream.on('end', () => {
- console.log('after memory: ', process.memoryUsage().rss);
+  console.log('after memory: ', process.memoryUsage().rss);
 });
 ```
 
 ```shell
-before memory: 22228992
-after memory: 47448064
+before memory:  22228992
+after memory:  47448064
 ```
 
 처음에 22MB 였던 메모리 용량이 47MB 가 되었다.<br />
@@ -476,44 +476,44 @@ const fs = require('fs').promises;
 const CONSTANTS = require('fs').constants;
 
 fs.access('./folder', CONSTANTS.F_OK | CONSTANTS.W_OK | CONSTANTS.R_OK)
-    .then(() => {
-     console.log(
-         '111',
-         CONSTANTS.F_OK,
-         CONSTANTS.W_OK,
-         CONSTANTS.R_OK,
-         CONSTANTS.F_OK | CONSTANTS.W_OK | CONSTANTS.R_OK,
-     );
-     return Promise.reject('이미 폴더 있음');
-    })
-    .catch(err => {
-     console.log(
-         '222',
-         CONSTANTS.F_OK,
-         CONSTANTS.W_OK,
-         CONSTANTS.R_OK,
-         CONSTANTS.F_OK | CONSTANTS.W_OK | CONSTANTS.R_OK,
-     );
-     if (err.code === 'ENOENT') {
-      console.log('폴더 없음');
-      return fs.mkdir('./folder');
-     }
-     return Promise.reject(err);
-    })
-    .then(() => {
-     console.log('폴더 생성');
-     return fs.open('./folder/file.js', 'w');
-    })
-    .then(fd => {
-     console.log('빈 파일 생성', fd);
-     return fs.rename('./folder/file.js', './folder/newfile.js');
-    })
-    .then(() => {
-     console.log('이름 변경');
-    })
-    .catch(err => {
-     console.error(err);
-    });
+        .then(() => {
+          console.log(
+                  '111',
+                  CONSTANTS.F_OK,
+                  CONSTANTS.W_OK,
+                  CONSTANTS.R_OK,
+                  CONSTANTS.F_OK | CONSTANTS.W_OK | CONSTANTS.R_OK,
+          );
+          return Promise.reject('이미 폴더 있음');
+        })
+        .catch(err => {
+          console.log(
+                  '222',
+                  CONSTANTS.F_OK,
+                  CONSTANTS.W_OK,
+                  CONSTANTS.R_OK,
+                  CONSTANTS.F_OK | CONSTANTS.W_OK | CONSTANTS.R_OK,
+          );
+          if (err.code === 'ENOENT') {
+            console.log('폴더 없음');
+            return fs.mkdir('./folder');
+          }
+          return Promise.reject(err);
+        })
+        .then(() => {
+          console.log('폴더 생성');
+          return fs.open('./folder/file.js', 'w');
+        })
+        .then(fd => {
+          console.log('빈 파일 생성', fd);
+          return fs.rename('./folder/file.js', './folder/newfile.js');
+        })
+        .then(() => {
+          console.log('이름 변경');
+        })
+        .catch(err => {
+          console.error(err);
+        });
 
 ```
 
@@ -522,15 +522,15 @@ fs.access('./folder', CONSTANTS.F_OK | CONSTANTS.W_OK | CONSTANTS.R_OK)
 폴더 없음
 폴더 생성
 빈 파일 생성 FileHandle {
- _events: [Object: null prototype] {},
- _eventsCount: 0,
- _maxListeners: undefined,
- close: [Function: close],
- [Symbol(kCapture)]: false,
- [Symbol(kHandle)]: FileHandle {},
- [Symbol(kFd)]: 22,
- [Symbol(kRefs)]: 1,
- [Symbol(kClosePromise)]: null
+  _events: [Object: null prototype] {},
+  _eventsCount: 0,
+  _maxListeners: undefined,
+  close: [Function: close],
+  [Symbol(kCapture)]: false,
+  [Symbol(kHandle)]: FileHandle {},
+  [Symbol(kFd)]: 22,
+  [Symbol(kRefs)]: 1,
+  [Symbol(kClosePromise)]: null
 }
 이름 변경
 
@@ -547,20 +547,20 @@ fs.access('./folder', CONSTANTS.F_OK | CONSTANTS.W_OK | CONSTANTS.R_OK)
 위 fs 메서드들은 모두 비동기 메서드이므로 한 메서드의 콜백에서 다른 메서드를 호출한다.
 
 - `fs.access(경로, 옵션, 콜백)`
- - 폴더나 파일 접근 가능 여부 체크
- - require('fs').constants 로 옵션 설정 가능
- - F_OK: 파일 존재 여부, R_OK: 읽기 권한 여부, W_OK: 쓰기 권한 여부 
- - 파일/폴더가 없을 때는 ENOENT 오류 발생
+  - 폴더나 파일 접근 가능 여부 체크
+  - require('fs').constants 로 옵션 설정 가능
+  - F_OK: 파일 존재 여부, R_OK: 읽기 권한 여부, W_OK: 쓰기 권한 여부  
+  - 파일/폴더가 없을 때는 ENOENT 오류 발생
 - `fs.mkdir(경로, 콜백)`
- - 폴더 생성
- - 이미 폴더가 있으면 오류가 발생하므로 access 메서드로 꼭 확인 필요
+  - 폴더 생성
+  - 이미 폴더가 있으면 오류가 발생하므로 access 메서드로 꼭 확인 필요
 - `fs.open(경로, 옵션, 콜백)`
- - 파일의 아이디(fd) 가져오는 메서드
- - 파일이 없다면 생성한 뒤 그 아이디를 가져옴
- - 가져온 아이디로 fs.read, fs.write 를 이용하여 읽거나 쓰기 가능
- - w: 쓰기, r: 읽기, a: 추가
+  - 파일의 아이디(fd) 가져오는 메서드
+  - 파일이 없다면 생성한 뒤 그 아이디를 가져옴
+  - 가져온 아이디로 fs.read, fs.write 를 이용하여 읽거나 쓰기 가능
+  - w: 쓰기, r: 읽기, a: 추가
 - `fs.rename(기존 경로, 새 경로, 콜백)`
- - 이름 변경
+  - 이름 변경
 
 ---
 
@@ -571,20 +571,20 @@ fsDelete.js
 const fs = require('fs').promises;
 
 fs.readdir('./folder')
- .then(dir => {
-  console.log('폴더 내용 확인', dir);
-  return fs.unlink('./folder/newfile.js');
- })
- .then(() => {
-  console.log('파일 삭제');
-  return fs.rmdir('./folder');
- })
- .then(() => {
-  console.log('폴더 삭제');
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(dir => {
+    console.log('폴더 내용 확인', dir);
+    return fs.unlink('./folder/newfile.js');
+  })
+  .then(() => {
+    console.log('파일 삭제');
+    return fs.rmdir('./folder');
+  })
+  .then(() => {
+    console.log('폴더 삭제');
+  })
+  .catch(err => {
+    console.error(err);
+  });
 ```
 
 ```shell
@@ -594,21 +594,21 @@ fs.readdir('./folder')
 
 # 다시 실행 시
 [Error: ENOENT: no such file or directory, scandir './folder'] {
- errno: -2,
- code: 'ENOENT',
- syscall: 'scandir',
- path: './folder'
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: './folder'
 }
 ```
 
 - `fs.readdir(경로, 콜백)`
- - 폴더 안의 파일, 폴더명 조회
+  - 폴더 안의 파일, 폴더명 조회
 - `fs.unlink(경로, 콜백)`
- - 파일 삭제
- - 파일이 없으면 오류가 발생하므로 먼저 파일이 있는지 확인 필요
+  - 파일 삭제
+  - 파일이 없으면 오류가 발생하므로 먼저 파일이 있는지 확인 필요
 - `fs.rmdir(경로, 콜백)`
- - 폴더 삭제
- - 폴더 안에 파일이 있으면 에러가 발생하므로 내부 파일을 모두 지우고 호출해야 함
+  - 폴더 삭제
+  - 폴더 안에 파일이 있으면 에러가 발생하므로 내부 파일을 모두 지우고 호출해야 함
 
 ---
 
@@ -632,12 +632,12 @@ copyFile.js
 const fs = require('fs').promises;
 
 fs.copyFile('readme.txt', 'writeme4.txt')
- .then(() => {
-  console.log('파일 복사');
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(() => {
+    console.log('파일 복사');
+  })
+  .catch(err => {
+    console.error(err);
+  });
 ```
 
 ---
@@ -653,12 +653,12 @@ watch.js
 const fs = require('fs').promises;
 
 fs.copyFile('readme.txt', 'writeme4.txt')
- .then(() => {
-  console.log('파일 복사');
- })
- .catch(err => {
-  console.error(err);
- });
+  .then(() => {
+    console.log('파일 복사');
+  })
+  .catch(err => {
+    console.error(err);
+  });
 ```
 
 ```shell
@@ -694,47 +694,47 @@ const salt = 'salt';
 const start = Date.now();
 
 crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
- console.log('1: ', Date.now() - start);
+  console.log('1: ', Date.now() - start);
 });
 
 crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
- console.log('2: ', Date.now() - start);
+  console.log('2: ', Date.now() - start);
 });
 
 crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
- console.log('3: ', Date.now() - start);
+  console.log('3: ', Date.now() - start);
 });
 
 crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
- console.log('4: ', Date.now() - start);
+  console.log('4: ', Date.now() - start);
 });
 
 crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
- console.log('5: ', Date.now() - start);
+  console.log('5: ', Date.now() - start);
 });
 
 crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
- console.log('6: ', Date.now() - start);
+  console.log('6: ', Date.now() - start);
 });
 
 crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
- console.log('7: ', Date.now() - start);
+  console.log('7: ', Date.now() - start);
 });
 
 crypto.pbkdf2(pass, salt, 1000000, 128, 'sha512', () => {
- console.log('8: ', Date.now() - start);
+  console.log('8: ', Date.now() - start);
 });
 ```
 
 ```shell
-1: 1154
-4: 1159
-2: 1159
-3: 1159
-5: 2309
-7: 2310
-6: 2310
-8: 2311
+1:  1154
+4:  1159
+2:  1159
+3:  1159
+5:  2309
+7:  2310
+6:  2310
+8:  2311
 ```
 
 스레드풀이 작업을 동시에 처리하므로 8개 작업 중 어느 것이 먼저 처리될 지 모른다.<br />

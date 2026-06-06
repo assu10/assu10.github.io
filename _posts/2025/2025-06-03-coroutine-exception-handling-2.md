@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Coroutine - 예외 처리(2): 예외 처리 방법"
+title:  "Coroutine - 예외 처리(2): 예외 처리 방법"
 date: 2025-06-03
 categories: dev
 tags: kotlin coroutine coroutine-exception-handler async cancellation-exception withtimeout job-cancellation-exception withtieoutornull
 ---
 
-구조화된 동시성이라는 코루틴의 핵심 개념은 예외 전파 방식에 깊이 관여한다. 
+구조화된 동시성이라는 코루틴의 핵심 개념은 예외 전파 방식에 깊이 관여한다.  
 이 포스트에서는 아래 내용에 대해 알아본다.
 
 - CoroutineExceptionHandler 를 활용한 예외 처리
@@ -23,21 +23,21 @@ tags: kotlin coroutine coroutine-exception-handler async cancellation-exception 
 
 <!-- TOC -->
 * [1. `CoroutineExceptionHandler()` 를 사용한 예외 처리](#1-coroutineexceptionhandler-를-사용한-예외-처리)
- * [1.1. 처리되지 않은 예외만 처리](#11-처리되지-않은-예외만-처리)
- * [1.2. `CoroutineExceptionHandler` 의 동작 위치](#12-coroutineexceptionhandler-의-동작-위치)
- * [1.3. `CoroutineExceptionHandler` 를 사용해야 하는 경우](#13-coroutineexceptionhandler-를-사용해야-하는-경우)
- * [1.4. `CoroutineExceptionHandler` 는 예외 전파를 제한하지 않음](#14-coroutineexceptionhandler-는-예외-전파를-제한하지-않음)
+  * [1.1. 처리되지 않은 예외만 처리](#11-처리되지-않은-예외만-처리)
+  * [1.2. `CoroutineExceptionHandler` 의 동작 위치](#12-coroutineexceptionhandler-의-동작-위치)
+  * [1.3. `CoroutineExceptionHandler` 를 사용해야 하는 경우](#13-coroutineexceptionhandler-를-사용해야-하는-경우)
+  * [1.4. `CoroutineExceptionHandler` 는 예외 전파를 제한하지 않음](#14-coroutineexceptionhandler-는-예외-전파를-제한하지-않음)
 * [2. try-catch 문을 사용한 예외 처리](#2-try-catch-문을-사용한-예외-처리)
- * [2.1. 코루틴 빌더 함수에 대한 try-catch 문은 예외를 잡지 못함](#21-코루틴-빌더-함수에-대한-try-catch-문은-예외를-잡지-못함)
+  * [2.1. 코루틴 빌더 함수에 대한 try-catch 문은 예외를 잡지 못함](#21-코루틴-빌더-함수에-대한-try-catch-문은-예외를-잡지-못함)
 * [3. `async()` 의 예외 처리](#3-async-의-예외-처리)
- * [3.1. `async()` 의 예외 전파: `await()` 없이도 예외는 전파됨](#31-async-의-예외-전파-await-없이도-예외는-전파됨)
- * [3.2. `async()` 와 `launch()` 의 예외 처리](#32-async-와-launch-의-예외-처리)
+  * [3.1. `async()` 의 예외 전파: `await()` 없이도 예외는 전파됨](#31-async-의-예외-전파-await-없이도-예외는-전파됨)
+  * [3.2. `async()` 와 `launch()` 의 예외 처리](#32-async-와-launch-의-예외-처리)
 * [4. 전파되지 않는 예외](#4-전파되지-않는-예외)
- * [4.1. 전파되지 않는 예외, `CancellationException`](#41-전파되지-않는-예외-cancellationexception)
- * [4.2. 코루틴 취소 시 사용되는 `JobCancellationException`](#42-코루틴-취소-시-사용되는-jobcancellationexception)
- * [4.3. `withTimeOut()` 을 사용해 코루틴의 실행 시간 제한](#43-withtimeout-을-사용해-코루틴의-실행-시간-제한)
-  * [4.3.1. `withTimeOut()` 의 try-catch](#431-withtimeout-의-try-catch)
-  * [4.3.2. `withTimeOutOrNull()`](#432-withtimeoutornull)
+  * [4.1. 전파되지 않는 예외, `CancellationException`](#41-전파되지-않는-예외-cancellationexception)
+  * [4.2. 코루틴 취소 시 사용되는 `JobCancellationException`](#42-코루틴-취소-시-사용되는-jobcancellationexception)
+  * [4.3. `withTimeOut()` 을 사용해 코루틴의 실행 시간 제한](#43-withtimeout-을-사용해-코루틴의-실행-시간-제한)
+    * [4.3.1. `withTimeOut()` 의 try-catch](#431-withtimeout-의-try-catch)
+    * [4.3.2. `withTimeOutOrNull()`](#432-withtimeoutornull)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -51,7 +51,7 @@ CoroutineExceptionHandler 시그니처
 
 ```kotlin
 public inline fun CoroutineExceptionHandler(
- crossinline handler: (CoroutineContext, Throwable) -> Unit
+  crossinline handler: (CoroutineContext, Throwable) -> Unit
 ): CoroutineExceptionHandler
 ```
 
@@ -63,7 +63,7 @@ public inline fun CoroutineExceptionHandler(
 
 ## 1.1. 처리되지 않은 예외만 처리
 
-CoroutineExceptionHandler 객체는 **처리되지 않은 예외(Uncaught Exception)만 처리**한다. 
+CoroutineExceptionHandler 객체는 **처리되지 않은 예외(Uncaught Exception)만 처리**한다.  
 즉, **자식 코루틴이 예외를 발생시켜 부모 코루틴으로 전파한 경우 자식 코루틴에서는 예외가 처리된 것으로 보아 자식에 설정한 예외 처리 핸들러는 동작하지 않는다.**
 
 자식 코루틴에 설정된 핸들러는 무시되는 예시
@@ -79,15 +79,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
-  val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-    println("Caught~~ [[$throwable]]")
-  }
-  CoroutineScope(context = Dispatchers.IO).launch(context = CoroutineName("Coroutine1")) {
-    launch(context = CoroutineName("Coroutine2") + exceptionHandler) { // CoroutineExceptionHandler 설정
-      throw Exception("코루틴 2에 예외 발생")
+    val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        println("Caught~~ [[$throwable]]")
     }
-  }
-  delay(1000L)
+    CoroutineScope(context = Dispatchers.IO).launch(context = CoroutineName("Coroutine1")) {
+        launch(context = CoroutineName("Coroutine2") + exceptionHandler) { // CoroutineExceptionHandler 설정
+            throw Exception("코루틴 2에 예외 발생")
+        }
+    }
+    delay(1000L)
 }
 ```
 
@@ -105,7 +105,7 @@ Process finished with exit code 0
 - 예외는 Coroutine2 → Coroutine1 → 구조화된 상위 코루틴으로 **전파된다.**
 - Coroutine2 의 exceptionHandler 는 **예외를 처리한 것이 아니라 상위로 넘겼기 때문에 해당 예외 처리 핸들러는 동작하지 않는다.**
 
-구조화된 코루틴에서 여러 CoroutineExceptionHandler 객체가 설정되어 있어도 예외를 마지막으로 처리하는 위치에 설정된 CoroutineExceptionHandler 객체만 예외를 처리한다. 
+구조화된 코루틴에서 여러 CoroutineExceptionHandler 객체가 설정되어 있어도 예외를 마지막으로 처리하는 위치에 설정된 CoroutineExceptionHandler 객체만 예외를 처리한다.  
 이런 특징 때문에 CoroutineExceptionHandler 객체는 '공통 예외 처리기'로서 동작할 수 있다.
 
 예외 처리 핸들러는 이미 처리된(전파된) 예외에 대해서는 무시된다.
@@ -114,13 +114,13 @@ Process finished with exit code 0
 
 <**CoroutineExceptionHandler 객체 정리**>
 - **처리 대상**
- - 처리되지 않은 예외(Uncaught Exception)
+  - 처리되지 않은 예외(Uncaught Exception)
 - **작동 위치**
- - **launch 계열**에서만 동작함 (async 는 해당 없음)
+  - **launch 계열**에서만 동작함 (async 는 해당 없음)
 - **전파 여부**
- - 예외가 부모로 전파되면 자식의 핸들러는 무시됨
+  - 예외가 부모로 전파되면 자식의 핸들러는 무시됨
 - **실제 적용 위치**
- - **최상위 launch 코루틴**에 설정해야 함
+  - **최상위 launch 코루틴**에 설정해야 함
 
 즉, CoroutineExceptionHandler 는 **launch 로 생성된 루트 코루틴의 컨텍스트에 등록**해야 의미가 있다.
 
@@ -142,15 +142,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-    println("Caught~~ [[$throwable]]")
-  }
-  CoroutineScope(context = exceptionHandler).launch(context = CoroutineName("Coroutine1")) {
-    launch(context = CoroutineName("Coroutine2")) {
-      throw Exception("코루틴 2에 예외 발생")
+    val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        println("Caught~~ [[$throwable]]")
     }
-  }
-  delay(1000L)
+    CoroutineScope(context = exceptionHandler).launch(context = CoroutineName("Coroutine1")) {
+        launch(context = CoroutineName("Coroutine2")) {
+            throw Exception("코루틴 2에 예외 발생")
+        }
+    }
+    delay(1000L)
 }
 ```
 
@@ -193,20 +193,20 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-    println("Caught 1~~ [[$throwable]]")
-  }
-  val exceptionHandler2 = CoroutineExceptionHandler { coroutineContext, throwable ->
-    println("Caught 2~~ [[$throwable]]")
-  }
-
-  CoroutineScope(context = Dispatchers.IO + exceptionHandler)
-    .launch(context = CoroutineName("Coroutine1") + exceptionHandler2) {
-      launch(context = CoroutineName("Coroutine2")) {
-        throw Exception("코루틴 2에 예외 발생")
-      }
+    val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        println("Caught 1~~ [[$throwable]]")
     }
-  delay(1000L)
+    val exceptionHandler2 = CoroutineExceptionHandler { coroutineContext, throwable ->
+        println("Caught 2~~ [[$throwable]]")
+    }
+
+    CoroutineScope(context = Dispatchers.IO + exceptionHandler)
+        .launch(context = CoroutineName("Coroutine1") + exceptionHandler2) {
+            launch(context = CoroutineName("Coroutine2")) {
+                throw Exception("코루틴 2에 예외 발생")
+            }
+        }
+    delay(1000L)
 }
 ```
 
@@ -223,7 +223,7 @@ Process finished with exit code 0
 
 ---
 
-`CoroutineExceptionHandler` 는 **launch 계열의 루트 코루틴에만 적용**된다. (예외 로깅, 공통 에러 처리, 모니터링 로직은 최상위 예외 처리 핸들러에 넣어야 함) 
+`CoroutineExceptionHandler` 는 **launch 계열의 루트 코루틴에만 적용**된다. (예외 로깅, 공통 에러 처리, 모니터링 로직은 최상위 예외 처리 핸들러에 넣어야 함)  
 따라서 **`async` 에서는 무조건 await() + try-catch 로 예외를 처리**해야 한다.
 
 ---
@@ -232,7 +232,7 @@ Process finished with exit code 0
 
 CoroutineExceptionHandler 의 handleException() 함수는 예외가 발생해 코루틴이 이미 완료된 상태에서 호출되기 때문에 **예외 복구나 재시도에는 사용할 수 없다.**
 
-그렇다면 CoroutineExceptionHandler 는 언제 써야 할까? 
+그렇다면 CoroutineExceptionHandler 는 언제 써야 할까?  
 CoroutineExceptionHandler 는 **예외 발생 시 공통된 후처리 작업을 수행**하기 위해 사용된다.
 - 예외 로깅
 - 사용자 알림
@@ -251,20 +251,20 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
- val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-  println("예외 로깅~~ $throwable")
- }
- CoroutineScope(Dispatchers.IO)
-  .launch(context = CoroutineName("Coroutine1") + exceptionHandler) {
-   launch(context = CoroutineName("Coroutine2")) {
-    throw Exception("코루틴2에 예외 발생함")
-   }
-   launch(context = CoroutineName("Coroutine3")) {
-    delay(200L) // 이게 없으면 예외가 발생하기 전에 코루틴 3 이 실행됨. 코루틴 3 으로 예외 전파가 되는지 여부를 확인해보기 위해 넣어봄
-    println("코루틴 3 실행")
-   }
+  val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+    println("예외 로깅~~ $throwable")
   }
- delay(1000L)
+  CoroutineScope(Dispatchers.IO)
+    .launch(context = CoroutineName("Coroutine1") + exceptionHandler) {
+      launch(context = CoroutineName("Coroutine2")) {
+        throw Exception("코루틴2에 예외 발생함")
+      }
+      launch(context = CoroutineName("Coroutine3")) {
+        delay(200L) // 이게 없으면 예외가 발생하기 전에 코루틴 3 이 실행됨. 코루틴 3 으로 예외 전파가 되는지 여부를 확인해보기 위해 넣어봄
+        println("코루틴 3 실행")
+      }
+    }
+  delay(1000L)
 }
 ```
 
@@ -282,15 +282,15 @@ Process finished with exit code 0
 
 ---
 
-앱 전역 오류 처리가 필요한 경우 ViewModelScope, ApplicationScope 의 루트에 등록하여 사용한다. 
-네트워크 요청 등 실패가 허용되는 작업에는 [SupervisorJob](https://assu10.github.io/dev/2025/05/30/coroutine-exception-handling-1/#22-supervisorjob-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%98%88%EC%99%B8-%EC%A0%84%ED%8C%8C-%EC%A0%9C%ED%95%9C) 과 함께 사용한다. 
+앱 전역 오류 처리가 필요한 경우 ViewModelScope, ApplicationScope 의 루트에 등록하여 사용한다.  
+네트워크 요청 등 실패가 허용되는 작업에는 [SupervisorJob](https://assu10.github.io/dev/2025/05/30/coroutine-exception-handling-1/#22-supervisorjob-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%98%88%EC%99%B8-%EC%A0%84%ED%8C%8C-%EC%A0%9C%ED%95%9C) 과 함께 사용한다.  
 UI 앱이라면 Toast, Snackbar, Alert 등 사용자 알림 처리에 유용하다.
 
 ---
 
 ## 1.4. `CoroutineExceptionHandler` 는 예외 전파를 제한하지 않음
 
-많은 개발자들이 CoroutineExceptionHandler 를 **try-catch 처럼 예외를 '잡아서 흐름을 멈추는' 기능으로 오해**할 수 있다. 
+많은 개발자들이 CoroutineExceptionHandler 를 **try-catch 처럼 예외를 '잡아서 흐름을 멈추는' 기능으로 오해**할 수 있다.  
 하지만 CoroutineExceptionHandler 는 **예외를 '처리'는 해도 '전파를 막지는 않는다.'**
 
 CoroutineExceptionHandler 는 try-catch 문처럼 동작하지 않는다. 즉, 예외 전파를 제한하지 않는다.
@@ -305,26 +305,26 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-    println("Caught~ $throwable")
-  }
-  launch(context = CoroutineName("Coroutine1") + exceptionHandler) {
-    throw Exception("예외가 발생함")
-  }
+    val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        println("Caught~ $throwable")
+    }
+    launch(context = CoroutineName("Coroutine1") + exceptionHandler) {
+        throw Exception("예외가 발생함")
+    }
 }
 ```
 
 - Coroutine1 코루틴에서 예외가 발생한다.
 - runBlocking 의 자식 launch 코루틴에서 예외가 발생하면 예외가 runBlocking 까지 전파되어 프로그램이 종료된다.
 
-CoroutineExceptionHandler 는 **루트 코루틴(부모가 없는 launch) 에서만 동작**한다. 
+CoroutineExceptionHandler 는 **루트 코루틴(부모가 없는 launch) 에서만 동작**한다.  
 위 코드에서 Coroutine1 은 runBlocking 의 자식으로 **루트가 아니므로** 예외가 전파되어 runBlocking 을 종료시키고, **프로세스가 비정상 종료**된다.
 
 결과를 보면 예외가 전파되어 프로세스가 비정상 종료된 것을 확인할 수 있다. (exit code 1 로 종료됨)
 
 ```shell
 Exception in thread "main" java.lang.Exception: 예외가 발생함
- // ...
+  // ...
 Process finished with exit code 1
 ```
 
@@ -336,13 +336,13 @@ Process finished with exit code 1
 
 - `launch()` 가 runBlocking 의 자식일 때
 - `async()` 를 사용할 때
- - 이 때는 try-catch 또는 SupervisorJob + launch 패턴을 사용해야 함
+  - 이 때는 try-catch 또는 SupervisorJob + launch 패턴을 사용해야 함
 
 ---
 
 # 2. try-catch 문을 사용한 예외 처리
 
-CoroutineExceptionHandler 는 처리되지 않은 예외에 대해서만 동작하지만, **try-catch 는 예외가 발생한 지점에서 즉시 처리**할 수 있다. 
+CoroutineExceptionHandler 는 처리되지 않은 예외에 대해서만 동작하지만, **try-catch 는 예외가 발생한 지점에서 즉시 처리**할 수 있다.  
 따라서 try-catch 는 정밀한 예외 복구, 로직 분기 등에 사용된다.
 
 ```kotlin
@@ -354,18 +354,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  launch(context = CoroutineName("Coroutine1")) {
-    try {
-      throw Exception("Coroutine1 에서 예외 발생")
-    } catch(e: Exception) {
-      println(e.message)
+    launch(context = CoroutineName("Coroutine1")) {
+        try {
+            throw Exception("Coroutine1 에서 예외 발생")
+        } catch(e: Exception) {
+            println(e.message)
+        }
     }
-  }
 
-  launch(context = CoroutineName("Coroutine2")) {
-    delay(100L)
-    println("Coroutine2 실행")
-  }
+    launch(context = CoroutineName("Coroutine2")) {
+        delay(100L)
+        println("Coroutine2 실행")
+    }
 }
 ```
 
@@ -392,7 +392,7 @@ Process finished with exit code 0
 
 ## 2.1. 코루틴 빌더 함수에 대한 try-catch 문은 예외를 잡지 못함
 
-try-catch 문 사용 시 많이 하는 실수는 코루틴 빌더 함수(`launch()`, `async()`) 자체를 try-catch 문으로 감싸는 것이다. 
+try-catch 문 사용 시 많이 하는 실수는 코루틴 빌더 함수(`launch()`, `async()`) 자체를 try-catch 문으로 감싸는 것이다.  
 하지만 그렇게 하면 코루틴 내부에서 발생하는 예외는 잡히지 않는다.
 
 코루틴 빌더를 try-catch 문으로 감싸는 잘못된 예외 처리 방식의 예시
@@ -405,18 +405,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  try {
-    launch(context = CoroutineName("Coroutine1")) {
-      throw Exception("코루틴 1 에서 예외 발생")
+    try {
+        launch(context = CoroutineName("Coroutine1")) {
+            throw Exception("코루틴 1 에서 예외 발생")
+        }
+    } catch (e: Exception) {
+        println(e.message)
     }
-  } catch (e: Exception) {
-    println(e.message)
-  }
 
-  launch(context = CoroutineName("Coroutine2")) {
-    delay(100L)
-    println("코루틴2 실행")
-  }
+    launch(context = CoroutineName("Coroutine2")) {
+        delay(100L)
+        println("코루틴2 실행")
+    }
 }
 ```
 
@@ -437,7 +437,7 @@ Process finished with exit code 1 // 프로그램이 비정상 종료됨(exit co
 
 # 3. `async()` 의 예외 처리
 
-`async()` 는 비동기 연산의 결과를 Deferred\<T\> 객체로 감싸서 반환한다. 
+`async()` 는 비동기 연산의 결과를 Deferred\<T\> 객체로 감싸서 반환한다.  
 따라서 코루틴 블록 내부에서 예외가 발생해도 그 즉시 예외가 노출되지 않고, `await()` 호출 시점에 예외가 노출된다.
 
 `async()` 코루틴 빌더 함수 사용 시엔 반드시 `await()` 호출부에서 try-catch 문을 감싸야 한다.
@@ -452,16 +452,16 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.supervisorScope
 
 fun main() = runBlocking<Unit> {
-  supervisorScope {
-    val deferred: Deferred<String> = async(context = CoroutineName("Coroutine1")) {
-      throw Exception("코루틴1 예외 발생")
+    supervisorScope {
+        val deferred: Deferred<String> = async(context = CoroutineName("Coroutine1")) {
+            throw Exception("코루틴1 예외 발생")
+        }
+        try {
+            deferred.await()
+        } catch (e: Exception) {
+            println("예외 잡음~ ${e.message}")
+        }
     }
-    try {
-      deferred.await()
-    } catch (e: Exception) {
-      println("예외 잡음~ ${e.message}")
-    }
-  }
 }
 ```
 
@@ -487,7 +487,7 @@ Process finished with exit code 1 // 비정상 종료(exit code 1)
 
 ## 3.1. `async()` 의 예외 전파: `await()` 없이도 예외는 전파됨
 
-**`async()` 도 예외 발생 시 부모에게 예외를 전파**한다. 
+**`async()` 도 예외 발생 시 부모에게 예외를 전파**한다.  
 많은 개발자들이 `async()` 사용 시 예외가 `await()` 를 호출해야만 노출된다고 생각하지만 **예외는 항상 부모 코루틴에게 전파**된다.
 
 예외 전파를 고려하지 않은 `async()` 의 잘못된 사용 예시
@@ -501,13 +501,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit>{
-  async(context = CoroutineName("Coroutine1")) {
-    throw Exception("Coroutine1 에서 예외 발생")
-  }
-  launch(context = CoroutineName("Coroutine2")) {
-    delay(100L)
-    println("[${Thread.currentThread().name}] 코루틴 실행")
-  }
+    async(context = CoroutineName("Coroutine1")) {
+        throw Exception("Coroutine1 에서 예외 발생")
+    }
+    launch(context = CoroutineName("Coroutine2")) {
+        delay(100L)
+        println("[${Thread.currentThread().name}] 코루틴 실행")
+    }
 }
 ```
 
@@ -535,15 +535,15 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.supervisorScope
 
 fun main() = runBlocking<Unit> {
-  supervisorScope {
-    async(context = CoroutineName("Coroutine1")) {
-      throw Exception("Coroutine1 에서 예외 발생")
+    supervisorScope {
+        async(context = CoroutineName("Coroutine1")) {
+            throw Exception("Coroutine1 에서 예외 발생")
+        }
+        launch(context = CoroutineName("Coroutine2")) {
+            delay(100L)
+            println("[${Thread.currentThread().name}] 코루틴 실행")
+        }
     }
-    launch(context = CoroutineName("Coroutine2")) {
-      delay(100L)
-      println("[${Thread.currentThread().name}] 코루틴 실행")
-    }
-  }
 }
 ```
 
@@ -567,11 +567,11 @@ Process finished with exit code 0
 
 ## 3.2. `async()` 와 `launch()` 의 예외 처리
 
-|  구분  | `launch()`                   | `async()`           |
+|    구분    | `launch()`                                      | `async()`                     |
 |:--------:|:------------------------------------------------|:------------------------------|
-|  반환값  | Job (결과 없음)                   | Deferred\<T\> (결과 있음)     |
-| 예외 전파 시점 | 즉시 전파됨                     | `await()` 호출 시점에 전파됨     |
-| 예외 처리  | 코루틴 내부에서 try-catch 또는 CoroutineExceptionHandler | `await()` 를 try-catch 로 감싸야 함 |
+|   반환값    | Job (결과 없음)                                     | Deferred\<T\> (결과 있음)         |
+| 예외 전파 시점 | 즉시 전파됨                                          | `await()` 호출 시점에 전파됨          |
+|  예외 처리   | 코루틴 내부에서 try-catch 또는 CoroutineExceptionHandler | `await()` 를 try-catch 로 감싸야 함 |
 
 ---
 
@@ -581,7 +581,7 @@ Process finished with exit code 0
 
 ## 4.1. 전파되지 않는 예외, `CancellationException`
 
-`CancellationException` 는 **코루틴의 취소를 나타내는 특별한 예외**이기 때문에 내부적으로 취소 플래그로만 동작하고 **다른 코루틴에는 영향을 주지 않는다.** 
+`CancellationException` 는 **코루틴의 취소를 나타내는 특별한 예외**이기 때문에 내부적으로 취소 플래그로만 동작하고 **다른 코루틴에는 영향을 주지 않는다.**  
 즉, **`CancellationException` 은 부모에게 예외를 전파하지 않는다.**
 
 ```kotlin
@@ -594,15 +594,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit>(context = CoroutineName("runBlocking 코루틴")) {
-  launch(context = CoroutineName("Coroutine1")) {
-    launch(context = CoroutineName("Coroutine2")) {
-      throw CancellationException()
+    launch(context = CoroutineName("Coroutine1")) {
+        launch(context = CoroutineName("Coroutine2")) {
+            throw CancellationException()
+        }
+        delay(100L)
+        println("[${Thread.currentThread().name}] 코루틴 실행")
     }
     delay(100L)
     println("[${Thread.currentThread().name}] 코루틴 실행")
-  }
-  delay(100L)
-  println("[${Thread.currentThread().name}] 코루틴 실행")
 }
 ```
 
@@ -625,8 +625,8 @@ Process finished with exit code 0
 
 ## 4.2. 코루틴 취소 시 사용되는 `JobCancellationException`
 
-`CancellationException` 은 **취소 신호로 사용**된다. 
-코틀린 코루틴은 **`CancellationException` (혹은 그 하위 클래스인 `JobCancellationException`)** 내부적으로 **코루틴 취소의 시그널**로 사용한다. 
+`CancellationException` 은 **취소 신호로 사용**된다.  
+코틀린 코루틴은 **`CancellationException` (혹은 그 하위 클래스인 `JobCancellationException`)**  내부적으로 **코루틴 취소의 시그널**로 사용한다.  
 이는 일반적인 예외 처리와는 목적이 다르며 **부모 코루틴으로 전파되지 않고 해당 코루틴만 종료**시키는 특성을 가진다.
 
 코루틴 취소 시 JobCancellationException 확인하는 예시
@@ -639,13 +639,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking<Unit> {
-  val job: Job = launch {
-    delay(1000L)
-  }
-  job.invokeOnCompletion { e ->
-    println("--- ${e}") // 발생한 예외 출력
-  }
-  job.cancel() // job 취소
+    val job: Job = launch {
+        delay(1000L)
+    }
+    job.invokeOnCompletion { e ->
+        println("--- ${e}") // 발생한 예외 출력
+    }
+    job.cancel() // job 취소
 }
 ```
 
@@ -668,7 +668,7 @@ Process finished with exit code 0
 
 `withTimeout()` 함수는 코루틴 실행 시간을 제한할 수 있다.
 
-`withTimeout()` 함수는 특정 시간이 초과되면 **작업을 강제로 중단**시키고, `TimeoutCancellationException` 을 발생시켜 해당 코루틴만 취소한다. 
+`withTimeout()` 함수는 특정 시간이 초과되면 **작업을 강제로 중단**시키고, `TimeoutCancellationException` 을 발생시켜 해당 코루틴만 취소한다.  
 이 예외는 `CacellationException` 의 하위 클래스이므로 **부모 코루틴으로 전파되지 않으며**, 프로그램 종료없이 안전하게 사용 가능하다.
 
 `withTimeout()` 시그니처
@@ -677,9 +677,9 @@ public suspend fun <T> withTimeout(timeMillis: Long, block: suspend CoroutineSco
 ```
 
 - timeMillis
- - 제한 시간(ms)
+  - 제한 시간(ms)
 - block
- - 실행할 suspend 함수 블록
+  - 실행할 suspend 함수 블록
 
 ```kotlin
 package chap08
@@ -691,14 +691,14 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 
 fun main() = runBlocking<Unit>(CoroutineName("Parent")) {
-  launch(context = CoroutineName("Child")) {
-    withTimeout(1000L) { // 실행 시간을 1초로 제한
-      delay(2000L) // 2초 걸리는 작업
-      println("[${Thread.currentThread().name}] 코루틴 실행11")
+    launch(context = CoroutineName("Child")) {
+        withTimeout(1000L) { // 실행 시간을 1초로 제한
+            delay(2000L) // 2초 걸리는 작업
+            println("[${Thread.currentThread().name}] 코루틴 실행11")
+        }
     }
-  }
-  delay(2000L)
-  println("[${Thread.currentThread().name}] 코루틴 실행22")
+    delay(2000L)
+    println("[${Thread.currentThread().name}] 코루틴 실행22")
 }
 ```
 
@@ -712,8 +712,8 @@ Process finished with exit code 0
 - 이 예외는 부모 코루틴으로 전파되지 않기 때문에 Parent 코루틴은 영향을 받지 않고 정상 실행됨
 - `TimeoutCancellationException` 은 `CancellationException` 의 하위 클래스이므로 **취소만 유도하고 예외 전파는 하지 않음**
 
-`withTimeout()` 사용 시엔 반드시 **예외를 try-catch 로 잡거나**, **취소 로직을 처리**해야 안전한 종료가 가능하다. 
-`withTimeout()` 에 설정된 제한 시간을 초과하면 **지연되던 블록은 즉시 취소**된다. 
+`withTimeout()` 사용 시엔 반드시 **예외를 try-catch 로 잡거나**, **취소 로직을 처리**해야 안전한 종료가 가능하다.  
+`withTimeout()` 에 설정된 제한 시간을 초과하면 **지연되던 블록은 즉시 취소**된다.  
 `TimeoutCancellationException` 을 catch 하여 타임아웃 시 예외 메시지를 별도로 처리할 수 있다.
 
 `withTimeout()` 함수는 실행 시간이 제한되어야 할 필요가 있는 네트워크 호출의 실행 시간 제한, IO 작업, 사용자 입력 제한 등에 사용된다.
@@ -731,14 +731,14 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 
 fun main() = runBlocking<Unit>(context = CoroutineName("Parent")) {
-  try {
-    withTimeout(2000L) {
-      delay(2000L) // 2초의 작업이 걸리는 작업
-      println("[${Thread.currentThread().name}] 코루틴 실행")
+    try {
+        withTimeout(2000L) {
+            delay(2000L) // 2초의 작업이 걸리는 작업
+            println("[${Thread.currentThread().name}] 코루틴 실행")
+        }
+    } catch (e: Exception) {
+        println("e: ${e}")
     }
-  } catch (e: Exception) {
-    println("e: ${e}")
-  }
 }
 ```
 
@@ -756,7 +756,7 @@ Process finished with exit code 0
 
 `withTimeout()` 은 예외를 던지지만, `withTimeoutOrNull()` 은 null 을 반환한다.
 
-`withTimeoutOrNull()` 은 `withTimeout()` 과 동일하게 **작업 시간 제한**을 두되, 시간이 초과될 경우 `TimeoutCancellationException` 을 **던지지 않고 null 을 반환**한다. 
+`withTimeoutOrNull()` 은 `withTimeout()` 과 동일하게 **작업 시간 제한**을 두되, 시간이 초과될 경우 `TimeoutCancellationException` 을 **던지지 않고 null 을 반환**한다.  
 이로 인해 **예외 처리 없이도 안전하게 timeout 상황을 감지**할 수 있다.
 
 
@@ -770,13 +770,13 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull
 
 fun main() = runBlocking<Unit>(context = CoroutineName("Parent")) {
-  launch(context = CoroutineName("Coroutine")) {
-    val result: String? = withTimeoutOrNull(1000L) { // 실행 시간을 1초로 제한
-      delay(2000L) // 2초의 시간이 걸리는 작업
-      return@withTimeoutOrNull "결과"
+    launch(context = CoroutineName("Coroutine")) {
+        val result: String? = withTimeoutOrNull(1000L) { // 실행 시간을 1초로 제한
+            delay(2000L) // 2초의 시간이 걸리는 작업
+            return@withTimeoutOrNull "결과"
+        }
+        println("result: $result")
     }
-    println("result: $result")
-  }
 }
 ```
 

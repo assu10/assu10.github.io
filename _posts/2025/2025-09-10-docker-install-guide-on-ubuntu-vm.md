@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Docker - 우분투 가상 머신에 도커 설치"
+title:  "Docker - 우분투 가상 머신에 도커 설치"
 date: 2025-09-10 10:00:00
 categories: dev
 tags: devops docker ubuntu install-guide container virtual-machine kubernetes 도커-설치 우분투
@@ -41,21 +41,21 @@ $ ssh assu@127.0.0.1
 assu@127.0.0.1's password:
 Welcome to Ubuntu 24.04.2 LTS (GNU/Linux 6.8.0-60-generic aarch64)
 
- * Documentation: https://help.ubuntu.com
- * Management:   https://landscape.canonical.com
- * Support:    https://ubuntu.com/pro
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
 
  System information as of Sat Sep 13 07:38:55 AM UTC 2025
 
- System load: 0.13        Processes:        125
- Usage of /:  14.5% of 47.41GB  Users logged in:     0
- Memory usage: 3%         IPv4 address for enp0s8: 10.0.2.4
- Swap usage:  0%
+  System load:  0.13               Processes:               125
+  Usage of /:   14.5% of 47.41GB   Users logged in:         0
+  Memory usage: 3%                 IPv4 address for enp0s8: 10.0.2.4
+  Swap usage:   0%
 
  * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
-  just raised the bar for easy, resilient and secure K8s cluster deployment.
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
 
-  https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
 
 Expanded Security Maintenance for Applications is not enabled.
 
@@ -78,7 +78,7 @@ assu@myserver01:~$
 
 **패키지 관리자 업데이트 및 사전 필요 패키지 설치**
 
-가장 먼저 할 일은 우분투의 패키지 관리자(`apt`)가 최신 패키지 목록을 가질 수 있도록 업데이트하는 것이다. 
+가장 먼저 할 일은 우분투의 패키지 관리자(`apt`)가 최신 패키지 목록을 가질 수 있도록 업데이트하는 것이다.  
 이를 통해 설치 과정에서 발생할 수 있는 의존성 문제를 예방할 수 있다.
 
 ```shell
@@ -103,10 +103,10 @@ assu@myserver01:~$ sudo apt-get install ca-certificates curl gnupg lsb-release
 
 **도커 공식 GPG 키 추가**
 
-이제 도커에서 공식적으로 제공하는 패키지를 설치한다. 
+이제 도커에서 공식적으로 제공하는 패키지를 설치한다.  
 하지만 이 패키지가 중간에 해커에 의해 변조되지 않았고, 정말로 도커에서 배포한 것이 맞는지 어떻게 신뢰할 수 있을까?
 
-이 신뢰를 보장하기 위해 **도커의 공식 GPG(GNU Privacy Guard)키**를 시스템에 추가해야 한다. 
+이 신뢰를 보장하기 위해 **도커의 공식 GPG(GNU Privacy Guard)키**를 시스템에 추가해야 한다.  
 이 키를 통해 우리 시스템은 앞으로 도커 관련 패키지가 도커에 의해 정식으로 서명되었는지 검증하게 된다.
 
 ```shell
@@ -124,7 +124,7 @@ assu@myserver01:~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sud
 
 **도커 공식 리포지토리 설정**
 
-마지막 준비 단계는 패키지 관리자 apt 에게 "앞으로 도커는 이 주소에서 다운로드 하라." 고 알려주는 단계이다. 
+마지막 준비 단계는 패키지 관리자 apt 에게 "앞으로 도커는 이 주소에서 다운로드 하라." 고 알려주는 단계이다.  
 즉, 도커 패키지가 저장된 공식 원격 저장소의 주소를 시스템에 등록하는 것이다.
 
 아래 명령어는 도커 다운로드 주소 정보를 담은 설정 파일을 생성한다.
@@ -135,7 +135,7 @@ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev
 ```
 
 이 한 줄의 명령어는 현재 시스템 아키텍처(amd64, arm64 등)와 우분투 버전 코드명(noble, jammy 등)을 자동으로 감지하여 설정 파일에 반영해주므로, 어떤 
-환경에서도 호환되는 편리한 방법이다. 
+환경에서도 호환되는 편리한 방법이다.  
 또한 `signed-by` 옵션을 통해 해당 리포지토리에서 받는 패키지는 방금 전 추가한 GPG 키로 검증해야 함을 명시한다.
 
 ---
@@ -152,9 +152,9 @@ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev
 assu@myserver01:~$ sudo apt-get update
 ```
 
-앞서 업데이트를 했는데 왜 또 하냐고 생각할 수도 있다. 
-이전 단계에서 `/etc/apt/sources.list.d/docker.list` 파일을 추가하여 시스템에 '새로운 소프트웨어 창고(도커 공식 리포지토리)'를 등록했다. 
-따라서 `apt` 가 이 새로운 창고에 어떤 패키지들이 있는지 목록을 가져오게 하려면, `update` 명령을 다시 실행해야 한다. 
+앞서 업데이트를 했는데 왜 또 하냐고 생각할 수도 있다.  
+이전 단계에서 `/etc/apt/sources.list.d/docker.list` 파일을 추가하여 시스템에 '새로운 소프트웨어 창고(도커 공식 리포지토리)'를 등록했다.  
+따라서 `apt` 가 이 새로운 창고에 어떤 패키지들이 있는지 목록을 가져오게 하려면, `update` 명령을 다시 실행해야 한다.  
 이 과정을 생략하면 도커 패키지를 찾지 못하고 설치 오류를 발생시키게 된다.
 
 이제 최신 버전의 도커 관련 패키지들을 설치한다.
@@ -173,22 +173,22 @@ assu@myserver01:~$ sudo apt-get install docker-ce docker-ce-cli containerd.io do
 
 **설치 확인 및 서비스 상태 점검**
 
-설치가 완료되면 도커 서비스(Daemon)가 자동으로 실행된다. 
+설치가 완료되면 도커 서비스(Daemon)가 자동으로 실행된다.  
 `systemctl status` 명령어로 도커가 정상적으로 실행 중인지 확인해보자.
 
 ```shell
 assu@myserver01:~$ systemctl status docker
 ● docker.service - Docker Application Container Engine
-   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; preset: enabled)
-   Active: active (running) since Sat 2025-09-13 08:50:34 UTC; 56s ago
+     Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; preset: enabled)
+     Active: active (running) since Sat 2025-09-13 08:50:34 UTC; 56s ago
 TriggeredBy: ● docker.socket
-    Docs: https://docs.docker.com
-  Main PID: 4094 (dockerd)
-   Tasks: 10
-   Memory: 22.7M (peak: 23.5M)
-    CPU: 878ms
-   CGroup: /system.slice/docker.service
-       └─4094 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+       Docs: https://docs.docker.com
+   Main PID: 4094 (dockerd)
+      Tasks: 10
+     Memory: 22.7M (peak: 23.5M)
+        CPU: 878ms
+     CGroup: /system.slice/docker.service
+             └─4094 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 ...
 ```
 
@@ -217,32 +217,32 @@ assu@myserver01:~$ sudo usermod -aG docker $USER
 ```shell
 assu@myserver01:~$ docker version
 Client: Docker Engine - Community
- Version:      28.4.0
- API version:    1.51
- Go version:    go1.24.7
- Git commit:    d8eb465
- Built:       Wed Sep 3 20:58:55 2025
- OS/Arch:      linux/arm64
- Context:      default
+ Version:           28.4.0
+ API version:       1.51
+ Go version:        go1.24.7
+ Git commit:        d8eb465
+ Built:             Wed Sep  3 20:58:55 2025
+ OS/Arch:           linux/arm64
+ Context:           default
 
 Server: Docker Engine - Community
  Engine:
- Version:     28.4.0
- API version:   1.51 (minimum version 1.24)
- Go version:    go1.24.7
- Git commit:    249d679
- Built:      Wed Sep 3 20:58:55 2025
- OS/Arch:     linux/arm64
- Experimental:   false
+  Version:          28.4.0
+  API version:      1.51 (minimum version 1.24)
+  Go version:       go1.24.7
+  Git commit:       249d679
+  Built:            Wed Sep  3 20:58:55 2025
+  OS/Arch:          linux/arm64
+  Experimental:     false
  containerd:
- Version:     1.7.27
- GitCommit:    05044ec0a9a75232cad458027ca83437aae3f4da
+  Version:          1.7.27
+  GitCommit:        05044ec0a9a75232cad458027ca83437aae3f4da
  runc:
- Version:     1.2.5
- GitCommit:    v1.2.5-0-g59923ef
+  Version:          1.2.5
+  GitCommit:        v1.2.5-0-g59923ef
  docker-init:
- Version:     0.19.0
- GitCommit:    de40ad0
+  Version:          0.19.0
+  GitCommit:        de40ad0
 ```
 
 만일 permission denied 와 같은 권한 오류가 나타나면, 로그아웃 후 재로그인하면 사용자 세션이 재시작되면서 정상적인 결과가 나타날 것이다.
@@ -262,15 +262,15 @@ This message shows that your installation appears to be working correctly.
 To generate this message, Docker took the following steps:
  1. The Docker client contacted the Docker daemon.
  2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-  (arm64v8)
+    (arm64v8)
  3. The Docker daemon created a new container from that image which runs the
-  executable that produces the output you are currently reading.
+    executable that produces the output you are currently reading.
  4. The Docker daemon streamed that output to the Docker client, which sent it
-  to your terminal.
+    to your terminal.
 ...
 ```
 
-위 메시지는 단순한 출력이 아니라, 도커의 핵심적인 동작 과정이 모두 성공했다는 증거이다. 
+위 메시지는 단순한 출력이 아니라, 도커의 핵심적인 동작 과정이 모두 성공했다는 증거이다.  
 메시지에 설명된 4가지 단계를 풀어보면 아래와 같다.
 
 1. `docker` 클라이언트(터미널의 명령어)가 `dockerd` 데몬(백그라운드 서비스)에게 요청을 보냈다.

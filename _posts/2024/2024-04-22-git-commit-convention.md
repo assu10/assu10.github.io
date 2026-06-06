@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Git commit message convention"
+title:  "Git commit message convention"
 date: 2024-04-22
 categories: dev
 tags: backend git-commit-convention
@@ -37,25 +37,25 @@ footer
 # 2. Commit Type
 
 - `feat`
- - 새로운 기능 추가
+  - 새로운 기능 추가
 - `fix`
- - 버그 수정
+  - 버그 수정
 - `docs`
- - 문서 수정
+  - 문서 수정
 - `style`
- - 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우
+  - 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우
 - `refactor`
- - 코드 리팩터링
+  - 코드 리팩터링
 - `test`
- - 테스트 코드, 리펙토링 테스트 코드 추가
+  - 테스트 코드, 리펙토링 테스트 코드 추가
 - `chore`
- - 빌드 업무 수정, 패키지 매니저 수정
+  - 빌드 업무 수정, 패키지 매니저 수정
 
 ---
 
 # 3. Subject
 
-제목은 50자를 넘기지 않고, 첫 글자는 대문자로 작성하며 마침표를 붙이지 않는다.  
+제목은 50자를 넘기지 않고, 첫 글자는 대문자로 작성하며 마침표를 붙이지 않는다.    
 과거 시제가 아니라 명령어로 작성한다.
 
 예) Fixed → Fix, Added → Add
@@ -64,14 +64,14 @@ footer
 
 # 4. Body
 
-선택 사항이므로 꼭 작성할 필요는 없다. 
+선택 사항이므로 꼭 작성할 필요는 없다.  
 부연 설명이 필요할 경우에 작성한다.
 
 ---
 
 # 5. Footer
 
-선택 사항이므로 꼭 작성할 필요는 없다. 
+선택 사항이므로 꼭 작성할 필요는 없다.  
 issue tracker id 를 작성할 때 사용한다.
 
 ---

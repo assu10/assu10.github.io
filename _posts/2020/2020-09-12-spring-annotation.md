@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring 어노테이션 정리"
+title:  "Spring 어노테이션 정리"
 date: 2020-09-12 10:00
 categories: dev
 tags: backend spring-annotation 
@@ -13,43 +13,43 @@ tags: backend spring-annotation
 (다음에 그 블로그 못 찾을까봐...)
 
 <!-- TOC -->
- * [@ComponentScan](#componentscan)
- * [@EnableAutoConfiguration](#enableautoconfiguration)
- * [@Configuration](#configuration)
- * [@Resource](#resource)
- * [@PostConstruct, @PreConstruct](#postconstruct-preconstruct)
- * [@PreDestroy](#predestroy)
- * [@PropertySource](#propertysource)
- * [@ConfigurationProperties](#configurationproperties)
- * [@Lazy](#lazy)
- * [@Value](#value)
- * [@SpringBootApplication](#springbootapplication)
- * [@CookieValue](#cookievalue)
- * [@CrossOrigin](#crossorigin)
- * [@ModelAttribute](#modelattribute)
- * [@SessionAttributes](#sessionattributes)
- * [@RequestBody](#requestbody)
- * [@RequestHeader](#requestheader)
- * [@RequestParam](#requestparam)
- * [@RequestPart](#requestpart)
- * [@ResponseBody](#responsebody)
- * [@PathVariable](#pathvariable)
- * [@ExceptionHandler(ExceptionClassName.class)](#exceptionhandlerexceptionclassnameclass)
- * [@ControllerAdvice](#controlleradvice)
- * [@RestControllerAdvice](#restcontrolleradvice)
- * [@ResponseStatus](#responsestatus)
- * [@Transactional](#transactional)
- * [@Cacheable](#cacheable)
- * [@CachePut](#cacheput)
- * [@CacheEvict](#cacheevict)
- * [@CacheConfig](#cacheconfig)
- * [@Scheduled](#scheduled)
- * [@Valid](#valid)
- * [@InitBinder](#initbinder)
- * [@Required](#required)
- * [@Qualifier("id123")](#qualifierid123)
- * [@ConditionalOnProperty](#conditionalonproperty)
- * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [@ComponentScan](#componentscan)
+  * [@EnableAutoConfiguration](#enableautoconfiguration)
+  * [@Configuration](#configuration)
+  * [@Resource](#resource)
+  * [@PostConstruct, @PreConstruct](#postconstruct-preconstruct)
+  * [@PreDestroy](#predestroy)
+  * [@PropertySource](#propertysource)
+  * [@ConfigurationProperties](#configurationproperties)
+  * [@Lazy](#lazy)
+  * [@Value](#value)
+  * [@SpringBootApplication](#springbootapplication)
+  * [@CookieValue](#cookievalue)
+  * [@CrossOrigin](#crossorigin)
+  * [@ModelAttribute](#modelattribute)
+  * [@SessionAttributes](#sessionattributes)
+  * [@RequestBody](#requestbody)
+  * [@RequestHeader](#requestheader)
+  * [@RequestParam](#requestparam)
+  * [@RequestPart](#requestpart)
+  * [@ResponseBody](#responsebody)
+  * [@PathVariable](#pathvariable)
+  * [@ExceptionHandler(ExceptionClassName.class)](#exceptionhandlerexceptionclassnameclass)
+  * [@ControllerAdvice](#controlleradvice)
+  * [@RestControllerAdvice](#restcontrolleradvice)
+  * [@ResponseStatus](#responsestatus)
+  * [@Transactional](#transactional)
+  * [@Cacheable](#cacheable)
+  * [@CachePut](#cacheput)
+  * [@CacheEvict](#cacheevict)
+  * [@CacheConfig](#cacheconfig)
+  * [@Scheduled](#scheduled)
+  * [@Valid](#valid)
+  * [@InitBinder](#initbinder)
+  * [@Required](#required)
+  * [@Qualifier("id123")](#qualifierid123)
+  * [@ConditionalOnProperty](#conditionalonproperty)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -114,7 +114,7 @@ spEL을 이용해서 조금 더 고급스럽게 쓸 수 있다.
 false 를 적용하면 해당 쿠키 값이 없을 때 null 로 받고 에러를 발생시키지 않는다.
 
 ```java
-public String view(@CookieValue(value="auth") String auth){...};   // 쿠키의 key 가 auth 에 해당하는 값을 가져옴
+public String view(@CookieValue(value="auth") String auth){...};     // 쿠키의 key 가 auth 에 해당하는 값을 가져옴
 ```
 
 ## @CrossOrigin
@@ -146,7 +146,7 @@ Request 에 설정되어 있는 속성 값을 가져올 수 있다.
 ## @RequestHeader
 Request 의 header 값을 가져올 수 있다. 메서드의 파라미터에 사용
 ```java
-@RequestHeader(value="Accept-Language") String acceptLanguage //ko-KR,ko;q=0.8,en-US;q=0.6
+@RequestHeader(value="Accept-Language") String acceptLanguage  //ko-KR,ko;q=0.8,en-US;q=0.6
 ```
 
 ## @RequestParam

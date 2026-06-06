@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Typescript - 빅데이터 배치 프로그램"
+title:  "Typescript - 빅데이터 배치 프로그램"
 date: 2021-10-03 10:00
 categories: dev
 tags: javascript typescript
@@ -13,26 +13,26 @@ node.js 환경에서 CSV 파일 형식의 데이터를 MySQL 이나 PostgreSQL �
 *소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
 
 <!-- TOC -->
- * [1. 프로젝트 구성](#1-프로젝트-구성)
- * [2. CSV 파일과 생성기](#2-csv-파일과-생성기)
- * [3. node.js 에서 프로그램 명령 줄 인수 읽기](#3-nodejs-에서-프로그램-명령-줄-인수-읽기)
- * [4. 파일 처리 비동기 함수를 프로미스로 구현](#4-파일-처리-비동기-함수를-프로미스로-구현)
-  * [4.1. `fs.access` API 로 디렉터리와 파일 확인](#41-fsaccess-api-로-디렉터리와-파일-확인)
-  * [4.2. `mkdirp` 패키지로 디렉터리 생성 함수 생성](#42-mkdirp-패키지로-디렉터리-생성-함수-생성)
-  * [4.3. `rimraf` 패키지로 디렉터리 삭제 함수 생성](#43-rimraf-패키지로-디렉터리-삭제-함수-생성)
-  * [4.4. `fs.writeFile` API 로 파일 생성](#44-fswritefile-api-로-파일-생성)
-  * [4.5. `fs.readFile` API 로 파일 내용 읽기](#45-fsreadfile-api-로-파일-내용-읽기)
-  * [4.6. `fs.appendFile` API 로 파일에 내용 추가](#46-fsappendfile-api-로-파일에-내용-추가)
-  * [4.7. `fs.unlink` API 로 파일 삭제](#47-fsunlink-api-로-파일-삭제)
-  * [4.8. src/fileApi/index.ts 파일 생성](#48-srcfileapiindexts-파일-생성)
- * [5. 가짜 데이터 생성](#5-가짜-데이터-생성)
- * [6. `Object.keys` 와 `Object.values` 함수 사용](#6-objectkeys-와-objectvalues-함수-사용)
- * [7. CSV 파일 생성](#7-csv-파일-생성)
- * [8. 데이터를 CSV 파일에 쓰기](#8-데이터를-csv-파일에-쓰기)
- * [9. zip 함수 생성](#9-zip-함수-생성)
- * [10. 생성기 코드 구현 시 주의점](#10-생성기-코드-구현-시-주의점)
- * [11. CSV 파일 데이터 읽기](#11-csv-파일-데이터-읽기)
- * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+  * [1. 프로젝트 구성](#1-프로젝트-구성)
+  * [2. CSV 파일과 생성기](#2-csv-파일과-생성기)
+  * [3. node.js 에서 프로그램 명령 줄 인수 읽기](#3-nodejs-에서-프로그램-명령-줄-인수-읽기)
+  * [4. 파일 처리 비동기 함수를 프로미스로 구현](#4-파일-처리-비동기-함수를-프로미스로-구현)
+    * [4.1. `fs.access` API 로 디렉터리와 파일 확인](#41-fsaccess-api-로-디렉터리와-파일-확인)
+    * [4.2. `mkdirp` 패키지로 디렉터리 생성 함수 생성](#42-mkdirp-패키지로-디렉터리-생성-함수-생성)
+    * [4.3. `rimraf` 패키지로 디렉터리 삭제 함수 생성](#43-rimraf-패키지로-디렉터리-삭제-함수-생성)
+    * [4.4. `fs.writeFile` API 로 파일 생성](#44-fswritefile-api-로-파일-생성)
+    * [4.5. `fs.readFile` API 로 파일 내용 읽기](#45-fsreadfile-api-로-파일-내용-읽기)
+    * [4.6. `fs.appendFile` API 로 파일에 내용 추가](#46-fsappendfile-api-로-파일에-내용-추가)
+    * [4.7. `fs.unlink` API 로 파일 삭제](#47-fsunlink-api-로-파일-삭제)
+    * [4.8. src/fileApi/index.ts 파일 생성](#48-srcfileapiindexts-파일-생성)
+  * [5. 가짜 데이터 생성](#5-가짜-데이터-생성)
+  * [6. `Object.keys` 와 `Object.values` 함수 사용](#6-objectkeys-와-objectvalues-함수-사용)
+  * [7. CSV 파일 생성](#7-csv-파일-생성)
+  * [8. 데이터를 CSV 파일에 쓰기](#8-데이터를-csv-파일에-쓰기)
+  * [9. zip 함수 생성](#9-zip-함수-생성)
+  * [10. 생성기 코드 구현 시 주의점](#10-생성기-코드-구현-시-주의점)
+  * [11. CSV 파일 데이터 읽기](#11-csv-파일-데이터-읽기)
+  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 
@@ -63,52 +63,52 @@ node.js 환경에서 CSV 파일 형식의 데이터를 MySQL 이나 PostgreSQL �
 package.json
 ```json
 {
- "name": "chap12-big-data-batch",
- "version": "1.0.0",
- "description": "",
- "main": "index.js",
- "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "dev": "ts-node src",
-  "build": "tsc && node dist"
- },
- "keywords": [],
- "author": "",
- "license": "ISC",
- "dependencies": {
-  "chance": "^1.1.8",
-  "mkdirp": "^1.0.4",
-  "rimraf": "^3.0.2"
- },
- "devDependencies": {
-  "@types/chance": "^1.1.3",
-  "@types/mkdirp": "^1.0.2",
-  "@types/node": "^16.10.2",
-  "@types/rimraf": "^3.0.2",
-  "ts-node": "^10.2.1",
-  "typescript": "^4.4.3"
- }
+  "name": "chap12-big-data-batch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node src",
+    "build": "tsc && node dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chance": "^1.1.8",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/chance": "^1.1.3",
+    "@types/mkdirp": "^1.0.2",
+    "@types/node": "^16.10.2",
+    "@types/rimraf": "^3.0.2",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  }
 }
 ```
 
 tsconfig.json
 ```json
 {
- "compilerOptions": {
-  "module": "commonjs",
-  "esModuleInterop": true,
-  "target": "ES2019",
-  "moduleResolution": "node",
-  "outDir": "dist",
-  "baseUrl": ".",
-  "sourceMap": true,
-  "downlevelIteration": true,
-  "strict": true,
-  "noImplicitAny": false,
-  "strictNullChecks": false,
-  "paths": { "*": ["node_modules/*"] }
- },
- "include": ["src/**/*"]
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "ES2019",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "paths": { "*": ["node_modules/*"] }
+  },
+  "include": ["src/**/*"]
 }
 ```
 
@@ -136,16 +136,16 @@ node.js 에서는 `process` 라는 내장 객체를 제공하는데 프로그램
 
 ```ts
 process.argv.forEach((val: string, index: number) => {
-  console.log(index + ': ', val);
+    console.log(index + ': ', val);
 });
 ```
 
 ```shell
 > ts-node src/index.ts data/aa.csv 500000
-0: /usr/local/bin/ts-node
-1: /Users/assu/myhome/02_Study/03_typescript/mytypescript/chap12-big-data-batch/src/index.ts
-2: data/aa.csv
-3: 500000
+0:  /usr/local/bin/ts-node
+1:  /Users/assu/myhome/02_Study/03_typescript/mytypescript/chap12-big-data-batch/src/index.ts
+2:  data/aa.csv
+3:  500000
 ```
 
 src/utils/getFileNameAndNumber.ts
@@ -153,8 +153,8 @@ src/utils/getFileNameAndNumber.ts
 export type FileNameAndNumber = [string, number];
 
 export const getFileNameAndNumber = (defaultFilename: string, defaultNumberOfFakeData: number): FileNameAndNumber => {
-  const [bin, node, filename, numberOfFakeData] = process.argv;
-  return [filename || defaultFilename, numberOfFakeData ? parseInt(numberOfFakeData, 10) : defaultNumberOfFakeData];
+    const [bin, node, filename, numberOfFakeData] = process.argv;
+    return [filename || defaultFilename, numberOfFakeData ? parseInt(numberOfFakeData, 10) : defaultNumberOfFakeData];
 };
 
 const [filename, numberOfFakeItems] = getFileNameAndNumber('data/fake.csv', 500000);
@@ -181,14 +181,14 @@ src/fileApi/fileExists.ts
 import * as fs from "fs";
 
 export const fileExists = (filepath: string): Promise<boolean> =>
-  new Promise<boolean>(resolve => fs.access(filepath, error => resolve(error ? false : true)));
+    new Promise<boolean>(resolve => fs.access(filepath, error => resolve(error ? false : true)));
 
 const exist = async(filepath) => {
-  const result = await fileExists(filepath);
-  console.log(`${filepath} ${result ? 'exists': 'not exits'}`);
+    const result = await fileExists(filepath);
+    console.log(`${filepath} ${result ? 'exists': 'not exits'}`);
 };
 
-exist('./package.json');  // ./package.json exists
+exist('./package.json');    // ./package.json exists
 exist('./package'); // ./package not exits
 ```
 
@@ -211,16 +211,16 @@ import {fileExists} from "./fileExists";
 
 // .then(resolve) 에서 아래와 같은 오류가 나면 tsconfig.json 의 "strictNullChecks": false 설정
 // TS2345: Argument of type '(value: string | PromiseLike<string>) => void'
-//  is not assignable to parameter of type '(value: string | undefined) => void | PromiseLike<void>'.
+//   is not assignable to parameter of type '(value: string | undefined) => void | PromiseLike<void>'.
 export const mkdir = (dirname: string): Promise<string> =>
-  new Promise(async (resolve, reject) => {
-    const alreadyExists = await fileExists(dirname);
-    alreadyExists ? resolve(dirname) : mkdirp(dirname).then(resolve).catch(reject);
-  });
+    new Promise(async (resolve, reject) => {
+        const alreadyExists = await fileExists(dirname);
+        alreadyExists ? resolve(dirname) : mkdirp(dirname).then(resolve).catch(reject);
+    });
 
 const makeDataDir = async (dirname: string) => {
-  let result = await mkdir(dirname);
-  console.log(`${result} dir created.`); // /Users/mytypescript/chap12-big-data-batch/data dir created.
+    let result = await mkdir(dirname);
+    console.log(`${result} dir created.`);  // /Users/mytypescript/chap12-big-data-batch/data dir created.
 }
 
 makeDataDir('./data/today');
@@ -228,7 +228,7 @@ makeDataDir('./data/today');
 
 > .then(resolve) 에서 아래와 같은 오류 발생 시 tsconfig.json 의 "strictNullChecks": false 설정<br /><br />
 > TS2345: Argument of type '(value: string | PromiseLike<string>) => void'
->  is not assignable to parameter of type '(value: string | undefined) => void | PromiseLike<void>'.
+>   is not assignable to parameter of type '(value: string | undefined) => void | PromiseLike<void>'.
 
 ---
 
@@ -244,17 +244,17 @@ import rimraf from "rimraf";
 import {fileExists} from "./fileExists";
 
 export const rmdir = (dirname: string): Promise<string> =>
-  new Promise<string>(async (resolve, reject) => {
-    const alreadyExists = await fileExists(dirname);
-    !alreadyExists ? resolve(dirname) :
-      rimraf(dirname, error => error ? reject(error) : resolve(dirname));
-  });
+    new Promise<string>(async (resolve, reject) => {
+        const alreadyExists = await fileExists(dirname);
+        !alreadyExists ? resolve(dirname) :
+            rimraf(dirname, error => error ? reject(error) : resolve(dirname));
+    });
 
 const deleteDataDir = async (dir) => {
-  const result = await rmdir(dir);
-  console.log(`${result} dir deleted.`); // ./data/today dir deleted.
+    const result = await rmdir(dir);
+    console.log(`${result} dir deleted.`);  // ./data/today dir deleted.
 }
-deleteDataDir('./data/today');   // today 디렉터리 삭제
+deleteDataDir('./data/today');      // today 디렉터리 삭제
 ```
 
 ---
@@ -273,27 +273,27 @@ import * as fs from "fs";
 import {mkdir} from "./mkdir";
 
 export const writeFile = (filename: string, data: any): Promise<any> =>
-  new Promise<any>((resolve, reject) => {
-    fs.writeFile(filename, data, 'utf8', (error: Error) => {
-      error? reject(error) : resolve(data);
-    })
-  });
+    new Promise<any>((resolve, reject) => {
+        fs.writeFile(filename, data, 'utf8', (error: Error) => {
+            error? reject(error) : resolve(data);
+        })
+    });
 
 const writeTest = async (filename: string, data: any) => {
-  const result = await writeFile(filename, data);
-  console.log(`write ${result} to ${filename}`);
+    const result = await writeFile(filename, data);
+    console.log(`write ${result} to ${filename}`);
 };
 
 mkdir('./data')
-  .then(s => writeTest('./data/hello.txt', 'hello world!'))
-  .then(s => writeTest('./data/test.json', JSON.stringify({name: 'assu', age: 20}, null, 2)))
-  .catch((e: Error) => console.log(e.message));
+    .then(s => writeTest('./data/hello.txt', 'hello world!'))
+    .then(s => writeTest('./data/test.json', JSON.stringify({name: 'assu', age: 20}, null, 2)))
+    .catch((e: Error) => console.log(e.message));
 
 /*
 write hello world! to ./data/hello.txt
 write {
-  "name": "assu",
-    "age": 20
+    "name": "assu",
+        "age": 20
 } to ./data/test.json
 */
 ```
@@ -322,25 +322,25 @@ src/fileApi/readFile.ts
 import * as fs from "fs";
 
 export const readFile = (filename: string): Promise<any> =>
-  new Promise<any>((resolve, reject) => {
-    fs.readFile(filename, 'utf8', (e: Error, data: any) => {
-      e ? reject(e) : resolve(data);
-    })
-  });
+    new Promise<any>((resolve, reject) => {
+        fs.readFile(filename, 'utf8', (e: Error, data: any) => {
+            e ? reject(e) : resolve(data);
+        })
+    });
 
 const readTest = async (filename: string) => {
-  const result = await readFile(filename);
-  console.log(`read ${result} from ${filename} file.`);
+    const result = await readFile(filename);
+    console.log(`read ${result} from ${filename} file.`);
 };
 
 readTest('./data/hello.txt')
-  .then(s => readTest('./data/test.json'))
-  .catch((e: Error) => console.log(e.message));
+    .then(s => readTest('./data/test.json'))
+    .catch((e: Error) => console.log(e.message));
 /*
 read hello world! from ./data/hello.txt file.
-  read {
-  "name": "assu",
-    "age": 20
+    read {
+    "name": "assu",
+        "age": 20
 } from ./data/test.json file.
 */
 ```
@@ -363,20 +363,20 @@ import * as fs from "fs";
 import {mkdir} from "./mkdir";
 
 export const appendFile = (filename: string, data: any): Promise<any> =>
-  new Promise<any>((resolve, reject) => {
-    fs.appendFile(filename, data, 'utf8', (error: Error) => {
-      error ? reject(error) : resolve(data)
-    })
-  });
+    new Promise<any>((resolve, reject) => {
+        fs.appendFile(filename, data, 'utf8', (error: Error) => {
+            error ? reject(error) : resolve(data)
+        })
+    });
 
 const appendTest = async (filename: string, data: any) => {
-  const result = await appendFile(filename, data);
-  console.log(`append ${result} to ${filename}`);
+    const result = await appendFile(filename, data);
+    console.log(`append ${result} to ${filename}`);
 };
 
 mkdir('./data')
-  .then(s => appendTest('./data/hello.txt', '\nhi, there'))
-  .catch((e: Error) => console.log(e.message));
+    .then(s => appendTest('./data/hello.txt', '\nhi, there'))
+    .catch((e: Error) => console.log(e.message));
 /*
 append
 hi, there to ./data/hello.txt
@@ -400,25 +400,25 @@ import * as fs from "fs";
 import {rmdir} from "./rmdir";
 
 export const deleteFile = (filename: string): Promise<string> =>
-  new Promise<string>(async (resolve, reject) => {
-    const alreadyExists = await fileExists(filename);
-    !alreadyExists ? resolve(filename) :
-      fs.unlink(filename, (error: Error) => error ? reject(error) : resolve(filename));
-  });
+    new Promise<string>(async (resolve, reject) => {
+        const alreadyExists = await fileExists(filename);
+        !alreadyExists ? resolve(filename) :
+            fs.unlink(filename, (error: Error) => error ? reject(error) : resolve(filename));
+    });
 
 const deleteTest = async (filename: string) => {
-  const result = await deleteFile(filename);
-  console.log(`delete ${result} file.`);
+    const result = await deleteFile(filename);
+    console.log(`delete ${result} file.`);
 }
 
 Promise.all([deleteTest('./data/hello.txt'), deleteTest('./data/test.json')])
-  .then(s => rmdir('./data'))
-  .then(dirname => console.log(`delete ${dirname} dir`))
-  .catch((e: Error) => console.log(e.message));
+    .then(s => rmdir('./data'))
+    .then(dirname => console.log(`delete ${dirname} dir`))
+    .catch((e: Error) => console.log(e.message));
 /*
 delete ./data/hello.txt file.
-  delete ./data/test.json file.
-  delete ./data dir
+    delete ./data/test.json file.
+    delete ./data dir
 */
 ```
 
@@ -458,11 +458,11 @@ export {fileExists, mkdir, rmdir, writeFile, readFile, appendFile, deleteFile}
 src/fake/IFake.ts
 ```ts
 export interface IFake {
-  name: string,
-  email: string,
-  sentence: string,
-  profession: string,
-  birthday: Date
+    name: string,
+    email: string,
+    sentence: string,
+    profession: string,
+    birthday: Date
 }
 ```
 
@@ -475,11 +475,11 @@ import {IFake} from "./IFake";
 
 const c = new Chance();
 export const makeFakeData = (): IFake => ({
-  name: c.name(),
-  email: c.email(),
-  profession: c.profession(),
-  birthday: c.birthday(),
-  sentence: c.sentence()
+    name: c.name(),
+    email: c.email(),
+    profession: c.profession(),
+    birthday: c.birthday(),
+    sentence: c.sentence()
 });
 
 export { IFake }
@@ -495,11 +495,11 @@ const fakeData: IFake = makeFakeData();
 console.log(fakeData);
 /*
 {
-  name: 'Ida Fuller',
-    email: 'nap@huc.sv',
-  profession: 'City Manager',
-  birthday: 1967-02-12T00:30:53.300Z,
-  sentence: 'Li po vevmad getire modde lu fekural ig if fimo wocef kisodcil famateme.'
+    name: 'Ida Fuller',
+        email: 'nap@huc.sv',
+    profession: 'City Manager',
+    birthday: 1967-02-12T00:30:53.300Z,
+    sentence: 'Li po vevmad getire modde lu fekural ig if fimo wocef kisodcil famateme.'
 }
 */
 ```
@@ -524,7 +524,7 @@ import {IFake, makeFakeData} from "../fake";
 
 const data: IFake = makeFakeData();
 const keys = Object.keys(data);
-console.log(keys); // [ 'name', 'email', 'profession', 'birthday', 'sentence' ]
+console.log(keys);  // [ 'name', 'email', 'profession', 'birthday', 'sentence' ]
 
 const values = Object.values(data);
 console.log(values);
@@ -541,9 +541,9 @@ console.log(values);
 src/utils/range.ts
 ```ts
 export function* range(max: number, min: number = 0) {
-  while (min < max) {
-    yield min++;
-  }
+    while (min < max) {
+        yield min++;
+    }
 }
 ```
 
@@ -567,23 +567,23 @@ import { mkdir, writeFile, appendFile } from '../fileApi'
 import {range} from "../utils";
 
 export const writeCsvFormatFakeData = async (filename: string, numberOfItems: number): Promise<string> => {
-  const dirname = path.dirname(filename);
-  console.log('dirname: ', dirname);
-  await mkdir(dirname);
+    const dirname = path.dirname(filename);
+    console.log('dirname: ', dirname);
+    await mkdir(dirname);
 
-  const comma = ',';
-  const newLine = '\n';
+    const comma = ',';
+    const newLine = '\n';
 
-  for (let n of range(numberOfItems)) {
-    const fake: IFake = makeFakeData();
-    if (n == 0) {
-      const keys = Object.keys(fake).join(comma);
-      await writeFile(filename, keys);
+    for (let n of range(numberOfItems)) {
+        const fake: IFake = makeFakeData();
+        if (n == 0) {
+            const keys = Object.keys(fake).join(comma);
+            await writeFile(filename, keys);
+        }
+        const values = Object.values(fake).join(comma);
+        await appendFile(filename, newLine + values);
     }
-    const values = Object.values(fake).join(comma);
-    await appendFile(filename, newLine + values);
-  }
-  return `write ${numberOfItems} items to ${filename} file.`
+    return `write ${numberOfItems} items to ${filename} file.`
 }
 ```
  
@@ -609,8 +609,8 @@ const [filename2, numberOfFakeData2] = getFileNameAndNumber('./data/fake', 10000
 const csvFilename = `${filename2}-${numberOfFakeData2}.csv`;
 
 writeCsvFormatFakeData(csvFilename, numberOfFakeData2)
-  .then(result => console.log(result))
-  .catch((e: Error) => console.log(e.message));
+    .then(result => console.log(result))
+    .catch((e: Error) => console.log(e.message));
 // write 1 items to ./data/fake-1.csv file.
 ```
 
@@ -632,13 +632,13 @@ CSV 파일은 첫 줄에 객체의 속성명들이 있고, 두 번째 줄부터�
 src/utils/zip.ts
 ```ts
 export const zip = (keys: string[], values: any[]): object => {
-  const makeObject = (key: string, value: any) => ({[key]: value});
-  const mergeObject = (a: any[]) => a.reduce((accu, val) => ({...accu, ...val}), {});
+    const makeObject = (key: string, value: any) => ({[key]: value});
+    const mergeObject = (a: any[]) => a.reduce((accu, val) => ({...accu, ...val}), {});
 
-  let tmp = keys.map((key: string, index: number) => [key, values[index]])
-    .filter(a => a[0] && a[1])
-    .map(a => makeObject(a[0], a[1]));
-  return mergeObject(tmp);
+    let tmp = keys.map((key: string, index: number) => [key, values[index]])
+        .filter(a => a[0] && a[1])
+        .map(a => makeObject(a[0], a[1]));
+    return mergeObject(tmp);
 }
 ```
 
@@ -670,18 +670,18 @@ console.log(data);
 console.log(fake);
 /*
 {
-  name: 'Gerald Carter',
-    email: 'mu@og.bn',
-  profession: 'Fast Food Manager',
-  birthday: 1965-11-04T17:29:29.370Z,
-  sentence: 'Zogtuvvu zotrajni kewi ki tecros mozub wuw gi si lel azafule sah.'
+    name: 'Gerald Carter',
+        email: 'mu@og.bn',
+    profession: 'Fast Food Manager',
+    birthday: 1965-11-04T17:29:29.370Z,
+    sentence: 'Zogtuvvu zotrajni kewi ki tecros mozub wuw gi si lel azafule sah.'
 }
 {
-  name: 'Gerald Carter',
-    email: 'mu@og.bn',
-  profession: 'Fast Food Manager',
-  birthday: 1965-11-04T17:29:29.370Z,
-  sentence: 'Zogtuvvu zotrajni kewi ki tecros mozub wuw gi si lel azafule sah.'
+    name: 'Gerald Carter',
+        email: 'mu@og.bn',
+    profession: 'Fast Food Manager',
+    birthday: 1965-11-04T17:29:29.370Z,
+    sentence: 'Zogtuvvu zotrajni kewi ki tecros mozub wuw gi si lel azafule sah.'
 }
 */
 ```
@@ -697,10 +697,10 @@ import {readFile} from '../fileApi'
 import * as fs from "fs";
 
 function* readFileGen() {
-  yield 1;
-  fs.readFile('./package.json', (err: Error, data: any) => {
-    yield data; // TS1163: A 'yield' expression is only allowed in a generator body.
-  })
+    yield 1;
+    fs.readFile('./package.json', (err: Error, data: any) => {
+        yield data; // TS1163: A 'yield' expression is only allowed in a generator body.
+    })
 }
 ```
 
@@ -727,59 +727,59 @@ src/fileApi/readFileGenerator.ts
 import * as fs from "fs";
 
 export function* readFileGenerator(filename: string): any {
-  let fd: any;
+    let fd: any;
 
-  try {
-    fd = fs.openSync(filename, 'rs');  // rs: 동기 모드를 사용하여 파일을 열고 읽습니다. 운영 체제가 로컬 파일 시스템 캐시를 무시하도록 지시합니다.
-    const stats = fs.fstatSync(fd); // Getting information for a file or directory
-    // Using methods of the Stats object
-    console.log("Path is file:", stats.isFile());
-    console.log("Path is directory:", stats.isDirectory());
+    try {
+        fd = fs.openSync(filename, 'rs');   // rs: 동기 모드를 사용하여 파일을 열고 읽습니다. 운영 체제가 로컬 파일 시스템 캐시를 무시하도록 지시합니다.
+        const stats = fs.fstatSync(fd); // Getting information for a file or directory
+        // Using methods of the Stats object
+        console.log("Path is file:", stats.isFile());
+        console.log("Path is directory:", stats.isDirectory());
 
-    const bufferSize = Math.min(stats.size, 1024);
-    const buffer = Buffer.alloc(bufferSize + 4);
-    let filepos = 0;
-    let line: string;
+        const bufferSize = Math.min(stats.size, 1024);
+        const buffer = Buffer.alloc(bufferSize + 4);
+        let filepos = 0;
+        let line: string;
 
-    while (filepos > -1) {
-      [line, filepos] = readLine(fd, buffer, bufferSize, filepos);
-      if (filepos > -1) {
-        yield line;
-      }
+        while (filepos > -1) {
+            [line, filepos] = readLine(fd, buffer, bufferSize, filepos);
+            if (filepos > -1) {
+                yield line;
+            }
+        }
+        yield  buffer.toString();   // yield last line (마지막 줄)
+    } catch (e) {
+        console.error('readline:', e);
+    } finally {
+        fd && fs.closeSync(fd);
     }
-    yield buffer.toString();  // yield last line (마지막 줄)
-  } catch (e) {
-    console.error('readline:', e);
-  } finally {
-    fd && fs.closeSync(fd);
-  }
 }
 
 function readLine (fd: any, buffer: Buffer, bufferSize: number, position: number): [string, number] {
-  let line = '';
-  let readSize;
-  const crSize = '\n'.length;
-  console.log('crSize: ', crSize);
+    let line = '';
+    let readSize;
+    const crSize = '\n'.length;
+    console.log('crSize: ', crSize);
 
-  while (true) {
-    readSize = fs.readSync(fd, buffer, 0, bufferSize, position);
-    if (readSize > 0) {
-      const tmp = buffer.toString('utf8', 0, readSize);
-      const index = tmp.indexOf('\n');
-      if (index > -1) {
-        line += tmp.substr(0, index);
-        position += index + crSize;
-        break;
-      } else {
-        line += tmp;
-        position += tmp.length;
-      }
-    } else {
-      position = -1; // end of file
-      break;
+    while (true) {
+        readSize = fs.readSync(fd, buffer, 0, bufferSize, position);
+        if (readSize > 0) {
+            const tmp = buffer.toString('utf8', 0, readSize);
+            const index = tmp.indexOf('\n');
+            if (index > -1) {
+                line += tmp.substr(0, index);
+                position += index + crSize;
+                break;
+            } else {
+                line += tmp;
+                position += tmp.length;
+            }
+        } else {
+            position = -1;  // end of file
+            break;
+        }
     }
-  }
-  return [line.trim(), position];
+    return [line.trim(), position];
 }
 ```
 
@@ -804,7 +804,7 @@ src/test/readFileGenerator-test.ts
 import {readFileGenerator} from "../fileApi";
 
 for (let value of readFileGenerator('data/fake-10.csv')) {
-  console.log('<line>', value, '</line>\n');
+    console.log('<line>', value, '</line>\n');
 }
 /*
 <line> name,email,profession,birthday,sentence </line>
@@ -823,14 +823,14 @@ import {readFileGenerator} from "../fileApi";
 import {zip} from "../utils";
 
 export function* csvFileReaderGenerator(filename: string, delim: string = ',') {
-  let header: string[] = [];
-  for (let line of readFileGenerator(filename)) {
-    if (!header.length) {
-      header = line.split(delim);
-    } else {
-      yield zip(header, line.split(delim));
+    let header: string[] = [];
+    for (let line of readFileGenerator(filename)) {
+        if (!header.length) {
+            header = line.split(delim);
+        } else {
+            yield zip(header, line.split(delim));
+        }
     }
-  }
 }
 ```
 
@@ -843,7 +843,7 @@ const [filename] = getFileNameAndNumber('./data/fake-100000.csv', 1);
 
 let line = 1;
 for (let object of csvFileReaderGenerator(filename)) {
-  console.log(`[${line++}] ${JSON.stringify(object)}`);
+    console.log(`[${line++}] ${JSON.stringify(object)}`);
 }
 console.log('\n read completed.');
 

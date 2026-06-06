@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java Code Convention
+title:  Java Code Convention
 date: 2020-01-16 14:00
 categories: dev
 tags: backend java coding-guide code-convention
@@ -16,24 +16,24 @@ tags: backend java coding-guide code-convention
 
 
 <!-- TOC -->
- * [WHY Code Conventions(코딩 규약)?](#why-code-conventions코딩-규약)
- * [1. 들여쓰기](#1-들여쓰기)
-  * [한 줄의 길이](#한-줄의-길이)
-  * [줄 나누기](#줄-나누기)
-  * [메서드 본문 시작시의 줄바꿈](#메서드-본문-시작시의-줄바꿈)
- * [2. 주석](#2-주석)
-  * [블록 주석](#블록-주석)
-  * [한 줄 주석](#한-줄-주석)
-  * [꼬리 주석](#꼬리-주석)
- * [3. Statements](#3-statements)
-  * [복합문](#복합문)
-  * [if, if-else, if else-if else](#if-if-else-if-else-if-else)
- * [4. While Space](#4-while-space)
-  * [한 줄 띄우기](#한-줄-띄우기)
-  * [공백](#공백)
- * [5. 기타](#5-기타)
-  * [괄호](#괄호)
-  * [참고사이트](#참고사이트)
+  * [WHY Code Conventions(코딩 규약)?](#why-code-conventions코딩-규약)
+  * [1. 들여쓰기](#1-들여쓰기)
+    * [한 줄의 길이](#한-줄의-길이)
+    * [줄 나누기](#줄-나누기)
+    * [메서드 본문 시작시의 줄바꿈](#메서드-본문-시작시의-줄바꿈)
+  * [2. 주석](#2-주석)
+    * [블록 주석](#블록-주석)
+    * [한 줄 주석](#한-줄-주석)
+    * [꼬리 주석](#꼬리-주석)
+  * [3. Statements](#3-statements)
+    * [복합문](#복합문)
+    * [if, if-else, if else-if else](#if-if-else-if-else-if-else)
+  * [4. While Space](#4-while-space)
+    * [한 줄 띄우기](#한-줄-띄우기)
+    * [공백](#공백)
+  * [5. 기타](#5-기타)
+    * [괄호](#괄호)
+    * [참고사이트](#참고사이트)
 <!-- TOC -->
 
 
@@ -48,18 +48,18 @@ tags: backend java coding-guide code-convention
 ```java
 // 추천
 int longAnswer = longNumber1 * (longNumber2 + longNumber2 - longNumber3)
-          + longNumber4 * longNumber5;
+                    + longNumber4 * longNumber5;
 // 비추천
 int longAnswer = longNumber1 * (longNumber2 + longNumber2
-                  - longNumber3) + longNumber4 * longNumber5;
+                                    - longNumber3) + longNumber4 * longNumber5;
 ```
 &nbsp;&nbsp;&nbsp;&nbsp; - 위 원칙이 코드를 더 복잡하게 한다면 8개의 빈 칸을 사용하여 들여쓴다.
 
 ```java
 public static synchorized veryLongMethod(String longArgument1,
-    Object longObject1, String longArgument3, String longArgument4,
-    String longArgument5) {
-  // TODO : something..
+        Object longObject1, String longArgument3, String longArgument4,
+        String longArgument5) {
+    // TODO : something..
 }
 ```
 
@@ -69,14 +69,14 @@ public static synchorized veryLongMethod(String longArgument1,
 ```java
 // 좋지 않은 들여쓰기
 if ((condition1 && condition2)
-  || (condition3 && condition4)
-  || !(condition5 && condition6)) {
-  doSomething();   // 메서드 본문 시작이 명확하지 않다.
+    || (condition3 && condition4)
+    || !(condition5 && condition6)) {
+    doSomething();      // 메서드 본문 시작이 명확하지 않다.
 }
 // 좋은 들여쓰기
 if ((condition1 && condition2) || (condition3 && condition4)
-    || !(condition5 && condition6)) {
-  doSomething();
+        || !(condition5 && condition6)) {
+    doSomething();
 }
 ```
 
@@ -102,8 +102,8 @@ if ((condition1 && condition2) || (condition3 && condition4)
 
 ```java
 if (condition) {
-  // 이 조건을 만족하면 실행
-  // TODO : something..
+    // 이 조건을 만족하면 실행
+    // TODO : something..
 }
 ```
 
@@ -113,9 +113,9 @@ if (condition) {
 
 ```java
 if (condition) {
-  a = true;    // 참인 경우
+    a = true;       // 참인 경우
 } else {
-  a = false;   // 거짓인 경우
+    a = false;      // 거짓인 경우
 }
 ```
 
@@ -131,18 +131,18 @@ if 문은 항상 중괄호를 사용한다.
 
 ```java
 if (condition) {
-  // TODO : something..
+    // TODO : something..
 }
 if (condition1) {
-  // TODO : something..
+    // TODO : something..
 } else if (condition2) {
-  // TODO : something..
+    // TODO : something..
 } else {
-  // TODO : something..
+    // TODO : something..
 }
 // 아래와 같이 중괄호 {} 를 생략해서 사용하지 않는다.
 if (condition)
-  // TODO : something..
+    // TODO : something..
 if (condition) something..
 ```
 
@@ -159,7 +159,7 @@ if (condition) something..
 
 ```java
 if (condition) {
-  // TODO : do something...
+    // TODO : do something...
 }
 ```
 
@@ -167,8 +167,8 @@ if (condition) {
 이렇게 하는 것은 메서드 호출과 키워드를 구별하는데 도움을 준다.
 
 ```java
-callMethod (arg1);   // 잘못된 사용법
-callMethod(arg1);    // 올바른 사용법
+callMethod (arg1);      // 잘못된 사용법
+callMethod(arg1);       // 올바른 사용법
  ```
 
 - 공백은 인자리스트에서 콤마 이후에 사용한다.
@@ -188,8 +188,8 @@ callMethod((byte) num);
 본인이 연산자 우선 순위를 확실하게 알고 있다고 할지라도, 다른 프로그래머를 위해 괄호를 사용한다.
 
 ```java
-if (a == b && c == d)    // 잘못된 사용법
-if ((a == b) && (c == d))  // 올바른 사용법
+if (a == b && c == d)       // 잘못된 사용법
+if ((a == b) && (c == d))   // 올바른 사용법
 ```
 
 ### 참고사이트

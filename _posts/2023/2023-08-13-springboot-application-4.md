@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Spring Boot - 웹 애플리케이션 구축 (4): application.properties, Profile 설정"
+title:  "Spring Boot - 웹 애플리케이션 구축 (4): application.properties, Profile 설정"
 date: 2023-08-12
 categories: dev
 tags: springboot msa spring-profiles-active configuration-properties configuration-properties-scan 
 ---
 
-이 포스트에서는 실행 환경(dev, prod) 에 따라 스프링 애플리케이션 설정에 대해 알아본다. 
+이 포스트에서는 실행 환경(dev, prod) 에 따라 스프링 애플리케이션 설정에 대해 알아본다.  
 
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap06) 에 있습니다.
 
@@ -16,14 +16,14 @@ tags: springboot msa spring-profiles-active configuration-properties configurati
 
 <!-- TOC -->
 * [1. Application.properties](#1-applicationproperties)
- * [1.1. `@Value` 애너테이션](#11-value-애너테이션)
- * [1.2. `@ConfigurationProperties`, `@ConfigurationPropertiesScan`](#12-configurationproperties-configurationpropertiesscan)
+  * [1.1. `@Value` 애너테이션](#11-value-애너테이션)
+  * [1.2. `@ConfigurationProperties`, `@ConfigurationPropertiesScan`](#12-configurationproperties-configurationpropertiesscan)
 * [2. Profile 설정](#2-profile-설정)
- * [2.1. Profile 변수값 설정: `spring.profiles.active`](#21-profile-변수값-설정-springprofilesactive)
- * [2.2. 프로파일별 application.properties 설정](#22-프로파일별-applicationproperties-설정)
- * [2.3. `@Profile` 애너테이션과 스프링 빈 설정](#23-profile-애너테이션과-스프링-빈-설정)
- * [2.4. `@Profile` 애너테이션과 인터페이스를 사용한 확장](#24-profile-애너테이션과-인터페이스를-사용한-확장)
- * [2.5. Environment 인터페이스](#25-environment-인터페이스)
+  * [2.1. Profile 변수값 설정: `spring.profiles.active`](#21-profile-변수값-설정-springprofilesactive)
+  * [2.2. 프로파일별 application.properties 설정](#22-프로파일별-applicationproperties-설정)
+  * [2.3. `@Profile` 애너테이션과 스프링 빈 설정](#23-profile-애너테이션과-스프링-빈-설정)
+  * [2.4. `@Profile` 애너테이션과 인터페이스를 사용한 확장](#24-profile-애너테이션과-인터페이스를-사용한-확장)
+  * [2.5. Environment 인터페이스](#25-environment-인터페이스)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -45,35 +45,35 @@ pom.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
- <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
- <parent>
-  <groupId>com.assu</groupId>
-  <artifactId>study</artifactId>
-  <version>1.1.0</version>
- </parent>
+  <parent>
+    <groupId>com.assu</groupId>
+    <artifactId>study</artifactId>
+    <version>1.1.0</version>
+  </parent>
 
- <artifactId>chap06</artifactId>
+  <artifactId>chap06</artifactId>
 
- <packaging>jar</packaging><!-- 패키징 타입 추가 -->
+  <packaging>jar</packaging><!-- 패키징 타입 추가 -->
 
- <dependencies>
-  <dependency>
-   <groupId>com.fasterxml.jackson.dataformat</groupId>
-   <artifactId>jackson-dataformat-xml</artifactId>
-  </dependency>
- </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-xml</artifactId>
+    </dependency>
+  </dependencies>
 
- <!-- 이 플러그인은 메이븐의 패키지 단계에서 실행되며, 컴파일 후 표준에 맞는 디렉터리 구조로 변경하여 JAR 패키지 파일을 생성함 -->
- <build>
-  <plugins>
-   <plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-   </plugin>
-  </plugins>
- </build>
+  <!-- 이 플러그인은 메이븐의 패키지 단계에서 실행되며, 컴파일 후 표준에 맞는 디렉터리 구조로 변경하여 JAR 패키지 파일을 생성함 -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>
 ```
 
@@ -95,10 +95,10 @@ src > main > resources 경로에 위치한 application.properties 파일은 clas
 
 ## 1.1. `@Value` 애너테이션
 
-application.properties 파일에 정의된 데이터를 스프링 빈에 주입하려면 `@Value` 애너테이션을 사용한다. 
+application.properties 파일에 정의된 데이터를 스프링 빈에 주입하려면 `@Value` 애너테이션을 사용한다.  
 `@Value` 애너테이션을 정의하여 데이터를 주입할 수 있는 대상은 클래스 필드와 메서드, 그리고 파라미터이다.
 
-메서드에 `@Value` 애너테이션을 정의할 때 해당 메서드는 setter 패턴으로 정의되어 있어야 하기 때문에 메서드에 인자가 필요하며, 
+메서드에 `@Value` 애너테이션을 정의할 때 해당 메서드는 setter 패턴으로 정의되어 있어야 하기 때문에 메서드에 인자가 필요하며,  
 `@Value` 애너테이션은 프로퍼티 키와 매칭된 데이터를 주입한다.
 
 application.properties 파일이 아래와 같이 정의되어 있다고 하자.
@@ -126,7 +126,7 @@ logging.file.path=~/logs
 private String springtourDomain;
 ```
 
-SpEL(Spring Expression Language) 표현식을 의미하는 기호는 `#` 과 `$` 이다.  
+SpEL(Spring Expression Language) 표현식을 의미하는 기호는 `#` 과 `$` 이다.    
 `${}` 는 프로퍼티를 의미하고, `#{}` 은 스프링 빈을 의미한다.
 
 `${springtour.domain.name:springtour.io}` 은 프로퍼티에 springtour.domain.name 키가 정의되어 있지 않으면 기본값인 "springtour.io" 를 대신 사용한다는 의미이다. 
@@ -140,26 +140,26 @@ import java.util.List;
 
 @Component
 public class PropertiesComponent {
- private final List<String> bootStrapServers;
- private final String checkoutTopic;
- private final String reservationTopic;
- private final Integer ackLevel;
+  private final List<String> bootStrapServers;
+  private final String checkoutTopic;
+  private final String reservationTopic;
+  private final Integer ackLevel;
 
- public PropertiesComponent(
-   @Value("${springtour.kafka.bootstrap-servers}") List<String> bootStrapServers,
-   @Value("${springtour.kafka.topic.checkout}") String checkoutTopic,
-   @Value("${springtour.kafka.topic.reservation}") String reservationTopic,
-   @Value("${springtour.kafka.ack-level}") Integer ackLevel) {
-  this.bootStrapServers = bootStrapServers;
-  this.checkoutTopic = checkoutTopic;
-  this.reservationTopic = reservationTopic;
-  this.ackLevel = ackLevel;
+  public PropertiesComponent(
+      @Value("${springtour.kafka.bootstrap-servers}") List<String> bootStrapServers,
+      @Value("${springtour.kafka.topic.checkout}") String checkoutTopic,
+      @Value("${springtour.kafka.topic.reservation}") String reservationTopic,
+      @Value("${springtour.kafka.ack-level}") Integer ackLevel) {
+    this.bootStrapServers = bootStrapServers;
+    this.checkoutTopic = checkoutTopic;
+    this.reservationTopic = reservationTopic;
+    this.ackLevel = ackLevel;
 
-  System.out.println("---" + this.bootStrapServers); // [10.1.1.100, 10.1.1.101, 10.1.1.102]
-  System.out.println("---" + this.checkoutTopic);
-  System.out.println("---" + this.reservationTopic);
-  System.out.println("---" + this.ackLevel); // 1
- }
+    System.out.println("---" + this.bootStrapServers);  // [10.1.1.100, 10.1.1.101, 10.1.1.102]
+    System.out.println("---" + this.checkoutTopic);
+    System.out.println("---" + this.reservationTopic);
+    System.out.println("---" + this.ackLevel);  // 1
+  }
 }
 ```
 
@@ -177,7 +177,7 @@ public class PropertiesComponent {
 --- Interceptor addInterceptors()
 ```
 
-콤마(`,`) 로 구분된 프로퍼티 값은 리스트 형태로 변경되어 저장된다. 이 때 주입 대상의 클래스 타입을 List 로 선언하면 자동으로 변환된다. 
+콤마(`,`) 로 구분된 프로퍼티 값은 리스트 형태로 변경되어 저장된다. 이 때 주입 대상의 클래스 타입을 List 로 선언하면 자동으로 변환된다.  
 문자열 데이터를 바인딩하는 과정에서도 형변환이 되는데 문자열 `1` 은 Integer 값으로 변경되어 주입된다.
 
 
@@ -208,10 +208,10 @@ spring.messages.basename=messages/messages
 logging.file.path=~/logs
 ```
 
-spring.kafka 라는 네임 스페이스에 여러 데이터를 정의하고 있는데 **카프카와 관련된 정보들을 하나의 자바 빈 객체로 만들어 관리하면 편리하게 사용**할 수 있다. 
+spring.kafka 라는 네임 스페이스에 여러 데이터를 정의하고 있는데 **카프카와 관련된 정보들을 하나의 자바 빈 객체로 만들어 관리하면 편리하게 사용**할 수 있다.  
 이 네임 스페이스를 기준으로 데이터들을 그룹지어 자바 빈 객체에 주입하는 기능이 바로 `@ConfigurationProperties` 이다.
 
-`@ConfigurationProperties` 애너테이션은 자바 빈 클래스에 정의하고, 애너테이션의 prefix 속성에 네임 스페이스를 설정하면 된다. 
+`@ConfigurationProperties` 애너테이션은 자바 빈 클래스에 정의하고, 애너테이션의 prefix 속성에 네임 스페이스를 설정하면 된다.  
 그러면 프레임워크는 네임 스페이스와 자바 빈의 속성명을 결합하여 프로퍼티의 키 이름을 유추하여 값을 주입한다.
 
 /domain/KafkaProperties.java
@@ -228,29 +228,29 @@ import java.util.List;
 @Setter
 @ConfigurationProperties(prefix = "springtour.kafka") // springtour.kafka 로 시작하는 모든 키는 KafkaProperties 자바 빈에 주입됨
 public class KafkaProperties {
- // 프로퍼티 키 이름에 포함된 하이픈은 카멜 표기법으로 변경
- private List<String> bootStrapServers;
- private Integer ackLevel;
- // . 으로 구분된 프로퍼티 키를 주입하려면 하위 클래스로 구분
- private Topic topic;
+  // 프로퍼티 키 이름에 포함된 하이픈은 카멜 표기법으로 변경
+  private List<String> bootStrapServers;
+  private Integer ackLevel;
+  // . 으로 구분된 프로퍼티 키를 주입하려면 하위 클래스로 구분
+  private Topic topic;
 
- @ToString
- @Getter
- @Setter
- public static class Topic {
-  private String checkout;
-  private String reservation;
- }
+  @ToString
+  @Getter
+  @Setter
+  public static class Topic {
+    private String checkout;
+    private String reservation;
+  }
 }
 ```
 
-`@ConfigurationProperties` 를 정의했으면 `@ConfigurationProperties` 가 정의된 자바 빈 클래스를 스캔해야 한다. 
+`@ConfigurationProperties` 를 정의했으면 `@ConfigurationProperties` 가 정의된 자바 빈 클래스를 스캔해야 한다.  
 
 ```java
 @SpringBootApplication
 @ConfigurationPropertiesScan("com.assu.study.chap06")
 public class Chap06Application {
- ...
+  ...
 }
 ```
 
@@ -258,26 +258,26 @@ public class Chap06Application {
 @RestController
 public class HotelRoomController {
 
- KafkaProperties kafkaProperties;
+  KafkaProperties kafkaProperties;
 
- public HotelRoomController(KafkaProperties kafkaProperties) {
-  this.kafkaProperties = kafkaProperties;
- }
+  public HotelRoomController(KafkaProperties kafkaProperties) {
+    this.kafkaProperties = kafkaProperties;
+  }
 
- @GetMapping(path = "/hotels/{hotelId}/rooms/{roomNumber}")
- public HotelRoomResponse getHotelRoomByPeriod(
-     ClientInfo clientInfo,
-     @PathVariable Long hotelId,
-     @PathVariable HotelRoomNumber roomNumber,
-     @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = "yyyyMMdd") LocalDate fromDate,
-     @RequestParam(value = "toDate", required = false) @DateTimeFormat(pattern = "yyyyMMdd") LocalDate toDate
- ) {
+  @GetMapping(path = "/hotels/{hotelId}/rooms/{roomNumber}")
+  public HotelRoomResponse getHotelRoomByPeriod(
+          ClientInfo clientInfo,
+          @PathVariable Long hotelId,
+          @PathVariable HotelRoomNumber roomNumber,
+          @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = "yyyyMMdd") LocalDate fromDate,
+          @RequestParam(value = "toDate", required = false) @DateTimeFormat(pattern = "yyyyMMdd") LocalDate toDate
+  ) {
 
-  System.out.println("--------" + kafkaProperties.getAckLevel());
-  System.out.println("--------" + kafkaProperties.getTopic().getCheckout());
-  System.out.println("--------" + kafkaProperties.getTopic().getReservation());
-  System.out.println("--------" + kafkaProperties.getBootstrapServers());
- }
+    System.out.println("--------" + kafkaProperties.getAckLevel());
+    System.out.println("--------" + kafkaProperties.getTopic().getCheckout());
+    System.out.println("--------" + kafkaProperties.getTopic().getReservation());
+    System.out.println("--------" + kafkaProperties.getBootstrapServers());
+  }
 }
 ```
 
@@ -304,7 +304,7 @@ public class HotelRoomController {
 - 애플리케이션을 실행할 때 JVM 파라미터를 사용하여 설정
 - `export` 를 사용하여 설정
 
-JVM 파라미터를 추가하려면 `-D` 와 함께 파라미터명과 값을 추가한다. 
+JVM 파라미터를 추가하려면 `-D` 와 함께 파라미터명과 값을 추가한다.  
 파라미터명은 spring.profiles.active 이므로 `java -jar ./application.jar -Dspring.profiles.active=dev` 이런 식으로 추가한다.
 
 리눅스 계열 OS 에서 java 애플리케이션을 실행할 때는 쉘 스크립트를 사용하는데 이 때 `export` 키워드를 사용하여 환경 변수를 정의할 수 있다.
@@ -320,20 +320,20 @@ java -jar ./application.jar
 
 ## 2.2. 프로파일별 application.properties 설정
 
-스프링 부트 애플리케이션에서 사용하는 기본 프로퍼티 파일명은 application.properties 이다. 
-스프링 부트 애플리케이션은 profile 명에 따라 `application-[profile명].properties` 와 `application.properties` 를 찾아 로딩한다. 
+스프링 부트 애플리케이션에서 사용하는 기본 프로퍼티 파일명은 application.properties 이다.  
+스프링 부트 애플리케이션은 profile 명에 따라 `application-[profile명].properties` 와 `application.properties` 를 찾아 로딩한다.  
 
 `application-[profile명].properties` 와 `application.properties` 를 동시에 로딩하는 이유는 `application-[profile명].properties` 의 
-프로퍼티 값을 `application.properties` 에 덮어쓰기 때문이다. 
+프로퍼티 값을 `application.properties` 에 덮어쓰기 때문이다.  
 
-따라서 기본 설정값은 `application.properties` 에 정의하고, `application-[profile명].properties` 에 다시 한번 정의하는 것이 좋다. 
+따라서 기본 설정값은 `application.properties` 에 정의하고, `application-[profile명].properties` 에 다시 한번 정의하는 것이 좋다.  
 예를 들어 spring.datasource.url 프로퍼티값이 application-dev.properties 에 없다면 application.properties 에 선언된 프로퍼티는 참조한다.
 
 ---
 
 ## 2.3. `@Profile` 애너테이션과 스프링 빈 설정
 
-`@Profile` 애너테이션을 스프링 빈과 함께 사용하면 프로파일값에 따라 스프링 빈을 생성할 수 있다. 
+`@Profile` 애너테이션을 스프링 빈과 함께 사용하면 프로파일값에 따라 스프링 빈을 생성할 수 있다.  
 또는 `@Profile` 애너테이션을 자바 설정 클래스와 함께 사용하면 프로파일 값에 따라 자바 설정 클래스에 포함된 스프링 빈들을 생성할 수 있다.
 
 이를 반대로 생각하면 프로파일 값에 따라 스프링 빈을 생성하지 않을 수도 있고, 하나의 인터페이스를 구현하는 여러 구현체를 스프링 빈으로 생성할 수 있다.
@@ -345,18 +345,18 @@ java -jar ./application.jar
 **자바 설정 클래스에 선언 / dev, stage, prod 환경에서 모두 스프링 빈 생성 예시**
 ```java
 @Profile(value={"dev", "stage", "local"})
-@Configuration // 자바 설정 클래스
+@Configuration  // 자바 설정 클래스
 public class Test {
- @Bean
- public String testName() {
-  return "test";
- }
+  @Bean
+  public String testName() {
+    return "test";
+  }
 }
 ```
 
-`@Configuration` 애너테이션이 설정되어 있으므로 자바 설정 클래스이며, `@Profile` 속성값은 dev, stage, local 이다. 
-따라서 애플리케이션에 설정된 프로파일 값이 셋 중 하나라도 일치하면 동작한다. 
-즉, active 에 설정된 값이 dev, stage, local 중 하나이면 Test 클래스에 포함된 모든 스프링 빈이 생성된다. 
+`@Configuration` 애너테이션이 설정되어 있으므로 자바 설정 클래스이며, `@Profile` 속성값은 dev, stage, local 이다.  
+따라서 애플리케이션에 설정된 프로파일 값이 셋 중 하나라도 일치하면 동작한다.  
+즉, active 에 설정된 값이 dev, stage, local 중 하나이면 Test 클래스에 포함된 모든 스프링 빈이 생성된다.  
 여기선 String 타입의 testName 빈이 생성된다.
 
 **운영 환경에서만 스프링 빈 생성 예시**
@@ -364,7 +364,7 @@ public class Test {
 @Bean
 @Profile("prod")
 public String testName() {
- return "test";
+  return "test";
 }
 ```
 
@@ -373,11 +373,11 @@ public String testName() {
 @Bean
 @Profile("!prod")
 public String testName() {
- return "test";
+  return "test";
 }
 ```
 
-`@Profile` 애너테이션을 정의하지 않은 스프링 빈들은 프로파일과 상관없이 모두 생성된다. 
+`@Profile` 애너테이션을 정의하지 않은 스프링 빈들은 프로파일과 상관없이 모두 생성된다.  
 따라서 **환경에 따라 생성할 스프링 빈들만 `@Profile` 애너테이션을 사용**하면 된다.
 
 ---
@@ -415,7 +415,7 @@ java -jar ./application.jar -Dspring.profiles.active=prod
 /domain/email/EmailAddress 
 ```java
 public interface EmailService {
- boolean sendEmail(EmailAddress emailAddress);
+  boolean sendEmail(EmailAddress emailAddress);
 }
 ```
 
@@ -430,26 +430,26 @@ import java.util.Objects;
 // DTO
 @Getter
 public class EmailAddress {
- private static final String AT = "@";
+  private static final String AT = "@";
 
- private final String name;
- private final String domainPart;
- private final String localPart;
+  private final String name;
+  private final String domainPart;
+  private final String localPart;
 
- public EmailAddress(String name, String domainPart, String localPart) {
-  this.name = name;
-  this.domainPart = domainPart;
-  this.localPart = localPart;
- }
-
- @Override
- public String toString() {
-  StringBuilder sb = new StringBuilder();
-  if (Objects.nonNull(name)) {
-   sb.append(name).append(" ");
+  public EmailAddress(String name, String domainPart, String localPart) {
+    this.name = name;
+    this.domainPart = domainPart;
+    this.localPart = localPart;
   }
-  return sb.append("<").append(localPart).append(AT).append(domainPart).append(">").toString();
- }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    if (Objects.nonNull(name)) {
+      sb.append(name).append(" ");
+    }
+    return sb.append("<").append(localPart).append(AT).append(domainPart).append(">").toString();
+  }
 }
 ```
 
@@ -459,13 +459,13 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("!email") // 프로파일 중 email 값이 없는 애플리케이션에서는 DummyEmailService 구현체를 스프링 빈으로 생성
+@Profile("!email")  // 프로파일 중 email 값이 없는 애플리케이션에서는 DummyEmailService 구현체를 스프링 빈으로 생성
 public class DummyEmailService implements EmailService {
- @Override
- public boolean sendEmail(EmailAddress emailAddress) {
-  System.out.println("dummy email: " + emailAddress.toString());
-  return true;
- }
+  @Override
+  public boolean sendEmail(EmailAddress emailAddress) {
+    System.out.println("dummy email: " + emailAddress.toString());
+    return true;
+  }
 }
 ```
 
@@ -475,13 +475,13 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("email") // 프로파일 중 email 값이 있는 애플리케이션에서는 AwsEmailService 구현체를 스프링 빈으로 생성
+@Profile("email")  // 프로파일 중 email 값이 있는 애플리케이션에서는 AwsEmailService 구현체를 스프링 빈으로 생성
 public class AWSEmailService implements EmailService {
- @Override
- public boolean sendEmail(EmailAddress emailAddress) {
-  System.out.println("aws email: " + emailAddress.toString());
-  return true;
- }
+  @Override
+  public boolean sendEmail(EmailAddress emailAddress) {
+    System.out.println("aws email: " + emailAddress.toString());
+    return true;
+  }
 }
 ```
 
@@ -489,19 +489,19 @@ public class AWSEmailService implements EmailService {
 ```java
 @RestController
 public class EmailController {
- private final EmailService emailService;
+  private final EmailService emailService;
 
- public EmailController(EmailService emailService) {
-  this.emailService = emailService;
- }
+  public EmailController(EmailService emailService) {
+    this.emailService = emailService;
+  }
 
- @PostMapping("/hotels/{hotelId}/rooms/{roomNumber}/reservations/{reservationId}/send-email")
- public ResponseEntity<Void> sendEmail(@PathVariable Long hotelId,
-                    @PathVariable String roomNumber,
-                    @PathVariable Long reservationId) {
-  emailService.sendEmail(new EmailAddress("Assu", "assu", "google.com"));
-  return new ResponseEntity<>(HttpStatus.OK);
- }
+  @PostMapping("/hotels/{hotelId}/rooms/{roomNumber}/reservations/{reservationId}/send-email")
+  public ResponseEntity<Void> sendEmail(@PathVariable Long hotelId,
+                                        @PathVariable String roomNumber,
+                                        @PathVariable Long reservationId) {
+    emailService.sendEmail(new EmailAddress("Assu", "assu", "google.com"));
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }
 ```
 
@@ -527,7 +527,7 @@ dummy email: Assu <google.com@assu>
 
 스프링 프레임워크는 실행 중인 애플리케이션의 환경 변수를 관리하려고 Environment 인터페이스를 제공한다.
 
-Environment 에서 관리하는 환경 변수는 크게 두 가지로 나뉠 수 있는데 프로파일을 의미하는 실행 환경과 프로퍼티를 의미하는 설정이다. 
+Environment 에서 관리하는 환경 변수는 크게 두 가지로 나뉠 수 있는데 프로파일을 의미하는 실행 환경과 프로퍼티를 의미하는 설정이다.  
 그래서 프로파일에서 설정한 spring.profiles.active 환경 변수값과 application.properties 에 정의된 프로퍼티 값을 조회할 수 있다.
 
 ---

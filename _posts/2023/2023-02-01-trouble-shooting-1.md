@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "TroubleShooting - Nestjs: Failed to execute command: npm install --silent"
+title:  "TroubleShooting - Nestjs: Failed to execute command: npm install --silent"
 date: 2023-02-01
 categories: dev
 tags: trouble_shooting
@@ -17,11 +17,11 @@ $ nest new project-name
 ▹▹▹▸▹ Installation in progress... ☕
 Failed to execute command: npm install --silent
 ✖ Installation in progress... ☕
-🙀 Packages installation failed!
+🙀  Packages installation failed!
 In case you don't see any errors above, consider manually running the failed command npm install to see more details on why it errored out.
 ```
 
-2023.01월 부터 해당 오류가 발생하는데 KT 를 사용하고 있는 한국사람들 대상으로 일어나는 현상이라고 한다. 
+2023.01월 부터 해당 오류가 발생하는데 KT 를 사용하고 있는 한국사람들 대상으로 일어나는 현상이라고 한다.  
 npm support 팀에서 KT 망에서만 안되는 이유 파악중이라고 한다.
 
 ---
@@ -40,8 +40,8 @@ $ nest new project-name
 
 ✔ Installation in progress... ☕
 
-🚀 Successfully created project basic
-👉 Get started with the following commands:
+🚀  Successfully created project basic
+👉  Get started with the following commands:
 
 $ cd basic
 $ npm run start

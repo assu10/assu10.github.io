@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "DDD - 스펙(2): 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize"
+title:  "DDD - 스펙(2): 스펙 조합, Sort, 페이징(Pageable), 스펙 빌더 클래스, 동적 인스턴스 생성, @Subselect, @Immutable, @Synchronize"
 date: 2024-04-13
 categories: dev
 tags: ddd Sort Pageable PageRequest findFirstN() findFirst() findTop() @Subselect @Immutable @Synchronize
@@ -9,7 +9,7 @@ tags: ddd Sort Pageable PageRequest findFirstN() findFirst() findTop() @Subselec
 - 정렬, 페이징
 - 동적 인스턴스, `@Subselect`
 
-> 소스는 [github](https://github.com/assu10/ddd/tree/feature/chap05) 에 있습니다.
+> 소스는 [github](https://github.com/assu10/ddd/tree/feature/chap05)  에 있습니다.
 
 > 매핑되는 테이블은 [DDD - ERD](https://assu10.github.io/dev/2024/04/08/ddd-table/) 을 참고하세요.
 
@@ -19,13 +19,13 @@ tags: ddd Sort Pageable PageRequest findFirstN() findFirst() findTop() @Subselec
 
 <!-- TOC -->
 * [1. 스펙 조합](#1-스펙-조합)
- * [1.1. `and()`, `or()`](#11-and-or)
- * [1.2. `not()`, `where()`](#12-not-where)
+  * [1.1. `and()`, `or()`](#11-and-or)
+  * [1.2. `not()`, `where()`](#12-not-where)
 * [2. 정렬 지정: `Sort`](#2-정렬-지정-sort)
 * [3. 페이징 처리: `Pageable`, `PageRequest`, `Sort`](#3-페이징-처리-pageable-pagerequest-sort)
- * [3.1. `Page` 로 개수 구하기](#31-page-로-개수-구하기)
- * [3.2. 스펙을 사용하는 `findAll()` 에서 `Pageable` 사용](#32-스펙을-사용하는-findall-에서-pageable-사용)
- * [3.3. `findFirstN()`, `findFirst()`, `findTop()`](#33-findfirstn-findfirst-findtop)
+  * [3.1. `Page` 로 개수 구하기](#31-page-로-개수-구하기)
+  * [3.2. 스펙을 사용하는 `findAll()` 에서 `Pageable` 사용](#32-스펙을-사용하는-findall-에서-pageable-사용)
+  * [3.3. `findFirstN()`, `findFirst()`, `findTop()`](#33-findfirstn-findfirst-findtop)
 * [4. 스펙 조합을 위한 스펙 빌더 클래스](#4-스펙-조합을-위한-스펙-빌더-클래스)
 * [5. 동적 인스턴스 생성](#5-동적-인스턴스-생성)
 * [6. 하이버네이트 `@Subselect` 사용: `@Immutable`, `@Synchronize`](#6-하이버네이트-subselect-사용-immutable-synchronize)
@@ -49,98 +49,98 @@ pom.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.5</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-  <groupId>com.assu</groupId>
-  <artifactId>ddd_me</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>ddd</name>
-  <description>Demo project for Spring Boot</description>
-  <properties>
-    <java.version>17</java.version>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>annotationProcessor</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-jpamodelgen</artifactId>
-      <version>6.5.2.Final</version>
-      <type>pom</type>
-      <!--      <scope>provided</scope>-->
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
-    <dependency>
-      <groupId>com.mysql</groupId>
-      <artifactId>mysql-connector-j</artifactId>
-      <version>8.4.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.bsc.maven</groupId>
-        <artifactId>maven-processor-plugin</artifactId>
-        <version>2.0.5</version>
-        <executions>
-          <execution>
-            <id>process</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>generate-sources</phase>
-            <configuration>
-              <processors>
-                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-              </processors>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.assu</groupId>
+    <artifactId>ddd_me</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ddd</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>annotationProcessor</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>6.5.2.Final</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-    </plugins>
-  </build>
+            <type>pom</type>
+            <!--            <scope>provided</scope>-->
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <version>2.0.5</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <processors>
+                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                            </processors>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-jpamodelgen</artifactId>
+                        <version>6.5.2.Final</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 ```
 
@@ -169,25 +169,25 @@ logging.level.org.springframework.security=DEBUG
 스프링 데이터 JPA 가 제공하는 스펙 인터페이스는 스펙을 조합할 수 있는 2개의 디폴트 메서드를 제공한다.
 
 - **`and()`**
- - 두 스펙을 모두 충족하는 조건을 표현하는 스펙 생성
+  - 두 스펙을 모두 충족하는 조건을 표현하는 스펙 생성
 - **`or()`**
- - 두 스펙 중 하나 이상 충족하는 조건을 표현하는 스펙 생성
+  - 두 스펙 중 하나 이상 충족하는 조건을 표현하는 스펙 생성
 
 Specification<T> 인터페이스 시그니처 일부
 ```java
 public interface Specification<T> extends Serializable {
-  long serialVersionUID = 1L;
+    long serialVersionUID = 1L;
 
-  default Specification<T> and(@Nullable Specification<T> other) {
-    return SpecificationComposition.composed(this, other, CriteriaBuilder::and);
-  }
+    default Specification<T> and(@Nullable Specification<T> other) {
+        return SpecificationComposition.composed(this, other, CriteriaBuilder::and);
+    }
 
-  default Specification<T> or(@Nullable Specification<T> other) {
-    return SpecificationComposition.composed(this, other, CriteriaBuilder::or);
-  }
+    default Specification<T> or(@Nullable Specification<T> other) {
+        return SpecificationComposition.composed(this, other, CriteriaBuilder::or);
+    }
 
-  @Nullable
-  Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder);
+    @Nullable
+    Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder);
 
 // ...
 }
@@ -196,8 +196,8 @@ public interface Specification<T> extends Serializable {
 ```java
 Specification<OrderSummary> spec1 = OrderSummarySpecs.ordererId("user1");
 Specification<OrderSummary> spec2 = OrderSummarySpecs.orderDateBetween(
-    LocalDateTime.of(2024, 1, 1, 0, 0, 0),
-    LocalDateTime.of(2024, 1, 2, 0, 0, 0)
+        LocalDateTime.of(2024, 1, 1, 0, 0, 0),
+        LocalDateTime.of(2024, 1, 2, 0, 0, 0)
 );
 
 // spec1, spec2 를 모두 충족하는 조건을 표현하는 spec3 생성
@@ -226,20 +226,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Sql("classpath:shop-init-test.sql")
 class OrderSummaryDaoIT {
 
-  @Autowired
-  private OrderSummaryDao orderSummaryDao;
+    @Autowired
+    private OrderSummaryDao orderSummaryDao;
 
-  @Test
-  void findAllSpec() {
-    LocalDateTime from = LocalDateTime.of(2022, 1, 1, 0, 0, 0);
-    LocalDateTime to = LocalDateTime.of(2022, 1, 2, 0, 0, 0);
+    @Test
+    void findAllSpec() {
+        LocalDateTime from = LocalDateTime.of(2022, 1, 1, 0, 0, 0);
+        LocalDateTime to = LocalDateTime.of(2022, 1, 2, 0, 0, 0);
 
-    Specification<OrderSummary> spec = OrderSummarySpecs.ordererId("user1")
-        .and(OrderSummarySpecs.orderDateBetween(from, to));
+        Specification<OrderSummary> spec = OrderSummarySpecs.ordererId("user1")
+                .and(OrderSummarySpecs.orderDateBetween(from, to));
 
-    List<OrderSummary> orderSummaryList = orderSummaryDao.findAll(spec);
-    assertThat(orderSummaryList).hasSize(1);
-  }
+        List<OrderSummary> orderSummaryList = orderSummaryDao.findAll(spec);
+        assertThat(orderSummaryList).hasSize(1);
+    }
 }
 ```
 
@@ -275,23 +275,23 @@ insert into category values (2001, '필기구');
 
 insert into product values ('prod-001', '라즈베리파이3 모델B', 56000, '모델B');
 insert into image (product_id, list_idx, image_type, image_path, upload_time) values
- ('prod-001', 0, 'II', 'rpi3.jpg', now());
+  ('prod-001', 0, 'II', 'rpi3.jpg', now());
 insert into image (product_id, list_idx, image_type, image_path, upload_time) values
- ('prod-001', 1, 'EI', 'http://external/image/path', now());
+  ('prod-001', 1, 'EI', 'http://external/image/path', now());
 
 insert into product_category values ('prod-001', 1001);
 
 insert into product values ('prod-002', '어프로치 휴대용 화이트보드 세트', 11920, '화이트보드');
 insert into image (product_id, list_idx, image_type, image_path, upload_time) values
- ('prod-002', 0, 'II', 'wbp.png', now());
+  ('prod-002', 0, 'II', 'wbp.png', now());
 
 insert into product_category values ('prod-002', 2001);
 
 insert into product values ('prod-003', '볼펜 겸용 터치펜', 9000, '볼펜과 터치펜을 하나로!');
 insert into image (product_id, list_idx, image_type, image_path, upload_time) values
- ('prod-003', 0, 'II', 'pen.jpg', now());
+  ('prod-003', 0, 'II', 'pen.jpg', now());
 insert into image (product_id, list_idx, image_type, image_path, upload_time) values
- ('prod-003', 1, 'II', 'pen2.jpg', now());
+  ('prod-003', 1, 'II', 'pen2.jpg', now());
 
 insert into product_category values ('prod-003', 1001);
 insert into product_category values ('prod-003', 2001);
@@ -323,13 +323,13 @@ insert into article (title) values ('제목');
 insert into article_content values (1, 'content', 'type');
 
 insert into evententry (type, content_type, payload, timestamp) values
- ('com.myshop.eventstore.infra.SampleEvent', 'application/json', '{"name": "name1", "value": 11}', now());
+  ('com.myshop.eventstore.infra.SampleEvent', 'application/json', '{"name": "name1", "value": 11}', now());
 insert into evententry (type, content_type, payload, timestamp) values
- ('com.myshop.eventstore.infra.SampleEvent', 'application/json', '{"name": "name2", "value": 12}', now());
+  ('com.myshop.eventstore.infra.SampleEvent', 'application/json', '{"name": "name2", "value": 12}', now());
 insert into evententry (type, content_type, payload, timestamp) values
- ('com.myshop.eventstore.infra.SampleEvent', 'application/json', '{"name": "name3", "value": 13}', now());
+  ('com.myshop.eventstore.infra.SampleEvent', 'application/json', '{"name": "name3", "value": 13}', now());
 insert into evententry (type, content_type, payload, timestamp) values
- ('com.myshop.eventstore.infra.SampleEvent', 'application/json', '{"name": "name4", "value": 14}', now());
+  ('com.myshop.eventstore.infra.SampleEvent', 'application/json', '{"name": "name4", "value": 14}', now());
 ```
 
 ---
@@ -337,36 +337,36 @@ insert into evententry (type, content_type, payload, timestamp) values
 ## 1.2. `not()`, `where()`
 
 - **`not()`**
- - 스펙 인터페이스가 제공하는 정적 메서드
- - 조건을 반대로 적용할 때 사용
+  - 스펙 인터페이스가 제공하는 정적 메서드
+  - 조건을 반대로 적용할 때 사용
 - **`where()`**
- - 스펙 인터페이스가 제공하는 정적 메서드
- - null 을 전달하면 아무 조건도 생성하지 않는 스펙 객체 리턴
- - null 이 아니면 인자로 받은 스펙 객체를 그대로 리턴
+  - 스펙 인터페이스가 제공하는 정적 메서드
+  - null 을 전달하면 아무 조건도 생성하지 않는 스펙 객체 리턴
+  - null 이 아니면 인자로 받은 스펙 객체를 그대로 리턴
 
 Specification<T> 인터페이스 시그니처 일부
 ```java
 public interface Specification<T> extends Serializable {
- long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
- static <T> Specification<T> not(@Nullable Specification<T> spec) {
-  return spec == null ? (root, query, builder) -> {
-   return null;
-  } : (root, query, builder) -> {
-   return builder.not(spec.toPredicate(root, query, builder));
-  };
- }
+  static <T> Specification<T> not(@Nullable Specification<T> spec) {
+    return spec == null ? (root, query, builder) -> {
+      return null;
+    } : (root, query, builder) -> {
+      return builder.not(spec.toPredicate(root, query, builder));
+    };
+  }
 
- static <T> Specification<T> where(@Nullable Specification<T> spec) {
-  return spec == null ? (root, query, builder) -> {
-   return null;
-  } : spec;
- }
- 
- @Nullable
- Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder);
+  static <T> Specification<T> where(@Nullable Specification<T> spec) {
+    return spec == null ? (root, query, builder) -> {
+      return null;
+    } : spec;
+  }
+  
+  @Nullable
+  Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder);
 
- // ...
+  // ...
 }
 ```
 
@@ -408,9 +408,9 @@ import org.springframework.data.repository.Repository;
 import java.util.List;
 
 public interface OrderSummaryDao extends Repository<OrderSummary, String> {
- List<OrderSummary> findByOrdererIdOrderByNumberDesc(String ordererId);
- List<OrderSummary> findByOrdererIdOrderByOrderDateDescNumberAsc(String ordererId);
- // ...
+  List<OrderSummary> findByOrdererIdOrderByNumberDesc(String ordererId);
+  List<OrderSummary> findByOrdererIdOrderByOrderDateDescNumberAsc(String ordererId);
+  // ...
 }
 ```
 
@@ -432,10 +432,10 @@ import java.util.List;
 
 public interface OrderSummaryDao extends Repository<OrderSummary, String> {
 
-  List<OrderSummary> findByOrdererId(String ordererId, Sort sort);
-  List<OrderSummary> findAll(Specification<OrderSummary> spec, Sort sort);
-  
-  // ...
+    List<OrderSummary> findByOrdererId(String ordererId, Sort sort);
+    List<OrderSummary> findAll(Specification<OrderSummary> spec, Sort sort);
+    
+    // ...
 }
 ```
 
@@ -458,33 +458,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Sql("classpath:shop-init-test.sql")
 class OrderSummaryDaoIT {
 
-  @Autowired
-  private OrderSummaryDao orderSummaryDao;
-  
-  // ...
-
-  @Test
-  void findByOrdererIdSort() {
-    Sort sort = Sort.by("number").descending();
+    @Autowired
+    private OrderSummaryDao orderSummaryDao;
     
-    List<OrderSummary> orderSummaryList = orderSummaryDao.findByOrdererId("user1", sort);
+    // ...
 
-    assertThat(orderSummaryList.get(0).getNumber()).isEqualTo("ORDER-002");
-    assertThat(orderSummaryList.get(1).getNumber()).isEqualTo("ORDER-001");
-  }
+    @Test
+    void findByOrdererIdSort() {
+        Sort sort = Sort.by("number").descending();
+        
+        List<OrderSummary> orderSummaryList = orderSummaryDao.findByOrdererId("user1", sort);
 
-  @Test
-  void findByOrdererIdSort2() {
-    // 2개의 Sort 객체를 연결
-   Sort sort1 = Sort.by("number").descending();
-   Sort sort2 = Sort.by("orderDate").ascending();
-   Sort sort = sort1.and(sort2);
-   
-   List<OrderSummary> orderSummaryList = orderSummaryDao.findByOrdererId("user1", sort);
- 
-   assertThat(orderSummaryList.get(0).getNumber()).isEqualTo("ORDER-002");
-   assertThat(orderSummaryList.get(1).getNumber()).isEqualTo("ORDER-001");
-  }
+        assertThat(orderSummaryList.get(0).getNumber()).isEqualTo("ORDER-002");
+        assertThat(orderSummaryList.get(1).getNumber()).isEqualTo("ORDER-001");
+    }
+
+    @Test
+    void findByOrdererIdSort2() {
+        // 2개의 Sort 객체를 연결
+      Sort sort1 = Sort.by("number").descending();
+      Sort sort2 = Sort.by("orderDate").ascending();
+      Sort sort = sort1.and(sort2);
+      
+      List<OrderSummary> orderSummaryList = orderSummaryDao.findByOrdererId("user1", sort);
+  
+      assertThat(orderSummaryList.get(0).getNumber()).isEqualTo("ORDER-002");
+      assertThat(orderSummaryList.get(1).getNumber()).isEqualTo("ORDER-001");
+    }
 }
 ```
 
@@ -492,7 +492,7 @@ class OrderSummaryDaoIT {
 
 # 3. 페이징 처리: `Pageable`, `PageRequest`, `Sort`
 
-스프링 데이터 JPA 는 페이징 처리를 위한 `Pageable` 타입을 지원한다. 
+스프링 데이터 JPA 는 페이징 처리를 위한 `Pageable` 타입을 지원한다.  
 `Sort` 타입과 마찬가지로 find() 메서드에 `Pageable` 타입 파라미터를 사용하면 페이징을 자동으로 처리해준다.
 
 MemberDataDao.java
@@ -505,12 +505,12 @@ import org.springframework.data.repository.Repository;
 import java.util.List;
 
 public interface MemberDataDao extends Repository<MemberData, String> {
-  // 마지막 파라미터로 Pageable 타입을 가짐
-  List<MemberData> findByNameLike(String name, Pageable pageable);
+    // 마지막 파라미터로 Pageable 타입을 가짐
+    List<MemberData> findByNameLike(String name, Pageable pageable);
 }
 ```
 
-위의 _findByNameLike()_ 는 마지막 파라미터로 `Pageable` 타입을 가진다. 
+위의 _findByNameLike()_ 는 마지막 파라미터로 `Pageable` 타입을 가진다.  
 
 MemberData.java (조회 모델)
 ```java
@@ -527,22 +527,22 @@ import lombok.Getter;
 @Entity
 @Table(name = "member")
 public class MemberData {
-  @Id
-  @Column(name = "member_id")
-  private String id;
+    @Id
+    @Column(name = "member_id")
+    private String id;
 
-  private String name;
+    private String name;
 
-  private boolean blocked;
+    private boolean blocked;
 
-  protected MemberData() {
-  }
+    protected MemberData() {
+    }
 
-  public MemberData(String id, String name, boolean blocked) {
-    this.id = id;
-    this.name = name;
-    this.blocked = blocked;
-  }
+    public MemberData(String id, String name, boolean blocked) {
+        this.id = id;
+        this.name = name;
+        this.blocked = blocked;
+    }
 }
 ```
 
@@ -567,24 +567,24 @@ import java.util.List;
 @Sql("classpath:shop-init-test.sql")
 class MemberDataDaoIT {
 
- private Logger logger = LoggerFactory.getLogger(getClass());
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
- @Autowired
- private MemberDataDao memberDataDao;
+  @Autowired
+  private MemberDataDao memberDataDao;
 
- @Test
- void findByNameLike() {
-  Sort sort = Sort.by("name").descending();
-  // (페이지 넘버, 한 페이지의 개수)
-  PageRequest pageReq = PageRequest.of(1, 10, sort);  
+  @Test
+  void findByNameLike() {
+    Sort sort = Sort.by("name").descending();
+    // (페이지 넘버, 한 페이지의 개수)
+    PageRequest pageReq = PageRequest.of(1, 10, sort);   
 
-  List<MemberData> user = memberDataDao.findByNameLike("사용자%", pageReq);
-  logger.info("name like result: {}", user.toString());
- }
+    List<MemberData> user = memberDataDao.findByNameLike("사용자%", pageReq);
+    logger.info("name like result: {}", user.toString());
+  }
 }
 ```
 
-`PageRequest.of()` 의 첫 번째 인자는 페이지 번호, 두 번째 인자는 한 페이지의 개수를 의미한다. 
+`PageRequest.of()` 의 첫 번째 인자는 페이지 번호, 두 번째 인자는 한 페이지의 개수를 의미한다.  
 페이지 번호는 0 부터 시작하므로 위 코드는 두 번째 페이지, 즉 11~10번째 데이터를 조회한다.
 
 ---
@@ -609,8 +609,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 
 public interface MemberDataDao extends Repository<MemberData, String> {
-  // 리턴 타입이 Page 이면 전체 개수, 페이지 개수 등의 데이터도 제공
-  Page<MemberData> findByBlocked(boolean blocked, Pageable pageable);
+    // 리턴 타입이 Page 이면 전체 개수, 페이지 개수 등의 데이터도 제공
+    Page<MemberData> findByBlocked(boolean blocked, Pageable pageable);
 }
 ```
 
@@ -633,28 +633,28 @@ import java.util.List;
 @Sql("classpath:shop-init-test.sql")
 class MemberDataDaoIT {
 
-  private Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
-  @Autowired
-  private MemberDataDao memberDataDao;
+    @Autowired
+    private MemberDataDao memberDataDao;
 
-  // Page 사용
-  @Test
-  void findByBlocked() {
-    Page<MemberData> page = memberDataDao.findByBlocked(false, PageRequest.of(2, 3));
-    logger.info("blocked size: {}", page.getContent().size());
+    // Page 사용
+    @Test
+    void findByBlocked() {
+        Page<MemberData> page = memberDataDao.findByBlocked(false, PageRequest.of(2, 3));
+        logger.info("blocked size: {}", page.getContent().size());
 
-    List<MemberData> content = page.getContent();// 조회 결과 목록
+        List<MemberData> content = page.getContent();// 조회 결과 목록
 
-    long totalElements = page.getTotalElements();  // 조건에 해당하는 전체 개수
-    int totalPages = page.getTotalPages(); // 전체 페이지 번호
-    int number = page.getNumber(); // 현재 페이지 번호
-    int numberOfElements = page.getNumberOfElements(); // 조회 결과 개수
-    int size = page.getSize(); // 페이지 크기
+        long totalElements = page.getTotalElements();   // 조건에 해당하는 전체 개수
+        int totalPages = page.getTotalPages();  // 전체 페이지 번호
+        int number = page.getNumber();  // 현재 페이지 번호
+        int numberOfElements = page.getNumberOfElements();  // 조회 결과 개수
+        int size = page.getSize();  // 페이지 크기
 
-    logger.info("content.size()={}, totalElements={}, totalPages={}, number={}, numberOfElements={}, size={}",
-        content.size(), totalElements, totalPages, number, numberOfElements, size);
-  }
+        logger.info("content.size()={}, totalElements={}, totalPages={}, number={}, numberOfElements={}, size={}",
+                content.size(), totalElements, totalPages, number, numberOfElements, size);
+    }
 }
 ```
 
@@ -678,12 +678,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.Repository;
 
 public interface MemberDataDao extends Repository<MemberData, String> {
-  // 스펙 사용시에도 Pageagle 사용 가능
-  Page<MemberData> findAll(Specification<MemberData> spec, Pageable pageable);
+    // 스펙 사용시에도 Pageagle 사용 가능
+    Page<MemberData> findAll(Specification<MemberData> spec, Pageable pageable);
 }
 ```
 
-**`Pageable` 을 사용하더라도 리턴 타입이 `Page` 이면 COUNT 쿼리를 실행하고, List 이면 COUNT 쿼리를 실행하지 않는다.**  
+**`Pageable` 을 사용하더라도 리턴 타입이 `Page` 이면 COUNT 쿼리를 실행하고, List 이면 COUNT 쿼리를 실행하지 않는다.**    
 따라서 **페이징 처리와 관련된 정보가 필요없다면 `Page` 가 아닌 List 로 리턴 타입을 지정하여 불필요한 COUNT 쿼리를 실행하지 않는 것이 좋다.페이징 처리와 관련된 정보가 필요없다면 `Page` 가 아닌 List 로 리턴 타입을 지정하여 불필요한 COUNT 쿼리를 실행하지 않는 것이 좋다.**
 
 ```java
@@ -701,7 +701,7 @@ Page<MemberData> findByBlocked(boolean blocked, Pageable pageable);
 List<MemberData> findAll(Specification<MemberData> spec, Pageable pageable);
 ```
 
-만일 스펙을 사용하고, 페이징 처리를 하면서 COUNT 쿼리를 실행하고 싶지 않으면 스프링 데이터 JPA 가 제공하는 커스텀 리포지터리 기능을 이용하여 직접 구현해야 한다. 
+만일 스펙을 사용하고, 페이징 처리를 하면서 COUNT 쿼리를 실행하고 싶지 않으면 스프링 데이터 JPA 가 제공하는 커스텀 리포지터리 기능을 이용하여 직접 구현해야 한다.  
 
 > 구현 방법은 [스프링 데이터 JPA: Pageable 대신 커스텀 리포지터리 기능을 이용하여 직접 구현](https://javacan.tistory.com/entry/spring-data-jpa-range-query) 을 
 > 참고하세요.
@@ -752,32 +752,32 @@ import java.util.List;
 @Sql("classpath:shop-init-test.sql")
 class MemberDataDaoIT {
 
- private Logger logger = LoggerFactory.getLogger(getClass());
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
- @Autowired
- private MemberDataDao memberDataDao;
+  @Autowired
+  private MemberDataDao memberDataDao;
 
- @DisplayName("스펙 빌더 테스트")
- @Test()
- void specBuilder() {
-  SearchRequest searchRequest = new SearchRequest();
-  searchRequest.setOnlyNotBlocked(true);
+  @DisplayName("스펙 빌더 테스트")
+  @Test()
+  void specBuilder() {
+    SearchRequest searchRequest = new SearchRequest();
+    searchRequest.setOnlyNotBlocked(true);
 
-  Specification<MemberData> spec = SpecBuilder.builder(MemberData.class)
-      .ifTrue(
-          searchRequest.isOnlyNotBlocked(),
-          () -> MemberDataSpecs.nonBlocked()
-      )
-      .ifHasText(
-          searchRequest.getName(),
-          name -> MemberDataSpecs.nameLike(searchRequest.getName())
-      )
-      .toSpec();
+    Specification<MemberData> spec = SpecBuilder.builder(MemberData.class)
+            .ifTrue(
+                    searchRequest.isOnlyNotBlocked(),
+                    () -> MemberDataSpecs.nonBlocked()
+            )
+            .ifHasText(
+                    searchRequest.getName(),
+                    name -> MemberDataSpecs.nameLike(searchRequest.getName())
+            )
+            .toSpec();
 
-  List<MemberData> result = memberDataDao.findAll(spec, PageRequest.of(0, 10));
+    List<MemberData> result = memberDataDao.findAll(spec, PageRequest.of(0, 10));
 
-  logger.info("result: {}", result.size());  // 7
- }
+    logger.info("result: {}", result.size());   // 7
+  }
 }
 ```
 
@@ -789,13 +789,13 @@ import org.springframework.data.jpa.domain.Specification;
 
 // MemberData 에 관련된 스펙 생성 기능을 하나로 모은 클래스
 public class MemberDataSpecs {
-  public static Specification<MemberData> nonBlocked() {
-    return (root, query, cb) -> cb.equal(root.get("blocked"), false);
-  }
+    public static Specification<MemberData> nonBlocked() {
+        return (root, query, cb) -> cb.equal(root.get("blocked"), false);
+    }
 
-  public static Specification<MemberData> nameLike(String keyword) {
-    return (root, query, cb) -> cb.like(root.get("name"), keyword + "%");
-  }
+    public static Specification<MemberData> nameLike(String keyword) {
+        return (root, query, cb) -> cb.like(root.get("name"), keyword + "%");
+    }
 }
 ```
 
@@ -805,24 +805,24 @@ public class MemberDataSpecs {
 package com.assu.study.member.query;
 
 public class SearchRequest {
-  private boolean onlyNotBlocked;
-  private String name;
+    private boolean onlyNotBlocked;
+    private String name;
 
-  public boolean isOnlyNotBlocked() {
-    return onlyNotBlocked;
-  }
+    public boolean isOnlyNotBlocked() {
+        return onlyNotBlocked;
+    }
 
-  public void setOnlyNotBlocked(boolean onlyNotBlocked) {
-    this.onlyNotBlocked = onlyNotBlocked;
-  }
+    public void setOnlyNotBlocked(boolean onlyNotBlocked) {
+        this.onlyNotBlocked = onlyNotBlocked;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 }
 ```
 
@@ -841,42 +841,42 @@ import java.util.function.Supplier;
 
 // 스펙 조합 시 사용할 스펙 빌더
 public class SpecBuilder {
-  public static <T> Builder<T> builder(Class<T> type) {
-    return new Builder<T>();
-  }
-
-  public static class Builder<T> {
-    private List<Specification<T>> specs = new ArrayList<>();
-
-    public Builder<T> and(Specification<T> spec) {
-      specs.add(spec);
-      return this;
+    public static <T> Builder<T> builder(Class<T> type) {
+        return new Builder<T>();
     }
 
-    public Builder<T> ifHasText(String str,
-                  Function<String, Specification<T>> specSupplier) {
-      if (StringUtils.hasText(str)) {
-        specs.add(specSupplier.apply(str));
-      }
-      return this;
-    }
+    public static class Builder<T> {
+        private List<Specification<T>> specs = new ArrayList<>();
 
-    public Builder<T> ifTrue(Boolean cond,
-                 Supplier<Specification<T>> specSupplier) {
-      if (cond != null && cond.booleanValue()) {
-        specs.add(specSupplier.get());
-      }
-      return this;
-    }
+        public Builder<T> and(Specification<T> spec) {
+            specs.add(spec);
+            return this;
+        }
 
-    public Specification<T> toSpec() {
-      Specification<T> spec = Specification.where(null);
-      for (Specification<T> s : specs) {
-        spec = spec.and(s);
-      }
-      return spec;
+        public Builder<T> ifHasText(String str,
+                                    Function<String, Specification<T>> specSupplier) {
+            if (StringUtils.hasText(str)) {
+                specs.add(specSupplier.apply(str));
+            }
+            return this;
+        }
+
+        public Builder<T> ifTrue(Boolean cond,
+                                 Supplier<Specification<T>> specSupplier) {
+            if (cond != null && cond.booleanValue()) {
+                specs.add(specSupplier.get());
+            }
+            return this;
+        }
+
+        public Specification<T> toSpec() {
+            Specification<T> spec = Specification.where(null);
+            for (Specification<T> s : specs) {
+                spec = spec.and(s);
+            }
+            return spec;
+        }
     }
-  }
 }
 ```
 
@@ -904,20 +904,20 @@ import java.util.List;
 
 public interface OrderSummaryDao extends Repository<OrderSummary, String> {
 
-  // ...
+    // ...
 
-  @Query(value = """
-      select new com.assu.study.order.query.dto.OrderView ( 
-        o.number, o.state, m.name, m.id, p.name 
-      ) 
-      from Order o join o.orderLines ol, Member m, Product p 
-      where o.orderer.memberId.id = :ordererId 
-      and o.orderer.memberId.id = m.id.id
-      and index(ol) = 0 
-      and ol.productId.id = p.id.id
-      order by o.number.number desc 
-      """)
-  List<OrderView> findOrderView(String ordererId);
+    @Query(value = """
+            select new com.assu.study.order.query.dto.OrderView ( 
+                o.number, o.state, m.name, m.id, p.name 
+            ) 
+            from Order o join o.orderLines ol, Member m, Product p 
+            where o.orderer.memberId.id = :ordererId 
+            and o.orderer.memberId.id = m.id.id
+            and index(ol) = 0 
+            and ol.productId.id = p.id.id
+            order by o.number.number desc 
+            """)
+    List<OrderView> findOrderView(String ordererId);
 }
 ```
 
@@ -931,9 +931,9 @@ public interface OrderSummaryDao extends Repository<OrderSummary, String> {
 @DisplayName("동적 인스턴스 생성 테스트")
 @Test
 void findOrderView() {
-  List<OrderView> result = orderSummaryDao.findOrderView("user1");
-  // result: [OrderView(number=ORDER-002, state=PREPARING, memberName=사용자1, memberId=user1, productName=라즈베리파이3 모델B), OrderView(number=ORDER-001, state=PREPARING, memberName=사용자1, memberId=user1, productName=라즈베리파이3 모델B)]
-  logger.info("result: {}", result);
+    List<OrderView> result = orderSummaryDao.findOrderView("user1");
+    // result: [OrderView(number=ORDER-002, state=PREPARING, memberName=사용자1, memberId=user1, productName=라즈베리파이3 모델B), OrderView(number=ORDER-001, state=PREPARING, memberName=사용자1, memberId=user1, productName=라즈베리파이3 모델B)]
+    logger.info("result: {}", result);
 }
 ```
 
@@ -948,19 +948,19 @@ import lombok.Getter;
 
 @Getter
 public class OrderView {
-  private final String number;
-  private final OrderState state;
-  private final String memberName;
-  private final String memberId;
-  private final String productName;
+    private final String number;
+    private final OrderState state;
+    private final String memberName;
+    private final String memberId;
+    private final String productName;
 
-  public OrderView(OrderNo number, OrderState state, String memberName, MemberId memberId, String productName) {
-    this.number = number.getNumber();
-    this.state = state;
-    this.memberName = memberName;
-    this.memberId = memberId.getId();
-    this.productName = productName;
-  }
+    public OrderView(OrderNo number, OrderState state, String memberName, MemberId memberId, String productName) {
+        this.number = number.getNumber();
+        this.state = state;
+        this.memberName = memberName;
+        this.memberId = memberId.getId();
+        this.productName = productName;
+    }
 }
 ```
 
@@ -992,78 +992,78 @@ import org.hibernate.annotations.Synchronize;
 import java.time.LocalDateTime;
 
 @Entity
-@Immutable // 실수로 매핑 필드/프로퍼티가 수정되어도 DB 에 반영하지 않음
+@Immutable  // 실수로 매핑 필드/프로퍼티가 수정되어도 DB 에 반영하지 않음
 @Subselect(
-    """
-        select o.order_number as number,
-            o.version,
-            o.orderer_id,
-            o.orderer_name,
-            o.total_amounts,
-            o.receiver_name,
-            o.state,
-            o.order_date,
-            p.product_id,
-            p.name     as product_name
-        from purchase_order o
-             inner join order_line ol
-                  on o.order_number = ol.order_number
-             cross join product p
-        where ol.line_idx = 0
-         and ol.product_id = p.product_id
-                """
+        """
+                select o.order_number as number,
+                       o.version,
+                       o.orderer_id,
+                       o.orderer_name,
+                       o.total_amounts,
+                       o.receiver_name,
+                       o.state,
+                       o.order_date,
+                       p.product_id,
+                       p.name         as product_name
+                from purchase_order o
+                         inner join order_line ol
+                                    on o.order_number = ol.order_number
+                         cross join product p
+                where ol.line_idx = 0
+                  and ol.product_id = p.product_id
+                                """
 )
 // 아래 3개 테이블에 변경사항이 있으면 OrderSummary 엔티티 로딩 전에 변경 내역을 먼저 flush 한 후 OrderSummary 엔티티 로
 @Synchronize({"purchase_order", "order_line", "product"})
 @Getter
 public class OrderSummary {
-  @Id
-  private String number;
+    @Id
+    private String number;
 
-  private long version;
+    private long version;
 
-  @Column(name = "orderer_id")
-  private String ordererId;
+    @Column(name = "orderer_id")
+    private String ordererId;
 
-  @Column(name = "orderer_name")
-  private String ordererName;
+    @Column(name = "orderer_name")
+    private String ordererName;
 
-  @Column(name = "total_amounts")
-  private int totalAmounts;
+    @Column(name = "total_amounts")
+    private int totalAmounts;
 
-  @Column(name = "receiver_name")
-  private String receiverName;
+    @Column(name = "receiver_name")
+    private String receiverName;
 
-  private String state;
+    private String state;
 
-  @Column(name = "order_date")
-  private LocalDateTime orderDate;
+    @Column(name = "order_date")
+    private LocalDateTime orderDate;
 
-  @Column(name = "product_id")
-  private String productId;
+    @Column(name = "product_id")
+    private String productId;
 
-  @Column(name = "product_name")
-  private String productName;
+    @Column(name = "product_name")
+    private String productName;
 
-  protected OrderSummary() {
-  }
+    protected OrderSummary() {
+    }
 }
 ```
 
-> **cross join** 
+> **cross join**  
 > 
-> 한 테이블의 모든 행과 다른 쪽 테이블의 모든 행을 조인시키는 기능 
-> cross join 의 결과의 전체 행 개수는 두 테이블의 각 행의 수를 곱한 수만큼 됨 
+> 한 테이블의 모든 행과 다른 쪽 테이블의 모든 행을 조인시키는 기능  
+> cross join 의 결과의 전체 행 개수는 두 테이블의 각 행의 수를 곱한 수만큼 됨  
 > 카티션 곱 (cartesian product) 이라고도 함
 
 **`@Immutable`, `@Subselect`, `@Synchronize` 는 하이버네이트의 전용 애너테이션으로 이 태그를 사용하면 테이블이 아닌 쿼리 결과를 `@Entity` 로 매핑**할 수 있다.
 
-**`@Subselect` 는 select 쿼리를 값으로 가지고, 하이버네이트는 이 select 쿼리의 결과를 매핑할 테이블처럼 사용**한다. 
+**`@Subselect` 는 select 쿼리를 값으로 가지고, 하이버네이트는 이 select 쿼리의 결과를 매핑할 테이블처럼 사용**한다.  
 
-여러 테이블을 조인한 결과를 테이블처럼 사용하는 용도로 뷰를 사용하는 것처럼 `@Subselect` 를 사용하면 쿼리 실행 결과를 매핑할 테이블처럼 사용한다. 
+여러 테이블을 조인한 결과를 테이블처럼 사용하는 용도로 뷰를 사용하는 것처럼 `@Subselect` 를 사용하면 쿼리 실행 결과를 매핑할 테이블처럼 사용한다.  
 
-**뷰를 수정할 수 없듯이 `@Subselect` 로 조회한 `@Entity` 역시 수정할 수 없다.** 
-실수로 `@Subselect` 를 이용한 `@Entity` 의 매핑 필드를 수정하면 하이버네이트는 변경 내역을 반영하는 update 쿼리를 실행할텐데 매핑한 테이블이 없으므로 에러가 발생한다. 
+**뷰를 수정할 수 없듯이 `@Subselect` 로 조회한 `@Entity` 역시 수정할 수 없다.**  
+실수로 `@Subselect` 를 이용한 `@Entity` 의 매핑 필드를 수정하면 하이버네이트는 변경 내역을 반영하는 update 쿼리를 실행할텐데 매핑한 테이블이 없으므로 에러가 발생한다.  
 이런 문제를 방지하기 위해 `@Immutable` 애너테이션을 사용한다.
 
 **`@Immutable` 애너테이션을 사용하면 하이버네이트는 해당 엔티티의 매핑 필드/프로퍼티가 변경되도 DB 에 반영하지 않고 무시**한다.
@@ -1077,14 +1077,14 @@ order.changeShippingInfo(newOrderInfo); // 상태 변경
 List<OrderSummary> summaries = orderSummaryRepository.findByOrdererId(userId);
 ```
 
-위 코드는 _Order_ 의 상태를 변경한 후 _OrderSummary_ 를 조회하고 있다. 
+위 코드는 _Order_ 의 상태를 변경한 후 _OrderSummary_ 를 조회하고 있다.  
 하이버네이트는 트랜잭션을 커밋하는 시점에 변경사항을 DB 에 반영하므로 아직 _Order_ 의 변경 내역이 purchase_order 에 반영되지 않은 상태에서 
-purchase_order 테이블을 사용하는 _OrderSummary_ 를 조회하게 된다. 
+purchase_order 테이블을 사용하는 _OrderSummary_ 를 조회하게 된다.  
 즉, _OrderSummary_ 는 최신값이 아닌 이전값이 담기게 된다.
 
 이런 문제를 해결하기 위해 `@Synchronize` 애너테이션을 사용한다.
 
-**`@Synchronize` 애너테이션은 해당 엔티티와 관련된 테이블 목록을 명시하는데 하이버네이트는 엔티티를 로딩하기 전에 명시된 테이블과 관련된 변경이 발생하면 flush 를 먼저 한다.** 
+**`@Synchronize` 애너테이션은 해당 엔티티와 관련된 테이블 목록을 명시하는데 하이버네이트는 엔티티를 로딩하기 전에 명시된 테이블과 관련된 변경이 발생하면 flush 를 먼저 한다.**  
 위에선 _OrderSummary_ 의 `@Synchronize` 는 purchase_order 테이블을 명시하고 있으므로 **_OrderSummary_ 를 로딩하기 전에 purchase_order 테이블에 
 변경사항이 있으면 관련 내역을 먼저 flush 하기 때문에 _OrderSummary_ 를 로딩하는 시점에서는 변경 내역이 반영**된다.
 
@@ -1096,15 +1096,15 @@ purchase_order 테이블을 사용하는 _OrderSummary_ 를 조회하게 된다.
 @DisplayName("@Subselect 를 @Entity 처럼 사용")
 @Test
 void findAllSpecPageable() {
-  LocalDateTime from = LocalDateTime.of(2022, 1, 1, 0, 0, 0);
-  LocalDateTime to = LocalDateTime.of(2023, 1, 2, 0, 0, 0);
+    LocalDateTime from = LocalDateTime.of(2022, 1, 1, 0, 0, 0);
+    LocalDateTime to = LocalDateTime.of(2023, 1, 2, 0, 0, 0);
 
-  // @Subselect 를 적용한 @Entity 는 일반 @Entity 와 동일한 방법으로 조회 가능
-  Specification<OrderSummary> spec = OrderSummarySpecs.orderDateBetween(from, to);
-  Pageable pageable = PageRequest.of(1, 1);
-  List<OrderSummary> results = orderSummaryDao.findAll(spec, pageable);
-  logger.info("results: {}", results);
-  assertThat(results).hasSize(1);
+    // @Subselect 를 적용한 @Entity 는 일반 @Entity 와 동일한 방법으로 조회 가능
+    Specification<OrderSummary> spec = OrderSummarySpecs.orderDateBetween(from, to);
+    Pageable pageable = PageRequest.of(1, 1);
+    List<OrderSummary> results = orderSummaryDao.findAll(spec, pageable);
+    logger.info("results: {}", results);
+    assertThat(results).hasSize(1);
 }
 ```
 
@@ -1114,40 +1114,40 @@ void findAllSpecPageable() {
 select os1_0.number,os1_0.order_date,os1_0.orderer_id,os1_0.orderer_name,os1_0.product_id,os1_0.product_name,os1_0.receiver_name,os1_0.state,os1_0.total_amounts,os1_0.version
 from (
 select o.order_number as number,
-    o.version,
-    o.orderer_id,
-    o.orderer_name,
-    o.total_amounts,
-    o.receiver_name,
-    o.state,
-    o.order_date,
-    p.product_id,
-    p.name     as product_name
+       o.version,
+       o.orderer_id,
+       o.orderer_name,
+       o.total_amounts,
+       o.receiver_name,
+       o.state,
+       o.order_date,
+       p.product_id,
+       p.name         as product_name
 from purchase_order o
-     inner join order_line ol
-          on o.order_number = ol.order_number
-     cross join product p
+         inner join order_line ol
+                    on o.order_number = ol.order_number
+         cross join product p
 where ol.line_idx = 0
- and ol.product_id = p.product_id
+  and ol.product_id = p.product_id
  ) os1_0 where os1_0.order_date between '2022-01-01' and '2023-01-01' limit 1,1;
 
 -- COUNT 쿼리
 select count(os1_0.number) from ( select o.order_number as number,
-    o.version,
-    o.orderer_id,
-    o.orderer_name,
-    o.total_amounts,
-    o.receiver_name,
-    o.state,
-    o.order_date,
-    p.product_id,
-    p.name     as product_name
+       o.version,
+       o.orderer_id,
+       o.orderer_name,
+       o.total_amounts,
+       o.receiver_name,
+       o.state,
+       o.order_date,
+       p.product_id,
+       p.name         as product_name
 from purchase_order o
-     inner join order_line ol
-          on o.order_number = ol.order_number
-     cross join product p
+         inner join order_line ol
+                    on o.order_number = ol.order_number
+         cross join product p
 where ol.line_idx = 0
- and ol.product_id = p.product_id
+  and ol.product_id = p.product_id
  ) os1_0 where os1_0.order_date between '2022-01-01' and '2023-01-01';
 ```
 

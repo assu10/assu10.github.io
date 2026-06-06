@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "NestJS - Custom Provider"
+title:  "NestJS - Custom Provider"
 date: 2023-03-25
 categories: dev
 tags: javascript nestjs provider custom-provider
@@ -30,8 +30,8 @@ tags: javascript nestjs provider custom-provider
 app.module.ts
 ```ts
 @Module({
- controllers: [UsersController],
- providers: [UsersService],
+  controllers: [UsersController],
+  providers: [UsersService],
 })
 export class AppModule {}
 ```
@@ -55,26 +55,26 @@ export declare function Module(metadata: ModuleMetadata): ClassDecorator;
 `ModuleMetadata` 시그니처
 ```ts
 export interface ModuleMetadata {
-  /**
-   * Optional list of imported modules that export the providers which are
-   * required in this module.
-   */
-  imports?: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference>;
-  /**
-   * Optional list of controllers defined in this module which have to be
-   * instantiated.
-   */
-  controllers?: Type<any>[];
-  /**
-   * Optional list of providers that will be instantiated by the Nest injector
-   * and that may be shared at least across this module.
-   */
-  providers?: Provider[];
-  /**
-   * Optional list of the subset of providers that are provided by this module
-   * and should be available in other modules which import this module.
-   */
-  exports?: Array<DynamicModule | Promise<DynamicModule> | string | symbol | Provider | ForwardReference | Abstract<any> | Function>;
+    /**
+     * Optional list of imported modules that export the providers which are
+     * required in this module.
+     */
+    imports?: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference>;
+    /**
+     * Optional list of controllers defined in this module which have to be
+     * instantiated.
+     */
+    controllers?: Type<any>[];
+    /**
+     * Optional list of providers that will be instantiated by the Nest injector
+     * and that may be shared at least across this module.
+     */
+    providers?: Provider[];
+    /**
+     * Optional list of the subset of providers that are provided by this module
+     * and should be available in other modules which import this module.
+     */
+    exports?: Array<DynamicModule | Promise<DynamicModule> | string | symbol | Provider | ForwardReference | Abstract<any> | Function>;
 }
 ```
 
@@ -90,9 +90,9 @@ export type Provider<T = any> = Type<any> | ClassProvider<T> | ValueProvider<T> 
  * const configServiceProvider = {
  * provide: ConfigService,
  * useClass:
- *  process.env.NODE_ENV === 'development'
- *   ? DevelopmentConfigService
- *   : ProductionConfigService,
+ *   process.env.NODE_ENV === 'development'
+ *     ? DevelopmentConfigService
+ *     : ProductionConfigService,
  * };
  * 
 *
@@ -104,29 +104,29 @@ export type Provider<T = any> = Type<any> | ClassProvider<T> | ValueProvider<T> 
 export interface ClassProvider<T = any> {
 /**
 * Injection token
- */
- provide: InjectionToken;
- /**
+  */
+  provide: InjectionToken;
+  /**
 * Type (class name) of provider (instance to be injected).
- */
- useClass: Type<T>;
- /**
+  */
+  useClass: Type<T>;
+  /**
 * Optional enum defining lifetime of the provider that is injected.
- */
- scope?: Scope;
- /**
+  */
+  scope?: Scope;
+  /**
 * This option is only available on factory providers!
 *
 * @see [Use factory](https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory)
- */
- inject?: never;
- /**
+  */
+  inject?: never;
+  /**
 * Flags provider as durable. This flag can be used in combination with custom context id
 * factory strategy to construct lazy DI subtrees.
 *
 * This flag can be used only in conjunction with scope = Scope.REQUEST.
- */
- durable?: boolean;
+  */
+  durable?: boolean;
 }
 
 /**
@@ -135,8 +135,8 @@ export interface ClassProvider<T = any> {
 * For example:
 * 
 * const connectionProvider = {
-*  provide: 'CONNECTION',
-*  useValue: connection,
+*   provide: 'CONNECTION',
+*   useValue: connection,
 * };
 * 
 *
@@ -147,18 +147,18 @@ export interface ClassProvider<T = any> {
 export interface ValueProvider<T = any> {
 /**
 * Injection token
- */
- provide: InjectionToken;
- /**
+  */
+  provide: InjectionToken;
+  /**
 * Instance of a provider to be injected.
- */
- useValue: T;
- /**
+  */
+  useValue: T;
+  /**
 * This option is only available on factory providers!
 *
 * @see [Use factory](https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory)
- */
- inject?: never;
+  */
+  inject?: never;
 }
 
 /**
@@ -167,12 +167,12 @@ export interface ValueProvider<T = any> {
 * For example:
 * 
 * const connectionFactory = {
-*  provide: 'CONNECTION',
-*  useFactory: (optionsProvider: OptionsProvider) => {
-*   const options = optionsProvider.get();
-*   return new DatabaseConnection(options);
-*  },
-*  inject: [OptionsProvider],
+*   provide: 'CONNECTION',
+*   useFactory: (optionsProvider: OptionsProvider) => {
+*     const options = optionsProvider.get();
+*     return new DatabaseConnection(options);
+*   },
+*   inject: [OptionsProvider],
 * };
 * 
 *
@@ -184,37 +184,37 @@ export interface ValueProvider<T = any> {
 export interface FactoryProvider<T = any> {
 /**
 * Injection token
- */
- provide: InjectionToken;
- /**
+  */
+  provide: InjectionToken;
+  /**
 * Factory function that returns an instance of the provider to be injected.
- */
- useFactory: (...args: any[]) => T | Promise<T>;
- /**
+  */
+  useFactory: (...args: any[]) => T | Promise<T>;
+  /**
 * Optional list of providers to be injected into the context of the Factory function.
- */
- inject?: Array<InjectionToken | OptionalFactoryDependency>;
- /**
+  */
+  inject?: Array<InjectionToken | OptionalFactoryDependency>;
+  /**
 * Optional enum defining lifetime of the provider that is returned by the Factory function.
- */
- scope?: Scope;
- /**
+  */
+  scope?: Scope;
+  /**
 * Flags provider as durable. This flag can be used in combination with custom context id
 * factory strategy to construct lazy DI subtrees.
 *
 * This flag can be used only in conjunction with scope = Scope.REQUEST.
- */
- durable?: boolean;
+  */
+  durable?: boolean;
 }
- 
+  
 /**
 * Interface defining an *Existing* (aliased) type provider.
 *
 * For example:
 * 
 * const loggerAliasProvider = {
-*  provide: 'AliasedLoggerService',
-*  useExisting: LoggerService
+*   provide: 'AliasedLoggerService',
+*   useExisting: LoggerService
 * };
 * 
 *
@@ -225,12 +225,12 @@ export interface FactoryProvider<T = any> {
 export interface ExistingProvider<T = any> {
 /**
 * Injection token
- */
- provide: InjectionToken;
- /**
+  */
+  provide: InjectionToken;
+  /**
 * Provider to be aliased by the Injection token.
- */
- useExisting: any;
+  */
+  useExisting: any;
 }
 ```
 
@@ -250,8 +250,8 @@ export type Provider<T = any> = Type<any> | ClassProvider<T> | ValueProvider<T> 
  * For example:
  * 
  * const connectionProvider = {
- *  provide: 'CONNECTION',
- *  useValue: connection,
+ *   provide: 'CONNECTION',
+ *   useValue: connection,
  * };
  * 
 *
@@ -262,23 +262,23 @@ export type Provider<T = any> = Type<any> | ClassProvider<T> | ValueProvider<T> 
 export interface ValueProvider<T = any> {
 /**
 * Injection token
- */
- provide: InjectionToken;
- /**
+  */
+  provide: InjectionToken;
+  /**
 * Instance of a provider to be injected.
- */
- useValue: T;
- /**
+  */
+  useValue: T;
+  /**
 * This option is only available on factory providers!
 *
 * @see [Use factory](https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory)
- */
- inject?: never;
+  */
+  inject?: never;
 }
 ```
 
 `ValueProvider` 는 `provide` 와 `useValue` 속성을 갖는데 `useValue` 는 어떤 타입도 받을 수 있기 때문에 `useValue` 를 이용하여
-외부 라이브러리에서 Provider 를 사입하거나 실제 구현을 mock 객체로 대체할 수 있다. 
+외부 라이브러리에서 Provider 를 사입하거나 실제 구현을 mock 객체로 대체할 수 있다.  
 (`inject` 는 factory provider 에서만 사용됨)
 
 예를 들어 모의 값을 테스트하려고 한다고 해보자.
@@ -286,17 +286,17 @@ export interface ValueProvider<T = any> {
 ```ts
 // mock object
 const mockCatsService = {
-  // 테스트에 적용할 값 변경
+    // 테스트에 적용할 값 변경
 };
 
 @Module({
-  imports: [CatsModule],
-  providers: [
-    {  // CatsService 를 Provider 로 지정하지만 실제 값은 mockCatsService 를 사용한다는 의미
-      provide: CatsService,
-      useValue: mockCatsService, // provide 에 선언된 클래스와 동일한 인터페이스를 가진 리터럴 객체 혹은 new 로 생성한 인스턴스 사용해야 함
-    }
-  ]
+    imports: [CatsModule],
+    providers: [
+        {   // CatsService 를 Provider 로 지정하지만 실제 값은 mockCatsService 를 사용한다는 의미
+            provide: CatsService,
+            useValue: mockCatsService,  // provide 에 선언된 클래스와 동일한 인터페이스를 가진 리터럴 객체 혹은 new 로 생성한 인스턴스 사용해야 함
+        }
+    ]
 });
 export class AppModule {}
 ```
@@ -306,7 +306,7 @@ export class AppModule {}
 export type InjectionToken = string | symbol | Type<any> | Abstract<any> | Function;
 ```
 
-위의 예시에서는 `provide` 의 타입을 `Type<any>` 로 하여 CatsService 를 사용한 것이다. 
+위의 예시에서는 `provide` 의 타입을 `Type<any>` 로 하여 CatsService 를 사용한 것이다.  
 즉, **CatsService 를 Provider 로 지정하지만 실제 값은 mockCatsService 를 사용한다는 의미**이다.
 
 `useValue` 에는 `provide` 에 선언된 클래스와 동일한 인터페이스를 가진 리터럴 객체 혹은 new 로 생성한 인스턴스를 사용해야 한다.
@@ -319,12 +319,12 @@ export type InjectionToken = string | symbol | Type<any> | Abstract<any> | Funct
 import { connection } from './connection';
 
 @Module({
-  providers: [
-    {
-      provide: 'CONNECTION', // 토큰으로 'CONNECTION' 문자열 사용
-      useValue: connection
-    }
-  ]
+    providers: [
+        {
+            provide: 'CONNECTION',  // 토큰으로 'CONNECTION' 문자열 사용
+            useValue: connection
+        }
+    ]
 });
 export class AppModule {}
 ```
@@ -334,8 +334,8 @@ export class AppModule {}
 ```ts
 @Injectable()
 export class CatsRepository {
-  constructor(@Inject('CONNECTION') connection: Connection) {
-  }
+    constructor(@Inject('CONNECTION') connection: Connection) {
+    }
 }
 ```
 
@@ -354,9 +354,9 @@ export class CatsRepository {
  * const configServiceProvider = {
  * provide: ConfigService,
  * useClass:
- *  process.env.NODE_ENV === 'development'
- *   ? DevelopmentConfigService
- *   : ProductionConfigService,
+ *   process.env.NODE_ENV === 'development'
+ *     ? DevelopmentConfigService
+ *     : ProductionConfigService,
  * };
  * 
 *
@@ -368,46 +368,46 @@ export class CatsRepository {
 export interface ClassProvider<T = any> {
 /**
 * Injection token
- */
- provide: InjectionToken;
- /**
+  */
+  provide: InjectionToken;
+  /**
 * Type (class name) of provider (instance to be injected).
- */
- useClass: Type<T>;
- /**
+  */
+  useClass: Type<T>;
+  /**
 * Optional enum defining lifetime of the provider that is injected.
- */
- scope?: Scope;
- /**
+  */
+  scope?: Scope;
+  /**
 * This option is only available on factory providers!
 *
 * @see [Use factory](https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory)
- */
- inject?: never;
- /**
+  */
+  inject?: never;
+  /**
 * Flags provider as durable. This flag can be used in combination with custom context id
 * factory strategy to construct lazy DI subtrees.
 *
 * This flag can be used only in conjunction with scope = Scope.REQUEST.
- */
- durable?: boolean;
+  */
+  durable?: boolean;
 }
 ```
 
-`ClassProvider` 는 `provide` 와 `useClass` 속성을 사용한다. 
+`ClassProvider` 는 `provide` 와 `useClass` 속성을 사용한다.  
 `ClassProvider` 를 사용하면 Provider 로 사용할 인스턴스를 동적으로 구성할 수 있다.
 
 예를 들어 ConfigService 부모 클래스가 있고 이를 상속받은 DevConfigService 와 ProdConfigService 를 환경에 맞게 동적으로 구성할 수 있다.
 
 ```ts
 const configServiceProvider = {
-  provide: ConfigService,
-  useClass: 
-    process.env.NODE_ENV === 'dev' ? DevConfigService: ProdConfigService;
+    provide: ConfigService,
+    useClass: 
+        process.env.NODE_ENV === 'dev' ? DevConfigService: ProdConfigService;
 };
 
 @Module({
-  providers:[configServiceProvider]
+    providers:[configServiceProvider]
 });
 export class AppModule {}
 ```
@@ -427,12 +427,12 @@ export class AppModule {}
  * For example:
  * 
  * const connectionFactory = {
- *  provide: 'CONNECTION',
- *  useFactory: (optionsProvider: OptionsProvider) => {
- *   const options = optionsProvider.get();
- *   return new DatabaseConnection(options);
- *  },
- *  inject: [OptionsProvider],
+ *   provide: 'CONNECTION',
+ *   useFactory: (optionsProvider: OptionsProvider) => {
+ *     const options = optionsProvider.get();
+ *     return new DatabaseConnection(options);
+ *   },
+ *   inject: [OptionsProvider],
  * };
  * 
 *
@@ -444,31 +444,31 @@ export class AppModule {}
 export interface FactoryProvider<T = any> {
 /**
 * Injection token
- */
- provide: InjectionToken;
- /**
+  */
+  provide: InjectionToken;
+  /**
 * Factory function that returns an instance of the provider to be injected.
- */
- useFactory: (...args: any[]) => T | Promise<T>;
- /**
+  */
+  useFactory: (...args: any[]) => T | Promise<T>;
+  /**
 * Optional list of providers to be injected into the context of the Factory function.
- */
- inject?: Array<InjectionToken | OptionalFactoryDependency>;
- /**
+  */
+  inject?: Array<InjectionToken | OptionalFactoryDependency>;
+  /**
 * Optional enum defining lifetime of the provider that is returned by the Factory function.
- */
- scope?: Scope;
- /**
+  */
+  scope?: Scope;
+  /**
 * Flags provider as durable. This flag can be used in combination with custom context id
 * factory strategy to construct lazy DI subtrees.
 *
 * This flag can be used only in conjunction with scope = Scope.REQUEST.
- */
- durable?: boolean;
+  */
+  durable?: boolean;
 }
 ```
 
-`FactoryProvider` 는 `provide` 와 `useFactory` 속성을 사용한다. 
+`FactoryProvider` 는 `provide` 와 `useFactory` 속성을 사용한다.  
 `FactoryProvider` 도 `ClassProvider` 처럼 Provider 로 사용할 인스턴스를 동적으로 구성하고자 할 때 사용한다.
 
 `ClassProvider` 는 `useClass: Type<T>` 속성을 갖는 반면 `FactoryProvider` 는 타입이 함수로 정의되어 있다. 
@@ -476,22 +476,22 @@ export interface FactoryProvider<T = any> {
 useFactory: (...args: any[]) => T | Promise<T>;
 ```
 
-원하는 인수와 리턴 타입으로 함수를 구성하면 된다. 
+원하는 인수와 리턴 타입으로 함수를 구성하면 된다.  
 만일 함수를 수행하는 과정에서 다른 Provider 가 필요하면 주입받아서 사용할 수 있는데 주의할 점은 주입받을 Provider 를 `inject` 속성에 다시 선언해주어야 한다.
 
 아래는 `CONNECTION` Provider 인스턴스를 생성하는 과정에서 `OptionsProvider` 가 필요한 경우이다.
 ```ts
 const connectionFactory = {
-  provide: 'CONNECTION',
-  useFactory: (optionsProvider: OptionsProvider) => {
-    const options = optionsProvider.get();
-    return new DatabaseConnection(options);
-  },
-  inject: [OptionsProvider]
+    provide: 'CONNECTION',
+    useFactory: (optionsProvider: OptionsProvider) => {
+        const options = optionsProvider.get();
+        return new DatabaseConnection(options);
+    },
+    inject: [OptionsProvider]
 };
 
 @Module({
-  providers: [connectionFactory]
+    providers: [connectionFactory]
 })
 export class AppModule {}
 ```
@@ -509,8 +509,8 @@ export class AppModule {}
  * For example:
  * 
  * const loggerAliasProvider = {
- *  provide: 'AliasedLoggerService',
- *  useExisting: LoggerService
+ *   provide: 'AliasedLoggerService',
+ *   useExisting: LoggerService
  * };
  * 
 *
@@ -521,23 +521,23 @@ export class AppModule {}
 export interface ExistingProvider<T = any> {
 /**
 * Injection token
- */
- provide: InjectionToken;
- /**
+  */
+  provide: InjectionToken;
+  /**
 * Provider to be aliased by the Injection token.
- */
- useExisting: any;
+  */
+  useExisting: any;
 }
 ```
-`ExistingProvider` 는 Provider 에 별칭을 붙여 동일한 Provider 를 별칭으로 접근할 수 있도록 한다. 
+`ExistingProvider` 는 Provider 에 별칭을 붙여 동일한 Provider 를 별칭으로 접근할 수 있도록 한다.  
 `ExistingProvider` 는 `provide` 와 `useExisting` 속성을 사용한다.
 
 ```ts
 @Injectable()
 export class LoggerService {
-  private getHello(): string {
-    return 'hello';
-  }
+    private getHello(): string {
+        return 'hello';
+    }
 }
 ```
 
@@ -546,12 +546,12 @@ export class LoggerService {
 
 ```ts
 const loggerAliasProvider = {
-  provide: 'AliasedLoggerService',
-  useExisting: LoggerService
+    provide: 'AliasedLoggerService',
+    useExisting: LoggerService
 };
 
 @Module({
-  providers: [LoggerService, loggerAliasProvider]
+    providers: [LoggerService, loggerAliasProvider]
 })
 export class AppModule {}
 ```
@@ -560,13 +560,13 @@ export class AppModule {}
 ```ts
 @Controller()
 export class AppController {
-  // 일반적으로 프로바이더를 주입받을 때 원본 프로바이더 타입으로 지정해주는 것이 좋지만 여기선 private 함수를 호출하려고 했기 때문에 any 타입으로 정의
-  constructor(@Inject('AliasedLoggerService') private readonly serviceAlias: any) { }
+    // 일반적으로 프로바이더를 주입받을 때 원본 프로바이더 타입으로 지정해주는 것이 좋지만 여기선 private 함수를 호출하려고 했기 때문에 any 타입으로 정의
+    constructor(@Inject('AliasedLoggerService') private readonly serviceAlias: any) { }
 
-  @Get('/alias')
-  getHelloAlias(): string {
-    return this.serviceAlias.getHello();
-  }
+    @Get('/alias')
+    getHelloAlias(): string {
+        return this.serviceAlias.getHello();
+    }
 }
 ```
 
@@ -584,20 +584,20 @@ export class AppController {
 
 ```ts
 const connectionFactory = {
-  provide: 'CONNECTION',
-  useFactory: (optionsProvider: OptionsProvider) => {
-    const options = optionsProvider.get();
-    return new DatabaseConnection(options);
-  },
-  inject: [OptionsProvider]
+    provide: 'CONNECTION',
+    useFactory: (optionsProvider: OptionsProvider) => {
+        const options = optionsProvider.get();
+        return new DatabaseConnection(options);
+    },
+    inject: [OptionsProvider]
 };
 ```
 
 내보내기 토큰을 사용하여 Provider 내보내기 (='CONNECTION' 토큰 사용)
 ```ts
 @Module({
-  providers: [connectionFactory],
-  exports: ['CONNECTION']
+    providers: [connectionFactory],
+    exports: ['CONNECTION']
 })
 export class AppModule {}
 ```
@@ -605,8 +605,8 @@ export class AppModule {}
 Provider 객체를 사용하여 Provider 내보내기 (=connectionFactory 객체를 그대로 내보내는 경우)
 ```ts
 @Module({
-  providers: [connectionFactory],
-  exports: ['connectionFactory']
+    providers: [connectionFactory],
+    exports: ['connectionFactory']
 })
 export class AppModule {}
 ```

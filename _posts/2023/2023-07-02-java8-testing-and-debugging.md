@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java8 - 람다 테스팅, 디버깅"
+title:  "Java8 - 람다 테스팅, 디버깅"
 date: 2023-07-02
 categories: dev
 tags: java java8 lambda-testing stream-testing lambda-debugging stream-debugging peek
@@ -12,16 +12,16 @@ tags: java java8 lambda-testing stream-testing lambda-debugging stream-debugging
 
 ---
 
-**목차** 
+**목차**  
 
 <!-- TOC -->
 * [1. 람다 테스팅](#1-람다-테스팅)
- * [1.1. 일반적인 단위 테스트](#11-일반적인-단위-테스트)
- * [1.2. 람다 표현식의 동작 테스트](#12-람다-표현식의-동작-테스트)
- * [1.3. 람다를 사용하는 메서드의 동작을 테스트](#13-람다를-사용하는-메서드의-동작을-테스트)
+  * [1.1. 일반적인 단위 테스트](#11-일반적인-단위-테스트)
+  * [1.2. 람다 표현식의 동작 테스트](#12-람다-표현식의-동작-테스트)
+  * [1.3. 람다를 사용하는 메서드의 동작을 테스트](#13-람다를-사용하는-메서드의-동작을-테스트)
 * [2. 디버깅](#2-디버깅)
- * [2.1. 스택 트레이스 확인](#21-스택-트레이스-확인)
- * [2.2. 로깅: `peek()`](#22-로깅-peek)
+  * [2.1. 스택 트레이스 확인](#21-스택-트레이스-확인)
+  * [2.2. 로깅: `peek()`](#22-로깅-peek)
 * [3. 정리하며..](#3-정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -36,25 +36,25 @@ tags: java java8 lambda-testing stream-testing lambda-debugging stream-debugging
 
 ```java
 public class Point {
- private final int x;
- private final int y;
+  private final int x;
+  private final int y;
 
- public Point(int x, int y) {
-  this.x = x;
-  this.y = y;
- }
-
- public int getX() {
-  return x;
- }
-
- public int getY() {
-  return y;
- }
-
- public Point moveRightBy(int x) {
-  return new Point(this.x + x, this.y);
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
   }
+
+  public int getX() {
+    return x;
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  public Point moveRightBy(int x) {
+    return new Point(this.x + x, this.y);
+    }
 }
 ```
 
@@ -66,23 +66,23 @@ import static org.junit.Assert.assertEquals;
 
 public class Testing {
 
- @Test
- public void testMoveRightBy() {
-  Point p1 = new Point(5,5);
-  Point p2 = p1.moveRightBy(10);
+  @Test
+  public void testMoveRightBy() {
+    Point p1 = new Point(5,5);
+    Point p2 = p1.moveRightBy(10);
 
-  assertEquals(15, p2.getX());
-  assertEquals(5, p2.getY());
- }
+    assertEquals(15, p2.getX());
+    assertEquals(5, p2.getY());
+  }
 }
 ```
 
 `@Test` 사용 시 `junit` dependency 를 추가해주어야 한다.
 ```xml
 <dependency>
-  <groupId>junit</groupId>
-  <artifactId>junit</artifactId>
-  <version>4.12</version>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
 </dependency>
 ```
 
@@ -90,14 +90,14 @@ public class Testing {
 
 ## 1.2. 람다 표현식의 동작 테스트
 
-위의 moveRightBy() 메서드는 public 이기 때문에 문제없이 동작하지만 람다는 익명(=익명 함수) 이므로 테스트 코드 이름을 호출할 수 없다. 
+위의 moveRightBy() 메서드는 public 이기 때문에 문제없이 동작하지만 람다는 익명(=익명 함수) 이므로 테스트 코드 이름을 호출할 수 없다.  
 따라서 필드에 람다를 저장해서 재사용하는 방법으로 람다 로직 테스트가 가능하다.
 
 예를 들어 compareByXAndThenY 라는 정적 필드를 추가하고, 여기에 람다 표현식을 저장한다.
 
 ```java
 public final static Comparator<Point> compareByXAndThenY =
-     Comparator.comparing(Point::getX).thenComparing(Point::getY);
+          Comparator.comparing(Point::getX).thenComparing(Point::getY);
 ```
 
 > `thenComparing()` 를 이용하여 첫 번째 비교자가 같을 때 두 번째 비교자에 객체를 전달하여 비교할 수 있다.
@@ -107,14 +107,14 @@ public final static Comparator<Point> compareByXAndThenY =
 ```java
 @Test
 public void testComparingTowPoints() {
- Point p1 = new Point(10, 5);
- Point p2 = new Point(5, 10);
+  Point p1 = new Point(10, 5);
+  Point p2 = new Point(5, 10);
 
- int result = Point.compareByXAndThenY.compare(p1, p2); // 1
+  int result = Point.compareByXAndThenY.compare(p1, p2); // 1
 
- // compare(): 첫 번째 인자가 작으면 -1, 같으면 0, 첫 번째 인자가 더 크면 1
+  // compare(): 첫 번째 인자가 작으면 -1, 같으면 0, 첫 번째 인자가 더 크면 1
 
- assertEquals(1, result);
+  assertEquals(1, result);
 }
 ```
 
@@ -123,14 +123,14 @@ public void testComparingTowPoints() {
 ## 1.3. 람다를 사용하는 메서드의 동작을 테스트
 
 
-**람다의 목표는 정해진 동작을 다른 메서드에서 사용할 수 있도록 하나의 조각으로 캡슐화**하는 것이므로 세부 구현을 포함하는 람다 표현식은 공개하지 않아야 한다. 
+**람다의 목표는 정해진 동작을 다른 메서드에서 사용할 수 있도록 하나의 조각으로 캡슐화**하는 것이므로 세부 구현을 포함하는 람다 표현식은 공개하지 않아야 한다.  
 **람다 표현식을 사용하는 메서드의 동작을 테스트함으로써 람다를 공개하지 않으면서도 람다 표현식을 검증**할 수 있다.
 
 ```java
 public static List<Point> moveAllPointsRightBy(List<Point> point, int x) {
- return point.stream()
-     .map(p -> new Point(p.getX()+x, p.getY()))
-     .collect(Collectors.toList());
+  return point.stream()
+          .map(p -> new Point(p.getX()+x, p.getY()))
+          .collect(Collectors.toList());
 }
 ```
 
@@ -139,19 +139,19 @@ public static List<Point> moveAllPointsRightBy(List<Point> point, int x) {
 ```java
 @Test
 public void testMoveAllPointsRightBy() {
- List<Point> points = Arrays.asList(new Point(5,5), new Point(10,5));
- List<Point> expectedPoints = Arrays.asList(new Point(15, 5), new Point(20,5));
+  List<Point> points = Arrays.asList(new Point(5,5), new Point(10,5));
+  List<Point> expectedPoints = Arrays.asList(new Point(15, 5), new Point(20,5));
 
- List<Point> newPoints = Point.moveAllPointsRightBy(points, 10);
+  List<Point> newPoints = Point.moveAllPointsRightBy(points, 10);
 
- assertEquals(expectedPoints, newPoints);
+  assertEquals(expectedPoints, newPoints);
 }
 ```
 
 ```shell
 java.lang.AssertionError: 
 Expected :[com.assu.study.mejava8.chap08.Point@233c0b17, com.assu.study.mejava8.chap08.Point@63d4e2ba]
-Actual  :[com.assu.study.mejava8.chap08.Point@7bb11784, com.assu.study.mejava8.chap08.Point@33a10788]
+Actual   :[com.assu.study.mejava8.chap08.Point@7bb11784, com.assu.study.mejava8.chap08.Point@33a10788]
 ```
 
 두 객체를 값이 아닌 주소로 비교하기 때문에 위와 같은 오류가 뜬다.
@@ -160,15 +160,15 @@ Actual  :[com.assu.study.mejava8.chap08.Point@7bb11784, com.assu.study.mejava8.c
 ```java
 @Override
 public boolean equals(Object o) {
- if (this == o) return true;
- if (o == null || getClass() != o.getClass()) return false;
- Point point = (Point) o;
- return getX() == point.getX() && getY() == point.getY();
+  if (this == o) return true;
+  if (o == null || getClass() != o.getClass()) return false;
+  Point point = (Point) o;
+  return getX() == point.getX() && getY() == point.getY();
 }
 
 @Override
 public int hashCode() {
- return Objects.hash(getX(), getY());
+  return Objects.hash(getX(), getY());
 }
 ```
 
@@ -186,30 +186,30 @@ public int hashCode() {
 
 ```java
 private static class Point {
- private int x;
- private int y;
+  private int x;
+  private int y;
 
- public Point(int x, int y) {
-  this.x = x;
-  this.y = y;
- }
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
 
- public int getX() {
-  return x;
- }
+  public int getX() {
+    return x;
+  }
 
- public void setX(int x) {
-  this.x = x;
- }
+  public void setX(int x) {
+    this.x = x;
+  }
 }
 ```
 
 ```java
 public class Debugging {
- public static void main(String[] args) {
-  List<Point> points = Arrays.asList(new Point(3, 2), null);
-  points.stream().map(p -> p.getX()).forEach(System.out::println);
- }
+  public static void main(String[] args) {
+    List<Point> points = Arrays.asList(new Point(3, 2), null);
+    points.stream().map(p -> p.getX()).forEach(System.out::println);
+  }
 }
 ```
 
@@ -236,7 +236,7 @@ Process finished with exit code 1
 at com.assu.study.mejava8.chap08.Debugging.lambda$main$0(Debugging.java:9)
 ```
 
-이런 코드는 람다 표현식 내부에서 에러가 발생했음을 가리킨다. 
+이런 코드는 람다 표현식 내부에서 에러가 발생했음을 가리킨다.  
 람다 표현식은 이름이 없기 때문에 컴파일러가 람다를 참조하는 이름을 만들어 낸 것이다. (lambda$main$0)
 
 메서드 레퍼런스를 사용해도 스택 트레이스에 메서드명이 나오지는 않는다.
@@ -295,10 +295,10 @@ List<Integer> numbers = Arrays.asList(2,3,4,5);
 
 // 20 22
 numbers.stream()
-    .map(x -> x + 17)
-    .filter(x -> x%2 == 0)
-    .limit(3)
-    .forEach(System.out::println);
+        .map(x -> x + 17)
+        .filter(x -> x%2 == 0)
+        .limit(3)
+        .forEach(System.out::println);
 ```
 
 위 코드의 결과는 아래와 같다.
@@ -307,22 +307,22 @@ numbers.stream()
 22
 ```
 
-forEach 를 호출하는 순간 전체 스트림이 소비된다. 
+forEach 를 호출하는 순간 전체 스트림이 소비된다.  
 `peek()` 을 활용하여 스트림 파이프라인에 적용된 각각의 연산인 map, filter, limit 이 어떤 결과를 도출하는지 확인해보자.
 
-`peek()` 은 스트림의 각 요소를 소비한 것처럼 동작하지만 실제로 스트림의 요소를 소비하지는 않는다. 
+`peek()` 은 스트림의 각 요소를 소비한 것처럼 동작하지만 실제로 스트림의 요소를 소비하지는 않는다.  
 `peek()` 은 자신이 확인한 요소를 파이프라인의 다음 연산으로 그대로 전달한다.
 
 ```java
 List<Integer> result = numbers.stream()
-    .peek(x -> System.out.println("from stream: " + x)) // 소스에서 처음 소비한 요소 출력
-    .map(x -> x + 17)
-    .peek(x -> System.out.println("after map: " + x)) // map() 실행 결과 출력
-    .filter(x -> x%2 == 0)
-    .peek(x -> System.out.println("after filter: " + x)) // filter() 실행 결과 출력
-    .limit(3)
-    .peek(x -> System.out.println("after limit: " + x)) // limit() 실행 결과 출력
-    .collect(Collectors.toList());
+        .peek(x -> System.out.println("from stream: " + x)) // 소스에서 처음 소비한 요소 출력
+        .map(x -> x + 17)
+        .peek(x -> System.out.println("after map: " + x)) // map() 실행 결과 출력
+        .filter(x -> x%2 == 0)
+        .peek(x -> System.out.println("after filter: " + x))  // filter() 실행 결과 출력
+        .limit(3)
+        .peek(x -> System.out.println("after limit: " + x)) // limit() 실행 결과 출력
+        .collect(Collectors.toList());
 
 System.out.println(result); // [20, 22]
 ```
@@ -347,11 +347,11 @@ after limit: 22
 # 3. 정리하며..
 
 - 람다 표현식으로 가독성이 좋고 더 유연한 코드를 만들 수 있음
-- 익명 클래스는 람다 표현식으로 바꾸는 것이 좋음 
-단, 이 때 this, 변수 섀도 등 미묘하게 의미상 다른 내용이 있음을 주의해야 함  
+- 익명 클래스는 람다 표현식으로 바꾸는 것이 좋음  
+단, 이 때 this, 변수 섀도 등 미묘하게 의미상 다른 내용이 있음을 주의해야 함   
 메서드 레퍼런스로 람다 표현식보다 더 가독성이 좋은 코드 구현 가능
 - 반복적으로 컬렉션을 처리하는 루틴은 스트림 API 로 대체 가능한지 고려
-- 람다 표현식도 단위 테스트 수행 가능 
+- 람다 표현식도 단위 테스트 수행 가능  
 단, 람다 표현식 자체를 테스트하는 것보다는 람다 표현식이 사용되는 메서드의 동작을 테스트하는 것이 바람직함
 - 람다 표현식을 사용하면 스택 트레이스를 이해하기 어려워짐
 - 스트림 파이프라인에서 요소를 처리할 때 `peek()` 메서드로 중간값 확인 가능
