@@ -96,16 +96,24 @@ document.addEventListener('DOMContentLoaded', function() {
   if (tocWrapper) {
     tocUl = tocWrapper.querySelector(':scope > ul');
   } else {
-    // Plugin didn't run: find TOC <ul> and wrap it ourselves
+    // Plugin didn't run: find TOC <ul> and wrap it ourselves.
+    // Use robust detection: skip nested uls, check all li have anchor links anywhere inside.
     var markdownBody = document.querySelector('.markdown-body');
     if (markdownBody) {
-      var uls = markdownBody.querySelectorAll('ul');
-      for (var i = 0; i < uls.length; i++) {
-        var ul = uls[i];
-        var topItems = ul.querySelectorAll(':scope > li');
-        var anchorItems = ul.querySelectorAll(':scope > li > a[href^="#"]');
-        if (topItems.length > 0 && topItems.length === anchorItems.length) {
-          // Wrap this ul in a #toc-wrapper div
+      var allUls = markdownBody.querySelectorAll('ul');
+      for (var i = 0; i < allUls.length; i++) {
+        var ul = allUls[i];
+        // Skip nested uls (sub-lists inside <li>)
+        if (ul.closest('li')) continue;
+        var topLi = ul.querySelectorAll(':scope > li');
+        if (topLi.length === 0) continue;
+        // Count top-level <li> that contain any anchor link to a hash
+        var tocCount = 0;
+        for (var j = 0; j < topLi.length; j++) {
+          if (topLi[j].querySelector('a[href^="#"]')) tocCount++;
+        }
+        if (tocCount === topLi.length) {
+          // All top-level items are anchor links -> this is the TOC
           var wrapper = document.createElement('div');
           wrapper.id = 'toc-wrapper';
           ul.parentNode.insertBefore(wrapper, ul);
