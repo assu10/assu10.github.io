@@ -63,8 +63,6 @@
   </div>
   <br/>
 <script>
-  // Kramdown 은 ```mermaid 를 <pre><code class="language-mermaid"> 로 변환
-  // Mermaid v11 이 인식하는 <pre class="mermaid"> 로 교체 후 렌더링
   mermaid.initialize({
     startOnLoad: false,
     theme: 'neutral',
@@ -87,33 +85,25 @@ document.addEventListener('DOMContentLoaded', function() {
   var tocFloat = document.getElementById('toc-float');
   if (!tocFloat) return;
 
-  // GitHub Pages does not run custom plugins, so #toc-wrapper may not exist.
-  // Find the TOC <ul> dynamically: first <ul> in .markdown-body whose direct
-  // children are all <li> containing <a href="#..."> (anchor links).
   var tocWrapper = document.getElementById('toc-wrapper');
   var tocUl = null;
 
   if (tocWrapper) {
     tocUl = tocWrapper.querySelector(':scope > ul');
   } else {
-    // Plugin didn't run: find TOC <ul> and wrap it ourselves.
-    // Use robust detection: skip nested uls, check all li have anchor links anywhere inside.
     var markdownBody = document.querySelector('.markdown-body');
     if (markdownBody) {
       var allUls = markdownBody.querySelectorAll('ul');
       for (var i = 0; i < allUls.length; i++) {
         var ul = allUls[i];
-        // Skip nested uls (sub-lists inside <li>)
         if (ul.closest('li')) continue;
         var topLi = ul.querySelectorAll(':scope > li');
         if (topLi.length === 0) continue;
-        // Count top-level <li> that contain any anchor link to a hash
         var tocCount = 0;
         for (var j = 0; j < topLi.length; j++) {
           if (topLi[j].querySelector('a[href^="#"]')) tocCount++;
         }
         if (tocCount === topLi.length) {
-          // All top-level items are anchor links -> this is the TOC
           var wrapper = document.createElement('div');
           wrapper.id = 'toc-wrapper';
           ul.parentNode.insertBefore(wrapper, ul);
@@ -173,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     var tocLeft = tocFloat.getBoundingClientRect().left;
     var contentLeft = main.getBoundingClientRect().left;
-    var available = Math.floor(tocLeft - contentLeft - 16); // 16px gap
+    var available = Math.floor(tocLeft - contentLeft - 16);
     if (available > 100) {
       main.style.width = available + 'px';
       main.style.maxWidth = 'none';
