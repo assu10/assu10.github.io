@@ -15,7 +15,6 @@ tags: kotlin coroutine concurrency multi-threading synchronization race-conditio
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 공유 상태를 사용하는 코루틴의 문제와 데이터 동기화](#1-공유-상태를-사용하는-코루틴의-문제와-데이터-동기화)

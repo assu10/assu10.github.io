@@ -23,7 +23,6 @@ tags: springboot msa scheduled enable-scheduling task-scheduler cron fixed-delay
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 스케쥴링 설정: `@EnableScheduling`](#1-스케쥴링-설정-enablescheduling)

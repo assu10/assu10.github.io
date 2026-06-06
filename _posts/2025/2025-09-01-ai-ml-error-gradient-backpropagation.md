@@ -20,7 +20,6 @@ tags: ai ml llm deep-learning neural-network loss-function error gradient-descen
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 인공 신경망의 오차 구하기](#1-인공-신경망의-오차-구하기)

@@ -14,7 +14,6 @@ tags: ddd dip entity value rootEntity
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 4개의 영역](#1-4개의-영역)

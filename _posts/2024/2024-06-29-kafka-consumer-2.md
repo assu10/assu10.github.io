@@ -13,7 +13,6 @@ tags: kafka consumer offset __consumer_offsets commitSync() commitAsync() topicP
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 오프셋과 커밋: `__consumer_offsets`](#1-오프셋과-커밋-__consumer_offsets)

@@ -20,7 +20,6 @@ tags: ai ml llm deep-learning ann dnn neural-network machine-learning feature in
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 딥러닝과 인공 신경망(ANN, Artificial Neural Network)](#1-딥러닝과-인공-신경망ann-artificial-neural-network)

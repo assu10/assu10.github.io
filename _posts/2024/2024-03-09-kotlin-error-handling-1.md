@@ -12,7 +12,6 @@ tags: kotlin finally require() requireNotNull() check() nothing todo()
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 예외 처리](#1-예외-처리)

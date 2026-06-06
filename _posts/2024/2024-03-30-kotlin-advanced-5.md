@@ -12,7 +12,6 @@ tags: kotlin lazy() lateinit .isInitialized backing-field backing-property
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 프로퍼티 초기화 지연](#1-프로퍼티-초기화-지연)

@@ -66,7 +66,6 @@ CoroutineName 은 코루틴에 식별용 이름을 부여할 수 있고, Corouti
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. CoroutineContext 구성 요소](#1-coroutinecontext-구성-요소)

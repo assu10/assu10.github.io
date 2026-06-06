@@ -18,7 +18,6 @@ tags: kotlin coroutine thread subroutine delay yield await thread-switching-conc
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 서브루틴(subroutine)과 코루틴](#1-서브루틴subroutine과-코루틴)

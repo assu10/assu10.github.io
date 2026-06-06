@@ -27,7 +27,6 @@ tags: ddd communication-pattern outbox-pattern saga-pattern
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 모델 변환](#1-모델-변환)

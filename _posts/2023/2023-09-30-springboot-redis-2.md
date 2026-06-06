@@ -12,7 +12,6 @@ tags: springboot msa redis db redis-serializer value-operation redis-template
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 레디스 스트링 예시와 `RedisSerializer` 설정](#1-레디스-스트링-예시와-redisserializer-설정)

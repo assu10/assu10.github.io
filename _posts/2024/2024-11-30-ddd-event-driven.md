@@ -40,7 +40,6 @@ tags: ddd event-driven-architecture
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 이벤트 주도 아키텍처(EDA, Event-Driven Architecture)와 이벤트 소싱의 구분](#1-이벤트-주도-아키텍처eda-event-driven-architecture와-이벤트-소싱의-구분)

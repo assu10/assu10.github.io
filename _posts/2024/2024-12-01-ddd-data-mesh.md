@@ -60,7 +60,6 @@ tags: ddd data-mesh
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. OLTP(Online Transactional Processing) VS OLAP(Online Analytical Processing): 실시간 모델과 분석 모델의 구조적 차이](#1-oltponline-transactional-processing-vs-olaponline-analytical-processing-실시간-모델과-분석-모델의-구조적-차이)

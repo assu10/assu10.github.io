@@ -12,7 +12,6 @@ tags: springboot msa redis db zset redis-sorting z-set-operations
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 레디스 Sorting 구현](#1-레디스-sorting-구현)

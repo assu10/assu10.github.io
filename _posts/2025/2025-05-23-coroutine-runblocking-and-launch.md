@@ -12,7 +12,6 @@ tags: kotlin coroutine run-blocking launch
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `runBlocking()` 함수의 동작 방식](#1-runblocking-함수의-동작-방식)

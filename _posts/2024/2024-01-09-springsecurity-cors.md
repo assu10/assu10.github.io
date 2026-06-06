@@ -12,7 +12,6 @@ tags: spring-security cors cross-origin fors-configurer
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. CORS (Cross-Site Resource Sharing, 교차 출처 리소스 공유)](#1-cors-cross-site-resource-sharing-교차-출처-리소스-공유)

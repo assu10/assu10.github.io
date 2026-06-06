@@ -12,7 +12,6 @@ tags: kotlin
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 클래스 위임 (class delegation)](#1-클래스-위임-class-delegation)

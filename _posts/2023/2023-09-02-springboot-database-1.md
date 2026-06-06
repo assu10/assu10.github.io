@@ -17,7 +17,6 @@ Spring Data JPA 는 데이터를 저장/처리하는 Spring Data 프로젝트의
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. JPA](#1-jpa)

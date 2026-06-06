@@ -17,7 +17,6 @@ tags: spring-security pre-filter post-filter
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 메서드 권한 부여를 위한 사전 필터링 적용: `@PreFilter`](#1-메서드-권한-부여를-위한-사전-필터링-적용-prefilter)

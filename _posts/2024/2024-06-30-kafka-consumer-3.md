@@ -13,7 +13,6 @@ tags: kafka consumer consumer.wakeup shutdownHook serdes dereserializer avroDese
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 폴링 루프 벗어나기: `consumer.wakeup()`, `ShutdownHook`](#1-폴링-루프-벗어나기-consumerwakeup-shutdownhook)

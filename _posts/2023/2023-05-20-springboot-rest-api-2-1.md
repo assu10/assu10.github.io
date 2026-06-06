@@ -14,7 +14,6 @@ tags: springboot msa rest-api spring-web-mvc controller-advice response-entity p
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. POST, PUT 메서드 매핑: `@RequestBody`, `ResponseEntity`](#1-post-put-메서드-매핑-requestbody-responseentity)

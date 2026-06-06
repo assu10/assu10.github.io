@@ -10,7 +10,6 @@ tags: ai llm ml python generative-ai for-loop dictionary list-comprehension lamb
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 반복문](#1-반복문)

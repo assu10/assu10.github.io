@@ -6,7 +6,6 @@ categories: dev
 tags: dev architecture system-design proximity-service lbs geohash quadtree redis database-sharding 대규모시스템설계 근접성서비스 위치기반서비스 지오해시 쿼드트리 레디스 캐싱 아키텍처 시스템디자인
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 요구사항 및 규모 추정](#1-요구사항-및-규모-추정)

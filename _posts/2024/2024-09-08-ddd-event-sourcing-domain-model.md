@@ -24,7 +24,6 @@ tags: ddd event-sourcing-domain-model-pattern
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 이벤트 소싱](#1-이벤트-소싱)

@@ -15,7 +15,6 @@ tags: kotlin coroutine supervisor-job supervisor-scope
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 코루틴의 예외 전파](#1-코루틴의-예외-전파)

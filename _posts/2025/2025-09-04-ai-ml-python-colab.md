@@ -11,7 +11,6 @@ tags: ai ml llm python google-colab deep-learning programming-language interpret
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 파이썬](#1-파이썬)

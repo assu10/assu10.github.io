@@ -22,7 +22,6 @@ tags: architecture ddd
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 컨텍스트 매핑(Context Mapping)](#1-컨텍스트-매핑context-mapping)

@@ -19,7 +19,6 @@ tags: kafka tls ssl sasl kafkaPrincipal
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 카프카의 보안](#1-카프카의-보안)

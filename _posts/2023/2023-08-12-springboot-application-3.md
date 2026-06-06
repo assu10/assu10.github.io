@@ -12,7 +12,6 @@ tags: springboot msa interceptor servletFilter
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. Interceptor, ServletFilter 설정](#1-interceptor-servletfilter-설정)

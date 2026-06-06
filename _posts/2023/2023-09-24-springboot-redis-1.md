@@ -29,7 +29,6 @@ tags: springboot msa redis db spring-data-redis lettuce redis-connection-factory
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 레디스](#1-레디스)

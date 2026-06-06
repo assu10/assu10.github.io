@@ -18,7 +18,6 @@ tags: ddd architecture-pattern layered-architecture oltp cqrs olap
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 비즈니스 로직과 아키텍처 패턴](#1-비즈니스-로직과-아키텍처-패턴)

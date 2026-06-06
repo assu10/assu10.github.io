@@ -12,7 +12,6 @@ tags: kotlin sequence as-sequence() substring-before() generate-sequence() take(
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 시퀀스 (Sequence): `constrainOnce()`](#1-시퀀스-sequence-constrainonce)

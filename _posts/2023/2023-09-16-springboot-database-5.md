@@ -12,7 +12,6 @@ tags: springboot msa database entity-manager persistence-context
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. EntityManager](#1-entitymanager)

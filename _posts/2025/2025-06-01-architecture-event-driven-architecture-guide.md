@@ -41,7 +41,6 @@ tags: architecture ddd event-driven distributed-system choreography orchestratio
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 코레오그래피(Choreography) vs 오케스트레이션(Orchestration)](#1-코레오그래피choreography-vs-오케스트레이션orchestration)

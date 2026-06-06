@@ -14,7 +14,6 @@ tags: spring-security permit-all deny-all role authority
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 권한과 역할에 따라 접근 제한](#1-권한과-역할에-따라-접근-제한)

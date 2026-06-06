@@ -36,7 +36,6 @@ tags: ddd architecture event-storming
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 이벤트 스토밍이란](#1-이벤트-스토밍이란)

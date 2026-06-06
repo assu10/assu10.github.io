@@ -15,7 +15,6 @@ tags: ai llm ml machine-learning deep-learning python time-series forecasting rn
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 코로나 19 확진자 수 예측 인공지능 개발 원리](#1-코로나-19-확진자-수-예측-인공지능-개발-원리)

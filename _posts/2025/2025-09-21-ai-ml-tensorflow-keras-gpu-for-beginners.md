@@ -15,7 +15,6 @@ tags: ai llm ml tensorflow keras gpu tpu deep-learning machine-learning ai-frame
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 텐서플로(Tensorflow)](#1-텐서플로tensorflow)

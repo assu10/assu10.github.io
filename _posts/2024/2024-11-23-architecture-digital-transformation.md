@@ -25,7 +25,6 @@ tags: architecture
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 디지털 트랜스포메이션(DX: Digital Transformation)의 목표](#1-디지털-트랜스포메이션dx-digital-transformation의-목표)

@@ -10,7 +10,6 @@ tags: devops docker docker-compose nginx django postgresql container-networking 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. Nginx, Django, PostgreSQL 컨테이너 연동](#1-nginx-django-postgresql-컨테이너-연동)

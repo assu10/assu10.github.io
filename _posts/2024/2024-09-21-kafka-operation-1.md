@@ -10,7 +10,6 @@ tags: kafka
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 토픽 작업: `kafka-topics.sh`](#1-토픽-작업-kafka-topicssh)

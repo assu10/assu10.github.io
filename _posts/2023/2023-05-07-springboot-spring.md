@@ -20,7 +20,6 @@ Spring bean 을 선언하고 Spring bean Container 를 사용하여 Spring bean 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. Spring bean 사용](#1-spring-bean-사용)

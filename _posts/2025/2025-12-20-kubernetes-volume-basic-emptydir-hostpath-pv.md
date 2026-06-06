@@ -20,7 +20,6 @@ tags: devops kubernetes k8s container-storage volume emptydir hostpath persisten
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 스토리지 볼륨(Storage Volume) 개념](#1-스토리지-볼륨storage-volume-개념)

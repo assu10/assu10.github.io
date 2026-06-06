@@ -12,7 +12,6 @@ tags: kotlin use() useLines() forEachLine() authCloseable logging kotlin.test ju
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 자원 해제: `use()`](#1-자원-해제-use)

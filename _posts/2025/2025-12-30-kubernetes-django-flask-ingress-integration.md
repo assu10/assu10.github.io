@@ -17,7 +17,6 @@ tags: devops kubernetes k8s ingress django flask nginx microservices path-based-
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 인그레스 팬아웃(Fan-out)이란?](#1-인그레스-팬아웃fan-out이란)

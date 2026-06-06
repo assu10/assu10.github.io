@@ -12,7 +12,6 @@ tags: kotlin KProperty ReadOnlyProperty ReadWriteProperty Delegates.observable()
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 프로퍼티 위임: `by` (프로퍼티 접근자 로직 재활용)](#1-프로퍼티-위임-by-프로퍼티-접근자-로직-재활용)

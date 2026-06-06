@@ -25,7 +25,6 @@ tags: clean architecture dip dependency-inversion-principle srp hexagonal
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 단일 책임 원칙 (SRP, Single Responsibility Principle)](#1-단일-책임-원칙-srp-single-responsibility-principle)

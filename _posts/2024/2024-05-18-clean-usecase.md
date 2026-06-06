@@ -22,7 +22,6 @@ tags: clean architecture usecase rich-domain-model anemic-domain-model
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 도메인 모델 구현](#1-도메인-모델-구현)

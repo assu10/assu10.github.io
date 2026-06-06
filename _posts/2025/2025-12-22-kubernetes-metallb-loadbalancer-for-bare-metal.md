@@ -13,7 +13,6 @@ MetalLB는 클라우드 공급자(AWS, GCP, Azure 등)가 제공하는 로드밸
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [`MetalLB`가 필요한 이유](#metallb가-필요한-이유)

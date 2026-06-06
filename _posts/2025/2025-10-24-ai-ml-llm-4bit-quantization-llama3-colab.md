@@ -24,7 +24,6 @@ tags: ai llm ml quantization 4bit 8bit nf4 bitsandbytes transformers llama3 cola
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. LLM의 양자화 원리](#1-llm의-양자화-원리)

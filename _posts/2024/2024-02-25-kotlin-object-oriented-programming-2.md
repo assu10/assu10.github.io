@@ -12,7 +12,6 @@ tags: kotlin abstract-class interface upcast polymorphism composition adapter
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 추상 클래스](#1-추상-클래스)

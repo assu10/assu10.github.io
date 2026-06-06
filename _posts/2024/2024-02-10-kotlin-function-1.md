@@ -12,7 +12,6 @@ tags: kotlin joinToString pair triple with-index
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 확장 함수 (extension function)](#1-확장-함수-extension-function)

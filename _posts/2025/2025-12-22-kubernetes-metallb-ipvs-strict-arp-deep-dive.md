@@ -17,7 +17,6 @@ tags: kubernetes k8s metallb load-balancer ipvs kube-proxy strict-arp arp-ignore
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [`strictARP`가 필요한 이유](#strictarp가-필요한-이유)

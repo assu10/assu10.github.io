@@ -57,7 +57,6 @@ fun main() = runBlocking<Unit> {
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 실행 환경 상속: CoroutineContext 의 전파 방식](#1-실행-환경-상속-coroutinecontext-의-전파-방식)

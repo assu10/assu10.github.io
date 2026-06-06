@@ -21,7 +21,6 @@ tags: spring-security user-details granted-authority user-details-service user-d
 
 ---
 
-**목차**
 <!-- TOC -->
 * [1. 스프링 시큐리티 인증 구현](#1-스프링-시큐리티-인증-구현)
 * [2. 사용자 기술](#2-사용자-기술)

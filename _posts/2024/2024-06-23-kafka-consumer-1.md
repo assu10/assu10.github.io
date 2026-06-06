@@ -13,7 +13,6 @@ tags: kafka consumer consumerGroup eagerRebalance cooperativeRebalance staticGro
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 카프카 컨슈머](#1-카프카-컨슈머)

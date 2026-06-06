@@ -15,7 +15,6 @@ tags: ddd aggregate factory memberOf @EmbeddedId @Embeddable @ElementCollection 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 애그리거트](#1-애그리거트)

@@ -12,7 +12,6 @@ tags: springboot msa database spring-data-jpa query-method data-jpa-test jpa-rep
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 리포지터리 개발과 JpaRepository](#1-리포지터리-개발과-jparepository)

@@ -18,7 +18,6 @@ tags: ai llm ml large-language-model natural-language-processing nlp transformer
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 토큰화(Tokenization)와 텍스트 임베딩(Text Embedding)](#1-토큰화tokenization와-텍스트-임베딩text-embedding)

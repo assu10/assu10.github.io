@@ -19,7 +19,6 @@ tags: ai llm ml machine-learning artificial-intelligence generative-ai supervise
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 인공지능](#1-인공지능)

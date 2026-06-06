@@ -15,7 +15,6 @@ tags: devops kubernetes k8s docker container-orchestration cluster-architecture 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 쿠버네티스(k8s, Kubernetes) 개념](#1-쿠버네티스k8s-kubernetes-개념)

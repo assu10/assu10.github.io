@@ -14,7 +14,6 @@ tags: kotlin coroutine
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 코루틴 실행: `runBlocking()`](#1-코루틴-실행-runblocking)

@@ -25,7 +25,6 @@ tags: devops kubernetes k8s pod deployment replicaset scaling rollout rollback m
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 쿠버네티스 기초](#1-쿠버네티스-기초)

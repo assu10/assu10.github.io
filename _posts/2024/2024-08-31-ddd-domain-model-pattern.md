@@ -13,7 +13,6 @@ tags: ddd domain-model-pattern
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 도메인 모델](#1-도메인-모델)

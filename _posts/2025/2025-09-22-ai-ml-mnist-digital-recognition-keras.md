@@ -17,7 +17,6 @@ tags: ai llm ml deep-learning keras tensorflow mnist python neural-network class
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 개발 환경 셋팅](#1-개발-환경-셋팅)

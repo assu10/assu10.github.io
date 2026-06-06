@@ -12,7 +12,6 @@ tags: kotlin object, inner class, companion object
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `object`](#1-object)

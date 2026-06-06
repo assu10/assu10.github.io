@@ -14,7 +14,6 @@ tags: devops kubernetes docker k8s service networking clusterip nodeport loadbal
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 서비스(Service) 개념](#1-서비스service-개념)

@@ -12,7 +12,6 @@ tags: spring-security security-context security-context-holder
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `SecurityContext`, `SecurityContextHolder`](#1-securitycontext-securitycontextholder)

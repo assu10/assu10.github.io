@@ -15,7 +15,6 @@ tags: ddd LockModeType @Lock @QueryHints @Version
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 애그리거트와 트랜잭션](#1-애그리거트와-트랜잭션)

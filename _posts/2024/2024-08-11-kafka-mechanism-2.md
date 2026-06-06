@@ -24,7 +24,6 @@ tags: kafka tiered-storage message-batch control-batch compact tombstone-message
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 계층화된 저장소 (Tiered storage)](#1-계층화된-저장소-tiered-storage)

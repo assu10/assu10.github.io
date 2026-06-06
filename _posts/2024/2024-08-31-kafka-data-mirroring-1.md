@@ -19,7 +19,6 @@ tags: kafka mirroring hub-and-spokes active-active active-standby
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 클러스터 간 미러링 사례](#1-클러스터-간-미러링-사례)

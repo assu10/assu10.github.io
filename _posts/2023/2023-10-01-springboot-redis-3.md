@@ -12,7 +12,6 @@ tags: springboot msa redis db cyclic-barrier
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 레디스 분산락](#1-레디스-분산락)

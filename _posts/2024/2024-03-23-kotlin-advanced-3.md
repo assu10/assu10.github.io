@@ -12,7 +12,6 @@ tags: kotlin infix equals() compareTo() rangeTo() contains() invoke() comparable
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 연산자 오버로딩: `operator`](#1-연산자-오버로딩-operator)

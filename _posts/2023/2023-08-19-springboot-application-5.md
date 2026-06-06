@@ -12,7 +12,6 @@ tags: springboot msa i18n locale-resolver locale-change-interceptor logger logba
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. REST-API 와 국제화 메시지 처리](#1-rest-api-와-국제화-메시지-처리)

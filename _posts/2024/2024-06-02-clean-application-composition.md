@@ -20,7 +20,6 @@ tags: clean architecture classpath-scanning java-config @Component @Configuratio
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 조립을 해야하는 이유: 설정 컴포넌트 (configuration component)](#1-조립을-해야하는-이유-설정-컴포넌트-configuration-component)

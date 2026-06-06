@@ -12,7 +12,6 @@ tags: springboot msa spring-profiles-active configuration-properties configurati
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. Application.properties](#1-applicationproperties)

@@ -12,7 +12,6 @@ tags: kotlin generics filterIsInstance() typeParameter typeErasure
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 제네릭스](#1-제네릭스)

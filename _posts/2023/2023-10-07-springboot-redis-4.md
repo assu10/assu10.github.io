@@ -12,7 +12,6 @@ tags: springboot msa redis db cache cache-manager redis-cache-manager enable-cac
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `Cache` 와 `CacheManager` 인터페이스](#1-cache-와-cachemanager-인터페이스)

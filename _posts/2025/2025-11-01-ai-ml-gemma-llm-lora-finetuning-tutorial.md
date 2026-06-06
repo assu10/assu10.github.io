@@ -29,7 +29,6 @@ GPT 나 LLaMA와 같은 LLM은 이미 놀라운 성능으로 일반적인 상황
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. LLM 파인튜닝(fine-tuning)](#1-llm-파인튜닝fine-tuning)

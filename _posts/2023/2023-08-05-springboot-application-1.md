@@ -14,7 +14,6 @@ tags: springboot msa web-mvc-configurer dispatcher-servlet
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 웹 애플리케이션 기본 설정](#1-웹-애플리케이션-기본-설정)

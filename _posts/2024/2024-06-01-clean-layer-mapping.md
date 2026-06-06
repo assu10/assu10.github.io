@@ -27,7 +27,6 @@ tags: clean architecture
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 매핑하지 않기(No Mapping) 전략](#1-매핑하지-않기no-mapping-전략)

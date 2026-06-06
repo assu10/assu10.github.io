@@ -14,7 +14,6 @@ tags: spring-security authentication-provider
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `AuthenticationProvider`](#1-authenticationprovider)

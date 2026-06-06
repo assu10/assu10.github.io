@@ -19,7 +19,6 @@ tags: spring-security http-basic user-details-service password-encoder authentic
 
 ---
 
-**목차**
 <!-- TOC -->
 * [1. 스프링 시큐리티로 HTTP Basic 인증을 이용한 웹 애플리케이션](#1-스프링-시큐리티로-http-basic-인증을-이용한-웹-애플리케이션)
   * [1.1. `HTTP basic` 인증을 이용한 엔드포인트 호출](#11-http-basic-인증을-이용한-엔드포인트-호출)

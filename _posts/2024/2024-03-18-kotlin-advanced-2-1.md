@@ -12,7 +12,6 @@ tags: kotlin reified kClass
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 함수의 타입 인자에 대한 실체화: `reified`, `KClass`](#1-함수의-타입-인자에-대한-실체화-reified-kclass)

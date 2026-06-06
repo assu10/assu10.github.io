@@ -12,7 +12,6 @@ tags: kafka encryption aclauthorizer
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 암호화(encryption): 기밀성과 무결성](#1-암호화encryption-기밀성과-무결성)

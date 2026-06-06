@@ -13,7 +13,6 @@ tags: devops kubernetes k8s deployment service ingress sidecar-pattern clusterip
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 디렉터리 정리](#1-디렉터리-정리)

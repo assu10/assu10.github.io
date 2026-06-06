@@ -14,7 +14,6 @@ tags: kotlin lambda mapIndexed() indices() run() filter() closure, filter() filt
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 람다](#1-람다)

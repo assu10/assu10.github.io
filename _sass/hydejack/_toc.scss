@@ -22,14 +22,7 @@
     &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
     .toc-float-title {
-      font-size: 0.78em;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #999;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #e5e5e5;
+      display: none;
     }
 
     ul {
@@ -117,19 +110,7 @@
         transition: background 0.2s;
 
         &::before {
-          content: counter(toc-counter, decimal-leading-zero);
-          font-size: 11px;
-          font-weight: 700;
-          color: #fff;
-          background: $delta;
-          min-width: 22px;
-          height: 22px;
-          border-radius: 4px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          margin-top: 2px;
+          display: none;
         }
 
         &:hover {

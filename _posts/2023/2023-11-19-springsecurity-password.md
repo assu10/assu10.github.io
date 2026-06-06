@@ -13,7 +13,6 @@ tags: spring-security password-encoder no-op-password-encoder standard-password-
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `PasswordEncoder` 계약](#1-passwordencoder-계약)

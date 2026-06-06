@@ -14,7 +14,6 @@ tags: kotlin SAM init constructor open
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 인터페이스: `:`](#1-인터페이스-)

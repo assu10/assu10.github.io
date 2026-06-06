@@ -10,7 +10,6 @@ tags: kotlin coroutine
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. CoroutineScope 를 사용하여 코루틴 관리](#1-coroutinescope-를-사용하여-코루틴-관리)

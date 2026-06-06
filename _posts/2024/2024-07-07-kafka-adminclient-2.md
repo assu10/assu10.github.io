@@ -12,7 +12,6 @@ tags: kafka listConsumerGroups() listConsumerGroupOffsets() partitionsToOffsetAn
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 컨슈머 그룹 관리](#1-컨슈머-그룹-관리)

@@ -13,7 +13,6 @@ tags: kafka mirror-maker
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 아파치 카프카 미러메이커(MirrorMaker)](#1-아파치-카프카-미러메이커mirrormaker)

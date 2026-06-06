@@ -10,7 +10,6 @@ tags: devops docker docker-compose flask nginx python gunicorn reverse-proxy con
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 환경 구축: Flask 설치 및 네트워크 설계](#1-환경-구축-flask-설치-및-네트워크-설계)

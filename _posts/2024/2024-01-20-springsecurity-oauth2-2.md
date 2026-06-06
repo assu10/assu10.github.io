@@ -15,7 +15,6 @@ tags: spring-security oauth2 client-registration client-registration-repository
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 권한 부여 서버 관리](#1-권한-부여-서버-관리)

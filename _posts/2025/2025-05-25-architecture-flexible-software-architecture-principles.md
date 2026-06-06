@@ -57,7 +57,6 @@ tags: architecture ddd clean software-architecture port-and-adapter hexagonal-ar
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 아키텍처 스타일, 패턴, 결정 동인](#1-아키텍처-스타일-패턴-결정-동인)

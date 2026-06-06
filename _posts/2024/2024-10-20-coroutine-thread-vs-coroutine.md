@@ -17,7 +17,6 @@ tags: kotlin coroutine
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. JVM 프로세스와 스레드](#1-jvm-프로세스와-스레드)

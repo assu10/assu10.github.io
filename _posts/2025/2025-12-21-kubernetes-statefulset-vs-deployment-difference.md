@@ -24,7 +24,6 @@ tags: devops kubernetes k8s statefulset-vs-deployment statefulset headless-servi
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 스테이트풀셋(StatefulSet) 개념](#1-스테이트풀셋statefulset-개념)

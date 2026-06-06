@@ -19,7 +19,6 @@ tags: clean architecture persistence-adapter
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 의존성 역전 (DI, Dependency Inversion)](#1-의존성-역전-di-dependency-inversion)

@@ -13,7 +13,6 @@ tags: spring-security csrf csrf-filter csrf-token csrf-token-repository
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 스프링 시큐리티에서의 CSRF (Cross-Site Request Forgery): `CsrfFilter`](#1-스프링-시큐리티에서의-csrf-cross-site-request-forgery-csrffilter)

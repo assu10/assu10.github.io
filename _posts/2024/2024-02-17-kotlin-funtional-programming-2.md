@@ -12,7 +12,6 @@ tags: kotlin toIntOrNull() mapNotNull() zip() zipWithNext() flatten() flatMap() 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 고차 함수 (high-order function)](#1-고차-함수-high-order-function)

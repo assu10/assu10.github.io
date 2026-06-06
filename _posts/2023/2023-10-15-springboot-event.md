@@ -18,7 +18,6 @@ tags: springboot msa spring-event event-listener application-event-multicaster a
 
 ---
 
-**목차**
 <!-- TOC -->
 * [1. 스프링 이벤트](#1-스프링-이벤트)
 * [2. 사용자 정의 이벤트 처리](#2-사용자-정의-이벤트-처리)

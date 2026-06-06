@@ -20,7 +20,6 @@ tags: spring-security oauth2 jwt
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. JWT 의 대칭키로 서명된 토큰 이용](#1-jwt-의-대칭키로-서명된-토큰-이용)

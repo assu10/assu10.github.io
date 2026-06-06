@@ -11,7 +11,6 @@ tags: kafka kafka-connect smt cdc kafka-converter
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 카프카 커넥트](#1-카프카-커넥트)

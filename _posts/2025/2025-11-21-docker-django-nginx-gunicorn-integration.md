@@ -15,7 +15,6 @@ tags: devops docker kubernetes django nginx gunicorn python pyenv yaml container
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 추가 환경 구축](#1-추가-환경-구축)

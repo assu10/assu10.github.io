@@ -12,7 +12,6 @@ tags: kotlin coroutine unit-test kotlinx-coroutines-test runTest Test-dispatcher
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 코루틴 단위 테스트 만들어보기](#1-코루틴-단위-테스트-만들어보기)

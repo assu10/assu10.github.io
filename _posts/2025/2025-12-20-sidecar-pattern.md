@@ -13,7 +13,6 @@ MSA와 쿠버네티스 환경에서 파드는 배포의 최소 단위이다.
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [사이드카 패턴(Sidecar Pattern)](#사이드카-패턴sidecar-pattern)

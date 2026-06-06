@@ -16,7 +16,6 @@ tags: kotlin coroutine concurrency dispatcher UnconfinedDispatcher CoroutineStar
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 무제한 디스패처(Unconfined Dispatcher)](#1-무제한-디스패처unconfined-dispatcher)

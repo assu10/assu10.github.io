@@ -14,7 +14,6 @@ tags: ai ml llm tensorflow-playground deep-learning machine-learning neural-netw
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 텐서플로 플레이그라운드](#1-텐서플로-플레이그라운드)

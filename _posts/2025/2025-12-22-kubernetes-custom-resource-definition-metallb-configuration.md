@@ -16,7 +16,6 @@ CRs(Custom Resources, 사용자 정의 리소스) 혹은 CR(Custom Resource)은 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [MetalLB가 CR을 사용하는 이유](#metallb가-cr을-사용하는-이유)

@@ -20,7 +20,6 @@ tags: clean architecture archunit build-artifact
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 경계와 의존성](#1-경계와-의존성)

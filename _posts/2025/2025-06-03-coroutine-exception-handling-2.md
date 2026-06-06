@@ -19,7 +19,6 @@ tags: kotlin coroutine coroutine-exception-handler async cancellation-exception 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `CoroutineExceptionHandler()` 를 사용한 예외 처리](#1-coroutineexceptionhandler-를-사용한-예외-처리)

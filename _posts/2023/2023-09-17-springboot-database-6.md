@@ -12,7 +12,6 @@ tags: springboot msa database entity-listeners osiv transaction-lifecycle
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 엔티티 상태 이벤트 처리: `@EntityListeners`](#1-엔티티-상태-이벤트-처리-entitylisteners)

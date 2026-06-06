@@ -15,7 +15,6 @@ tags: ddd spec specification @staticMetamodel
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 검색을 위한 스펙 (Specification)](#1-검색을-위한-스펙-specification)

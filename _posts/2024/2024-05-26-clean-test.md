@@ -17,7 +17,6 @@ tags: clean architecture test bdd @WebMvcTest mockMvc @MockBean dataJpaTest @Imp
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 테스트 피라미드](#1-테스트-피라미드)

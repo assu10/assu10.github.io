@@ -28,7 +28,6 @@ tags: devops kubernetes k8s monitoring observability metric-server prometheus gr
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 매트릭 서버(Metric-Server)를 통한 리소스 확인](#1-매트릭-서버metric-server를-통한-리소스-확인)

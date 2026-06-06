@@ -17,7 +17,6 @@ tags: spring-security enable-method-security pre-authorize post-authorize has-pe
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 전역 메서드 보안](#1-전역-메서드-보안)

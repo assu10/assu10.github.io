@@ -15,7 +15,6 @@ tags: ddd Sort Pageable PageRequest findFirstN() findFirst() findTop() @Subselec
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 스펙 조합](#1-스펙-조합)

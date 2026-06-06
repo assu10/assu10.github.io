@@ -25,7 +25,6 @@ tags: kafka idempotence-producer transaction
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 멱등적 프로듀서(idempotent producer)](#1-멱등적-프로듀서idempotent-producer)

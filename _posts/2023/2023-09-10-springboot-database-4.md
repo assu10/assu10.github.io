@@ -12,7 +12,6 @@ tags: springboot msa database transactional propagation isolation dirty-read rea
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `@Transactional` 애너테이션](#1-transactional-애너테이션)

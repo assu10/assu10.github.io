@@ -17,7 +17,6 @@ tags: springboot backend msa http http-status-code rest-api spring-web-mvc
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. HTTP 프로토콜](#1-http-프로토콜)

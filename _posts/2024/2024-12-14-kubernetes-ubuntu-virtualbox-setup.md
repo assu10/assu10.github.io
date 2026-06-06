@@ -11,7 +11,6 @@ tags: devops kubernetes docker virtualbox vm virtual-machine ubuntu
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 우분투 이미지 다운로드](#1-우분투-이미지-다운로드)

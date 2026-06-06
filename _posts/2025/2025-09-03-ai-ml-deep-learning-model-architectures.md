@@ -38,7 +38,6 @@ tags: ai ml llm deep-learning artificial-intelligence neural-networks ANN CNN RN
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [머신러닝의 학습 방법 vs 머신러닝의 알고리즘](#머신러닝의-학습-방법-vs-머신러닝의-알고리즘)

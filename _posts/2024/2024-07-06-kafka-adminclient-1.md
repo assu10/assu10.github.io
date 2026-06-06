@@ -32,7 +32,6 @@ tags: kafka adminClient kafkaAdminClient clientdnslookup describeTopics() create
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `AdminClient`](#1-adminclient)

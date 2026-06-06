@@ -6,7 +6,6 @@ categories: dev
 tags: clean architecture
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 계층형 아키텍처](#1-계층형-아키텍처)

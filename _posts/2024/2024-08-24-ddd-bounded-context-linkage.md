@@ -31,7 +31,6 @@ tags: ddd bounded-context contract
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 협력형(cooperation) 패턴 그룹](#1-협력형cooperation-패턴-그룹)

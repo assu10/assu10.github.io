@@ -15,7 +15,6 @@ tags: ddd bounded-context open-host-service anti-corruption-layer shared-kernel 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 도메인 모델과 경계](#1-도메인-모델과-경계)

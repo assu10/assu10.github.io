@@ -16,7 +16,6 @@ tags: kafka
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 발행/구독 메시지 전달 (publish/subscribe messaging)](#1-발행구독-메시지-전달-publishsubscribe-messaging)

@@ -23,7 +23,6 @@ AWS나 GCP 같은 퍼블릭 클라우드 환경에서는 LoadBalancer 타입의 
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 인그레스(Ingress) 개념](#1-인그레스ingress-개념)

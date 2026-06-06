@@ -14,7 +14,6 @@ tags: spring-security filter once-per-request-filter
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 스프링 시큐리티 아키텍처의 필터 개념](#1-스프링-시큐리티-아키텍처의-필터-개념)

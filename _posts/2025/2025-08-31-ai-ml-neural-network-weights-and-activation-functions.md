@@ -20,7 +20,6 @@ tags: ai ml llm machine-learning deep-learning neural-network activation-functio
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 신호를 전달할 때 사용하는 가중치(weight)와 편향(bias)](#1-신호를-전달할-때-사용하는-가중치weight와-편향bias)

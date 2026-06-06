@@ -12,7 +12,6 @@ tags: kotlin filterIndexed() toCharArray() stringBuilder buildString() buildList
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 확장 람다](#1-확장-람다)

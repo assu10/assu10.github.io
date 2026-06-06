@@ -16,7 +16,6 @@ tags: devops kubernetes k8s job cronjob batch-processing automation controller p
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 잡(Job)](#1-잡job)

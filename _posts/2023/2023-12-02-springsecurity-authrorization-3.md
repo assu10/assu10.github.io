@@ -10,7 +10,6 @@ tags: spring-security http-basic
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `HTTP Basic` 인증](#1-http-basic-인증)

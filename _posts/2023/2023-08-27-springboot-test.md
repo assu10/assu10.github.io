@@ -13,7 +13,6 @@ tags: springboot msa Junit spring-boot-test test-configuration mock-bean web-mvc
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 스프링 부트 테스트 설정](#1-스프링-부트-테스트-설정)

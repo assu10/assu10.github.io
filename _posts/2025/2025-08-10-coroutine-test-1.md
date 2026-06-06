@@ -18,7 +18,6 @@ tags: kotlin coroutine unittest testing kotlinx-coroutines-test runTest TestScop
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 단위 테스트 기초](#1-단위-테스트-기초)

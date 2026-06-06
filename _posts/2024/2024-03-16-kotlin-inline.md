@@ -12,7 +12,6 @@ tags: kotlin inline
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `inline`: 람다의 부가 비용 없애기](#1-inline-람다의-부가-비용-없애기)

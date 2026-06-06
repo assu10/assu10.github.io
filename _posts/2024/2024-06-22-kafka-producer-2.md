@@ -15,7 +15,6 @@ tags: kafka producer serializer partitioner
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 시리얼 라이저](#1-시리얼-라이저)

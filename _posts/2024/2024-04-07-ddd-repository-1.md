@@ -16,7 +16,6 @@ tags: ddd jpa @Embeddable @AttributeOverrides @Entity @Embedded protected @Acces
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. JPA 를 이용한 리포지터리 구현](#1-jpa-를-이용한-리포지터리-구현)

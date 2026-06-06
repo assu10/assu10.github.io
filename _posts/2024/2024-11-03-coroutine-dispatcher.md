@@ -20,7 +20,6 @@ tags: kotlin coroutine coroutineDispatcher dispatchers.default dispatchers.io di
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `CoroutineDispatcher` 란?](#1-coroutinedispatcher-란)

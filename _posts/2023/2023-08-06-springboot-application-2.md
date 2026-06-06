@@ -12,7 +12,6 @@ tags: springboot msa HttpMessageConverter ObjectMapper
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. `HttpMessageConverter`, REST-API 설정](#1-httpmessageconverter-rest-api-설정)

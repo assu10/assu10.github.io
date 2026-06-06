@@ -15,7 +15,6 @@ tags: devops kubernetes k8s docker django nginx ingress sidecar-pattern deployme
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 사전 준비 사항](#1-사전-준비-사항)

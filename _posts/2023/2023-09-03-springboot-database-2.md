@@ -12,7 +12,6 @@ tags: springboot msa database entity enumerated mapped-super-class generationtyp
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. 엔티티 클래스와 `@Entity` 애너테이션](#1-엔티티-클래스와-entity-애너테이션)

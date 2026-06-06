@@ -13,7 +13,6 @@ tags: springboot msa aop
 
 ---
 
-**목차**
 
 <!-- TOC -->
 * [1. AOP 용어](#1-aop-용어)
