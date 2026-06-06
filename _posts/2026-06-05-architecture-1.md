@@ -13,6 +13,9 @@ tags: architecture
   * [1.3. 개략적 규모 추정](#13-개략적-규모-추정)
 * [2. 개략적 아키텍처](#2-개략적-아키텍처)
   * [2.1. 개략적 설계안](#21-개략적-설계안)
+    * [2.1.1. 설계안](#211-설계안)
+      * [2.1.1.1. 각 컴포넌트의 역할](#2111-각-컴포넌트의-역할)
+      * [2.1.1.2. 사용자 위치 변경 시 발생하는 일](#2112-사용자-위치-변경-시-발생하는-일)
   * [2.2. API 설계](#22-api-설계)
   * [2.3. 데이터 모델](#23-데이터-모델)
 * [3. 상세 설계](#3-상세-설계)
@@ -75,7 +78,7 @@ tags: architecture
 
 - '주변 친구'는 5마일(8km) 반경 이내 친구로 정의
 - 친구 위치 정보는 30초 주기로 갱신
-  - 걷는 속도가 시간당 3~4마일(4~6km) 정도로 느리기 때문에 이 속도로 30초 정도 이상한다고 해서 주변 친구 검색 결과가 크게 다랄지지 않음
+  - 걷는 속도가 시간당 3~4마일(4~6km) 정도로 느리기 때문에 이 속도로 30초 정도 이상한다고 해서 주변 친구 검색 결과가 크게 달라지지 않음
 - 평균적으로 매일 주변 친구 검색 기능을 사용하는 사용자는 1억명으로 가정
 - 동시 접속 사용자의 수는 DAU 수의 10%로 가정, 따라서 천만 명이 동시에 시스템을 이용한다고 가정한다.
 - 평균적으로 한 사용자는 400명의 친구를 갖고, 그 모두가 주변 친구 검색 기능을 사용한다고 가정한다.
@@ -152,33 +155,34 @@ graph LR
 이보다 실용적인 방법은 아래처럼 공용 백엔드를 사용하는 것이다.
 
 ```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 30, 'htmlLabels': true}}}%%
 graph LR
-    %% 노드 스타일 정의
-    classDef device fill:#ffffff,stroke:#333333,stroke-width:2px,shape:rectangle;
-    classDef backend fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+%% 노드 스타일 정의
+  classDef device fill:#ffffff,stroke:#333333,stroke-width:2px,shape:rectangle;
+  classDef backend fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
 
-    %% 노드 배치
-    User["📱 사용자"]:::device
-    
-    subgraph BackendBox [" "]
-        Backend["💻 공용 백엔드<br/>(Common Backend)"]:::backend
-    end
+%% 노드 배치
+  User["📱 사용자"]:::device
 
-    subgraph Friends ["친구 그룹"]
-        FriendA["📱 친구 A"]:::device
-        FriendB["📱 device B"]:::device
-        FriendC["📱 친구 C"]:::device
-    end
+subgraph BackendBox [" "]
+Backend["💻 공용 백엔드<br/>(Common Backend)"]:::backend
+end
 
-    %% 연결선
-    User --> Backend
-    Backend --> FriendA
-    Backend --> FriendB
-    Backend --> FriendC
+subgraph Friends ["친구 그룹"]
+FriendA["📱 친구 A"]:::device
+FriendB["📱 device B"]:::device
+FriendC["📱 친구 C"]:::device
+end
 
-    %% 서브그래프 스타일 (테두리 숨기기 등)
-    style BackendBox fill:none,stroke:none;
-    style Friends fill:#f9f9f9,stroke:#cccccc,stroke-dasharray: 5 5;
+%% 연결선
+User --> Backend
+Backend --> FriendA
+Backend --> FriendB
+Backend --> FriendC
+
+%% 서브그래프 스타일 (테두리 숨기기 등)
+style BackendBox fill:none,stroke:none;
+style Friends fill:#f9f9f9,stroke:#cccccc,stroke-dasharray: 5 5;
 ```
 
 
@@ -188,6 +192,126 @@ graph LR
 - 두 사용자 간의 거리가 특정 임계치보다 먼 경우에는 변경 내역을 전송하지 않는다.
 
 위와 같이 했을 때 문제점은 큰 규모에 적용하지 쉽지 않다는 점이다.  
+동시 접속 사용자가 천만 명 정도이고, 그 모두가 자기 위치 정보를 30초마다 갱신한다고 하면 초당 334,000 의 위치 정보 갱신을 처리해야 한다.  
+평균적으로 400명의 친구를 갖는다고 하고, 그 중 10%가 인근에서 활성화 상태라고 가정하면 초당 334,000 * 400 * 10% = 1400만 건의 위치 정보 갱신 요청을 처리해야 한다.  
+또한 엄청난 양의 갱신 내역을 사용자 단말로 보내야 한다.
+
+---
+
+### 2.1.1. 설계안
+
+기본적 설계안은 아래와 같다.
+
+RESTful API 처리 흐름
+```mermaid
+graph TD
+%% 노드 스타일 정의
+  classDef client fill:#ffffff,stroke:#333333,stroke-width:2px;
+  classDef lb fill:#ffffff,stroke:#333333,stroke-width:2px;
+  classDef server fill:#f4f9ff,stroke:#2196f3,stroke-width:2px;
+  classDef database fill:#fff9f4,stroke:#ff9800,stroke-width:2px;
+
+%% 1단계: 최상단 클라이언트
+  Client["📱 모바일 사용자"]:::client
+
+%% 2단계: 로드밸런서
+  LB["⚖️ 로드밸런서"]:::lb
+
+%% 3단계: 서버 레이어
+  WS_Server["💻 웹소켓 서버<br>(양방향 위치 정보)"]:::server
+  API_Server["💻 API 서버<br>(사용자 관리<br>친구 관리<br>인증 및 기타 기능)"]:::server
+
+%% 4단계: 하단 컴포넌트 레이어
+  Redis[("🛢️ 레디스 펍/섭<br>(Publish/Subscribe,<br>Pub/Sub)")]:::database
+  Cache["💾 캐시<br>(위치 정보 캐시)"]:::database
+  DB_Location[("🛢️ 위치 이동 이력<br>데이터베이스")]:::database
+  DB_User[("🛢️ 사용자 데이터베이스<br>(사용자 정보, 친구 관계)")]:::database
+
+%% 하단 컴포넌트 좌->우 정렬 순서 강제 고정
+  Redis ~~~ Cache ~~~ DB_Location ~~~ DB_User
+
+%% --------------------------------------------------------
+%% 화살표 흐름 정의
+%% --------------------------------------------------------
+
+%% 모바일 사용자 <-> 로드밸런서
+  Client <-->|"(WebSocket, WS)"| LB
+  Client -- "① http" --> LB
+
+%% 로드밸런서 -> 서버 레이어
+  LB <--> WS_Server
+  LB -->|②| API_Server
+
+%% 웹소켓 서버 <-> 레디스 펍/섭
+  WS_Server <--> Redis
+
+%% 웹소켓 서버 -> 하단 저장소들
+  WS_Server --> Cache
+  WS_Server --> DB_Location
+  WS_Server --> DB_User
+
+%% API 서버 -> 사용자 데이터베이스
+  API_Server -->|③| DB_User
+```
+
+---
+
+#### 2.1.1.1. 각 컴포넌트의 역할
+
+**로드밸런서**
+
+RESTful API 서버 및 양방향 stateful 웹소켓 서버 앞단에 위치하며, 부하를 분산하는 역할을 한다.
+
+---
+
+**RESTful API 서버**
+
+stateless API 서버의 클러스터로서, 통상적인 요청/응답 트래픽을 처리한다.
+
+---
+
+**웹소켓 서버**
+
+친구 위치 정보 변경을 거의 실시간에 가깝게 처리하는 stateful 서버 클러스터이다.  
+각 클라이언트는 그 가운데 한 대와 웹소켓 연결을 지속적으로 유지한다.  
+검색 반경 내 친구 위치가 변경되면 해당 내역은 이 연결을 통해 클라이언트로 전송된다.
+
+주변 친구 기능을 이용하는 클라이언트의 초기화도 담당한다.  
+모바일 클라이언트가 시작되면, 온라인 상태인 모든 주변 친구 위치를 해당 클라이언트로 전송한다.
+
+---
+
+**레디스 위치 정보 캐시**
+
+활성 상태 사용자의 가장 최근 위치 정보를 캐시한다.  
+TTL을 통해 해당 시간이 지나면 해당 사용자는 비활성 상태로 바뀌고 그 위치 정보는 캐시에서 삭제된다.  
+캐시에 보관된 정보를 갱신할 때는 TTL도 갱신한다.
+
+---
+
+**사용자 DB**
+
+사용자 데이터 및 사용자의 친구 관계 정보를 저장한다.  
+RDBMS나 NoSQL 어느 쪽이든 사용 가능하다.
+
+---
+
+**위치 이동 이력 DB**
+
+주변 친구 표시와 직접 관계된 기능은 아니다.
+
+---
+
+**레디스 pub/sub 서버**
+
+초경량 메시지 버스이다.  
+레디스 펍/섭에 새로운 토픽을 추가하는 것은 아주 값싼 연산이다.
+
+
+
+---
+
+#### 2.1.1.2. 사용자 위치 변경 시 발생하는 일
 
 
 ---
@@ -222,3 +346,4 @@ graph LR
 * [가상 면접 사례로 배우는 대규모 시스템 설계 기초 2](https://product.kyobobook.co.kr/detail/S000211656186)
 * [책에 나온 링크들 모음](https://github.com/alex-xu-system/bytebytego/blob/main/system_design_links_vol2.md)
 * [Facebook Launches “Nearby Friends” With Opt-In Real-Time Location Sharing To Help You Meet Up](https://techcrunch.com/2014/04/17/facebook-nearby-friends/)
+* [Redis Pub/Sub](https://redis.io/docs/latest/develop/pubsub/)
