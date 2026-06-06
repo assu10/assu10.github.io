@@ -1,30 +1,30 @@
 ---
 layout: post
-title:  "Spring Cloud - Stream, 분산 캐싱 (2/2)"
+title: "Spring Cloud - Stream, 분산 캐싱 (2/2)"
 date: 2020-10-02 10:00
 categories: dev
-tags: msa db eda event-driven-architecture mda message-driven-architecture spring-cloud-stream redis caching  
+tags: msa db eda event-driven-architecture mda message-driven-architecture spring-cloud-stream redis caching 
 ---
 이 포스트는 MSA 를 보다 편하게 도입할 수 있도록 해주는 Spring Cloud Stream 과 Redis 를 사용한 분산 캐싱에 대해 기술한다.
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 <!-- TOC -->
-  * [1. 스프링 클라우드 스트림을 사용한 분산 캐싱](#1-스프링-클라우드-스트림을-사용한-분산-캐싱)
-  * [2. 분산 캐싱 구현](#2-분산-캐싱-구현)
-    * [2.1. 스프링 데이터 레디스 의존성 추가](#21-스프링-데이터-레디스-의존성-추가)
-    * [2.2. 레디스 DB 커넥션을 설정](#22-레디스-db-커넥션을-설정)
-    * [2.3. 스프링 데이터 레디스의 Repository 클래스를 정의](#23-스프링-데이터-레디스의-repository-클래스를-정의)
-    * [2.4. 레디스에서 회원 데이터를 저장/조회](#24-레디스에서-회원-데이터를-저장조회)
-  * [3. 사용자 정의 채널 설정 및 EDA 기반의 캐싱 구현](#3-사용자-정의-채널-설정-및-eda-기반의-캐싱-구현)
-    * [3.1. 사용자 정의 채널 설정](#31-사용자-정의-채널-설정)
-    * [3.2. 메시지 수신 시 캐시 무효화](#32-메시지-수신-시-캐시-무효화)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+ * [1. 스프링 클라우드 스트림을 사용한 분산 캐싱](#1-스프링-클라우드-스트림을-사용한-분산-캐싱)
+ * [2. 분산 캐싱 구현](#2-분산-캐싱-구현)
+  * [2.1. 스프링 데이터 레디스 의존성 추가](#21-스프링-데이터-레디스-의존성-추가)
+  * [2.2. 레디스 DB 커넥션을 설정](#22-레디스-db-커넥션을-설정)
+  * [2.3. 스프링 데이터 레디스의 Repository 클래스를 정의](#23-스프링-데이터-레디스의-repository-클래스를-정의)
+  * [2.4. 레디스에서 회원 데이터를 저장/조회](#24-레디스에서-회원-데이터를-저장조회)
+ * [3. 사용자 정의 채널 설정 및 EDA 기반의 캐싱 구현](#3-사용자-정의-채널-설정-및-eda-기반의-캐싱-구현)
+  * [3.1. 사용자 정의 채널 설정](#31-사용자-정의-채널-설정)
+  * [3.2. 메시지 수신 시 캐시 무효화](#32-메시지-수신-시-캐시-무효화)
+ * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
 
 이 포스트에선 **Redis 와 Kafka 를 사용하여 EDA 기반의 분산 캐싱**을 구현하고, 사용자 정의 채널로 EDA 를 구축해본다. 
-  
+ 
 --- 
 
 ## 1. 스프링 클라우드 스트림을 사용한 분산 캐싱
@@ -64,18 +64,18 @@ tags: msa db eda event-driven-architecture mda message-driven-architecture sprin
 ```xml
 <!-- 분산 캐싱 -->
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-redis</artifactId>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-redis</artifactId>
 </dependency>
 <dependency>
-    <groupId>redis.clients</groupId>
-    <artifactId>jedis</artifactId>
-    <version>3.3.0</version>
+  <groupId>redis.clients</groupId>
+  <artifactId>jedis</artifactId>
+  <version>3.3.0</version>
 </dependency>
 <dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-pool2</artifactId>
-    <version>2.9.0</version>
+  <groupId>org.apache.commons</groupId>
+  <artifactId>commons-pool2</artifactId>
+  <version>2.9.0</version>
 </dependency>
 ```
 
@@ -95,34 +95,34 @@ tags: msa db eda event-driven-architecture mda message-driven-architecture sprin
 @EnableEurekaClient
 @SpringBootApplication
 @EnableFeignClients
-@EnableResourceServer           // 보호 자원으로 설정
-@EnableBinding(Sink.class)      // 이 애플리케이션을 메시지 브로커와 바인딩하도록 스프링 클라우드 스트림 설정
-                                // Sink.class 로 지정 시 해당 서비스가 Sink 클래스에 정의된 채널들을 이용해 메시지 브로커와 통신
+@EnableResourceServer      // 보호 자원으로 설정
+@EnableBinding(Sink.class)   // 이 애플리케이션을 메시지 브로커와 바인딩하도록 스프링 클라우드 스트림 설정
+                // Sink.class 로 지정 시 해당 서비스가 Sink 클래스에 정의된 채널들을 이용해 메시지 브로커와 통신
 public class EventServiceApplication {
-    // ... 생략
+  // ... 생략
 
-    /**
-     * 레디스 서버에 실제 DB 커넥션을 설정
-     * 레디스 인스턴스와 통신하려면 JedisConnectionFactory 를 빈으로 노출해야 함
-     * 이 커넥션을 사용해서 스프링 RedisTemplate 객체 생성
-     */
-    @Bean
-    public JedisConnectionFactory jedisConnectionFactory() {
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setHostName(customConfig.getRedisServer());
-        jedisConnectionFactory.setPort(customConfig.getRedisPort());
-        return jedisConnectionFactory;
-    }
+  /**
+   * 레디스 서버에 실제 DB 커넥션을 설정
+   * 레디스 인스턴스와 통신하려면 JedisConnectionFactory 를 빈으로 노출해야 함
+   * 이 커넥션을 사용해서 스프링 RedisTemplate 객체 생성
+   */
+  @Bean
+  public JedisConnectionFactory jedisConnectionFactory() {
+    JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+    jedisConnectionFactory.setHostName(customConfig.getRedisServer());
+    jedisConnectionFactory.setPort(customConfig.getRedisPort());
+    return jedisConnectionFactory;
+  }
 
-    /**
-     * 레디스 서버에 작업 수행 시 사용할 RedisTemplate 객체 생성
-     */
-    @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory());
-        return redisTemplate;
-    }
+  /**
+   * 레디스 서버에 작업 수행 시 사용할 RedisTemplate 객체 생성
+   */
+  @Bean
+  public RedisTemplate<String, Object> redisTemplate() {
+    RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+    redisTemplate.setConnectionFactory(jedisConnectionFactory());
+    return redisTemplate;
+  }
 }
 ```
 
@@ -130,8 +130,8 @@ public class EventServiceApplication {
 ```yaml
 #redis
 redis:
-  server: localhost
-  port: 6379
+ server: localhost
+ port: 6379
 ```
 
 여기까지 레디스와 통신할 수 있도록 기본 설정 작업을 완료하였다.
@@ -156,10 +156,10 @@ redis:
  * 레디스에 액세스해야 하는 클래스에 주입된 인터페이스
  */
 public interface MemberRedisRepository {
-    void saveMember(Member member);
-    void updateMember(Member member);
-    void deleteMember(String userId);
-    Member findMember(String userId);
+  void saveMember(Member member);
+  void updateMember(Member member);
+  void deleteMember(String userId);
+  Member findMember(String userId);
 }
 ```
 
@@ -171,43 +171,43 @@ public interface MemberRedisRepository {
 @Repository
 public class MemberRedisRepositoryImpl implements MemberRedisRepository {
 
-    private static final String HASH_NAME = "member";       // 회원 데이터가 저장되는 레디스 서버의 해시명
-    private final RedisTemplate<String, Member> redisTemplate;
-    private HashOperations hashOperations;      // HashOperation 클래스는 레디스 서버에 데이터 작업을 수행하는 스프링 헬퍼 메서드의 집합
+  private static final String HASH_NAME = "member";    // 회원 데이터가 저장되는 레디스 서버의 해시명
+  private final RedisTemplate<String, Member> redisTemplate;
+  private HashOperations hashOperations;   // HashOperation 클래스는 레디스 서버에 데이터 작업을 수행하는 스프링 헬퍼 메서드의 집합
 
-    public MemberRedisRepositoryImpl(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+  public MemberRedisRepositoryImpl(RedisTemplate redisTemplate) {
+    this.redisTemplate = redisTemplate;
+  }
 
-    @PostConstruct
-    public void init() {
-        hashOperations = redisTemplate.opsForHash();
+  @PostConstruct
+  public void init() {
+    hashOperations = redisTemplate.opsForHash();
 
-        // 키와 값을 명시적으로 직렬화해주지 않으면 default serializer 로 JdkSerializationRedisSerializer 를 사용하는데
-        // 그러면 \xac\xed\x00\x05t\x00\x06member 이런 식으로 저장됨
-       redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-    }
+    // 키와 값을 명시적으로 직렬화해주지 않으면 default serializer 로 JdkSerializationRedisSerializer 를 사용하는데
+    // 그러면 \xac\xed\x00\x05t\x00\x06member 이런 식으로 저장됨
+    redisTemplate.setKeySerializer(new StringRedisSerializer());
+    redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+  }
 
-    @Override
-    public void saveMember(Member member) {
-        hashOperations.put(HASH_NAME, member.getId(), member);
-    }
+  @Override
+  public void saveMember(Member member) {
+    hashOperations.put(HASH_NAME, member.getId(), member);
+  }
 
-    @Override
-    public void updateMember(Member member) {
-        hashOperations.put(HASH_NAME, member.getId(), member);
-    }
+  @Override
+  public void updateMember(Member member) {
+    hashOperations.put(HASH_NAME, member.getId(), member);
+  }
 
-    @Override
-    public void deleteMember(String userId) {
-        hashOperations.delete(HASH_NAME, userId);
-    }
+  @Override
+  public void deleteMember(String userId) {
+    hashOperations.delete(HASH_NAME, userId);
+  }
 
-    @Override
-    public Member findMember(String userId) {
-        return (Member) hashOperations.get(HASH_NAME, userId);
-    }
+  @Override
+  public Member findMember(String userId) {
+    return (Member) hashOperations.get(HASH_NAME, userId);
+  }
 }
 ```
 
@@ -230,74 +230,74 @@ public class MemberRedisRepositoryImpl implements MemberRedisRepository {
 @Component
 public class MemberCacheRestTemplateClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(MemberCacheRestTemplateClient.class);
+  private static final Logger logger = LoggerFactory.getLogger(MemberCacheRestTemplateClient.class);
 
-    private final RestTemplate restTemplate;
-    private final MemberRedisRepository memberRedisRepository;
-    private final CustomConfig customConfig;
+  private final RestTemplate restTemplate;
+  private final MemberRedisRepository memberRedisRepository;
+  private final CustomConfig customConfig;
 
-    public MemberCacheRestTemplateClient(RestTemplate restTemplate, MemberRedisRepository memberRedisRepository,  CustomConfig customConfig) {
-        this.restTemplate = restTemplate;
-        this.memberRedisRepository = memberRedisRepository;
-        this.customConfig = customConfig;
+  public MemberCacheRestTemplateClient(RestTemplate restTemplate, MemberRedisRepository memberRedisRepository, CustomConfig customConfig) {
+    this.restTemplate = restTemplate;
+    this.memberRedisRepository = memberRedisRepository;
+    this.customConfig = customConfig;
+  }
+
+  String URL_PREFIX = "/api/mb/member/";   // 회원 서비스의 Zuul 라우팅경로와 회원 클래스 주소
+
+  /**
+   * 회원 아이디로 레디스에 저장된 Member 클래스 조회
+   */
+  private Member checkRedisCache(String userId) {
+    try {
+      return memberRedisRepository.findMember(userId);
+    } catch (Exception e) {
+      logger.error("======= Error encountered while trying to retrieve member {} check Redis Cache., Exception {}", userId, e);
+      return null;
+    }
+  }
+
+  /**
+   * 레디스 캐시에 데이터 저장
+   */
+  private void cacheMemberObject(Member member) {
+    try {
+      memberRedisRepository.saveMember(member);
+    } catch (Exception e) {
+      e.printStackTrace();
+      logger.error("======= Unable to cache member {} in Redis. Exception {}", member.getId(), e);
+    }
+  }
+
+  public Member getMember(String userId) {
+
+    Member member = checkRedisCache(userId);
+
+    // 레디스에 데이터가 없다면 원본 데이터에서 데이터를 조회하기 위해 회원 서비스 호출
+    if (member != null) {
+      logger.debug("======= Successfully retrieved an Member {} from the redis cache: {}", userId, member);
+      return member;
     }
 
-    String URL_PREFIX = "/api/mb/member/";      // 회원 서비스의 Zuul 라우팅경로와 회원 클래스 주소
+    logger.debug("======= Unable to locate member from the redis cache: {}", userId);
 
-    /**
-     * 회원 아이디로 레디스에 저장된 Member 클래스 조회
-     */
-    private Member checkRedisCache(String userId) {
-        try {
-            return memberRedisRepository.findMember(userId);
-        } catch (Exception e) {
-            logger.error("======= Error encountered while trying to retrieve member {} check Redis Cache., Exception {}", userId, e);
-            return null;
-        }
+    ResponseEntity<Member> restExchange =
+        restTemplate.exchange(
+            "http://" + customConfig.getServiceIdZuul() + URL_PREFIX + "{userId}",  // http://localhost:5555/api/mb/member/userInfo/rinda
+            HttpMethod.GET,
+            null,
+            Member.class,
+            userId
+        );
+
+    // 캐시 레코드 저장
+    member = restExchange.getBody();
+
+    // 조회한 객체를 캐시에 저장
+    if (member != null) {
+      cacheMemberObject(member);
     }
-
-    /**
-     * 레디스 캐시에 데이터 저장
-     */
-    private void cacheMemberObject(Member member) {
-        try {
-            memberRedisRepository.saveMember(member);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("======= Unable to cache member {} in Redis. Exception {}", member.getId(), e);
-        }
-    }
-
-    public Member getMember(String userId) {
-
-        Member member = checkRedisCache(userId);
-
-        // 레디스에 데이터가 없다면 원본 데이터에서 데이터를 조회하기 위해 회원 서비스 호출
-        if (member != null) {
-            logger.debug("======= Successfully retrieved an Member {} from the redis cache: {}", userId, member);
-            return member;
-        }
-
-        logger.debug("======= Unable to locate member from the redis cache: {}", userId);
-
-        ResponseEntity<Member> restExchange =
-                restTemplate.exchange(
-                        "http://" + customConfig.getServiceIdZuul() + URL_PREFIX + "{userId}",   // http://localhost:5555/api/mb/member/userInfo/rinda
-                        HttpMethod.GET,
-                        null,
-                        Member.class,
-                        userId
-                );
-
-        // 캐시 레코드 저장
-        member = restExchange.getBody();
-
-        // 조회한 객체를 캐시에 저장
-        if (member != null) {
-            cacheMemberObject(member);
-        }
-        return member;
-    }
+    return member;
+  }
 }
 ```
 
@@ -318,7 +318,7 @@ private final MemberCacheRestTemplateClient memberCacheRestTemplateClient;
  */
 @GetMapping(value = "{userId}")
 public Member userInfo(@PathVariable("userId") String userId) {
-    return memberCacheRestTemplateClient.getMember(userId);
+  return memberCacheRestTemplateClient.getMember(userId);
 }
 ```
 
@@ -336,10 +336,10 @@ redis-server.bat 실행
 
 ```shell
 -- 이벤트 서비스 로그
-DEBUG 22520 --- MemberCacheRestTemplateClient  : ======= Unable to locate member from the redis cache: 1234
+DEBUG 22520 --- MemberCacheRestTemplateClient : ======= Unable to locate member from the redis cache: 1234
 
 -- 회원 서비스 로그
-DEBUG MemberController      : ====== 회원 서비스 호출!
+DEBUG MemberController   : ====== 회원 서비스 호출!
 ```
 
 이제 다시 한번 동일한 조건으로 호출해보면 위에서 레디스에 데이터를 저장했으므로 회원 서비스를 호출하지 않고,
@@ -347,7 +347,7 @@ DEBUG MemberController      : ====== 회원 서비스 호출!
 
 ```shell
 -- 이벤트 서비스 로그
-DEBUG MemberCacheRestTemplateClient  : ======= Successfully retrieved an Member 1234 from the redis cache: com.assu.cloud.eventservice.model.Member@36f3d263
+DEBUG MemberCacheRestTemplateClient : ======= Successfully retrieved an Member 1234 from the redis cache: com.assu.cloud.eventservice.model.Member@36f3d263
 
 -- 회원 서비스 로그
 없음
@@ -380,7 +380,7 @@ DEBUG MemberCacheRestTemplateClient  : ======= Successfully retrieved an Member 
 >publisher, 기본 채널명은 output<br />
 >**Sink**<br />
 >consumer, 기본 채널명은 input
-  
+ 
 만약 애플리케이션에 둘 이상의 채널을 정의하거나 고유한 채널 이름을 사용하려 한다면, 사용자 정의 인터페이스를 정의하고
 필요한 만큼 input 과 output 채널을 노출하면 된다. 
 
@@ -393,8 +393,8 @@ DEBUG MemberCacheRestTemplateClient  : ======= Successfully retrieved an Member 
  */
 public interface CustomChannels {
 
-    @Input("inboundMemberChanges")      // @Input 은 채널 이름을 정의하는 메서드 레벨 애너테이션
-    SubscribableChannel members();      // @Input 애너테이션으로 노출된 채널은 모두 SubscribableChannel 클래스를 반환해야 함
+  @Input("inboundMemberChanges")   // @Input 은 채널 이름을 정의하는 메서드 레벨 애너테이션
+  SubscribableChannel members();   // @Input 애너테이션으로 노출된 채널은 모두 SubscribableChannel 클래스를 반환해야 함
 }
 ```
 
@@ -407,29 +407,29 @@ output 채널 정의 시엔 호출할 메서드에 `@Output` 애너테이션을 
 ```yaml
 # 스프링 클라우드 스트림 설정
 spring:
-  cloud:
-    stream:
-      bindings:
-        inboundMemberChanges:   # inboundMemberChanges 은 채널명, EventServiceApplication 의 Sink.INPUT 채널에 매핑되고, input 채널을 mgChangeTopic 큐에 매핑함
-          destination: mbChangeTopic       # 메시지를 넣은 메시지 큐(토픽) 이름
-          content-type: application/json
-          group: eventGroup   # 메시지를 소비할 소비자 그룹의 이름
-      kafka:    # stream.kafka 는 해당 서비스를 Kafka 에 바인딩
-        binder:
-          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 Kafka 와 주키퍼의 네트워크 위치 전달
-          brokers: localhost
+ cloud:
+  stream:
+   bindings:
+    inboundMemberChanges:  # inboundMemberChanges 은 채널명, EventServiceApplication 의 Sink.INPUT 채널에 매핑되고, input 채널을 mgChangeTopic 큐에 매핑함
+     destination: mbChangeTopic    # 메시지를 넣은 메시지 큐(토픽) 이름
+     content-type: application/json
+     group: eventGroup  # 메시지를 소비할 소비자 그룹의 이름
+   kafka:  # stream.kafka 는 해당 서비스를 Kafka 에 바인딩
+    binder:
+     zkNodes: localhost  # zkNodes, brokers 는 스트림에게 Kafka 와 주키퍼의 네트워크 위치 전달
+     brokers: localhost
 #spring:
-#  cloud:
-#    stream:
-#      bindings:
-#        input:   # input 은 채널명, EventServiceApplication 의 Sink.INPUT 채널에 매핑되고, input 채널을 mgChangeTopic 큐에 매핑함
-#          destination: mbChangeTopic       # 메시지를 넣은 메시지 큐(토픽) 이름
-#          content-type: application/json
-#          group: eventGroup   # 메시지를 소비할 소비자 그룹의 이름
-#      kafka:    # stream.kafka 는 해당 서비스를 Kafka 에 바인딩
-#        binder:
-#          zkNodes: localhost    # zkNodes, brokers 는 스트림에게 Kafka 와 주키퍼의 네트워크 위치 전달
-#          brokers: localhost
+# cloud:
+#  stream:
+#   bindings:
+#    input:  # input 은 채널명, EventServiceApplication 의 Sink.INPUT 채널에 매핑되고, input 채널을 mgChangeTopic 큐에 매핑함
+#     destination: mbChangeTopic    # 메시지를 넣은 메시지 큐(토픽) 이름
+#     content-type: application/json
+#     group: eventGroup  # 메시지를 소비할 소비자 그룹의 이름
+#   kafka:  # stream.kafka 는 해당 서비스를 Kafka 에 바인딩
+#    binder:
+#     zkNodes: localhost  # zkNodes, brokers 는 스트림에게 Kafka 와 주키퍼의 네트워크 위치 전달
+#     brokers: localhost
 ```
 
 기존엔 Sink.INPUT 채널을 사용했기 때문에 spring.cloud.stream.bindings.**input** 에 Spring Cloud Stream Kafka 토픽을 매핑했지만
@@ -443,42 +443,42 @@ spring.cloud.stream.bindings.**inboundMemberChanges** 처럼 새로 추가한 in
  * 사용자 정의 채널을 사용하여 메시지 수신
  * 이 애플리케이션을 메시지 브로커와 바인딩하도록 스프링 클라우드 스트림 설정
  */
-@EnableBinding(CustomChannels.class)    // CustomChannels.class 로 지정 시 해당 서비스가 CustomChannels 클래스에 정의된 채널들을 이용해 메시지 브로커와 통신
+@EnableBinding(CustomChannels.class)  // CustomChannels.class 로 지정 시 해당 서비스가 CustomChannels 클래스에 정의된 채널들을 이용해 메시지 브로커와 통신
 public class MemberChangeHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(MemberChangeHandler.class);
-    private final MemberRedisRepository memberRedisRepository;
+  private static final Logger logger = LoggerFactory.getLogger(MemberChangeHandler.class);
+  private final MemberRedisRepository memberRedisRepository;
 
-    public MemberChangeHandler(MemberRedisRepository memberRedisRepository) {
-        this.memberRedisRepository = memberRedisRepository;
-    }
+  public MemberChangeHandler(MemberRedisRepository memberRedisRepository) {
+    this.memberRedisRepository = memberRedisRepository;
+  }
 
-    /**
-     * 메시지가 입력 채널에서 수신될 때마다 이 메서드 실행
-     */
-    @StreamListener("inboundMemberChanges")     // Sink.INPUT 대신 사용자 정의 채널명인 inboundMemberChanges 전달
-    public void loggerSink(MemberChangeModel mbChange) {
-        logger.info("======= Received a message of type {}", mbChange.getType());
-        switch (mbChange.getAction()) {
-            case "GET":
-                logger.debug("Received a GET event from the member service for userId {}", mbChange.getUserId());
-                break;
-            case "SAVE":
-                logger.debug("Received a SAVE event from the member service for userId {}", mbChange.getUserId());
-                break;
-            case "UPDATE":
-                logger.debug("Received a UPDATE event from the member service for userId {}", mbChange.getUserId());
-                memberRedisRepository.deleteMember(mbChange.getUserId());       // 캐시 무효화
-                break;
-            case "DELETE":
-                logger.debug("Received a DELETE event from the member service for userId {}", mbChange.getUserId());
-                memberRedisRepository.deleteMember(mbChange.getUserId());
-                break;
-            default:
-                logger.debug("Received an UNKNOWN event from the member service for userId {}", mbChange.getType());
-                break;
-        }
+  /**
+   * 메시지가 입력 채널에서 수신될 때마다 이 메서드 실행
+   */
+  @StreamListener("inboundMemberChanges")   // Sink.INPUT 대신 사용자 정의 채널명인 inboundMemberChanges 전달
+  public void loggerSink(MemberChangeModel mbChange) {
+    logger.info("======= Received a message of type {}", mbChange.getType());
+    switch (mbChange.getAction()) {
+      case "GET":
+        logger.debug("Received a GET event from the member service for userId {}", mbChange.getUserId());
+        break;
+      case "SAVE":
+        logger.debug("Received a SAVE event from the member service for userId {}", mbChange.getUserId());
+        break;
+      case "UPDATE":
+        logger.debug("Received a UPDATE event from the member service for userId {}", mbChange.getUserId());
+        memberRedisRepository.deleteMember(mbChange.getUserId());    // 캐시 무효화
+        break;
+      case "DELETE":
+        logger.debug("Received a DELETE event from the member service for userId {}", mbChange.getUserId());
+        memberRedisRepository.deleteMember(mbChange.getUserId());
+        break;
+      default:
+        logger.debug("Received an UNKNOWN event from the member service for userId {}", mbChange.getType());
+        break;
     }
+  }
 }
 ```
 
@@ -489,11 +489,11 @@ public class MemberChangeHandler {
 **event-service > MemberChangeHandler.java**
 ```java
 // 부트스트랩에 작업했었던 채널 매핑
-@StreamListener(Sink.INPUT)     // 메시지가 입력 채널에서 수신될 때마다 이 메서드 실행
+@StreamListener(Sink.INPUT)   // 메시지가 입력 채널에서 수신될 때마다 이 메서드 실행
 
 // 사용자 정의 채널 매핑
-@StreamListener("inboundMemberChanges")     // Sink.INPUT 대신 사용자 정의 채널명인 inboundMemberChanges 전달
-```  
+@StreamListener("inboundMemberChanges")   // Sink.INPUT 대신 사용자 정의 채널명인 inboundMemberChanges 전달
+``` 
 
 ---
 
@@ -508,8 +508,8 @@ public class MemberChangeHandler {
  */
 @PostMapping("/{userId}")
 public void saveUserId(@PathVariable("userId") String userId) {
-    // DB 에 save 작업..
-    simpleSourceBean.publishMemberChange("SAVE", userId);
+  // DB 에 save 작업..
+  simpleSourceBean.publishMemberChange("SAVE", userId);
 }
 ```
 
@@ -527,10 +527,10 @@ public void saveUserId(@PathVariable("userId") String userId) {
  */
 @DeleteMapping("userInfo/{userId}")
 public void deleteUserInfoCache(@PathVariable("userId") String userId) {
-    logger.debug("====== 회원 삭제 후 DELETE 메시지 발생");
+  logger.debug("====== 회원 삭제 후 DELETE 메시지 발생");
 
-    // DB 에 삭제 작업  (간편성을 위해 DB 작업은 생략)
-    simpleSourceBean.publishMemberChange("DELETE", userId);
+  // DB 에 삭제 작업 (간편성을 위해 DB 작업은 생략)
+  simpleSourceBean.publishMemberChange("DELETE", userId);
 }
 ```
 
@@ -549,17 +549,17 @@ OK
 
 ```shell
 -- 이벤트 서비스 로그 (캐싱된 데이터가 없다, 회원 서비스 호출하여 데이터 조회 후 레디스 해시에 캐싱)
-DEBUG 24632 MemberCacheRestTemplateClient  : ======= Unable to locate member from the redis cache: 1234
+DEBUG 24632 MemberCacheRestTemplateClient : ======= Unable to locate member from the redis cache: 1234
 
 -- 회원 서비스 로그
-DEBUG 11448 MemberController      : ====== 회원 저장 서비스 호출!
+DEBUG 11448 MemberController   : ====== 회원 저장 서비스 호출!
 ```
 
 위 API 를 다시 한번 호출한 후 로그를 보자.
 
 ```shell
 -- 이벤트 서비스 로그 (캐싱된 데이터가 있으므로 레디스에 캐싱된 데이터를 사용한다)
-DEBUG 24632 MemberCacheRestTemplateClient  : ======= Successfully retrieved an Member 1234 from the redis cache: com.assu.cloud.eventservice.model.Member@4abb9b3d
+DEBUG 24632 MemberCacheRestTemplateClient : ======= Successfully retrieved an Member 1234 from the redis cache: com.assu.cloud.eventservice.model.Member@4abb9b3d
 
 -- 회원 서비스 로그 (이벤트 서비스에서 호출하지 않음)
 로그없음
@@ -572,13 +572,13 @@ DEBUG 24632 MemberCacheRestTemplateClient  : ======= Successfully retrieved an M
 
 ```shell
 -- 회원 서비스 로그 (Kafka 에 DELETE 상태 변화 메시지를 발행)
-DEBUG 11448 MemberController    : ====== 회원 삭제 후 DELETE 메시지 발생
-DEBUG 11448 SimpleSourceBean    : ======= Sending kafka message DELETE for User Id : 1234
-DEBUG 11448 SimpleSourceBean    : ======= MemberChangeModel.class.getTypeName() : com.assu.cloud.memberservice.event.model.MemberChangeModel
+DEBUG 11448 MemberController  : ====== 회원 삭제 후 DELETE 메시지 발생
+DEBUG 11448 SimpleSourceBean  : ======= Sending kafka message DELETE for User Id : 1234
+DEBUG 11448 SimpleSourceBean  : ======= MemberChangeModel.class.getTypeName() : com.assu.cloud.memberservice.event.model.MemberChangeModel
 
 -- 이벤트 서비스 로그 (회원 서비스가 발행한 DELETE 메시지 수신, 메시지 수신 후 캐시 무효화)
-INFO 24632 MemberChangeHandler   : ======= Received a message of type com.assu.cloud.memberservice.event.model.MemberChangeModel
-DEBUG 24632 MemberChangeHandler   : Received a DELETE event from the member service for userId 1234
+INFO 24632 MemberChangeHandler  : ======= Received a message of type com.assu.cloud.memberservice.event.model.MemberChangeModel
+DEBUG 24632 MemberChangeHandler  : Received a DELETE event from the member service for userId 1234
 ```
 
 이제 제대로 캐시 무효화가 되었는지 다시 처음에 호출한 이벤트 서비스의 [http://localhost:8070/event/1234](http://localhost:8070/event/1234)
@@ -586,10 +586,10 @@ DEBUG 24632 MemberChangeHandler   : Received a DELETE event from the member serv
 
 ```shell
 -- 이벤트 서비스 로그 (캐싱된 데이터가 없다, 회원 서비스 호출하여 데이터 조회 후 레디스 해시에 캐싱)
-DEBUG 24632 MemberCacheRestTemplateClient  : ======= Unable to locate member from the redis cache: 1234
+DEBUG 24632 MemberCacheRestTemplateClient : ======= Unable to locate member from the redis cache: 1234
 
 -- 회원 서비스 로그
-DEBUG 11448 MemberController      : ====== 회원 저장 서비스 호출!
+DEBUG 11448 MemberController   : ====== 회원 저장 서비스 호출!
 ```
 
 바로 위에서 해당 캐시를 무효화했기 때문에 회원 서비스를 조회하는 것을 확인할 수 있다.

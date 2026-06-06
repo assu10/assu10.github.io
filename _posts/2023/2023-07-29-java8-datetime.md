@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java8 - 날짜와 시간"
+title: "Java8 - 날짜와 시간"
 date: 2023-07-29
 categories: dev
 tags: java java8 localdate parsing formatting temporal-adjusters datetimeformatter datetimeformatterbuilder zoneid zoneoffset
@@ -14,20 +14,20 @@ tags: java java8 localdate parsing formatting temporal-adjusters datetimeformatt
 
 ---
 
-**목차**  
+**목차** 
 
 <!-- TOC -->
 * [1. LocalDate, LocalTime, LocalDateTime, Instant, Duration, Period](#1-localdate-localtime-localdatetime-instant-duration-period)
-  * [1.1. LocalDate, LocalTime](#11-localdate-localtime)
-  * [1.2. LocalDateTime](#12-localdatetime)
-  * [1.3. Instant](#13-instant)
-  * [1.4. Duration, Period](#14-duration-period)
+ * [1.1. LocalDate, LocalTime](#11-localdate-localtime)
+ * [1.2. LocalDateTime](#12-localdatetime)
+ * [1.3. Instant](#13-instant)
+ * [1.4. Duration, Period](#14-duration-period)
 * [2. 날짜 조정, Parsing, Formatting](#2-날짜-조정-parsing-formatting)
-  * [2.1. TemporalAdjusters](#21-temporaladjusters)
-    * [2.1.1. 커스텀 TemporalAdjuster 구현](#211-커스텀-temporaladjuster-구현)
-  * [2.2. 날짜와 시간 객체 출력과 parsing: `DateTimeFormatter`, `DateTimeFormatterBuilder`](#22-날짜와-시간-객체-출력과-parsing-datetimeformatter-datetimeformatterbuilder)
+ * [2.1. TemporalAdjusters](#21-temporaladjusters)
+  * [2.1.1. 커스텀 TemporalAdjuster 구현](#211-커스텀-temporaladjuster-구현)
+ * [2.2. 날짜와 시간 객체 출력과 parsing: `DateTimeFormatter`, `DateTimeFormatterBuilder`](#22-날짜와-시간-객체-출력과-parsing-datetimeformatter-datetimeformatterbuilder)
 * [3. 다양한 시간대와 캘린더 활용: `ZoneId`](#3-다양한-시간대와-캘린더-활용-zoneid)
-  * [3.1. UTC/GMT 기준의 고정 오프셋: `ZoneOffset`](#31-utcgmt-기준의-고정-오프셋-zoneoffset)
+ * [3.1. UTC/GMT 기준의 고정 오프셋: `ZoneOffset`](#31-utcgmt-기준의-고정-오프셋-zoneoffset)
 * [4. 정리하며..](#4-정리하며)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -43,7 +43,7 @@ tags: java java8 localdate parsing formatting temporal-adjusters datetimeformatt
 
 2014.03.18 을 Date 클래스로 표현
 ```java
-Date date = new Date(114, 2, 2);  // Sun Mar 02 00:00:00 KST 2014
+Date date = new Date(114, 2, 2); // Sun Mar 02 00:00:00 KST 2014
 System.out.println(date);
 ```
 
@@ -74,28 +74,28 @@ LocalDate localDate = LocalDate.of(2014, 3, 2); // 2014-03-02
 
 int year = localDate.getYear(); // 2014
 Month month = localDate.getMonth(); // MARCH
-int day = localDate.getDayOfMonth();  // 2
+int day = localDate.getDayOfMonth(); // 2
 
 DayOfWeek dayOfWeek = localDate.getDayOfWeek(); // 요일, SUNDAY
-int len = localDate.lengthOfMonth();  // 3월의 일 수, 31
-boolean leap = localDate.isLeapYear();  // 윤달 여부, false
+int len = localDate.lengthOfMonth(); // 3월의 일 수, 31
+boolean leap = localDate.isLeapYear(); // 윤달 여부, false
 ```
 
 팩토리 메서드 `now()` 는 시스템 시계의 정보를 이용하여 현재 날짜 정보를 조회한다.
 ```java
-LocalDate today = LocalDate.now();  // 2023-07-29
+LocalDate today = LocalDate.now(); // 2023-07-29
 ```
 
-`get()` 메서드에 `TemporalField` 를 전달해서 날짜 정보를 얻을수도 있다.  
+`get()` 메서드에 `TemporalField` 를 전달해서 날짜 정보를 얻을수도 있다. 
 
-> **`TemporalField`**  
+> **`TemporalField`** 
 > 시간 관련 객체에서 어떤 필드의 값에 접근할 지 정의하는 인터페이스
 
 열거자인 `ChronoField` 는 `TemporalField` 인터페이스를 정의하기 때문에 `ChronoField` 를 이용해서 아래처럼 원하는 정보 조회가 가능하다.
 
 ```java
-int year2 = localDate.get(ChronoField.YEAR);  // 2014
-int month2 = localDate.get(ChronoField.MONTH_OF_YEAR);  // 3
+int year2 = localDate.get(ChronoField.YEAR); // 2014
+int month2 = localDate.get(ChronoField.MONTH_OF_YEAR); // 3
 int day2 = localDate.get(ChronoField.DAY_OF_MONTH); // 2
 ```
 
@@ -141,18 +141,18 @@ LocalDateTime localDateTime2 = LocalDateTime.of(2014, 3, 2, 13, 10, 20);
 
 날짜와 시간을 조합하여 LocalDateTime 생성 (`atTime()`, `atDate()`)
 ```java
-System.out.println("localDate: " + localDate);  // 2014-03-02
-System.out.println("localTime: " + localTime);  // 13:10:20
+System.out.println("localDate: " + localDate); // 2014-03-02
+System.out.println("localTime: " + localTime); // 13:10:20
 
-LocalDateTime localDateTime3 = LocalDateTime.of(localDate, localTime);  // 2014-03-02T13:10:20
-LocalDateTime localDateTime4 = localDate.atTime(13, 11, 22);  // 2014-03-02T13:11:22
+LocalDateTime localDateTime3 = LocalDateTime.of(localDate, localTime); // 2014-03-02T13:10:20
+LocalDateTime localDateTime4 = localDate.atTime(13, 11, 22); // 2014-03-02T13:11:22
 LocalDateTime localDateTime5 = localDate.atTime(localTime); // 2014-03-02T13:10:20
 LocalDateTime localDateTime6 = localTime.atDate(localDate); // 2014-03-02T13:10:20
 ```
 
 LocalDateTime 의 `toLocalDate()`, `toLocalTime()` 으로 LocalDate, LocalTime 인스턴스 추출도 가능하다.
 ```java
-System.out.println("localDateTime: " + localDateTime);  // 2014-03-02T13:10:20
+System.out.println("localDateTime: " + localDateTime); // 2014-03-02T13:10:20
 
 LocalDate localDate3 = localDateTime.toLocalDate(); // 2014-03-02
 LocalTime localTime3 = localDateTime.toLocalTime(); // 13:10:20
@@ -181,7 +181,7 @@ System.out.println(Instant.ofEpochSecond(3, -1_000_000_000)); // 1970-01-01T00:0
 
 Instant 도 사람이 확인할 수 있도록 시간을 표시해주는 static 팩토리 메서드인 `now()` 를 제공한다. (UTC0 기준)
 ```java
-System.out.println(Instant.now());  // 2023-07-29T04:14:17.608598Z (UTC0)
+System.out.println(Instant.now()); // 2023-07-29T04:14:17.608598Z (UTC0)
 ```
 
 ---
@@ -258,25 +258,25 @@ Period p5 = Period.of(2, 6, 1);
 
 Duration 과 Period 가 제공하는 메서드 중 헷갈릴 수 있는 메서드 2개가 있다.
 - `addTo()`
-  - 현재값의 복사본을 생성한 후 지정된 Temporal 객체에 추가함
+ - 현재값의 복사본을 생성한 후 지정된 Temporal 객체에 추가함
 - `plus`
-  - 현재값에 주어진 시간을 더한 복사본 생성
+ - 현재값에 주어진 시간을 더한 복사본 생성
 
 ---
 
 > **`ChronoUnit` vs `ChronoField`**
 > - **ChronoUnit**
-    >   - 시간(년, 월, 일, 시간, 분, 초)를 측정하는데 사용되는 단위
->   - 예) ChronoUnit.YEARS, ChronoUnit.DAYS
+  >  - 시간(년, 월, 일, 시간, 분, 초)를 측정하는데 사용되는 단위
+>  - 예) ChronoUnit.YEARS, ChronoUnit.DAYS
 > - **ChronoFiled**
-    >   - 사람이 부분적으로 시간을 참조하는 방식
->   - 예) ChronoFiled.YEAR, ChronoFiled.MONTH_OF_YEAR
+  >  - 사람이 부분적으로 시간을 참조하는 방식
+>  - 예) ChronoFiled.YEAR, ChronoFiled.MONTH_OF_YEAR
 
 ---
 
 # 2. 날짜 조정, Parsing, Formatting
 
-`withXXX()` 메서드로 기존의 LocalDate 를 변경할 수 있다.  
+`withXXX()` 메서드로 기존의 LocalDate 를 변경할 수 있다. 
 **LocalDate 는 불변 클래스이므로 기존 객체를 변경하는 것이 아니라 바뀐 속성을 포함하는 새로운 객체를 반환**한다.
 
 날짜 계산 - 절대적
@@ -315,7 +315,7 @@ LocalDate localDate8 = localDate5.plus(1, ChronoUnit.MONTHS);
 
 예를 들어 다음 주 일요일, 돌아오는 평일, 어떤 달의 마지막 날 등 복잡한 날짜를 조회해야 할 때 `with()` 에 `TemporalAdjuster` 를 전달하여 구할 수 있다.
 
-> `TemporalAdjuster` 는 인터페이스이고,  
+> `TemporalAdjuster` 는 인터페이스이고, 
 > `TemporalAdjusters` 는 여러 TemporaryAdjuster 를 반환하는 static 팩토리 메서드를 포함하는 클래스
 
 ```java
@@ -331,14 +331,14 @@ LocalDate localDate3 = localDate1.with(lastDayOfMonth());
 
 TemporalAdjusters 클래스의 팩토리 메서드
 
-| 메서드                |                                                                     |
+| 메서드        |                                   |
 |:-------------------|:--------------------------------------------------------------------|
-| dayOfWeekInMonth() | '5월의 둘째 화요일' 처럼 서수 요일에 해당하는 날짜를 반환하는 TemporalAdjuster 를 반환          |
-| firstInMonth()     | '5월의 첫 번째 화요일' 처럼 그 달의 첫 번째 요일에 해당하는 날짜를 반환하는 TemporalAdjuster 를 반환 |
-| lastDayOfMonth()   | 현재 달의 마지막 날짜를 반환하는 TemporalAdjuster 를 반환                            |
-| lastInMonth()      | '5월의 마지막 화요일' 처럼 현재 달의 마지막 요일에 해당하는 날짜를 반환하는 TemporalAdjuster 를 반환  |
-| next()             | 현재 날짜 이후로 지정한 요일이 처음으로 나타나는 날짜를 반환하는 TemporalAdjuster 를 반환          |
-| nextOrSame()       | 현재 날짜를 포함하여 지정한 요일이 처음으로 나타나는 날짜를 반환하는 TemporalAdjuster 를 반환        |
+| dayOfWeekInMonth() | '5월의 둘째 화요일' 처럼 서수 요일에 해당하는 날짜를 반환하는 TemporalAdjuster 를 반환     |
+| firstInMonth()   | '5월의 첫 번째 화요일' 처럼 그 달의 첫 번째 요일에 해당하는 날짜를 반환하는 TemporalAdjuster 를 반환 |
+| lastDayOfMonth()  | 현재 달의 마지막 날짜를 반환하는 TemporalAdjuster 를 반환              |
+| lastInMonth()   | '5월의 마지막 화요일' 처럼 현재 달의 마지막 요일에 해당하는 날짜를 반환하는 TemporalAdjuster 를 반환 |
+| next()       | 현재 날짜 이후로 지정한 요일이 처음으로 나타나는 날짜를 반환하는 TemporalAdjuster 를 반환     |
+| nextOrSame()    | 현재 날짜를 포함하여 지정한 요일이 처음으로 나타나는 날짜를 반환하는 TemporalAdjuster 를 반환    |
 
 이 외에도 더 많은 팩토리 메서드가 있다.
 
@@ -346,7 +346,7 @@ TemporalAdjuster 는 아래 하나의 메서드만 정의하기 때문에 함수
 ```java
 @FunctionalInterface
 public interface TemporalAdjuster {
-  Temporal adjustInto(Temporal temporal);
+ Temporal adjustInto(Temporal temporal);
 }
 ```
 
@@ -354,23 +354,23 @@ public interface TemporalAdjuster {
 
 ### 2.1.1. 커스텀 TemporalAdjuster 구현
 
-TemporalAdjuster 인터페이스를 구현하는 NextWorkingDay 클래스를 구현해보자.  
+TemporalAdjuster 인터페이스를 구현하는 NextWorkingDay 클래스를 구현해보자. 
 이 클래스는 날짜를 하루씩 다음날로 바꾸는데 이 때 토요일과 일요일은 건너뛴다.
 
 ```java
 public class NextWorkingDay implements TemporalAdjuster {
-  @Override
-  public Temporal adjustInto(Temporal temporal) {
-    // 현재 요일 조회
-    DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
-    int dayToAdd = 1;
-    if (dow == DayOfWeek.FRIDAY) {
-      dayToAdd = 3;
-    } else if (dow == DayOfWeek.SATURDAY) {
-      dayToAdd = 2;
-    }
-    return temporal.plus(dayToAdd, ChronoUnit.DAYS);
+ @Override
+ public Temporal adjustInto(Temporal temporal) {
+  // 현재 요일 조회
+  DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
+  int dayToAdd = 1;
+  if (dow == DayOfWeek.FRIDAY) {
+   dayToAdd = 3;
+  } else if (dow == DayOfWeek.SATURDAY) {
+   dayToAdd = 2;
   }
+  return temporal.plus(dayToAdd, ChronoUnit.DAYS);
+ }
 }
 ```
 
@@ -379,25 +379,25 @@ LocalDate date = LocalDate.now();
 date = date.with(new NextWorkingDay()); // 2023-05-15
 ```
 
-TemporalAdjuster 는 함수형 인터페이스이므로 위 코드를 아래와 같이 람다 표현식을 사용할 수 있다.  
+TemporalAdjuster 는 함수형 인터페이스이므로 위 코드를 아래와 같이 람다 표현식을 사용할 수 있다. 
 또한 [UnaryOperator\<LocalDate\>](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 인수로 받는 TemporalAdjusters 클래스의 static 팩토리 메서드인 `ofDateAdjuster()` 를 사용하여
 아래와 같이 표현 가능하다.
 
-> **UnaryOperator\<LocalDate\>**  
+> **UnaryOperator\<LocalDate\>** 
 > UnaryOperator\<T\>, T -> T
 
 ```java
 public static TemporalAdjuster nextWorkingDay2 = TemporalAdjusters.ofDateAdjuster(
-  temporal -> {
-    DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
-    int dayToAdd = 1;
-    if (dow == DayOfWeek.FRIDAY) {
-      dayToAdd = 3;
-    } else if (dow == DayOfWeek.SATURDAY) {
-      dayToAdd = 2;
-    }
-    return temporal.plus(dayToAdd, ChronoUnit.DAYS);
-  } 
+ temporal -> {
+  DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
+  int dayToAdd = 1;
+  if (dow == DayOfWeek.FRIDAY) {
+   dayToAdd = 3;
+  } else if (dow == DayOfWeek.SATURDAY) {
+   dayToAdd = 2;
+  }
+  return temporal.plus(dayToAdd, ChronoUnit.DAYS);
+ } 
 );
 ```
 
@@ -433,7 +433,7 @@ LocalDate localDate2 = LocalDate.parse("20230509", DateTimeFormatter.BASIC_ISO_D
 LocalDate localDate3 = LocalDate.parse("2023-05-09", DateTimeFormatter.ISO_LOCAL_DATE);
 ```
 
-> `format()`: 날짜 객체 → 문자열    
+> `format()`: 날짜 객체 → 문자열  
 > `parse()`: 문자열 → 날짜 객체
 
 기존의 **java.util.DateFormat 클래스와 달리 모든 DateTimeFormatter 는 스레드에서 안전하게 사용할 수 있는 클래스**이다.
@@ -472,13 +472,13 @@ LocalDate localDate7 = LocalDate.parse(formattedDateString6, italianFormatter);
 
 ```java
 DateTimeFormatter italianFormatter1 = new DateTimeFormatterBuilder()
-    .appendText(ChronoField.DAY_OF_MONTH)
-    .appendLiteral(". ")
-    .appendText(ChronoField.MONTH_OF_YEAR)
-    .appendLiteral(" ")
-    .appendText(ChronoField.YEAR)
-    .parseCaseInsensitive()
-    .toFormatter(Locale.ITALIAN);
+  .appendText(ChronoField.DAY_OF_MONTH)
+  .appendLiteral(". ")
+  .appendText(ChronoField.MONTH_OF_YEAR)
+  .appendLiteral(" ")
+  .appendText(ChronoField.YEAR)
+  .parseCaseInsensitive()
+  .toFormatter(Locale.ITALIAN);
 
 // 2023-05-09
 LocalDate localDate8 = LocalDate.of(2023, 5, 9);
@@ -494,7 +494,7 @@ LocalDate localDate9 = LocalDate.parse(formattedDateString8, italianFormatter1);
 
 위의 클래스들에는 시간대와 관련된 정보가 없다.
 
-기존의 java.util.TimeZone 을 대체하는 java.time.ZoneId 로 시간대를 간단히 처리할 수 있다.  
+기존의 java.util.TimeZone 을 대체하는 java.time.ZoneId 로 시간대를 간단히 처리할 수 있다. 
 서버 타임 (DST, Daylight Saving Time) 과 같은 사항도 자동으로 처리된다.
 
 ZoneId 또한 불변 클래스로 스레드에 안전하다.
@@ -518,7 +518,7 @@ ZoneId zoneId = TimeZone.getDefault().toZoneId();
 System.out.println(zoneId);
 ```
 
-ZoneId 객체를 얻은 후 LocalDate, LocalDateTime, Instant 를 이용해서 ZoneDateTime 인스턴스로 변환 가능하다.  
+ZoneId 객체를 얻은 후 LocalDate, LocalDateTime, Instant 를 이용해서 ZoneDateTime 인스턴스로 변환 가능하다. 
 `ZoneedDateTime` 은 지정한 시간대에 상대적인 시점을 표현한다.
 
 ```java
@@ -546,15 +546,15 @@ ZonedDateTime zdt3 = instant1.atZone(romeZone1);
 
 `2023-07-16T12:12:58.272252+02:00[Europe/Rome]` 로 ZonedDateTime 를 이해해보면 아래와 같다.
 - 2023-07-16
-  - LocalDate 
+ - LocalDate 
 - 12:12:58.272252
-  - LocalTime 
+ - LocalTime 
 - +02:00[Europe/Rome]
-  - ZonedId
+ - ZonedId
 - 2023-07-16T12:12:58.272252
-  - LocalDateTime
+ - LocalDateTime
 - 2023-07-16T12:12:58.272252+02:00[Europe/Rome]
-  - ZonedDateTime
+ - ZonedDateTime
 
 위에서 `+02:00[Europe/Rome]` 가 ZonedId 이고, 
 
@@ -564,7 +564,7 @@ ZonedDateTime zdt3 = instant1.atZone(romeZone1);
 
 UTC/GMT 를 기준으로 시간대를 표현하기도 한다.
 
-> UTC (Universal Time Coordinated): 협정 세계시  
+> UTC (Universal Time Coordinated): 협정 세계시 
 > GMT (Greenwich Mean Time): 그리니치 표준시
 
 ZoneId 의 서브 클래스인 `ZoneOffset` 클래스로 런던의 그리니치 0도 자오선과 시간값의 차이를 표현할 수 있다.

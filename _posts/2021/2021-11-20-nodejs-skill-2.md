@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Node.js - 기본 개념 (2): 멀티스레드"
+title: "Node.js - 기본 개념 (2): 멀티스레드"
 date: 2021-11-20 10:00
 categories: dev
 tags: javascript nodejs
@@ -18,7 +18,7 @@ tags: javascript nodejs
 
 ## 4.7. `worker_threads`
 
-### 4.7.1  간단한 worker_threads 사용 방식 
+### 4.7.1 간단한 worker_threads 사용 방식 
 
 아래는 노드에서 멀티 스레드 방식으로 작업하는 간단한 예시이다.
 
@@ -27,18 +27,18 @@ worker_threads.js
 const { Worker, isMainThread, parentPort } = require('worker_threads');
 
 if (isMainThread) {
-  // 부모인 경우
-  const worker = new Worker(__filename);
-  worker.on('message', message => console.log('from worker', message));
-  worker.on('exit', () => console.log('worker exit'));
-  worker.postMessage('ping');
+ // 부모인 경우
+ const worker = new Worker(__filename);
+ worker.on('message', message => console.log('from worker', message));
+ worker.on('exit', () => console.log('worker exit'));
+ worker.postMessage('ping');
 } else {
-  // 워커인 경우
-  parentPort.on('message', value => {
-    console.log('from parent', value);
-    parentPort.postMessage('pong');
-    parentPort.close();
-  });
+ // 워커인 경우
+ parentPort.on('message', value => {
+  console.log('from parent', value);
+  parentPort.postMessage('pong');
+  parentPort.close();
+ });
 }
 ```
 
@@ -61,46 +61,46 @@ worker exit
 
 ---
 
-### 4.7.2  workerData 사용
+### 4.7.2 workerData 사용
 
 아래는 2개의 워커 스레드에 데이터를 남기는 예시이다. 위에선 worker.postMessage 로 데이터를 전달했는데 아래는 다른 방식으로
 데이터를 전달한다.
 
 ```javascript
 const {
-  Worker,
-  isMainThread,
-  parentPort,
-  workerData,
+ Worker,
+ isMainThread,
+ parentPort,
+ workerData,
 } = require('worker_threads');
 
 if (isMainThread) {
-  // 부모인 경우
-  const threads = new Set();
-  threads.add(
-    new Worker(__filename, {
-      workerData: { start: 1 },
-    }),
-  );
-  threads.add(
-    new Worker(__filename, {
-      workerData: { start: 2 },
-    }),
-  );
+ // 부모인 경우
+ const threads = new Set();
+ threads.add(
+  new Worker(__filename, {
+   workerData: { start: 1 },
+  }),
+ );
+ threads.add(
+  new Worker(__filename, {
+   workerData: { start: 2 },
+  }),
+ );
 
-  for (let worker of threads) {
-    worker.on('message', message => console.log('from worker', message));
-    worker.on('exit', () => {
-      threads.delete(worker);
-      if (threads.size === 0) {
-        console.log('job done');
-      }
-    });
-  }
+ for (let worker of threads) {
+  worker.on('message', message => console.log('from worker', message));
+  worker.on('exit', () => {
+   threads.delete(worker);
+   if (threads.size === 0) {
+    console.log('job done');
+   }
+  });
+ }
 } else {
-  // 워커인 경우
-  const data = workerData;
-  parentPort.postMessage(data.start + 100);
+ // 워커인 경우
+ const data = workerData;
+ parentPort.postMessage(data.start + 100);
 }
 ```
 
@@ -116,7 +116,7 @@ new Worker 호출 시 두 번째 인수의 `workerData` 속성으로 데이터�
 
 ---
 
-### 4.7.3  복잡한 worker_threads 사용 방식 (소수 갯수 구하기)
+### 4.7.3 복잡한 worker_threads 사용 방식 (소수 갯수 구하기)
 
 아래는 2 ~ 1,000 만 사이의 소수의 갯수를 구하는 작업을 워커 스레드를 사용하지 않은 코드이다.
 
@@ -127,20 +127,20 @@ const max = 10000000;
 const primes = [];
 
 function generatePrimes(start, range) {
-  let isPrime = true;
-  const end = start + range;
-  for (let i = start; i < end; i++) {
-    for (let j = min; j < Math.sqrt(end); j++) {
-      if (i !== j && i % j === 0) {
-        isPrime = false;
-        break;
-      }
-    }
-    if (isPrime) {
-      primes.push(i);
-    }
-    isPrime = true;
+ let isPrime = true;
+ const end = start + range;
+ for (let i = start; i < end; i++) {
+  for (let j = min; j < Math.sqrt(end); j++) {
+   if (i !== j && i % j === 0) {
+    isPrime = false;
+    break;
+   }
   }
+  if (isPrime) {
+   primes.push(i);
+  }
+  isPrime = true;
+ }
 }
 
 console.time('prime');
@@ -159,80 +159,80 @@ prime: 9.947s
 prime-worker.js
 ```javascript
 const {
-  Worker,
-  isMainThread,
-  parentPort,
-  workerData,
+ Worker,
+ isMainThread,
+ parentPort,
+ workerData,
 } = require('worker_threads');
 
 const min = 2;
 let primes = [];
 
 function findPrimes(start, range) {
-  let isPrime = true;
-  const end = start + range;
+ let isPrime = true;
+ const end = start + range;
 
-  for (let i = start; i < end; i++) {
-    for (let j = min; j < Math.sqrt(end); j++) {
-      if (i !== j && i % j === 0) {
-        isPrime = false;
-        break;
-      }
-    }
-    if (isPrime) {
-      primes.push(i);
-    }
-    isPrime = true;
+ for (let i = start; i < end; i++) {
+  for (let j = min; j < Math.sqrt(end); j++) {
+   if (i !== j && i % j === 0) {
+    isPrime = false;
+    break;
+   }
   }
+  if (isPrime) {
+   primes.push(i);
+  }
+  isPrime = true;
+ }
 }
 
 if (isMainThread) {
-  const max = 10000000;
-  const threadCount = 8;
-  const threads = new Set();
-  const range = Math.ceil((max - min) / threadCount);
-  let start = min;
+ const max = 10000000;
+ const threadCount = 8;
+ const threads = new Set();
+ const range = Math.ceil((max - min) / threadCount);
+ let start = min;
 
-  console.time('prime');
-  for (let i = 0; i < threadCount - 1; i++) {
-    const wStart = start;
-    threads.add(
-      new Worker(__filename, {
-        workerData: {
-          start: wStart,
-          range,
-        },
-      }),
-    );
-    start += range;
-  }
+ console.time('prime');
+ for (let i = 0; i < threadCount - 1; i++) {
+  const wStart = start;
   threads.add(
-    new Worker(__filename, {
-      workerData: {
-        start,
-        range: range + ((max - min + 1) % threadCount),
-      },
-    }),
+   new Worker(__filename, {
+    workerData: {
+     start: wStart,
+     range,
+    },
+   }),
   );
+  start += range;
+ }
+ threads.add(
+  new Worker(__filename, {
+   workerData: {
+    start,
+    range: range + ((max - min + 1) % threadCount),
+   },
+  }),
+ );
 
-  for (let worker of threads) {
-    worker.on('error', err => {
-      throw err;
-    });
-    worker.on('exit', () => {
-      threads.delete(worker);
-      if (threads.size === 0) {
-        console.timeEnd('prime');
-        console.log(primes.length);
-      }
-    });
-    worker.on('message', msg => {
-      primes = primes.concat(msg);
-    });
-  }
+ for (let worker of threads) {
+  worker.on('error', err => {
+   throw err;
+  });
+  worker.on('exit', () => {
+   threads.delete(worker);
+   if (threads.size === 0) {
+    console.timeEnd('prime');
+    console.log(primes.length);
+   }
+  });
+  worker.on('message', msg => {
+   primes = primes.concat(msg);
+  });
+ }
 } else {
-  findPrimes(workerData.start, workerData.range);
-  parentPort.postMessage(primes);
+ findPrimes(workerData.start, workerData.range);
+ parentPort.postMessage(primes);
 }
 ```
 
@@ -261,11 +261,11 @@ const exec = require('child_process').exec;
 const process = exec('ls');
 
 process.stdout.on('data', function (data) {
-  console.log(data.toString());
+ console.log(data.toString());
 });
 
 process.stderr.on('data', function (data) {
-  console.error(data.toString());
+ console.error(data.toString());
 });
 ```
 
@@ -286,11 +286,11 @@ const spawn = require('child_process').spawn;
 const process = spawn('python', ['4.8-test.py']);
 
 process.stdout.on('data', function (data) {
-  console.log(data.toString());
+ console.log(data.toString());
 });
 
 process.stderr.on('data', function (data) {
-  console.error(data.toString());
+ console.error(data.toString());
 });
 ```
 
@@ -313,21 +313,21 @@ hello~
 
 - `assert`
 - `dns`
-    - 도메인 이름에 대한 IP 주소 획득
+  - 도메인 이름에 대한 IP 주소 획득
 - `net`
-    - HTTP 보다 로우 레벨인 TCP 나 IPC 통신 시 사용
+  - HTTP 보다 로우 레벨인 TCP 나 IPC 통신 시 사용
 - `string_decoder`
-    - 버퍼 데이터를 문자열로 변환 시 사용
+  - 버퍼 데이터를 문자열로 변환 시 사용
 - `tls`
-    - TLS 와 SSL 에 관련된 작업 시 사용
+  - TLS 와 SSL 에 관련된 작업 시 사용
 - `tty`
-    - 터미널과 관련된 작업 시 사용
+  - 터미널과 관련된 작업 시 사용
 - `dgram`
-    - UDP 와 관련된 작업 시 사용
+  - UDP 와 관련된 작업 시 사용
 - `v8`
-    - V8 엔진에 직접 접근 시 사용
+  - V8 엔진에 직접 접근 시 사용
 - `vm`
-    - 가상 머신에 직접 접근 시 사용
+  - 가상 머신에 직접 접근 시 사용
 
 ---
 

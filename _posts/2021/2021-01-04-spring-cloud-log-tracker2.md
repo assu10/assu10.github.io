@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Cloud - Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택"
+title: "Spring Cloud - Sleuth, Open Zipkin 을 이용한 분산 추적 (2/4) - ELK 스택"
 date: 2021-01-04 10:00
 categories: dev
 tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack 
@@ -10,17 +10,17 @@ tags: msa centralized-log elasticsearch logstash kibana elk-stack elastic-stack
 관련 소스는 [github/assu10](https://github.com/assu10/msa-springcloud) 를 참고 바란다.
 
 <!-- TOC -->
-  * [1. ELK 스택이란?](#1-elk-스택이란)
-  * [2. Elastic Stack 이란?](#2-elastic-stack-이란)
-  * [3. ElasticSearch, Kibana, Logstash 설치](#3-elasticsearch-kibana-logstash-설치)
-    * [3.1. ElasticSearch 설치](#31-elasticsearch-설치)
-    * [3.2. Kibana 설치](#32-kibana-설치)
-    * [3.3. Logstash 설치](#33-logstash-설치)
-  * [4. Springboot에 Logging 설정](#4-springboot에-logging-설정)
-  * [5. Kibana 를 통해 여러 마이크로서비스의 로그를 통합하여 조회](#5-kibana-를-통해-여러-마이크로서비스의-로그를-통합하여-조회)
-    * [5.1. Index 생성](#51-index-생성)
-    * [5.2. 로그 조회](#52-로그-조회)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+ * [1. ELK 스택이란?](#1-elk-스택이란)
+ * [2. Elastic Stack 이란?](#2-elastic-stack-이란)
+ * [3. ElasticSearch, Kibana, Logstash 설치](#3-elasticsearch-kibana-logstash-설치)
+  * [3.1. ElasticSearch 설치](#31-elasticsearch-설치)
+  * [3.2. Kibana 설치](#32-kibana-설치)
+  * [3.3. Logstash 설치](#33-logstash-설치)
+ * [4. Springboot에 Logging 설정](#4-springboot에-logging-설정)
+ * [5. Kibana 를 통해 여러 마이크로서비스의 로그를 통합하여 조회](#5-kibana-를-통해-여러-마이크로서비스의-로그를-통합하여-조회)
+  * [5.1. Index 생성](#51-index-생성)
+  * [5.2. 로그 조회](#52-로그-조회)
+ * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -42,15 +42,15 @@ ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스
 시각화 도구인 `Kibana` 이다.
 
 - **Logstash**
-    - 여러 소스에서 동시에 데이터를 수집하여 변환한 후 Elasticsearch 와 같은 *stash* 로 전송하는 서버 사이드 데이터 처리 파이프라인
-    - 입력: `Beats`, `Cloudwatch`, `Eventlog` 등 다양한 입력을 지원
-    - 필터: 형식이나 복잡성에 상관없이 설정을 통해 데이터를 동적으로 변환
-    - 출력: Elasticsearch, Email, ECS, Kafka 등 원하는 저장소에 데이터 전송
+  - 여러 소스에서 동시에 데이터를 수집하여 변환한 후 Elasticsearch 와 같은 *stash* 로 전송하는 서버 사이드 데이터 처리 파이프라인
+  - 입력: `Beats`, `Cloudwatch`, `Eventlog` 등 다양한 입력을 지원
+  - 필터: 형식이나 복잡성에 상관없이 설정을 통해 데이터를 동적으로 변환
+  - 출력: Elasticsearch, Email, ECS, Kafka 등 원하는 저장소에 데이터 전송
 - **Elasticsearch**
-    - JSON 기반의 분산형 오픈 소스 RESTful 검색 엔진
-    - 대량의 데이터를 신속하고 거의 실시간으로 저장, 검색, 분석 가능
+  - JSON 기반의 분산형 오픈 소스 RESTful 검색 엔진
+  - 대량의 데이터를 신속하고 거의 실시간으로 저장, 검색, 분석 가능
 - **Kibana**
-    - 사용자가 Elasticsearch 에서 차트와 그래프를 이용해 데이터를 시각화할 수 있도록 해줌    
+  - 사용자가 Elasticsearch 에서 차트와 그래프를 이용해 데이터를 시각화할 수 있도록 해줌  
 
 ---
 
@@ -64,20 +64,20 @@ ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스
 이 한 단계 발전된 형태를 BELK? BLEK? 등 앞글자를 따서 만들까했지만 머릿글자를 확장이 쉽지 않아 이름을 `Elastic Stack` 으로 지었다고 한다.
 
 - **Beats**
-    - 경량의 에이전트로 설치되어 데이터를 Logstash 또는 Elasticsearch 로 전송해주는 도구.
-    - Logstash 보다 경량화되어 있는 서비스
+  - 경량의 에이전트로 설치되어 데이터를 Logstash 또는 Elasticsearch 로 전송해주는 도구.
+  - Logstash 보다 경량화되어 있는 서비스
 
 `Beats` 는 `Filebeat`, `Metricbeat`, `Packetbeat`, `Winlogbeat`, `Heartbeat` 등이 있고, `Libbeat` 를 이용하여 직접 구축도 가능하다.
 
 - **Filebeat**
-    - 서버에서 로그 파일 제공
+  - 서버에서 로그 파일 제공
 - **Metricbeat**
-    - 서버에서 실행 중인 운영체제 및 서비스에서 metric 을 주기적으로 수집하는 서버 모니터링 에이전트
+  - 서버에서 실행 중인 운영체제 및 서비스에서 metric 을 주기적으로 수집하는 서버 모니터링 에이전트
 - **Packetbeat**
-    - 응용 프로그램 서버 간에 교환되는 정보를 제공하는 네트워크 패킷 분석기
+  - 응용 프로그램 서버 간에 교환되는 정보를 제공하는 네트워크 패킷 분석기
 - **Winlogbeat**
-    - Windows 이벤트 로그 제공
-    
+  - Windows 이벤트 로그 제공
+  
 이 포스트에선 일단 ELK 스택을 다룰 예정이다.
 
 이제 ELK 스택을 사용하기 위해 각 오픈 소스를 설치해보도록 하자.<br />
@@ -102,21 +102,21 @@ ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스
 ```shell
 C:\>curl -X GET "localhost:9200/?pretty"
 {
-  "name" : "first_msa",
-  "cluster_name" : "elasticsearch",
-  "cluster_uuid" : "gy2rooW0SC6foVrsAxek8w",
-  "version" : {
-    "number" : "7.10.1",
-    "build_flavor" : "unknown",
-    "build_type" : "unknown",
-    "build_hash" : "1c34507e66d7db1211f66f3513706fdf548736aaddd",
-    "build_date" : "2020-12-05T01:00:33.671820Z",
-    "build_snapshot" : false,
-    "lucene_version" : "8.7.0",
-    "minimum_wire_compatibility_version" : "6.8.0",
-    "minimum_index_compatibility_version" : "6.0.0-beta1"
-  },
-  "tagline" : "You Know, for Search"
+ "name" : "first_msa",
+ "cluster_name" : "elasticsearch",
+ "cluster_uuid" : "gy2rooW0SC6foVrsAxek8w",
+ "version" : {
+  "number" : "7.10.1",
+  "build_flavor" : "unknown",
+  "build_type" : "unknown",
+  "build_hash" : "1c34507e66d7db1211f66f3513706fdf548736aaddd",
+  "build_date" : "2020-12-05T01:00:33.671820Z",
+  "build_snapshot" : false,
+  "lucene_version" : "8.7.0",
+  "minimum_wire_compatibility_version" : "6.8.0",
+  "minimum_index_compatibility_version" : "6.0.0-beta1"
+ },
+ "tagline" : "You Know, for Search"
 }
 ```
 
@@ -160,20 +160,20 @@ Logstash를 설치한 위치에서 config 폴더에 보면 logstash-sample.conf 
 **C:\myhome\03_Study\13_SpringCloud\logstash-7.10.2\config > logstash.conf**
 ```editorconfig
 input {
-  tcp {
-    port => 4560
+ tcp {
+  port => 4560
 	host => localhost
 	codec => json_lines
-  }
+ }
 }
 output {
-  elasticsearch {
-    hosts => ["http://localhost:9200"]
+ elasticsearch {
+  hosts => ["http://localhost:9200"]
 	index => "logstash-%{+YYYY.MM.dd}"
-  }
-  stdout {
+ }
+ stdout {
 	codec => rubydebug
-  }
+ }
 }
 ```
 
@@ -193,9 +193,9 @@ C:\myhome\03_Study\13_SpringCloud\logstash-7.10.2> ./bin/logstash -f ./config/lo
 **event-service, member-service > pom.xml**
 ```xml
 <dependency>
-    <groupId>net.logstash.logback</groupId>
-    <artifactId>logstash-logback-encoder</artifactId>
-    <version>6.6</version>
+  <groupId>net.logstash.logback</groupId>
+  <artifactId>logstash-logback-encoder</artifactId>
+  <version>6.6</version>
 </dependency>
 ```
 
@@ -207,20 +207,20 @@ C:\myhome\03_Study\13_SpringCloud\logstash-7.10.2> ./bin/logstash -f ./config/lo
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-- logback에 대한 기본적인 설정을 base.xml을 통해서 제공함.console,file appender 를 base.xml에 include 하고 있음-->
-    <include resource="org/springframework/boot/logging/logback/base.xml" />
-    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <!-- logback에 대한 기본적인 설정을 base.xml을 통해서 제공함.console,file appender 를 base.xml에 include 하고 있음-->
+  <include resource="org/springframework/boot/logging/logback/base.xml" />
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
-    <appender name="STASH" class="net.logstash.logback.appender.LogstashAccessTcpSocketAppender">
-        <destination>localhost:4560</destination>
-        <!-- encoder 필요 -->
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-    </appender>
+  <appender name="STASH" class="net.logstash.logback.appender.LogstashAccessTcpSocketAppender">
+    <destination>localhost:4560</destination>
+    <!-- encoder 필요 -->
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+  </appender>
 
-    <root level="INFO">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="STASH" />
-    </root>
+  <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="STASH" />
+  </root>
 </configuration>
 ```
 
@@ -270,29 +270,29 @@ Elasticsearch와 Kibana가 제대로 기동되었는지 확인한다.
 @RestController
 @RequestMapping("/member")
 public class MemberController {
-    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+  private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-    // ... 생략
+  // ... 생략
 
-    @GetMapping(value = "name/{nick}")
-    public String getYourName(ServletRequest req, @PathVariable("nick") String nick) {
-        logger.info("[MEMBER] name/{nick} logging...nick is {}.", nick);
-        return "[MEMBER] Your name is " + customConfig.getYourName() + " / nickname is " + nick + " / port is " + req.getServerPort();
-    }
+  @GetMapping(value = "name/{nick}")
+  public String getYourName(ServletRequest req, @PathVariable("nick") String nick) {
+    logger.info("[MEMBER] name/{nick} logging...nick is {}.", nick);
+    return "[MEMBER] Your name is " + customConfig.getYourName() + " / nickname is " + nick + " / port is " + req.getServerPort();
+  }
 
 // event-service > EventController.java
 @RestController
 @RequestMapping("/event")
 public class EventController {
-    private static final Logger logger = LoggerFactory.getLogger(EventController.class);
+  private static final Logger logger = LoggerFactory.getLogger(EventController.class);
 
-    // ... 생략
+  // ... 생략
 
-    @GetMapping(value = "name/{nick}")
-    public String getYourName(ServletRequest req, @PathVariable("nick") String nick) {
-        logger.info("[EVENT] name/{nick} logging...nick is {}.", nick);
-        return "[EVENT] Your name is " + customConfig.getYourName() + ", nickname is " + nick + ", port is " + req.getServerPort();
-    }
+  @GetMapping(value = "name/{nick}")
+  public String getYourName(ServletRequest req, @PathVariable("nick") String nick) {
+    logger.info("[EVENT] name/{nick} logging...nick is {}.", nick);
+    return "[EVENT] Your name is " + customConfig.getYourName() + ", nickname is " + nick + ", port is " + req.getServerPort();
+  }
 ```
 
 그리고 [http://localhost:5555/api/mb/member/name/hyori3](http://localhost:5555/api/mb/member/name/hyori3), [http://localhost:5555/api/evt/event/name/hyori2](http://localhost:5555/api/evt/event/name/hyori2) 를

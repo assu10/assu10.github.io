@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "NoSQL 개념"
+title: "NoSQL 개념"
 date: 2022-05-29 10:00
 categories: dev
-tags:  db redis
+tags: db redis
 ---
 
 이 포스트는 NoSQL 의 종류와 그 중 Key-Value DB 인 Redis 에 대해 알아본다.
@@ -11,9 +11,9 @@ tags:  db redis
 <!-- TOC -->
 * [1. NoSQL 종류](#1-nosql-종류)
 * [2. Key-Value DB 특징](#2-key-value-db-특징)
-  * [2.1. In-Memory 기반의 데이터 저장 구조](#21-in-memory-기반의-데이터-저장-구조)
-  * [2.2. 하나의 Key 와 데이터 값으로 구성](#22-하나의-key-와-데이터-값으로-구성)
-  * [2.3. 가공처리가 요구되는 비즈니스 환경에서 적합](#23-가공처리가-요구되는-비즈니스-환경에서-적합)
+ * [2.1. In-Memory 기반의 데이터 저장 구조](#21-in-memory-기반의-데이터-저장-구조)
+ * [2.2. 하나의 Key 와 데이터 값으로 구성](#22-하나의-key-와-데이터-값으로-구성)
+ * [2.3. 가공처리가 요구되는 비즈니스 환경에서 적합](#23-가공처리가-요구되는-비즈니스-환경에서-적합)
 * [3. Redis](#3-redis)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -23,20 +23,20 @@ tags:  db redis
 # 1. NoSQL 종류
 
 - **Key-Value DB**
-  - `Redis`, `Riak`, `Tokyo`
+ - `Redis`, `Riak`, `Tokyo`
 - **Document DB** 
-  - `MongoDB`, `CoughDB`
+ - `MongoDB`, `CoughDB`
 - **ColumnFamily DB**
-  - `Hbase`, `Cassandra`
+ - `Hbase`, `Cassandra`
 - **Graph DB** 
-  - `Neo4j`, `AllegroGraph`
+ - `Neo4j`, `AllegroGraph`
 
 
 ![NoSQL 가이드라인](/assets/img/dev/2022/0529/guideline.jpg)
 
 
 분산 기술은 여러 대의 서버에 데이터를 나누어 저장하는 개념인데 초당 몇 만건 이상의 빅데이터를 동시에 저장하다 보면 예기치 못한 문제로 시스템에 종료되어 데이터가
-유실되는 경우가 발생한다.  
+유실되는 경우가 발생한다. 
 이를 방지하기 위해 반드시 Replication 시스템을 함께 구축해야 한다.
 
 NoSQL 은 기본적으로 듀얼 라이선스 (Community Edition, Enterprise Edition) 정책으로 제공한다.
@@ -49,11 +49,11 @@ NoSQL 은 기본적으로 듀얼 라이선스 (Community Edition, Enterprise Edi
 
 ## 2.1. In-Memory 기반의 데이터 저장 구조
 
-관계형 DBMS 의 인메모리는 파일 기반의 데이터 저장 구조이고, `Redis` 는 **순수 인메모리 기반의 데이터 저장 구조**이다.  
-파일 기반의 데이터 저장 구조는 일단 모든 데이터는 1차적으로 메모리에 우선 저장되었다가 2차적으로 디스크에 존재하는 파일에 저장되며,  
-파일들은 DBMS 에 의해 할당되고 자동으로 관리되는 시스템이다.  
+관계형 DBMS 의 인메모리는 파일 기반의 데이터 저장 구조이고, `Redis` 는 **순수 인메모리 기반의 데이터 저장 구조**이다. 
+파일 기반의 데이터 저장 구조는 일단 모든 데이터는 1차적으로 메모리에 우선 저장되었다가 2차적으로 디스크에 존재하는 파일에 저장되며, 
+파일들은 DBMS 에 의해 할당되고 자동으로 관리되는 시스템이다. 
 
-순수 인메모리 기반은 1차적으로 모든 데이터는 메모리에 저장되며, 사용자 명령어 혹은 시스템 환경 설정을 통해 필요에 따라 디스크에 존재하는 파일에 저장된다.  
+순수 인메모리 기반은 1차적으로 모든 데이터는 메모리에 저장되며, 사용자 명령어 혹은 시스템 환경 설정을 통해 필요에 따라 디스크에 존재하는 파일에 저장된다. 
 만약 사용자가 추가적인 관리를 안해주면 모든 데이터는 메모리 상에만 존재하여 예상치 못한 장애 발생 시 모든 데이터는 유실된다.
 
 ## 2.2. 하나의 Key 와 데이터 값으로 구성
@@ -63,7 +63,7 @@ NoSQL 은 기본적으로 듀얼 라이선스 (Community Edition, Enterprise Edi
 
 ## 2.3. 가공처리가 요구되는 비즈니스 환경에서 적합
 
-Redis 와 Memcached DB 를 운영하고 있는 환경을 보면 대부분 Redis/MongoDB, Redis/Cassandra, Redis/MySQL 등 하이브리드 구조로 운영된다.  
+Redis 와 Memcached DB 를 운영하고 있는 환경을 보면 대부분 Redis/MongoDB, Redis/Cassandra, Redis/MySQL 등 하이브리드 구조로 운영된다. 
 보통 Redis 와 Memcached DB 는 보조 DB 로 사용하는데 그 이유는 대부분 메인 DB 로 선택한 제품들은 파일 기반의 저장 구조이다 보니 디스크 IO 문제로 인해 
 발생하는 성능 지연 문제를 해소하기 위해 K-V DB 를 보조 DB 로 사용하는 것이다.
 
@@ -78,8 +78,8 @@ Redis 는 Remote Directory System 의 약어로 아래는 **Redis 의 주요 특
 - 대표적인 인메모리 기반의 데이터 처리 및 저장 기술을 제공하기 때문에 다른 NoSQL 제품에 비해 상대적으로 빠른 Read/Write 가능
 - `String`, `Set`, `Sorted Set`, `Hash`, `List`, `HyperLogLog` 유형의 데이터 저장 가능
 - Dump 파일과 AOF (Append Of File) 방식으로 메모리 상의 데이터를 디스크에 저장
-- Master/Slave Replication 기능을 통해 데이터의 분산, 복제 기능 제공  
-  `Query Off Loading` 기능을 통해 Master 는 Read/Write 를 수행하고, Slave 는 Read 만 수행
+- Master/Slave Replication 기능을 통해 데이터의 분산, 복제 기능 제공 
+ `Query Off Loading` 기능을 통해 Master 는 Read/Write 를 수행하고, Slave 는 Read 만 수행
 - 파티셔닝을 통해 동적인 스케일 아웃인 수평 확장 가능
 - Expiration 기능을 통해 메모리 상의 데이터 자동 삭제 가능
 

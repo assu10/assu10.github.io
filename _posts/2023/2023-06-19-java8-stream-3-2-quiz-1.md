@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java8 - Stream 으로 데이터 수집 (2): Quiz"
+title: "Java8 - Stream 으로 데이터 수집 (2): Quiz"
 date: 2023-06-19
 categories: dev
 tags: java java8 stream collectors-class
@@ -23,10 +23,10 @@ _1. 분할: `partitioningBy()`_ 과 관련된 퀴즈 포스트입니다.
 
 ```java
 private static boolean isPrime(int candidate) {
-    // 소수의 대상은 주어진 수의 제곱근 이하로 제한
-    int candidateRoot = (int) Math.sqrt((double) candidate);
-        return IntStream.rangeClosed(2, candidateRoot)
-                  .noneMatch(i -> candidate % i == 0);
+  // 소수의 대상은 주어진 수의 제곱근 이하로 제한
+  int candidateRoot = (int) Math.sqrt((double) candidate);
+    return IntStream.rangeClosed(2, candidateRoot)
+         .noneMatch(i -> candidate % i == 0);
 }
 ```
 
@@ -35,11 +35,11 @@ private static boolean isPrime(int candidate) {
 
 ```java
 private static Map<Boolean, List<Integer>> partitionPrimes(int n) {
-return IntStream.rangeClosed(2, n)  // IntStream 반환
-        .boxed()  // Stream<Integer> 반환
-        .collect(
-                partitioningBy(i -> isPrime(i))
-        );
+return IntStream.rangeClosed(2, n) // IntStream 반환
+    .boxed() // Stream<Integer> 반환
+    .collect(
+        partitioningBy(i -> isPrime(i))
+    );
 }
 ```
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Node.js - 기본 개념 (4): 이벤트, 예외처리"
+title: "Node.js - 기본 개념 (4): 이벤트, 예외처리"
 date: 2021-11-29 10:00
 categories: dev
 tags: javascript nodejs event exception
@@ -36,18 +36,18 @@ const EventEmitter = require('events');
 
 const myEvent = new EventEmitter();
 myEvent.addListener('event1', () => {
-  console.log('이벤트1');
+ console.log('이벤트1');
 });
 // event2 에 여러 개의 이벤트 리스너 등록
 myEvent.on('event2', () => {
-  console.log('이벤트2');
+ console.log('이벤트2');
 });
 myEvent.on('event2', () => {
-  console.log('이벤트2 추가');
+ console.log('이벤트2 추가');
 });
 // 한 번만 실행됨
 myEvent.once('event3', () => {
-  console.log('이벤트3');
+ console.log('이벤트3');
 });
 
 myEvent.emit('event1'); // 이벤트 호출
@@ -57,13 +57,13 @@ myEvent.emit('event3');
 myEvent.emit('event3'); // 실행 안 됨
 
 myEvent.on('event4', () => {
-  console.log('이벤트4');
+ console.log('이벤트4');
 });
 myEvent.removeAllListeners('event4');
 myEvent.emit('event4'); // 실행 안 됨
 
 const listener = () => {
-  console.log('event5');
+ console.log('event5');
 };
 myEvent.on('event5', listener);
 myEvent.removeListener('event5', listener);
@@ -81,23 +81,23 @@ console.log(myEvent.listenerCount('event2'));
 ```
 
 - `on(이벤트명, 콜백)`
-  - 이벤트명과 이벤트 발생 시의 콜백을 연결하는데 이러한 동작을 **이벤트 리스닝**이라고 함
-  - event2 처럼 이벤트 하나에 여러 개의 리스너를 연결할 수도 있음  
+ - 이벤트명과 이벤트 발생 시의 콜백을 연결하는데 이러한 동작을 **이벤트 리스닝**이라고 함
+ - event2 처럼 이벤트 하나에 여러 개의 리스너를 연결할 수도 있음 
 - `addListener(이벤트명, 콜백)`
-  - on 과 같은 기능
+ - on 과 같은 기능
 - `emit(이벤트명)`
-  - 이벤트 호출
-  - 이벤트명을 인수로 넣으면 미리 등록해두었던 콜백이 실행됨
+ - 이벤트 호출
+ - 이벤트명을 인수로 넣으면 미리 등록해두었던 콜백이 실행됨
 - `once(이벤트명, 콜백)`
-  - 한 번만 실행되는  이벤트
+ - 한 번만 실행되는 이벤트
 - `removeAllListeners(이벤트명)`
-  - 이벤트에 연결된 모든 이벤트 리스너 제거
+ - 이벤트에 연결된 모든 이벤트 리스너 제거
 - `removeListener(이벤트명, 리스너)`
-  - 이벤트에 연결된 리스너를 하나씩 제거
+ - 이벤트에 연결된 리스너를 하나씩 제거
 - `off(이벤트명, 콜백)`
-  - 노드 10 에서 추가된 메서드로 removeListener 와 같은 기능
+ - 노드 10 에서 추가된 메서드로 removeListener 와 같은 기능
 - `listenerCount(이벤트명)`
-    - 등록된 리스너의 개수 조회
+  - 등록된 리스너의 개수 조회
 
 `on('data')` 도 겉으론 이벤트를 호출하지 않지만 내부적으로 chunk 를 전달할 때마다 data 이벤트를 emit 하고 있고, 완료되었을 경우 end 이벤트를 emit 한 것이다.
 
@@ -117,27 +117,27 @@ console.log(myEvent.listenerCount('event2'));
 error1.js
 ```javascript
 setInterval(() => {
-  console.log('START');
-  try {
-    throw new Error('ERROR');
-  } catch (err) {
-    console.error(err);
-  }
+ console.log('START');
+ try {
+  throw new Error('ERROR');
+ } catch (err) {
+  console.error(err);
+ }
 }, 1000);
 ```
 
 ```shell
 START
 Error: ERROR
-    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
+  at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
+  at listOnTimeout (node:internal/timers:557:17)
+  at processTimers (node:internal/timers:500:7)
 START
 Error: ERROR
-    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
-    // 계속 반복
+  at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error1.js:4:11)
+  at listOnTimeout (node:internal/timers:557:17)
+  at processTimers (node:internal/timers:500:7)
+  // 계속 반복
 ```
 
 아래는 노드 자체에서 잡아주는 에러 처리이다.
@@ -147,26 +147,26 @@ error2.js
 const fs = require('fs');
 
 setInterval(() => {
-  fs.unlink('./ddd.js', err => {
-    if (err) {
-      console.error(err);
-    }
-  });
+ fs.unlink('./ddd.js', err => {
+  if (err) {
+   console.error(err);
+  }
+ });
 }, 1000);
 ```
 
 ```shell
 [Error: ENOENT: no such file or directory, unlink './ddd.js'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'unlink',
-  path: './ddd.js'
+ errno: -2,
+ code: 'ENOENT',
+ syscall: 'unlink',
+ path: './ddd.js'
 }
 [Error: ENOENT: no such file or directory, unlink './ddd.js'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'unlink',
-  path: './ddd.js'
+ errno: -2,
+ code: 'ENOENT',
+ syscall: 'unlink',
+ path: './ddd.js'
 }
 // 계속 반복
 ```
@@ -178,20 +178,20 @@ error3.js
 const fs = require('fs').promises;
 
 setInterval(() => {
-  fs.unlink('./ddd.js');
+ fs.unlink('./ddd.js');
 }, 1000);
 ```
 
 ```shell
 node:internal/process/promises:246
-          triggerUncaughtException(err, true /* fromPromise */);
-          ^
+     triggerUncaughtException(err, true /* fromPromise */);
+     ^
 
 [Error: ENOENT: no such file or directory, unlink './ddd.js'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'unlink',
-  path: './ddd.js'
+ errno: -2,
+ code: 'ENOENT',
+ syscall: 'unlink',
+ path: './ddd.js'
 }
 // 프로세스 멈춤
 ```
@@ -201,32 +201,32 @@ node:internal/process/promises:246
 error4.js
 ```javascript
 process.on('uncaughtException', err => {
-  console.error('예측치 못한 에러', err);
+ console.error('예측치 못한 에러', err);
 });
 
 setInterval(() => {
-  throw new Error('ERROR');
+ throw new Error('ERROR');
 }, 1000);
 
 setTimeout(() => {
-  console.log('실행됨');
+ console.log('실행됨');
 }, 2000);
 ```
 
 ```shell
 예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
+  at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
+  at listOnTimeout (node:internal/timers:557:17)
+  at processTimers (node:internal/timers:500:7)
 실행됨
 예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
+  at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
+  at listOnTimeout (node:internal/timers:557:17)
+  at processTimers (node:internal/timers:500:7)
 예측치 못한 에러 Error: ERROR
-    at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
-    at listOnTimeout (node:internal/timers:557:17)
-    at processTimers (node:internal/timers:500:7)
+  at Timeout._onTimeout (/Users/assu/Developer/01_nodejs/mynode/chap03-event/src/2-error4.js:6:9)
+  at listOnTimeout (node:internal/timers:557:17)
+  at processTimers (node:internal/timers:500:7)
 // 계속 반복
 ```
 
@@ -241,33 +241,33 @@ setTimeout(() => {
 # 3. 자주 발생하는 에러들
 
 - `node: command not found`
-  - 노드를 설치했지만 이 에러가 발생하면 환경 변수가 제대로 설정되지 않은 것
+ - 노드를 설치했지만 이 에러가 발생하면 환경 변수가 제대로 설정되지 않은 것
 - `ReferenceError: 모듈 is not defined`
-  - 모듈을 require 했는지 확인
+ - 모듈을 require 했는지 확인
 - `Error: Cannot find module 모듈명`
-  - 해당 모듈을 require 했지만 설치는 하지 않은 상태, npm i 로 설치 필요
+ - 해당 모듈을 require 했지만 설치는 하지 않은 상태, npm i 로 설치 필요
 - `Error: Can't set headers after they are sent`
-  - 요청에 대한 응답을 보낼 때 응답을 두 번 이상 보낸 경우, 요청에 대한 응답은 한 번만 보내야 함
+ - 요청에 대한 응답을 보낼 때 응답을 두 번 이상 보낸 경우, 요청에 대한 응답은 한 번만 보내야 함
 - `FATAL ERROR: CALL_END_REPLY_LAST Allocation failed - JavaScript heap out of memory`
-  - 코드 실행 시 메모리가 부족하여 스크립트가 정상 작동하지 않은 경우
-  - 코드가 잘못되었을 확률이 높으므로 코드 점검 필요
-  - 코드가 정상이라면 노드 실행 시 `node --max-old-space-size=4096 파일명` 으로 노드 메모리 늘려서 해결 (4096 은 4GB)
+ - 코드 실행 시 메모리가 부족하여 스크립트가 정상 작동하지 않은 경우
+ - 코드가 잘못되었을 확률이 높으므로 코드 점검 필요
+ - 코드가 정상이라면 노드 실행 시 `node --max-old-space-size=4096 파일명` 으로 노드 메모리 늘려서 해결 (4096 은 4GB)
 - `UnhandledPromiseRejectionWarning: Unhandled promise rejection`
-  - 프로미스 사용 시 catch 메서드 붙이지 않은 경우 발생
+ - 프로미스 사용 시 catch 메서드 붙이지 않은 경우 발생
 - `EACCESS 혹은 EPERM`
-  - 노드가 작업을 수행하는데 권한이 충분하지 않음
-  - 파일/폴더 수정/삭제/생성 권한 확인 필요
-  - 맥/리눅스면 명령어 앞에 sudo 붙이는 것도 방법
+ - 노드가 작업을 수행하는데 권한이 충분하지 않음
+ - 파일/폴더 수정/삭제/생성 권한 확인 필요
+ - 맥/리눅스면 명령어 앞에 sudo 붙이는 것도 방법
 - `ECONNREFUSED`
-  - 요청을 보냈으나 연결이 성립하지 않은 경우
-  - 요청을 받는 서버의 주소가 올바른지, 서버가 내려가있지는 않은지 확인 필요
+ - 요청을 보냈으나 연결이 성립하지 않은 경우
+ - 요청을 받는 서버의 주소가 올바른지, 서버가 내려가있지는 않은지 확인 필요
 - `ETARGET`
-  - package.json 에 기록한 패키지 버전이 존재하지 않을 때 발생
+ - package.json 에 기록한 패키지 버전이 존재하지 않을 때 발생
 - `ETIMEOUT`
-  - 요청을 보냈으나 응답이 일정 시간 이내에 오지 않은 경우 발생
-  - 요청을 받는 서버의 상태 점검 필요
+ - 요청을 보냈으나 응답이 일정 시간 이내에 오지 않은 경우 발생
+ - 요청을 받는 서버의 상태 점검 필요
 - `ENOENT: no such file or directory`
-  - 지정한 폴더나 파일이 존재하지 않는 경우
+ - 지정한 폴더나 파일이 존재하지 않는 경우
 
 ---
 

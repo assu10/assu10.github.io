@@ -1,19 +1,19 @@
 ---
 layout: post
-title:  Spring Cloud - Springboot Actuator
+title: Spring Cloud - Springboot Actuator
 date: 2020-03-26
 categories: dev
 tags: msa springboot-actuator spring-monitoring actuator spring-admin-ui
 ---
 
 <!-- TOC -->
-  * [Springboot Actuator란?](#springboot-actuator란)
-  * [Actuator 설정](#actuator-설정)
-  * [Actuator 정보 확인](#actuator-정보-확인)
-  * [Springboot admin UI ?](#springboot-admin-ui-)
-  * [Springboot admin UI 설정](#springboot-admin-ui-설정)
-  * [Springboot admin UI 확인](#springboot-admin-ui-확인)
-  * [참고사이트](#참고사이트)
+ * [Springboot Actuator란?](#springboot-actuator란)
+ * [Actuator 설정](#actuator-설정)
+ * [Actuator 정보 확인](#actuator-정보-확인)
+ * [Springboot admin UI ?](#springboot-admin-ui-)
+ * [Springboot admin UI 설정](#springboot-admin-ui-설정)
+ * [Springboot admin UI 확인](#springboot-admin-ui-확인)
+ * [참고사이트](#참고사이트)
 <!-- TOC -->
 
 ## Springboot Actuator란?
@@ -26,13 +26,13 @@ tags: msa springboot-actuator spring-monitoring actuator spring-admin-ui
 즉, 스프링부트 애플리케이션을 운영하고 관리하는데 필요한 기능들을 쓰기 쉬운 형태로 제공을 해주는데 어떠한 정보를 제공해주는지 한번 알아보도록 하자.
 
 ## Actuator 설정
-스프링부트 액추에이터는 메이븐과 application.properties 추가만으로  간단히 설정이 가능하다.
+스프링부트 액추에이터는 메이븐과 application.properties 추가만으로 간단히 설정이 가능하다.
 
 **pom.xml**
 ```xml
  <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-actuator</artifactId>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
 ```
 
@@ -54,26 +54,26 @@ management.endpoint.shutdown.enabled=true
 ```json
 {"_links":
  {"self":{"href":"http://localhost:8080/actuator","templated":false},
-  "beans":{"href":"http://localhost:8080/actuator/beans","templated":false},
-  "caches-cache":{"href":"http://localhost:8080/actuator/caches/{cache}","templated":true},
-  "caches":{"href":"http://localhost:8080/actuator/caches","templated":false},
-  "health":{"href":"http://localhost:8080/actuator/health","templated":false},
-  "health-path":{"href":"http://localhost:8080/actuator/health/{*path}","templated":true},
-  "info":{"href":"http://localhost:8080/actuator/info","templated":false},
-  "conditions":{"href":"http://localhost:8080/actuator/conditions","templated":false},
-  "shutdown":{"href":"http://localhost:8080/actuator/shutdown","templated":false},
-  "configprops":{"href":"http://localhost:8080/actuator/configprops","templated":false},
-  "env":{"href":"http://localhost:8080/actuator/env","templated":false},
-  "env-toMatch":{"href":"http://localhost:8080/actuator/env/{toMatch}","templated":true},
-  "loggers":{"href":"http://localhost:8080/actuator/loggers","templated":false},
-  "loggers-name":{"href":"http://localhost:8080/actuator/loggers/{name}","templated":true},
-  "heapdump":{"href":"http://localhost:8080/actuator/heapdump","templated":false},
-  "threaddump":{"href":"http://localhost:8080/actuator/threaddump","templated":false},
-  "metrics-requiredMetricName":{"href":"http://localhost:8080/actuator/metrics/{requiredMetricName}","templated":true},
-  "metrics":{"href":"http://localhost:8080/actuator/metrics","templated":false},
-  "scheduledtasks":{"href":"http://localhost:8080/actuator/scheduledtasks","templated":false},
-  "mappings":{"href":"http://localhost:8080/actuator/mappings","templated":false},
-  "jolokia":{"href":"http://localhost:8080/actuator/jolokia","templated":false}
+ "beans":{"href":"http://localhost:8080/actuator/beans","templated":false},
+ "caches-cache":{"href":"http://localhost:8080/actuator/caches/{cache}","templated":true},
+ "caches":{"href":"http://localhost:8080/actuator/caches","templated":false},
+ "health":{"href":"http://localhost:8080/actuator/health","templated":false},
+ "health-path":{"href":"http://localhost:8080/actuator/health/{*path}","templated":true},
+ "info":{"href":"http://localhost:8080/actuator/info","templated":false},
+ "conditions":{"href":"http://localhost:8080/actuator/conditions","templated":false},
+ "shutdown":{"href":"http://localhost:8080/actuator/shutdown","templated":false},
+ "configprops":{"href":"http://localhost:8080/actuator/configprops","templated":false},
+ "env":{"href":"http://localhost:8080/actuator/env","templated":false},
+ "env-toMatch":{"href":"http://localhost:8080/actuator/env/{toMatch}","templated":true},
+ "loggers":{"href":"http://localhost:8080/actuator/loggers","templated":false},
+ "loggers-name":{"href":"http://localhost:8080/actuator/loggers/{name}","templated":true},
+ "heapdump":{"href":"http://localhost:8080/actuator/heapdump","templated":false},
+ "threaddump":{"href":"http://localhost:8080/actuator/threaddump","templated":false},
+ "metrics-requiredMetricName":{"href":"http://localhost:8080/actuator/metrics/{requiredMetricName}","templated":true},
+ "metrics":{"href":"http://localhost:8080/actuator/metrics","templated":false},
+ "scheduledtasks":{"href":"http://localhost:8080/actuator/scheduledtasks","templated":false},
+ "mappings":{"href":"http://localhost:8080/actuator/mappings","templated":false},
+ "jolokia":{"href":"http://localhost:8080/actuator/jolokia","templated":false}
  }}
 ```
 
@@ -93,44 +93,44 @@ management.endpoint.shutdown.enabled=true
 
 ```json
 {
-    "names": [
-        "jvm.memory.max",
-        "jvm.threads.states",
-        "jvm.gc.pause",
-        "jvm.gc.memory.promoted",
-        "jvm.memory.used",
-        "jvm.gc.max.data.size",
-        "jvm.memory.committed",
-        "system.cpu.count",
-        "logback.events",
-        "http.server.requests",
-        "jvm.buffer.memory.used",
-        "tomcat.sessions.created",
-        "jvm.threads.daemon",
-        "system.cpu.usage",
-        "jvm.gc.memory.allocated",
-        "tomcat.sessions.expired",
-        "jvm.threads.live",
-        "jvm.threads.peak",
-        "process.uptime",
-        "tomcat.sessions.rejected",
-        "process.cpu.usage",
-        "jvm.classes.loaded",
-        "jvm.classes.unloaded",
-        "tomcat.sessions.active.current",
-        "tomcat.sessions.alive.max",
-        "jvm.gc.live.data.size",
-        "jvm.buffer.count",
-        "jvm.buffer.total.capacity",
-        "tomcat.sessions.active.max",
-        "process.start.time"
-    ]
+  "names": [
+    "jvm.memory.max",
+    "jvm.threads.states",
+    "jvm.gc.pause",
+    "jvm.gc.memory.promoted",
+    "jvm.memory.used",
+    "jvm.gc.max.data.size",
+    "jvm.memory.committed",
+    "system.cpu.count",
+    "logback.events",
+    "http.server.requests",
+    "jvm.buffer.memory.used",
+    "tomcat.sessions.created",
+    "jvm.threads.daemon",
+    "system.cpu.usage",
+    "jvm.gc.memory.allocated",
+    "tomcat.sessions.expired",
+    "jvm.threads.live",
+    "jvm.threads.peak",
+    "process.uptime",
+    "tomcat.sessions.rejected",
+    "process.cpu.usage",
+    "jvm.classes.loaded",
+    "jvm.classes.unloaded",
+    "tomcat.sessions.active.current",
+    "tomcat.sessions.alive.max",
+    "jvm.gc.live.data.size",
+    "jvm.buffer.count",
+    "jvm.buffer.total.capacity",
+    "tomcat.sessions.active.max",
+    "process.start.time"
+  ]
 }
 ```
 
 - JVM 정보
-  - thread 수
-  - GC 정보
+ - thread 수
+ - GC 정보
 - PROCESS 관련 정보
 - CPU
 
@@ -143,29 +143,29 @@ management.endpoint.shutdown.enabled=true
  "description":"The amount of used memory",
  "baseUnit":"bytes",
  "measurements":[
-     {
-         "statistic":"VALUE",
-         "value":1.4105248E8
-     }
+   {
+     "statistic":"VALUE",
+     "value":1.4105248E8
+   }
  ],
  "availableTags":[
-     {
-         "tag":"area",
-         "values":[
-             "heap","nonheap"
-         ]
-     },
-     {
-         "tag":"id",
-         "values":[
-             "Compressed Class Space",
-             "PS Survivor Space",
-             "PS Old Gen",
-             "Metaspace",
-             "PS Eden Space",
-             "Code Cache"
-         ]
-     }
+   {
+     "tag":"area",
+     "values":[
+       "heap","nonheap"
+     ]
+   },
+   {
+     "tag":"id",
+     "values":[
+       "Compressed Class Space",
+       "PS Survivor Space",
+       "PS Old Gen",
+       "Metaspace",
+       "PS Eden Space",
+       "Code Cache"
+     ]
+   }
  ]
 }
 ```
@@ -191,22 +191,22 @@ management.endpoint.shutdown.enabled=true
 ```java
 @Component
 public class ConcurrentTransactionCountInterceptor extends HandlerInterceptorAdapter {
-    private final Counter counter;
+  private final Counter counter;
 
-    public ConcurrentTransactionCountInterceptor(MeterRegistry meterRegistry) {
-        this.counter = meterRegistry.counter("transaction.current.count");
-    }
+  public ConcurrentTransactionCountInterceptor(MeterRegistry meterRegistry) {
+    this.counter = meterRegistry.counter("transaction.current.count");
+  }
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        counter.increment();
-        return true;
-    }
+  @Override
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    counter.increment();
+    return true;
+  }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        counter.increment(-1d);
-    }
+  @Override
+  public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    counter.increment(-1d);
+  }
 }
 ```
 
@@ -214,13 +214,13 @@ public class ConcurrentTransactionCountInterceptor extends HandlerInterceptorAda
 
 ```json
 {
-    "name": "transaction.current.count",
-    "description": null,
-    "baseUnit": null,
-    "measurements": [
+  "name": "transaction.current.count",
+  "description": null,
+  "baseUnit": null,
+  "measurements": [
 {
-    "statistic": "COUNT",
-    "value": 0
+  "statistic": "COUNT",
+  "value": 0
 }
 ],
 	"availableTags": []
@@ -245,13 +245,13 @@ springboot admi UI는 일종의 대시보드 기능이라고 생각하면 좋을
 **pom.xml**
 ```xml
 <dependency>
-    <groupId>de.codecentric</groupId>
-    <artifactId>spring-boot-admin-starter-server</artifactId>
+  <groupId>de.codecentric</groupId>
+  <artifactId>spring-boot-admin-starter-server</artifactId>
 </dependency>
 
 <dependency>
-    <groupId>de.codecentric</groupId>
-    <artifactId>spring-boot-admin-starter-client</artifactId>
+  <groupId>de.codecentric</groupId>
+  <artifactId>spring-boot-admin-starter-client</artifactId>
 </dependency>
 ```
 
@@ -265,12 +265,12 @@ spring.boot.admin.client.instance.service-url=http://localhost:8080
 
 **ActuatorApplication.java**
 ```java
-@EnableAdminServer  // 어노테이션 추가
+@EnableAdminServer // 어노테이션 추가
 @SpringBootApplication
 public class ActuatorApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(ActuatorApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(ActuatorApplication.class, args);
+  }
 }
 ```
 
@@ -285,7 +285,7 @@ public class ActuatorApplication {
 
 ![Springadmin로 덤프파일도 받을 수 있어요!](/assets/img/dev/2020/0326/adminui03.JPG)
 
-관련 소스는 [github/assu10](https://github.com/assu10/springboot-actuator){:target="_blank"}  에서 확인하실 수 있습니다.
+관련 소스는 [github/assu10](https://github.com/assu10/springboot-actuator){:target="_blank"} 에서 확인하실 수 있습니다.
 
 ## 참고사이트
 

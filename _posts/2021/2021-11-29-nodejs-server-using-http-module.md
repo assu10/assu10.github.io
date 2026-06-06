@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Node.js - http 모듈로 서버 생성"
+title: "Node.js - http 모듈로 서버 생성"
 date: 2021-11-29 10:00
 categories: dev
 tags: javascript nodejs
@@ -31,7 +31,7 @@ createServer.js
 const http = require('http');
 
 http.createServer((req, res) => {
-  // 응답 콜백
+ // 응답 콜백
 });
 ```
 
@@ -46,15 +46,15 @@ server1-1.js
 const http = require('http');
 
 http
-  .createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write('hello');
-    res.end('END');
-  })
-  .listen(8080, () => {
-    // 서버 연결
-    console.log('waiting 8080 port...');
-  });
+ .createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.write('hello');
+  res.end('END');
+ })
+ .listen(8080, () => {
+  // 서버 연결
+  console.log('waiting 8080 port...');
+ });
 ```
 
 ```shell
@@ -66,13 +66,13 @@ waiting 8080 port...
 createServer 메서드 뒤에 listen 메서드를 붙여 클라이언트에 공개할 포트 번호와 포트 연결 완료 후 실행될 콜백 함수를 넣는다.
 
 - `res.writeHead`
-    - 헤더에 기록되는 정보
+  - 헤더에 기록되는 정보
 - `res.write`
-    - body 에 기록되는 정보
-    - 클라이언트에 보낼 데이터
+  - body 에 기록되는 정보
+  - 클라이언트에 보낼 데이터
 - `res.end`
-    - 응답을 종료하는 메서드
-    - 인수가 있다면 그 데이터도 클라이언트로 보내고 응답을 종료
+  - 응답을 종료하는 메서드
+  - 인수가 있다면 그 데이터도 클라이언트로 보내고 응답을 종료
 
 > 80 포트를 사용하면 주소에서 포트 생략이 가능하다.<br />
 > https 의 경우 443 포트 생략이 가능하다.<br />
@@ -85,18 +85,18 @@ server1-2.js
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-  res.write('hello');
-  res.end('END');
+ res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+ res.write('hello');
+ res.end('END');
 });
 server.listen(8080);
 
 server.on('listening', () => {
-  console.log('waiting 8080 port...');
+ console.log('waiting 8080 port...');
 });
 
 server.on('error', err => {
-  console.error(err);
+ console.error(err);
 });
 ```
 
@@ -107,26 +107,26 @@ server1-3.js
 const http = require('http');
 
 http
-  .createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write('hello');
-    res.end('END');
-  })
-  .listen(8080, () => {
-    // 서버 연결
-    console.log('waiting 8080 port...');
-  });
+ .createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.write('hello');
+  res.end('END');
+ })
+ .listen(8080, () => {
+  // 서버 연결
+  console.log('waiting 8080 port...');
+ });
 
 http
-  .createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write('hello');
-    res.end('END');
-  })
-  .listen(8081, () => {
-    // 서버 연결
-    console.log('waiting 8081 port...');
-  });
+ .createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.write('hello');
+  res.end('END');
+ })
+ .listen(8081, () => {
+  // 서버 연결
+  console.log('waiting 8081 port...');
+ });
 ```
 
 ```shell
@@ -142,20 +142,20 @@ const http = require('http');
 const fs = require('fs').promises;
 
 http
-  .createServer(async (req, res) => {
-    try {
-      const data = await fs.readFile('server2.html');
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end(data); // 저장된 버퍼를 그대로 클라이언트로 전달
-    } catch (err) {
-      console.error(err);
-      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-      res.end(err.message);
-    }
-  })
-  .listen(8080, () => {
-    console.log('wait 8080 port...');
-  });
+ .createServer(async (req, res) => {
+  try {
+   const data = await fs.readFile('server2.html');
+   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+   res.end(data); // 저장된 버퍼를 그대로 클라이언트로 전달
+  } catch (err) {
+   console.error(err);
+   res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+   res.end(err.message);
+  }
+ })
+ .listen(8080, () => {
+  console.log('wait 8080 port...');
+ });
 ```
 
 ---
@@ -182,16 +182,16 @@ req, res 모두 내부적으로는 Stream (readStream, writeStream) 으로 되�
 ```javascript
 // 요청 body 를 stream 형식으로 받음
 req.on('data', data => {
-  body += data;
+ body += data;
 });
 // 요청 body 다 받은 후 실행
 return req.on('end', () => {
-  console.log('POST body: ', body);
-  const { name } = JSON.parse(body);
-  const id = Date.now();
-  users[id] = name;
-  res.writeHead(201, { 'Content-Type': 'text/plain; charset=utf-8' });
-  res.end('ok');
+ console.log('POST body: ', body);
+ const { name } = JSON.parse(body);
+ const id = Date.now();
+ users[id] = name;
+ res.writeHead(201, { 'Content-Type': 'text/plain; charset=utf-8' });
+ res.end('ok');
 });
 ```
 
@@ -205,14 +205,14 @@ return req.on('end', () => {
 const http = require('http');
 
 http
-  .createServer((req, res) => {
-    console.log(req.url, req.headers.cookie);
-    res.writeHead(200, { 'Set-Cookie': 'mycookie=test' });
-    res.end('쿠키 완료');
-  })
-  .listen(8080, () => {
-    console.log('8080...');
-  });
+ .createServer((req, res) => {
+  console.log(req.url, req.headers.cookie);
+  res.writeHead(200, { 'Set-Cookie': 'mycookie=test' });
+  res.end('쿠키 완료');
+ })
+ .listen(8080, () => {
+  console.log('8080...');
+ });
 ```
 
 ```shell
@@ -236,58 +236,58 @@ const qs = require('querystring');
 
 // 문자열의 쿠키를 { aa: bb } 형태의 객체 형식으로 변환
 const parseCookies = (cookie = '') =>
-  cookie
-    .split(';')
-    .map(v => v.split('='))
-    .reduce((acc, [k, v]) => {
-      acc[k.trim()] = decodeURIComponent(v);
-      return acc;
-    }, {});
+ cookie
+  .split(';')
+  .map(v => v.split('='))
+  .reduce((acc, [k, v]) => {
+   acc[k.trim()] = decodeURIComponent(v);
+   return acc;
+  }, {});
 
 const session = {};
 
 http
-  .createServer(async (req, res) => {
-    const cookies = parseCookies(req.headers.cookie); // {mycookie: 'test}
+ .createServer(async (req, res) => {
+  const cookies = parseCookies(req.headers.cookie); // {mycookie: 'test}
 
-    if (req.url.startsWith('/login')) {
-      const { query } = url.parse(req.url);
-      const { name } = qs.parse(query);
-      const expires = new Date();
-      // 쿠키 유효 시간을 현재시간 + 5분으로 설정
-      expires.setMinutes(expires.getMinutes() + 5);
+  if (req.url.startsWith('/login')) {
+   const { query } = url.parse(req.url);
+   const { name } = qs.parse(query);
+   const expires = new Date();
+   // 쿠키 유효 시간을 현재시간 + 5분으로 설정
+   expires.setMinutes(expires.getMinutes() + 5);
 
-      const uniqueInt = Date.now();
-      session[uniqueInt] = {
-        name,
-        expires,
-      };
-      res.writeHead(302, {
-        Location: '/',
-        'Set-Cookie': `session=${uniqueInt}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
-      });
-      res.end();
-      // 세션 쿠키가 존재하고, 만료 기간 전인 경우
-    } else if (
-      cookies.session &&
-      session[cookies.session].expires > new Date()
-    ) {
-      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-      res.end(`${session[cookies.session].name} 님~`);
-    } else {
-      try {
-        const data = await fs.readFile('cookie2.html');
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-        res.end(data);
-      } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end(err.message);
-      }
-    }
-  })
-  .listen(8080, () => {
-    console.log('waiting 8080...');
-  });
+   const uniqueInt = Date.now();
+   session[uniqueInt] = {
+    name,
+    expires,
+   };
+   res.writeHead(302, {
+    Location: '/',
+    'Set-Cookie': `session=${uniqueInt}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
+   });
+   res.end();
+   // 세션 쿠키가 존재하고, 만료 기간 전인 경우
+  } else if (
+   cookies.session &&
+   session[cookies.session].expires > new Date()
+  ) {
+   res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+   res.end(`${session[cookies.session].name} 님~`);
+  } else {
+   try {
+    const data = await fs.readFile('cookie2.html');
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(data);
+   } catch (err) {
+    res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end(err.message);
+   }
+  }
+ })
+ .listen(8080, () => {
+  console.log('waiting 8080...');
+ });
 ```
 
 아래 부분을 보면 HTTP 응답 코드를 302 로 보낸다.<br />
@@ -297,33 +297,33 @@ Set-Cookie 의 값으로는 제한된 ASCII 코드만 들어가야 하므로 줄
 
 ```javascript
 res.writeHead(302, {
-  Location: '/',
-  'Set-Cookie': `session=${uniqueInt}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
+ Location: '/',
+ 'Set-Cookie': `session=${uniqueInt}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
 });
 
 // 한글이 있는 경우는
 es.writeHead(302, {
-  Location: '/',
-  'Set-Cookie': `name=${encodeURIComponent(
-          name,
-  )}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
+ Location: '/',
+ 'Set-Cookie': `name=${encodeURIComponent(
+     name,
+ )}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
 });
 ```
 
 - `쿠키명=쿠키값`
 - `Expires=날짜`
-  - 기본값은 클라이언트가 종료될 때 까지임
+ - 기본값은 클라이언트가 종료될 때 까지임
 - `Max-age=초`
-  - Expires 와 비슷하지만 날짜 대신 초를 입력, Expires 보다 우선함
+ - Expires 와 비슷하지만 날짜 대신 초를 입력, Expires 보다 우선함
 - `Domain=도메인명`
-  - 쿠키가 전송될 도메인을 특정함, 기본값은 현재 도메인.
+ - 쿠키가 전송될 도메인을 특정함, 기본값은 현재 도메인.
 - `Path=URL`
-  - 쿠키가 전송될 URL 을 특정함, 기본값은 `/` 이고, 이 경우 모든 URL 에서 쿠키 전송 가능
+ - 쿠키가 전송될 URL 을 특정함, 기본값은 `/` 이고, 이 경우 모든 URL 에서 쿠키 전송 가능
 - `Secure`
-  - true: HTTPS 일 경우에만 쿠키 전송
-  - false: HTTPS 가 아닌 환경에서도 쿠키 전송
+ - true: HTTPS 일 경우에만 쿠키 전송
+ - false: HTTPS 가 아닌 환경에서도 쿠키 전송
 - `HttpOnly`
-  - 설정 시 자바스크립트에서 쿠키에 접근할 수 없음(즉, 클라이언트에서 쿠키 확인 불가), 쿠키 조작 방지를 위해 설정하는 것이 좋음
+ - 설정 시 자바스크립트에서 쿠키에 접근할 수 없음(즉, 클라이언트에서 쿠키 확인 불가), 쿠키 조작 방지를 위해 설정하는 것이 좋음
 
 위처럼 하는 방식이 `세션`이다.<br />
 서버에 사용자 정보를 저장하지 않고 클라이언트와는 세션 아이디로만 소통한다.<br />
@@ -334,8 +334,8 @@ es.writeHead(302, {
 > 참고하세요.
 
 실제 운영 서버에서는 세션을 위처럼 변수에 저장하지 않는다.<br />
-서버가 멈추거나 재시작되면 메모리에 저장된 변수가 초기화되고, 서버의 메모리가 부족하면 세션을  저장하지 못하는 문제도 생긴다.<br />
-따라서 보통은 레디스나 맴캐시  드 같은 DB 에 저장한다.
+서버가 멈추거나 재시작되면 메모리에 저장된 변수가 초기화되고, 서버의 메모리가 부족하면 세션을 저장하지 못하는 문제도 생긴다.<br />
+따라서 보통은 레디스나 맴캐시 드 같은 DB 에 저장한다.
 
 **위의 코드는 쿠키를 악용한 여러 위협에 방어하지 못하므로 개념만 익혀두는 용도로 보고 절대 실제 서비스에 사용해서는 안된다.**
 
@@ -373,32 +373,32 @@ const http = require('http');
 const numCPUs = require('os').cpus().length;
 
 if (cluster.isMaster) {
-  console.log(`마스터 프로세스 아이디: ${process.pid}`);
-  // CPU 개수만큼 워커를 생산
-  for (let i = 0; i < numCPUs; i += 1) {
-    cluster.fork();
-  }
-  // 워커가 종료되었을 때
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`${worker.process.pid}번 워커가 종료되었습니다.`);
-    console.log('code', code, 'signal', signal);
-    cluster.fork();
-  });
+ console.log(`마스터 프로세스 아이디: ${process.pid}`);
+ // CPU 개수만큼 워커를 생산
+ for (let i = 0; i < numCPUs; i += 1) {
+  cluster.fork();
+ }
+ // 워커가 종료되었을 때
+ cluster.on('exit', (worker, code, signal) => {
+  console.log(`${worker.process.pid}번 워커가 종료되었습니다.`);
+  console.log('code', code, 'signal', signal);
+  cluster.fork();
+ });
 } else {
-  // 워커들이 포트에서 대기
-  http
-    .createServer((req, res) => {
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.write('<h1>Hello Node!</h1>');
-      res.end('<p>Hello Cluster!</p>');
-      setTimeout(() => {
-        // 워커 존재를 확인하기 위해 1초마다 강제 종료
-        process.exit(1);
-      }, 1000);
-    })
-    .listen(8086);
+ // 워커들이 포트에서 대기
+ http
+  .createServer((req, res) => {
+   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+   res.write('<h1>Hello Node!</h1>');
+   res.end('<p>Hello Cluster!</p>');
+   setTimeout(() => {
+    // 워커 존재를 확인하기 위해 1초마다 강제 종료
+    process.exit(1);
+   }, 1000);
+  })
+  .listen(8086);
 
-  console.log(`${process.pid}번 워커 실행`);
+ console.log(`${process.pid}번 워커 실행`);
 }
 ```
 

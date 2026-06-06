@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Typescript - ramda 라이브러리 (2)"
+title: "Typescript - ramda 라이브러리 (2)"
 date: 2021-09-30 10:00
 categories: dev
 tags: javascript typescript
@@ -11,59 +11,59 @@ tags: javascript typescript
 본 포스트에 사용된 tsconfig.json
 ```json
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "ES2015",
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "baseUrl": ".",
-    "sourceMap": true,
-    "strict": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
-    "strictFunctionTypes": false,
-    "paths": { "*": ["node_modules/*"] }
-  },
-  "include": ["src/**/*"]
+ "compilerOptions": {
+  "module": "commonjs",
+  "esModuleInterop": true,
+  "target": "ES2015",
+  "moduleResolution": "node",
+  "outDir": "dist",
+  "baseUrl": ".",
+  "sourceMap": true,
+  "strict": true,
+  "noImplicitAny": false,
+  "noImplicitThis": false,
+  "strictFunctionTypes": false,
+  "paths": { "*": ["node_modules/*"] }
+ },
+ "include": ["src/**/*"]
 }
 ```
 
 *소스는 [assu10/typescript.git](https://github.com/assu10/typescript.git) 에 있습니다.*
 
 <!-- TOC -->
-  * [1. `chance` 패키지로 객체 생성](#1-chance-패키지로-객체-생성)
-    * [1.1. ICoordinates 타입 객체 생성](#11-icoordinates-타입-객체-생성)
-    * [1.2. ILocation 타입 객체 생성](#12-ilocation-타입-객체-생성)
-    * [1.3. IPerson 타입 객체 생성](#13-iperson-타입-객체-생성)
-  * [2. 렌즈 (Lens) 를 활용한 객체의 속성 다루기](#2-렌즈-lens-를-활용한-객체의-속성-다루기)
-    * [2.1. 렌즈 (Lens)](#21-렌즈-lens-)
-    * [2.2. `R.prop`, `R.assoc` 함수](#22-rprop-rassoc-함수)
-    * [2.3. `R.lens` 함수](#23-rlens-함수)
-    * [2.4. `R.view`, `R.set`, `R.over` 함수](#24-rview-rset-rover-함수)
-    * [2.5. `R.lensPath` 함수](#25-rlenspath-함수)
-  * [3. 객체 다루기](#3-객체-다루기)
-    * [3.1. `R.toPairs`, `R.fromParis` 함수](#31-rtopairs-rfromparis-함수)
-    * [3.2. `R.keys`, `R.values` 함수](#32-rkeys-rvalues-함수)
-    * [3.3. `R.zipObj` 함수](#33-rzipobj-함수)
-    * [3.4. `R.mergeLeft`, `R.mergeRight` 함수](#34-rmergeleft-rmergeright-함수)
-    * [3.5. `R.mergeDeepLeft`, `R.mergeDeepRight` 함수](#35-rmergedeepleft-rmergedeepright-함수)
-  * [4. 배열 다루기](#4-배열-다루기)
-    * [4.1. `R.prepend`, `R.append` 함수](#41-rprepend-rappend-함수)
-    * [4.2. `R.flatten` 함수](#42-rflatten-함수)
-    * [4.3. `R.unnest` 함수](#43-runnest-함수)
-    * [4.4. `R.sort` 함수](#44-rsort-함수)
-    * [4.5. `R.sortBy` 함수](#45-rsortby-함수)
-    * [4.6. `R.sortWith` 함수](#46-rsortwith-함수)
-  * [5. 조합 논리 이해](#5-조합-논리-이해)
-    * [5.1. 조합자 (combinator)](#51-조합자-combinator)
-    * [5.2. `R.chain` 함수](#52-rchain-함수)
-    * [5.3. `R.flip` 조합자](#53-rflip-조합자)
-    * [5.4. `R.identity` 조합자](#54-ridentity-조합자)
-    * [5.5. `R.always` 조합자](#55-ralways-조합자)
-    * [5.6. `R.applyTo` 조합자](#56-rapplyto-조합자)
-    * [5.7. `R.ap` 조합자](#57-rap-조합자)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+ * [1. `chance` 패키지로 객체 생성](#1-chance-패키지로-객체-생성)
+  * [1.1. ICoordinates 타입 객체 생성](#11-icoordinates-타입-객체-생성)
+  * [1.2. ILocation 타입 객체 생성](#12-ilocation-타입-객체-생성)
+  * [1.3. IPerson 타입 객체 생성](#13-iperson-타입-객체-생성)
+ * [2. 렌즈 (Lens) 를 활용한 객체의 속성 다루기](#2-렌즈-lens-를-활용한-객체의-속성-다루기)
+  * [2.1. 렌즈 (Lens)](#21-렌즈-lens-)
+  * [2.2. `R.prop`, `R.assoc` 함수](#22-rprop-rassoc-함수)
+  * [2.3. `R.lens` 함수](#23-rlens-함수)
+  * [2.4. `R.view`, `R.set`, `R.over` 함수](#24-rview-rset-rover-함수)
+  * [2.5. `R.lensPath` 함수](#25-rlenspath-함수)
+ * [3. 객체 다루기](#3-객체-다루기)
+  * [3.1. `R.toPairs`, `R.fromParis` 함수](#31-rtopairs-rfromparis-함수)
+  * [3.2. `R.keys`, `R.values` 함수](#32-rkeys-rvalues-함수)
+  * [3.3. `R.zipObj` 함수](#33-rzipobj-함수)
+  * [3.4. `R.mergeLeft`, `R.mergeRight` 함수](#34-rmergeleft-rmergeright-함수)
+  * [3.5. `R.mergeDeepLeft`, `R.mergeDeepRight` 함수](#35-rmergedeepleft-rmergedeepright-함수)
+ * [4. 배열 다루기](#4-배열-다루기)
+  * [4.1. `R.prepend`, `R.append` 함수](#41-rprepend-rappend-함수)
+  * [4.2. `R.flatten` 함수](#42-rflatten-함수)
+  * [4.3. `R.unnest` 함수](#43-runnest-함수)
+  * [4.4. `R.sort` 함수](#44-rsort-함수)
+  * [4.5. `R.sortBy` 함수](#45-rsortby-함수)
+  * [4.6. `R.sortWith` 함수](#46-rsortwith-함수)
+ * [5. 조합 논리 이해](#5-조합-논리-이해)
+  * [5.1. 조합자 (combinator)](#51-조합자-combinator)
+  * [5.2. `R.chain` 함수](#52-rchain-함수)
+  * [5.3. `R.flip` 조합자](#53-rflip-조합자)
+  * [5.4. `R.identity` 조합자](#54-ridentity-조합자)
+  * [5.5. `R.always` 조합자](#55-ralways-조합자)
+  * [5.6. `R.applyTo` 조합자](#56-rapplyto-조합자)
+  * [5.7. `R.ap` 조합자](#57-rap-조합자)
+ * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -77,11 +77,11 @@ tags: javascript typescript
 총 3개 타입의 객체를 만들건데 각 용도는 아래와 같다.
 
 - **IPerson** 타입 객체
-    - 이름, 나이 등 한 사람의 정보를 담음
+  - 이름, 나이 등 한 사람의 정보를 담음
 - **ILocation** 타입 객체
-    - IPerson 타입 객체는은 주소를 표현하는 ILocation 타입의 location 속성을 포함
+  - IPerson 타입 객체는은 주소를 표현하는 ILocation 타입의 location 속성을 포함
 - **ICoordinates** 타입 객체
-    - ILocation 타입 객체는 좌표를 표현하는 ICoordinates 타입의 coordinates 속성을 포함
+  - ILocation 타입 객체는 좌표를 표현하는 ICoordinates 타입의 coordinates 속성을 포함
 
 ---
 
@@ -95,11 +95,11 @@ tags: javascript typescript
 
 각 파일의 용도는 아래와 같다.
 - **ICoordinates.ts**
-  - 위도와 경도 속성 표시
+ - 위도와 경도 속성 표시
 - **makeICoordinates.ts**
-    - ICoordinates 객체를 쉽게 생성해주는 함수 구현
+  - ICoordinates 객체를 쉽게 생성해주는 함수 구현
 - **makeRandomICoordinates.ts**
-    - 가짜 데이터 생성
+  - 가짜 데이터 생성
 - **index.ts**
 
 ICoordinates.ts
@@ -107,8 +107,8 @@ ICoordinates.ts
 // 위도와 경도 표시
 
 export type ICoordinates = {
-    latitude: number,   // 위도
-    longitude: number   // 경도
+  latitude: number,  // 위도
+  longitude: number  // 경도
 }
 ```
 
@@ -119,7 +119,7 @@ makeICoordinates.ts
 import {ICoordinates} from "./ICoordinates";
 
 export const makeICoordinates = (latitude: number, longitude: number): ICoordinates =>
-    ({latitude, longitude});
+  ({latitude, longitude});
 ```
 
 makeRandomICoordinates.ts
@@ -133,7 +133,7 @@ import Chance from 'chance'
 const c = new Chance;
 
 export const makeRandomICoordinates = (): ICoordinates =>
-    makeICoordinates(c.latitude(), c.longitude());
+  makeICoordinates(c.latitude(), c.longitude());
 ```
 
 src/model/coordinates/index.ts
@@ -154,7 +154,7 @@ src/coordinates-test.ts
 import {ICoordinates, makeRandomICoordinates} from "./model/coordinates";
 
 const coordinates: ICoordinates = makeRandomICoordinates();
-console.log(coordinates);   // { latitude: -70.33719, longitude: 138.98725 }
+console.log(coordinates);  // { latitude: -70.33719, longitude: 138.98725 }
 ```
 
 *./model/coordinates* 는 파일명이 아니라 디렉터리명이다.<br />
@@ -178,11 +178,11 @@ console.log(coordinates);   // { latitude: -70.33719, longitude: 138.98725 }
 
 각 파일의 용도는 아래와 같다.
 - **ILocation.ts**
-  - 주소 속성 표시
+ - 주소 속성 표시
 - **makeILocation.ts**
-  - ILocation 객체를 쉽게 생성해주는 함수 구현
+ - ILocation 객체를 쉽게 생성해주는 함수 구현
 - **makeRandomILocation.ts**
-  - 가짜 데이터 생성
+ - 가짜 데이터 생성
 - **index.ts**
 
 ILocation 타입에서 country 만 필수 속성이고, 나머지는 모두 선택 속성으로 구현한다.
@@ -193,10 +193,10 @@ import {ICoordinates} from "../coordinates";
 
 // country 만 필수 속성이고, 그 외엔 선택 속성
 export type ILocation = {
-    country: string,
-    city?: string,
-    address?: string,
-    coordinates?: ICoordinates
+  country: string,
+  city?: string,
+  address?: string,
+  coordinates?: ICoordinates
 }
 ```
 
@@ -208,10 +208,10 @@ import {ICoordinates} from "../coordinates";
 import {ILocation} from "./ILocation";
 
 export const makeILocation = (
-    country: string,
-    city: string,
-    address: string,
-    coordinates: ICoordinates
+  country: string,
+  city: string,
+  address: string,
+  coordinates: ICoordinates
 ): ILocation => ({country, city, address, coordinates})
 ```
 
@@ -225,7 +225,7 @@ import Chance from 'chance'
 const c = new Chance
 
 export const makeRandomILocation = (): ILocation =>
-    makeILocation(c.country(), c.city(), c.address(), makeRandomICoordinates());
+  makeILocation(c.country(), c.city(), c.address(), makeRandomICoordinates());
 ```
 
 src/model/location/index.ts
@@ -246,10 +246,10 @@ console.log(location);
 
 /*
 {
-    country: 'MM',
-    city: 'Bojdiati',
-    address: '1949 Sasso River',
-    coordinates: { latitude: -82.0187, longitude: 103.75517 }
+  country: 'MM',
+  city: 'Bojdiati',
+  address: '1949 Sasso River',
+  coordinates: { latitude: -82.0187, longitude: 103.75517 }
 }
 */
 ```
@@ -275,10 +275,10 @@ IPerson.ts
 import {ILocation} from "../location";
 
 export type IPerson = {
-    name: string,
-    age: number,
-    title?: string,
-    location?: ILocation
+  name: string,
+  age: number,
+  title?: string,
+  location?: ILocation
 }
 ```
 
@@ -294,7 +294,7 @@ import Chance from 'chance'
 const c = new Chance();
 
 export const makeRandomIPerson = (): IPerson =>
-    makeIPerson(c.name(), c.age(), c.profession(), makeRandomILocation());
+  makeIPerson(c.name(), c.age(), c.profession(), makeRandomILocation());
 ```
 
 src/model/person/index.ts
@@ -315,14 +315,14 @@ console.log(person);
 
 /*
 {
-    name: 'Leroy Bryan',
-        age: 31,
-    title: 'Occupational Therapist',
-    location: {
-    country: 'ST',
-        city: 'Buetunu',
-        address: '1556 Zemip Turnpike',
-        coordinates: { latitude: -12.52604, longitude: 39.08515 }
+  name: 'Leroy Bryan',
+    age: 31,
+  title: 'Occupational Therapist',
+  location: {
+  country: 'ST',
+    city: 'Buetunu',
+    address: '1556 Zemip Turnpike',
+    coordinates: { latitude: -12.52604, longitude: 39.08515 }
 }
 }
 */
@@ -363,16 +363,16 @@ import {IPerson, makeRandomIPerson} from "./model/person";
 const person: IPerson = makeRandomIPerson();
 
 const name = R.pipe(
-    R.prop('name'),
-    R.tap(name => console.log(name))    // Brian Turner
+  R.prop('name'),
+  R.tap(name => console.log(name))  // Brian Turner
 )(person);
 
 
 // R.assoc
 const person2: IPerson = makeRandomIPerson();
 const getName = R.pipe(
-    R.prop('name'),
-    R.tap(name => console.log(name))
+  R.prop('name'),
+  R.tap(name => console.log(name))
 );
 const originalName = getName(person2);
 
@@ -415,35 +415,35 @@ const setterUsingFunc = (lens) => <T, R>(func: (T) => R) => R.over(lens, func);
 
 // 활용
 const nameLens = makeLens('name');
-console.log('nameLens', nameLens);  // [Function (anonymous)]
+console.log('nameLens', nameLens); // [Function (anonymous)]
 
 const getName = getter(nameLens);
-console.log('getName', getName);   // [Function: f1]
+console.log('getName', getName);  // [Function: f1]
 
 const setName = setter(nameLens);
-console.log('nameLens', nameLens);  // [Function (anonymous)]
+console.log('nameLens', nameLens); // [Function (anonymous)]
 
 const setNameUsingFunc = setterUsingFunc(nameLens);
-console.log('setNameUsingFunc', setNameUsingFunc);  // [Function (anonymous)]
+console.log('setNameUsingFunc', setNameUsingFunc); // [Function (anonymous)]
 
 const person: IPerson = makeRandomIPerson();
 
 const name = getName(person);
-console.log('name', name);  // Ina White
+console.log('name', name); // Ina White
 
 const newPerson = setName('assu')(person);
 console.log('newPerson', newPerson);
 /*
 newPerson {
-    name: 'assu',
-        age: 64,
-        title: 'Buyer',
-        location: {
-        country: 'NF',
-            city: 'Jeicfa',
-            address: '1982 Ugeka Mill',
-            coordinates: { latitude: -48.87136, longitude: -164.53377 }
-    }
+  name: 'assu',
+    age: 64,
+    title: 'Buyer',
+    location: {
+    country: 'NF',
+      city: 'Jeicfa',
+      address: '1982 Ugeka Mill',
+      coordinates: { latitude: -48.87136, longitude: -164.53377 }
+  }
 }
 */
 
@@ -451,15 +451,15 @@ const anotherPerson = setNameUsingFunc(name => `Miss ${name}`)(person);
 console.log('anotherPerson', anotherPerson);
 /*
 anotherPerson {
-    name: 'Miss Lura Cole',
-        age: 56,
-        title: 'EEO Compliance Manager',
-        location: {
-        country: 'LK',
-            city: 'Mutubrew',
-            address: '966 Boge Grove',
-            coordinates: { latitude: 29.59275, longitude: -19.68588 }
-    }
+  name: 'Miss Lura Cole',
+    age: 56,
+    title: 'EEO Compliance Manager',
+    location: {
+    country: 'LK',
+      city: 'Mutubrew',
+      address: '966 Boge Grove',
+      coordinates: { latitude: 29.59275, longitude: -19.68588 }
+  }
 }
 */
 
@@ -467,20 +467,20 @@ const capitalPerson = setNameUsingFunc(R.toUpper)(person);
 console.log('capitalPerson', capitalPerson);
 /*
 capitalPerson {
-    name: 'LIDA OWEN',
-        age: 35,
-        title: 'Manpower Planner',
-        location: {
-        country: 'TN',
-            city: 'Ekapuvzo',
-            address: '1286 Zoklah Court',
-            coordinates: { latitude: 28.94433, longitude: 177.0845 }
-    }
+  name: 'LIDA OWEN',
+    age: 35,
+    title: 'Manpower Planner',
+    location: {
+    country: 'TN',
+      city: 'Ekapuvzo',
+      address: '1286 Zoklah Court',
+      coordinates: { latitude: 28.94433, longitude: 177.0845 }
+  }
 }
 */
 
 console.log(
-    name, getName(newPerson), getName(anotherPerson), getName(capitalPerson)
+  name, getName(newPerson), getName(anotherPerson), getName(capitalPerson)
 )
 // Rose Gibson assu Miss Rose Gibson ROSE GIBSON
 ```
@@ -511,36 +511,36 @@ const setter = (lens) => <T>(newValue: T) => R.set(lens, newValue);
 const setterUsingFunc = (lens) => <T, R>(func: (T) => R) => R.over(lens, func);
 
 // 활용
-const longitudeLens = R.lensPath(['location', 'coordinates', 'longitude']);  // 렌즈 생성
-console.log('longitudeLens', longitudeLens);     // [Function (anonymous)]
+const longitudeLens = R.lensPath(['location', 'coordinates', 'longitude']); // 렌즈 생성
+console.log('longitudeLens', longitudeLens);   // [Function (anonymous)]
 
 const getLongitude = getter(longitudeLens);
-console.log('getLongitude', getLongitude);      //  [Function: f1]
+console.log('getLongitude', getLongitude);   // [Function: f1]
 
 const setLongitude = setter(longitudeLens);
-console.log('setLongitude', setLongitude);      // [Function (anonymous)]
+console.log('setLongitude', setLongitude);   // [Function (anonymous)]
 
 const setLongitudeUsingFunc = setterUsingFunc(longitudeLens);
-console.log('setLongitudeUsingFunc', setLongitudeUsingFunc);        // [Function (anonymous)]
+console.log('setLongitudeUsingFunc', setLongitudeUsingFunc);    // [Function (anonymous)]
 
 const person: IPerson = makeRandomIPerson();
 
 const longitude = getLongitude(person);
-console.log('longitude', longitude);    // -88.99555
+console.log('longitude', longitude);  // -88.99555
 
 const newPerson = setLongitude(0.12345)(person);
 console.log('newPerson', newPerson);
 /*
 newPerson {
-    name: 'Charles Hudson',
-        age: 63,
-        title: 'Biotechnical Researcher',
-        location: {
-        country: 'UM',
-            city: 'Tipedivot',
-            address: '874 Wazvod Court',
-            coordinates: { latitude: 2.4853, longitude: 0.12345 }
-    }
+  name: 'Charles Hudson',
+    age: 63,
+    title: 'Biotechnical Researcher',
+    location: {
+    country: 'UM',
+      city: 'Tipedivot',
+      address: '874 Wazvod Court',
+      coordinates: { latitude: 2.4853, longitude: 0.12345 }
+  }
 }
 */
 
@@ -548,20 +548,20 @@ const anotherPerson = setLongitudeUsingFunc(R.add(0.12345))(person);
 console.log('anotherPerson', anotherPerson);
 /*
 anotherPerson {
-    name: 'Trevor Schultz',
-        age: 57,
-        title: 'Food & Beverage Director',
-        location: {
-        country: 'MC',
-            city: 'Rarito',
-            address: '484 Deha Square',
-            coordinates: { latitude: -65.29564, longitude: 26.61039 }
-    }
+  name: 'Trevor Schultz',
+    age: 57,
+    title: 'Food & Beverage Director',
+    location: {
+    country: 'MC',
+      city: 'Rarito',
+      address: '484 Deha Square',
+      coordinates: { latitude: -65.29564, longitude: 26.61039 }
+  }
 }
 */
 
 console.log(
-    longitude, getLongitude(newPerson), getLongitude(anotherPerson)
+  longitude, getLongitude(newPerson), getLongitude(anotherPerson)
 );
 // 164.50159 0.12345 164.62503999999998
 ```
@@ -574,7 +574,7 @@ console.log(
 
 `R.toPairs` 함수는 객체의 속성을 분해하여 배열로 만들어준다. 이 때 배열의 각 아이템은 **[string, any] 타입의 튜플**이다.
 
-`R.fromParis` 함수는 *[키:값]* 형태의 아이템을 가진 배열을 다시 객체로 만들어준다.  
+`R.fromParis` 함수는 *[키:값]* 형태의 아이템을 가진 배열을 다시 객체로 만들어준다. 
 
 ```ts
 import * as R from 'ramda'
@@ -584,36 +584,36 @@ const person: IPerson = makeRandomIPerson();
 const pairs: [string, any][] = R.toPairs(person);
 console.log('pairs: ', pairs);
 /*
-pairs:  [
-  [ 'name', 'Willie James' ],
-  [ 'age', 53 ],
-  [ 'title', 'Technical Support Specialist' ],
-  [
-    'location',
-    {
-      country: 'IE',
-      city: 'Itmitu',
-      address: '1910 Maizo View',
-      coordinates: [Object]
-    }
-  ]
+pairs: [
+ [ 'name', 'Willie James' ],
+ [ 'age', 53 ],
+ [ 'title', 'Technical Support Specialist' ],
+ [
+  'location',
+  {
+   country: 'IE',
+   city: 'Itmitu',
+   address: '1910 Maizo View',
+   coordinates: [Object]
+  }
+ ]
 ]
 */
 
 // TS2739: Type '{ [index: string]: any; }' is missing the following properties from type 'IPerson': name, age
-//const person2: IPerson = R.fromPairs(pairs);  // 오류
+//const person2: IPerson = R.fromPairs(pairs); // 오류
 const person3: IPerson = R.fromPairs(pairs) as IPerson;
 console.log('person3', person3);
 /*person3 {
-    name: 'Willie James',
-        age: 53,
-        title: 'Technical Support Specialist',
-        location: {
-        country: 'IE',
-            city: 'Itmitu',
-            address: '1910 Maizo View',
-            coordinates: { latitude: 37.34966, longitude: 169.75269 }
-    }
+  name: 'Willie James',
+    age: 53,
+    title: 'Technical Support Specialist',
+    location: {
+    country: 'IE',
+      city: 'Itmitu',
+      address: '1910 Maizo View',
+      coordinates: { latitude: 37.34966, longitude: 169.75269 }
+  }
 }*/
 ```
 
@@ -630,22 +630,22 @@ import * as R from 'ramda'
 import {makeRandomIPerson} from "./model/person";
 
 const keys: string[] = R.keys(makeRandomIPerson());
-console.log('keys', keys);  // keys [ 'name', 'age', 'title', 'location' ]
+console.log('keys', keys); // keys [ 'name', 'age', 'title', 'location' ]
 
 const values: any[] = R.values(makeRandomIPerson());
 console.log('values', values);
 /*
 values [
-    'Eliza Riley',
-        58,
-        'Traffic Manager',
-        {
-            country: 'CL',
-            city: 'Pubuceb',
-            address: '1563 Nule Turnpike',
-            coordinates: { latitude: -64.73081, longitude: 8.88806 }
-        }
-    ]
+  'Eliza Riley',
+    58,
+    'Traffic Manager',
+    {
+      country: 'CL',
+      city: 'Pubuceb',
+      address: '1563 Nule Turnpike',
+      coordinates: { latitude: -64.73081, longitude: 8.88806 }
+    }
+  ]
 */
 ```
 
@@ -671,26 +671,26 @@ const zippedPerson: IPerson = R.zipObj(keys, values) as IPerson;
 
 console.log('originalPerson: ', originalPerson, 'zippedPerson: ', zippedPerson);
 /*
-originalPerson:  {
-    name: 'Bertha Gonzalez',
-        age: 64,
-        title: 'Producer',
-        location: {
-        country: 'BQ',
-            city: 'Fifcuwusu',
-            address: '381 Vigfor Loop',
-            coordinates: { latitude: -54.04413, longitude: 56.24533 }
-    }
-} zippedPerson:  {
-    name: 'Bertha Gonzalez',
-        age: 64,
-        title: 'Producer',
-        location: {
-        country: 'BQ',
-            city: 'Fifcuwusu',
-            address: '381 Vigfor Loop',
-            coordinates: { latitude: -54.04413, longitude: 56.24533 }
-    }
+originalPerson: {
+  name: 'Bertha Gonzalez',
+    age: 64,
+    title: 'Producer',
+    location: {
+    country: 'BQ',
+      city: 'Fifcuwusu',
+      address: '381 Vigfor Loop',
+      coordinates: { latitude: -54.04413, longitude: 56.24533 }
+  }
+} zippedPerson: {
+  name: 'Bertha Gonzalez',
+    age: 64,
+    title: 'Producer',
+    location: {
+    country: 'BQ',
+      city: 'Fifcuwusu',
+      address: '381 Vigfor Loop',
+      coordinates: { latitude: -54.04413, longitude: 56.24533 }
+  }
 }
 */
 ```
@@ -702,8 +702,8 @@ originalPerson:  {
 `R.mergeLeft`, `R.mergeRight` 함수는 두 객체를 입력받아 두 객체의 속성들을 결합하여 하나의 새로운 객체를 생성한다.<br />
 
 ```ts
-새로운 객체 = R.mergeLeft(객체1)(객체2)  // 속성명은 같고 속성같이 다를 때 왼쪽 객체의 우선순위가 높음
-새로운 객체 = R.mergeRight(객체1)(객체2)  // 속성명은 같고 속성같이 다를 때 오른쪽 객체의 우선순위가 높음
+새로운 객체 = R.mergeLeft(객체1)(객체2) // 속성명은 같고 속성같이 다를 때 왼쪽 객체의 우선순위가 높음
+새로운 객체 = R.mergeRight(객체1)(객체2) // 속성명은 같고 속성같이 다를 때 오른쪽 객체의 우선순위가 높음
 ```
 
 ```ts
@@ -743,26 +743,26 @@ console.log('person', person);
 console.log('newPerson', newPerson);
 /*
 person {
-    name: 'Mildred Hart',
-        age: 21,
-        title: 'Novelist',
-        location: {
-        country: 'TM',
-            city: 'Puafjev',
-            address: '1834 Hijoma Street',
-            coordinates: { latitude: 43.8177, longitude: 138.68656 }
-    }
+  name: 'Mildred Hart',
+    age: 21,
+    title: 'Novelist',
+    location: {
+    country: 'TM',
+      city: 'Puafjev',
+      address: '1834 Hijoma Street',
+      coordinates: { latitude: 43.8177, longitude: 138.68656 }
+  }
 }
 newPerson {
-    name: 'Mildred Hart',
-        age: 21,
-        title: 'Novelist',
-        location: {
-        country: 'AM',
-            city: 'Fijosrid',
-            address: '1230 Ekita River',
-            coordinates: { latitude: 36.94358, longitude: -121.11057 }
-    }
+  name: 'Mildred Hart',
+    age: 21,
+    title: 'Novelist',
+    location: {
+    country: 'AM',
+      city: 'Fijosrid',
+      address: '1230 Ekita River',
+      coordinates: { latitude: 36.94358, longitude: -121.11057 }
+  }
 }*/
 ```
 
@@ -782,7 +782,7 @@ import * as R from 'ramda'
 
 const array: number[] = [3, 4];
 const newArray: number[] = R.prepend(1)(array);
-console.log(newArray);  // [ 1, 3, 4 ]
+console.log(newArray); // [ 1, 3, 4 ]
 ```
 
 ---
@@ -799,9 +799,9 @@ console.log(newArray);  // [ 1, 3, 4 ]
 import * as R from 'ramda'
 
 const array = R.range(1, 2+1).map((x: number) => {
-    return R.range(1, 2+1).map((y: number) => {
-        return [x, y];
-    });
+  return R.range(1, 2+1).map((y: number) => {
+    return [x, y];
+  });
 });
 
 console.log(array); // [ [ [ 1, 1 ], [ 1, 2 ] ], [ [ 2, 1 ], [ 2, 2 ] ] ]
@@ -820,18 +820,18 @@ console.log(flatArray); // [1, 1, 1, 2, 2, 1, 2, 2]
 import * as R from 'ramda'
 
 const array = R.range(1, 2+1).map((x: number) => {
-    return R.range(1, 2+1).map((y: number) => {
-        return [x, y];
-    });
+  return R.range(1, 2+1).map((y: number) => {
+    return [x, y];
+  });
 });
 
 console.log(array); // [ [ [ 1, 1 ], [ 1, 2 ] ], [ [ 2, 1 ], [ 2, 2 ] ] ]
 
 const unnestedArray = R.unnest(array);
-console.log(unnestedArray);     // [ [ 1, 1 ], [ 1, 2 ], [ 2, 1 ], [ 2, 2 ] ], array 를 한 번만 들어올림
+console.log(unnestedArray);   // [ [ 1, 1 ], [ 1, 2 ], [ 2, 1 ], [ 2, 2 ] ], array 를 한 번만 들어올림
 
 const twoUnnestedArray = R.pipe(R.unnest, R.unnest)(array);
-console.log(twoUnnestedArray);  // [1, 1, 1, 2, 2, 1, 2, 2], array 를 두 번 들어올림
+console.log(twoUnnestedArray); // [1, 1, 1, 2, 2, 1, 2, 2], array 를 두 번 들어올림
 ```
 
 ---
@@ -857,12 +857,12 @@ import * as R from 'ramda'
 
 type voidToNumberFunc = () => number;
 const makeRandomNumber = (max: number): voidToNumberFunc =>
-    (): number => Math.floor(Math.random() * max);
+  (): number => Math.floor(Math.random() * max);
 
 const array = R.range(1, 5+1).map(makeRandomNumber(100));
 const sortedArray = R.sort((a: number, b: number): number => a-b)(array);
 
-console.log(array, sortedArray);    // [ 9, 54, 43, 28, 11 ] [ 9, 11, 28, 43, 54 ]
+console.log(array, sortedArray);  // [ 9, 54, 43, 28, 11 ] [ 9, 11, 28, 43, 54 ]
 ```
 
 ---
@@ -884,11 +884,11 @@ import * as R from 'ramda'
 import {IPerson, makeRandomIPerson} from "./model/person";
 
 const displayPersons = (prefix: string) => R.pipe(
-    R.map((person: IPerson) => ({name: person.name, age: person.age})),
-    R.tap(o => console.log(prefix, o))
+  R.map((person: IPerson) => ({name: person.name, age: person.age})),
+  R.tap(o => console.log(prefix, o))
 )
 
-const person: IPerson[] = R.range(1, 4+1).map(makeRandomIPerson);   // person 객체 4개가 있는 하나의 배열 생성
+const person: IPerson[] = R.range(1, 4+1).map(makeRandomIPerson);  // person 객체 4개가 있는 하나의 배열 생성
 //console.log(person);
 const nameSortedPersons = R.sortBy(R.prop('name'))(person);
 const ageSortedPersons = R.sortBy(R.prop('age'))(person);
@@ -896,17 +896,17 @@ const ageSortedPersons = R.sortBy(R.prop('age'))(person);
 displayPersons('sorted by name: ')(nameSortedPersons);
 displayPersons('sorted by age: ')(ageSortedPersons);
 /*
-sorted by name:  [
-    { name: 'Bruce Floyd', age: 21 },
-    { name: 'Roger Brock', age: 21 },
-    { name: 'Todd Webster', age: 32 },
-    { name: 'Trevor Gardner', age: 24 }
+sorted by name: [
+  { name: 'Bruce Floyd', age: 21 },
+  { name: 'Roger Brock', age: 21 },
+  { name: 'Todd Webster', age: 32 },
+  { name: 'Trevor Gardner', age: 24 }
 ]
-sorted by age:  [
-    { name: 'Roger Brock', age: 21 },
-    { name: 'Bruce Floyd', age: 21 },
-    { name: 'Trevor Gardner', age: 24 },
-    { name: 'Todd Webster', age: 32 }
+sorted by age: [
+  { name: 'Roger Brock', age: 21 },
+  { name: 'Bruce Floyd', age: 21 },
+  { name: 'Trevor Gardner', age: 24 },
+  { name: 'Todd Webster', age: 32 }
 ]
 */
 ```
@@ -924,22 +924,22 @@ import * as R from 'ramda'
 import {IPerson, makeRandomIPerson} from "./model/person";
 
 const displayPersons = (prefix: string) => R.pipe(
-        R.map((person: IPerson) => ({name: person.name, age: person.age})),
-        R.tap(o => console.log(prefix, o))
+    R.map((person: IPerson) => ({name: person.name, age: person.age})),
+    R.tap(o => console.log(prefix, o))
 ) as any
 
-const person: IPerson[] = R.range(1, 4+1).map(makeRandomIPerson);   // person 객체 4개가 있는 하나의 배열 생성
+const person: IPerson[] = R.range(1, 4+1).map(makeRandomIPerson);  // person 객체 4개가 있는 하나의 배열 생성
 const nameSortedPersons = R.sortWith([
-  R.descend(R.prop('name'))
+ R.descend(R.prop('name'))
 ])(person);
 
 displayPersons('sorted by name: ')(nameSortedPersons);
 /*
-sorted by name:  [
-    { name: 'Lilly McKinney', age: 51 },
-    { name: 'Josie Morrison', age: 61 },
-    { name: 'Flora Manning', age: 61 },
-    { name: 'Fanny Griffith', age: 63 }
+sorted by name: [
+  { name: 'Lilly McKinney', age: 51 },
+  { name: 'Josie Morrison', age: 61 },
+  { name: 'Flora Manning', age: 61 },
+  { name: 'Fanny Griffith', age: 63 }
 ]
 */
 
@@ -956,7 +956,7 @@ sorted by name:  [
 대부분의 함수형 라이브러리들은 조합 논리로 개발된 유용한 조합자들을 제공하고, 람다 라이브러리 또한 몇 가지 유명한 조합자를 제공한다.
 
 | 조합자 이름 | 의미 | 람다 함수 이름 |
-|---|:---:|  |
+|---|:---:| |
 | C | flip | `R.flip` |
 | I | identity | `R.identity` |
 | K | constant | `R.always` |
@@ -984,14 +984,14 @@ const array = [1, 2, 3];
 
 // 매개변수가 1개 일 때
 R.pipe(
-    R.chain(n => [n, n]),
-    R.tap(n => console.log(n))  // [ 1, 1, 2, 2, 3, 3 ]
+  R.chain(n => [n, n]),
+  R.tap(n => console.log(n)) // [ 1, 1, 2, 2, 3, 3 ]
 )(array);
 
 // 매개변수가 2개 일 때
 R.pipe(
-    R.chain(R.append, R.head),
-    R.tap(n => console.log(n))  // [ 1, 2, 3, 1 ]
+  R.chain(R.append, R.head),
+  R.tap(n => console.log(n)) // [ 1, 2, 3, 1 ]
 )(array);
 ```
 
@@ -1000,20 +1000,20 @@ R.pipe(
 ```ts
 // 매개변수가 1개 일 때
 R.pipe(
-    R.chain(n => [n, n]),
-    R.tap(n => console.log(n))  // [ 1, 1, 2, 2, 3, 3 ]
+  R.chain(n => [n, n]),
+  R.tap(n => console.log(n)) // [ 1, 1, 2, 2, 3, 3 ]
 )(array);
 
 // 함수 flapMap 은 fn 을 매개변수로 받아서 => 뒤의 부분을 리턴
 // R.chain 의 매개변수가 1개일때는 아래처럼 동작
 const flapMap = (fn) => R.pipe(
-    R.map(fn),
-    R.flatten
+  R.map(fn),
+  R.flatten
 )
 
 R.pipe(
-    flapMap(n => [n, n]),
-    R.tap(n => console.log(n))  // // [ 1, 1, 2, 2, 3, 3 ]
+  flapMap(n => [n, n]),
+  R.tap(n => console.log(n)) // // [ 1, 1, 2, 2, 3, 3 ]
 )(array);
 ```
 
@@ -1021,15 +1021,15 @@ R.pipe(
 ```ts
 // 매개변수가 2개 일 때
 R.pipe(
-    R.chain(R.append, R.head),
-    R.tap(n => console.log(n))  // [ 1, 2, 3, 1 ]
+  R.chain(R.append, R.head),
+  R.tap(n => console.log(n)) // [ 1, 2, 3, 1 ]
 )(array);
 
 const chainTwoFunc = (firstFn, secondFn) => (x) => firstFn(secondFn(x), x);
 
 R.pipe(
-    chainTwoFunc(R.append, R.head), // array => (R.append(R.head(array))(array)
-    R.tap(n => console.log(n))  // [ 1, 2, 3, 1 ]
+  chainTwoFunc(R.append, R.head), // array => (R.append(R.head(array))(array)
+  R.tap(n => console.log(n)) // [ 1, 2, 3, 1 ]
 )(array);
 ```
 
@@ -1068,15 +1068,15 @@ const array = [[1], [2], [3]];
 // 함수 flapMap 은 fn 을 매개변수로 받아서 => 뒤의 부분을 리턴
 // R.chain 의 매개변수가 1개일때는 아래처럼 동작
 const flapMap = (fn) => R.pipe(
-    R.map(fn),
-    R.flatten
+  R.map(fn),
+  R.flatten
 )
 
 const unnest = flapMap(R.identity);
 
 R.pipe(
-    unnest,
-    R.tap(n => console.log(n))  // [ 1, 2, 3 ]
+  unnest,
+  R.tap(n => console.log(n)) // [ 1, 2, 3 ]
 )(array);
 ```
 
@@ -1088,17 +1088,17 @@ import * as R from 'ramda'
 type NumberToNumFunc = (n: number) => number;
 
 const applyDiscount = (minimum: number, discount: number): NumberToNumFunc =>
-    R.pipe(
-        R.ifElse(
-            R.flip(R.gte)(minimum),
-            R.flip(R.subtract)(discount),
-            R.identity
-        ),
-        R.tap(amount => console.log(amount))
-    );
+  R.pipe(
+    R.ifElse(
+      R.flip(R.gte)(minimum),
+      R.flip(R.subtract)(discount),
+      R.identity
+    ),
+    R.tap(amount => console.log(amount))
+  );
 const calcPrice = applyDiscount(5000, 500);
 
-const discountedPrice = calcPrice(6000);    // 5500
+const discountedPrice = calcPrice(6000);  // 5500
 const notDiscountedPrice = calcPrice(4500); // 4500
 ```
 
@@ -1122,15 +1122,15 @@ import * as R from 'ramda'
 
 // 함수 T 는 value 값을 첫 번째 매개변수로 받는 2차 고차함수
 const T = value => R.pipe(
-    R.applyTo(value),
-    R.tap(value => console.log(value))
+  R.applyTo(value),
+  R.tap(value => console.log(value))
 );
 
 // value100 은 첫 번째 매개변수에 100을 대입해서 만든 1차 함수로 R.identity 처럼 매개변수가 한 개인 콜백함수를 입력받을 수 있음
 const value100 = T(100);
 
-const sameValue = value100(R.identity);    // 100
-const add1Value = value100(R.add(1));   // 101
+const sameValue = value100(R.identity);  // 100
+const add1Value = value100(R.add(1));  // 101
 ```
 
 ---
@@ -1149,12 +1149,12 @@ import * as R from 'ramda'
 // 콜백 함수가 1개일 때
 
 const callAndAppend = R.pipe(
-    R.ap([R.multiply(2)]),
-    R.tap(a => console.log(a))
+  R.ap([R.multiply(2)]),
+  R.tap(a => console.log(a))
 );
 
 const input = [1,2,3];
-const result = callAndAppend(input);    // [ 2, 4, 6 ]
+const result = callAndAppend(input);  // [ 2, 4, 6 ]
 ```
 
 만일 콜백 함수가 2개일 때는 마치 앞의 *5.2. `R.chain` 함수* 에서 본 것처럼 `R.chain(n => [n, n])` 처럼 동작한다.
@@ -1167,8 +1167,8 @@ const array = [1, 2, 3];
 
 // 매개변수가 1개 일 때
 R.pipe(
-    R.chain(n => [n, n]),
-    R.tap(n => console.log(n))  // [ 1, 1, 2, 2, 3, 3 ]
+  R.chain(n => [n, n]),
+  R.tap(n => console.log(n)) // [ 1, 1, 2, 2, 3, 3 ]
 )(array);
 ```
 
@@ -1178,11 +1178,11 @@ import * as R from 'ramda'
 
 // 콜백 함수가 2개일 때
 const callAndAppend2 = R.pipe(
-    R.ap([R.multiply(2), R.add(10)]),
-    R.tap(a => console.log(a))
+  R.ap([R.multiply(2), R.add(10)]),
+  R.tap(a => console.log(a))
 );
 const input2 = [1,2,3];
-const result2 = callAndAppend2(input2);  // [ 2, 4, 6, 11, 12, 13 ]
+const result2 = callAndAppend2(input2); // [ 2, 4, 6, 11, 12, 13 ]
 ```
 
 아래는 `R.ap` 조합자의 이런 성질을 이용하여 [1, 2, 3] 배열을 세 번 복제 후 통합한 배열을 만드는 코드이다.
@@ -1192,12 +1192,12 @@ import * as R from 'ramda'
 const repeat = (n, cb) => R.range(1, n+1).map(n => cb);
 
 const callAndAppend = R.pipe(
-    R.ap(repeat(3, R.identity)),
-    R.tap(a => console.log(a))
+  R.ap(repeat(3, R.identity)),
+  R.tap(a => console.log(a))
 );
 
 const input = [1,2,3];
-const result = callAndAppend(input);    // [1, 2, 3, 1, 2, 3, 1, 2, 3]
+const result = callAndAppend(input);  // [1, 2, 3, 1, 2, 3, 1, 2, 3]
 ```
 
 ---

@@ -16,8 +16,8 @@ tags: kotlin annotation
 
 **애너테이션을 사용하면 라이브러리가 요구하는 의미를 클래스에 부여**할 수 있고, **리플렉션을 사용하면 실행 시점에 컴파일러 내부 구조를 분석**할 수 있다.
 
-여기서는 실전 프로젝트에 준하는 JSON 직렬화와 역직렬화 라이브러리인 JKid(제이키드)를 구현해본다.  
-제이키드는 실행 시점에 코틀린 객체의 프로퍼티를 읽거나 JSON 파일에서 읽은 데이터를 코틀린 객체로 만들기 위해 리플렉션을 사용한다.  
+여기서는 실전 프로젝트에 준하는 JSON 직렬화와 역직렬화 라이브러리인 JKid(제이키드)를 구현해본다. 
+제이키드는 실행 시점에 코틀린 객체의 프로퍼티를 읽거나 JSON 파일에서 읽은 데이터를 코틀린 객체로 만들기 위해 리플렉션을 사용한다. 
 그리고 애너테이션을 통해 제이키드 라이브러리가 클래스와 프로퍼티를 직렬화/역직렬화하는 방식을 변경한다.
 
 ---
@@ -30,7 +30,7 @@ tags: kotlin annotation
 * [3. 애너테이션을 활용한 JSON 직렬화 제어](#3-애너테이션을-활용한-json-직렬화-제어)
 * [4. 애너테이션 선언: `annotation`](#4-애너테이션-선언-annotation)
 * [5. 메타 애너테이션: 애너테이션을 처리하는 방법 제어 `@Target`](#5-메타-애너테이션-애너테이션을-처리하는-방법-제어-target)
-  * [5.1. `@Retention`](#51-retention)
+ * [5.1. `@Retention`](#51-retention)
 * [6. 애너테이션 파라미터로 클래스 사용: `KClass`](#6-애너테이션-파라미터로-클래스-사용-kclass)
 * [7. 애너테이션 파라미터로 제네릭 클래스 받기](#7-애너테이션-파라미터로-제네릭-클래스-받기)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
@@ -59,15 +59,15 @@ package com.assu.study.kotlin2me.chap10.annotation
 
 @Deprecated("Use removeNew(index) instead", ReplaceWith("removeNew(index)"))
 fun remove(index: Int) {
-    // ...
+  // ...
 }
 
 fun removeNew(index: Int) {
-    // ...
+  // ...
 }
 
 fun main() {
-    remove(1)
+  remove(1)
 }
 ```
 
@@ -92,16 +92,16 @@ fun main() {
 
 코틀린에서 **애너테이션 인자를 지정하는 문법**은 자바와 약간 다르다.
 - **클래스를 인자로 지정할 때는 `::class` 를 클래스 이름 뒤에 넣어야 함**
-  - 예) @MyAnnotation(MyClass::class)
+ - 예) @MyAnnotation(MyClass::class)
 - **다른 애너테이션을 인자로 지정할 때는 인자로 들어가는 애너테이션의 이름 앞에 `@` 를 넣지 않음**
-  - 바로 위 코드에서 사용한 `ReplaceWith` 는 애너테이션이지만 `Deprecated` 애너테이션의 인자로 들어가므로 `ReplaceWith` 앞에 `@` 를 사용하지 않음
-  - 예) @Deprecated("Use removeNew(index) instead", ReplaceWith("removeNew(index)"))
+ - 바로 위 코드에서 사용한 `ReplaceWith` 는 애너테이션이지만 `Deprecated` 애너테이션의 인자로 들어가므로 `ReplaceWith` 앞에 `@` 를 사용하지 않음
+ - 예) @Deprecated("Use removeNew(index) instead", ReplaceWith("removeNew(index)"))
 - **배열을 인자로 지정하려면 `arrayOf()` 사용**
-  - 예) @RequestMapping(path=arrayOf("/foo", "/bar")) 처럼 `arrayOf()` 사용
+ - 예) @RequestMapping(path=arrayOf("/foo", "/bar")) 처럼 `arrayOf()` 사용
 
 ---
 
-애너테이션 인자는 컴파일 시점에 알 수 있어야 하므로 임의의 프로퍼티를 인자로 지정할 수는 없다.  
+애너테이션 인자는 컴파일 시점에 알 수 있어야 하므로 임의의 프로퍼티를 인자로 지정할 수는 없다. 
 프로퍼티를 애너테이션 인자로 사용하려면 그 앞에[`const`](https://assu10.github.io/dev/2024/02/12/kotlin-funtional-programming-1/#42-%EC%B5%9C%EC%83%81%EC%9C%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-const) 변경자를 붙여서 컴파일러가 해당 프로퍼티를 컴파일 시점에 상수로 취급할 수 있도록 해야 한다.
 
 jUnit 의 `@Test` 애너테이션에 `timeout` 파라미터를 사용하여 ms 단위로 타임아웃 시간을 정하는 예시
@@ -111,7 +111,7 @@ const val TEST_TIMEOUT = 100L
 
 @Test(timeout = TEST_TIMEOUT)
 fun testMethod() {
-    // ...
+  // ...
 }
 ```
 
@@ -121,7 +121,7 @@ fun testMethod() {
 
 코틀린 소스 코드에서 한 선언을 컴파일한 결과가 여러 자바 선언과 대응하는 경우는 자주 있는데 이 때 코틀린 선언과 대응하는 여러 자바 선언에 각각 애너테이션을 붙여야 할 때가 있다.
 
-예를 들어 코틀린 프로퍼티는 기본적으로 자바 필드와 getter 메서드 선언과 대응하고, 프로퍼티가 변경 가능하면 setter 에 대응하는 자바 setter 메서드와 setter 파라미터가 추가된다.  
+예를 들어 코틀린 프로퍼티는 기본적으로 자바 필드와 getter 메서드 선언과 대응하고, 프로퍼티가 변경 가능하면 setter 에 대응하는 자바 setter 메서드와 setter 파라미터가 추가된다. 
 만일 주 생성자에서 프로퍼티를 선언하면 이런 접근자 메서드(getter/setter) 와 파라미터 외에 자바 생성자 파라미터와도 대응된다.
 
 따라서 **애너테이션을 붙일 때 이런 요소 중에서 어떤 요소에 애너테이션을 붙일 지 표시**할 필요가 있다.
@@ -140,35 +140,35 @@ fun testMethod() {
 
 하지만 코틀린으로 애너테이션을 선언하면 프로퍼티에 직접 적용할 수 있는 애너테이션을 만들 수 있다.
 
-<**사용 지점 대상을 지정할 때 지원하는 대상 목록**>  
+<**사용 지점 대상을 지정할 때 지원하는 대상 목록**> 
 - **`property`**
-  - 프로퍼티 전체
-  - 자바에서 선언된 애너테이션에는 이 사용 자점 대상을 사용할 수 없음
+ - 프로퍼티 전체
+ - 자바에서 선언된 애너테이션에는 이 사용 자점 대상을 사용할 수 없음
 - **`field`**
-  - 프로퍼티에 의해 생성되는 [backing field](https://assu10.github.io/dev/2024/03/30/kotlin-advanced-5/#3-backing-field-%EC%99%80-backing-property)
+ - 프로퍼티에 의해 생성되는 [backing field](https://assu10.github.io/dev/2024/03/30/kotlin-advanced-5/#3-backing-field-%EC%99%80-backing-property)
 - **`get`**
-  - 프로퍼티 getter
+ - 프로퍼티 getter
 - **`set`**
-  - 프로퍼티 setter
+ - 프로퍼티 setter
 - **`receiver`**
-  - 확장 함수나 프로퍼티의 수신 객체 파라미터
+ - 확장 함수나 프로퍼티의 수신 객체 파라미터
 - **`param`**
-  - 생성자 파라미터
+ - 생성자 파라미터
 - **`setparam`**
-  - setter 파라미터
+ - setter 파라미터
 - **`delegate`**
-  - [위임 프로퍼티](https://assu10.github.io/dev/2024/03/24/kotlin-advanced-4/)의 위임 인스턴스를 담아둔 필드
+ - [위임 프로퍼티](https://assu10.github.io/dev/2024/03/24/kotlin-advanced-4/)의 위임 인스턴스를 담아둔 필드
 - **`file`**
-  - 파일 안에 선언된 최상위 함수와 프로퍼티를 담아두는 클래스
+ - 파일 안에 선언된 최상위 함수와 프로퍼티를 담아두는 클래스
 
-file 대상을 사용하는 애너테이션은 package 선언 앞에서 파일의 최상위 수준에만 적용 가능하다.  
+file 대상을 사용하는 애너테이션은 package 선언 앞에서 파일의 최상위 수준에만 적용 가능하다. 
 파일에 적용하는 흔한 애너테이션으로는 파일에 있는 최상위 선언을 담는 클래스의 이름을 바꿔주는 `@JvmName` 이 있다.
 
 [4.1. 최상위 함수: `@JvmName`](https://assu10.github.io/dev/2024/02/12/kotlin-funtional-programming-1/#41-%EC%B5%9C%EC%83%81%EC%9C%84-%ED%95%A8%EC%88%98-jvmname) 에서 
 아래와 같은 예시를 한 번 다룬 적 있다.
 
 ```kotlin
-@file:JvmName("StringFunctions")    // 클래스 이름을 지정하는 애너테이션
+@file:JvmName("StringFunctions")  // 클래스 이름을 지정하는 애너테이션
 
 package com.assu.study.kotlin2me.chap03 // @file:JvmName 애너테이션 뒤에 패키지 문이 와야 함
 
@@ -185,29 +185,29 @@ fun test(): String = "TEST"
 
 ```kotlin
 fun test(list: List<*>) {
-    @Suppress("UNCHECKED_CAST")
-    val strings = list as List<String>
+  @Suppress("UNCHECKED_CAST")
+  val strings = list as List<String>
 }
 ```
 
 > **자바 API 를 애너테이션으로 제어하기**
 > 
-> 코틀린은 코틀린으로 선언한 내용을 자바 바이트코드로 컴파일하는 방법과 코틀린 선언을 자바에 노출하는 방벙을 제어하기 위한 애너테이션을 많이 제공하고 있음  
+> 코틀린은 코틀린으로 선언한 내용을 자바 바이트코드로 컴파일하는 방법과 코틀린 선언을 자바에 노출하는 방벙을 제어하기 위한 애너테이션을 많이 제공하고 있음 
 > 코틀린 선언을 자바에 노출시키는 방법을 변경하는 애너테이션들
 > - **`@JvmName`**
->   - 코틀린 선언이 만들어내는 자바 필드나 메서드명 변경
+>  - 코틀린 선언이 만들어내는 자바 필드나 메서드명 변경
 > - **`@JvmStatic`**
->   - 메서드, 객체 선언, 동반 객체에 적용 시 그 요소가 자바 정적 메서드로 노출됨
+>  - 메서드, 객체 선언, 동반 객체에 적용 시 그 요소가 자바 정적 메서드로 노출됨
 > - [**`@JvmOverloads`**](https://assu10.github.io/dev/2024/02/10/kotlin-function-1/#%EB%94%94%ED%8F%B4%ED%8A%B8-%EA%B0%92%EA%B3%BC-%EC%9E%90%EB%B0%94-jvmoverloads)
->   - 디폴트 파라미터 값이 있는 함수에 대해 컴파일러가 자동으로 오버로딩한 함수 생성
+>  - 디폴트 파라미터 값이 있는 함수에 대해 컴파일러가 자동으로 오버로딩한 함수 생성
 > - **`@JvmField`**
->   - 프로퍼티에 사용하면 getter 나 setter 가 없는 public 자바 필드로 프로퍼티를 노출시킴
+>  - 프로퍼티에 사용하면 getter 나 setter 가 없는 public 자바 필드로 프로퍼티를 노출시킴
 
 ---
 
 # 3. 애너테이션을 활용한 JSON 직렬화 제어
 
-직렬화는 객체를 저장 장치에 저장하거나 네트워크를 통해 전송하기 위해 텍스트나 이진 형식으로 변환하는 것이다.  
+직렬화는 객체를 저장 장치에 저장하거나 네트워크를 통해 전송하기 위해 텍스트나 이진 형식으로 변환하는 것이다. 
 역직렬화는 반대로 텍스트나 이진 형식응로 저장된 데이터를 원래의 객체로 변환하는 것이다.
 
 직렬화에 자주 쓰이는 형식으로 JSON 있는데 Jackson 과 GSON 라이브러리를 많이 사용한다.
@@ -223,31 +223,31 @@ import ru.yole.jkid.serialization.serialize
 import kotlin.test.assertEquals
 
 data class Person(
-    val name: String,
-    val age: Int,
+  val name: String,
+  val age: Int,
 )
 
 class PersonTest {
-    @Test
-    fun test() {
-        val person = Person("Alice", 29)
-        val json = """{"age": 29, "name": "Alice"}"""
+  @Test
+  fun test() {
+    val person = Person("Alice", 29)
+    val json = """{"age": 29, "name": "Alice"}"""
 
-        // {"age": 29, "name": "Alice"}
-        println(serialize(person))
+    // {"age": 29, "name": "Alice"}
+    println(serialize(person))
 
-        // JSON 에는 객체의 타입이 저장되지 않으므로 JSON 으로부터 인스턴스를 만들려면 타입 인자로
-        // 클래스를 명시해야 함 (아래에서는 Person 클래스를 타입 인자로 넘김)
-        // Person(name=Alice, age=29)
-        println(deserialize<Person>(json))
+    // JSON 에는 객체의 타입이 저장되지 않으므로 JSON 으로부터 인스턴스를 만들려면 타입 인자로
+    // 클래스를 명시해야 함 (아래에서는 Person 클래스를 타입 인자로 넘김)
+    // Person(name=Alice, age=29)
+    println(deserialize<Person>(json))
 
-        assertEquals(json, serialize(person))
-        assertEquals(person, deserialize(json))
-    }
+    assertEquals(json, serialize(person))
+    assertEquals(person, deserialize(json))
+  }
 }
 ```
 
-_Person("Alice", 29)_ 을 직렬화하면 String 타입의 _{"age": 29, "name": "Alice"}_ 를 얻을 수 있고,  
+_Person("Alice", 29)_ 을 직렬화하면 String 타입의 _{"age": 29, "name": "Alice"}_ 를 얻을 수 있고, 
 _{"age": 29, "name": "Alice"}_ 를 역직렬화하면 Person 타입의 _Person("Alice", 29)_ 를 얻을 수 있다.
 
 ---
@@ -258,9 +258,9 @@ _{"age": 29, "name": "Alice"}_ 를 역직렬화하면 Person 타입의 _Person("
 이런 동작을 변경할 수 있다.
 
 - @JsonExclude
-  - 직렬화나 역직렬화 시 그 프로퍼티 무시
+ - 직렬화나 역직렬화 시 그 프로퍼티 무시
 - @JsonName
-  - 프로퍼티를 표현하는 key/value 쌍의 key 로 프로퍼티 이름 대신 애너테이션이 지정한 이름 사용
+ - 프로퍼티를 표현하는 key/value 쌍의 key 로 프로퍼티 이름 대신 애너테이션이 지정한 이름 사용
 
 ```kotlin
 package com.assu.study.kotlin2me.chap10.jkid.examples
@@ -273,28 +273,28 @@ import ru.yole.jkid.serialization.serialize
 import kotlin.test.assertEquals
 
 data class Person2(
-  @JsonName("alias")
-  val firstName: String,
-  @JsonExclude
-  val age: Int? = null,
+ @JsonName("alias")
+ val firstName: String,
+ @JsonExclude
+ val age: Int? = null,
 )
 class PersonTest {
 
-    @Test
-    fun test2() {
-        val person2 = Person2("Lee", 20)
-        val json = """{"alias": "Lee"}"""
-        val json2 = """{"alias": "Lee", "age": 20}"""
+  @Test
+  fun test2() {
+    val person2 = Person2("Lee", 20)
+    val json = """{"alias": "Lee"}"""
+    val json2 = """{"alias": "Lee", "age": 20}"""
 
-        // {"alias": "Lee"}
-        println(serialize(person2))
+    // {"alias": "Lee"}
+    println(serialize(person2))
 
-        // Person2(firstName=Lee, age=null)
-        println(deserialize<Person2>(json))
+    // Person2(firstName=Lee, age=null)
+    println(deserialize<Person2>(json))
 
-        assertEquals(json, serialize(person2))
-        assertEquals(person2, deserialize(json2))
-    }
+    assertEquals(json, serialize(person2))
+    assertEquals(person2, deserialize(json2))
+  }
 }
 ```
 
@@ -310,7 +310,7 @@ annotation class JsonExclude
 ```
 
 일반 클래스와 차이점은 `class` 키워드 앞에 `annotation` 변경자가 붙은 것 외엔 없어보이지만 **애너테이션 클래스는 오직 선언이나 식과 관련있는 메타데이터의 구조를 
-정의하기 때문에 내부에 아무 코드도 들어있을 수 없다.**  
+정의하기 때문에 내부에 아무 코드도 들어있을 수 없다.** 
 따라서 컴파일러는 애너테이션 클래스에서 본문을 정의하지 못하게 막는다.
 
 **파라미터가 있는 애너테이션을 정의하려면 애너테이션 클래스의 주생성자에 파라미터를 선언**해야 한다.
@@ -349,37 +349,37 @@ package kotlin.annotation
 import kotlin.annotation.AnnotationTarget.*
 
 public enum class AnnotationTarget {
-    /** Class, interface or object, annotation class is also included */
-    CLASS,
-    /** Annotation class only */
-    ANNOTATION_CLASS,
-    /** Generic type parameter */
-    TYPE_PARAMETER,
-    /** Property */
-    PROPERTY,
-    /** Field, including property's backing field */
-    FIELD,
-    /** Local variable */
-    LOCAL_VARIABLE,
-    /** Value parameter of a function or a constructor */
-    VALUE_PARAMETER,
-    /** Constructor only (primary or secondary) */
-    CONSTRUCTOR,
-    /** Function (constructors are not included) */
-    FUNCTION,
-    /** Property getter only */
-    PROPERTY_GETTER,
-    /** Property setter only */
-    PROPERTY_SETTER,
-    /** Type usage */
-    TYPE,
-    /** Any expression */
-    EXPRESSION,
-    /** File */
-    FILE,
-    /** Type alias */
-    @SinceKotlin("1.1")
-    TYPEALIAS
+  /** Class, interface or object, annotation class is also included */
+  CLASS,
+  /** Annotation class only */
+  ANNOTATION_CLASS,
+  /** Generic type parameter */
+  TYPE_PARAMETER,
+  /** Property */
+  PROPERTY,
+  /** Field, including property's backing field */
+  FIELD,
+  /** Local variable */
+  LOCAL_VARIABLE,
+  /** Value parameter of a function or a constructor */
+  VALUE_PARAMETER,
+  /** Constructor only (primary or secondary) */
+  CONSTRUCTOR,
+  /** Function (constructors are not included) */
+  FUNCTION,
+  /** Property getter only */
+  PROPERTY_GETTER,
+  /** Property setter only */
+  PROPERTY_SETTER,
+  /** Type usage */
+  TYPE,
+  /** Any expression */
+  EXPRESSION,
+  /** File */
+  FILE,
+  /** Type alias */
+  @SinceKotlin("1.1")
+  TYPEALIAS
 }
 
 /**
@@ -388,12 +388,12 @@ public enum class AnnotationTarget {
  * Determines how an annotation is stored in binary output.
  */
 public enum class AnnotationRetention {
-    /** Annotation isn't stored in binary output */
-    SOURCE,
-    /** Annotation is stored in binary output, but invisible for reflection */
-    BINARY,
-    /** Annotation is stored in binary output and visible for reflection (default retention) */
-    RUNTIME
+  /** Annotation isn't stored in binary output */
+  SOURCE,
+  /** Annotation is stored in binary output, but invisible for reflection */
+  BINARY,
+  /** Annotation is stored in binary output and visible for reflection (default retention) */
+  RUNTIME
 }
 
 // ...
@@ -416,8 +416,8 @@ annotation class BindingAnnotation
 annotation class MyBinding
 ```
 
-대상을 `AnnotationTarget.PROPERTY` 로 지정한 애너테이션을 자바 코드에서 사용할 수는 없다.  
-자바에서 그런 애너테이션을 사용해야 한다면 `AnnotationTarget.FIELD` 를 두 번째 대상으로 추가해야 한다.  
+대상을 `AnnotationTarget.PROPERTY` 로 지정한 애너테이션을 자바 코드에서 사용할 수는 없다. 
+자바에서 그런 애너테이션을 사용해야 한다면 `AnnotationTarget.FIELD` 를 두 번째 대상으로 추가해야 한다. 
 그러면 애너테이션을 코틀린 프로퍼티와 자바 필드에 적용할 수 있다.
 
 ---
@@ -439,7 +439,7 @@ annotation class MyBinding
 
 하지만 **어떤 클래스를 선언 메타데이터로 참조할 수 있는 기능이 필요할 때**가 있는데, 이럴 때 **클래스 참조를 파라미터로 하는 애너테이션 클래스를 선언**하면 된다.
 
-제이키드의 @DeserializeInterface 는 인터페이스 타입인 프로퍼티에 대해 역직렬화를 제어할 때 사용하는 애너테이션이다.  
+제이키드의 @DeserializeInterface 는 인터페이스 타입인 프로퍼티에 대해 역직렬화를 제어할 때 사용하는 애너테이션이다. 
 인터페이스의 인스턴스를 직접 만들 수는 없으므로 역직렬화 시 어떤 클래스를 사용하여 인터페이스를 구현할 지 지정할 수 있어야 한다.
 
 @DeserializeInterface 사용 예시
@@ -454,35 +454,35 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 interface Company {
-    val name: String
+  val name: String
 }
 
 data class CompanyImpl(
-    override val name: String,
+  override val name: String,
 ) : Company
 
 data class Person3(
-    val name: String,
-    @DeserializeInterface(CompanyImpl::class)
-    val company: Company,
+  val name: String,
+  @DeserializeInterface(CompanyImpl::class)
+  val company: Company,
 )
 
 inline fun <reified T : Any> testJsonSerializer(
-    value: T,
-    json: String,
+  value: T,
+  json: String,
 ) {
-    assertEquals(json, serialize(value))
-    assertEquals(value, deserialize(json))
+  assertEquals(json, serialize(value))
+  assertEquals(value, deserialize(json))
 }
 
 class DeserializeInterfaceTest {
-    @Test
-    fun test() {
-        testJsonSerializer(
-            value = Person3("Assu", CompanyImpl("Silby")),
-            json = """{"company": {"name": "Silby"}, "name": "Assu"}""",
-        )
-    }
+  @Test
+  fun test() {
+    testJsonSerializer(
+      value = Person3("Assu", CompanyImpl("Silby")),
+      json = """{"company": {"name": "Silby"}, "name": "Assu"}""",
+    )
+  }
 }
 ```
 
@@ -500,14 +500,14 @@ class DeserializeInterfaceTest {
 annotation class DeserializeInterface(val targetClass: KClass<out Any>)
 ```
 
-**`KClass` 는 자바 java.lang.Class 타입과 같은 역할을 하는 코틀린 타입**이다.  
+**`KClass` 는 자바 java.lang.Class 타입과 같은 역할을 하는 코틀린 타입**이다. 
 코틀린 클래스에 대한 참조를 저장할 때 `KClass` 타입을 사용한다.
 
 > `KClass` 에 대한 좀 더 상세한 내용은 [2.1. `KClass`](https://assu10.github.io/dev/2024/07/21/kotlin-annotation-reflection-2/#21-kclass) 를 참고하세요.
 
 > 이렇게 저장한 클래스 참조로 어떤 기능을 수행할 수 있는지는 [1. 리플렉션: 실행 시점에 코틀린 객체 내부 관찰](https://assu10.github.io/dev/2024/07/21/kotlin-annotation-reflection-2/#1-%EB%A6%AC%ED%94%8C%EB%A0%89%EC%85%98-%EC%8B%A4%ED%96%89-%EC%8B%9C%EC%A0%90%EC%97%90-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B0%9D%EC%B2%B4-%EB%82%B4%EB%B6%80-%EA%B4%80%EC%B0%B0) 을 참고하세요.
 
-**`KClass` 의 타입 파라미터는 이 `KClass` 의 인스턴스가 가리키는 코틀린 타입을 지정**한다.  
+**`KClass` 의 타입 파라미터는 이 `KClass` 의 인스턴스가 가리키는 코틀린 타입을 지정**한다. 
 예) _CompanyImpl::class_ 의 타입은 _KClass\<CompanyImpl\>_ 이며, 이 타입은 DeserializeInterface 의 파라미터 타입인 _KClass\<out Any\>_ 의 하위 타입임
 
 ![KClass 하위 타입 관계](/assets/img/dev/2024/0714/kclass.png)
@@ -517,7 +517,7 @@ annotation class DeserializeInterface(val targetClass: KClass<out Any>)
 `KClass` 의 타입 파라미터를 쓸 때 `out` 변경자없이 _KClass\<Any\>_ 라고 쓰면 DeserializeInterface 에게 _CompanyImpl::class_ 를 인자로 넘길 수 없고, 
 오직 _Any::class_ 만 넘길 수 있다.
 
-반면 `out`  키워드가 있으면 모든 코틀린 타입 `T` 에 대해 _KClass\<T\>_ 가 _KClass\<out Any\>_ 의 하위 타입이 되므로(= 공변성) DeserializeInterface 의 
+반면 `out` 키워드가 있으면 모든 코틀린 타입 `T` 에 대해 _KClass\<T\>_ 가 _KClass\<out Any\>_ 의 하위 타입이 되므로(= 공변성) DeserializeInterface 의 
 인자로 Any 뿐 아니라 Any 를 확장하는 모든 클래스에 대한 참조를 전달할 수 있다.
 
 ---
@@ -534,19 +534,19 @@ import kotlin.reflect.KClass
 // ...
 
 interface ValueSerializer<T> {
-  fun toJsonValue(value: T): Any?
-  fun fromJsonValue(jsonValue: Any?): T
+ fun toJsonValue(value: T): Any?
+ fun fromJsonValue(jsonValue: Any?): T
 }
 
 @Target(AnnotationTarget.PROPERTY)
 annotation class CustomSerializer(val serializerClass: KClass<out ValueSerializer<*>>)
 ```
 
-위의 @CustomSerializer 애너테이션은 커스텀 직렬화 클래스에 대한 참조를 인자로 받는다.  
+위의 @CustomSerializer 애너테이션은 커스텀 직렬화 클래스에 대한 참조를 인자로 받는다. 
 이 직렬화 클래스는 ValueSerializer 인터페이스를 구현해야 한다.
 
-ValueSerializer 클래스는 제네릭 클래스라서 타입 파라미터가 있다.  
-따라서 ValueSerializer 타입을 참조하려면 항상 타입 인자를 제공해야 한다.  
+ValueSerializer 클래스는 제네릭 클래스라서 타입 파라미터가 있다. 
+따라서 ValueSerializer 타입을 참조하려면 항상 타입 인자를 제공해야 한다. 
 하지만 이 애너테이션이 어떤 타입에 대해 사용될 지 모르므로 여기서는 [스타 프로젝션 `*`](https://assu10.github.io/dev/2024/03/18/kotlin-advanced-2-1/#26-%EC%8A%A4%ED%83%80-%ED%94%84%EB%A1%9C%EC%A0%9D%EC%85%98)을 사용할 수 있다.
 
 위 코드에서 아래 부분을 보자.
@@ -555,13 +555,13 @@ KClass<out ValueSerializer<*>>
 ```
 
 - `<out ValueSerializer<*>>`
-  - DateSerializer::class 는 올바른 인자로 받아들이지만 Date::class 는 거부함
-  - CustomSerializer 가 ValueSerializer 를 구현하는 클래스만 인자로 받아들여야 함을 명시
-  - 예를 들어 Date 는 ValueSerializer 를 구현하지 않으므로 _@CustomSerializer(Date::class)_ 는 거부함
+ - DateSerializer::class 는 올바른 인자로 받아들이지만 Date::class 는 거부함
+ - CustomSerializer 가 ValueSerializer 를 구현하는 클래스만 인자로 받아들여야 함을 명시
+ - 예를 들어 Date 는 ValueSerializer 를 구현하지 않으므로 _@CustomSerializer(Date::class)_ 는 거부함
 - `out`
-  - ValueSerializer::class 뿐 아니라 ValueSerializer 를 구현하는 모든 클래스를 받아들임
+ - ValueSerializer::class 뿐 아니라 ValueSerializer 를 구현하는 모든 클래스를 받아들임
 - `<*>`
-  - ValueSerializer 를 사용하여 어떤 타입의 값이든 직렬화할 수 있도록 허용함
+ - ValueSerializer 를 사용하여 어떤 타입의 값이든 직렬화할 수 있도록 허용함
 
 아래는 날짜를 직렬화하는 예시이다.
 
@@ -578,35 +578,35 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 object DateSerializer : ValueSerializer<Date> {
-    private val dateFormat = SimpleDateFormat("dd-mm-yyyy")
+  private val dateFormat = SimpleDateFormat("dd-mm-yyyy")
 
-    override fun toJsonValue(value: Date): Any? = dateFormat.format(value)
+  override fun toJsonValue(value: Date): Any? = dateFormat.format(value)
 
-    override fun fromJsonValue(jsonValue: Any?): Date = dateFormat.parse(jsonValue as String)
+  override fun fromJsonValue(jsonValue: Any?): Date = dateFormat.parse(jsonValue as String)
 }
 
 data class Person5(
-    val name: String,
-    @CustomSerializer(DateSerializer::class)
-    val birthDate: Date,
+  val name: String,
+  @CustomSerializer(DateSerializer::class)
+  val birthDate: Date,
 )
 
 inline fun <reified T : Any> testJsonSerializer2(
-    value: T,
-    json: String,
+  value: T,
+  json: String,
 ) {
-    assertEquals(json, serialize(value))
-    assertEquals(value, deserialize(json))
+  assertEquals(json, serialize(value))
+  assertEquals(value, deserialize(json))
 }
 
 class DateSerializerTest {
-    @Test
-    fun test() {
-        testJsonSerializer2(
-            value = Person5("Assu", SimpleDateFormat("dd-mm-yyyy").parse("01-10-1984")),
-            json = """{"birthDate": "01-10-1984", "name": "Assu"}""",
-        )
-    }
+  @Test
+  fun test() {
+    testJsonSerializer2(
+      value = Person5("Assu", SimpleDateFormat("dd-mm-yyyy").parse("01-10-1984")),
+      json = """{"birthDate": "01-10-1984", "name": "Assu"}""",
+    )
+  }
 }
 ```
 

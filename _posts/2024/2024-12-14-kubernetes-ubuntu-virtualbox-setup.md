@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Docker, Kubernetes - 우분투 환경 구성"
+title: "Docker, Kubernetes - 우분투 환경 구성"
 date: 2024-12-14
 categories: dev
 tags: devops kubernetes docker virtualbox vm virtual-machine ubuntu
 ---
 
-도커와 쿠버네티스를 제대로 이해하려면 리눅스 기반 환경에서 실습해보는 것이 가장 좋다.  
+도커와 쿠버네티스를 제대로 이해하려면 리눅스 기반 환경에서 실습해보는 것이 가장 좋다. 
 이 포스트에는 버추얼박스 + 우분투 조합으로 리눅스 가상 환경을 구성하고, 도커와 쿠버네티스 실습 전 준비를 마치는 과정을 정리한다.
 
 ---
@@ -43,7 +43,7 @@ tags: devops kubernetes docker virtualbox vm virtual-machine ubuntu
 
 # 2. 버추얼박스 설치
 
-버추얼박스는 가상머신을 생성할 수 있는 소프트웨어이다.  
+버추얼박스는 가상머신을 생성할 수 있는 소프트웨어이다. 
 앞으로 여러 개의 서버를 이용할 예정인데, 실제 물리 서버를 구축하는 것은 상당한 비용이 발생하므로 버추얼박스로 가상머신을 생성한 후 진행한다.
 
 [VirtualBox-7.1.8-168469-macOSArm64.dmg](https://www.virtualbox.org/wiki/Downloads) 다운로드 후 설치한다.
@@ -55,10 +55,10 @@ tags: devops kubernetes docker virtualbox vm virtual-machine ubuntu
 이제 버추얼박스와 우분투 이미지를 이용하여 가상머신을 생성한다.
 
 - Hardware
-  - Base Memory: 8192MB (쿠버네티스를 실행하려면 8192MB 이상 권장)
-  - Processor: 4 CPU (1 CPU 는 우분투가 설치되지 않고, 쿠버네티스 실행이 어려움)
+ - Base Memory: 8192MB (쿠버네티스를 실행하려면 8192MB 이상 권장)
+ - Processor: 4 CPU (1 CPU 는 우분투가 설치되지 않고, 쿠버네티스 실행이 어려움)
 - Virtual Hard Disk
-  - Disk: 100GB
+ - Disk: 100GB
 
 ![가상머신 생성](/assets/img/dev/2024/1214/vm.png)
 
@@ -68,13 +68,13 @@ tags: devops kubernetes docker virtualbox vm virtual-machine ubuntu
 
 생성한 가상머신의 설정으로 들어가 아래를 설정해준다.
 - Display
-  - Video Memory: 128MB (하지 않으면 가상머신의 화면이 안 보일수도 있음)
+ - Video Memory: 128MB (하지 않으면 가상머신의 화면이 안 보일수도 있음)
 - Storage
-  - _ubuntu-server01.vdi_ 아래 _Empty_ 선택 후 _Optical Drive_ 에서 _Choose a Disk File_ 에서 우분투 이미지 선택
+ - _ubuntu-server01.vdi_ 아래 _Empty_ 선택 후 _Optical Drive_ 에서 _Choose a Disk File_ 에서 우분투 이미지 선택
 
 VirtualBox Manager 화면에서 _Start_ 로 우분투 설치를 시작한다.
 
-이어 나오는 화면에서 _Try or Install Ubuntu Server_ 를 선택하여 우분투 설치를 시작한다.  
+이어 나오는 화면에서 _Try or Install Ubuntu Server_ 를 선택하여 우분투 설치를 시작한다. 
 다 기본 설정으로 넘어가다가 마지막 즈음에 _Install OpenSSH server_ 는 설치함으로 체크한다.
 
 이 후 username 과 password 로 로그인한다.
@@ -103,10 +103,10 @@ $ sudo systemctl status ssh
 
 # 5. 가상머신 네트워크 환경 설정
 
-VirtualBox Manager 화면에서 좌측 상단의 _Tools > Network > NAT Networks_ 에서 우클릭 후 _Create_ 를 한다.  
+VirtualBox Manager 화면에서 좌측 상단의 _Tools > Network > NAT Networks_ 에서 우클릭 후 _Create_ 를 한다. 
 그리고 _Enable DHCP_ 가 선택되었는지 확인한다.
 
-이제 다시 좌측 상단에서 생성해 놓은 _ubuntu-server01_ 을 선택 후 _Settings_ 를 클릭한다.  
+이제 다시 좌측 상단에서 생성해 놓은 _ubuntu-server01_ 을 선택 후 _Settings_ 를 클릭한다. 
 _Network > Adapter 1 > Attached to: NAT Network_ 선택 후 확인을 클릭한다.
 
 _ubuntu-server01_ 를 시작한 후 `ifconfig` 로 아이피를 확인한다.
@@ -126,16 +126,16 @@ $ ssh assu@127.0.0.1
 assu@127.0.0.1's password:
 Welcome to Ubuntu 24.04.2 LTS (GNU/Linux 6.8.0-59-generic aarch64)
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/pro
+ * Documentation: https://help.ubuntu.com
+ * Management:   https://landscape.canonical.com
+ * Support:    https://ubuntu.com/pro
 
  System information as of Mon May 12 07:29:50 AM UTC 2025
 
-  System load:  0.0                Processes:               116
-  Usage of /:   13.6% of 47.41GB   Users logged in:         1
-  Memory usage: 2%                 IPv4 address for enp0s8: 10.0.2.4
-  Swap usage:   0%
+ System load: 0.0        Processes:        116
+ Usage of /:  13.6% of 47.41GB  Users logged in:     1
+ Memory usage: 2%         IPv4 address for enp0s8: 10.0.2.4
+ Swap usage:  0%
 
 
 Expanded Security Maintenance for Applications is not enabled.

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "NestJS - Custom Parameter Decorator"
+title: "NestJS - Custom Parameter Decorator"
 date: 2023-04-22
 categories: dev
 tags: javascript nestjs parameter-decorator custom-parameter-decorator
@@ -10,7 +10,7 @@ tags: javascript nestjs parameter-decorator custom-parameter-decorator
 
 <!-- TOC -->
 * [1. Decorator](#1-decorator)
-  * [1.1. 내장 Decorator 종류](#11-내장-decorator-종류)
+ * [1.1. 내장 Decorator 종류](#11-내장-decorator-종류)
 * [2. Custom Parameter Decorator](#2-custom-parameter-decorator)
 * [3. Custom Parameter Decorator 의 data 활용](#3-custom-parameter-decorator-의-data-활용)
 * [4. 유효성 검사 파이프(ValidationPipe) 적용](#4-유효성-검사-파이프validationpipe-적용)
@@ -30,18 +30,18 @@ NestJS 는 ES6 에 도입된 Decorator 를 적극 활용한다.
 
 아래는 제공되고 있는 내장 Decorator 와 그에 대응되는 Express(or Fastify) 의 객체이다.
 
-| 내장 Decorator               | Express 객체                       |
+| 내장 Decorator        | Express 객체            |
 |:---------------------------|:---------------------------------|
-| `@Request()`, `@Req()`     | req                              |
-| `@Response()`, `@Res()`    | res                              |
-| `@Next()`                  | next                             |
-| `@Session()`               | req.session                      |
-| `@Param(param?: string)`   | req.param / req.params[param]    |
-| `@Body(param?: string)`    | req.body / req.body[param]       |
-| `@Query(param?: string)`   | req.query / req.query[param]     |
+| `@Request()`, `@Req()`   | req               |
+| `@Response()`, `@Res()`  | res               |
+| `@Next()`         | next               |
+| `@Session()`        | req.session           |
+| `@Param(param?: string)`  | req.param / req.params[param]  |
+| `@Body(param?: string)`  | req.body / req.body[param]    |
+| `@Query(param?: string)`  | req.query / req.query[param]   |
 | `@Headers(param?: string)` | req.headers / req.headers[param] |
-| `@Ip()`                    | req.ip                           |
-| `@HostParam()`             | req.hosts                             |
+| `@Ip()`          | req.ip              |
+| `@HostParam()`       | req.hosts               |
 
 ---
 
@@ -69,22 +69,22 @@ import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 export class AuthGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
-    return this.validateRequest(request);
-  }
+ canActivate(
+  context: ExecutionContext,
+ ): boolean | Promise<boolean> | Observable<boolean> {
+  const request = context.switchToHttp().getRequest();
+  return this.validateRequest(request);
+ }
 
-  // 얻은 정보(request) 를 내부 규칙으로 평가 진행
-  private validateRequest(request: any) {
-    // JWT 를 검증해서 얻은 정보 넣음. 편의상 하드코딩함
-    request.user = {
-      name: 'assu',
-      email: 'test@test.com',
-    };
-    return true;
-  }
+ // 얻은 정보(request) 를 내부 규칙으로 평가 진행
+ private validateRequest(request: any) {
+  // JWT 를 검증해서 얻은 정보 넣음. 편의상 하드코딩함
+  request.user = {
+   name: 'assu',
+   email: 'test@test.com',
+  };
+  return true;
+ }
 }
 ```
 
@@ -94,8 +94,8 @@ export class AuthGuard implements CanActivate {
 ```ts
 @Get()
 getHello(@Req() req): string {
-  console.log(req.user);
-  return this.appService.getHello();
+ console.log(req.user);
+ return this.appService.getHello();
 }
 ```
 
@@ -108,18 +108,18 @@ import { AppService } from './app.service';
 import { User } from './user.decorator';
 
 interface User {
-  name: string;
-  email: string;
+ name: string;
+ email: string;
 }
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+ constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(@User() user: User): string {    // User 커스텀 데커레이터 사용
-    console.log('------', user);
-    return this.appService.getHello();
-  }
+ @Get()
+ getHello(@User() user: User): string {  // User 커스텀 데커레이터 사용
+  console.log('------', user);
+  return this.appService.getHello();
+ }
 }
 
 ```
@@ -129,11 +129,11 @@ export class AppController {
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 export const User = createParamDecorator(
-        // createParamDecorator 를 이용하여 User Decorator 선언
-        (data: unknown, ctx: ExecutionContext) => {
-          const request = ctx.switchToHttp().getRequest(); // 실행 콘텍스트에서 요청 객체 얻어옴
-          return request.user; // AuthGuard 에서 설정한 유저 객체 반환, req.user 가 타입이 any 였다면 User 라는 타입을 갖게 됨
-        },
+    // createParamDecorator 를 이용하여 User Decorator 선언
+    (data: unknown, ctx: ExecutionContext) => {
+     const request = ctx.switchToHttp().getRequest(); // 실행 콘텍스트에서 요청 객체 얻어옴
+     return request.user; // AuthGuard 에서 설정한 유저 객체 반환, req.user 가 타입이 any 였다면 User 라는 타입을 갖게 됨
+    },
 );
 ```
 
@@ -159,25 +159,25 @@ $ curl --location 'http://localhost:3000' | jq
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 export const UserData = createParamDecorator<string>(
-  (data: string, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest();
-    const user = request.user;
+ (data: string, ctx: ExecutionContext) => {
+  const request = ctx.switchToHttp().getRequest();
+  const user = request.user;
 
-    return data ? user?.[data] : user;
-  },
+  return data ? user?.[data] : user;
+ },
 );
 ```
 
 /src/app.controller.ts
 ```ts
-  @Get('/name')
+ @Get('/name')
 getHello2(@UserData('name') name: string): void {
-  console.log('------', name);
+ console.log('------', name);
 }
 
 @Get('/name3')
 getHello3(@UserData() name: string): void {
-  console.log('------', name);
+ console.log('------', name);
 }
 ```
 
@@ -205,12 +205,12 @@ $ curl --location 'http://localhost:3000/name3'
 app.guard.ts
 ```ts
 private validateRequest(request: any) {
-  // JWT 를 검증해서 얻은 정보 넣음. 편의상 하드코딩함
-  request.user = {
-    name: 1,
-    email: 'test@test.com',
-  };
-  return true;
+ // JWT 를 검증해서 얻은 정보 넣음. 편의상 하드코딩함
+ request.user = {
+  name: 1,
+  email: 'test@test.com',
+ };
+ return true;
 }
 ```
 
@@ -228,21 +228,21 @@ import { UserData } from './user-data.decorator';
 import { IsString } from 'class-validator';
 
 class UserEntity {
-  @IsString()
-  name: string;
+ @IsString()
+ name: string;
 
-  @IsString()
-  email: string;
+ @IsString()
+ email: string;
 }
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+ constructor(private readonly appService: AppService) {}
 ...
-  @Get('/with-pipe')
-  getHello4(
-    @User(new ValidationPipe({ validateCustomDecorators: true })) user: UserEntity): void {
-    console.log('---', user);
-  }
+ @Get('/with-pipe')
+ getHello4(
+  @User(new ValidationPipe({ validateCustomDecorators: true })) user: UserEntity): void {
+  console.log('---', user);
+ }
 }
 ```
 
@@ -250,11 +250,11 @@ export class AppController {
 $ curl --location 'http://localhost:3000/with-pipe' | jq
 
 {
-  "statusCode": 400,
-  "message": [
-    "name must be a string"
-  ],
-  "error": "Bad Request"
+ "statusCode": 400,
+ "message": [
+  "name must be a string"
+ ],
+ "error": "Bad Request"
 }
 ```
 
@@ -272,12 +272,12 @@ $ curl --location 'http://localhost:3000/with-pipe' | jq
 import { applyDecorators } from '@nestjs/common';
 
 export function Auth(...roles: Role[]) {
-    return applyDecorators(
-        SetMetadata('roles', roles),
-        UseGuards(AuthGuard, RolesGuard),
-        ApiBearerAuth(),
-        ApiUnauthorizedResponse({ description: 'Unauthorized'})
-    );
+  return applyDecorators(
+    SetMetadata('roles', roles),
+    UseGuards(AuthGuard, RolesGuard),
+    ApiBearerAuth(),
+    ApiUnauthorizedResponse({ description: 'Unauthorized'})
+  );
 }
 ```
 

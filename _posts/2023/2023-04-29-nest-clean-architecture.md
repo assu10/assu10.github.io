@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "NestJS - 클린 아키텍처"
+title: "NestJS - 클린 아키텍처"
 date: 2023-04-29
 categories: dev
 tags: javascript nestjs clean-architecture
@@ -12,11 +12,11 @@ tags: javascript nestjs clean-architecture
 * [1. 클린 아키텍처](#1-클린-아키텍처)
 * [2. SOLID 객체 지향 설계 원칙](#2-solid-객체-지향-설계-원칙)
 * [3. 유저 서비스](#3-유저-서비스)
-  * [3.1. 클린 아키텍처 적용](#31-클린-아키텍처-적용)
-    * [3.1.1. domain layer](#311-domain-layer)
-    * [3.1.2. application layer](#312-application-layer)
-    * [3.1.3. interface layer](#313-interface-layer)
-    * [3.1.4. infrastructure layer](#314-infrastructure-layer)
+ * [3.1. 클린 아키텍처 적용](#31-클린-아키텍처-적용)
+  * [3.1.1. domain layer](#311-domain-layer)
+  * [3.1.2. application layer](#312-application-layer)
+  * [3.1.3. interface layer](#313-interface-layer)
+  * [3.1.4. infrastructure layer](#314-infrastructure-layer)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
@@ -90,8 +90,8 @@ $ tree -L 4 -N -I "node_modules"
 │   │   ├── users.controller.ts
 │   │   └── users.module.ts
 │   └── utils
-│       └── decorators
-│           └── not-in.ts
+│     └── decorators
+│       └── not-in.ts
 ├── test
 │   ├── app.e2e-spec.ts
 │   └── jest-e2e.json
@@ -113,17 +113,17 @@ $ tree -L 4 -N -I "node_modules"
 여기선 바깥쪽 레이어부터 infrastructure layer, interface layer, application layer, domain layer 로 명명하여 보도록 하겠다.
 
 - infrastructure layer
-  - 애플리케이션에 필요하지만 외부에서 가져다 쓰는 컴포넌트
-  - DB, email 전송 등 외부에서 제공하는 인터페이스나 라이브러리를 이용하여 우리 서비스에 맞게 구현한 구현체 포함
+ - 애플리케이션에 필요하지만 외부에서 가져다 쓰는 컴포넌트
+ - DB, email 전송 등 외부에서 제공하는 인터페이스나 라이브러리를 이용하여 우리 서비스에 맞게 구현한 구현체 포함
 - interface layer
-  - 우리 서비스가 제공하는 인터페이스가 구현되는 레이어
-  - 컨트롤러가 외부에서 들어오는 요청 데이터와 나가는 데이터의 형식을 제공하는 것처럼 외부와의 인터페이스를 담당
+ - 우리 서비스가 제공하는 인터페이스가 구현되는 레이어
+ - 컨트롤러가 외부에서 들어오는 요청 데이터와 나가는 데이터의 형식을 제공하는 것처럼 외부와의 인터페이스를 담당
 - application layer
-  - 비즈니스 로직이 구현되는 레이어
-  - 회원 가입, 회원 정보 조회 등의 로직
+ - 비즈니스 로직이 구현되는 레이어
+ - 회원 가입, 회원 정보 조회 등의 로직
 - domain layer
-  - 애플리케이션의 핵심 도메인을 구현
-  - 애플리케이션이 가져야 하는 핵심 요소만 갖기 때문에 다른 레이어에 의존하지 않음
+ - 애플리케이션의 핵심 도메인을 구현
+ - 애플리케이션이 가져야 하는 핵심 요소만 갖기 때문에 다른 레이어에 의존하지 않음
 
 
 각 레이어는 의존성이 안쪽 원으로 향하는데 구현하다 보면 안쪽에서 바깥쪽 원으로 의존성이 역전되는 경우가 있다.
@@ -139,25 +139,25 @@ $ tree -L 4 -N -I "node_modules"
 클린 아키텍쳐는 SOLID 객체 지향 설계 원칙이 베이스로 깔려 있는데 SOLID 를 적용하면 유지 보수와 확장이 쉬운 시스템을 만들 수 있다.
 
 - `SRP` (Single Responsibility Principle, 단일 책임 원칙)
-  - **한 클래스는 하나의 책임만 가져야 한다.**
-  - 여기서 클래스는 함수, 객체 등 최소 동작의 단위가 되는 개념임
-  - 클래스를 크기가 작고 적은 책임을 갖도록 작성해야 변경에 유연하게 대처 가능함
+ - **한 클래스는 하나의 책임만 가져야 한다.**
+ - 여기서 클래스는 함수, 객체 등 최소 동작의 단위가 되는 개념임
+ - 클래스를 크기가 작고 적은 책임을 갖도록 작성해야 변경에 유연하게 대처 가능함
 - `OCP` (Open-Closed Principle, 개방-폐쇄 원칙)
-  - **SW 요소는 확장에는 열려있고, 변경에는 닫혀 있어야 한다.**
-  - 기능의 추가가 기존 코드에 영향을 미치지 않도록 하는 구조가 필요함
-  - OCP 는 인터페이스를 활용하여 쉽게 달성 가능, 필요한 기능이 있으면 그 구현체에 의존하는게 아니라 인터페이스에 의존하도록 하여 추가 기능이 있을 때 인터페이스를 추가
+ - **SW 요소는 확장에는 열려있고, 변경에는 닫혀 있어야 한다.**
+ - 기능의 추가가 기존 코드에 영향을 미치지 않도록 하는 구조가 필요함
+ - OCP 는 인터페이스를 활용하여 쉽게 달성 가능, 필요한 기능이 있으면 그 구현체에 의존하는게 아니라 인터페이스에 의존하도록 하여 추가 기능이 있을 때 인터페이스를 추가
 - `LSP` (Liskov Substitution Principle, 리스코프 치환 법칙)
-  - **프로그램 객체는 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 한다.**
-  - 상속 관계에서 자식 클래스의 인스턴스는 부모 클래스로 선언된 함수의 인수로 전달할 수 있음
-  - 인스턴스는 인터페이스가 제공하는 기능을 구현한 객체이지만 인터페이스를 사용하는 다른 객체에도 전달 가능하기 때문에 실제 구현체인 자식 인스턴스는 언제든지 부모 또는 인터페이스가 제공하는 기능을 제공하는 다른 구현체로 바꿀 수 있음
+ - **프로그램 객체는 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 한다.**
+ - 상속 관계에서 자식 클래스의 인스턴스는 부모 클래스로 선언된 함수의 인수로 전달할 수 있음
+ - 인스턴스는 인터페이스가 제공하는 기능을 구현한 객체이지만 인터페이스를 사용하는 다른 객체에도 전달 가능하기 때문에 실제 구현체인 자식 인스턴스는 언제든지 부모 또는 인터페이스가 제공하는 기능을 제공하는 다른 구현체로 바꿀 수 있음
 - `ISP` (Interface Segregation Principle, 인터페이스 분리 원칙)
-  - **특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 낫다.**
-  - 하나의 인터페이스에 의존하게 되면 인터페이스에 기능이 추가될 때 인터페이스를 구현하는 모든 클래스를 수정해야 하므로 인터페이스를 기능별로 잘게 쪼개어 특정 클라이언트용 인터페이스로 모아서 사용하는 것이 변경에 대한 
-  의존성을 낮추는 방법
+ - **특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 낫다.**
+ - 하나의 인터페이스에 의존하게 되면 인터페이스에 기능이 추가될 때 인터페이스를 구현하는 모든 클래스를 수정해야 하므로 인터페이스를 기능별로 잘게 쪼개어 특정 클라이언트용 인터페이스로 모아서 사용하는 것이 변경에 대한 
+ 의존성을 낮추는 방법
 - `DIP` (Dependency Inversion Principle, 의존관계 역전 원칙)
-  - **프로그래머는 추상화에 의존해야지, 구체화에 의존하면 안된다.**
-  - DIP 는 [IoC(제어 반전), DI(의존성 주입)](https://assu10.github.io/dev/2023/03/05/ioc-and-di/) 에서 언급한 DI 와 밀접함
-  - 클린 아키텍처를 구현하기 위해서는 의존관계 역전이 발생하기 마련이고, 이를 해소하기 위해 DI 를 이용
+ - **프로그래머는 추상화에 의존해야지, 구체화에 의존하면 안된다.**
+ - DIP 는 [IoC(제어 반전), DI(의존성 주입)](https://assu10.github.io/dev/2023/03/05/ioc-and-di/) 에서 언급한 DI 와 밀접함
+ - 클린 아키텍처를 구현하기 위해서는 의존관계 역전이 발생하기 마련이고, 이를 해소하기 위해 DI 를 이용
 
 ---
 
@@ -189,25 +189,25 @@ domain layer 에는 도메인 객체와 도메인 객체의 상태 변화에 따
 /src/users/domain/user.ts
 ```ts
 export class User {
-  constructor(
-    private id: string,
-    private name: string,
-    private email: string,
-    private password: string,
-    private signupVerifyToken: string,
-  ) {}
+ constructor(
+  private id: string,
+  private name: string,
+  private email: string,
+  private password: string,
+  private signupVerifyToken: string,
+ ) {}
 
-  getId(): Readonly<string> {
-    return this.id;
-  }
+ getId(): Readonly<string> {
+  return this.id;
+ }
 
-  getName(): Readonly<string> {
-    return this.name;
-  }
+ getName(): Readonly<string> {
+  return this.name;
+ }
 
-  getEmail(): Readonly<string> {
-    return this.email;
-  }
+ getEmail(): Readonly<string> {
+  return this.email;
+ }
 }
 ```
 
@@ -223,32 +223,32 @@ import { UserCreateEvent } from '../event/user-create.event';
 
 @Injectable()
 export class UserFactory {
-  constructor(private eventBus: EventBus) {}
+ constructor(private eventBus: EventBus) {}
 
-  // 유저 객체 생성
-  create(
-    id: string,
-    name: string,
-    email: string,
-    signupVerifyToken: string,
-    password: string,
-  ): User {
-    // User 객체 생성 후 UserCreatedEvent 발행함, 이후 생성한 유저 도메인 객체 리턴
-    const user = new User(id, name, email, signupVerifyToken, password);
-    this.eventBus.publish(new UserCreateEvent(email, signupVerifyToken));
-    return user;
-  }
+ // 유저 객체 생성
+ create(
+  id: string,
+  name: string,
+  email: string,
+  signupVerifyToken: string,
+  password: string,
+ ): User {
+  // User 객체 생성 후 UserCreatedEvent 발행함, 이후 생성한 유저 도메인 객체 리턴
+  const user = new User(id, name, email, signupVerifyToken, password);
+  this.eventBus.publish(new UserCreateEvent(email, signupVerifyToken));
+  return user;
+ }
 
-  // 이벤트 발행없이 유저 객체만 생성
-  reconstitute(
-          id: string,
-          name: string,
-          email: string,
-          signupVerifyToken: string,
-          password: string,
-  ): User {
-    return new User(id, name, email, signupVerifyToken, password);
-  }
+ // 이벤트 발행없이 유저 객체만 생성
+ reconstitute(
+     id: string,
+     name: string,
+     email: string,
+     signupVerifyToken: string,
+     password: string,
+ ): User {
+  return new User(id, name, email, signupVerifyToken, password);
+ }
 }
 ```
 
@@ -261,10 +261,10 @@ import { UserFactory } from './domain/user.factory';
 const factories = [UserFactory];
 
 @Module({
-  providers: [
-    ...
-    ...factories,
-  ],
+ providers: [
+  ...
+  ...factories,
+ ],
 })
 export class UsersModule {}
 ```
@@ -295,30 +295,30 @@ import { EmailService } from '../../../email/email.service';
 
 @EventsHandler(UserCreateEvent)
 export class UserEventHandler implements IEventHandler<UserCreateEvent> {
-  constructor(private emailService: EmailService) {}
+ constructor(private emailService: EmailService) {}
 
-  // 이벤트 핸들러는 커맨드 핸들러와는 다르게 여러 이벤트를 같은 이벤트 핸들러가 받도록 할 수 있음
-  async handle(event: UserCreateEvent | TestEvent) {
-    switch (event.name) {
-      case UserCreateEvent.name: {
-        const { email, signupVerifyToken } = event as UserCreateEvent;
-        await this.emailService.sendMemberJoinVerification(
-          email,
-          signupVerifyToken,
-        );
-        break;
-      }
-      default:
-        break;
-    }
+ // 이벤트 핸들러는 커맨드 핸들러와는 다르게 여러 이벤트를 같은 이벤트 핸들러가 받도록 할 수 있음
+ async handle(event: UserCreateEvent | TestEvent) {
+  switch (event.name) {
+   case UserCreateEvent.name: {
+    const { email, signupVerifyToken } = event as UserCreateEvent;
+    await this.emailService.sendMemberJoinVerification(
+     email,
+     signupVerifyToken,
+    );
+    break;
+   }
+   default:
+    break;
   }
+ }
 }
 ```
 
 커맨드와 쿼리도 모두 application/command, query 로 이동시킨다.
 
 ```shell
-$ tree -L 3   
+$ tree -L 3  
 
 ├── application
 │   ├── command
@@ -331,8 +331,8 @@ $ tree -L 3
 │   ├── event
 │   │   └── user-event.handler.ts
 │   └── query
-│       ├── get-user-info.handler.ts
-│       └── get-user-info.query.ts
+│     ├── get-user-info.handler.ts
+│     └── get-user-info.query.ts
 
 ```
 
@@ -373,13 +373,13 @@ UserEntity 클래스는 infra 레이어에 존재하지만 application 레이어
 import { User } from '../user';
 
 export interface IUserRepository {
-  findByEmail: (email: string) => Promise<User>;
-  save: (
-    name: string,
-    email: string,
-    password: string,
-    signupVerifyToken: string,
-  ) => Promise<void>;
+ findByEmail: (email: string) => Promise<User>;
+ save: (
+  name: string,
+  email: string,
+  password: string,
+  signupVerifyToken: string,
+ ) => Promise<void>;
 }
 ```
 
@@ -398,57 +398,57 @@ import { ulid } from 'ulid';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
-  constructor(
-    private connection: Connection,
-    //`@InjectRepository` 데커레이터로 유저 저장소 주입
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
-    private userFactory: UserFactory,
-  ) {}
+ constructor(
+  private connection: Connection,
+  //`@InjectRepository` 데커레이터로 유저 저장소 주입
+  @InjectRepository(UserEntity)
+  private userRepository: Repository<UserEntity>,
+  private userFactory: UserFactory,
+ ) {}
 
-  // 이메일 주소의 유저를 DB 에서 조회, 만일 없다면 null 리턴, 존재하면 User 도메인 객체 리턴
-  async findByEmail(email: string): Promise<User | null> {
-    const userEntity = await this.userRepository.findOne({
-      where: { email },
-    });
+ // 이메일 주소의 유저를 DB 에서 조회, 만일 없다면 null 리턴, 존재하면 User 도메인 객체 리턴
+ async findByEmail(email: string): Promise<User | null> {
+  const userEntity = await this.userRepository.findOne({
+   where: { email },
+  });
 
-    if (!userEntity) {
-      return null;
-    }
-
-    const { id, name, signupVerifyToken, password } = userEntity;
-
-    return this.userFactory.reconstitute(
-      id,
-      name,
-      email,
-      signupVerifyToken,
-      password,
-    );
+  if (!userEntity) {
+   return null;
   }
 
-  // createUserHandler 의 saveUserUsingTransaction() 내용 이관
-  async save(
-    id: string,
-    name: string,
-    email: string,
-    password: string,
-    signupVerifyToken: string,
-  ): Promise<void> {
-    await this.connection.transaction(async (manager) => {
-      const user = new UserEntity(); // 유저 엔티티 객체 생성
-      user.id = id;
-      user.name = name;
-      user.email = email;
-      user.password = password;
-      user.signupVerifyToken = signupVerifyToken;
+  const { id, name, signupVerifyToken, password } = userEntity;
 
-      await manager.save(user);
+  return this.userFactory.reconstitute(
+   id,
+   name,
+   email,
+   signupVerifyToken,
+   password,
+  );
+ }
 
-      // 일부러 에러 발생 시 데이터 저장 안됨
-      //throw new InternalServerErrorException();
-    });
-  }
+ // createUserHandler 의 saveUserUsingTransaction() 내용 이관
+ async save(
+  id: string,
+  name: string,
+  email: string,
+  password: string,
+  signupVerifyToken: string,
+ ): Promise<void> {
+  await this.connection.transaction(async (manager) => {
+   const user = new UserEntity(); // 유저 엔티티 객체 생성
+   user.id = id;
+   user.name = name;
+   user.email = email;
+   user.password = password;
+   user.signupVerifyToken = signupVerifyToken;
+
+   await manager.save(user);
+
+   // 일부러 에러 발생 시 데이터 저장 안됨
+   //throw new InternalServerErrorException();
+  });
+ }
 }
 ```
 
@@ -466,36 +466,36 @@ import { IUserRepository } from 'src/users/domain/repository/iuser.repository';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
-  constructor(
-    private userFactory: UserFactory,
-    // IUserRepository 는 클래스가 아니므로 의존선 클래스로 주입받을 수 없음
-    // 따라서 @Inject 데커레이터와 UserRepository 토큰을 이용하여 주입받음
-    @Inject('UserRepository') private userRepository: IUserRepository,
-  ) {}
+ constructor(
+  private userFactory: UserFactory,
+  // IUserRepository 는 클래스가 아니므로 의존선 클래스로 주입받을 수 없음
+  // 따라서 @Inject 데커레이터와 UserRepository 토큰을 이용하여 주입받음
+  @Inject('UserRepository') private userRepository: IUserRepository,
+ ) {}
 
-  async execute(command: CreateUserCommand) {
-    const { name, email, password } = command;
+ async execute(command: CreateUserCommand) {
+  const { name, email, password } = command;
 
-    // 가입 유무 확인
-    const user = await this.userRepository.findByEmail(email);
-    if (user !== null) {
-      throw new UnprocessableEntityException('Email already exists');
-    }
-
-    const id = ulid();
-    const signupVerifyToken = uuid.v1();
-
-    // 유저 정보 저장
-    await this.userRepository.save(
-      id,
-      name,
-      email,
-      password,
-      signupVerifyToken,
-    );
-
-    this.userFactory.create(id, name, email, password, signupVerifyToken);
+  // 가입 유무 확인
+  const user = await this.userRepository.findByEmail(email);
+  if (user !== null) {
+   throw new UnprocessableEntityException('Email already exists');
   }
+
+  const id = ulid();
+  const signupVerifyToken = uuid.v1();
+
+  // 유저 정보 저장
+  await this.userRepository.save(
+   id,
+   name,
+   email,
+   password,
+   signupVerifyToken,
+  );
+
+  this.userFactory.create(id, name, email, password, signupVerifyToken);
+ }
 }
 ```
 
@@ -506,17 +506,17 @@ import { UserRepository } from './infra/db/repository/UserRepository';
 
 ...
 const repositories = [
-  {
-    provide: 'UserRepository',
-    useClass: UserRepository,
-  },
+ {
+  provide: 'UserRepository',
+  useClass: UserRepository,
+ },
 ];
 
 @Module({
-  providers: [
-    ...
-    ...repositories,
-  ],
+ providers: [
+  ...
+  ...repositories,
+ ],
 })
 export class UsersModule {}
 ```
@@ -529,7 +529,7 @@ export class UsersModule {}
 /src/users/application/adapter/iemail.service.ts
 ```ts
 export interface IEmailService {
-  sendMemberJoinVerification: (email: string, signupVerifyToken: string) => Promise<void>;
+ sendMemberJoinVerification: (email: string, signupVerifyToken: string) => Promise<void>;
 }
 ```
 
@@ -543,17 +543,17 @@ import { EmailService as ExternalEmailService } from 'src/email/email.service';
 
 @Injectable()
 export class EmailService implements IEmailService {
-  constructor(private emailService: ExternalEmailService) {}
+ constructor(private emailService: ExternalEmailService) {}
 
-  async sendMemberJoinVerification(
-    email: string,
-    signupVerifyToken: string,
-  ): Promise<void> {
-    await this.emailService.sendMemberJoinVerification(
-      email,
-      signupVerifyToken,
-    );
-  }
+ async sendMemberJoinVerification(
+  email: string,
+  signupVerifyToken: string,
+ ): Promise<void> {
+  await this.emailService.sendMemberJoinVerification(
+   email,
+   signupVerifyToken,
+  );
+ }
 }
 ```
 
@@ -568,24 +568,24 @@ import { IEmailService } from '../adapter/iemail.service';
 
 @EventsHandler(UserCreateEvent)
 export class UserEventHandler implements IEventHandler<UserCreateEvent> {
-  //constructor(private emailService: EmailService) {}
-  constructor(@Inject('EmailService') private emailService: IEmailService) {}
+ //constructor(private emailService: EmailService) {}
+ constructor(@Inject('EmailService') private emailService: IEmailService) {}
 
-  // 이벤트 핸들러는 커맨드 핸들러와는 다르게 여러 이벤트를 같은 이벤트 핸들러가 받도록 할 수 있음
-  async handle(event: UserCreateEvent) {
-    switch (event.name) {
-      case UserCreateEvent.name: {
-        const { email, signupVerifyToken } = event as UserCreateEvent;
-        await this.emailService.sendMemberJoinVerification(
-          email,
-          signupVerifyToken,
-        );
-        break;
-      }
-      default:
-        break;
-    }
+ // 이벤트 핸들러는 커맨드 핸들러와는 다르게 여러 이벤트를 같은 이벤트 핸들러가 받도록 할 수 있음
+ async handle(event: UserCreateEvent) {
+  switch (event.name) {
+   case UserCreateEvent.name: {
+    const { email, signupVerifyToken } = event as UserCreateEvent;
+    await this.emailService.sendMemberJoinVerification(
+     email,
+     signupVerifyToken,
+    );
+    break;
+   }
+   default:
+    break;
   }
+ }
 }
 ```
 
@@ -597,18 +597,18 @@ import { EmailService } from './infra/adapter/email.service';
 
 ...
 const repositories = [
-  {
-    provide: 'UserRepository',
-    useClass: UserRepository,
-  },
-  { provide: 'EmailService', useClass: EmailService },
+ {
+  provide: 'UserRepository',
+  useClass: UserRepository,
+ },
+ { provide: 'EmailService', useClass: EmailService },
 ];
 
 @Module({
-  ...
-  providers: [
-    ...repositories,
-  ],
+ ...
+ providers: [
+  ...repositories,
+ ],
 })
 export class UsersModule {}
 ```
@@ -624,9 +624,9 @@ export class UsersModule {}
 $ curl --location 'http://localhost:3000/users' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "name": "assu3",
-    "email": "test@naver.com",
-    "password": "test1234"
+  "name": "assu3",
+  "email": "test@naver.com",
+  "password": "test1234"
 }' | jq
 
 
@@ -634,8 +634,8 @@ $ curl --location 'http://localhost:3000/users' \
 $ curl --location 'http://localhost:3000/users/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "email": "test@naver.com",
-    "password": "test1234"
+  "email": "test@naver.com",
+  "password": "test1234"
 }'
 
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxR1pYQ...
@@ -645,8 +645,8 @@ $ curl --location --request GET 'http://localhost:3000/users/01GZXC64JYJY26TDASS
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I...' \
 --data-raw '{
-    "email": "test@naver.com",
-    "password": "test1234"
+  "email": "test@naver.com",
+  "password": "test1234"
 }'
 {"id":"01GZXC64JYJY26TDASSWQJN8Q5","name":"assu3","email":"test@naver.com"}%
 ```
@@ -669,8 +669,8 @@ $ curl --location --request GET 'http://localhost:3000/users/01GZXC64JYJY26TDASS
 │   ├── event
 │   │   └── user-event.handler.ts
 │   └── query
-│       ├── get-user-info.handler.ts
-│       └── get-user-info.query.ts
+│     ├── get-user-info.handler.ts
+│     └── get-user-info.query.ts
 ├── domain
 │   ├── cqrs-event.ts
 │   ├── repository
@@ -684,10 +684,10 @@ $ curl --location --request GET 'http://localhost:3000/users/01GZXC64JYJY26TDASS
 │   ├── adapter
 │   │   └── email.service.ts
 │   └── db
-│       ├── entity
-│       │   └── user.entity.ts
-│       └── repository
-│           └── UserRepository.ts
+│     ├── entity
+│     │   └── user.entity.ts
+│     └── repository
+│       └── UserRepository.ts
 ├── interface
 │   ├── UserInfo.ts
 │   ├── dto

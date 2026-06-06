@@ -1,20 +1,20 @@
 ---
 layout: post
-title:  "Redis - Redis Cluster & Monitoring (2)"
+title: "Redis - Redis Cluster & Monitoring (2)"
 date: 2022-09-18 10:00
 categories: dev
 tags: db redis
 ---
 
-이 포스트는 Redis Cluster 를 구축하는 방법에 대해 알아본다.   
+이 포스트는 Redis Cluster 를 구축하는 방법에 대해 알아본다.  
 
 <!-- TOC -->
 * [1. Redis Cluster 구축 및 운영](#1-redis-cluster-구축-및-운영)
-  * [1.1. Cluster 서버](#11-cluster-서버)
-  * [1.2. Cluster 명령어를 이용한 수동 설정](#12-cluster-명령어를-이용한-수동-설정)
-  * [1.3. Cluster 명령어](#13-cluster-명령어)
-  * [1.4. redis-trib.rb 유틸리티를 이용한 자동 설정](#14-redis-tribrb-유틸리티를-이용한-자동-설정)
-  * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
+ * [1.1. Cluster 서버](#11-cluster-서버)
+ * [1.2. Cluster 명령어를 이용한 수동 설정](#12-cluster-명령어를-이용한-수동-설정)
+ * [1.3. Cluster 명령어](#13-cluster-명령어)
+ * [1.4. redis-trib.rb 유틸리티를 이용한 자동 설정](#14-redis-tribrb-유틸리티를-이용한-자동-설정)
+ * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
 
 ---
@@ -23,38 +23,38 @@ tags: db redis
 
 ## 1.1. Cluster 서버
 
-분산(Partition) 시스템은 하나의 테이블에 저장되는 데이터를 2개 이상의 서버로 동시에 분산저장하는 방식이다.  
+분산(Partition) 시스템은 하나의 테이블에 저장되는 데이터를 2개 이상의 서버로 동시에 분산저장하는 방식이다. 
 파티셔닝을 통해 데이터를 분산 저장하다보면 예기치 못한 문제로 특정 서버에 장애가 발생하게 되고, 데이터 유실이 발생할 수 있는데
 이를 방지하기 위해서는 분산 서버만다 복제 서버를 함께 구축해야 한다.
 
-**데이터 분산 처리를 위한 파티셔닝 시스템**과 **안정성 확보를 위한 복제 시스템**은 함께 사용되는데 이를 **Redis 클러스터(Shard-Replication)** 라 한다.  
+**데이터 분산 처리를 위한 파티셔닝 시스템**과 **안정성 확보를 위한 복제 시스템**은 함께 사용되는데 이를 **Redis 클러스터(Shard-Replication)** 라 한다. 
 클러스터 서버 환경에서는 Sentinel 서버는 필요없다.
 
 아래는 3개의 분산 서버(master) 마다 3개의 복제 서버(slave) 로 구축된 Redis Cluster 시스템이다.
 
 ![Redis Cluster Management](/assets/img/dev/2022/0918/redis-cluster.png)
 
-Redis Cluster 시스템을 구축하는 방법은 2가지가 있다.  
+Redis Cluster 시스템을 구축하는 방법은 2가지가 있다. 
 - **Cluster 명령어를 이용한 수동 설정**
-  - 직접 물리적 설계 필요
-  - 최적화된 Cluster 서버 환경 구축 가능
-  - 장애 발생 시 관리자 의도에 따라 대응 가능
+ - 직접 물리적 설계 필요
+ - 최적화된 Cluster 서버 환경 구축 가능
+ - 장애 발생 시 관리자 의도에 따라 대응 가능
 - **redis-trib.rb 유틸리티를 이용한 자동 설정**
-  - Redis-trib.rb는 Redis version 5.0 부터 Redis-cli로 대체됨
+ - Redis-trib.rb는 Redis version 5.0 부터 Redis-cli로 대체됨
 
 관리자의 기술 이해도, 업무 스킬 정도, 시스템 환경에 따라 적합한 방법을 선택하는 것이 좋다.
 
 - Redis Cluster 특징
-  - Redis 3.0 부터 제공
-  - 클러스터 모드는 Database 0번만 사용 가능
-  - 클러스터 모드에서 `MSET` 명령어 실행 불가, Hash-Tag 를 통해 데이터 표현 및 분산 저장
-  - 기본적으로 Master/Slave 로만 구성되며, Sentinel 서버는 필요없음
-  - Redis 서버는 기본적으로 16,384 개의 slot 을 갖는데 빅데이터를 여러 대의 서버에 분산 저장 시 각 slot 당 데이터를 일정 단위로 분류하여 저장할 때 사용됨  
-   e.g. 3대의 Redis 서버가 구축되어 있는 환경일 경우
-    - 첫 번째 서버는 0~5,460 slot 정보가 분산
-    - 두 번째 서버는 5,461~10,922 slot 정보가 분산
-    - 세 번째 서버는 10,923~16,384 slot 정보가 분산
-  - Hash Partition 을 통해 데이터를 분산 저장할 수 있음, 이 때 해시 함수는 CRC16(Cycle Redundancy Check) 함수 사용
+ - Redis 3.0 부터 제공
+ - 클러스터 모드는 Database 0번만 사용 가능
+ - 클러스터 모드에서 `MSET` 명령어 실행 불가, Hash-Tag 를 통해 데이터 표현 및 분산 저장
+ - 기본적으로 Master/Slave 로만 구성되며, Sentinel 서버는 필요없음
+ - Redis 서버는 기본적으로 16,384 개의 slot 을 갖는데 빅데이터를 여러 대의 서버에 분산 저장 시 각 slot 당 데이터를 일정 단위로 분류하여 저장할 때 사용됨 
+  e.g. 3대의 Redis 서버가 구축되어 있는 환경일 경우
+  - 첫 번째 서버는 0~5,460 slot 정보가 분산
+  - 두 번째 서버는 5,461~10,922 slot 정보가 분산
+  - 세 번째 서버는 10,923~16,384 slot 정보가 분산
+ - Hash Partition 을 통해 데이터를 분산 저장할 수 있음, 이 때 해시 함수는 CRC16(Cycle Redundancy Check) 함수 사용
 
 > Hash Partition 에 대한 내용은 [Redis - Redis Cluster & Monitoring (1)](https://assu10.github.io/dev/2022/09/17/redis-cluster-and-monitoring-1/) 의
 > *1.1. 파티션 유형* 을 참고하세요.
@@ -104,7 +104,7 @@ $ redis-server /usr/local/etc/redis-cluster/5006/redis-5006.conf
 
 5001 node 에 접속하여 Cluster 멤버로 참여할 각 node 를 등록한다.
 ```shell
-$ redis-cli -h 127.0.0.1 -p 5001 cluster meet 127.0.0.1 5002  # 5002 node 를 멤버로 등록
+$ redis-cli -h 127.0.0.1 -p 5001 cluster meet 127.0.0.1 5002 # 5002 node 를 멤버로 등록
 $ redis-cli -h 127.0.0.1 -p 5001 cluster meet 127.0.0.1 5003
 $ redis-cli -h 127.0.0.1 -p 5001 cluster meet 127.0.0.1 5004
 $ redis-cli -h 127.0.0.1 -p 5001 cluster meet 127.0.0.1 5005
@@ -125,7 +125,7 @@ f86bfd9f1665797a47a03a1e664d348ab7b9c55e 127.0.0.1:5001@15001 myself,master - 0 
 5004 node 를 5001 의 복제 서버로, 5005 node 를 5002 의 복제 서버로, 5006 node 를 5003 의 복제 서버로 설정한다.
 
 ```shell
-$ redis-cli -h 127.0.0.1 -p 5004 cluster replicate f86bfd9f1665797a47a03a1e664d348ab7b9c55e  # 위에서 5001 의 node-id
+$ redis-cli -h 127.0.0.1 -p 5004 cluster replicate f86bfd9f1665797a47a03a1e664d348ab7b9c55e # 위에서 5001 의 node-id
 OK
 $ redis-cli -h 127.0.0.1 -p 5005 cluster replicate 50e59dfef86d1760b07fb5c477afe9ee122742b9
 OK
@@ -153,13 +153,13 @@ $ redis-cli -h 127.0.0.1 -p 5001 cluster forget 567950b15f8c77572cd8fa859106c342
 # 이후 다시 cluster meet 초대 후 master-slave 설정
 ```
 
-> 데이터 분산은 Slot 을 기준으로 분산된다.  
-> 3개의 node 가 구축되었다고 하면 1번 node 는 0~5,461, 2번 node 는 5,462~10,922, 3번 node 는 10,923~16,383 Slot 을 가지며,  
+> 데이터 분산은 Slot 을 기준으로 분산된다. 
+> 3개의 node 가 구축되었다고 하면 1번 node 는 0~5,461, 2번 node 는 5,462~10,922, 3번 node 는 10,923~16,383 Slot 을 가지며, 
 > 사용자가 직접 정의할 수도 있다.
 
 ![데이터 분산 예시](/assets/img/dev/2022/0918/slot.png)
 
-> **Slot**  
+> **Slot** 
 > 입력된 KEY 에 CRC16 Function 을 적용하여 나온 값에 16,384 값을 나눈 나머지 값
 
 각 master node 에 slot 설정
@@ -175,35 +175,35 @@ $ redis-cli -h 127.0.0.1 -p 5003 cluster addslots {10923..16383}
 ```shell
 redis-cli -h 127.0.0.1 -p 5005 cluster slots
 1) 1) (integer) 0
-   2) (integer) 5461
-   3) 1) "127.0.0.1"
-      2) (integer) 5001
-      3) "f86bfd9f1665797a47a03a1e664d348ab7b9c55e"
-      4) (empty array)
-   4) 1) "127.0.0.1"
-      2) (integer) 5004
-      3) "7fb6701e5793f0dc9523d1e12262fd95c840e100"
-      4) (empty array)
+  2) (integer) 5461
+  3) 1) "127.0.0.1"
+   2) (integer) 5001
+   3) "f86bfd9f1665797a47a03a1e664d348ab7b9c55e"
+   4) (empty array)
+  4) 1) "127.0.0.1"
+   2) (integer) 5004
+   3) "7fb6701e5793f0dc9523d1e12262fd95c840e100"
+   4) (empty array)
 2) 1) (integer) 5462
-   2) (integer) 10922
-   3) 1) "127.0.0.1"
-      2) (integer) 5002
-      3) "50e59dfef86d1760b07fb5c477afe9ee122742b9"
-      4) (empty array)
-   4) 1) "127.0.0.1"
-      2) (integer) 5005
-      3) "4c843eb9df07e67887d9b044acf4fc37e378b3f5"
-      4) (empty array)
+  2) (integer) 10922
+  3) 1) "127.0.0.1"
+   2) (integer) 5002
+   3) "50e59dfef86d1760b07fb5c477afe9ee122742b9"
+   4) (empty array)
+  4) 1) "127.0.0.1"
+   2) (integer) 5005
+   3) "4c843eb9df07e67887d9b044acf4fc37e378b3f5"
+   4) (empty array)
 3) 1) (integer) 10923
-   2) (integer) 16383
-   3) 1) "127.0.0.1"
-      2) (integer) 5003
-      3) "52abd0292b44e95774d701e116c75f1a5dcb7279"
-      4) (empty array)
-   4) 1) "127.0.0.1"
-      2) (integer) 5006
-      3) "8524149ffc81c9406f6328e1643645920a3a7c8a"
-      4) (empty array)
+  2) (integer) 16383
+  3) 1) "127.0.0.1"
+   2) (integer) 5003
+   3) "52abd0292b44e95774d701e116c75f1a5dcb7279"
+   4) (empty array)
+  4) 1) "127.0.0.1"
+   2) (integer) 5006
+   3) "8524149ffc81c9406f6328e1643645920a3a7c8a"
+   4) (empty array)
 ```
 
 cluster 설정 상태 확인
@@ -215,7 +215,7 @@ cluster_slots_ok:16384
 cluster_slots_pfail:0
 cluster_slots_fail:0
 cluster_known_nodes:6
-cluster_size:3  # 3개의 샤드 서버로 설정된 상
+cluster_size:3 # 3개의 샤드 서버로 설정된 상
 cluster_current_epoch:5
 cluster_my_epoch:1
 cluster_stats_messages_ping_sent:10465
@@ -283,7 +283,7 @@ e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 master - 0 1665722
 
 master/slave 설정
 ```shell
-$ redis-cli -h 127.0.0.1 -p 5008 cluster replicate 705f4fbfc5d5bb9ad6fd09e6193c11c62f2a7512  # 위에서 5007 의 node-id
+$ redis-cli -h 127.0.0.1 -p 5008 cluster replicate 705f4fbfc5d5bb9ad6fd09e6193c11c62f2a7512 # 위에서 5007 의 node-id
 ```
 
 등록된 멤버 재확인
@@ -299,8 +299,8 @@ e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 slave 705f4fbfc5d5
 52abd0292b44e95774d701e116c75f1a5dcb7279 127.0.0.1:5003@15003 master - 0 1665722320000 2 connected 10923-16383
 ```
 
-이제 5007 node 를 제거해보자.  
-`cluster meet` 과는 다르게 `cluster forget` 은 전체 노드에서 실행해야 하며, 타임아웃 60초 범위 안에 실행해야 한다.  
+이제 5007 node 를 제거해보자. 
+`cluster meet` 과는 다르게 `cluster forget` 은 전체 노드에서 실행해야 하며, 타임아웃 60초 범위 안에 실행해야 한다. 
 그리고 반드시 Master 대상으로 해야한다.
 
 ```shell
@@ -336,12 +336,12 @@ e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 slave - 0 16657229
 
 
 - `cluster-enabled` yes
-  - Redis Cluster 모드 설정
+ - Redis Cluster 모드 설정
 - `cluster-config-file` /usr/local/etc/redis-cluster/5007/nodes-5007.conf
-  - Redis Cluster node 상태 정보 기록하는 Binary 파일 경로와 파일명 지정
+ - Redis Cluster node 상태 정보 기록하는 Binary 파일 경로와 파일명 지정
 - `cluster-node-timeout` 5000 
-  - ms 단위이며, Cluster node 가 다운된 상태인지 여부를 판단하기 위한 타임아웃 시간 설정
-  - 지정된 시간 내에 node 가 응답하지 않으면 다운된 것으로 판단
+ - ms 단위이며, Cluster node 가 다운된 상태인지 여부를 판단하기 위한 타임아웃 시간 설정
+ - 지정된 시간 내에 node 가 응답하지 않으면 다운된 것으로 판단
 
 ---
 
@@ -351,12 +351,12 @@ e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 slave - 0 16657229
 ```shell
 127.0.0.1:5001> cluster info
 cluster_state:ok
-cluster_slots_assigned:16384  # Redis 서버에 할당된 최대 slot 수 (cluster_slots_ok + cluster_pfail + cluster_slots_fail)
+cluster_slots_assigned:16384 # Redis 서버에 할당된 최대 slot 수 (cluster_slots_ok + cluster_pfail + cluster_slots_fail)
 cluster_slots_ok:16384
-cluster_slots_pfail:0  # 접속할 수 없는 노드에 할당된 슬롯 수
-cluster_slots_fail:0  # 다운된 서버에 할당된 슬롯 수
-cluster_known_nodes:7  # 클러스터에 할당된 모든 노드 수
-cluster_size:3  # 클러스터에 할당된 master 노드 수
+cluster_slots_pfail:0 # 접속할 수 없는 노드에 할당된 슬롯 수
+cluster_slots_fail:0 # 다운된 서버에 할당된 슬롯 수
+cluster_known_nodes:7 # 클러스터에 할당된 모든 노드 수
+cluster_size:3 # 클러스터에 할당된 master 노드 수
 cluster_current_epoch:7
 cluster_my_epoch:0
 cluster_stats_messages_ping_sent:19666
@@ -370,7 +370,7 @@ cluster_stats_messages_received:39444
 total_cluster_links_buffer_limit_exceeded:0
 ```
 
-`cluster nodes` -  Cluster 에 할당된 모든 노드 정보
+`cluster nodes` - Cluster 에 할당된 모든 노드 정보
 ```shell
 127.0.0.1:5001> cluster nodes
 50e59dfef86d1760b07fb5c477afe9ee122742b9 127.0.0.1:5002@15002 master - 0 1665726564952 1 connected 5462-10922
@@ -384,16 +384,16 @@ e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 slave - 0 16657265
 
 `cluster slaves` - 해당 master 를 바라보는 slaves 정보
 ```shell
-127.0.0.1:5001> cluster slaves 50e59dfef86d1760b07fb5c477afe9ee122742b9  # master node-id
+127.0.0.1:5001> cluster slaves 50e59dfef86d1760b07fb5c477afe9ee122742b9 # master node-id
 1) "4c843eb9df07e67887d9b044acf4fc37e378b3f5 127.0.0.1:5005@15005 slave 50e59dfef86d1760b07fb5c477afe9ee122742b9 0 1665726884000 1 connected"
 
-127.0.0.1:5001> cluster slaves 4c843eb9df07e67887d9b044acf4fc37e378b3f5  # slave node-id
+127.0.0.1:5001> cluster slaves 4c843eb9df07e67887d9b044acf4fc37e378b3f5 # slave node-id
 (error) ERR The specified node is not a master
 ```
 
 `cluster keyslot`
 ```shell
-127.0.0.1:5001> cluster keyslot 1101  # key 1101 이 저장되어 있는 slot 번호
+127.0.0.1:5001> cluster keyslot 1101 # key 1101 이 저장되어 있는 slot 번호
 (integer) 2863
 
 127.0.0.1:5001> cluster keyslot 9999
@@ -407,10 +407,10 @@ OK
 
 $ redis-cli -h 127.0.0.1 -p 5004 cluster nodes
 4c843eb9df07e67887d9b044acf4fc37e378b3f5 127.0.0.1:5005@15005 slave 50e59dfef86d1760b07fb5c477afe9ee122742b9 0 1665727493042 1 connected
-f86bfd9f1665797a47a03a1e664d348ab7b9c55e 127.0.0.1:5001@15001 slave 7fb6701e5793f0dc9523d1e12262fd95c840e100 0 1665727493543 8 connected  # slave 로 변경
+f86bfd9f1665797a47a03a1e664d348ab7b9c55e 127.0.0.1:5001@15001 slave 7fb6701e5793f0dc9523d1e12262fd95c840e100 0 1665727493543 8 connected # slave 로 변경
 50e59dfef86d1760b07fb5c477afe9ee122742b9 127.0.0.1:5002@15002 master - 0 1665727494044 1 connected 5462-10922
 e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 slave - 0 1665727494546 7 connected
-7fb6701e5793f0dc9523d1e12262fd95c840e100 127.0.0.1:5004@15004 myself,master - 0 1665727493000 8 connected 0-5461  # master 로 변경
+7fb6701e5793f0dc9523d1e12262fd95c840e100 127.0.0.1:5004@15004 myself,master - 0 1665727493000 8 connected 0-5461 # master 로 변경
 8524149ffc81c9406f6328e1643645920a3a7c8a 127.0.0.1:5006@15006 slave 52abd0292b44e95774d701e116c75f1a5dcb7279 0 1665727494546 2 connected
 52abd0292b44e95774d701e116c75f1a5dcb7279 127.0.0.1:5003@15003 master - 0 1665727493543 2 connected 10923-16383
 ```
@@ -425,9 +425,9 @@ OK
 $ redis-cli -h 127.0.0.1 -p 5001 cluster nodes
 50e59dfef86d1760b07fb5c477afe9ee122742b9 127.0.0.1:5002@15002 master - 0 1665727638405 1 connected 5462-10922
 f86bfd9f1665797a47a03a1e664d348ab7b9c55e 127.0.0.1:5001@15001 myself,slave 7fb6701e5793f0dc9523d1e12262fd95c840e100 0 1665727635000 8 connected
-e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 master - 0 1665727637601 7 connected  # master 로 변경
+e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 master - 0 1665727637601 7 connected # master 로 변경
 7fb6701e5793f0dc9523d1e12262fd95c840e100 127.0.0.1:5004@15004 master - 0 1665727638506 8 connected 0-5461
-8524149ffc81c9406f6328e1643645920a3a7c8a 127.0.0.1:5006@15006 master - 0 1665727638000 5 connected  # master 로 변경
+8524149ffc81c9406f6328e1643645920a3a7c8a 127.0.0.1:5006@15006 master - 0 1665727638000 5 connected # master 로 변경
 4c843eb9df07e67887d9b044acf4fc37e378b3f5 127.0.0.1:5005@15005 slave 50e59dfef86d1760b07fb5c477afe9ee122742b9 0 1665727636395 1 connected
 52abd0292b44e95774d701e116c75f1a5dcb7279 127.0.0.1:5003@15003 master - 0 1665727638506 2 connected 10923-16383
 ```

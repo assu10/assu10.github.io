@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "NestJS - Health Check"
+title: "NestJS - Health Check"
 date: 2023-04-15
 categories: dev
 tags: javascript nestjs health-check
@@ -31,7 +31,7 @@ NestJS 는 `Terminus(@nestjs/terminus)` Health Check 라이브러리를 제공�
 
 Terminus 는 다양한 Health Indicator 를 제공하여, 필요하면 직접 만들어서 사용할 수도 있다.
 
-`@nestjs/terminus` 패키지에서 제공하는 Health Indicator 는 아래와 같다.  
+`@nestjs/terminus` 패키지에서 제공하는 Health Indicator 는 아래와 같다. 
 해당 포스트에선 HttpHealthIndicator 와 TypeOrmHealthIndicator 에 대해 알아본다.
 
 - **HttpHealthIndicator** 
@@ -66,12 +66,12 @@ import { HealthCheckController } from './health-check/health-check.controller';
 import { TerminusModule } from '@nestjs/terminus';
 
 @Module({
-  imports: [
-      ...
-      TerminusModule
-  ],
-  controllers: [HealthCheckController],
-  providers: [],
+ imports: [
+   ...
+   TerminusModule
+ ],
+ controllers: [HealthCheckController],
+ providers: [],
 })
 export class AppModule {}
 ```
@@ -96,13 +96,13 @@ import { TerminusModule } from '@nestjs/terminus';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [
-    ...
-    TerminusModule,
-    HttpModule,
-  ],
-  controllers: [HealthCheckController],
-  providers: [],
+ imports: [
+  ...
+  TerminusModule,
+  HttpModule,
+ ],
+ controllers: [HealthCheckController],
+ providers: [],
 })
 export class AppModule {}
 ```
@@ -113,31 +113,31 @@ export class AppModule {}
 ```ts
 import { Controller, Get } from '@nestjs/common';
 import {
-  HealthCheck,
-  HealthCheckService,
-  HttpHealthIndicator,
+ HealthCheck,
+ HealthCheckService,
+ HttpHealthIndicator,
 } from '@nestjs/terminus';
 
 @Controller('health-check')
 export class HealthCheckController {
-  constructor(
-    private healthCheckService: HealthCheckService,
-    private httpHealthIndicator: HttpHealthIndicator,
-  ) {}
+ constructor(
+  private healthCheckService: HealthCheckService,
+  private httpHealthIndicator: HttpHealthIndicator,
+ ) {}
 
-  @Get()
-  @HealthCheck()
-  check() {
-    return this.healthCheckService.check([
-      // HttpHealthIndicator 가 제공하는 pingCheck() 를 통해 다른 서버가 잘 동작하고 있는지 확인
-      // https://docs.nestjs.com 에 요청을 보내서 받은 응답을 첫 번째 인수인 nestjs-docss 에 준다는 의미
-      () =>
-        this.httpHealthIndicator.pingCheck(
-          'nestjs-docss',
-          'https://docs.nestjs.com',
-        ),
-    ]);
-  }
+ @Get()
+ @HealthCheck()
+ check() {
+  return this.healthCheckService.check([
+   // HttpHealthIndicator 가 제공하는 pingCheck() 를 통해 다른 서버가 잘 동작하고 있는지 확인
+   // https://docs.nestjs.com 에 요청을 보내서 받은 응답을 첫 번째 인수인 nestjs-docss 에 준다는 의미
+   () =>
+    this.httpHealthIndicator.pingCheck(
+     'nestjs-docss',
+     'https://docs.nestjs.com',
+    ),
+  ]);
+ }
 }
 ```
 
@@ -149,18 +149,18 @@ $ npm run start:dev
 $ curl --location 'http://localhost:3000/health-check' | jq
 
 {
-  "status": "ok",
-  "info": {
-    "nestjs-docss": {
-      "status": "up"
-    }
-  },
-  "error": {},
-  "details": {
-    "nestjs-docss": {
-      "status": "up"
-    }
+ "status": "ok",
+ "info": {
+  "nestjs-docss": {
+   "status": "up"
   }
+ },
+ "error": {},
+ "details": {
+  "nestjs-docss": {
+   "status": "up"
+  }
+ }
 }
 ```
 
@@ -181,32 +181,32 @@ export declare type HealthCheckStatus = 'error' | 'ok' | 'shutting_down';
  * @publicApi
  */
 export interface HealthCheckResult {
-    /**
-     * The overall status of the Health Check
-     
-     * 헬스 체크를 수행한 전반적인 상태, 'error' | 'ok' | 'shutting_down'
-     */
-    status: HealthCheckStatus;
-    /**
-     * The info object contains information of each health indicator
-     * which is of status "up"
-     
-     * 상태가 up 일 때의 상태 정보
-     */
-    info?: HealthIndicatorResult;
-    /**
-     * The error object contains information of each health indicator
-     * which is of status "down"
-     * 
-     * 상태가 down 일 때의 상태 정보
-     */
-    error?: HealthIndicatorResult;
-    /**
-     * The details object contains information of every health indicator.
-     * 
-     * 모든 Health Indecator 의 정보
-     */
-    details: HealthIndicatorResult;
+  /**
+   * The overall status of the Health Check
+   
+   * 헬스 체크를 수행한 전반적인 상태, 'error' | 'ok' | 'shutting_down'
+   */
+  status: HealthCheckStatus;
+  /**
+   * The info object contains information of each health indicator
+   * which is of status "up"
+   
+   * 상태가 up 일 때의 상태 정보
+   */
+  info?: HealthIndicatorResult;
+  /**
+   * The error object contains information of each health indicator
+   * which is of status "down"
+   * 
+   * 상태가 down 일 때의 상태 정보
+   */
+  error?: HealthIndicatorResult;
+  /**
+   * The details object contains information of every health indicator.
+   * 
+   * 모든 Health Indecator 의 정보
+   */
+  details: HealthIndicatorResult;
 }
 ```
 
@@ -214,34 +214,34 @@ export interface HealthCheckResult {
 
 # 4. TypeORM Health Check: `TypeOrmHealthIndicator`
 
-`TypeOrmHealthIndicator` 은 단순히 DB 가 잘 살아있는지 확인한다.  
+`TypeOrmHealthIndicator` 은 단순히 DB 가 잘 살아있는지 확인한다. 
 
 /src/health-check/health-check.controller.ts 
 ```ts
 import { Controller, Get } from '@nestjs/common';
 import {
-  HealthCheck,
-  HealthCheckService,
-  HttpHealthIndicator,
-  TypeOrmHealthIndicator,
+ HealthCheck,
+ HealthCheckService,
+ HttpHealthIndicator,
+ TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 
 @Controller('health-check')
 export class HealthCheckController {
-  constructor(
-    private healthCheckService: HealthCheckService,
-    private httpHealthIndicator: HttpHealthIndicator,
-    private typeOrmHealthIndicator: TypeOrmHealthIndicator,
-  ) {}
+ constructor(
+  private healthCheckService: HealthCheckService,
+  private httpHealthIndicator: HttpHealthIndicator,
+  private typeOrmHealthIndicator: TypeOrmHealthIndicator,
+ ) {}
 
-  @Get()
-  @HealthCheck()
-  check() {
-    return this.healthCheckService.check([
-      () => this.httpHealthIndicator.pingCheck('nestjs-docss','https://docs.nestjs.com'),
-      () => this.typeOrmHealthIndicator.pingCheck('database'),
-    ]);
-  }
+ @Get()
+ @HealthCheck()
+ check() {
+  return this.healthCheckService.check([
+   () => this.httpHealthIndicator.pingCheck('nestjs-docss','https://docs.nestjs.com'),
+   () => this.typeOrmHealthIndicator.pingCheck('database'),
+  ]);
+ }
 }
 ```
 
@@ -249,24 +249,24 @@ export class HealthCheckController {
 $ curl --location 'http://localhost:3000/health-check' | jq
 
 {
-  "status": "ok",
-  "info": {
-    "nestjs-docss": {
-      "status": "up"
-    },
-    "database": {
-      "status": "up"
-    }
+ "status": "ok",
+ "info": {
+  "nestjs-docss": {
+   "status": "up"
   },
-  "error": {},
-  "details": {
-    "nestjs-docss": {
-      "status": "up"
-    },
-    "database": {
-      "status": "up"
-    }
+  "database": {
+   "status": "up"
   }
+ },
+ "error": {},
+ "details": {
+  "nestjs-docss": {
+   "status": "up"
+  },
+  "database": {
+   "status": "up"
+  }
+ }
 }
 ```
 
@@ -279,31 +279,31 @@ $ curl --location 'http://localhost:3000/health-check' | jq
 `HealthIndicator` 시그니처
 ```ts
 export declare abstract class HealthIndicator {
-    /**
-     * Generates the health indicator result object
-     * @param key The key which will be used as key for the result object
-     * @param isHealthy Whether the health indicator is healthy
-     * @param data Additional data which will get appended to the result object
-     */
-    protected getStatus(key: string, isHealthy: boolean, data?: {
-        [key: string]: any;
-    }): HealthIndicatorResult;
+  /**
+   * Generates the health indicator result object
+   * @param key The key which will be used as key for the result object
+   * @param isHealthy Whether the health indicator is healthy
+   * @param data Additional data which will get appended to the result object
+   */
+  protected getStatus(key: string, isHealthy: boolean, data?: {
+    [key: string]: any;
+  }): HealthIndicatorResult;
 }
 
 export declare type HealthIndicatorResult = {
+  /**
+   * The key of the health indicator which should be unique
+   */
+  [key: string]: {
     /**
-     * The key of the health indicator which should be unique
+     * The status if the given health indicator was successful or not
      */
-    [key: string]: {
-        /**
-         * The status if the given health indicator was successful or not
-         */
-        status: HealthIndicatorStatus;
-        /**
-         * Optional settings of the health indicator result
-         */
-        [optionalKeys: string]: any;
-    };
+    status: HealthIndicatorStatus;
+    /**
+     * Optional settings of the health indicator result
+     */
+    [optionalKeys: string]: any;
+  };
 };
 
 export declare type HealthIndicatorStatus = 'up' | 'down';
@@ -311,11 +311,11 @@ export declare type HealthIndicatorStatus = 'up' | 'down';
 
 `HealthIndicator` 에는 `HealthIndicatorResult` 를 리턴해주는 getStatus() 가 있는데 이 메서드의 인자는 아래와 같다.
 - key
-  - 상태를 나타냄
+ - 상태를 나타냄
 - isHealthy 
-  - Health Indicator 가 상태를 측정한 결과
+ - Health Indicator 가 상태를 측정한 결과
 - data
-  - 결과에 포함시킬 데이터
+ - 결과에 포함시킬 데이터
 
 아래는 강아지 상태를 나타내는 DegHealthIndicator 예시이다.
 
@@ -326,30 +326,30 @@ import { HealthCheckError, HealthIndicator } from '@nestjs/terminus';
 import { HealthIndicatorResult } from '@nestjs/terminus/dist/health-indicator';
 
 export interface Dog {
-  name: string;
-  type: string;
+ name: string;
+ type: string;
 }
 
 @Injectable()
 export class DogHealthIndicator extends HealthIndicator {
-  private dogs: Dog[] = [
-    { name: 'Silby', type: 'good' },
-    { name: 'Kamang', type: 'normal' },
-  ];
+ private dogs: Dog[] = [
+  { name: 'Silby', type: 'good' },
+  { name: 'Kamang', type: 'normal' },
+ ];
 
-  // 강아지 상태가 모두 good 인지 체크
-  // normal 인 강아지가 있으면 HealthCheckError 던짐
-  async isHealthy(key: string): Promise<HealthIndicatorResult> {
-    const normals = this.dogs.filter((dog) => dog.type === 'normal');
-    const isHealthy = normals.length === 0;
-    const result = this.getStatus(key, isHealthy, { normals: normals.length });
+ // 강아지 상태가 모두 good 인지 체크
+ // normal 인 강아지가 있으면 HealthCheckError 던짐
+ async isHealthy(key: string): Promise<HealthIndicatorResult> {
+  const normals = this.dogs.filter((dog) => dog.type === 'normal');
+  const isHealthy = normals.length === 0;
+  const result = this.getStatus(key, isHealthy, { normals: normals.length });
 
-    if (isHealthy) {
-      return result;
-    }
-
-    throw new HealthCheckError(`Normal Dog: ${normals}`, result);
+  if (isHealthy) {
+   return result;
   }
+
+  throw new HealthCheckError(`Normal Dog: ${normals}`, result);
+ }
 }
 ```
 
@@ -361,8 +361,8 @@ app.module.ts
 import { DogHealthIndicator } from './health-check/dog.health';
 
 @Module({
-  ...
-  providers: [DogHealthIndicator],
+ ...
+ providers: [DogHealthIndicator],
 })
 export class AppModule {}
 ```
@@ -373,37 +373,37 @@ export class AppModule {}
 ```ts
 import { Controller, Get } from '@nestjs/common';
 import {
-  HealthCheck,
-  HealthCheckService,
-  HttpHealthIndicator,
-  TypeOrmHealthIndicator,
+ HealthCheck,
+ HealthCheckService,
+ HttpHealthIndicator,
+ TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 import { DogHealthIndicator } from './dog.health';
 
 @Controller('health-check')
 export class HealthCheckController {
-  constructor(
-    private healthCheckService: HealthCheckService,
-    private httpHealthIndicator: HttpHealthIndicator,
-    private typeOrmHealthIndicator: TypeOrmHealthIndicator,
-    private dogHealthIndicator: DogHealthIndicator,
-  ) {}
+ constructor(
+  private healthCheckService: HealthCheckService,
+  private httpHealthIndicator: HttpHealthIndicator,
+  private typeOrmHealthIndicator: TypeOrmHealthIndicator,
+  private dogHealthIndicator: DogHealthIndicator,
+ ) {}
 
-  @Get()
-  @HealthCheck()
-  check() {
-    return this.healthCheckService.check([
-      // HttpHealthIndicator 가 제공하는 pingCheck() 를 통해 다른 서버가 잘 동작하고 있는지 확인
-      // https://docs.nestjs.com 에 요청을 보내서 받은 응답을 첫 번째 인수인 nestjs-docss 에 준다는 의미
-      () =>
-        this.httpHealthIndicator.pingCheck(
-          'nestjs-docss',
-          'https://docs.nestjs.com',
-        ),
-      () => this.typeOrmHealthIndicator.pingCheck('database'),
-      () => this.dogHealthIndicator.isHealthy('dog'),
-    ]);
-  }
+ @Get()
+ @HealthCheck()
+ check() {
+  return this.healthCheckService.check([
+   // HttpHealthIndicator 가 제공하는 pingCheck() 를 통해 다른 서버가 잘 동작하고 있는지 확인
+   // https://docs.nestjs.com 에 요청을 보내서 받은 응답을 첫 번째 인수인 nestjs-docss 에 준다는 의미
+   () =>
+    this.httpHealthIndicator.pingCheck(
+     'nestjs-docss',
+     'https://docs.nestjs.com',
+    ),
+   () => this.typeOrmHealthIndicator.pingCheck('database'),
+   () => this.dogHealthIndicator.isHealthy('dog'),
+  ]);
+ }
 }
 ```
 
@@ -411,33 +411,33 @@ export class HealthCheckController {
 $ curl --location 'http://localhost:3000/health-check' | jq
 
 {
-  "status": "error",
-  "info": {
-    "nestjs-docss": {
-      "status": "up"
-    },
-    "database": {
-      "status": "up"
-    }
+ "status": "error",
+ "info": {
+  "nestjs-docss": {
+   "status": "up"
   },
-  "error": {
-    "dog": {
-      "status": "down",
-      "normals": 1
-    }
-  },
-  "details": {
-    "nestjs-docss": {
-      "status": "up"
-    },
-    "database": {
-      "status": "up"
-    },
-    "dog": {
-      "status": "down",
-      "normals": 1
-    }
+  "database": {
+   "status": "up"
   }
+ },
+ "error": {
+  "dog": {
+   "status": "down",
+   "normals": 1
+  }
+ },
+ "details": {
+  "nestjs-docss": {
+   "status": "up"
+  },
+  "database": {
+   "status": "up"
+  },
+  "dog": {
+   "status": "down",
+   "normals": 1
+  }
+ }
 }
 ```
 

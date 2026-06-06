@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Spring Security - 권한 부여(2): 경로, HTTP Method 에 따른 엑세스 제한"
+title: "Spring Security - 권한 부여(2): 경로, HTTP Method 에 따른 엑세스 제한"
 date: 2023-12-09
 categories: dev
 tags: spring-security
@@ -18,9 +18,9 @@ tags: spring-security
 <!-- TOC -->
 * [1. 선택기 (`matcher`) 메서드로 엔드포인트 선택](#1-선택기-matcher-메서드로-엔드포인트-선택)
 * [2. MVC 선택기로 권한을 부여할 요청 선택](#2-mvc-선택기로-권한을-부여할-요청-선택)
-  * [2.1. 특정 엔드포인트에 접근 제한 적용](#21-특정-엔드포인트에-접근-제한-적용)
-  * [2.2. HTTP Method 에 따라 접근 제한 적용](#22-http-method-에-따라-접근-제한-적용)
-  * [2.3. 정규식으로 접근 제한 적용](#23-정규식으로-접근-제한-적용)
+ * [2.1. 특정 엔드포인트에 접근 제한 적용](#21-특정-엔드포인트에-접근-제한-적용)
+ * [2.2. HTTP Method 에 따라 접근 제한 적용](#22-http-method-에-따라-접근-제한-적용)
+ * [2.3. 정규식으로 접근 제한 적용](#23-정규식으로-접근-제한-적용)
 * [3. 정규식 선택기로 권한을 부여할 요청 선택](#3-정규식-선택기로-권한을-부여할-요청-선택)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 <!-- TOC -->
@@ -46,15 +46,15 @@ tags: spring-security
 
 이번엔 엔드포인트에 따라 접근을 제한하는 방법에 대해 알아본다.
 
-권한 부여 구성을 적용할 요청을 선택할 때는 선택기 메서드를 사용한다.  
+권한 부여 구성을 적용할 요청을 선택할 때는 선택기 메서드를 사용한다. 
 스프링 시큐리티에서는 3가지 유형의 선택기 메서드를 제공한다.
 
 - **MVC 선택기**
-  - 경로에 MVC 식을 이용하여 엔드포인트 선택
+ - 경로에 MVC 식을 이용하여 엔드포인트 선택
 - **앤트 선택기**
-  - 경로에 앤트 식을 이용하여 엔드포인트 선택
+ - 경로에 앤트 식을 이용하여 엔드포인트 선택
 - **정규식 선택기**
-  - 경로에 정규식을 이용하여 엔드포인트 선택
+ - 경로에 정규식을 이용하여 엔드포인트 선택
 
 ---
 
@@ -76,27 +76,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController {
-  // ADMIN 만 접근 가능
-  @GetMapping("/hello")
-  public String hello() {
-    return "Hello!";
-  }
+ // ADMIN 만 접근 가능
+ @GetMapping("/hello")
+ public String hello() {
+  return "Hello!";
+ }
 
-  // MANAGER 만 접근 가능
-  @GetMapping("/bye")
-  public String bye() {
-    return "Bye!";
-  }
+ // MANAGER 만 접근 가능
+ @GetMapping("/bye")
+ public String bye() {
+  return "Bye!";
+ }
 
-  // 별도의 접근 제한 없음
-  @GetMapping("/see")
-  public String see() {
-    return "See!";
-  }
+ // 별도의 접근 제한 없음
+ @GetMapping("/see")
+ public String see() {
+  return "See!";
+ }
 }
 ```
 
-이제 구성 클래스에 `InMemoryUserDetailsManager` 를 `UserDetailsService` 인스턴스로 등록하고, 다른 역할을 가진 두 사용자를 추가한다.  
+이제 구성 클래스에 `InMemoryUserDetailsManager` 를 `UserDetailsService` 인스턴스로 등록하고, 다른 역할을 가진 두 사용자를 추가한다. 
 요청에 권한을 부여할 때는 ADMIN 역할이 있는 사용자만 /hello 엔드포인트를 호출할 수 있도록 `requestMatchers()` 를 이용한다.
 
 /config/ProjectConfig.java
@@ -115,46 +115,46 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class ProjectConfig {
-  @Bean   // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
-  public UserDetailsService userDetailsService() {
-    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+ @Bean  // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
+ public UserDetailsService userDetailsService() {
+  InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
-    // UserDetailsService 가 관리하도록 사용자 추가
-    UserDetails user1 = User.withUsername("assu")
-        .password("1111")
-        .roles("ADMIN")
-        .build();
+  // UserDetailsService 가 관리하도록 사용자 추가
+  UserDetails user1 = User.withUsername("assu")
+    .password("1111")
+    .roles("ADMIN")
+    .build();
 
-    UserDetails user2 = User.withUsername("silby")
-        .password("2222")
-        .roles("MANAGER")
-        .build();
+  UserDetails user2 = User.withUsername("silby")
+    .password("2222")
+    .roles("MANAGER")
+    .build();
 
-    manager.createUser(user1);
-    manager.createUser(user2);
+  manager.createUser(user1);
+  manager.createUser(user2);
 
-    return manager;
-  }
+  return manager;
+ }
 
-  // UserDetailsService 를 재정의하면 PasswordEncoder 도 재정의해야 함
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return NoOpPasswordEncoder.getInstance();
-  }
+ // UserDetailsService 를 재정의하면 PasswordEncoder 도 재정의해야 함
+ @Bean
+ public PasswordEncoder passwordEncoder() {
+  return NoOpPasswordEncoder.getInstance();
+ }
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(authz -> {
-          authz.requestMatchers("/hello").hasRole("ADMIN"); // /hello 는 ADMIN 역할만 접근 가능
-          authz.requestMatchers("/bye").hasRole("MANAGER"); // /bye 는 MANAGER 역할만 접근 가능
-          authz.anyRequest().permitAll(); // 그 외의 엔드포인트는 인증없이 접근 가능
-          //authz.anyRequest().authenticated(); // 그 외의 엔드포인트는 인증만 성공하면 접근 가능
-          //authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 접근 불가
-        })
-        .httpBasic(Customizer.withDefaults());
+ @Bean
+ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  http.authorizeHttpRequests(authz -> {
+     authz.requestMatchers("/hello").hasRole("ADMIN"); // /hello 는 ADMIN 역할만 접근 가능
+     authz.requestMatchers("/bye").hasRole("MANAGER"); // /bye 는 MANAGER 역할만 접근 가능
+     authz.anyRequest().permitAll(); // 그 외의 엔드포인트는 인증없이 접근 가능
+     //authz.anyRequest().authenticated(); // 그 외의 엔드포인트는 인증만 성공하면 접근 가능
+     //authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 접근 불가
+    })
+    .httpBasic(Customizer.withDefaults());
 
-    return http.build();
-  }
+  return http.build();
+ }
 }
 ```
 
@@ -163,19 +163,19 @@ public class ProjectConfig {
 이제 각 호출의 결과는 아래와 같다.
 ```shell
 # 인증없이 /hello 호출 시 401 Unauthorized 
-$ curl -w "%{http_code}"  http://localhost:8080/hello
+$ curl -w "%{http_code}" http://localhost:8080/hello
 401%
 
 # ADMIN 인 assu 가 /hello 호출 시 정상 응답
-$ curl -w "%{http_code}" -u assu:1111  http://localhost:8080/hello
+$ curl -w "%{http_code}" -u assu:1111 http://localhost:8080/hello
 Hello!200%
 
 # MANAGER 인 silby 가 /hello 호출 시 403 Forbidden
-$ curl -w "%{http_code}" -u silby:2222  http://localhost:8080/hello
+$ curl -w "%{http_code}" -u silby:2222 http://localhost:8080/hello
 403%
 
 # 인증없이 /see 호출 시 정상 응답
-$ curl -w "%{http_code}"   http://localhost:8080/see
+$ curl -w "%{http_code}"  http://localhost:8080/see
 See!200%
 ```
 
@@ -214,25 +214,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController {
-  @GetMapping("/aa")
-  public String hello() {
-    return "get aa";
-  }
+ @GetMapping("/aa")
+ public String hello() {
+  return "get aa";
+ }
 
-  @PostMapping("/aa")
-  public String bye() {
-    return "post aa";
-  }
+ @PostMapping("/aa")
+ public String bye() {
+  return "post aa";
+ }
 
-  @GetMapping("/aa/bb")
-  public String see() {
-    return "get aa/bb";
-  }
+ @GetMapping("/aa/bb")
+ public String see() {
+  return "get aa/bb";
+ }
 
-  @GetMapping("/aa/bb/cc")
-  public String see2() {
-    return "get aa/bb/cc";
-  }
+ @GetMapping("/aa/bb/cc")
+ public String see2() {
+  return "get aa/bb/cc";
+ }
 }
 ```
 
@@ -260,54 +260,54 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class ProjectConfig {
-  @Bean   // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
-  public UserDetailsService userDetailsService() {
-    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+ @Bean  // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
+ public UserDetailsService userDetailsService() {
+  InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
-    // UserDetailsService 가 관리하도록 사용자 추가
-    UserDetails user1 = User.withUsername("assu")
-            .password("1111")
-            .roles("ADMIN")
-            .build();
+  // UserDetailsService 가 관리하도록 사용자 추가
+  UserDetails user1 = User.withUsername("assu")
+      .password("1111")
+      .roles("ADMIN")
+      .build();
 
-    UserDetails user2 = User.withUsername("silby")
-            .password("2222")
-            .roles("MANAGER")
-            .build();
+  UserDetails user2 = User.withUsername("silby")
+      .password("2222")
+      .roles("MANAGER")
+      .build();
 
-    manager.createUser(user1);
-    manager.createUser(user2);
+  manager.createUser(user1);
+  manager.createUser(user2);
 
-    return manager;
-  }
+  return manager;
+ }
 
-  // UserDetailsService 를 재정의하면 PasswordEncoder 도 재정의해야 함
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return NoOpPasswordEncoder.getInstance();
-  }
+ // UserDetailsService 를 재정의하면 PasswordEncoder 도 재정의해야 함
+ @Bean
+ public PasswordEncoder passwordEncoder() {
+  return NoOpPasswordEncoder.getInstance();
+ }
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-            .csrf(AbstractHttpConfigurer::disable)  // cstf 비활성화
-            .authorizeHttpRequests(authz -> {
-              authz.requestMatchers(HttpMethod.GET, "/aa").authenticated(); // GET /aa 인증 필요
-              authz.requestMatchers(HttpMethod.POST, "/aa").permitAll(); // POST /aa 는 인증 필요 없이 모두 접근 허용
-              authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 모두 요청 거부
-            })
-            .httpBasic(Customizer.withDefaults());
-//    http.authorizeHttpRequests(authz -> {
-//          authz.requestMatchers("/hello").hasRole("ADMIN"); // /hello 는 ADMIN 역할만 접근 가능
-//          authz.requestMatchers("/bye").hasRole("MANAGER"); // /bye 는 MANAGER 역할만 접근 가능
-//          authz.anyRequest().permitAll(); // 그 외의 엔드포인트는 인증없이 접근 가능
-//          //authz.anyRequest().authenticated(); // 그 외의 엔드포인트는 인증만 성공하면 접근 가능
-//          //authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 접근 불가
-//        })
-//        .httpBasic(Customizer.withDefaults());
+ @Bean
+ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  http
+      .csrf(AbstractHttpConfigurer::disable) // cstf 비활성화
+      .authorizeHttpRequests(authz -> {
+       authz.requestMatchers(HttpMethod.GET, "/aa").authenticated(); // GET /aa 인증 필요
+       authz.requestMatchers(HttpMethod.POST, "/aa").permitAll(); // POST /aa 는 인증 필요 없이 모두 접근 허용
+       authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 모두 요청 거부
+      })
+      .httpBasic(Customizer.withDefaults());
+//  http.authorizeHttpRequests(authz -> {
+//     authz.requestMatchers("/hello").hasRole("ADMIN"); // /hello 는 ADMIN 역할만 접근 가능
+//     authz.requestMatchers("/bye").hasRole("MANAGER"); // /bye 는 MANAGER 역할만 접근 가능
+//     authz.anyRequest().permitAll(); // 그 외의 엔드포인트는 인증없이 접근 가능
+//     //authz.anyRequest().authenticated(); // 그 외의 엔드포인트는 인증만 성공하면 접근 가능
+//     //authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 접근 불가
+//    })
+//    .httpBasic(Customizer.withDefaults());
 
-    return http.build();
-  }
+  return http.build();
+ }
 }
 
 ```
@@ -316,7 +316,7 @@ public class ProjectConfig {
 
 ```shell
 # 인증없이 GET /aa 호출 시 401 Unauthorized 
-$ curl -w "%{http_code}"  http://localhost:8080/aa
+$ curl -w "%{http_code}" http://localhost:8080/aa
 401%
 
 # 인증 후 GET /aa 호출 시 정상 응답
@@ -338,7 +338,7 @@ $ curl -w "%{http_code}" -u assu:1111 http://localhost:8080/aa/bb
 
 이제 여러 경로에 같은 권한 부여 규칙을 적용해보자.
 
-엔드포인드들  
+엔드포인드들 
 - GET /aa
 - POST /aa
 - GET /aa/bb
@@ -347,11 +347,11 @@ $ curl -w "%{http_code}" -u assu:1111 http://localhost:8080/aa/bb
 아래 조건에 맞게 접근 제한을 구성해본다.
 
 - /aa/bb 로 시작하는 모든 경로: 사용자 인증 필요
-  - GET /aa/bb, GET /aa/bb/cc 해당
+ - GET /aa/bb, GET /aa/bb/cc 해당
 - 그 외 나머지는 모두 인증없이 접근 가능
-  - GET /aa, POST /aa 해당
+ - GET /aa, POST /aa 해당
 
-이럴 때는 `**` 연산자를 사용한다.  
+이럴 때는 `**` 연산자를 사용한다. 
 `**` 연산자는 제한없이 경로 이름을 나타내내고, `*` 연산자는 하나의 경로만 나타낸다.
 
 예를 들어 _/aa/*/cc_ 로 표현하면 _/aa/bb/cc_ 는 해당하지만, _/aa/bb/bb/cc_ 는 해당하지 않는다.
@@ -360,44 +360,44 @@ $ curl -w "%{http_code}" -u assu:1111 http://localhost:8080/aa/bb
 ```java
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-  http
-      .csrf(AbstractHttpConfigurer::disable)  // cstf 비활성화
-      .authorizeHttpRequests(authz -> {
-        authz.requestMatchers("/aa/bb/**").authenticated(); // /aa/bb 로 시작하는 모든 경로는 인증 필요
-        authz.anyRequest().permitAll(); // 그 외의 엔드포인트는 모두 인증 필요 없이 접근 가능
-      })
-      .httpBasic(Customizer.withDefaults());
-  return http.build();
+ http
+   .csrf(AbstractHttpConfigurer::disable) // cstf 비활성화
+   .authorizeHttpRequests(authz -> {
+    authz.requestMatchers("/aa/bb/**").authenticated(); // /aa/bb 로 시작하는 모든 경로는 인증 필요
+    authz.anyRequest().permitAll(); // 그 외의 엔드포인트는 모두 인증 필요 없이 접근 가능
+   })
+   .httpBasic(Customizer.withDefaults());
+ return http.build();
 }
 ```
 
 인증을 하지 않고 모든 엔드포인트 호출
 ```shell
 # 정상 응답
-$ curl -w "%{http_code}"  http://localhost:8080/aa
+$ curl -w "%{http_code}" http://localhost:8080/aa
 get aa200%
 
 # 정상 응답
-$ curl -w "%{http_code}" --request POST  http://localhost:8080/aa
+$ curl -w "%{http_code}" --request POST http://localhost:8080/aa
 post aa200%
 
 # 401 Unauthorized
-$ curl -w "%{http_code}"  http://localhost:8080/aa/bb
+$ curl -w "%{http_code}" http://localhost:8080/aa/bb
 {"timestamp":"2024-02-16T10:38:47.975+00:00","status":401,"error":"Unauthorized","path":"/aa/bb"}401
 
 # 401 Unauthorized
-$ curl -w "%{http_code}"  http://localhost:8080/aa/bb/cc
+$ curl -w "%{http_code}" http://localhost:8080/aa/bb/cc
 {"timestamp":"2024-02-16T10:38:54.646+00:00","status":401,"error":"Unauthorized","path":"/aa/bb/cc"}401%
 ```
 
 인증을 하고 모든 엔드포인트 호출
 ```shell
 # 정상 응답
-$ curl -w "%{http_code}" -u assu:1111  http://localhost:8080/aa
+$ curl -w "%{http_code}" -u assu:1111 http://localhost:8080/aa
 get aa200%
 
 # 정상 응답
-  ~  curl -w "%{http_code}" --request POST -u assu:1111  http://localhost:8080/aa
+  ~  curl -w "%{http_code}" --request POST -u assu:1111 http://localhost:8080/aa
 post aa200%
 ```
 
@@ -410,21 +410,21 @@ post aa200%
 ```java
 @GetMapping("product/{code}")
 public String see5(@PathVariable String code) {
-  return code;
+ return code;
 }
 ```
 
 ```java
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-  http
-      .csrf(AbstractHttpConfigurer::disable)  // cstf 비활성화
-      .authorizeHttpRequests(authz -> {
-        authz.requestMatchers("/product/{code:^[0-9]*$}").permitAll(); // 숫자로 구성된 엔드포인트는 모두 요청 허용
-        authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 모두 요청 거부
-      })
-      .httpBasic(Customizer.withDefaults());
-  return http.build();
+ http
+   .csrf(AbstractHttpConfigurer::disable) // cstf 비활성화
+   .authorizeHttpRequests(authz -> {
+    authz.requestMatchers("/product/{code:^[0-9]*$}").permitAll(); // 숫자로 구성된 엔드포인트는 모두 요청 허용
+    authz.anyRequest().denyAll(); // 그 외의 엔드포인트는 모두 요청 거부
+   })
+   .httpBasic(Customizer.withDefaults());
+ return http.build();
 }
 ```
 
@@ -443,9 +443,9 @@ $ curl -w "%{http_code}" http://localhost:8080/product/121d
 ```
 
 - _/aa/{param}_
-  - param 경로 매개변수를 포함한 /a 경로에 적용
+ - param 경로 매개변수를 포함한 /a 경로에 적용
 - _/aa/{param:regex}_
-  - 매개 변수와 정규식이 일치할 때만 주어진 경로 매개 변수를 포함한 /a 경로에 적용
+ - 매개 변수와 정규식이 일치할 때만 주어진 경로 매개 변수를 포함한 /a 경로에 적용
 
 > 앤트 선택기도 있는데 앤트 선택기보다 MVC 선택기를 사용하는 것이 좋으므로 앤트 선택기는 따로 다루지 않음
 
@@ -456,7 +456,7 @@ $ curl -w "%{http_code}" http://localhost:8080/product/121d
 하나의 경로 변수를 이용하는 조건이라면 [2.3. 정규식으로 접근 제한 적용](#23-정규식으로-접근-제한-적용) 에서 본 것처럼 MVC 선택기를 이용하여 
 바로 정규식을 사용할 수 있다.
 
-하지만 **두 개 이상의 경로 변수를 이용한다거나, 경로에 특정 기호가 들어가면 요청을 거부하는 등의 좀 더 복잡한 경우는 정규식 선택기를 사용**할 수 밖에 없다.  
+하지만 **두 개 이상의 경로 변수를 이용한다거나, 경로에 특정 기호가 들어가면 요청을 거부하는 등의 좀 더 복잡한 경우는 정규식 선택기를 사용**할 수 밖에 없다. 
 
 > 정규식의 경우 가독성이 어렵다는 단점이 있으니 MVC 선택기를 우선적으로 적용하고, 다른 대안이 없을때만 정규식 선택기를 사용하는 것을 권장함
 
@@ -469,10 +469,10 @@ $ curl -w "%{http_code}" http://localhost:8080/product/121d
 ```java
 @RestController
 public class HelloController {
-  @GetMapping("user/{country}/{lang}")
-  public String test(@PathVariable String country, @PathVariable String lang) {
-    return "Country: " + country + ", lang: " + lang;
-  }
+ @GetMapping("user/{country}/{lang}")
+ public String test(@PathVariable String country, @PathVariable String lang) {
+  return "Country: " + country + ", lang: " + lang;
+ }
 }
 ```
 
@@ -495,44 +495,44 @@ import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @Configuration
 public class ProjectConfig {
-  @Bean   // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
-  public UserDetailsService userDetailsService() {
-    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+ @Bean  // 이 메서드가 반환하는 UserDetailsService 가 스프링 컨텍스트에 추가됨
+ public UserDetailsService userDetailsService() {
+  InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
-    // UserDetailsService 가 관리하도록 사용자 추가
-    UserDetails user1 = User.withUsername("assu")
-        .password("1111")
-        .roles("NORMAL")
-        .build();
+  // UserDetailsService 가 관리하도록 사용자 추가
+  UserDetails user1 = User.withUsername("assu")
+    .password("1111")
+    .roles("NORMAL")
+    .build();
 
-    UserDetails user2 = User.withUsername("silby")
-        .password("2222")
-        .roles("NORMAL", "SUPER")
-        .build();
+  UserDetails user2 = User.withUsername("silby")
+    .password("2222")
+    .roles("NORMAL", "SUPER")
+    .build();
 
-    manager.createUser(user1);
-    manager.createUser(user2);
+  manager.createUser(user1);
+  manager.createUser(user2);
 
-    return manager;
-  }
+  return manager;
+ }
 
-  // UserDetailsService 를 재정의하면 PasswordEncoder 도 재정의해야 함
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return NoOpPasswordEncoder.getInstance();
-  }
+ // UserDetailsService 를 재정의하면 PasswordEncoder 도 재정의해야 함
+ @Bean
+ public PasswordEncoder passwordEncoder() {
+  return NoOpPasswordEncoder.getInstance();
+ }
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+ @Bean
+ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-    http
-        .authorizeHttpRequests(authz -> {
-          authz.requestMatchers(RegexRequestMatcher.regexMatcher(".*/(us|uk|ca)+/(en|fr).*")).authenticated();  // 미국,영국,캐나다이면서 영어권인 경우 인증 후 접근 가능
-          authz.anyRequest().hasRole("SUPER"); // 그 외 엔드포인트는 SUPER 권한이 있으면 모두 다 접근 가능
-        })
-        .httpBasic(Customizer.withDefaults());
-    return http.build();
-  }
+  http
+    .authorizeHttpRequests(authz -> {
+     authz.requestMatchers(RegexRequestMatcher.regexMatcher(".*/(us|uk|ca)+/(en|fr).*")).authenticated(); // 미국,영국,캐나다이면서 영어권인 경우 인증 후 접근 가능
+     authz.anyRequest().hasRole("SUPER"); // 그 외 엔드포인트는 SUPER 권한이 있으면 모두 다 접근 가능
+    })
+    .httpBasic(Customizer.withDefaults());
+  return http.build();
+ }
 }
 ```
 
@@ -564,10 +564,10 @@ SUPER 권한이 있는 silby 로 인증 시 모두 접근 가능
 $ curl -w "%{http_code}" -u silby:2222 http://localhost:8080/user/ko/kr
 Country: ko, lang: kr200%
 
-$  curl -w "%{http_code}" -u silby:2222 http://localhost:8080/user/us/kr
+$ curl -w "%{http_code}" -u silby:2222 http://localhost:8080/user/us/kr
 Country: us, lang: kr200%
 
-$  curl -w "%{http_code}" -u silby:2222 http://localhost:8080/user/us/en
+$ curl -w "%{http_code}" -u silby:2222 http://localhost:8080/user/us/en
 Country: us, lang: en200%
 ```
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kubernetes - 쿠버네티스로 웹 서비스 배포(3): 인그레스를 활용한 Flask & Django 동시 배포"
+title: "Kubernetes - 쿠버네티스로 웹 서비스 배포(3): 인그레스를 활용한 Flask & Django 동시 배포"
 date: 2025-12-30 10:00:00
 categories: dev
 tags: devops kubernetes k8s ingress django flask nginx microservices path-based-routing fanout load-balancing service-discovery url-rewriting
@@ -10,9 +10,9 @@ tags: devops kubernetes k8s ingress django flask nginx microservices path-based-
 [Kubernetes - 쿠버네티스로 웹 서비스 배포(2): 인그레스를 활용한 Flask & Nginx 배포](https://assu10.github.io/dev/2025/12/29/kubernetes-flask-nginx-ingress-practice/) 
 를 통해 각 애플리케이션을 쿠버네티스 클러스터 위에서 인그레스를 통해 외부로 노출하는 과정에 대해 알아보았다.
 
-이번 포스트에서는 쿠버네티스 인그레스의 가장 강력한 기능 중 하나인 **단일 진입점을 통한 다중 서비스 라우팅(Path-based Routing)**을 구현해본다.  
-(두 개의 개별 서비스를 하나의 인그레스 리소스를 통해 통합 관리하고 라우팅하는 [Fan-out](https://assu10.github.io/dev/2025/05/27/fanout/) 패턴)  
-즉, 하나의 도메인(IP)에서 경로(path)에 따라 Django 서비스와 Flask 서비스로 분기 처리하는 아키텍처를 구성한다.  
+이번 포스트에서는 쿠버네티스 인그레스의 가장 강력한 기능 중 하나인 **단일 진입점을 통한 다중 서비스 라우팅(Path-based Routing)**을 구현해본다. 
+(두 개의 개별 서비스를 하나의 인그레스 리소스를 통해 통합 관리하고 라우팅하는 [Fan-out](https://assu10.github.io/dev/2025/05/27/fanout/) 패턴) 
+즉, 하나의 도메인(IP)에서 경로(path)에 따라 Django 서비스와 Flask 서비스로 분기 처리하는 아키텍처를 구성한다. 
 이는 MSA에서 매우 흔하게 사용되는 패턴이다.
 
 ---
@@ -51,7 +51,7 @@ tags: devops kubernetes k8s ingress django flask nginx microservices path-based-
 
 # 2. 인그레스 파일 생성
 
-가장 먼저 작업 디렉터리 구조를 정의하고 필요한 매니페스트 파일들을 준비한다.  
+가장 먼저 작업 디렉터리 구조를 정의하고 필요한 매니페스트 파일들을 준비한다. 
 기존에 작성했던 Django와 Flask의 디플로이먼트 및 서비스(Service) 파일은 그대로 재사용하되, 트래픽을 분기한 새로운 인그레스 파일을 작성한다.
 
 ---
@@ -73,14 +73,14 @@ Django 디플로이먼트와 서비스 YAML 파일을 복사한다.
 ```shell
 assu@myserver01:~/work/ch10/ex03$ cd ..
 assu@myserver01:~/work/ch10$ ls
-ex01  ex02  ex03
+ex01 ex02 ex03
 assu@myserver01:~/work/ch10$ cd ex01
 assu@myserver01:~/work/ch10/ex01$ ls
-django-deploy.yml  django-ingress.yml  django-service.yml  myDajngo04  myNginx04
-assu@myserver01:~/work/ch10/ex01$ cp django-deploy.yml django-service.yml  ../ex03
+django-deploy.yml django-ingress.yml django-service.yml myDajngo04 myNginx04
+assu@myserver01:~/work/ch10/ex01$ cp django-deploy.yml django-service.yml ../ex03
 assu@myserver01:~/work/ch10/ex01$ cd ../ex03
 assu@myserver01:~/work/ch10/ex03$ ls
-django-deploy.yml  django-service.yml
+django-deploy.yml django-service.yml
 ```
 
 비슷하게 Flask의 디플로이먼트와 서비스 파일을 ex03 디렉터리로 복사한다.
@@ -88,21 +88,21 @@ django-deploy.yml  django-service.yml
 ```shell
 assu@myserver01:~/work/ch10/ex03$ cd ../ex02
 assu@myserver01:~/work/ch10/ex02$ ls
-myFlask02  myNginx02f
+myFlask02 myNginx02f
 assu@myserver01:~/work/ch10/ex02$ cd myNginx02f/
 assu@myserver01:~/work/ch10/ex02/myNginx02f$ ls
-1  default.conf  Dockerfile  flask-deploy.yml  flask-ingress.yml  flask-service.yml
+1 default.conf Dockerfile flask-deploy.yml flask-ingress.yml flask-service.yml
 assu@myserver01:~/work/ch10/ex02/myNginx02f$ cp flask-deploy.yml flask-service.yml ../../ex03
 assu@myserver01:~/work/ch10/ex02/myNginx02f$ cd ../../ex03
 assu@myserver01:~/work/ch10/ex03$ ls
-django-deploy.yml  django-service.yml  flask-deploy.yml  flask-service.yml
+django-deploy.yml django-service.yml flask-deploy.yml flask-service.yml
 ```
 
 ---
 
 **통합 인그레스 매니페스트 작성(django-flask-ingress.yml)**
 
-두 서비스를 동시에 제어할 인그레스 설정이다.  
+두 서비스를 동시에 제어할 인그레스 설정이다. 
 여기서 핵심은 `paths` 설정과 `rewrite-target` 애너테이션이다.
 
 ```shell
@@ -113,31 +113,31 @@ assu@myserver01:~/work/ch10/ex03$ vim django-flask-ingress.yml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: django-flask-ingress
-  annotations:
-    # URL 재작성 설정: 캡처 그룹($2)을 사용하여 경로의 뒷부분만 서비스로 전달
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+ name: django-flask-ingress
+ annotations:
+  # URL 재작성 설정: 캡처 그룹($2)을 사용하여 경로의 뒷부분만 서비스로 전달
+  nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: nginx
-  rules:
-    - http:
-        paths:
-          # Django 서비스 라우팅 (/test01 로 시작하는 모든 요청)
-          - path: /test01(/|$)(.*)
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: django-service  # django 웹 서비스 이름
-                port:
-                  number: 80
-          # Flask 서비스 라우팅 (/test02 로 시작하는 모든 요청)
-          - path: /test02(/|$)(.*)
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: flask-service  # flask 웹 서비스 이름
-                port:
-                  number: 80
+ ingressClassName: nginx
+ rules:
+  - http:
+    paths:
+     # Django 서비스 라우팅 (/test01 로 시작하는 모든 요청)
+     - path: /test01(/|$)(.*)
+      pathType: ImplementationSpecific
+      backend:
+       service:
+        name: django-service # django 웹 서비스 이름
+        port:
+         number: 80
+     # Flask 서비스 라우팅 (/test02 로 시작하는 모든 요청)
+     - path: /test02(/|$)(.*)
+      pathType: ImplementationSpecific
+      backend:
+       service:
+        name: flask-service # flask 웹 서비스 이름
+        port:
+         number: 80
 ```
 
 > Rewrite Target에 대한 내용은 [6.1. 매니페스트 작성(URL Rewriting)](https://assu10.github.io/dev/2025/12/29/kubernetes-flask-nginx-ingress-practice/#61-%EB%A7%A4%EB%8B%88%ED%8E%98%EC%8A%A4%ED%8A%B8-%EC%9E%91%EC%84%B1url-rewriting)을 참고하세요.
@@ -149,7 +149,7 @@ spec:
 
 # 3. 배포 및 검증
 
-이제 준비된 리소스들을 쿠버네티스 클러스터에 배포한다.  
+이제 준비된 리소스들을 쿠버네티스 클러스터에 배포한다. 
 순서는 일반적으로 **디플로이먼트(파드 생성) → Service(네트워크 노출) → 인그레스(외부 라우팅)** 순으로 진행하는 것이 좋다.
 
 ---
@@ -159,13 +159,13 @@ spec:
 ```shell
 assu@myserver01:~/work/ch10/ex03$ ll
 total 28
-drwxrwxr-x 2 assu assu 4096 Jan  3 02:34 ./
-drwxrwxr-x 5 assu assu 4096 Jan  3 02:20 ../
--rw-rw-r-- 1 assu assu  510 Jan  3 02:22 django-deploy.yml
--rw-rw-r-- 1 assu assu  644 Jan  3 02:34 django-flask-ingress.yml
--rw-rw-r-- 1 assu assu  202 Jan  3 02:22 django-service.yml
--rw-rw-r-- 1 assu assu  520 Jan  3 02:24 flask-deploy.yml
--rw-rw-r-- 1 assu assu  207 Jan  3 02:24 flask-service.yml
+drwxrwxr-x 2 assu assu 4096 Jan 3 02:34 ./
+drwxrwxr-x 5 assu assu 4096 Jan 3 02:20 ../
+-rw-rw-r-- 1 assu assu 510 Jan 3 02:22 django-deploy.yml
+-rw-rw-r-- 1 assu assu 644 Jan 3 02:34 django-flask-ingress.yml
+-rw-rw-r-- 1 assu assu 202 Jan 3 02:22 django-service.yml
+-rw-rw-r-- 1 assu assu 520 Jan 3 02:24 flask-deploy.yml
+-rw-rw-r-- 1 assu assu 207 Jan 3 02:24 flask-service.yml
 
 # 디플로이먼트 배포
 assu@myserver01:~/work/ch10/ex03$ kubectl apply -f django-deploy.yml
@@ -175,24 +175,24 @@ deployment.apps/deploy-flask created
 
 assu@myserver01:~/work/ch10/ex03$ kubectl get all
 # django 파드와 flask 파드가 실행됨
-NAME                                 READY   STATUS    RESTARTS   AGE
-pod/deploy-django-77675fcbcf-g6dpb   2/2     Running   0          13s
-pod/deploy-django-77675fcbcf-lh9gk   2/2     Running   0          13s
-pod/deploy-django-77675fcbcf-lp2kc   2/2     Running   0          13s
-pod/deploy-flask-b8ffb7c86-gz4mv     2/2     Running   0          6s
-pod/deploy-flask-b8ffb7c86-lrrdw     2/2     Running   0          6s
-pod/deploy-flask-b8ffb7c86-rrxdq     2/2     Running   0          6s
+NAME                 READY  STATUS  RESTARTS  AGE
+pod/deploy-django-77675fcbcf-g6dpb  2/2   Running  0     13s
+pod/deploy-django-77675fcbcf-lh9gk  2/2   Running  0     13s
+pod/deploy-django-77675fcbcf-lp2kc  2/2   Running  0     13s
+pod/deploy-flask-b8ffb7c86-gz4mv   2/2   Running  0     6s
+pod/deploy-flask-b8ffb7c86-lrrdw   2/2   Running  0     6s
+pod/deploy-flask-b8ffb7c86-rrxdq   2/2   Running  0     6s
 
-NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
-service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   7d21h
+NAME         TYPE    CLUSTER-IP  EXTERNAL-IP  PORT(S)  AGE
+service/kubernetes  ClusterIP  10.96.0.1  <none>    443/TCP  7d21h
 
-NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/deploy-django   3/3     3            3           13s
-deployment.apps/deploy-flask    3/3     3            3           6s
+NAME              READY  UP-TO-DATE  AVAILABLE  AGE
+deployment.apps/deploy-django  3/3   3      3      13s
+deployment.apps/deploy-flask  3/3   3      3      6s
 
-NAME                                       DESIRED   CURRENT   READY   AGE
-replicaset.apps/deploy-django-77675fcbcf   3         3         3       13s
-replicaset.apps/deploy-flask-b8ffb7c86     3         3         3       6s
+NAME                    DESIRED  CURRENT  READY  AGE
+replicaset.apps/deploy-django-77675fcbcf  3     3     3    13s
+replicaset.apps/deploy-flask-b8ffb7c86   3     3     3    6s
 ```
 
 ```shell
@@ -204,10 +204,10 @@ service/flask-service created
 
 # 서비스들은 ClusterIP를 부여받음
 assu@myserver01:~/work/ch10/ex03$ kubectl get svc
-NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-django-service   ClusterIP   10.98.235.44   <none>        80/TCP    10s
-flask-service    ClusterIP   10.97.10.64    <none>        80/TCP    5s
-kubernetes       ClusterIP   10.96.0.1      <none>        443/TCP   7d21h
+NAME       TYPE    CLUSTER-IP   EXTERNAL-IP  PORT(S)  AGE
+django-service  ClusterIP  10.98.235.44  <none>    80/TCP  10s
+flask-service  ClusterIP  10.97.10.64  <none>    80/TCP  5s
+kubernetes    ClusterIP  10.96.0.1   <none>    443/TCP  7d21h
 ```
 
 ```shell
@@ -225,31 +225,31 @@ ingress.networking.k8s.io/django-flask-ingress created
 ```shell
 # 실행 중인 리소스들 확인
 assu@myserver01:~/work/ch10/ex03$ kubectl get all
-NAME                                 READY   STATUS    RESTARTS   AGE
-pod/deploy-django-77675fcbcf-g6dpb   2/2     Running   0          2m29s
-pod/deploy-django-77675fcbcf-lh9gk   2/2     Running   0          2m29s
-pod/deploy-django-77675fcbcf-lp2kc   2/2     Running   0          2m29s
-pod/deploy-flask-b8ffb7c86-gz4mv     2/2     Running   0          2m22s
-pod/deploy-flask-b8ffb7c86-lrrdw     2/2     Running   0          2m22s
-pod/deploy-flask-b8ffb7c86-rrxdq     2/2     Running   0          2m22s
+NAME                 READY  STATUS  RESTARTS  AGE
+pod/deploy-django-77675fcbcf-g6dpb  2/2   Running  0     2m29s
+pod/deploy-django-77675fcbcf-lh9gk  2/2   Running  0     2m29s
+pod/deploy-django-77675fcbcf-lp2kc  2/2   Running  0     2m29s
+pod/deploy-flask-b8ffb7c86-gz4mv   2/2   Running  0     2m22s
+pod/deploy-flask-b8ffb7c86-lrrdw   2/2   Running  0     2m22s
+pod/deploy-flask-b8ffb7c86-rrxdq   2/2   Running  0     2m22s
 
-NAME                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-service/django-service   ClusterIP   10.98.235.44   <none>        80/TCP    61s
-service/flask-service    ClusterIP   10.97.10.64    <none>        80/TCP    56s
-service/kubernetes       ClusterIP   10.96.0.1      <none>        443/TCP   7d21h
+NAME           TYPE    CLUSTER-IP   EXTERNAL-IP  PORT(S)  AGE
+service/django-service  ClusterIP  10.98.235.44  <none>    80/TCP  61s
+service/flask-service  ClusterIP  10.97.10.64  <none>    80/TCP  56s
+service/kubernetes    ClusterIP  10.96.0.1   <none>    443/TCP  7d21h
 
-NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/deploy-django   3/3     3            3           2m29s
-deployment.apps/deploy-flask    3/3     3            3           2m22s
+NAME              READY  UP-TO-DATE  AVAILABLE  AGE
+deployment.apps/deploy-django  3/3   3      3      2m29s
+deployment.apps/deploy-flask  3/3   3      3      2m22s
 
-NAME                                       DESIRED   CURRENT   READY   AGE
-replicaset.apps/deploy-django-77675fcbcf   3         3         3       2m29s
-replicaset.apps/deploy-flask-b8ffb7c86     3         3         3       2m22s
+NAME                    DESIRED  CURRENT  READY  AGE
+replicaset.apps/deploy-django-77675fcbcf  3     3     3    2m29s
+replicaset.apps/deploy-flask-b8ffb7c86   3     3     3    2m22s
 
 # 실행 중인 인그레스 확인
 assu@myserver01:~/work/ch10/ex03$ kubectl get ingress
-NAME                   CLASS   HOSTS   ADDRESS   PORTS   AGE
-django-flask-ingress   nginx   *                 80      25s
+NAME          CLASS  HOSTS  ADDRESS  PORTS  AGE
+django-flask-ingress  nginx  *         80   25s
 ```
 
 ---
@@ -297,8 +297,8 @@ assu@myserver01:~/work/ch10/ex03$ kubectl get ingress
 No resources found in default namespace.
 
 assu@myserver01:~/work/ch10/ex03$ kubectl get all
-NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
-service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   7d21h
+NAME         TYPE    CLUSTER-IP  EXTERNAL-IP  PORT(S)  AGE
+service/kubernetes  ClusterIP  10.96.0.1  <none>    443/TCP  7d21h
 ```
 
 ---
