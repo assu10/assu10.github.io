@@ -85,12 +85,41 @@
 document.addEventListener('DOMContentLoaded', function() {
 (function() {
   var tocFloat = document.getElementById('toc-float');
-  var tocWrapper = document.getElementById('toc-wrapper');
-  if (!tocFloat || !tocWrapper) return;
+  if (!tocFloat) return;
 
-  // Clone only the ul from toc-wrapper so #toc-float > ul > li > a selector works
-  var tocUl = tocWrapper.querySelector(':scope > ul');
+  // GitHub Pages does not run custom plugins, so #toc-wrapper may not exist.
+  // Find the TOC <ul> dynamically: first <ul> in .markdown-body whose direct
+  // children are all <li> containing <a href="#..."> (anchor links).
+  var tocWrapper = document.getElementById('toc-wrapper');
+  var tocUl = null;
+
+  if (tocWrapper) {
+    tocUl = tocWrapper.querySelector(':scope > ul');
+  } else {
+    // Plugin didn't run: find TOC <ul> and wrap it ourselves
+    var markdownBody = document.querySelector('.markdown-body');
+    if (markdownBody) {
+      var uls = markdownBody.querySelectorAll('ul');
+      for (var i = 0; i < uls.length; i++) {
+        var ul = uls[i];
+        var topItems = ul.querySelectorAll(':scope > li');
+        var anchorItems = ul.querySelectorAll(':scope > li > a[href^="#"]');
+        if (topItems.length > 0 && topItems.length === anchorItems.length) {
+          // Wrap this ul in a #toc-wrapper div
+          var wrapper = document.createElement('div');
+          wrapper.id = 'toc-wrapper';
+          ul.parentNode.insertBefore(wrapper, ul);
+          wrapper.appendChild(ul);
+          tocWrapper = wrapper;
+          tocUl = ul;
+          break;
+        }
+      }
+    }
+  }
+
   if (!tocUl) return;
+
   var clone = tocUl.cloneNode(true);
   tocFloat.appendChild(clone);
   tocFloat.classList.add('toc-has-content');
