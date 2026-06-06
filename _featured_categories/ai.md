@@ -1,7 +1,7 @@
 ---
 layout: list
 title: AI
-slug: ai
+slug: AI
 menu: true
 submenu: true
 order: 2

@@ -24,14 +24,36 @@
     color: #1FC489;
   }
 
-  /* 인라인 코드: 색상 상속, 연한 배경, 좌우 여백 축소 */
+  /* 리스트 페이지 제목 내 코드: 본문 폰트 유지 */
+  .related-posts code {
+    font-family: inherit;
+    background-color: rgba(0, 0, 0, 0.06);
+    border: none;
+    border-radius: 3px;
+    padding: 1px;
+  }
+
+  /* 제목 내 코드: 둥근 모서리 + 줄바꿈 시 각 줄 독립 배경 */
+  .post-title code {
+    font-family: inherit;
+    background-color: rgba(0, 0, 0, 0.06);
+    border: none;
+    border-radius: 4px;
+    padding: 1px;
+    font-size: 0.9em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* 인라인 코드: 색상 상속, 연한 배경, 본문 폰트 유지로 공백 너비 일관성 */
   .markdown-body code {
+    font-family: inherit;
     color: inherit;
     background-color: rgba(0, 0, 0, 0.06);
     border: none;
     border-radius: 3px;
-    padding: 3px 0;
-    font-size: 0.85em;
+    padding: 1px;
+    font-size: inherit;
   }
 
   :focus {
