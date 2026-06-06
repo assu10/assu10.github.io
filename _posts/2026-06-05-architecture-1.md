@@ -227,9 +227,6 @@ graph TD
   DB_Location[("🛢️ 위치 이동 이력<br>데이터베이스")]:::database
   DB_User[("🛢️ 사용자 데이터베이스<br>(사용자 정보, 친구 관계)")]:::database
 
-%% 하단 컴포넌트 좌->우 정렬 순서 강제 고정
-  Redis ~~~ Cache ~~~ DB_Location ~~~ DB_User
-
 %% --------------------------------------------------------
 %% 화살표 흐름 정의
 %% --------------------------------------------------------
@@ -252,6 +249,16 @@ graph TD
 
 %% API 서버 -> 사용자 데이터베이스
   API_Server -->|③| DB_User
+
+%% 하단 컴포넌트 좌->우 정렬 순서 강제 고정
+  Redis ~~~ Cache ~~~ DB_Location ~~~ DB_User
+
+%% --------------------------------------------------------
+%% 숫자가 붙은 화살표(①, ②, ③)만 빨간색 스타일 적용
+%% --------------------------------------------------------
+  linkStyle 1 stroke:red,stroke-width:2px,color:red;
+  linkStyle 3 stroke:red,stroke-width:2px,color:red;
+  linkStyle 8 stroke:red,stroke-width:2px,color:red;
 ```
 
 ---
@@ -351,17 +358,200 @@ graph LR
   style Subscribers fill:none,stroke:#999999,stroke-width:1px,stroke-dasharray: 5 5;
 ```
 
-
+웹소켓 서버를 통해 수신한 특정 사용자의 위치 정보 변경 이벤트는 해당 사용자에게 배정된 펍/섭 토픽에 발행된다.  
+특정 사용자의 위치가 변경되면 해당 사용자의 모든 친구의 웹소켓 연결 핸들러가 호출되고, 각 핸들러는 위치 변경 이벤트를 수신할 친구가 활성 상태이면 거리를 다시 계산한다.  
+새로 계산한 거리가 검색 반경 이내면 갱신된 위치와 갱신 시각(timestamp)을 웹소켓 연결을 통해 해당 친구의 클라이언트 앱으로 보낸다.
 
 ---
 
 #### 2.1.1.2. 사용자 위치 변경 시 발생하는 일
 
+모바일 클라이언트는 항구적으로 유지되는 웹소켓 연결을 통해 주기적으로 위치 변경 내역을 전송한다.
+
+(의문점) 항구적이 무슨 뜻이야?
+
+주기적 위치 갱신
+```mermaid
+graph TD
+%% 노드 스타일 정의
+  classDef client fill:#ffffff,stroke:#333333,stroke-width:2px;
+  classDef lb fill:#ffffff,stroke:#333333,stroke-width:2px;
+  classDef server fill:#f4f9ff,stroke:#2196f3,stroke-width:2px;
+  classDef database fill:#fff9f4,stroke:#ff9800,stroke-width:2px;
+
+%% 1단계: 최상단 클라이언트
+  Client["📱 모바일 사용자"]:::client
+
+%% 2단계: 로드밸런서
+  LB["⚖️ 로드밸런서"]:::lb
+
+%% 3단계: 서버 레이어
+  WS_Server["💻 ➆ 웹소켓 서버<br>(양방향 위치 정보)"]:::server
+  API_Server["💻 API 서버<br>(사용자 관리<br>친구 관리<br>인증 및 기타 기능)"]:::server
+
+%% 4단계: 하단 컴포넌트 레이어
+  Redis[("🛢️ 레디스 펍/섭<br>(Publish/Subscribe,<br>Pub/Sub)")]:::database
+  Cache["💾 캐시<br>(위치 정보 캐시)"]:::database
+  DB_Location[("🛢️ 위치 이동 이력<br>데이터베이스")]:::database
+  DB_User[("🛢️ 사용자 데이터베이스<br>(사용자 정보, 친구 관계)")]:::database
+
+%% ★ 위치 고정 트릭: 하단 컴포넌트 좌->우 정렬 순서를 최상단에 배치하여 위치를 먼저 확정
+  Redis ~~~ Cache
+  Cache ~~~ DB_Location
+  DB_Location ~~~ DB_User
+
+%% --------------------------------------------------------
+%% 화살표 흐름 정의
+%% --------------------------------------------------------
+
+%% 모바일 사용자 <-> 로드밸런서
+  Client <-->|"① (WebSocket, WS)"| LB
+  Client -- "http" --> LB
+
+%% 로드밸런서 -> 서버 레이어
+  LB <-->|②| WS_Server
+  LB --> API_Server
+
+%% 웹소켓 서버 <-> 레디스 펍/섭 (두 선 모두 ⑤ 대입)
+  WS_Server -->|⑤| Redis
+  Redis -->|⑥| WS_Server
+
+%% 웹소켓 서버 -> 하단 저장소들
+  WS_Server -->|④| Cache
+  WS_Server -->|③| DB_Location
+  WS_Server --> DB_User
+
+%% API 서버 -> 사용자 데이터베이스
+  API_Server --> DB_User
+
+%% --------------------------------------------------------
+%% 스타일 수정 (순서 변경에 따른 빨간색 인덱스 완벽 재정렬)
+%% --------------------------------------------------------
+  linkStyle 3 stroke:red,stroke-width:2px,color:red;
+  linkStyle 5 stroke:red,stroke-width:2px,color:red;
+  linkStyle 7 stroke:red,stroke-width:2px,color:red;
+  linkStyle 8 stroke:red,stroke-width:2px,color:red;
+  linkStyle 9 stroke:red,stroke-width:2px,color:red;
+  linkStyle 10 stroke:red,stroke-width:2px,color:red;
+```
+
+① 모바일 클라이언트가 위치가 변경된 사실을 로드밸런서에 전송  
+② 로드밸런서는 그 위치 변경 내역을 해당 클라이언트와 웹소켓 서버 사이에 설정된 연결을 통해 웹소켓 서버로 보냄  
+③ 웹소켓 서버는 해당 이벤트를 위치 이동 이력 DB에 저장  
+④ 웹 소켓 서버는 새 위치를 위치 정보 캐시에 보관  
+  이 때 TTL도 갱신  
+  또한 웹소켓 서버는 웹소켓 연결 핸들러 안의 변수에 해당 위치를 반영함(이 변수에 갱신한 값은 뒤이은 거리 계산 과정에 이용됨) (뒤이은 거리 계산이 어느 섹션인지 표시해줘)  
+⑤ 웹소켓 서버는 레디스 펍/섭 서버의 해당 사용자 토픽에 새 위치를 발행함  
+③~⑤는 병렬로 수행  
+⑥ 레디스 펍/섭 토픽에 발행된 새로운 위치 변경 이벤트는 모든 구독자(즉, 웹소켓 이벤트 핸들러)에게 브로드캐스크됨  
+  이 때 구독자는 위치 변경 이벤트를 보낸 사용자의 온라인 상태 친구들임  
+  그 결과 각 구독자의 웹소켓 연결 핸들러는 친구의 위치 변경 이벤트를 수신하게 됨  
+⑦ 메시지를 받은 웹소켓 서버, 즉 상기 웹소켓 연결 핸들러가 위치한 웹소켓 서버는 새 위치를 보낸 사용자와 메시지를 받은 사용자(그 위치는 웹소켓 연결 핸들러 내의 변수에 보관되어 있음) 사이의 거리를 새로 계산함  
+➇ 위 다이어그램에는 없지만 만일 ⑦에서 계산한 거리가 검색 반경을 넘지 않는다면, 새 위치 및 해당 위치로의 이동이 발생한 시각을 나타내는 타임스탬프를 해당 구독자의 클라이언트 앱으로 전송함  
+  검색 반경을 넘는 경우에는 보내지 않음  
+
+---
+
+친구에게 위치 변경 내역을 전송하는 흐름을 다시 한번 자세히 보자.
+
+```mermaid
+graph TD
+%% 노드 스타일 정의
+  classDef client fill:#ffffff,stroke:#333333,stroke-width:2px;
+  classDef ws fill:#ffffff,stroke:#333333,stroke-width:2px;
+  classDef channel fill:#fff9f4,stroke:#ff9800,stroke-width:2px;
+
+%% 1단계: 최상단 이벤트 발생 사용자
+  User1["📱 사용자 1"]:::client
+  User5["📱 사용자 5"]:::client
+
+%% 2단계: 웹소켓 서버 (상단 수신부)
+  subgraph WS_Top ["웹소켓 서버"]
+    WS_Conn1["사용자 1의<br/>WS 연결"]:::ws
+    WS_Conn5["사용자 5의<br/>WS 연결"]:::ws
+  end
+
+%% 3단계: 레디스 펍/섭 메시지 브로커 (중앙)
+  subgraph Redis_Layer ["레디스 펍/섭"]
+    Ch1[("🛢️ 사용자 1의 채널")]:::channel
+    Ch5[("🛢️ 사용자 5의 채널")]:::channel
+  end
+
+%% 4단계: 웹소켓 서버 (하단 송신부)
+  subgraph WS_Bottom ["웹소켓 서버"]
+    WS_Conn2["사용자 2의<br/>WS 연결"]:::ws
+    WS_Conn3["사용자 3의<br/>WS 연결"]:::ws
+    WS_Conn4["사용자 4의<br/>WS 연결"]:::ws
+    WS_Conn6["사용자 6의<br/>WS 연결"]:::ws
+  end
+
+%% 5단계: 최하단 메시지 수신 친구들
+  User2["📱 사용자 2"]:::client
+  User3["📱 사용자 3"]:::client
+  User4["📱 사용자 4"]:::client
+  User6["📱 사용자 6"]:::client
+
+%% --------------------------------------------------------
+%% 화살표 흐름 및 원본 넘버링 반영
+%% --------------------------------------------------------
+
+%% 상단 사용자 -> 웹소켓 서버 수신
+  User1 -->|"① 사용자 1의 위치"| WS_Conn1
+  User5 --> WS_Conn5
+
+%% 웹소켓 서버 -> 레디스 채널 발행
+  WS_Conn1 -->|"② 발행"| Ch1
+  WS_Conn5 -->|"발행"| Ch5
+
+%% 레디스 채널 -> 하단 웹소켓 서버 구독
+  Ch1 -->|"③ 구독"| WS_Conn2
+  Ch1 -->|"구독"| WS_Conn3
+  Ch1 -->|"구독"| WS_Conn4
+
+  Ch5 -->|"구독"| WS_Conn4
+  Ch5 -->|"구독"| WS_Conn6
+
+%% 하단 웹소켓 서버 -> 최종 수신자 앱으로 전송
+  WS_Conn2 -->|"④ 친구의 위치 정보 변경 내역"| User2
+  WS_Conn3 --> User3
+  WS_Conn4 --> User4
+  WS_Conn6 --> User6
+
+%% 서브그래프 테두리 스타일
+  style WS_Top fill:none,stroke:#999999,stroke-width:1px,stroke-dasharray: 5 5;
+  style Redis_Layer fill:none,stroke:#999999,stroke-width:1px,stroke-dasharray: 5 5;
+  style WS_Bottom fill:none,stroke:#999999,stroke-width:1px,stroke-dasharray: 5 5;
+
+%% --------------------------------------------------------
+%% 숫자가 붙은 화살표(①, ②, ③, ④)만 빨간색 스타일 적용
+%% --------------------------------------------------------
+  linkStyle 0 stroke:red,stroke-width:2px,color:red;
+  linkStyle 2 stroke:red,stroke-width:2px,color:red;
+  linkStyle 4 stroke:red,stroke-width:2px,color:red;
+  linkStyle 9 stroke:red,stroke-width:2px,color:red;
+```
+
+① 사용자 1의 위치가 변경되면 그 변역 내역은 사용자 1과의 연결을 유지하고 있는 웹소켓 서버에 전송됨  
+② 해당 변경 내역은 레디스 펍/섭 서버 낸의 사용자 1 전용 토픽으로 발행됨  
+③ 레디스 펍/섭 서버는 해당 변경 내역을 모든 구독자에게 브로드캐스트함, 이 때 구독자는 사용자 1과 친구 관계에 있는 모든 웹소켓 연결 핸들러임  
+④ 위차 변경 내역을 보낸 사용자와 구독자 사이의 거리, 즉 이 경우에는 사용자 1과 2 사이의 거리가 검색 반경을 넘지 않을 경우 새로운 위치는 사용자 2의 클라이언트로 전송됨
+
+이 과정은 해당 채널의 모든 구독자에게 반복 적용된다.  
+한 사용자 당 평균 400명의 친구가 있으며 그 가운데 10% 가량이 주변에서 온라인 상태일 것으로 가정하였으므로 한 사용자의 위치가 변경될 때마다 위치 정보 전송은 40건 정도 발생할 것이다.
 
 ---
 
 ## 2.2. API 설계
 
+이제 필요한 API를 나열해보자.
+
+**웹소켓**  
+사용자는 웹소켓 프로토콜을 통해 위치 정보 내역을 정송하고 수신한다. 최소한 아래 API는 구비되어야 한다.
+
+- **[서버 API] 주기적인 위치 정보 갱신**
+- **[클라이언트 API] 클라이언트가 갱신된 친구 위치를 수신하는데 사용**
+
+**HTTP 요청**
 
 ---
 
