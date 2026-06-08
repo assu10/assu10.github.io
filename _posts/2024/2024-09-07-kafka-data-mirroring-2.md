@@ -390,7 +390,7 @@ required username="MirrorMaker" password="Password"
 지역 읽기-원격 쓰기 방식을 사용한다면 [`acks=all`](https://assu10.github.io/dev/2024/06/16/kafka-producer-1/#42-acks), 충분한 수의 [`retries`](https://assu10.github.io/dev/2024/06/16/kafka-producer-1/#434-retries-retrybackoffms) 를 통해 미러메이커의 커넥트 프로듀서에 절대로 이벤트 유실이 발생하지 않도록 해야 한다.  
 또한, 미러메이커에 문제가 발생했을 때 빠르게 실패하도록 `errors.tolerance=none` 설정을 잡아주어야 한다.
 
-미러메이커를 이용할 때는 아래와 같은 사항들을 모니터링 해야한다.
+미러메이커를 이용할 때는 아래와 같은 사항들을 모니터링 해야 한다.
 - 카프카 커넥트 모니터링
 - 미러메이커 지표 모니터링
 - lag 모니터링

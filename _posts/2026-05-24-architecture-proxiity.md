@@ -643,8 +643,8 @@ fun buildQuadtree(node: TreeNode) {
 쿼드트리처럼 구글 S2도 메모리 기반이다.
 
 구글 S2는 지구 전체를 3차원 정육면체로 감싸 안은 뒤, 이를 투영하여 [힐베르트 곡선(Hilbert curve)](https://en.wikipedia.org/wiki/Hilbert_curve)이라는 공간 채움 곡선(space-filling curve)을 
-다라 1차원 인덱스로 매칭하는 최첨단 geometry 라이브러리이다.  
-힐베르트 곡선 내부에서 인접한 두 지저은 1차원으로 인코딩된 결과물에서도 매우 가깝게 붙어있다는 가공할 만한 장점을 지니고 있다.  
+따라 1차원 인덱스로 매칭하는 최첨단 geometry 라이브러리이다.  
+힐베르트 곡선 내부에서 인접한 두 격자는 1차원으로 인코딩된 결과물에서도 매우 가깝게 붙어있다는 가공할 만한 장점을 지니고 있다.  
 1차원 공간 내에서의 검색은 2차원 공간에서의 검색보다 훨씬 효율적이다.
 
 **[지오펜스(Geofence)](https://en.wikipedia.org/wiki/Geofence)**는 지리적(Geographic) 공간과 울타리(Fence)의 합성어로, 현실 세계의 물리적 

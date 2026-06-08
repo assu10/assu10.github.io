@@ -301,7 +301,7 @@ e34ef33a0e15784da76f005282d0e4b9d625c752 127.0.0.1:5008@15008 slave 705f4fbfc5d5
 
 이제 5007 node 를 제거해보자.  
 `cluster meet` 과는 다르게 `cluster forget` 은 전체 노드에서 실행해야 하며, 타임아웃 60초 범위 안에 실행해야 한다.  
-그리고 반드시 Master 대상으로 해야한다.
+그리고 반드시 Master 대상으로 해야 한다.
 
 ```shell
 $ redis-cli -h 127.0.0.1 -p 5001 cluster forget 705f4fbfc5d5bb9ad6fd09e6193c11c62f2a7512
