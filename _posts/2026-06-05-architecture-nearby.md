@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Architecture - 주변 친구"
+title:  "Architecture(2) - 주변 친구"
 date: 2026-06-05 10:00:00
 categories: dev
 tags: architecture system-design proximity-service websocket redis cassandra erlang distributed-system
