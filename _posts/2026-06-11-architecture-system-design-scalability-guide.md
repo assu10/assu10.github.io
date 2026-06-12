@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Architecture(1) - 대규모 아키텍처 설계 핵심 13가지 체크리스트"
+title:  "Architecture(1) - 대규모 아키텍처 설계 핵심 12가지 체크리스트"
 date: 2026-06-11 10:00:00
 categories: dev
 tags: architecture scalability load-balancing database-replication caching-strategies cdn stateless message-queue sharding
