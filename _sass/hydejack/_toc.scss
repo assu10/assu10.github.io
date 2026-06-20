@@ -101,6 +101,10 @@
   padding: 16px 20px;
   margin-bottom: 1.5rem;
 
+  li + li {
+    margin-top: 0;
+  }
+
   > ul {
     list-style: none;
     counter-reset: toc-counter;
@@ -115,12 +119,13 @@
         display: flex;
         align-items: flex-start;
         gap: 10px;
-        padding: 4px 10px;
+        padding: 2px 10px;
         border-radius: 6px;
         font-weight: 500;
         text-decoration: none;
         background: transparent;
         transition: background 0.2s;
+        line-height: 1.55;
 
         &::before {
           display: none;
@@ -140,11 +145,12 @@
 
     a {
       display: block;
-      padding: 2px 8px;
+      padding: 1px 8px;
       border-radius: 4px;
       font-size: 0.9em;
       background: transparent;
       text-decoration: none;
+      line-height: 1.55;
 
       code {
         color: inherit;
