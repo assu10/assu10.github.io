@@ -64,7 +64,7 @@ tags: architecture message-queue kafka event-streaming system-design scalability
     * [4.8.3. `ACK=0`](#483-ack0)
     * [💡Producer 측의 ACK 와 Consumer 측의 ACK](#producer-측의-ack-와-consumer-측의-ack)
   * [4.9. 규모 확장성](#49-규모-확장성)
-    * [4.9.1. 브로커 결함 내서야Fault Tolerance)와 장애 복구](#491-브로커-결함-내서야fault-tolerance와-장애-복구)
+    * [4.9.1. 브로커 결함 허용(Fault Tolerance)과 장애 복구](#491-브로커-결함-허용fault-tolerance과-장애-복구)
     * [4.9.2. 무중단 브로커 규모 확장(Scale-out)](#492-무중단-브로커-규모-확장scale-out)
     * [4.9.3. 파티션 개수 변경과 저장소 계층의 변화](#493-파티션-개수-변경과-저장소-계층의-변화)
     * [4.9.4. Producer의 확장성](#494-producer의-확장성)
@@ -87,7 +87,7 @@ tags: architecture message-queue kafka event-streaming system-design scalability
   - 생산자와 소비자가 현재 살아있는지, 어떤 기술 스택을 쓰는지 알 필요 없이 오직 큐에 데이터를 넣기만 하면 된다.
   - 따라서 각 시스템을 독립적으로 수정하고 배포할 수 있다.
 - **규모 확장성 개선**
-  - 트래픽 부하게 맞춰 생산자와 소비자의 규모를 완전히 독립적으로 확장할 수 있다.
+  - 트래픽 부하에 맞춰 생산자와 소비자의 규모를 완전히 독립적으로 확장할 수 있다.
   - 예) 이벤트 기간에 주문 트래픽이 몰리면 생산자 서버를 늘리고, 큐에 쌓인 메시지를 처리하는 소비자 서버만 유연하게 늘려 대응 가능
 - **가용성 개선**
   - Consumer 중 하나에 일시적인 장애가 발생하여 다운되어도 메시지는 안전하게 큐에 보관된다.

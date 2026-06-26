@@ -880,7 +880,7 @@ counting.interceptor.window.size.ms=10000
 
 - 평소와 같이 애플리케이션을 실행시키되, 앞 단계에서 작성한 설정 파일을 포함하여 실행
 ```shell
-bin/kafka-console-producer.sh --brocker-list localhost:9092 --topic interceptor-test --producer.config producer.config
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic interceptor-test --producer.config producer.config
 ```
 
 ---

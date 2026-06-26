@@ -148,7 +148,7 @@ interface DiscountCalculationService {
 
 [DDD - 도메인 모델 패턴](https://assu10.github.io/dev/2024/08/31/ddd-domain-model-pattern/)의 예시를 보자.
 
-할당된 엔지니어는 제한된 시간 내에 고객에서 솔루션을 제시해야 한다.  
+할당된 엔지니어는 제한된 시간 내에 고객에게 솔루션을 제시해야 한다.  
 이 제한된 시간은 아래의 영향을 받는다.
 - 티켓의 데이터(우선 순위와 상부 보고 상태)
 - 에이전트 소속 부서의 우선 순위별 SLA 정책

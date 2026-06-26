@@ -42,7 +42,7 @@ management.endpoints.web.exposure.include=*
 management.endpoint.shutdown.enabled=true
 ```
 
-물론 aplication.properties 는 추가로 설정가능한 프로퍼티들이 더 있지만 지금은 간단히 저 정도만 기입한다.
+물론 application.properties 는 추가로 설정가능한 프로퍼티들이 더 있지만 지금은 간단히 저 정도만 기입한다.
 
 자, 이제 스프링부트 액추에이터를 사용할 수 있는 환경이 마련되었으니 애플리케이션을 구동하여 어떠한 정보들이 나오는지 확인해보자.
 
