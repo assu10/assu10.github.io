@@ -19,7 +19,7 @@ tags: msa springboot-actuator spring-monitoring actuator spring-admin-ui
 ## Springboot Actuator란?
 스프링부트 액추에이터란 스프링부트 애플리케이션에서 제공하는 여러가지 정보를 모니터링하기 쉽게 정리해주는 스프링부트 기능이다.
 
-각 인스턴스에 대한 CPU, Memoty, Heap 등을 개별 모니터링하려면 앞이 참 갑갑하다. (저는 그래요..)
+각 인스턴스에 대한 CPU, Memory, Heap 등을 개별 모니터링하려면 앞이 참 갑갑하다. (저는 그래요..)
 
 하지만 스프링부트 액추에이터는 이러한 정보들을 종합적으로 정리하여 제공해준다.
 
@@ -172,7 +172,7 @@ management.endpoint.shutdown.enabled=true
 
 [http://localhost:8080/actuator/heapdump](http://localhost:8080/actuator/heapdump), [http://localhost:8080/actuator/threaddump](http://localhost:8080/actuator/threaddump) 를 통해 덤프 파일도 제공받을 수 있다.
 
-이러한 애플케이션의 상태 정보가 함부로 노출되면 안되니 두 가지 방법으로 확인된 사용자에게만 노출해줄 수 있다.
+이러한 애플리케이션의 상태 정보가 함부로 노출되면 안되니 두 가지 방법으로 확인된 사용자에게만 노출해줄 수 있다.
 
 > `management.server.port`, `management.server.address` 값을 수정해서 해당 ip, address에 한대서만 ACL를 건다.
 > spring-security 를 이용하여 `management.endpoints.web.base-path` (기본값은 /actuator) 에 대해 권한을 확인한다.
@@ -233,7 +233,7 @@ public class ConcurrentTransactionCountInterceptor extends HandlerInterceptorAda
 
 이럴 땐 springboot admin UI를 사용하여 보다 쉽게 정보를 볼 수 있다.
 
-springboot admi UI는 일종의 대시보드 기능이라고 생각하면 좋을 것 같다.
+springboot admin UI는 일종의 대시보드 기능이라고 생각하면 좋을 것 같다.
 
 ## Springboot admin UI ?
 스프링부트 액추에이터에서 제공하는 정보를 보기 쉽게 제공한다.

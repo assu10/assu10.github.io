@@ -568,7 +568,7 @@ public class PollingLoop {
       // timeout 은 100ms
       Duration timeout = Duration.ofMillis(100);
 
-      // 컨슈머 애플리케이션은 보통 게속해서 카프카에 추가 데이터를 폴링함
+      // 컨슈머 애플리케이션은 보통 계속해서 카프카에 추가 데이터를 폴링함
       // (나중에 이 무한루프를 탈출하여 컨슈머를 깔끔하게 닫는 법에 대해 알아볼 예정)
       while (true) {
         // 컨슈머가 카프카를 계속해서 폴링하지 않으면 죽은 것으로 간주되어 이 컨슈머가 읽어오고 있던 파티션들은
@@ -645,7 +645,7 @@ public class PollingLoop {
 
 # 5. 컨슈머 설정
 
-카프카의 필수 속성인 `bootsrap.servers`, `key.deserializer`, `value.deserializer`, 그리고 자주 사용되는 `group.id` 에 대해서는 위에서 보았다.
+카프카의 필수 속성인 `bootstrap.servers`, `key.deserializer`, `value.deserializer`, 그리고 자주 사용되는 `group.id` 에 대해서는 위에서 보았다.
 
 대부분의 매개 변수는 합리적인 기본값을 갖고 있으므로 딱히 변경할 필요는 없지만, 몇몇 매개변수는 컨슈머의 성능과 가용성에 영향을 준다.
 
@@ -754,7 +754,7 @@ public class PollingLoop {
 > 카프카 3.0 버전 이전에는 `session.timeout.ms` 의 기본값은 10초였지만, 3.0 버전 이후부터는 45s 로 변경됨
 > 
 > `session.timeout.ms` 의 기본값이었던 10s 는 카프카가 처음 개발되던 [온프레미스](https://assu10.github.io/dev/2021/05/19/infra-basic/#1-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B8%B0%EC%B4%88-%EC%A7%80%EC%8B%9D) 데이터 센터를 
-> 기준으로 정해진 것이기 때문에 순간적인 부하 집중과 네트워크 불안정이 일상인 클라우드 환경에서는 적철치 않음  
+> 기준으로 정해진 것이기 때문에 순간적인 부하 집중과 네트워크 불안정이 일상인 클라우드 환경에서는 적절치 않음  
 > 즉, 별것도 아닌 순간적인 네트워크 문제로 인해 리밸런스가 발생하고, 컨슈머 작동이 정지될 수 있었음
 > 
 > 10s 는 심지어 아래 나올 [`request.timeout.ms`](#59-requesttimeoutms) 의 기본값인 30s 와도 잘 맞지 않음  
@@ -854,7 +854,7 @@ public class PollingLoop {
 자동 오프셋 커밋의 단점은 메시지 중복 처리를 개발자가 제어할 수 없다는 점이다.  
 읽어온 메시지 중 일부만을 처리했고 아직 자동 커밋이 되지 않은 상태에서 컨슈머가 멈추면, 컨슈머를 재시작했을 때 메시지 중복 처리를 피할 수 없다.
 
-애플리케이션이 백그라운드에서 처리를 수행하기 위해 다슨 스레드에 레코드를 넘기는 것과 같이 더 복잡한 처리를 해야하는 경우, 직접 오프셋을 커밋해주는 것 외에는 선택지가 없다.  
+애플리케이션이 백그라운드에서 처리를 수행하기 위해 다른 스레드에 레코드를 넘기는 것과 같이 더 복잡한 처리를 해야하는 경우, 직접 오프셋을 커밋해주는 것 외에는 선택지가 없다.  
 자동 커밋 기능이 컨슈머가 읽어오기는 했지만 아직 처리하지 않은 오프셋을 커밋할 수도 있기 때문이다.
 
 따라서 언제 오프셋을 커밋할 지 직접 결정하고 싶다면 false 로 설정하면 한다.  
@@ -874,11 +874,11 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 
 **파티션 할당 전략은 카프카 컨슈머가 구독하는 대상 토픽 중 어느 파티션의 레코드를 읽을 지 결정하는 방식**이다.  
 컨슈머 그룹에 설정된 파티션 전략에 따라 컨슈머-파티션 간의 매칭이 결정된다.  
-즉, **리밸런싱 시 발생하는 모든 동작은 컨슈더(리더)가 관장**한다.
+즉, **리밸런싱 시 발생하는 모든 동작은 컨슈머(리더)가 관장**한다.
 
 **`PartitionAssignor` 클래스는 컨슈머에게 이들이 구독한 토픽들이 주어졌을 때 어느 컨슈머에게 어떤 파티션을 할당될 지 결정하는 역할**을 한다.
 
-`partition.assignment.strategy` 을 통해 파티션 할당 전략을 선택할 수 있으며 카프카 2.4 부터 기본값은 `org.apache.kafka.clients.consumer.CooperativeStickyAssinor` 이다.  
+`partition.assignment.strategy` 을 통해 파티션 할당 전략을 선택할 수 있으며 카프카 2.4 부터 기본값은 `org.apache.kafka.clients.consumer.CooperativeStickyAssignor` 이다.  
 직접 할당 전략을 구현할 경우엔 `partition.assignment.strategy` 이 해당 클래스를 가리키게 하면 된다.
 
 카프카는 아래와 같은 파티션 할당 전략을 지원한다.
@@ -948,13 +948,13 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 ### 5.12.3. `Sticky` 파티션 할당 전략
 
 `Range` 파티션 할당 전략과 `RoundRobin` 파티션 할당 전략은 조급한 리밸런싱으로 동작하므로 리밸런싱 발생 시 기존 매핑 정보와 전혀 다른 매핑이 이루어진다.  
-**`Stikcy` 파티션 할당 전략은 리밸런싱이 발생하더라도 기존 매핑 정보를 최대한 유지하는 컨슈머-파티션 할당 전략**이다.
+**`Sticky` 파티션 할당 전략은 리밸런싱이 발생하더라도 기존 매핑 정보를 최대한 유지하는 컨슈머-파티션 할당 전략**이다.
 
 `Sticky` 할당자의 목표는 2개이다.
 - 파티션들을 가능한 균등하게 할당
 - 리밸런스가 발생했을 때 가능하면 기존의 할당된 파티션 정보를 보장하여 할당된 파티션을 하나의 컨슈머에서 다른 컨슈머로 옮길 때 발생하는 오버헤드를 최소화
 
-이 중 **첫 번째 목적의 우선순위**가 더 높기 때문에 `Stikcy` 할당 전략이라고 해서 **항상** 기존 파티션과 컨슈머 매핑을 보장하는 것은 아니다.
+이 중 **첫 번째 목적의 우선순위**가 더 높기 때문에 `Sticky` 할당 전략이라고 해서 **항상** 기존 파티션과 컨슈머 매핑을 보장하는 것은 아니다.
 
 > `Sticky` 에 대한 설명은 [2.1. 키 값이 없는 상태에서 기본 파티셔너 이용](https://assu10.github.io/dev/2024/06/16/kafka-producer-2/#21-%ED%82%A4-%EA%B0%92%EC%9D%B4-%EC%97%86%EB%8A%94-%EC%83%81%ED%83%9C%EC%97%90%EC%84%9C-%EA%B8%B0%EB%B3%B8-%ED%8C%8C%ED%8B%B0%EC%85%94%EB%84%88-%EC%9D%B4%EC%9A%A9) 
 > 과 함께 보면 도움이 됩니다.
@@ -967,8 +967,8 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 **`Sticky` 파티션 할당 전략이 이상적으로 동작하는 이유는 아래의 규칙에 따라 재할당 동작을 수행**하기 때문이다.
 - 컨슈머 간 최대 할당된 파티션 수의 차이는 1개
 - 기존에 존재하는 파티션 할당은 최대한 유지
-- 재할당 동작 시 휴요하지 않은 모든 파티션 할당은 제거
-- 할당되지 않은 파티션들은 균현을 맞추는 방법으로 컨슈머들에게 할당
+- 재할당 동작 시 유효하지 않은 모든 파티션 할당은 제거
+- 할당되지 않은 파티션들은 균형을 맞추는 방법으로 컨슈머들에게 할당
 
 ![Sticky 파티션 할당 전략](/assets/img/dev/2024/0623/sticky.png)
 
@@ -1025,7 +1025,7 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 그리고 나서 `replica.selector.class` 설정 기본값을 `org.apache.kafka.common.replica.RackAwareReplicaSelector` 로 잡아주면 된다.
 
 클라이언트 메타데이터와 파티션 메타데이터를 활용하여 읽기 작업에 사용할 최적의 레플리카를 선택하는 커스텀 로직을 직접 구현하여 넣을 수도 있다.  
-읽어올 레플리카를 선택하는 로직을 직접 구현하고 싶으면 `ReplicaSelector` 인터페이스를 구현하는 클래스를 구현한 뒤 `replica.relector.class` 가 
+읽어올 레플리카를 선택하는 로직을 직접 구현하고 싶으면 `ReplicaSelector` 인터페이스를 구현하는 클래스를 구현한 뒤 `replica.selector.class` 가 
 그 클래스를 가리키게 하면 된다.
 
 > rack 에 대한 추가 설명은  
@@ -1077,7 +1077,7 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 `offsets.retention.minutes` 은 브로커 설정이지만 컨슈머 작동에 큰 영향을 미친다.
 
 컨슈머 그룹에 현재 돌아가고 있는 컨슈머들이 있는 한, 컨슈머 그룹이 각 파티션에 대해 커밋한 마지막 오프셋 값은 카프카에 의해 보존되기 때문에 재할당이 발생하거나 
-재시작을 한 경우데도 가져다 쓸 수 있다.
+재시작을 한 경우에도 가져다 쓸 수 있다.
 
 **하지만 컨슈머 그룹이 비게 된다면 카프카는 커밋된 오프셋을 `offsets.retention.minutes` 에 설정된 기간동안만 보관**한다.
 
@@ -1099,7 +1099,7 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 * [Git:: Kafka](https://github.com/apache/kafka/)
 * [컨슈머 파티션 할당 전략](https://baebalja.tistory.com/629)
 * [`ExecutorService` 를 이용하여 각자의 컨슈머를 갖는 다수의 스레드 시작하는 방법: Introducing the Kafka Consumer: Getting Started with the New Apache Kafka 0.9 Consumer Client](https://www.confluent.io/blog/tutorial-getting-started-with-the-new-apache-kafka-0-9-consumer-client/)
-* [레코드를 읽기오지 않고 메타데이터만 가져오기: Kafka’s Got a Brand-New Poll](https://www.jesse-anderson.com/2020/09/kafkas-got-a-brand-new-poll/)
+* [레코드를 읽어오지 않고 메타데이터만 가져오기: Kafka’s Got a Brand-New Poll](https://www.jesse-anderson.com/2020/09/kafkas-got-a-brand-new-poll/)
 * [카프카 브로커 설정](https://free-strings.blogspot.com/2016/04/blog-post.html)
 * [KIP-735: Increase default consumer session timeout](https://cwiki.apache.org/confluence/display/KAFKA/KIP-735:+Increase+default+consumer+session+timeout)
 * [kafka 설정을 사용한 문제해결](https://saramin.github.io/2019-09-17-kafka/)

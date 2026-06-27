@@ -101,7 +101,7 @@ tags: architecture message-queue kafka event-streaming system-design scalability
 
 # 💡한번 늘어난 Consumer는 자동으로 줄어들 수 있을까? (Auto-scaling 가능 여부)
 **가능하다.**  
-kubernetes에서는 **KEDA(Kubernetes-based Event-driven Autoscaler)**와 같은 도구를 활용하여 메시지 큐의 **Consumer Lag**(쌓여 있는 메시지의 양)을 모니터링 한다.  
+Kubernetes에서는 **KEDA(Kubernetes-based Event-driven Autoscaler)**와 같은 도구를 활용하여 메시지 큐의 **Consumer Lag**(쌓여 있는 메시지의 양)을 모니터링 한다.  
 처리해야 할 잔여 메시지가 임계치 이하로 떨어지면 컨슈머 Pod를 자동으로 축소하며, 이 때 시스템은 자연스럽게 '소비자 재조정(Rebalancing)'을 일으켜 자원을 최적화한다.
 
 ---
@@ -113,7 +113,7 @@ kubernetes에서는 **KEDA(Kubernetes-based Event-driven Autoscaler)**와 같은
 
 |         | 전통적 메시지 큐(예: RabbitMQ, ActiveMQ)                    | 이벤트 스트리밍 플랫폼(예: Kafka, Pulsar)                     |
 |---------|-----------------------------------------------------|----------------------------------------------------|
-| 메시지 보관성 | 소비자가 메시지를 수신하고 확인 응답(ACK)을 보내면 **메시지를 즉시 파괴**함(소멸성) | 메시지를 소비하더라도 보관 기간동안 **디스크에 영구히 유지**함(지속성)          |
+| 메시지 보관성 | 소비자가 메시지를 수신하고 확인 응답(ACK)을 보내면 **메시지를 즉시 파괴**함(소멸성) | 메시지를 소비하더라도 보관 기간 동안 **디스크에 영구히 유지**함(지속성)          |
 | 소비 패턴   | 단 한 명의 소비자만 해당 메시지를 가져갈 수 있는 구조가 기본                 | 동일한 데이터를 여러 Consumer Group이 **몇 번이고 반복해서** 읽을 수 있음 |
 | 데이터 순서  | 메시지의 소비 순서를 엄격하게 보장하기 어려움                           | 동일한 파티션 내에서는 메시지가 들어온 **순서를 완벽히 보장**함                  |
 
@@ -190,7 +190,7 @@ kubernetes에서는 **KEDA(Kubernetes-based Event-driven Autoscaler)**와 같은
 전통적 큐는 메모리 효율성을 위해 대기열의 메시지를 처리하는 즉시 지워버리며 [성능 임계치를 넘을 때만 디스크를 임시 버퍼](https://www.rabbitmq.com/docs/maxlength)로 사용한다.
 
 반면, 여기서 다룰 대규모 시스템용 분산 큐는 모든 이벤트를 디스크에 순차적 로그 형태로 기록하여 최대 2주간 안전하게 보관(Retention)한다.  
-이 지속성 때문에 소비자의 유연한 데이터 재생(Replay)이 가능해지며, 대규모 장애 상황에서도 데이터 유실 없는 완벽한 내결합성을 갖추게 된다.
+이 지속성 때문에 소비자의 유연한 데이터 재생(Replay)이 가능해지며, 대규모 장애 상황에서도 데이터 유실 없는 완벽한 내결함성을 갖추게 된다.
 
 ---
 

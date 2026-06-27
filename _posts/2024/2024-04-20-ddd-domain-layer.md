@@ -271,7 +271,7 @@ public class TransferService {
     // 도메인 서비스로 애그리거트 전달
     public void transfer(Account fromAcc, Account toAcc, Money amounts) {
         fromAcc.withdraw(amounts);
-        toAcc.crdit(amounts);
+        toAcc.credit(amounts);
     }
 }
 ```
@@ -336,7 +336,7 @@ public class CreateSurveyService {
 
 ## 2.3. 도메인 서비스의 패키지 위치
 
-도메인 서비스는 도메인 로직을 포현하므로 도메인 서비스의 위치는 다른 도메인 구성 요소와 동일한 패키지에 위치한다.
+도메인 서비스는 도메인 로직을 표현하므로 도메인 서비스의 위치는 다른 도메인 구성 요소와 동일한 패키지에 위치한다.
 
 ![도메인 영역에 위치한 도메인 서비스](/assets/img/dev/2024/0420/domain_service.png)
 

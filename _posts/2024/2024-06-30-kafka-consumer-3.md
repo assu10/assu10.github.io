@@ -774,7 +774,7 @@ public class SessionState {
 오랫동안 아파치 카프카는 기본 데이터 타입에 대한 시리얼라이저와 디시리얼라이저만을 제공해왔기 때문에 `List`, `Set`, `Map` 과 같은 복합 자료 구조를 사용하려면 
 Avro 와 같은 직렬화 라이브러리를 사용할 수 밖에 없었다.
 
-바이트 뭉치를 당기 위해 사용되는 `ByteArraySerializer`, `ByteSerializer`, `ByteBufferSerializer` 정도가 예외였을 뿐이다.
+바이트 뭉치를 다루기 위해 사용되는 `ByteArraySerializer`, `ByteSerializer`, `ByteBufferSerializer` 정도가 예외였을 뿐이다.
 
 하지만 이제 카프카가 많이 활용되면서 아래의 내용이 추가되었다.
 
