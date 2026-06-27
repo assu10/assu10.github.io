@@ -21,7 +21,7 @@ tags: kubernetes k8s metallb load-balancer ipvs kube-proxy strict-arp arp-ignore
 <!-- TOC -->
 * [`strictARP`가 필요한 이유](#strictarp가-필요한-이유)
 * [`strictARP`의 동작 원리(Kernel Sysctl)](#strictarp의-동작-원리kernel-sysctl)
-* [설정 밥법 및 코드 예시](#설정-밥법-및-코드-예시)
+* [설정 방법 및 코드 예시](#설정-방법-및-코드-예시)
 * [장점](#장점)
 * [주의 사항](#주의-사항)
 * [정리하며..](#정리하며)

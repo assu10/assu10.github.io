@@ -141,7 +141,7 @@ LLM의 모든 연산(추론 및 파인튜닝)은 내부적으로 이 PyTorch의 
 
 **from trl import SFTTrainer**  
 허깅페이스의 `trl`(Transformers Reinforcement Learning) 라이브러리의 핵심 기능인 `SFTTrainer` 클래스이다.  
-SFT(Supervised Fine-Tuning)를 위해 특별히 설계된 고수준 API로, 기존 Trainer보다 훨씬 적은 코드로 `transformers`, `datasetes`, `peft`를 모두 연동하여 
+SFT(Supervised Fine-Tuning)를 위해 특별히 설계된 고수준 API로, 기존 Trainer보다 훨씬 적은 코드로 `transformers`, `datasets`, `peft`를 모두 연동하여 
 파인튜닝 프로세스를 자동화해준다.
 
 **from peft import LoraConfig, get_peft_model**  
@@ -602,7 +602,7 @@ trainer.train()
   - 모델의 예측값과 실제 정답(레이블)을 비교하여 **손실(loss)**값을 계산한다.
   - `optim="adamw_torch` 옵티마이저가 이 손실값을 기반으로 `learning_rate=1e-4`를 적용하여 **LoRA 가중치($$\Delta W$$)만** 업데이트(역전파)한다.
 - **로그 출력**
-  - `loggin_steps=10` 설정에 따라, 10 스텝마다 현재 학습 손실(loss), 학습 속도 등의 상태를 콘솔에 출력한다.
+  - `logging_steps=10` 설정에 따라, 10 스텝마다 현재 학습 손실(loss), 학습 속도 등의 상태를 콘솔에 출력한다.
 - **학습 종료 및 저장**
   - 1 에포크(1,000개 데이터 / 배치 4 = 250 스텝)가 모두 완료되면 학습 루프를 종료하고, `output_dir="./Gemma-sft-output"` 경로에 학습된 결과물을 자동으로 저장한다.
 

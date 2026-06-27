@@ -263,7 +263,7 @@ assu@myserver01:~$
 
 ## 1.3. `tree` 설치
 
-이후 진행될 도커 빌드 과정이나 프로젝트 구성을 설명할 때, 디렉터리 구조를 텍스트로 한 눈에 파악하는 매우 중요하다.  
+이후 진행될 도커 빌드 과정이나 프로젝트 구성을 설명할 때, 디렉터리 구조를 텍스트로 한 눈에 파악하는 것이 매우 중요하다.  
 이를 위해 리눅스의 `tree` 유틸리티를 설치한다.
 
 ```shell
@@ -1004,7 +1004,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 위에서는 Django와 Nginx를 각각 독립적으로 실행해보았다. 이제 이 둘을 하나의 서비스 흐름으로 연결해야 한다.  
 하지만 Nginx(웹 서버)는 파이썬 코드를 직접 해석하거나 실행할 수 없다.
 
-이 때 **WSGI(Web Server Gateway Interface)** 서버인 **Gunixorn**이다.
+이 때 **WSGI(Web Server Gateway Interface)** 서버인 **Gunicorn**이다.
 
 `gunicorn`은 Nginx로부터 받은 HTTP 요청을 파이썬이 이해할 수 있는 형태로 변환하여 Django에 전달하고, Django의 처리 결과를 다시 Nginx에게 돌려주는 
 중개자 역할을 한다.  

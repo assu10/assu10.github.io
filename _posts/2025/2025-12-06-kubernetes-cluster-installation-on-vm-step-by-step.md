@@ -339,7 +339,7 @@ Status: inactive
 
 **1) 커널 모듈 로드(`overlay`, `br_netfilter`)**
 
-먼저 필요한 커널 모듈 두 가지를 로드하고, 재부티이 후에도 적용되도록 설정 파일을 생성한다.
+먼저 필요한 커널 모듈 두 가지를 로드하고, 재부팅 후에도 적용되도록 설정 파일을 생성한다.
 
 - **`overlay`**
   - 서로 다른 호스트에 있는 Pod 들이 마치 같은 네트워크에 있는 것처럼 통신할 수 있게 해주는 네트워크 드라이버 기술
@@ -396,7 +396,7 @@ net.ipv4.ip_forward=1
 root@myserver01:~# sudo sysctl --system
 ```
 
-위 과정을 mysever02, 03에도 동일하게 수행한다.
+위 과정을 myserver02, 03에도 동일하게 수행한다.
 
 ---
 
@@ -740,7 +740,7 @@ root@myserver01:~# systemctl restart containerd
 root@myserver01:~# systemctl enable containerd
 ```
 
-이제 `--cir-socket` 옵션을 명시하여 이미지를 다운로드한다.
+이제 `--cri-socket` 옵션을 명시하여 이미지를 다운로드한다.
 
 ```shell
 root@myserver01:~# kubeadm config images pull --cri-socket /run/containerd/containerd.sock

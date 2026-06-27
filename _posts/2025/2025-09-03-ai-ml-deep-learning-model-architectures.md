@@ -24,7 +24,7 @@ tags: ai ml llm deep-learning artificial-intelligence neural-networks ANN CNN RN
 이 숫자 데이터를 AI 모델에 학습시키려면 어떻게 해야할까?  
 가장 기본적인 방법은 이미지를 한 줄로 길게 펼쳐 16개의 숫자 배열을 만드는 것이다. 이 1차원 배열이 인공 신경망의 **입력**이 된다.
 
-16개의 숫자가 신경망에 입력되면, 모델은 내부의 [가중치(Weight)와 편향(Bias)](https://assu10.github.io/dev/2025/08/31/ai-ml-neural-network-weights-and-activation-functions/#1-%EC%8B%A0%ED%98%B8%EB%A5%BC-%EC%A0%84%EB%8B%AC%ED%95%A0-%EB%95%8C-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B0%80%EC%A4%91%EC%B9%98weight%EC%99%80-%ED%8E%B8%ED%96%A5bias)을 이용해 복잡한 연산을 수행하고 에측 결과를 출력한다.  
+16개의 숫자가 신경망에 입력되면, 모델은 내부의 [가중치(Weight)와 편향(Bias)](https://assu10.github.io/dev/2025/08/31/ai-ml-neural-network-weights-and-activation-functions/#1-%EC%8B%A0%ED%98%B8%EB%A5%BC-%EC%A0%84%EB%8B%AC%ED%95%A0-%EB%95%8C-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B0%80%EC%A4%91%EC%B9%98weight%EC%99%80-%ED%8E%B8%ED%96%A5bias)을 이용해 복잡한 연산을 수행하고 예측 결과를 출력한다.  
 우리는 이 결과가 '0'이라는 정답을 알려주고, 모델은 예측이 정답과 가까워지도록 스스로 내부의 가중치와 편향을 미세하게 조정하는 과정을 수없이 반복한다. 이 과정이 **학습**이다.
 
 ![16개의 숫자를 인공 신경망에 넣어 학습한 후 정답 도출](/assets/img/dev/2025/0903/study.png)

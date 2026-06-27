@@ -332,7 +332,7 @@ assu@myserver01:~$
 > 지금도 호환성을 위해 작동하지만, 도커는 이미지 관련 명령어는 `docker image ...`로, 컨테이너 관련 명령어를 `docker container run [이미지 이름]` 로 명확히 구분하여 사용하는 것을 권장한다.
 
 우분투 이미지를 실행했지만 터미널에는 아무런 변화없이 바로 프롬프트가 다시 나타났다.  
-`hello-world` 와 달리 특별한 출력 메시지가 없는데, 컨테이너가 제대로 실행된 것인지는 [2.6. 컨네이너 내부 접속: `-it`](#26-컨네이너-내부-접속--it)에서 확인해 볼 것이다.
+`hello-world` 와 달리 특별한 출력 메시지가 없는데, 컨테이너가 제대로 실행된 것인지는 [2.6. 컨테이너 내부 접속: `-it`](#26-컨테이너-내부-접속--it)에서 확인해 볼 것이다.
 
 ---
 
@@ -427,7 +427,7 @@ d48c11facf7b
 
 `docker container stop [컨테이너 ID]` 을 입력하면 약 10초 후에 터미널 1의 프롬프트가 자동으로 닫히고, 컨테이너가 종료된다.
 
-> **`docker contaiiner stop [컨테이너 ID]` vs `docker container kill [컨테이너 ID]`**
+> **`docker container stop [컨테이너 ID]` vs `docker container kill [컨테이너 ID]`**
 > 
 > - `stop`: 컨테이너에 SIGTERM 신호를 보내고, 컨테이너를 약 10초간 작업을 정리할 시간을 갖는다.
 > - `kill`: SIGKILL 신호를 보내 즉시 종료시킨다.

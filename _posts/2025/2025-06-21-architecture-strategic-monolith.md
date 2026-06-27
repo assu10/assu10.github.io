@@ -105,7 +105,7 @@ MSA 가 모든 문제의 해답은 아니다.
 
 ## 1.1. 아키텍처 결정
 
-아키텍처를 정의하는 순간들을 프로젝트 초기에만 존재하지 않는다.  
+아키텍처를 정의하는 순간들은 프로젝트 초기에만 존재하지 않는다.  
 소프트웨어가 진화하면서 수많은 결정의 순간들이 등장하고, 이를 **의식적이고 전략적으로 기록**하는 것이 중요하다.
 
 [ADR(Architecture Decision Records)](https://assu10.github.io/dev/2024/11/24/architecture-strategic-learning-tools/#6-%EC%A0%84%EB%9E%B5%EC%A0%81-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EC%99%80-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EA%B2%B0%EC%A0%95-%EA%B8%B0%EB%A1%9Dadr-architecture-decision-records-%EC%9D%98-%EC%A4%91%EC%9A%94%EC%84%B1) 은 

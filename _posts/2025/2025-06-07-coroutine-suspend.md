@@ -39,7 +39,7 @@ CoroutineScope 를 사용하는 방식에 따라 코루틴의 예외 처리, 취
 
 # 1. 일시 중단 함수(`suspend`)와 코루틴
 
-코툴린에서 `suspend` 키워드로 선언된 함수는 일시 중단(suspending) 함수라고 한다.  
+코틀린에서 `suspend` 키워드로 선언된 함수는 일시 중단(suspending) 함수라고 한다.  
 이 함수는 코루틴 내에서만 호출 가능하며, 내부에 `delay()`, [`withContext()`](https://assu10.github.io/dev/2024/11/10/coroutine-async-and-deferred/#4-withcontext), [`yield()`](https://assu10.github.io/dev/2024/11/09/coroutine-builder-job/#52-yield-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%B7%A8%EC%86%8C-%ED%99%95%EC%9D%B8) 등 일시 중단 가능한 함수를 포함할 수 있다.
 
 <**일반 함수와의 차이점**>
@@ -190,7 +190,7 @@ fun getElapsedTime(startTime: Long): String {
 Process finished with exit code 0
 ```
 
-따라서 실행 결과를 보면 지난 시간이 0초에 가깝운 것을 확인할 수 있다.
+따라서 실행 결과를 보면 지난 시간이 0초에 가까운 것을 확인할 수 있다.
 이후 1초 정도가 지나서 재개된 코루틴들에 의해 hello world 문자열이 거의 연달아서 두 번 출력된다.
 
 이렇게 각 **일시 중단 함수를 서로 다른 코루틴에서 병렬로 실행되도록 하고 싶다면 코루틴 빌더 함수로 감싸면 된다.**

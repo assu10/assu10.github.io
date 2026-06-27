@@ -21,7 +21,7 @@ tags: devops kubernetes k8s docker container-orchestration cluster-architecture 
   * [1.1. 쿠버네티스 역할](#11-쿠버네티스-역할)
 * [2. 쿠버네티스 구조](#2-쿠버네티스-구조)
   * [2.1. 쿠버네티스 클러스터(Cluster)](#21-쿠버네티스-클러스터cluster)
-  * [2.2. 컨트롤 플레인(Control Plain)](#22-컨트롤-플레인control-plain)
+  * [2.2. 컨트롤 플레인(Control Plane)](#22-컨트롤-플레인control-plane)
   * [2.3. 노드(Node)](#23-노드node)
   * [2.4. 워크로드(Workload)](#24-워크로드workload)
   * [2.5. 네트워크(Network)](#25-네트워크network)
@@ -101,7 +101,7 @@ tags: devops kubernetes k8s docker container-orchestration cluster-architecture 
 
 ---
 
-## 2.2. 컨트롤 플레인(Control Plain)
+## 2.2. 컨트롤 플레인(Control Plane)
 
 컨트롤 플레인은 쿠버네티스 클러스터의 '두뇌'에 해당한다.  
 주로 마스터 노드에서 실행되며, 클러스터 전반적인 상태를 관리하고 스케줄링하는 역할을 담당한다.

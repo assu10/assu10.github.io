@@ -379,7 +379,7 @@ Process finished with exit code 0
 
 - Coroutine1 에서 예외가 발생했지만 try-catch 문으로 즉시 처리되어 **상위 코루틴인 runBlocking 으로 예외가 전파되지 않음**
 - 따라서 Coroutine2 는 영향을 받지 않고 **정상적으로 실행됨**
-- CoroutineExceptionHandler 와는 달리, try-catch 는 예외 목구 및 제어 흐름 유지가 가능함
+- CoroutineExceptionHandler 와는 달리, try-catch 는 예외 복구 및 제어 흐름 유지가 가능함
 
 
 

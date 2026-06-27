@@ -15,7 +15,7 @@ tags: devops kubernetes k8s pod deployment replicaset scaling rollout rollback m
 명령형(Imperative) 방식과 선언형(Declarative, 매니페스트 활용) 방식의 차이를 이해하고, 왜 쿠버네티스에서 디플로이먼트를 사용해야 하는지에 대해 알아본다.
 
 - **쿠버네티스 Pod 실행**
-  - 간단한 명령형 도구(CLI), IaC(Infrastructure as Code)의 기초가 되는 YAML 매니페이스 작성법
+  - 간단한 명령형 도구(CLI), IaC(Infrastructure as Code)의 기초가 되는 YAML 매니페스트 작성법
 - **디플로이먼트 아키텍처**
   - 디플로이먼트와 레플리카셋(ReplicaSet), 그리고 Pod 간의 관계
 - **애플리케이션 생명주기 관리**
@@ -153,7 +153,7 @@ pod/hello-world created
 ```
 
 실행된 리소스들의 상태를 확인한다.  
-`get all` 명령어를 파드뿐 아니라 서비스, 디플로이먼트 등 관련 리소스를 한 번에 조회한다.
+`get all` 명령어는 파드뿐 아니라 서비스, 디플로이먼트 등 관련 리소스를 한 번에 조회한다.
 
 ```shell
 # pod 의 정보와 서비스 정보 조회
@@ -379,7 +379,7 @@ pod/deploy-nginx-7f979874cf-bc77l   1/1     Running   0          37s
 pod/deploy-nginx-7f979874cf-x7slk   1/1     Running   0          37s
 ```
 
-`-o wide` 옵션을 통해 각 파드가 어떤 노드(myserser03)에 배치되었고, 어떤 IP를 가졌는지 확인할 수 있다.  
+`-o wide` 옵션을 통해 각 파드가 어떤 노드(myserver03)에 배치되었고, 어떤 IP를 가졌는지 확인할 수 있다.  
 파드가 여러 노드에 분산되어 있어도 이들은 하나의 디플로이먼트 그룹으로 관리된다.
 
 ```shell
@@ -795,7 +795,7 @@ spec:
       image: nginx:1.25
 ```
 
-`diff` 명령어로 변경 사항을 미리 확인하는 습관을 매우 중요하다.
+`diff` 명령어로 변경 사항을 미리 확인하는 습관이 매우 중요하다.
 
 ```shell
 assu@myserver01:~/work/ch09/ex04$ diff deploy-test03.yml deploy-test04.yml

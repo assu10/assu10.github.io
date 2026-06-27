@@ -42,7 +42,7 @@ tags: kotlin coroutine concurrency dispatcher UnconfinedDispatcher CoroutineStar
 특정 스레드 풀에 작업을 예약하는 `Dispatchers.Default` 나 `Dispatchers.IO` 와 달리, `Dispatchers.Unconfined` 디스패처는 어느 스레드에서 호출되든 
 그 스레드를 그대로 사용하여 코루틴의 첫 실행을 시작한다.
 
-아래는 `Dispatchders.Unconfined` 와 `Dispatchers.Default` 디스패처의 기본적인 차이를 보여준다.
+아래는 `Dispatchers.Unconfined` 와 `Dispatchers.Default` 디스패처의 기본적인 차이를 보여준다.
 
 ```kotlin
 package chap11
@@ -77,7 +77,7 @@ launch 코루틴 실행 스레드: DefaultDispatcher-worker-1 @coroutine#3
 
 ### 1.1.1. 코루틴이 자신을 생성한 스레드에서 즉시 실행된다.
 
-`Dispatchders.Unconfined` 의 가장 중요한 특징은 **호출 스레드를 상속받아 즉시 실행**된다는 점이다. 이로 인해 별도의 스레드로 작업을 보내는 과정(Context Switching)이 
+`Dispatchers.Unconfined` 의 가장 중요한 특징은 **호출 스레드를 상속받아 즉시 실행**된다는 점이다. 이로 인해 별도의 스레드로 작업을 보내는 과정(Context Switching)이 
 없어 코드의 흐름이 순차적으로 보일 수 있다.
 
 예를 들어 runBlocking 이 `Dispatchers.IO` 의 스레드에서 실행되도록 하고 그 안에서 `Unconfined` 코루틴을 실행하면 어떻게 될까?
@@ -186,10 +186,10 @@ launch 블록이 디스패처 작업 대기열에 들어간 후 실행되므로,
 
 ### 1.1.3. 중단 후에는 스레드가 바뀔 수 있다.
 
-`Dispatchders.Unconfined` 의 '즉시 실행' 특성은 **첫 실행부터 첫 번째 중단점(suspension point)까지만 유효**하다.  
+`Dispatchers.Unconfined` 의 '즉시 실행' 특성은 **첫 실행부터 첫 번째 중단점(suspension point)까지만 유효**하다.  
 만일 코루틴이 delay() 나 다른 suspend 함수에 의해 일시 중단되었다가 재개(resume)되면, 그 이후의 코드는 코루틴을 재개시킨 스레드에서 계속 실행된다.
 
-이것이 `Dispatchders.Unconfined` 디스패처를 사용할 때 가장 주의해야 할 부분이다.
+이것이 `Dispatchers.Unconfined` 디스패처를 사용할 때 가장 주의해야 할 부분이다.
 
 아래 예시를 보자.
 
@@ -233,7 +233,7 @@ fun main() = runBlocking<Unit> {
 
 ## 1.2. `CoroutineStart.UNDISPATCHED` vs `Dispatchers.Unconfined`
 
-[`CoroutineStart.UNDISPATCHED`](https://assu10.github.io/dev/2025/06/23/coroutine-concurrency-control-1/#23-coroutinestartundispatched-%EB%94%94%EC%8A%A4%ED%8C%A8%EC%B2%98%EB%A5%BC-%EA%B1%B4%EB%84%88%EB%9B%B0%EB%8A%94-%EC%A6%89%EC%8B%9C-%EC%8B%A4%ED%96%89) 와 `Dispatchders.Unconfined`, 두 옵션은 
+[`CoroutineStart.UNDISPATCHED`](https://assu10.github.io/dev/2025/06/23/coroutine-concurrency-control-1/#23-coroutinestartundispatched-%EB%94%94%EC%8A%A4%ED%8C%A8%EC%B2%98%EB%A5%BC-%EA%B1%B4%EB%84%88%EB%9B%B0%EB%8A%94-%EC%A6%89%EC%8B%9C-%EC%8B%A4%ED%96%89) 와 `Dispatchers.Unconfined`, 두 옵션은 
 '코루틴을 호출한 스레드에서 즉시 실행한다'는 공통점 때문에 종종 혼동되곤 한다.  
 하지만 **일시 중단 후 재개될 때의 동작 방식에서 결정적인 차이**가 있으며, 이 차이를 이해하는 것이 코루틴의 동작을 예측하는데 매우 중요하다.
 
