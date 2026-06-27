@@ -257,7 +257,7 @@ pom.xml (chap04_simplemovingavg)
 [4. 폴링 루프: `poll()`](https://assu10.github.io/dev/2024/06/23/kafka-consumer-1/#4-%ED%8F%B4%EB%A7%81-%EB%A3%A8%ED%94%84-poll) 에서 보면 
 무한 루프에서 폴링을 수행하고 있는데 이제 루프를 깔끔하게 탈출하는 방법에 대해 알아본다.
 
-**컨슈머를 종료하고나 할 때 컨슈머가 `poll()` 을 기다리고 있더라도 즉시 루프를 탈출하고 싶다면 다른 스레드에서 `consumer.wakeup()` 을 호출**해주면 된다.  
+**컨슈머를 종료하고자 할 때 컨슈머가 `poll()` 을 기다리고 있더라도 즉시 루프를 탈출하고 싶다면 다른 스레드에서 `consumer.wakeup()` 을 호출**해주면 된다.  
 만일 **메인 스레드에서 컨슈머 루프가 돌고 있다면 `ShutdownHook` 을 사용**할 수 있다.
 
 <**consumer.wakeup()**>  

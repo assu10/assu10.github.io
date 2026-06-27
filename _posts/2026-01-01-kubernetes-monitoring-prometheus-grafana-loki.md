@@ -795,7 +795,7 @@ kube-prometheus-stack-1767503046-grafana                    LoadBalancer   10.10
 ...
 ```
 
-- Type: LoadBalander
+- Type: LoadBalancer
 - External-IP: 10.0.2.22
 - Port: 80 (내부적으로 31082 NodePort와 매핑됨)
 

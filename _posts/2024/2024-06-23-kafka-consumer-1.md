@@ -42,7 +42,7 @@ tags: kafka consumer consumerGroup eagerRebalance cooperativeRebalance staticGro
   * [5.9. `request.timeout.ms`](#59-requesttimeoutms)
   * [5.10. `auto.offset.reset`](#510-autooffsetreset)
   * [5.11. `enable.auto.commit`](#511-enableautocommit)
-  * [5.12. `partition.assignment.strategy`: `PartitionAssinor`](#512-partitionassignmentstrategy-partitionassinor)
+  * [5.12. `partition.assignment.strategy`: `PartitionAssignor`](#512-partitionassignmentstrategy-partitionassinor)
     * [5.12.1. `Range` 파티션 할당 전략](#5121-range-파티션-할당-전략)
     * [5.12.2. `RoundRobin` 파티션 할당 전략](#5122-roundrobin-파티션-할당-전략)
     * [5.12.3. `Sticky` 파티션 할당 전략](#5123-sticky-파티션-할당-전략)
@@ -295,7 +295,7 @@ pom.xml (chap04)
 문제없이 작업이 수행되고 있는 와중이라면 그리 달갑지 않은 기능이기도 하다.
 
 **리밸런싱이 진행될 때 아래의 상황**이 발생할 수 있다.
-- **리밸런싱이 진행되는 동안 커슈머는 브로커로부터 메시지를 가져오지 못함**
+- **리밸런싱이 진행되는 동안 컨슈머는 브로커로부터 메시지를 가져오지 못함**
   - 프로듀서는 지속적으로 메시지를 보내고 있기 때문에 컨슈머가 메시지를 처리하지 못하는 만큼 Lag 이 발생함
 - **리밸런싱 과정에서 파티션의 어느 위치에서 메시지를 가져와야 하는지 결정하는 프로세스가 복잡해질 수 있음**
   - 이 과정에서 메시지가 중복되거나 누락될 수 있음
@@ -395,10 +395,10 @@ pom.xml (chap04)
 가장 먼저 참여한 컨슈머가 **그룹 리더**가 된다.
 
 그룹 리더는 그룹 코디네이터로부터 해당 그룹 안에 있는 모든 컨슈머의 목록을 받아서 각 컨슈머에게 파티션의 일부를 할당해준다.  
-어느 파티션이 어느 컨슈머에게 할당되어야 하는지를 결정하기 위해서는 `PartitionAssinor` 인터페이스의 구현체가 사용된다.
+어느 파티션이 어느 컨슈머에게 할당되어야 하는지를 결정하기 위해서는 `PartitionAssignor` 인터페이스의 구현체가 사용된다.
 
 카프카에는 몇 개의 파티션 할당 정책이 기본적으로 내장되어 있다.  
-파티션 할당이 결정되면 커슈머 그룹 리더는 할당 내역을 `GroupCoordinator` 에게 전달하고, 그룹 코네네이터는 다시 이 정보를 모든 컨슈머에게 전파한다.
+파티션 할당이 결정되면 컨슈머 그룹 리더는 할당 내역을 `GroupCoordinator` 에게 전달하고, 그룹 코디네이터는 다시 이 정보를 모든 컨슈머에게 전파한다.
 
 그룹 리더만 클라이언트 프로세스 중에서 유일하게 그룹 내 컨슈머와 할당 내역 전부를 볼 수 있고, 각 컨슈머 입장에서는 자기에게 할당된 내역만 보인다.
 
@@ -868,7 +868,7 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 
 ---
 
-## 5.12. `partition.assignment.strategy`: `PartitionAssinor`
+## 5.12. `partition.assignment.strategy`: `PartitionAssignor`
 
 컨슈머 그룹에 속한 컨슈머들에게는 파티션이 할당된다.
 
@@ -876,7 +876,7 @@ true 로 설정 시 [`auto.commit.interval.ms`](https://assu10.github.io/dev/202
 컨슈머 그룹에 설정된 파티션 전략에 따라 컨슈머-파티션 간의 매칭이 결정된다.  
 즉, **리밸런싱 시 발생하는 모든 동작은 컨슈더(리더)가 관장**한다.
 
-**`PartitionAssinor` 클래스는 컨슈머에게 이들이 구독한 토픽들이 주어졌을 때 어느 컨슈머에게 어떤 파티션을 할당될 지 결정하는 역할**을 한다.
+**`PartitionAssignor` 클래스는 컨슈머에게 이들이 구독한 토픽들이 주어졌을 때 어느 컨슈머에게 어떤 파티션을 할당될 지 결정하는 역할**을 한다.
 
 `partition.assignment.strategy` 을 통해 파티션 할당 전략을 선택할 수 있으며 카프카 2.4 부터 기본값은 `org.apache.kafka.clients.consumer.CooperativeStickyAssinor` 이다.  
 직접 할당 전략을 구현할 경우엔 `partition.assignment.strategy` 이 해당 클래스를 가리키게 하면 된다.

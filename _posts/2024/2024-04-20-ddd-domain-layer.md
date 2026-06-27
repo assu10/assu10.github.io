@@ -46,7 +46,7 @@ tags: ddd
 - 주문 애그리거트
   - 상품별 구매 갯수
 - 할인 쿠폰 애그리거트
-  - 쿠폰별로 지정한 할인 금액이나 비율에 따라 주문 촘 금액 할인
+  - 쿠폰별로 지정한 할인 금액이나 비율에 따라 주문 총 금액 할인
   - 조건에 따라 할인 쿠폰 중복 사용 가능
   - 지정한 카테고리의 상품에만 할인 쿠폰 적용
 - 회원 애그리거트
@@ -171,7 +171,7 @@ interface DiscountCalculationService {
 
 도메인 영역의 애그리거트나 밸류와 같은 구성 요소와 도메인 서비스를 비교하자면 다른 점은 **도메인 서비스는 상태없이 로직만 구현**한다는 점이다.
 
-할인 금액 계산 로직을 위한 도메인 서비스는 _DiscountCalculationService.java_, _calculateDiscountAmounts()_ 처럼 도메인의 의미가 드러나는 용어를 타입과 메서드를 같는다.
+할인 금액 계산 로직을 위한 도메인 서비스는 _DiscountCalculationService.java_, _calculateDiscountAmounts()_ 처럼 도메인의 의미가 드러나는 용어를 타입과 메서드를 갖는다.
 
 할인 금액 계산 로직을 위한 도메인 서비스 예시
 ```java
@@ -227,7 +227,7 @@ public class OrderService {
     
     private Order createOrder(OrderNo orderNo, OrderRequest orderRequest) {
         Member member = findMember(orderRequest.getOrdererId());
-        Order order = new Order(ornerNo, orderRequest.getOrderLines(), 
+        Order order = new Order(orderNo, orderRequest.getOrderLines(), 
                 orderRequest.getCoupons(), createOrderer(member), orderRequest.getShippingInfo());
         
         // 애그리거트 객체에 도메인 서비스 전달
