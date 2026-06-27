@@ -98,7 +98,7 @@ val answer: Any = 1
 
 모든 코틀린 클래스에는 `toString()`, `equals()`, `hashCode()` 메서드를 포함하는데 이 3 개의 메서드는 `Any` 에 정의된 메서드를 상속한 것이다.
 
-java.lang.Object 에 있는 다른 메서드 (`wati()`, `notify()`..) 는 `Any` 에서 사용할 수 없다.  
+java.lang.Object 에 있는 다른 메서드 (`wait()`, `notify()`..) 는 `Any` 에서 사용할 수 없다.  
 따라서 그런 메서드를 호출하고 싶다면 java.lang.Object 타입으로 값을 캐스트해야 한다.
 
 미리 정해지지 않은 타입을 다루는 방법 중 하나로 `Any` 타입의 인자를 전달하는 방법이 있는데 이를 제네릭스를 사용하는 경우와 혼동하면 안된다.
@@ -533,7 +533,7 @@ val recyclables = items.filterIsInstance<Recyclable>()
 예를 들어 `Map` 클래스는 key 타입과 value 타입을 타입 파라미터로 받으므로 `Map<K,V>` 가 된다.  
 이런 제네릭 클래스에 `Map<String, Person>` 처럼 구체적인 타입을 인자로 넘기면 타입을 인스턴스화할 수 있다.
 
-코틀린 컴파일러는 보통 타입과 마차가지로 타입 인자도 추론할 수 있다.
+코틀린 컴파일러는 보통 타입과 마찬가지로 타입 인자도 추론할 수 있다.
 
 ```kotlin
 val strings = listOf("a", "bb")

@@ -264,7 +264,7 @@ fun main() {
 ## 1.3. `ReadOnlyProperty` 인터페이스 상속
 
 [1.1. 프로퍼티가 val 인 경우: `KProperty`](#11-프로퍼티가-val-인-경우-kproperty) 에서 
-**위임 클래스인 _BasicRead_, _BasicReadWrite_ 모두 어떤 인터페이스도 구현할 필요 없이, 단순이 필요한 함수 이름과 시그니처만 만족하면 위임 역할을 수행**할 수 있다.
+**위임 클래스인 _BasicRead_, _BasicReadWrite_ 모두 어떤 인터페이스도 구현할 필요 없이, 단순히 필요한 함수 이름과 시그니처만 만족하면 위임 역할을 수행**할 수 있다.
 
 하지만 원한다면 `ReadOnlyProperty` 인터페이스를 상속할 수도 있다.
 
@@ -382,7 +382,7 @@ operator fun setValue(thisRef: T, property: KProperty<*>, value: V)
 
 위 두 함수의 파라미터는 아래와 같다.
 - _thisRef_
-  - T 는 위임자 개체(= 다른 객체에 처리를 맡기는 주체) 의 클래스임
+  - T 는 위임자 객체(= 다른 객체에 처리를 맡기는 주체) 의 클래스임
   - _thisRef_ 가 아닌 `Any?` 를 사용하여 위임자 객체의 내부를 보기 어렵게 할 수도 있음
 - _property_
   - `KProperty<*>` 는 위임 프로퍼티에 대한 정보를 제공
@@ -1011,7 +1011,7 @@ class ObservableProperty3(
 _ObservableProperty3_ 가 달라진 점은 아래와 같다.
 
 - 코틀린 관례에 사용하는 다른 함수들처럼 [`operator`](https://assu10.github.io/dev/2024/03/23/kotlin-advanced-3/#1-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9-operator) 변경자를 붙임
-- _getValue()_, _setValue()_ 는 2개의 인자를 밭음
+- _getValue()_, _setValue()_ 는 2개의 인자를 받음
   - 프로퍼티가 포함된 객체 (위에서는 People3 타입인 p)
   - 프로퍼티를 표현하는 객체 (`KProperty`)
     - `KProperty.name` 을 통해 메서드가 처리할 프로퍼티명을 알 수 있음

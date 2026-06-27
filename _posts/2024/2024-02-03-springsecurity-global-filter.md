@@ -225,7 +225,7 @@ public class EventService {
 `@PreFilter("filterObject.owner == authentication.name")` SpEL 식을 보자.
 
 Event 의 owner 특성이 로그인한 사용자의 이름과 같은 값만 허용한다는 의미이다.  
-등호 연산자의 왼쪽에 `filterObjct` 를 이용하며, `filterObject` 는 목록의 객체를 매개 변수로 참조하므로 여기서는 Event 형식이다.  
+등호 연산자의 왼쪽에 `filterObject` 를 이용하며, `filterObject` 는 목록의 객체를 매개 변수로 참조하므로 여기서는 Event 형식이다.  
 등호 연산자의 오른쪽에는 `authentication` 객체를 이용하며, 인증을 수행한 후 `SecurityContext` 에서 이용 가능한 `authentication` 객체를 곧바로 참조할 수 있다.
 
 /controller/EventController.java
@@ -751,7 +751,7 @@ $ curl -w %{http_code} -u silby:1111 http://localhost:8080/events/event
 
 ## 3.2. 쿼리에 직접 필터링 적용
 
-리포지터리에 `@PostFilter` 를 적용하면 필요엇는 데이터까지 조회하기 때문에 권장하지 않는다.  
+리포지터리에 `@PostFilter` 를 적용하면 필요없는 데이터까지 조회하기 때문에 권장하지 않는다.  
 처음부터 필요한 데이터만 선택하려면 쿼리에 직접 SpEL 식을 지정하면 된다.
 
 - 스프링 컨텍스트에 `SecurityEvaluationContextExtension` 형식의 객체 추가

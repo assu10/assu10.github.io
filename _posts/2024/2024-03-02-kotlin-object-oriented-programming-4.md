@@ -157,7 +157,7 @@ fun main() {
 
 위 코드에서 _rotate()_ 를 _Shape_ 대신 _Square_ 에 넣은 이유는 아래와 같다.
 
-- _Shape_ 인터페이스는 객발자가 제어할 수 있는 범위를 벗어났기 때문에 _Shape_ 는 변경 불가
+- _Shape_ 인터페이스는 개발자가 제어할 수 있는 범위를 벗어났기 때문에 _Shape_ 는 변경 불가
 - _Square_ 를 회전시키는 _rotate()_ 는 _Square_ 에만 적용할 연산임
 - _Shape_ 에 _rotate()_ 를 넣으면 _Shape_ 의 모든 하위 타입에서 해당 함수를 구현해야 함
 

@@ -238,7 +238,7 @@ public inline fun <reified R> Iterable<*>.filterIsInstance(): List<@kotlin.inter
 }
 ```
 
-`filterIsInstance()` 가 `inline` 과 reified` 키워드를 사용하여 정의되어 있는 것을 알 수 있다.
+`filterIsInstance()` 가 `inline` 과 `reified` 키워드를 사용하여 정의되어 있는 것을 알 수 있다.
 
 아래는 특정 하위 타입 _Disposable_ 원소의 name 을 반환하는 예시이다.
 

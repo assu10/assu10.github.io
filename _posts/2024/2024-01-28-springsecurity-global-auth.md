@@ -263,7 +263,7 @@ public class ProjectConfig {
 }
 ```
 
-이제 권한 부여 규칙을 정의할 Service 에 권한 뷰여 규칙을 적용한다.
+이제 권한 부여 규칙을 정의할 Service 에 권한 부여 규칙을 적용한다.
 
 /service/HelloService.java
 ```java
@@ -991,7 +991,7 @@ public class DocumentController {
 }
 ```
 
-이제 manager 권한이 있는 assu 는 모든 정보 조회가 가능하지만, admin 권한이 있는 sibly 는 본인의 정보만 조회 가능한 것을 알 수 있다.
+이제 manager 권한이 있는 assu 는 모든 정보 조회가 가능하지만, admin 권한이 있는 silby 는 본인의 정보만 조회 가능한 것을 알 수 있다.
 
 ```shell
 # manager 권한이 있는 assu 가 본인의 정보 조회

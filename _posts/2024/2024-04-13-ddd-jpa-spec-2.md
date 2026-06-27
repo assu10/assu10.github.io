@@ -683,7 +683,7 @@ public interface MemberDataDao extends Repository<MemberData, String> {
 ```
 
 **`Pageable` 을 사용하더라도 리턴 타입이 `Page` 이면 COUNT 쿼리를 실행하고, List 이면 COUNT 쿼리를 실행하지 않는다.**    
-따라서 **페이징 처리와 관련된 정보가 필요없다면 `Page` 가 아닌 List 로 리턴 타입을 지정하여 불필요한 COUNT 쿼리를 실행하지 않는 것이 좋다.페이징 처리와 관련된 정보가 필요없다면 `Page` 가 아닌 List 로 리턴 타입을 지정하여 불필요한 COUNT 쿼리를 실행하지 않는 것이 좋다.**
+따라서 **페이징 처리와 관련된 정보가 필요없다면 `Page` 가 아닌 List 로 리턴 타입을 지정하여 불필요한 COUNT 쿼리를 실행하지 않는 것이 좋다.**
 
 ```java
 // COUNT 쿼리 실행하지 않음

@@ -11,7 +11,7 @@ tags: spring-security oauth2 client-registration client-registration-repository
 - SSO (Single Sign-On) 을 이용하는 OAuth 2 App 구현
 
 이번에 구축하는 애플리케이션은 OAuth 2 의 클라이언트 역할을 한다.  
-깃허브를 권한 부여 및 리소스 서버로 이용하고 구성 요소와 승인 코드 그래트 유형 간의 통신에 대해 알아본다.
+깃허브를 권한 부여 및 리소스 서버로 이용하고 구성 요소와 승인 코드 그랜트 유형 간의 통신에 대해 알아본다.
 
 ---
 
@@ -140,7 +140,7 @@ Hello~
 
 이제 애플리케이션이 깃허브에서 로그인을 이용할 수 있도록 보안 구성을 한다.
 
-`httpBasic()` 이나 `formLogin()` 이 아닌 `oauth2Ligin()` 을 호출하여 필터 체인에 인증 필터를 추가한다.
+`httpBasic()` 이나 `formLogin()` 이 아닌 `oauth2Login()` 을 호출하여 필터 체인에 인증 필터를 추가한다.
 
 [1. 스프링 시큐리티 아키텍처의 필터 개념](https://깃헙아이디.github.io/dev/2023/12/16/springsecurity-filter/#1-%EC%8A%A4%ED%94%84%EB%A7%81-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EC%9D%98-%ED%95%84%ED%84%B0-%EA%B0%9C%EB%85%90) 에서 본 것처럼 
 스프링 시큐리티에는 여러 필터 구현이 있는데 `oauth2Login()` 메서드를 호출하면 프레임워크는 `OAuth2LoginAuthenticationFilter` 를 필터 체인에 추가한다.  
@@ -317,7 +317,7 @@ public class ProjectConfig {
 }
 ```
 
-`ClientREgistrationRepository` 를 등록하는 다른 방법으로는 HttpSecurity 객체의 oauth2Login() 메서드의 매개 변수로 Customizer 객체를 이용하는 방법도 있다.
+`ClientRegistrationRepository` 를 등록하는 다른 방법으로는 HttpSecurity 객체의 oauth2Login() 메서드의 매개 변수로 Customizer 객체를 이용하는 방법도 있다.
 
 > 어떤 방법을 사용해도 상관없지만 구성 방식을 혼용하는 것은 좋지 않으므로 컨텍스트에서 빈으로 설정 vs 코드 인라인 구성 중 하나를 선택하여 이용하는 것이 좋음
 
@@ -444,7 +444,7 @@ public class HelloController {
 사용자가 로그인하려고 하면 클라이언트는 사용자를 깃허브 로그인 페이지로 리디렉션한다.  
 사용자가 로그인하면 깃허브는 권한 부여를 제공하고, 애플리케이션을 콜백한다.  
 애플리케이션은 승인 코드로 액세스 토큰을 요청하고, 깃허브는 액세스 토큰을 제공한다.  
-애플리케이션은 액세스 토큰을 이용하여 리솟 서버인 깃허브에서 사용자 세부 정보에 접근할 수 있다.
+애플리케이션은 액세스 토큰을 이용하여 리소스 서버인 깃허브에서 사용자 세부 정보에 접근할 수 있다.
 
 먼저 깃허브를 로그아웃 상태로 만들고 http://localhost:8080 에 접근한다.
 
@@ -485,7 +485,7 @@ state=iwUAuCEzmtmJ0tek6TnmaHWN3pkQEqVqxDfZPndp_2Y%3D
 
 - http://localhost:8080/login/oauth2/code/github?code=511bfbb98e1836cfc4af&state=iwUAuCEzmtmJ0tek6TnmaHWN3pkQEqVqxDfZPndp_2Y%3D
 
-브라우저에서 토큰 엔드포인트를 호출하는 부분은 애플이케이션에서 직접 수행되므로 확인할 수 없지만 엔드포인트 호출 시 남겼던 사용자 세부 정보 로그가 출력되는 것으로 
+브라우저에서 토큰 엔드포인트를 호출하는 부분은 애플리케이션에서 직접 수행되므로 확인할 수 없지만 엔드포인트 호출 시 남겼던 사용자 세부 정보 로그가 출력되는 것으로 
 애플리케이션이 액세스 토큰을 얻는 데 성공한 것을 알 수 있다.
 
 ```text

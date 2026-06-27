@@ -298,9 +298,9 @@ OAuth 2 아키텍처에서 클라이언트 앱이 권한 부여 서버를 호출
 
 ![클라이언트 관리](/assets/img/dev/2024/0121/client_manage.png)
 
-이제 클라이언트의 구성을 정의하고, `InMemoryClienDetailsService` 를 이용해 설정한다.
+이제 클라이언트의 구성을 정의하고, `InMemoryClientDetailsService` 를 이용해 설정한다.
 
-`BaseClientDetials` 클래스는 `ClientDetails` 인터페이스의 구현체이다.
+`BaseClientDetails` 클래스는 `ClientDetails` 인터페이스의 구현체이다.
 
 /config/AuthServerConfig.java
 ```java
