@@ -42,7 +42,7 @@ tags: architecture system-design time-series-database tsdb prometheus influxdb k
   * [4.4. 다운샘플링](#44-다운샘플링)
   * [4.5. Cold Storage](#45-cold-storage)
 * [5. 경보 및 시각화 시스템](#5-경보-및-시각화-시스템)
-  * [3.7. 시각화 시스템](#37-시각화-시스템)
+  * [5.3. Grafana 기반의 시각화 시스템](#53-grafana-기반의-시각화-시스템)
 * [4. 마무리](#4-마무리)
 * [5. 최종 다이어그램 및 요약](#5-최종-다이어그램-및-요약)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)

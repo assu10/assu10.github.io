@@ -377,7 +377,7 @@ DB 선택을 위해 아래 4가지 핵심 질문을 반드시 던져야 한다.
 - **RDBMS의 한계**
   - 전통적인 RDBMS로도 구축 자체는 가능하겠지만, 초당 50,000건의 고속 쓰기 연산이 지원되는 환경에서는 인덱스(B+ Tree) 갱신 오버헤드와 Lock 경합 때문에 디스크 I/O 병목이 발생한다.
 - **대안 아키텍처**
-  - 쓰기 성능이 대단이 뛰어나고 시간 범위(Time-Range) 질의에 최적화된 NoSQL인 [카산드라(Cassandra)](https://assu10.github.io/dev/2026/06/05/architecture-nearby/#242-%EC%9C%84%EC%B9%98-%EC%9D%B4%EB%8F%99-%EC%9D%B4%EB%A0%A5-dbcassandra)나 시계열 전문 DB인 InfluxDB를 사용하는 것이 훨씬 바람직하다.
+  - 쓰기 성능이 대단히 뛰어나고 시간 범위(Time-Range) 질의에 최적화된 NoSQL인 [카산드라(Cassandra)](https://assu10.github.io/dev/2026/06/05/architecture-nearby/#242-%EC%9C%84%EC%B9%98-%EC%9D%B4%EB%8F%99-%EC%9D%B4%EB%A0%A5-dbcassandra)나 시계열 전문 DB인 InfluxDB를 사용하는 것이 훨씬 바람직하다.
   - 또는 데이터 유실 방지를 위해 [ORC](https://cwiki.apache.org/confluence/display/hive/languagemanual+orc), [Parquet(파케이)](https://www.databricks.com/blog/what-is-parquet), [AVRO](https://www.ibm.com/think/topics/avro) 같은 칼럼형 데이터 형식 가운데 하나를 사용하여 아마존 S3와 같은 객체 스토리지에 데이터를 직접 파일 형태로 저장하는 방식도 널리 쓰인다.
 
 ---
