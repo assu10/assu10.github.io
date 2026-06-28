@@ -668,7 +668,7 @@ Process finished with exit code 0
 `withTimeout()` 함수는 코루틴 실행 시간을 제한할 수 있다.
 
 `withTimeout()` 함수는 특정 시간이 초과되면 **작업을 강제로 중단**시키고, `TimeoutCancellationException` 을 발생시켜 해당 코루틴만 취소한다.  
-이 예외는 `CacellationException` 의 하위 클래스이므로 **부모 코루틴으로 전파되지 않으며**, 프로그램 종료없이 안전하게 사용 가능하다.
+이 예외는 `CancellationException` 의 하위 클래스이므로 **부모 코루틴으로 전파되지 않으며**, 프로그램 종료없이 안전하게 사용 가능하다.
 
 `withTimeout()` 시그니처
 ```kotlin

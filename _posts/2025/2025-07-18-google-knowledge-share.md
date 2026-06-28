@@ -194,7 +194,7 @@ tags: google-engineer developer-culture knowledge-sharing psychological-safety e
 
 # 5. 질문 확장
 
-질문을 일대일로 시작되지만, 공유하지 않으면 사라진다.  
+질문은 일대일로 시작되지만, 공유하지 않으면 사라진다.  
 배운 내용을 **기록하고 전파하는 습관**은 개인의 성장을 넘어 팀의 자산이 된다.
 
 <**일대일의 한계와 기록의 중요성**>

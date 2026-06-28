@@ -213,7 +213,7 @@ fun main() = runBlocking<Unit> {
         }
     }
 
-    delay(20L) // 코루린들이 모두 생성될 때까지 대기
+    delay(20L) // 코루틴들이 모두 생성될 때까지 대기
     parentJob.cancel() // ParentCoroutine 에 취소 요청
     delay(1000L)
 }
