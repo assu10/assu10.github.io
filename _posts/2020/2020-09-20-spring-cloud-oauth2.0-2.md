@@ -310,7 +310,7 @@ POST - [http://localhost:8901/auth/oauth/token](http://localhost:8901/auth/oauth
 
 수정은 이벤트 서비스에 대해서만 기술할테니 회원 서비스는 동일하게 진행해주세요.
 
-`spring-security-jwt` 의존성을 추가한 JWT 토큰에서 사용자 정의 필드 파싱다.
+`spring-security-jwt` 의존성을 추가한 후 JWT 토큰에서 사용자 정의 필드를 파싱한다.
 
 **event-service > pom.xml**
 ```xml
@@ -670,7 +670,7 @@ c.a.cloud.zuulserver.filters.PostFilter  : ============ Completing outgoing requ
     - 마이크로서비스가 실행 중인 운영 체제는 게이트웨이에서 유입되는 트래픽만 수용하도록 네트워크 계층 구성
 - **공개 API 와 비공개 API 영역 구분**
     - **공개 영역**
-        - 클라이언트가 소비사는 공개 API 가 포함된 영역
+        - 클라이언트가 소비하는 공개 API 가 포함된 영역
         - 공개 영역의 API 들은 여러 서비스에서 데이터를 가져와 수집하는 정도의 협소한 작업만 실행
         - 게이트웨이 뒤에 위치해야 하고, OAuth2 인증을 수행할 수 있는 인증 서버 보유 필요
         - 클라이언트가 공개 API 에 접근할 때는 게이트웨이가 제공하는 단일 경로로만 접근
@@ -678,7 +678,7 @@ c.a.cloud.zuulserver.filters.PostFilter  : ============ Completing outgoing requ
         - 핵심 기능과 데이터를 보호하는 역할
         - 자체 게이트웨이 필요
 - **불필요한 네트워크 포트는 차단**
-    - 서비스나 모니터링, 로그 수집 등에 필요한 포트의 인/아웃바운드만 하용
+    - 서비스나 모니터링, 로그 수집 등에 필요한 포트의 인/아웃바운드만 허용
     - 아웃바운드도 차단할 경우 서비스가 공격당하더라도 데이터 유출을 막을 수 있음
 
 

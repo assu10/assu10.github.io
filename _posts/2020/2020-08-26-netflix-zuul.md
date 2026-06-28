@@ -108,7 +108,7 @@ Zuul 도 자신의 서비스 ID 로 Eureka Server 에 자신을 등록한다.<br
 Zuul 의 이중화 구성 시 별도의 로드밸런서는 필요 없다.
 (Eureka Client 는 Eureka Server 로부터 받아온 Zuul 서버 목록 중 하나를 선택하여 호출)<br />
 
-새로운 스트링부트 프로젝트 생성 후 Zuul, Config Client, Eureka Discovery, Actuator Dependency 를 추가한다.
+새로운 스프링부트 프로젝트 생성 후 Zuul, Config Client, Eureka Discovery, Actuator Dependency 를 추가한다.
 
 **pom.xml**
 ```xml
@@ -354,7 +354,7 @@ zuul:
 수정은 간단하다.
 @FeignClient 에 들어가는 서비스 ID와 최종 URL 만 수정해주면 된다.
 
-컨피스 원격 저장소의 이벤트 서비스 설정 파일에 아래 내용을 추가한다.
+컨피그 원격 저장소의 이벤트 서비스 설정 파일에 아래 내용을 추가한다.
 
 **config-repo > event-service > event-service.yaml**
 ```yaml

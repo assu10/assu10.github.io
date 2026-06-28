@@ -111,7 +111,7 @@ job 의 동작을 정의하는 파라미터들은 아래와 같다.
 
 ## 전역 파라미터
 
-모든 job 에 공툥으로 사용되는 전역 파라미터는 `default` 키워드를 사용하여 설정 가능하다.
+모든 job 에 공통으로 사용되는 전역 파라미터는 `default` 키워드를 사용하여 설정 가능하다.
 
 `default` 키워드 내 사용 가능한 job 파라미터는 아래와 같다.
 
@@ -570,7 +570,7 @@ production:
 나머지 작업에 영향을 주지 않고 job 이 실패하도록 할 때 사용한다.<br />
 `rules` 를 사용하지 않을 때 `when:manual` 을 사용하는 수동 작업을 제외하고 기본값은 false 이다.<br />
 
-예를 들어 아래에서 job1 과 job2 는 병렬로 실행되지만 job1 이 실패하더라고 `allow_failure:true` 이므로 다음 stage 가 실행된다.
+예를 들어 아래에서 job1 과 job2 는 병렬로 실행되지만 job1 이 실패하더라도 `allow_failure:true` 이므로 다음 stage 가 실행된다.
 
 ```shell
 job1:
@@ -649,7 +649,7 @@ cleanup_job:
 - job 의 성공 여부와 상관없이 항상 파이프라인의 마지막 단계로 *cleanup_job* 실행
 - GitLab UI 에서 수동으로 실행할 때 *deploy_job* 실행
 
-`when:manual` 은 프로덕션 환경에서의 배포 시 사용하는데 자세한 내요은 [Configuring manual deployments](https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)
+`when:manual` 은 프로덕션 환경에서의 배포 시 사용하는데 자세한 내용은 [Configuring manual deployments](https://docs.gitlab.com/ee/ci/environments/index.html#configuring-manual-deployments)
 을 참고하세요.
 
 ---
@@ -678,7 +678,7 @@ deploy to production:
 
 job 이 완료된 후 아티팩트가 GitLab 으로 전송되며, [최대 아티팩트 크기(1G)](https://docs.gitlab.com/ee/user/gitlab_com/index.html#gitlab-cicd)가 크지 않으면 GitLab UI 에서 다운로드할 수 있다.
 
-좀 더 자세항 사항은 [job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html) 을 참고하세요.
+좀 더 자세한 사항은 [job_artifacts](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html) 을 참고하세요.
 
 ---
 

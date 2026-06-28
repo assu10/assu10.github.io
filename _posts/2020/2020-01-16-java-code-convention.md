@@ -28,7 +28,7 @@ tags: backend java coding-guide code-convention
   * [3. Statements](#3-statements)
     * [복합문](#복합문)
     * [if, if-else, if else-if else](#if-if-else-if-else-if-else)
-  * [4. While Space](#4-while-space)
+  * [4. White Space](#4-white-space)
     * [한 줄 띄우기](#한-줄-띄우기)
     * [공백](#공백)
   * [5. 기타](#5-기타)
@@ -146,7 +146,7 @@ if (condition)
 if (condition) something..
 ```
 
-## 4. While Space
+## 4. White Space
 ### 한 줄 띄우기
 한 줄을 띄우고 코드를 작성하면 논리적으로 관계가 있는 코드들을 쉽게 구분할 수 있기 때문에 코드의 가독성을 향상시킨다.
 - 메서드들 사이에서

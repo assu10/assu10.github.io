@@ -237,6 +237,7 @@ API 설계를 위해 기능 요구사항을 검토해보자.
 **API 2: 지난 N분간 가장 많은 클릭이 발생한 상위 M개 ad_id 목록**
 - **HTTP Method:** GET /v1/ads/popular_ads
 - **Query String:**
+  - count: 상위 몇 개의 광고를 반환할 것인가
 - **Response:**
 
 
