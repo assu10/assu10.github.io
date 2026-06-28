@@ -154,7 +154,7 @@ export class LoggingInterceptor implements NestInterceptor {  // NestInterceptor
   - 다음 Middleware 에게 제어권을 넘기지 않고 요청/응답 주기 종료 가능
 
 - Interceptor
-  - 요청에 대한 하루트 핸들러의 처리 전/후 호출되어 요청과 응답을 다룰 수 있음
+  - 요청에 대한 라우트 핸들러의 처리 전/후 호출되어 요청과 응답을 다룰 수 있음
 
 ---
 
@@ -205,7 +205,7 @@ NestJS 의 내장 예외 레이어는 인식할 수 없는 에러를 InternalSer
 
 **유일하게 ExceptionFilter 는 전역 필터가 먼저 적용되지 않는다.**
 
-라우터 → 컨트롤러 → 전역 으로 바딩인된 순서대로 동작한다.
+라우터 → 컨트롤러 → 전역 으로 바인딩된 순서대로 동작한다.
 
 그리고 필터가 예외를 catch 하면 다른 필터가 동일한 예외를 잡을 수 없다. (라우터에 적용된 ExceptionFilter 가 이미 예외를 잡아서 처리했으므로 전역 ExceptionFilter 가 또 잡아서 처리할 필요가 없음)
 

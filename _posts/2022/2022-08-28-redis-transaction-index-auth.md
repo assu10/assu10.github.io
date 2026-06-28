@@ -222,11 +222,11 @@ QUEUED
 11
 ```
 
-한번 `WATCH` 를 선언한 key 는 `EXEC` 가 씰행되면 즉시 `UNWATCH` 상태로 변경된다.  
+한번 `WATCH` 를 선언한 key 는 `EXEC` 가 실행되면 즉시 `UNWATCH` 상태로 변경된다.  
 직접 `UNWATCH` 를 선언할 경우 `WATCH` 가 선언된 모든 key 를 반환한다. (각각의 key 별로는 UNWATCH 선언 불가)
 
 또한 `WATCH` 와는 다르게 다른 클라이언트에서 선언한 `UNWATCH` 는 허용하지 않는다.  
-즉, 외부 클라이언트에서 `UNWATCH` 를 선언했다고 하더라고 해당 key 는 `UNWATCH` 되지 않는다.
+즉, 외부 클라이언트에서 `UNWATCH` 를 선언했다고 하더라도 해당 key 는 `UNWATCH` 되지 않는다.
 
 ---
 
@@ -236,10 +236,10 @@ QUEUED
   - Redis 는 기본적으로 하나의 Key 와 하나 이상의 Field/Element 로 구성되는데, 이 때 Key 에 빠른 검색을 위해 기본적으로 생성되는 인덱스
 - `Secondary Index`
   - 필요에 따라 생성하는 추가적인 인덱스
-    - `Exact Match By a Secondafy Index`
+    - `Exact Match By a Secondary Index`
       - 인덱스 키를 통해 검색 시 유일한 값을 검색하는 경우
-    - `Range By a Secondafy Index`
-      - 인텍스 키를 통해 검색 시 일정 범위의 값을 검색 조건으로 부여하는 경우
+    - `Range By a Secondary Index`
+      - 인덱스 키를 통해 검색 시 일정 범위의 값을 검색 조건으로 부여하는 경우
 
 ---
 
@@ -373,7 +373,7 @@ redis_mode:standalone
 ```
 
 > **커뮤니티 에디션**  
-> 커뮤니티 에디션에서 standalone 서버를 구축하는 경웬는 기본적으로 사용자 계정을 사용자가 직접 부여하는 이름으로 생성할 수 없다.  
+> 커뮤니티 에디션에서 standalone 서버를 구축하는 경우에는 기본적으로 사용자 계정을 사용자가 직접 부여하는 이름으로 생성할 수 없다.  
 > conf 파일의 requirepass 파라미터를 통해 기본 계정에 암호 부여만 가능하다.
 
 > **엔터프라이즈 에디션**  

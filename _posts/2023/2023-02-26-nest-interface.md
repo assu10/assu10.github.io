@@ -59,7 +59,7 @@ AppModule (app.module.ts) 에서 방금 생성한 users.controller.ts 와 프로
 
 > 모듈과 서비스(Provider) 는 각자 찾아보세요.
 
-CRUD 보일러 플레이트를 한번에 만들 땐 `nest g resouece Users` 명령어를 이용하면 module, controller, service, entity, dto, test 코드 등을 한번에 생성해준다.
+CRUD 보일러 플레이트를 한번에 만들 땐 `nest g resource Users` 명령어를 이용하면 module, controller, service, entity, dto, test 코드 등을 한번에 생성해준다.
 
 > **보일러 플레이트 (boilerplate)**  
 > 
@@ -370,7 +370,7 @@ import { Redirect } from '@nestjs/common';
 
 `@Redirect` 사용 시 200 과 같은 다른 상태코드를 써도 되지만 301 Moved Permanently, 307 Temporary Redirect, 308 Permanent Redirect 같이 Redirect 로 정해진 응답 코드가 아닐 경우 정상 동작하지 않을 수 있다.
 
-> 301 Moved Permanently 는 요청한 리소스가 헤더에 주어진 리소스로 완전이 이동되었다는 의미
+> 301 Moved Permanently 는 요청한 리소스가 헤더에 주어진 리소스로 완전히 이동되었다는 의미
 
 요청 결과에 따라 동적으로 리다이렉트할 때는 아래와 같은 객체를 리턴하면 된다.
 

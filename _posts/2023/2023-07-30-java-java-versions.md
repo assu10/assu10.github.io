@@ -92,7 +92,7 @@ public interface BufferedReaderProcess {
 ```
 
 하나의 추상 메서드를 정의하는 인터페이스  
-추상 메서드 외 디폴트 메서드가 정적 메서드는 제한없이 사용 가능  
+추상 메서드 외 디폴트 메서드와 정적 메서드는 제한없이 사용 가능  
 주요 함수형 인터페이스는 Predicate, Consumer, Supplier, Function, UnaryOperator 등이 있음  
 
 > [Java8 - 람다 표현식 (1): 함수형 인터페이스, 형식 검사](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94)
@@ -128,7 +128,7 @@ myCollection.forEach(value -> System.out.println(value));
 ```
 
 익명 클래스처럼 이름이 없는 함수이면서 메서드를 인수로 전달하거나 메서드의 결과로 반환될 수 있음  
-즉, 함수를 변수로 다를 수 있음  
+즉, 함수를 변수로 다룰 수 있음  
 메서드를 식으로 나타낸 것이지만 엄밀히 말하면 이 메서드를 가진 객체를 생성해내는 것이므로 주로 함수형 인터페이스의 익명 객체를 대체하기 위해 사용함  
 간결하고 직관적인 코드 생성 가능
 
@@ -352,7 +352,7 @@ module java.sql {
 
 ## Stream 에 새로운 메서드 추가
 
-`takeWhile()`, `dropWhile()`, `iterate()`, `ofNullable() 등의 메서드 추가 
+`takeWhile()`, `dropWhile()`, `iterate()`, `ofNullable()` 등의 메서드 추가 
 
 iterate()
 ```java

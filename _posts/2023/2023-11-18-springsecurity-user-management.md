@@ -70,7 +70,7 @@ tags: spring-security user-details granted-authority user-details-service user-d
 - `UserDetailsService`: 사용자 검색
 - `UserDetailsManager`: 사용자 추가, 수정, 삭제
 
-**따라서 사용자를 인증하는 기능한 필요한 경우 `UserDetailsService` 만 구현하면 되고, 사용자를 관리하려면 둘 다 구현하면 된다.**
+**따라서 사용자를 인증하는 기능만 필요한 경우 `UserDetailsService` 만 구현하면 되고, 사용자를 관리하려면 둘 다 구현하면 된다.**
 
 `UserDetails` 계약을 구현하여 사용자를 기술하고, 사용자가 수행할 수 있는 작업(=권한)은 `GrantedAuthority` 인터페이스로 나타낸다.
 
@@ -151,7 +151,7 @@ public interface UserDetails extends Serializable {
 
 스프링 시큐리티는 `GrantedAuthority` 인터페이스로 권한을 나타낸다.
 
-여기서는 권한은 정의하는 방법에 대해 알아본다.
+여기서는 권한을 정의하는 방법에 대해 알아본다.
 
 > 사용자 권한을 바탕으로 권한 부여 구성을 작성하는 방법에 대해서는  
 > [Spring Security - 권한 부여(1): 권한과 역할에 따른 액세스 제한](https://assu10.github.io/dev/2023/12/09/springsecurity-authorization-1/),  
@@ -160,7 +160,7 @@ public interface UserDetails extends Serializable {
 
 사용자는 권한이 하나도 없거나, 여러 개의 권한을 가질 수 있으며 일반적으로 1개 이상의 권한을 소유한다.
 
-`GrangedAuthority` 인터페이스
+`GrantedAuthority` 인터페이스
 ```java
 package org.springframework.security.core;
 
@@ -206,7 +206,7 @@ import java.util.List;
 
 /**
  * 최소한의 사용자 기술 구현
- * 이 클래스에서 권한 메서드들을 모두 true 로 반호나하게 함으로써 사용자가 항상 활성화되고, 사용 가능하도록 함
+ * 이 클래스에서 권한 메서드들을 모두 true 로 반환하게 함으로써 사용자가 항상 활성화되고, 사용 가능하도록 함
  */
 public class DummyUser implements UserDetails {
   @Override
@@ -379,7 +379,7 @@ public class SecurityUser implements UserDetails {
 
 # 3. 스프링 시큐리티가 사용자를 관리하는 방법 지정
 
-위에서 `UserDetails` 계약을 구현하여 사용가를 기술하였다.
+위에서 `UserDetails` 계약을 구현하여 사용자를 기술하였다.
 
 이제 아래의 내용에 대해 알아본다.
 - `UserDetailsService` 클래스를 구현하는 다양한 방법
@@ -599,7 +599,7 @@ hello200%
   - `UserDetailsService` 를 확장해서 암호 생성, 삭제, 변경 등의 작업을 추가함
 
 `UserDetailsManager` 는 `UserDetailsService` 계약을 확장하고, 메서드를 추가한다.
-`UserDetailsManager` 계약은 `JdbcUserDetailsManager`, InMemoryUserDetailsManager`, `LdapUserDetailsManager` 구현을 제공한다.
+`UserDetailsManager` 계약은 `JdbcUserDetailsManager`, `InMemoryUserDetailsManager`, `LdapUserDetailsManager` 구현을 제공한다.
 
 스프링 시큐리티가 인증을 수행하려면 `UserDetailsService` 계약이 필요한데 일반적으로 애플리케이션은 사용자를 추가/삭제 하는 등의 관리 기능이 필요하다.  
 이 때 `UserDetailsManager` 인터페이스를 구현한다.

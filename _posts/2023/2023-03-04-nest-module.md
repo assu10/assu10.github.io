@@ -61,7 +61,7 @@ export interface ModuleMetadata {
 
 예를 들어 서비스 전반에 사용되는 공통 기능을 모아놓은 모듈을 CommonModule, 공통이긴 하지만 앱을 구동시키는 데 필요한 기능(로깅, 인터셉터 등) 을 
 모아놓은 모듈을 CoreModule 이라고 할 때 AppModule 은 애플리케이션 구동 시 CoreModule 이 필요하면서 CommonModule 도 필요하다. 이럴 때 AppModule 은
-둘 다 가져오는 것이 아니라 CoreModule 을 가져오고, CoreModule 은 가져온 CommonModule 을 다시 내보내면 AppModule CommonModule 을 가져오지 않아도 사용이 가능하다.
+둘 다 가져오는 것이 아니라 CoreModule 을 가져오고, CoreModule 은 가져온 CommonModule 을 다시 내보내면 AppModule 은 CommonModule 을 가져오지 않아도 사용이 가능하다.
 
 ```shell
 $  nest g mo Common

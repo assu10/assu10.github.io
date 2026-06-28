@@ -210,7 +210,7 @@ public class WebConfig implements WebMvcConfigurer {
 }
 ```
 
-비동시 서블릿 예시
+비동기 서블릿 예시
 ```java
 @GetMapping(path = "/hotels/{hotelId}/rooms/{roomNumber}")
 public Callable<HotelRoomResponse> getHotelRoomByPeriod(
@@ -311,7 +311,7 @@ public class WebConfig implements WebMvcConfigurer {
 > **CORS (Cross Origin Resource Sharing)**  
 > 출처가 다른 리소스들을 공유하는 것
 
-출처가 다른 리소소를 공유하여 브라우저를 실행하는 것은 보안상 매우 위험하기 때문에 브라우저들은 SOP 를 따르도록 되어있다.
+출처가 다른 리소스를 공유하여 브라우저를 실행하는 것은 보안상 매우 위험하기 때문에 브라우저들은 SOP 를 따르도록 되어있다.
 
 > **SOP (Same Origin Policy)**  
 > 웹 브라우저의 보안을 위해 같은 출처의 리소스만 사용하도록 제한하는 방식
@@ -622,7 +622,7 @@ public class HotelRoomNumberFormatter implements Formatter<HotelRoomNumber> {
 - `Converter`, `Formatter`
   - `@PathVariable` 이나  `@RequestParam` 같은 애너테이션과 함께 사용
   - 애너테이션 설정으로 URI 나 URI 파라미터에 변환할 데이터를 정의하고, 애너테이션이 정의된 변수에 데이터를 변환하여 주입
-- `AugumentResolver`
+- `ArgumentResolver`
   - 대상 데이터를 정하지 않고 사용자가 요청한 HTTP 메시지에서 필요한 모든 것을 선택하여 가공 후 객체로 변환
   - 따라서 `@PathVariable` 이나  `@RequestParam` 같은 애너테이션 없이 동작함
   - 예) 요청 메시지의 헤더, 쿠키, 파라미터, URI 나 요청 메시지 등 모든 정보를 조합하여 변환
@@ -733,7 +733,7 @@ ClientInfo(channel=iOS, clientAddress=101.120.121.124)
 REST-API 애플리케이션에서는 JSON 타입의 메시지를 응답하고, 이 과정은 HttpMessageConverter 로 변환되기 때문이다.  
 즉, REST-API 는 `HandlerMethodReturnValueHandler` 구현체 없이 객체를 JSON 으로 마셜링할 수 있다.
 
-만약 REST-API 애플리케이션에서 핸들러 메서드가 JSON 이 아닌 아른 포맷으로 리턴해야 한다면 `HttpMessageConverter` 를 확장한 후
+만약 REST-API 애플리케이션에서 핸들러 메서드가 JSON 이 아닌 다른 포맷으로 리턴해야 한다면 `HttpMessageConverter` 를 확장한 후
 `configureMessageConverters()` 나 `extendMessageConverters()` 를 통해 프레임워크에 설정하는데 이건 바로 다음에 나온다.
 
 ---
@@ -770,7 +770,7 @@ public class DispatcherServlet extends FrameworkServlet {
 개발자가 이름이 localeResolver 인 LocaleResolver 스프링 빈을 생성하면 DispatcherServlet 은 애플리케이션이 시작할 때 개발자가 만든 LocaleResolver 를 사용하고,
 만일 개발자가 만든 LocaleResolver 가 없다면 기본 LocaleResolver 가 설정된다.
 
-만일 LocaleResolver 외 다른 스프링 빈을 별도로 설정하려면 DispatcherServlet 코들르 확인하여 프레임워크가 미리 정의한 스프링 빈 이름과 클래스 타입으로 설정하면 된다.
+만일 LocaleResolver 외 다른 스프링 빈을 별도로 설정하려면 DispatcherServlet 코드를 확인하여 프레임워크가 미리 정의한 스프링 빈 이름과 클래스 타입으로 설정하면 된다.
 
 아래처럼 자바 설정 클래스에 스프링 빈을 설정하면 자동으로 설정된다.
 

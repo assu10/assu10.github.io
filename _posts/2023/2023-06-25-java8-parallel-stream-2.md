@@ -314,7 +314,7 @@ private static class WordCounterSpliterator implements Spliterator<Character> {
             + SIZED // estimatedSize() 메서드의 반환값이 정확함
             + SUBSIZED  // trySplit() 으로 생성된 Spliterator 도 정확한 크기를 가짐
             + NONNULL // 문자열에는 null 문자가 존재하지 않음 
-            + IMMUTABLE;  // 문자열 자체가 불편 클래스이므로 문자열을 파싱하면서 속성이 추가되지 않음
+            + IMMUTABLE;  // 문자열 자체가 불변 클래스이므로 문자열을 파싱하면서 속성이 추가되지 않음
   }
 }
 ```

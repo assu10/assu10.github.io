@@ -88,11 +88,11 @@ CSRF 보호는 필터 체인의 `CsrfFilter` 에서 시작한다.
 - HTTP GET, POST 의 엔드포인트 생성
 - CSRF 토큰을 이용하여 CSRF 보호를 비활성화하지 않고 POST 엔드포인트 호출 (기본적으로는 CSRF 보호를 비활성하지 않으면 POST 로 직접 엔드포인트 호출이 불가함)
 
-**`CsrfFilter` 는 생성된 CSRF 토큰을 `CsrfToekn` 클래스의 인스턴스로서 요청 특성 _csrf 에 저장**한다.  
+**`CsrfFilter` 는 생성된 CSRF 토큰을 `CsrfToken` 클래스의 인스턴스로서 요청 특성 _csrf 에 저장**한다.  
 따라서 `CsrfFilter` 뒤에 필터를 추가하여 `CsrfToken` 인스턴스의 getToken() 을 호출하여 토큰값을 가져올 수 있다.
 
 CSRF 토큰값을 가져올 수 있도록 `CsrfFilter` 뒤에 맞춤형 필터를 추가한다.  
-이 맞춤형 필터는 HTTP GET 으로 엔드포인트 호출 시 서버가 생성하는 CSRF 토큰을 콘솔에 출력한다. 그러면 콘솔에 출력된 토큰값일 복사하여 HTTP POST 엔드포인트 호출이 가능하다.
+이 맞춤형 필터는 HTTP GET 으로 엔드포인트 호출 시 서버가 생성하는 CSRF 토큰을 콘솔에 출력한다. 그러면 콘솔에 출력된 토큰값을 복사하여 HTTP POST 엔드포인트 호출이 가능하다.
 
 ![CsrfFilter 뒤에 CsrfTokenLogger 맞춤형 필터 추가](/assets/img/dev/2023/1217/csrf_filter.png)
 
@@ -168,7 +168,7 @@ public class ProjectConfig {
 이제 엔드포인트를 호출하여 테스트해보자.
 
 먼저 GET 엔드포인트를 호출한다.  
-`CsrftokenRepository` 인터페이스의 기본 구현은 HTTP 세션을 이용하여 서버 쪽에 토큰값을 저장하므로 세션 ID 도 알아놔야 한다. 따라서 curl 에 `-v` 플래그를 붙여 응답에서 
+`CsrfTokenRepository` 인터페이스의 기본 구현은 HTTP 세션을 이용하여 서버 쪽에 토큰값을 저장하므로 세션 ID 도 알아놔야 한다. 따라서 curl 에 `-v` 플래그를 붙여 응답에서 
 세션 ID 도 확인한다.
 
 ```shell
@@ -666,7 +666,7 @@ public interface CsrfToken extends Serializable {
 
 대안으로 수명이 정의된 CSRF 토큰을 이용할 수 있다. 토큰을 특정 사용자 ID 에 연결하지 않고 DB 에 저장한 후 요청 여부 결정 시에 제공된 토큰의 존재 여부와 만료여부를 확인하면 된다. 
 
-아래 종속성을 출가로 넣는다.
+아래 종속성을 추가로 넣는다.
 
 ```xml
 <!-- Spring Data JPA, Hibernate, aop, jdbc -->

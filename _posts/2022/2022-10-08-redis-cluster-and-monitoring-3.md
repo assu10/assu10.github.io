@@ -99,7 +99,7 @@ $ redis-server /usr/local/etc/redis-cluster/5005/redis-5005.conf  # 5005 서버 
 - `logfile`
   - *logfile "/usr/local/var/db/redis/redis_6379.log"*
 
-- `syslog-enalbed`
+- `syslog-enabled`
   - *syslog-enabled no*
   - 시스템 로그 정보 수집 여부
 

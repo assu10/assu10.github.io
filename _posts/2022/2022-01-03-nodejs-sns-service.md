@@ -603,7 +603,7 @@ foreignKey 가 followingId 이면 as 는 Followers 이어야 한다.
 
 posts 테이블과 hashtags 테이블은 `N:M` 관계이다. (belongsToMany-belongsToMany)
 
-hashtags-posts-postHashtag ERD](/assets/img/dev/2022/0103/hashtags-posts-postHashtag.png)
+![hashtags-posts-postHashtag ERD](/assets/img/dev/2022/0103/hashtags-posts-postHashtag.png)
 
 models/post.js
 ```javascript
@@ -1017,7 +1017,7 @@ module.exports = router;
 **`Passport` 는 req 객체에 `login`, `logout` 메서드를 추가한다.**  
 `req.login()` 는 `passport.serializeUser()` 를 호출하는데 이 때 user 객체를 함께 넘긴다.
 
-**GET /logout, 로그인 라우터**  
+**GET /logout, 로그아웃 라우터**  
 `req.login()` 은 req.user 객체를 제거하고, `req.session.destroy()` 는 req.session 객체의 내용을 제거한다.
 
 passport/localStrategy.js
@@ -1129,7 +1129,7 @@ module.exports = () => {
         clientID: process.env.KAKAO_ID, // 카카오에서 발급해주는 아이디 (노출되면 안되므로 .env 파일에 저장)
         callbackURL: '/auth/kakao/callback',  // 카카오로부터 인증 결과를 받을 라우터 주소
       },
-      // 카카오에서는 인증 수 callbakcURL 에 적힌 주소로 accessToken, refreshToken, profile 보냄
+      // 카카오에서는 인증 수 callbackURL 에 적힌 주소로 accessToken, refreshToken, profile 보냄
       async (accessToken, refreshToken, profile, done) => {
         console.log('kakao profile: ', profile);
         try {

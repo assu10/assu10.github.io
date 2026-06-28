@@ -546,7 +546,7 @@ System.out.println(result2); // 3
 - Java8 은 `Predicate<T>` 같은 제네릭 함수형 인터페이스와 관련한 박싱 동작을 피할 수 있도록 IntPredicate 등의 기본형 특화 인터페이스를 제공함
 - 실행 어라운드 패턴을 람다와 활용하면 유연성과 재사용성을 추가로 얻을 수 있음
 - 메서드 레퍼런스를 이용하면 기존의 메서드 구현을 재사용하며, 직접 전달 가능
-- `Comparator<T>`, `Predicate<T>`, `Function<T,R>` 과 같은 함수형 인터페이스는 람다 표현식을 조랍할 수 있는 다양한 디폴트 메서드를 제공
+- `Comparator<T>`, `Predicate<T>`, `Function<T,R>` 과 같은 함수형 인터페이스는 람다 표현식을 조합할 수 있는 다양한 디폴트 메서드를 제공
 
 ---
 

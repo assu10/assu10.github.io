@@ -72,7 +72,7 @@ GET /test.html HTTP/1.1
 
 // header
 Host: www.testme.com
-Accept: text/html // 클라이언트에서 처리할 수 있는 콘텐츠 타임을 서버에 알려줌
+Accept: text/html // 클라이언트에서 처리할 수 있는 콘텐츠 타입을 서버에 알려줌
 ```
 
 HTTP Response 메시지
@@ -147,7 +147,7 @@ HTTP 응답 상태를 크게 5가지로 구분한다.
   - 200 OK, 201 Created (데이터를 성공적으로 생성), 202 Accepted 가 많이 사용됨
 - `3XX`
   - 클라이언트 요청을 완전히 처리하는데 추가적인 작업이 필요함을 의미
-  - 일반적을로 클라이언트가 요청한 리소스가 다른 위치로 옮겨져서 클라이언트가 새로운 리소스를 다시 요청해야 하는 경우
+  - 일반적으로 클라이언트가 요청한 리소스가 다른 위치로 옮겨져서 클라이언트가 새로운 리소스를 다시 요청해야 하는 경우
   - 대표적으로 302 Found 가 있으며, 이 때 서버는 새로운 URL 경로를 포함하는 Location 헤더를 함께 응답하고, 클라이언트는 이 헤더를 파싱하여 새로운 URL 로 재요청 (=리다이렉션)  
     (클라이언트가 이 작업을 처리함)
 - `4XX`
@@ -437,7 +437,7 @@ return ResponseEntity.status(HttpStatus.OK).body(hotel);
 HttpMessageConverter 중 적절한 것을 골라 마셜링하고, 마셜링된 JSON 객체가 클라이언트에 전달된다.
 
 > **마셜링(Marshalling)**  
-> 객체가 JSON 문자열로 변환되는 것, 그 뱐대는 언마셜링이라고 함
+> 객체가 JSON 문자열로 변환되는 것, 그 반대는 언마셜링이라고 함
 
 `@ResponseBody` 애너테이션은 메서드 뿐 아니라 클래스 선언부에도 사용 가능한데 그러면 클래스 내부에 정의된 public 메서드 모두 `@ResponseBody` 의 영향을 받는다.
 

@@ -62,7 +62,7 @@ Load Balancer 는 `Listener` 와 `Target Group` 으로 구성되어 있다.
   - HTTP(S) 에 특화되어 상세한 제어가 가능
   - 클라이언트 IP 를 보존하지 않고 자신의 IP 로 대체하여 전달 (클라이언트 IP 는 `X-Forwarded-for` 헤더에 담아서 전달)
 
-- `NLB (Network Load Balancer`
+- `NLB (Network Load Balancer)`
   - TCP 나 UDP 프로토콜에 대한 포트 정보를 정의하여 네트워크 기반의 분산 처리 제공 (OSI 4계층 레벨의 Load Balancer)
   - 고정 IP 나 EIP 보유 가능
   - VPC Endpoint Service 로 연결하여 PrivateLink 구성 가능
@@ -547,7 +547,7 @@ $ ssh -i sandbox-jh.pem ec2-user@13.125.xx.xx
 ALB 를 통한 로드 밸런싱 구성도를 다시 한번 보도록 하자.
 ![ALB 를 통한 로드 밸런싱 구성도](/assets/img/dev/2022/1113/alb_nlb_2.png)
 
-/dev/index.html 은 *jhELB-EC2-1* 에만 있고, /mng/index.html 은 *jhELB-EC2-2* 에만 있다.  
+/dev/index.html 은 *jhELB-EC2-1* 에만 있고, /mgt/index.html 은 *jhELB-EC2-2* 에만 있다.  
 만일 ALB 를 통해 /dev/index.html 을 계속 요청했을 경우 *jhELB-EC2-2* 로 라우팅되는 경우에는 정상적인 응답을 주지 못한다.
 
 이럴 때에는 `경로 기반 라우팅 기능` 을 사용할 수 있다.
@@ -653,7 +653,7 @@ Health check protocol 은 TCP, HTTP, HTTPS 가 지원되는데 *jhELB-EC2-1* 과
 ```shell
 $ ssh -i sandbox-jh.pem ec2-user@13.125.xx.xx
 
-# snmpget 명령어로 NLB DNS name 으로 시스템명(SNMP OID 1.3.6.1.2.1.1.5.0) 요청 시 EC2-1 과 2 를 번걸아 응답
+# snmpget 명령어로 NLB DNS name 으로 시스템명(SNMP OID 1.3.6.1.2.1.1.5.0) 요청 시 EC2-1 과 2 를 번갈아 응답
 # 즉, UDP 프로토콜 161 포트로 전달하는 SNMP 요청을 NLB 가 부하 부하분산하고 있음
 [ec2-user@ip-20-20-0-xx ~]$ snmpget -v2c -c public jhNlb-test-d32630795753d17b.elb.ap-northeast-2.amazonaws.com 1.3.6.1.2.1.1.5.0
 SNMPv2-MIB::sysName.0 = STRING: jhELB-EC2-1
@@ -678,7 +678,7 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 ```
 
 위의 `13.125.xx.xx.50959 > 10.10.0.67.161` 을 보면 13.125.xx.xx.50959 은 *jhMyEC2* 의 public ip 이고,
-10.10.0.670.161 은 *jhELB-EC2-1* 의 private IP 이다.
+10.10.0.67.161 은 *jhELB-EC2-1* 의 private IP 이다.
 
 NLB 는 출발지 IP 를 사용자의 public IP 를 그대로 유지하는 한편, ALB 은 출발지 IP 를 사용자의 IP 가 아닌 ALB 자신의 로컬 IP 로 통신한다.
 

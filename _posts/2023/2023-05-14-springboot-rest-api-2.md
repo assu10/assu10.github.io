@@ -456,7 +456,7 @@ public class HotelRoomResponse {
 > - final 변수: 한 번 값을 할당하면 수정 불가, 초기화는 한 번만 가능
 
 > **final 변수**  
-> `public static fianl String Str = "AAA";` 가 아닌 아래처럼 먼저 선언해놓고 각각 다른 값을 갖도록 초기화할 수도 있음(한 번 값을 할당하면 다음부터는 수정불가)    
+> `public static final String Str = "AAA";` 가 아닌 아래처럼 먼저 선언해놓고 각각 다른 값을 갖도록 초기화할 수도 있음(한 번 값을 할당하면 다음부터는 수정불가)    
 > 이런 형태를 `blank final 변수` 라고 함
 
 ```java

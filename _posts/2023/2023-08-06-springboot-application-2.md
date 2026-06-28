@@ -409,7 +409,7 @@ public static enum Include {
 - `JsonInclude.Include.USE_DEFAULTS`
   - 클래스 레벨이나 ObjectMapper 에서 설정된 기본값과 비교하여 기본값이 아닌 속성들만 포함하여 직렬화
 
-HotelRoomResponse 의 List<Reservation> reservation 속성은 리스트 타입이기 때문에 null 은 아니지만 요소의 갯수가 0 이면 직렬화 과정에서 제외할 예정이다.  
+HotelRoomResponse 의 List<Reservation> reservation 속성은 리스트 타입이기 때문에 null 은 아니지만 요소의 개수가 0 이면 직렬화 과정에서 제외할 예정이다.  
 따라서 `setSerializationInclusion()` 메서드의 인자로 `JsonInclude.Include.NON_EMPTY` enum 상수를 전달해야 한다.
 
 ---

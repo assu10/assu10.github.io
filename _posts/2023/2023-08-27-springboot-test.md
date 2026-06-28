@@ -6,7 +6,7 @@ categories: dev
 tags: springboot msa Junit spring-boot-test test-configuration mock-bean web-mvc-test data-jpa-test json-test rest-client-test
 ---
 
-이 포스트에서는 스트링 테스트 모듈을 사용하여 테스트 케이스를 작성하는 방법에 대해 알아본다.  
+이 포스트에서는 스프링 테스트 모듈을 사용하여 테스트 케이스를 작성하는 방법에 대해 알아본다.  
 스프링 부트 프레임워크에서 제공하는 애너테이션과 테스트 슬라이스 개념도 함께 알아본다.
 
 > 소스는 [github](https://github.com/assu10/msa-springboot-2/tree/feature/chap07) 에 있습니다.
@@ -82,7 +82,7 @@ pom.xml
 Java 는 단위 테스트 프레임워크인 `Junit` 을 사용하여 테스트 케이스를 작성할 수 있다.  
 
 Maven 은 패키지 빌드 과정에 테스트 단계를 포함할 수 있고, Gradle 테스트 태스크를 포함할 수 있어서 JAR 패키지 파일을 만들기 전에 작성한 테스트 케이스들을 자동으로 실행하고, 
-실행 겨로가에 따라 패키지 파일 생성 여부를 결정할 수 있다. 이를 **테스트 자동화**라고 한다.
+실행 결과에 따라 패키지 파일 생성 여부를 결정할 수 있다. 이를 **테스트 자동화**라고 한다.
 
 `spring-boot-starter-test` 의존성 추가 시 REST-API 도 테스트할 수 있고, 테스트 대상 클래스가 의존하는 다른 스프링 빈을 주입해서 사용할 수 있다.
 
@@ -229,7 +229,7 @@ public class MiscTest {
 Junit 은 테스트 케이스의 라이프 사이클을 설정할 수 있는 애너테이션을 제공한다.  
 즉 테스트 케이스를 실행하기 전/후로 별도의 작업을 실행할 수 있다.
 
-<**라이브 사이클 애너테이션**>  
+<**라이프 사이클 애너테이션**>  
 - `@BeforeAll`
   - 테스트 클래스 인스턴스를 초기화할 때 가장 먼저 실행됨
   - 테스트 클래스에 포함된 테스트 메서드가 여러 개 있어도 한 번만 실행됨
@@ -909,7 +909,7 @@ spring.main.allow-bean-definition-overriding=true
 `@MockBean` 을 이용하면 테스트 대상이 의존하는 스프링 빈을 모의 객체로 변경하여 테스트할 수 있다.  
 여기선 `@MockBean` 와 Mockito 라이브러리를 이용하여 모의 객체의 행동을 정의하여 테스트해본다.
 
-`spring-boot-startet-test` 스타터는 `spring-boot-test` 모듈을 포함한다.  
+`spring-boot-starter-test` 스타터는 `spring-boot-test` 모듈을 포함한다.  
 `spring-boot-test` 모듈은 Mockito 라이브러리와  `@MockBean` 애너테이션을 제공한다.
 
  Mockito
@@ -1072,7 +1072,7 @@ BDDMockito 의 willReturn() 처럼 조건이 충족되면 응답을 프로그래
 **Answer 인터페이스는 Mock 객체의 메서드가 리턴하는 값을 동적으로 프로그래밍할 수 있는 기능을 제공**한다.  
 
 추상 메서드인 `answer()` 에서 응답을 프로그래밍하며, `answer()` 의 인자인 InvocationOnMock 객체는 Mock 객체가 응답하는 메서드의 정보를 포함하고 있다.  
-따라서 이 둘을 사용하여 `answer()` 메서드를 구현하면 상황에 따라 동적으로 응답하는 Mock 객체를 만들 수 이싿.
+따라서 이 둘을 사용하여 `answer()` 메서드를 구현하면 상황에 따라 동적으로 응답하는 Mock 객체를 만들 수 있다.
 
 Answer 인터페이스
 ```java
@@ -1319,7 +1319,7 @@ public class JsonUtil {
 
 위 예시는 `@SpringBootTest` 애너테이션을 사용하여 테스트했기 때문에 코드 베이스의 모든 스프링 빈이 ApplicationContext 에 로딩되고 의존성 주입이 된다.  
 HotelController 와 HotelDisplayService 모두 스프링 빈으로 로딩되고, HotelDisplayService 가 HotelController 에 주입된다.  
-(`@WevMvcTest` 와 다른 동작 방식임)
+(`@WebMvcTest` 와 다른 동작 방식임)
 
 그래서 MockMvc 를 사용하여 REST-API 테스트 시 HotelDisplayService 의 실제 코드가 동작한다.
 
@@ -1400,7 +1400,7 @@ public class ApiControllerTest01 {
 HotelController 가 의존하는 HotelDisplayService 클래스는 `@Service` 로 정의되어 있어 스캔 대상이 되지 않으므로 (`@Component`, `@Repository` 도 마찬가지) 
 스프링 스캔에 포함되지 않는 것들에는 Mock 객체를 별도로 생성해야 하며, `@MockBean` 애너테이션으로 생성할 수 있다.
 
-`@WebMvcTest` 애너테이션의 가장 큰 장점을 빠르게 테스트할 수 있다는 것이다.  
+`@WebMvcTest` 애너테이션의 가장 큰 장점은 빠르게 테스트할 수 있다는 것이다.  
 `@SpringBootTest` 애너테이션과 다른 점은 `@WebMvcTest` 는 `@AutoConfigureMockMvc` 애너테이션이 없어도 MockMvc 객체를 생성한다.
 
 ---
@@ -1423,7 +1423,7 @@ HotelController 가 의존하는 HotelDisplayService 클래스는 `@Service` 로
 **_하지만 SprintBootTest 의 environment 속성을 WebEnvironment.RANDOM_PORT 나 DEFINED_PORT 로 설정하면 롤백되지 않는다._**  
 
 **위의 설정들로 테스트 케이스 실행 시 별도의 서블릿 컨테이너가 실행되는데, 
-테스트 케이스를 실행하는 스레드와 테스크 케이스가 호출한 서블릿 컨테이너의 스레드가 서로 달라 서블릿 컨테이너의 트랜잭션을 테스트 케이스에서 롤백할 수 없기 때문**이다.
+테스트 케이스를 실행하는 스레드와 테스트 케이스가 호출한 서블릿 컨테이너의 스레드가 서로 달라 서블릿 컨테이너의 트랜잭션을 테스트 케이스에서 롤백할 수 없기 때문**이다.
 
 ---
 

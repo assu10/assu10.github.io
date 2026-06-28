@@ -108,7 +108,7 @@ public interface SecurityContext extends Serializable {
 
 ![MODE_THREADLOCAL](/assets/img/dev/2023/1126/mode_threadlocal.png)
 
-위 그림처럼 **비동기 메서드가 호출되어 새로운 스레드가 생성되면 새로운 스레드도 자체적인 `SecurityContext` 를 가지며, 상위 스레드인 요청의 원래 스레더의 
+위 그림처럼 **비동기 메서드가 호출되어 새로운 스레드가 생성되면 새로운 스레드도 자체적인 `SecurityContext` 를 가지며, 상위 스레드인 요청의 원래 스레드의 
 세부 정보가 새로운 스레드의 `SecurityContext` 에 복사되지 않는다.**
 
 `MODE_THREADLOCAL` 는 기본 전략이기 때문에 명시적으로 구성할 필요 없이 인증 프로세스가 끝난 후 필요할 때마다 정적 `getContext()` 메서드로 

@@ -60,7 +60,7 @@ mysql 설치 및 접속
 > ORM (Object-relational Mapping)  
 > 자바스크립트 객체와 데이터베이스의 릴레이션을 매핑해주는 도구
 
-시퀄라이즈는 MySQL 외 MariaDB, PostgreSQL, SQList, MSSQL 등 다른 데이터베이스와 같이 쓸 수도 있다.
+시퀄라이즈는 MySQL 외 MariaDB, PostgreSQL, SQLite, MSSQL 등 다른 데이터베이스와 같이 쓸 수도 있다.
 
 시퀄라이즈는 쓰는 이유는 자바스크립트 구문을 알아서 SQL 로 바꿔주기 때문이다.
 
@@ -1476,6 +1476,6 @@ app.listen(app.get('port'), () => {
 * [Node.js 공홈](https://nodejs.org/ko/)
 * [Node.js (v16.11.0) 공홈](https://nodejs.org/dist/latest-v16.x/docs/api/)
 * [MySQL 매뉴얼](https://dev.mysql.com/doc/refman/8.0/en/)
-* [워크벤티 매뉴얼](https://dev.mysql.com/doc/workbench/en/)
+* [워크벤치 매뉴얼](https://dev.mysql.com/doc/workbench/en/)
 * [시퀄라이즈 문서](https://sequelize.org/)
 * [시퀄라이즈 모델 옵션](https://any-ting.tistory.com/50)

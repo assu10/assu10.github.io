@@ -24,7 +24,7 @@ tags: db redis hyperloglog
 방문자가 생길때마다 unique 값을 저장하고 매번 기존의 방문자와 비교한다면 저장 공간과 연산 비용이 엄청날 것이다.
 
 이와 같은 문제점을 해결하고자 unique count 기능을 제공해주는 것이 `HyperLogLog` 이다.  
-`HyperLogLog`는 unique item 이 들어올때마다 counter 값을 increments 한다.  
+`HyperLogLog`는 unique item 이 들어올때마다 counter 값을 increment 한다.  
 (unique 하지 않은 item 이 들어올 경우는 아무일도 일어나지 않음)
 
 `HyperLogLog` 는 데이터의 값을 저장하지는 않기 때문에 대규모의 저장 공간이 필요하지 않고, 따라서 내부의 데이터 확인도 불가하다.
@@ -38,7 +38,7 @@ tags: db redis hyperloglog
 > `HyperLogLog` 를 사용하면 원소 개수와 상관없이 고정으로 12KB 만 사용 (1백만개 숫자의 Set 과 비교 시 0.25% 만 사용)
 
 > **`HyperLogLog` 의 저장 속도**  
-> `Set` 에 1백만개의 데디터 저장 시 `SADD` 로 했을 경우는 8.64s, `PFADD` 로 했을 경우는 5.23s (약 1.6배 빠름)
+> `Set` 에 1백만개의 데이터 저장 시 `SADD` 로 했을 경우는 8.64s, `PFADD` 로 했을 경우는 5.23s (약 1.6배 빠름)
 
 > **`HyperLogLog` 의 조회 속도**  
 > `PFCOUNT`와 `SCARD` 모두 O(1) 로 4ms 정도 소요
@@ -97,7 +97,6 @@ elements 의 개수를 조회하는 명령어이다.
   group: hyperloglog
 ```
 
-```shell
 ```shell
 127.0.0.1:6379> pfadd hlog1 e1 e2
 (integer) 1

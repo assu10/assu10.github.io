@@ -85,7 +85,7 @@ pom.xml
 - classpath 루트 패스
 - classpath 에 /config 경로
 - 패키징된 애플리케이션이 위치한 현재 디렉터리
-- 패이징된 애플리케이션이 위치한 현재 디렉터리의 /config 경로
+- 패키징된 애플리케이션이 위치한 현재 디렉터리의 /config 경로
 - /config 의 하위 디렉터리
 
 src > main > resources 경로에 위치한 application.properties 파일은 classpath 최상위 경로에 있는 것이다.
@@ -326,7 +326,7 @@ java -jar ./application.jar
 프로퍼티 값을 `application.properties` 에 덮어쓰기 때문이다.  
 
 따라서 기본 설정값은 `application.properties` 에 정의하고, `application-[profile명].properties` 에 다시 한번 정의하는 것이 좋다.  
-예를 들어 spring.datasource.url 프로퍼티값이 application-dev.properties 에 없다면 application.properties 에 선언된 프로퍼티는 참조한다.
+예를 들어 spring.datasource.url 프로퍼티값이 application-dev.properties 에 없다면 application.properties 에 선언된 프로퍼티를 참조한다.
 
 ---
 

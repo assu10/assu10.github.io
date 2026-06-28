@@ -123,7 +123,7 @@ Open Zipkin 은 아래 4 가지 저장소를 지원한다.<br />
 > Open Zipkin 에 사용되는 각 데이터 저장소 구성에 대한 자세한 설명은 Open Zipkin 의 깃허브 저장소인 [https://github.com/openzipkin/zipkin/tree/master/zipkin-server](https://github.com/openzipkin/zipkin/tree/master/zipkin-server)
 > 를 참고하세요.
 
-기본적으로 Open Zipkin 은 추적 데이터를 저장하는데 인메모리 데이터 저장소를 하용하지만 인메모리 데이터베이스는 보유가능한 데이터의 양이 제한되어 있고,
+기본적으로 Open Zipkin 은 추적 데이터를 저장하는데 인메모리 데이터 저장소를 사용하지만 인메모리 데이터베이스는 보유가능한 데이터의 양이 제한되어 있고,
 Open Zipkin 서버가 종료되거나 고장나면 저장된 데이터가 유실되기 때문에 실제 운영 시스템에는 적합하지 않다.
 
 이 포스트에선 인메모리 데이터 저장소와 함께 Open Zipkin 을 사용한다. (ElasticSearch 로 Zipkin 연동하여 보는 법도 있습니다.)

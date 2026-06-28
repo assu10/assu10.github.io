@@ -521,7 +521,7 @@ const repositories = [
 export class UsersModule {}
 ```
 
-이제 이메일 모듈과 유저 모듈이 강하게 결합되어 있는 것도 인터페이스로 느근하게 연결해보도록 한다.
+이제 이메일 모듈과 유저 모듈이 강하게 결합되어 있는 것도 인터페이스로 느슨하게 연결해보도록 한다.
 
 이메일 모듈은 유저 모듈 입장에서는 외부 시스템이므로 infra 레이어에 구현체가 존재해야 하고, 그 구현체를 사용하는 곳은 UserEventHandler 로 application 레이어에 존재한다.
 따라서 IEmailService 인터페이스는 application 레이어에 정의한다.

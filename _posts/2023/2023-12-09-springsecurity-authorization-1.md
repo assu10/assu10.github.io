@@ -45,7 +45,7 @@ tags: spring-security permit-all deny-all role authority
 
 권한 부여의 흐름은 아래와 같다.
 - `AuthenticationFilter` 가 사용자를 인증함
-- 인증이 완료되면 `AuthenticationFiler` 가 사용자 세부 정보를 `SecurityContext` 에 저장하고, 요청을 `AuthorizationFilter` 에게 위임함
+- 인증이 완료되면 `AuthenticationFilter` 가 사용자 세부 정보를 `SecurityContext` 에 저장하고, 요청을 `AuthorizationFilter` 에게 위임함
 - `AuthorizationFilter` 는 `SecurityContext` 로부터 사용자 정보를 조회한 후 요청에 권한을 부여/거부에 대해 결정함
 
 ---
@@ -98,7 +98,7 @@ public interface UserDetails extends Serializable {
 - `hasAuthority()`
   - 제한을 구성하는 하나의 권한만 매개변수로 받음
   - 해당 권한이 있는 사용자만 엔드포인트 호출 가능
-- `hadAnyAuthority()`
+- `hasAnyAuthority()`
   - 제한을 구성하는 권한을 하나 이상 받음
   - 해당 권한들 중 하나라도 있으면 엔드포인트 호출 가능
 - `access()`

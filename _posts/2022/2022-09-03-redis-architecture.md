@@ -473,7 +473,7 @@ appendonlyname  "appendonly.aof"  # AOF 파일명
   - `BGREWRITEAOF` 명령어에 의해 AOF 파일을 저장할 때
     - `SAVE`, `BGSAVE` 명령어가 dump.rdb 파일에 쓰기 작업을 하는 것이라면 `BGREWRITEAOF` 는 appendonly.aof 파일에 쓰기 작업을 
     하는 것으로 이 경우도 Copy on Write 가 발생
-  - `auto-aof-rewrite-percentage` 파라메티에 의해 AOF 파일을 재저장할 때
+  - `auto-aof-rewrite-percentage` 파라미터에 의해 AOF 파일을 재저장할 때
     - AOF 파일이 가득 채워진 상태에서 계속 데이터를 저장해야 하는 경우 AOF 파일을 비우고 처음부터 다시 write 작업을 수행하는 경우가 발생
     - 성능 이슈가 발생하는 환경에서는 위 파라미터의 적극 사용은 권장하지 않음
   - `Master-Slave`, `Partition-Replication` 서버 환경으로 구동 시

@@ -36,7 +36,7 @@ tags: javascript typescript
 - ES5(ECMAScript 5)
     - 표준 자바스크립트
 - ESNext 자바스크립트
-    - 2015년부터 매년 배로운 버전을 발표
+    - 2015년부터 매년 새로운 버전을 발표
 - Typescript
     - ESNext 에 새로운 기능을 추가
 
@@ -49,10 +49,10 @@ tags: javascript typescript
 </details>
 
 <br /><br />
-타입스크립스는 변수의 타입을 명확히 지정해줌으로써 타입스크립트 컴파일러가 오류의 원인을 정확히 알려주므로 코드를 좀 더 수월하게 작성할 수 있다.
+타입스크립트는 변수의 타입을 명확히 지정해줌으로써 타입스크립트 컴파일러가 오류의 원인을 정확히 알려주므로 코드를 좀 더 수월하게 작성할 수 있다.
 
-`ESNext` 자바스크립트 코드는 `Babel` 이라는 트랜스파일러를 기치면 ES5 자바스크립트 코드로 변환된다.<br />
-`Babel` 과 유사하게 타입스크립트 코드는 `TSC(TypeScript Compiler)` 라는 트랜스파일러는 통해 ES5 자바스크립트 코드로 변환된다.
+`ESNext` 자바스크립트 코드는 `Babel` 이라는 트랜스파일러를 거치면 ES5 자바스크립트 코드로 변환된다.<br />
+`Babel` 과 유사하게 타입스크립트 코드는 `TSC(TypeScript Compiler)` 라는 트랜스파일러를 통해 ES5 자바스크립트 코드로 변환된다.
 
 ---
 
@@ -96,7 +96,7 @@ let b: [boolean, number, string] = [true, 1, 'assu']    // 튜플
 
 ### 2.4. 제네릭 타입
 
-제레릭 타입은 다양한 타입을 한꺼번에 취급한다.
+제네릭 타입은 다양한 타입을 한꺼번에 취급한다.
 
 ```typescript
 class Container<T> {
@@ -139,7 +139,7 @@ type AnimalAndPerson = Animal & Person  // 교집합
 > node hello.js
 ```
 
-tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 할 뿐 실행하지는 않는다.<br />
+tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 뿐 실행하지는 않는다.<br />
 타입스크립트 코드를 ES5 로 변환하고 실행까지 동시에 하려면 `ts-node` 를 설치해야 한다.
 
 ```shell
@@ -320,7 +320,7 @@ tsc 는 타입스크립트 코드를 ES5 자바스크립트 코드로 변환할 
   - 에러가 있는 코드가 빌드되는 것이 싫다면 true 로 설정
   
 - **skipLibCheck**
-  - 라이브러리의 타입 검사를 생략하여 타입 검사 정확도를 조금 희생하더라고 컴파일 시간을 단축
+  - 라이브러리의 타입 검사를 생략하여 타입 검사 정확도를 조금 희생하더라도 컴파일 시간을 단축
   - 보통의 경우 라이브러리의 타입을 검사할 필요가 없으므로 `true` 설정 권장
 
 - **noErrorTruncation**  
@@ -515,7 +515,7 @@ const testMakePerson = (): void => {
 testMakePerson()
 ```
 
-`export` 키워드는 interface, class, type, let, const 키워드 앞에 불일 수 있다.
+`export` 키워드는 interface, class, type, let, const 키워드 앞에 붙일 수 있다.
 
 `import` 키워드의 기본 형태는 아래와 같다.
 

@@ -422,7 +422,7 @@ export class UsersService {
 
 ### 2.3.2. transaction 함수 직접 사용하여 적용
 
-dataSource 객체 내의 transaction 함수를 바료 이용할 수도 있다.
+dataSource 객체 내의 transaction 함수를 바로 이용할 수도 있다.
 
 ```ts
 // 유저 정보 저장 - transaction 함수 직접 이용하여 트랜잭션 제어

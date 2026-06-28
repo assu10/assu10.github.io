@@ -6,7 +6,7 @@ categories: dev
 tags: db redis zset sorted-set
 ---
 
-이 포스트는 Redis 의 데이터 타입 중 하나인 `Set` 타입에 대해 알아본다.
+이 포스트는 Redis 의 데이터 타입 중 하나인 `Sorted Set` 타입에 대해 알아본다.
 
 <!-- TOC -->
 * [1. `Sorted Set`](#1-sorted-set)
@@ -1307,5 +1307,5 @@ max result = { (1,A), **(4,B)**, **(5,C)**, (6,D)}
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)
 * [https://redis.io/commands](https://redis.io/commands/)
 * [https://redis.io/commands - sortedSet](https://redis.io/commands/?group=sorted-set)
-* [Resit 자료 구조 - ZSet](https://luran.me/381)
+* [Redis 자료 구조 - ZSet](https://luran.me/381)
 * [Redis Gate](http://redisgate.kr/redis/command/zunionstore.php)

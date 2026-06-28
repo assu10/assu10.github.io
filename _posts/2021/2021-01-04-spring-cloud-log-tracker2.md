@@ -60,7 +60,7 @@ ELK 스택은 `Elasticsearch`, `Logstash`, `Kibana` 이 세 가지 오픈 소스
 
 ![Elastic Stack](/assets/img/dev/2021/0104/elasticstack.png)
 
-사용자들은 파일을 추적하고 싶어했고 2015년에 기존 `ELK Stack` 에 경량의 단일 목적 데이터 수집기 제품군을 도입했는데 이것을 `Beats` 이다.<br />
+사용자들은 파일을 추적하고 싶어했고 2015년에 기존 `ELK Stack` 에 경량의 단일 목적 데이터 수집기 제품군을 도입했는데 이것이 `Beats` 이다.<br />
 이 한 단계 발전된 형태를 BELK? BLEK? 등 앞글자를 따서 만들까했지만 머릿글자를 확장이 쉽지 않아 이름을 `Elastic Stack` 으로 지었다고 한다.
 
 - **Beats**
@@ -336,7 +336,7 @@ Kibana 콘솔인 [http://localhost:5601/app/home#/](http://localhost:5601/app/ho
 * [Logback Appenders 공식문서](https://logback.qos.ch/manual/appenders.html)
 * [Logging과 Profile 전략](https://meetup.toast.com/posts/149)
 * [Spring Boot - Logging](https://www.sangkon.com/hands-on-springboot-logging/)
-* [Losstash 셋팅](https://hyungyu-lee.github.io/articles/2019-05/example-of-elk)
-* [Losstash 셋팅2](https://dev-t-blog.tistory.com/30)
-* [Losstash 셋팅3](https://www.sysnet.pe.kr/2/0/12312)
+* [Logstash 셋팅](https://hyungyu-lee.github.io/articles/2019-05/example-of-elk)
+* [Logstash 셋팅2](https://dev-t-blog.tistory.com/30)
+* [Logstash 셋팅3](https://www.sysnet.pe.kr/2/0/12312)
 

@@ -73,11 +73,11 @@ Redis 와 Memcached DB 를 운영하고 있는 환경을 보면 대부분 Redis/
 
 # 3. Redis
 
-Redis 는 Remote Directory System 의 약어로 아래는 **Redis 의 주요 특징**들은 아래와 같다.
+Redis 는 Remote Dictionary Server 의 약어로 아래는 **Redis 의 주요 특징**들은 아래와 같다.
 
 - 대표적인 인메모리 기반의 데이터 처리 및 저장 기술을 제공하기 때문에 다른 NoSQL 제품에 비해 상대적으로 빠른 Read/Write 가능
 - `String`, `Set`, `Sorted Set`, `Hash`, `List`, `HyperLogLog` 유형의 데이터 저장 가능
-- Dump 파일과 AOF (Append Of File) 방식으로 메모리 상의 데이터를 디스크에 저장
+- Dump 파일과 AOF (Append Only File) 방식으로 메모리 상의 데이터를 디스크에 저장
 - Master/Slave Replication 기능을 통해 데이터의 분산, 복제 기능 제공  
   `Query Off Loading` 기능을 통해 Master 는 Read/Write 를 수행하고, Slave 는 Read 만 수행
 - 파티셔닝을 통해 동적인 스케일 아웃인 수평 확장 가능

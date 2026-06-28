@@ -153,7 +153,7 @@ String traderNames2 = transactions.stream() // Stream<Transaction> 반환
 System.out.println(traderNames2);
 ```
 
-반복 과정에서 모든 문자열을 반복적으로 연결해서 새로운 문자열 객체를 만들기때문에 효율적이지 못하다.
+반복 과정에서 모든 문자열을 반복적으로 연결해서 새로운 문자열 객체를 만들기 때문에 효율적이지 못하다.
 
 ```java
 String traderNames3 = transactions.stream() // Stream<Transaction> 반환

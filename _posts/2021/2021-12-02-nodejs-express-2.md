@@ -315,7 +315,7 @@ res.send, res.sendFile 과 같은 추가된 메서드도 사용할 수 있다.
 - `res.cookie(키, 값, 옵션)`
   - 쿠키를 설정하는 메서드
 - `res.clearCookie(키, 값, 옵션)`
-  - 쿠키를 제거하는 메서
+  - 쿠키를 제거하는 메서드
 - `res.end()`
   - 데이터없이 응답
 - `res.json(JSON)`
@@ -478,7 +478,7 @@ router.get('/', (req, res) => {
 ```
 <!-- {% endraw %} -->
 
-HTML 을 이스케이스하고 싶지 않으면 <!-- {% raw %} -->`{{ 변수 | safe }}`<!-- {% endraw %} --> 를 사용한다.
+HTML 을 이스케이프하고 싶지 않으면 <!-- {% raw %} -->`{{ 변수 | safe }}`<!-- {% endraw %} --> 를 사용한다.
 
 html
 ```html

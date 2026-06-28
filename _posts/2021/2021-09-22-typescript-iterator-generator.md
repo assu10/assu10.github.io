@@ -56,7 +56,7 @@ tsconfig.json
 ### 1.1. 반복기(`iterator`)와 반복기 제공자(`iterable`)
 
 [Typescript - 배열, 튜플](https://assu10.github.io/dev/2021/09/21/typescript-array-tuple/) 의 *1.3. `for...in`, `for...of`* 에서 `for...of` 구문은
-아래처럼 타입에 무관하에 배열에 담긴 값을 차례로 얻는데 활용된다고 하였다.
+아래처럼 타입에 무관하게 배열에 담긴 값을 차례로 얻는데 활용된다고 하였다.
 
 ```ts
 // for...of
@@ -125,7 +125,7 @@ while(true) {
 결론부터 말하면 반복기 사용 시 일반 반복문보다 메모리를 훨씬 적게 소모하기 때문이다.
 
 바로 위의 코드를 보면 *iterator.next()* 메서드가 반복 호출될 때마다 반복기 제공자가 생성한 값 1, 2, 3 을 배열에 담아서 출력하는 것이 아니라
-마치 for 문을 돌면서 값을 찍어내는 듯한 모습니다.
+마치 for 문을 돌면서 값을 찍어내는 듯한 모습입니다.
 
 **반복기 제공자는 이렇게 어떤 범위의 값을 한꺼번에 생성해서 배열에 담는 것이 아니라 값이 필요할 때만 생성**한다.
 
@@ -158,7 +158,7 @@ for (let value of iterator) {   // TS2488: Type '{ next(): { value: number | und
 }
 ```
 
-이 오류는 *createRangeIterator* 함수를 아래 *RangeIterable* 처럼 `[Symbol.iterable]` 메서드를 구현하는 클래스로 만들어야 한다는 것을 의미한다.
+이 오류는 *createRangeIterator* 함수를 아래 *RangeIterable* 처럼 `[Symbol.iterator]` 메서드를 구현하는 클래스로 만들어야 한다는 것을 의미한다.
 
 RangeIterable.ts
 ```ts

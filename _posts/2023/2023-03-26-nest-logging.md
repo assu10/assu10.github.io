@@ -33,7 +33,7 @@ tags: javascript nestjs logging nest-winston
 
 # 1. 내장 Logger
 
-내장 Logger 클래스는 @nest/common 패키지에 제공된다.
+내장 Logger 클래스는 @nestjs/common 패키지에 제공된다.
 
 ---
 
@@ -405,7 +405,7 @@ import { utilities, WinstonModule } from 'nest-winston';
 export class AppModule {}
 ```
 
-winston 의 로그 레벨을 총 7 단계이다.
+winston 의 로그 레벨은 총 7 단계이다.
 
 ```ts
 const levels = {

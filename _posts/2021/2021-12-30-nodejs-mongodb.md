@@ -117,7 +117,7 @@ module.exports = {
 몽고디비는 그냥 user collection 을 만들고 끝이다.
 
 user collection 에는 어떠한 데이터든 들어갈 수 있다.  
-로우에 해당하는 어떤 아큐먼트에는 name, age 가 들어가고, 어떤 document 에는 name, comment 가 들어갈 수 있다.
+로우에 해당하는 어떤 document 에는 name, age 가 들어가고, 어떤 document 에는 name, comment 가 들어갈 수 있다.
 
 **몽고디비에는 join 기능이 없다.**  
 join 을 흉내낼 수는 있지만 항상 가능한 것은 아니다.
@@ -417,7 +417,7 @@ WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
 첫 번째 객체는 수정할 document 를 지정하는 객체이고, 두 번째 객체는 수정할 내용을 입력하는 객체이다.
 
-`$set` 연잔사를 통해 어떤 필드를 수정할 지 정하는데 이 연산자를 사용하지 않고 일반 객체를 넣으면 document 가 
+`$set` 연산자를 통해 어떤 필드를 수정할 지 정하는데 이 연산자를 사용하지 않고 일반 객체를 넣으면 document 가 
 통째로 두 번째 객체로 수정되니 유의해야 한다.
 
 수정이 성공하면 첫 번째 객체에 해당하는 document 의 수(nMatched)와 수정된 document 의 수(nModified) 가 리턴된다.
@@ -781,7 +781,7 @@ commenter: {
   },
 ```
 
-먼저 댓글을 쓴 유저의 아이디로 댓글을 조회한 뒤 populate 메서드로 고나련되어 있는 collection 의 document 를 불러온다.  
+먼저 댓글을 쓴 유저의 아이디로 댓글을 조회한 뒤 populate 메서드로 관련되어 있는 collection 의 document 를 불러온다.  
 Comment 스키마 commenter 필드의 ref 가 User 로 설정되어 있으므로 알아서 users collection 에서 사용자 document 를 찾아 합쳐서 commenter 필드가 사용자 document 로
 치환된다.  
 이제 commenter 필드는 ObjectId 가 아니라 그 ObjectId 를 가진 사용자 document 가 된다.

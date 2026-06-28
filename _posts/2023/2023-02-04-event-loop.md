@@ -228,7 +228,7 @@ function apiCall(arg, callback) {
 }
 ```
 
-위에서 인자를 확인 후 제대로 된 이자가 아니면 callback 에 오류를 전달한다. 사용자에게 오류를 다시 전달하고 있지만 그 우에 사용자의 남은 코드를 실행할 수 있다.  
+위에서 인자를 확인 후 제대로 된 인자가 아니면 callback 에 오류를 전달한다. 사용자에게 오류를 다시 전달하고 있지만 그 우에 사용자의 남은 코드를 실행할 수 있다.  
 `process.nextTick()` 을 사용하면 위의 apiCall() 이 나머지 사용자 코드 이후 부분과 Event Loop 가 진행되기 전에 항상 callback 을 실행할 수 있다.  
 그러기 위해 JS 호출 스택은 제공된 callback 을 즉시 실행하여 개발자가 `RangeError: Maximum call stack size exceeded from v8` 에 도달하지 않고 
 `process.nextTick()` 을 재귀호출할 수 있게 한다.

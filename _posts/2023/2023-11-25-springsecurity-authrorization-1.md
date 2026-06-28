@@ -121,9 +121,9 @@ tags: spring-security authentication-provider
 애플리케이션에 접근 요청을 하는 사용자를 **`Principal`** 이라고 한다.  
 스프링 시큐리티의 `Authentication` 인터페이스는 `Principal` 계약을 확장한다.
 
-![`Authenentication` 계약과 `Principal` 계약](/assets/img/dev/2023/1125/authentication.png)
+![`Authentication` 계약과 `Principal` 계약](/assets/img/dev/2023/1125/authentication.png)
 
-위 그림처럼 `Authentication` 계약은 주체만 나타내는 것이 아니라 인증 프로세스 완료 여부, 권한 컬렉션 증 인증 요청에 대한 세부 정보를 더 추가할 수 있다.
+위 그림처럼 `Authentication` 계약은 주체만 나타내는 것이 아니라 인증 프로세스 완료 여부, 권한 컬렉션 등 인증 요청에 대한 세부 정보를 더 추가할 수 있다.
 
 `Authentication` 인터페이스
 ```java
@@ -210,7 +210,7 @@ boolean supports(Class<?> authentication);
 
 ## 1.3. 맞춤형 인증 논리 적용: `AuthenticationProvider`
 
-이제 아래와 같은 단계로 맞춤형 `AuhenticationProvider` 를 구현해본다.
+이제 아래와 같은 단계로 맞춤형 `AuthenticationProvider` 를 구현해본다.
 - `AuthenticationProvider` 계약을 구현하는 클래스 선언
 - 구현한 `AuthenticationProvider` 가 어떤 종류의 `Authentication` 객체를 지원할지 결정
   - 구현하는 `AuthenticationProvider` 가 지원하는 인증 유형을 나타내도록 `supports(Class<?> c)` 메서드 재정의

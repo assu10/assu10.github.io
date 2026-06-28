@@ -37,7 +37,7 @@ tags: spring-security http-basic
 
 HTTP Basic 은 기본 인증 방식으로써, 일부 설정을 맞춤 구성하는 방법에 대해 알아보자.
 
-예를 들어 인증 프로세스가 실패할 때는 위한 특정한 논리를 구현하거나, 클라이언트로 반환되는 응답의 일부값을 설정하는 등의 작업을 의미한다.
+예를 들어 인증 프로세스가 실패할 때를 위한 특정한 논리를 구현하거나, 클라이언트로 반환되는 응답의 일부값을 설정하는 등의 작업을 의미한다.
 
 아래는 HTTP Basic 인증 방식을 명시적으로 설정하는 예시이다.
 
@@ -97,7 +97,7 @@ public class ProjectConfig {
 ```
 
 사용된 람다식은 `Customizer<HttpBasicConfigurer<HttpSecurity>>` 형식의 객체인데, `HttpBasicConfigurer<HttpSecurity>` 형식의 
-매개 변수로 realName() 을 호출하여 영역 이름을 변경할 수 있게 해준다.
+매개 변수로 realmName() 을 호출하여 영역 이름을 변경할 수 있게 해준다.
 
 이제 curl 에 `-v` 플래그를 지정한 후 응답을 보면 영역 이름이 변경된 것을 확인할 수 있다.
 
@@ -256,7 +256,7 @@ public class ProjectConfig {
 }
 ```
 
-더 세부적인 맞춤 구성이 필요하면 `AuthenticationSuccessHannadler` 와 `AuthenticationFailureHandler` 를 구현하면 된다.
+더 세부적인 맞춤 구성이 필요하면 `AuthenticationSuccessHandler` 와 `AuthenticationFailureHandler` 를 구현하면 된다.
 
 /handler/CustomAuthenticationSuccessHandler.java
 ```java
@@ -349,7 +349,7 @@ public class ProjectConfig {
 }
 ```
 
-이 상태로 올바른 자격 증명을 사용하려 HTTP Basic 방식으로 /home 에 접근하면 HTTP 302 가 내려온다.
+이 상태로 올바른 자격 증명을 사용하여 HTTP Basic 방식으로 /home 에 접근하면 HTTP 302 가 내려온다.
 
 ```shell
 $ curl -w "%{http_code}" -u user:b1f0bec7-7748-4e39-9dc1-74208f85dd80 http://localhost:8080/hello

@@ -163,7 +163,7 @@ Docker CE 의 지원 플랫폼은 아래와 같다.
     - Manager : 클러스터 관리, API 제공
     - Node : Docker 컨테이너 실행
       
->주요 퍼블릭 클라우스 업체는 컨테이너 실행환경의 풀 매니지드 서비스 제공<br />
+>주요 퍼블릭 클라우드 업체는 컨테이너 실행환경의 풀 매니지드 서비스 제공<br />
 >예) *Amazon EC2 Container Service*, *Azure Container Service*, *Google Kubernetes Engine* ...<br />
 >Jenkins 와 연계하여 테스트 자동화도 가능<br />
 >GitHub 와 연동하여 GitHub 에서 소스가 관리되는 Dockerfile 를 Docker Hub 와 연계하여 자동 빌드 및 docker image 생성 가능

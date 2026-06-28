@@ -99,7 +99,7 @@ pom.xml
 
 스프링 프레임워크는 `@Transactional` 애너테이션을 제공한다. `@Transactional` 애너테이션은 JPA 가 아닌 스프링 프레임워크에서 제공하는 기능이다.  
 트랜잭션은 영속성 프레임워크의 종류와 상관없는 데이터베이스의 기능이기 때문이다.  
-다라서 JPA/Hibernate 도 결국 SQL 쿼리로 데이터를 영속하므로 트랜잭션을 사용할 수 있다.
+따라서 JPA/Hibernate 도 결국 SQL 쿼리로 데이터를 영속하므로 트랜잭션을 사용할 수 있다.
 
 아래는 `@Transactional` 코드 일부이다.
 ```java
@@ -139,7 +139,7 @@ package org.springframework.transaction.annotation;
 @Reflective
 public @interface Transactional {
   
-  // 스프링 애플리케이션에 여러 개의 TransactionManager 설정이 있따면 사용할 TransactionManager 의 스프링 빈 이름 설정
+  // 스프링 애플리케이션에 여러 개의 TransactionManager 설정이 있다면 사용할 TransactionManager 의 스프링 빈 이름 설정
   // 스프링 애플리케이션에 TransactionManager 가 하나만 있다면 생략해도 됨
   @AliasFor("transactionManager")
   String value() default "";
@@ -352,7 +352,7 @@ MySQL 데이터베이스의 기본 설정으로 설정된 격리 수준은 `Repe
 - (스레드 2) id=10 인 데이터의 name 필드 조회, 아직 스레드 1이 커밋하지 않은 상태이므로 이 때 name 은 'BEFORE'
 - (스레드 1) 커밋, name 이 'AFTER' 로 최종 업데이트됨
 - (스레드 2) id=10 인 데이터를 다시 조회, 트랜잭션의 격리 수준이 `Read Committed` 이므로 스레드 1 이 커밋한 'AFTER' 가 조회됨  
- 한 트랜잭션 내애서 name 의 조회값이 다르게 조회되므로 데이터 정합성이 깨짐
+ 한 트랜잭션 내에서 name 의 조회값이 다르게 조회되므로 데이터 정합성이 깨짐
 
 **한 트랜잭션 안에서 같은 데이터를 조회해도 다른 값을 조회하는 `Non-Repeatable Read` 현상은 `Read Committed` 나 `Read Uncommitted` 격리 수준에서 발생**한다. 
 

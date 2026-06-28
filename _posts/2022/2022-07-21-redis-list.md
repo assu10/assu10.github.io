@@ -727,4 +727,4 @@ count 에 0 을 넣으면 일치하는 요소 전체를 삭제한다.
 * [빅데이터 저장 및 분석을 위한 NoSQL & Redis - 실습파일](http://www.pitmongo.co.kr/bbs/board.php?bo_table=h_file&wr_id=35)
 * [https://redis.io/commands](https://redis.io/commands/)
 * [https://redis.io/commands - list](https://redis.io/commands/?group=list)
-* [Resit 자료 구조 - List](https://luran.me/364)
+* [Redis 자료 구조 - List](https://luran.me/364)

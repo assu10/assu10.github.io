@@ -57,7 +57,7 @@ tags: spring-security password-encoder no-op-password-encoder standard-password-
 
 ![AuthenticationProvider 는 인증 프로세스에서 PasswordEncoder 를 이용하여 사용자의 암호 검증](/assets/img/dev/2023/1119/security.png)
 
-`AuthenticationProviver`는 `UserDetailsService` 를 통해 사용자를 찾은 후 `PasswordEncoder` 를 이용하여 암호를 검증한다.
+`AuthenticationProvider`는 `UserDetailsService` 를 통해 사용자를 찾은 후 `PasswordEncoder` 를 이용하여 암호를 검증한다.
 
 `PasswordEncoder` 계약에 선언된 `encode()`, `matches()` 메서드가 계약의 책임을 정의한다.  
 애플리케이션이 암호를 인코딩하는 방식은 암호를 검증하는 방식과 연관된다.
@@ -92,7 +92,7 @@ public interface PasswordEncoder {
 ## 1.1. `PasswordEncoder` 계약 구현
 
 `matches()` 와 `encode()` 메서드들을 정의하려면 기능 측면에서 항상 일치해야 한다.  
-`encoce()` 메서드에서 반환된 문자열은 항상 같은 `PasswordEncoder` 의 `matches()` 메서드로 검증할 수 있어야 한다.
+`encode()` 메서드에서 반환된 문자열은 항상 같은 `PasswordEncoder` 의 `matches()` 메서드로 검증할 수 있어야 한다.
 
 [3.1. UserDetailsService 재정의](https://assu10.github.io/dev/2023/11/12/springsecurity-basic-2/#31-userdetailsservice-%EC%9E%AC%EC%A0%95%EC%9D%98) 에서 본 `NoOpPasswordEncoder` 인스턴스 
 암호를 인코딩하지 않고 plain 텍스트로 취급한다.
@@ -181,7 +181,7 @@ public class Sha512PasswordEncoder implements PasswordEncoder {
 
 ### `NoOpPasswordEncoder`
 
-싱글톤으로 설계되어서 클래스 외부에서 생성자를 호출할 수 업고, 아래와 같이 클래스 인스턴스를 얻을 수 있음 
+싱글톤으로 설계되어서 클래스 외부에서 생성자를 호출할 수 없고, 아래와 같이 클래스 인스턴스를 얻을 수 있음 
 
 ```java
 PasswordEncoder p = NoOpPasswordEncoder.getInstance();
@@ -282,7 +282,7 @@ PasswordEncoder p1 = new SCryptPasswordEncoder(16384, 8, 1, 32, 64);
 
 `DelegatingPasswordEncoder` 는 작업을 위임하는 `PasswordEncoder` 각 구현의 인스턴스를 맵에 저장한다.  
 `NoOpPasswordEncoder` 에는 키 noop 가 할당되고, `BCryptPasswordEncoder` 에는 키 bcrypt 가 할당된다.  
-암호에 접두사 _{noop}_ 이 있으면 `DeletePasswordEncoder` 는 작업을 `NoOpPasswordEncoder` 구현에게 위임한다.
+암호에 접두사 _{noop}_ 이 있으면 `DelegatingPasswordEncoder` 는 작업을 `NoOpPasswordEncoder` 구현에게 위임한다.
 
 예를 들어 해시가 아래와 같으면 접두사 _{bcrypt}_ 에 대해 할당한 `BCryptPasswordEncoder` 가 암호 인코더로 사용된다.
 ```shell
@@ -339,7 +339,7 @@ PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPassw
   - 예) 문자열을 뒤집은 함수 x 가 있을 때 x -> y 를 ABC 에 적용하면 CBA 가 나옴
 - **암호화**
   - **출력을 얻기 위해 입력값과 키를 모두 지정**하는 특별한 유형의 인코딩
-  - (x,k) -> y 에서 x 는 입력, k 는 키, y 는 엄호화 결과값
+  - (x,k) -> y 에서 x 는 입력, k 는 키, y 는 암호화 결과값
   - (y,k) -> x 는 역함수 복호화(Reverse Function Decryption) 이라고 함, 이렇게 암호화와 복호화에 쓰는 키가 같을 경우 **대칭키**라고 함
   - (x, k1) -> y, (y,k2) -> x 처럼 암호화와 복호화에 다른 키를 쓰면 **비대칭키**(Asymmetric Key)라고 함
   - 이 때 (k1, k2) 는 **Key Pair** 라고 함
@@ -353,7 +353,7 @@ PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPassw
 
 # 2. 스프링 시큐리티 암호화 모듈(SSCM, Spring Security Crypto Module)
 
-스프링 시큐리티에서 제공하는 암복호화 함수와 키 생성 솔루선에 대해 알아본다.
+스프링 시큐리티에서 제공하는 암복호화 함수와 키 생성 솔루션에 대해 알아본다.
 
 `PasswordEncoder` 도 SSCM 의 일부분이며, SSCM 의 두 가지 필수 기능을 이용하는 방법에 대해 알아본다.
 
@@ -536,9 +536,9 @@ public class CustomEncryptors {
 
 ---
 
-`TextEncryptor` 는 `Encryptor.text()`, `Encryptor.delux()` 메서드를 이용할 수 있다.  
+`TextEncryptor` 는 `Encryptors.text()`, `Encryptors.delux()` 메서드를 이용할 수 있다.  
 
-`Encryptor.text()` 는 standard 버전이고, 좀 더 강력한 stronger 버전은 `Encryptor.delux()` 를 이용하여 인스턴스를 생성하면 된다.
+`Encryptors.text()` 는 standard 버전이고, 좀 더 강력한 stronger 버전은 `Encryptors.delux()` 를 이용하여 인스턴스를 생성하면 된다.
 
 ```java
 package com.assu.study.chap0401;
@@ -561,7 +561,7 @@ public class CustomEncryptors {
 }
 ```
 
-이 외에도 암호화에 시간을 소비하지 않고 성능 테스트나 예제 확인 시에 사용할 수 있게 값을 암호화하지 않는 더미 TextEncryptor 를 반환하는 `Encryptor.noOpText()` 메서드도 있다.
+이 외에도 암호화에 시간을 소비하지 않고 성능 테스트나 예제 확인 시에 사용할 수 있게 값을 암호화하지 않는 더미 TextEncryptor 를 반환하는 `Encryptors.noOpText()` 메서드도 있다.
 
 ```java
 package com.assu.study.chap0401;

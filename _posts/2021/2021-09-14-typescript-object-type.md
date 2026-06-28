@@ -185,7 +185,7 @@ a 의 타입이 `any` 이므로 어떤 종류의 값도 저장이 가능하다.
 
 그리고 저 계층들 중 가장 하위층에 `undefined` 가 있다. (tree 로 표현이 안되서... 말로 풀어서 씁니다..)
 
-위 계층을 보면 `obejct` 로 선언된 변수는 `number`, `boolean`, `string` 타입의 값을 가질 수 없지만 아래처럼 속성명이 다른 객체를 모두 담을 수 있다.
+위 계층을 보면 `object` 로 선언된 변수는 `number`, `boolean`, `string` 타입의 값을 가질 수 없지만 아래처럼 속성명이 다른 객체를 모두 담을 수 있다.
 
 ```ts
 let o: object = {name: 'assu', age: 32}

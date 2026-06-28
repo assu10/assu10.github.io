@@ -64,7 +64,7 @@ Global Accelerator 는 AWS 글로벌 네트워크 인프라를 활용하는데, 
 - Global Accelerator 로 inbound 연결을 처리하는 객체 (프로토콜과 포트 기반, TCP/80 등..)
 
 ④ **Anycast IP**  
-- Global Accelerattor 의 진입점 역할을 하는 고정 IP
+- Global Accelerator 의 진입점 역할을 하는 고정 IP
 - Anycast 통신 방식 사용
 - 같은 서비스를 하는 여러 개의 대상이 같은 Anycast IP 를 가질 수 있음
 

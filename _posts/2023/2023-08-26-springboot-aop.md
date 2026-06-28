@@ -273,7 +273,7 @@ public class ElapseLoggingAspect {
 (= 개발자가 직접 코딩하지 않아도 자동으로 어드바이스 로직이 대상 객체에 추가되어 실행됨)  
 이렇게 동작할 수 있는 것은 바로 **동적 프록시 객체** 덕분이다.
 
-스프링 AOP 모듈은 ApplicationContext 객체의 메서드가 호출되면 IoC 컨테이너가 이를 감지하여 대상 각체를 감싸는 프록시 객체를 생성한다. 
+스프링 AOP 모듈은 ApplicationContext 객체의 메서드가 호출되면 IoC 컨테이너가 이를 감지하여 대상 객체를 감싸는 프록시 객체를 생성한다. 
 즉, **런타임에 프록시 객체가 생성**된다.
 
 클라이언트 클래스가 프록시 객체의 메서드를 호출하면 어드바이스 로직과 함께 대상 객체의 메서드가 동작하는데 AOP 에서는 이것을 **위빙** 이라고 한다.
@@ -429,7 +429,7 @@ public Object loggingPerformance(ProceedingJoinPoint proceedingJoinPoint) throws
 
 `ProceedingJoinPoint` 는 `JoinPoint` 를 상속하기 때문에 `JoinPoint` 에서 제공하는 모든 메서드를 `ProceedingJoinPoint` 에서 사용할 수 있다.  
 둘 의 차이점은 **`ProceedingJoinPoint` 은 대상 객체의 메서드를 실행할 수 있는 `proceed()` 메서드를 추가로 제공**한다는 점이다.  
-`proceed()` 에서드가 리턴하는 Object 는 대상 객체의 메서드가 리턴하는 객체이다. 
+`proceed()` 메서드가 리턴하는 Object 는 대상 객체의 메서드가 리턴하는 객체이다. 
 
 만일 대상 객체의 메서드에 인자를 가공하여 전달해야 한다면 `Object[] args` 인자를 사용하면 된다.
 

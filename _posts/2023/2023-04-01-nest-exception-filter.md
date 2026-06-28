@@ -47,7 +47,7 @@ $ curl --location 'http://localhost:3000/error' | jq
 위와 같이 에러 발생 시 응답을 JSON 형식으로 바꿔주고 있는데 이는 기본으로 내장된 전역 예외 필터가 처리하는 것이다.  
 내장 예외 필터는 인식할 수 없는 에러(HttpException 이 아니고, HttpException 을 상속받지도 않은 에러) 를 InternalServerErrorException 으로 변환한다.
 
-예를 들어 아래와 BadRequestException 은 아래와 같은 응답이 내려온다.
+예를 들어 아래와 같이 BadRequestException 은 아래와 같은 응답이 내려온다.
 ```ts
 @Get(':id')
 findOne(@Param('id') id: string) {

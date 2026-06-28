@@ -21,7 +21,7 @@ tags: db redis
   * [Key Expire 를 통한 대기시간 최소화](#key-expire-를-통한-대기시간-최소화)
   * [2.1. 대기시간 모니터링](#21-대기시간-모니터링)
   * [OS 커널, HyperVisor 에서 발생하는 고유 대기시간(intrinsic latency) 모니터링](#os-커널-hypervisor-에서-발생하는-고유-대기시간intrinsic-latency-모니터링)
-  * [Network 문제로 인행 발생하는 대기시간](#network-문제로-인행-발생하는-대기시간-)
+  * [Network 문제로 인해 발생하는 대기시간](#network-문제로-인행-발생하는-대기시간-)
 * [3. 서버 튜닝](#3-서버-튜닝)
   * [3.1. Swapping 모니터링 및 대응](#31-swapping-모니터링-및-대응)
   * [3.2. AOF 파일에서 발생하는 디스크 IO 문제 대응](#32-aof-파일에서-발생하는-디스크-io-문제-대응)
@@ -120,7 +120,7 @@ Max latency so far: 304 microseconds.
 Worst run took 121x longer than the average latency.  # 평균 지연 시간: 2.5061 microseconds
 ```
 
-## Network 문제로 인행 발생하는 대기시간 
+## Network 문제로 인해 발생하는 대기시간 
 - Redis 서버 내에서 데이터 처리에 소요되는 시간은 대부분 100 microseconds 범위 내이지만, 클라이언트에서 TCP/IP, Socket 을 통해 서버에 접속하여 데이터를 
 전송하는데 30~200 microseconds 가 소요됨 (=데이터 처리 시간보다 클라이언트에서 서버 접속하고, 그 결과를 다시 전달받는데 소요되는 시간이 더 많이 발생)
 - 서버에서 실행되는 job, CPU cache, Numa 등과 같은 환경요소는 실행 시간을 추가로 소요시키는 원인들

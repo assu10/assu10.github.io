@@ -30,7 +30,7 @@ tags: spring-security
 * [3. 맞춤형 인증 논리 구현](#3-맞춤형-인증-논리-구현)
 * [4. 간단한 페이지 구성](#4-간단한-페이지-구성)
 * [5. 애플리케이션 실행](#5-애플리케이션-실행)
-* [6. `DelegtingPasswordEncoder` 적용](#6-delegtingpasswordencoder-적용)
+* [6. `DelegatingPasswordEncoder` 적용](#6-delegatingpasswordencoder-적용)
 * [참고 사이트 & 함께 보면 좋은 사이트](#참고-사이트--함께-보면-좋은-사이트)
 
 <!-- TOC -->
@@ -751,9 +751,9 @@ public class MainController {
 
 ---
 
-# 6. `DelegtingPasswordEncoder` 적용
+# 6. `DelegatingPasswordEncoder` 적용
 
-여러 방식으로 암호가 해시되니 `DelegtingPasswordEncoder` 를 적용하여 코드를 간소화할 수 있다.
+여러 방식으로 암호가 해시되니 `DelegatingPasswordEncoder` 를 적용하여 코드를 간소화할 수 있다.
 
 아래 내용만 수정해주면 된다.
 

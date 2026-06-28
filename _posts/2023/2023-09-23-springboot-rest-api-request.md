@@ -129,7 +129,7 @@ pom.xml
 ![RestTemplate 구조와 관련 클래스들](/assets/img/dev/2023/0923/rest-template.png)
 
 `HttpMessageConverter` 는 HTTP 바디 메시지를 자바 객체로 변환하는 역할을 하고, `ClientRequestFactory` 는 REST-API 서버와 커넥션을 맺고 요청 메시지를 전달 후 응답 메시지를 
-받아올 때 까지 일련의 네트워킹 과정을 처리한다. 즉, 네크워킹 과정은 `ClientRequestFactory` 에 위임되어 있다.
+받아올 때 까지 일련의 네트워킹 과정을 처리한다. 즉, 네트워킹 과정은 `ClientRequestFactory` 에 위임되어 있다.
 
 > `HttpMessageConverter` 의 좀 더 자세한 내용은 [Spring Boot - 웹 애플리케이션 구축 (2): HttpMessageConverter, ObjectMapper](https://assu10.github.io/dev/2023/08/06/springboot-application-2/#11-httpmessageconverter-%EC%84%A4%EC%A0%95) 의 _1.1. `HttpMessageConverter` 설정_ 를 참고하세요.
 
@@ -1056,7 +1056,7 @@ GET /billing-codes?type=hotel%26flight  // 인코딩 후
 
 만일 파라미터값이 한글이면 UTF-8 같은 캐릭터셋으로 인코딩한 후 다시 퍼센트 인코딩을 해야 한다.  
 클라이언트는 URL 을 인코딩하고, 요청을 받은 서버는 디코딩해서 요청한 문자열 값으로 변환한다.  
-스프링 MVC 프레임워크는 자동으로 URL 값을 디코딩하기 때문에 `@PathVariable` 이나 `@RequestParam` 애넡이션을 사용하여 주입받은 변수들은 자동으로 디코딩된다.
+스프링 MVC 프레임워크는 자동으로 URL 값을 디코딩하기 때문에 `@PathVariable` 이나 `@RequestParam` 애너테이션을 사용하여 주입받은 변수들은 자동으로 디코딩된다.
 
 자바는 URL 을 인코딩/디코딩하는 클래스는 제공하는데 java.net 패키지의 URLEncoder 와 URLDecoder 이다.  
 각각 `encode()`, `decode()` 를 사용하여 문자열을 인코딩/디코딩할 수 있다.
@@ -1488,10 +1488,10 @@ public class WebClientConfig {
 
 > **`@Component` 와 `@Configuration` 차이**  
 > 
-> `@Component` 와 `@Component` 는 아래와 같은 차이가 있음  
+> `@Component` 와 `@Configuration` 는 아래와 같은 차이가 있음  
 > `@Configuration` 의 선언부를 보면 `@Component` 가 정의되어 있으며, `@Component` 는 개발자가 작성한 클래스를  빈으로 등록하고자 할 때 사용함.
 > 
-> **`@Componenet`**  
+> **`@Component`**  
 > 개발자가 직접 작성한 클래스를 빈으로 등록하고자 할 경우 사용  
 > `@Controller`, `@Service`, `@Repository` 등의 어노테이션에서 상속  
 > 

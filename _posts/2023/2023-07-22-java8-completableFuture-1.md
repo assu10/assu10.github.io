@@ -119,7 +119,7 @@ try {
 
 이 포스트에서는 위 기능을 선언형으로 이용할 수 있도록 Java 8 에서 제공하는 `CompletableFuture` 클래스 (= `Future` 인터페이스를 구현한 클래스) 에 대해 알아본다.
 
-`CompletableFuture` 는 람다 표현식과 파이프라이팅을 활용하기 때문에 Stream 과 비슷한 패턴이다.  
+`CompletableFuture` 는 람다 표현식과 파이프라이닝을 활용하기 때문에 Stream 과 비슷한 패턴이다.  
 `Future` 와 `CompletableFuture` 의 관계를 Collection 과 Stream 의 관계에 비유할 수 있다.
 
 이 포스트에서는 여러 온라인 상점 중 가장 저렴한 가격을 제시하는 상점을 찾는 기능을 구현해가면서 `CompletableFuture` 에 대해 알아본다.
@@ -153,7 +153,7 @@ public class Util {
   private static final DecimalFormat formatter =
           new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
 
-  // 외부 서비스를 호출하는 것처럼 인위적으로 1초 지연시키는 메서환
+  // 외부 서비스를 호출하는 것처럼 인위적으로 1초 지연시키는 메서드
   public static void delay() {
     int delay = 1000;
     try {
@@ -194,7 +194,7 @@ private double calculatePrice(String product) {
 
 ## 2.1. 동기 메서드를 비동기 메서드로 변환
 
-이제 위 동기 메서드를 비동기로 변환헤보자.
+이제 위 동기 메서드를 비동기로 변환해보자.
 
 Future 는 결과값의 핸들일 뿐이며 계산이 완료되면 get() 메서드로 결과를 얻을 수 있다.  
 getPriceAsync() 메서드는 즉시 반환되므로 호출자 스레드는 다른 작업 수행이 가능하다.
@@ -340,7 +340,7 @@ public Future<Double> getPriceAsync(String product) {
 
 위 코드는 [2.2. 에러 처리: `completeExceptionally()`](#22-에러-처리-completeexceptionally) 정확히 동일하게 동작한다. (= 둘 다 같은 방식으로 에러 관리)
 
-`supplyAsunc()` 메서드는 [Supplier](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 인수로 받아서 CompletableFuture 를 반환하고, CompletableFuture 는 Supplier 를 실행해서 비동기적으로 결과를 생성한다.
+`supplyAsync()` 메서드는 [Supplier](https://assu10.github.io/dev/2023/05/28/java8-lambda-expression-1/#24-%EA%B8%B0%EB%B3%B8%ED%98%95primitive-type-%ED%8A%B9%ED%99%94) 를 인수로 받아서 CompletableFuture 를 반환하고, CompletableFuture 는 Supplier 를 실행해서 비동기적으로 결과를 생성한다.
 
 ForkJoinPool 의 Executor 중 하나가 Supplier 를 실행하게 될텐데 두 번째 인수를 받는 오버로드 버전의 supplyAsync() 를 이용해서 다른 Executor 를 지정할 수도 있다.  
 결국 모든 다른 CompletableFuture 의 factory 메서드에 Executor 를 선택적으로 전달할 수 있는데 이 부분은 [3.4. 커스텀 Executor 사용](#34-커스텀-executor-사용) 에서 알아본다.
@@ -473,10 +473,10 @@ public List<String> findPricesFuture(String product) {
 스트림 연산은 게으른 특성이 있어서 하나의 파이프라인으로 연산을 처리했다면 모든 가격 정보 요청이 동기적, 순차적으로 이루어지는 결과가 된다.  
 CompletableFuture 로 각 상점의 정보를 요청할 때 기존 요청 작업이 완료되어야 join() 이 결과를 반환하면서 다음 상점으로 정보를 요청하기 때문이다.
 
-![스트림의 게으름 때문에 순차 계산이 일어나는 이뉴와 순차 계산을 회피하는 방법](/assets/img/dev/2023/0722/stream.png)
+![스트림의 게으름 때문에 순차 계산이 일어나는 이유와 순차 계산을 회피하는 방법](/assets/img/dev/2023/0722/stream.png)
 
-위 그림에서 윗 부분(단일 파이프로 구성 시, 순차)의 경우 이전 요청의 처리가 완전히 끝난 다음에 새로 만든 CompletableFuture 가 처리도니다.  
-반면 아랫 부분(파이프라인 분리, 병렬)의 경우 우선 CompletableFuture 를 리스트로 모든 다음 다른 작업과는 독립적으로 각자의 작업을 수행한다.
+위 그림에서 윗 부분(단일 파이프로 구성 시, 순차)의 경우 이전 요청의 처리가 완전히 끝난 다음에 새로 만든 CompletableFuture 가 처리된다.  
+반면 아랫 부분(파이프라인 분리, 병렬)의 경우 우선 CompletableFuture 를 리스트로 모은 다음 다른 작업과는 독립적으로 각자의 작업을 수행한다.
 
 이제 성능을 테스트해보자.
 

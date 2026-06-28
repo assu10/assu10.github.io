@@ -261,7 +261,7 @@ public class HotelCacheValueSerializer implements RedisSerializer<HotelCacheValu
 }
 ```
 
-**ObjectMapper 는 생성 비용이 비싸고, 멀티 스레드 환경에 안전하므로 static 변수로 생성하여 공요하는 형태로 사용**한다.  
+**ObjectMapper 는 생성 비용이 비싸고, 멀티 스레드 환경에 안전하므로 static 변수로 생성하여 공유하는 형태로 사용**한다.  
 
 /adapter/cache/HotelCacheKey.java
 ```java

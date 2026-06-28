@@ -20,7 +20,7 @@ tags: javascript nestjs provider custom-provider
 ---
 
 [NestJS - Provider, Scope](https://assu10.github.io/dev/2023/03/03/nest-provider/) 의
-*1.2. Provider 사용 (속성 기반 주입): `@Inject`* 에서 `@Inject` 데커레이커의 인수는 타입(클래스명), 문자열, 심벌이 올 수 있다고 하였다.
+*1.2. Provider 사용 (속성 기반 주입): `@Inject`* 에서 `@Inject` 데커레이터의 인수는 타입(클래스명), 문자열, 심벌이 올 수 있다고 하였다.
 
 이 포스트에선 `@Inject` 데커레이터의 인수로 문자열과 심벌이 오는 경우에 대해 알아본다.
 
@@ -278,7 +278,7 @@ export interface ValueProvider<T = any> {
 ```
 
 `ValueProvider` 는 `provide` 와 `useValue` 속성을 갖는데 `useValue` 는 어떤 타입도 받을 수 있기 때문에 `useValue` 를 이용하여
-외부 라이브러리에서 Provider 를 사입하거나 실제 구현을 mock 객체로 대체할 수 있다.  
+외부 라이브러리에서 Provider 를 삽입하거나 실제 구현을 mock 객체로 대체할 수 있다.  
 (`inject` 는 factory provider 에서만 사용됨)
 
 예를 들어 모의 값을 테스트하려고 한다고 해보자.

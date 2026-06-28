@@ -177,7 +177,7 @@ public List<String> findPriceFuture(String product) {
       .collect(Collectors.toList());
 
   return priceFuture.stream()
-      .map(CompletableFuture::join) // 스크림의 모든 Future 가 종료되길 기다렸다가 각각의 결과 추출
+      .map(CompletableFuture::join) // 스트림의 모든 Future 가 종료되길 기다렸다가 각각의 결과 추출
       .collect(Collectors.toList());
 }
 ```
@@ -256,8 +256,8 @@ findPriceFuturedone in 2013 ms
 > **`thenComposeAsync()`**  
 > 다음 작업이 다른 스레드에서 실행되도록 스레드 풀로 작업을 제출  
 
-위 예제에서는 두 번째 CompletableFuture 의 결과가 첫 번째 CompletableFuture 에 의존하므로 두 개의 CompletableFuture 를 하나로 조합하던
-`thenComposeAsync()` 를 사용하던 최종 결과와 실행시간에는 영향을 미치지 않는다.  
+위 예제에서는 두 번째 CompletableFuture 의 결과가 첫 번째 CompletableFuture 에 의존하므로 두 개의 CompletableFuture 를 하나로 조합하든
+`thenComposeAsync()` 를 사용하든 최종 결과와 실행시간에는 영향을 미치지 않는다.  
 
 따라서 스레드 전환 오버헤드가 적게 발생하면서 효율이 좋은 `thenCompose()` 를 사용하였다.
 

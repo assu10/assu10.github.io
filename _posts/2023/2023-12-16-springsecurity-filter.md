@@ -421,7 +421,7 @@ doFilterInternal(HttpServletRequest request, HttpServletResponse response, Filte
 
 - **필터가 적용될 지 결정하는 논리 구현 가능**
   - `shouldNotFilter(HttpServletRequest)` 를 재정의하여 필터 체인에 추가한 필터가 특정 요청에는 적용되지 않게 결정 가능
-  - 기본적으로 필터는 모드느 요청에 적용됨
+  - 기본적으로 필터는 모든 요청에 적용됨
 - **기본적으로 비동기 요청이나 오류 발송 요청에는 적용되지 않음**
   - 이 동작을 변경하려면 `shouldNotFilterAsyncDispatch()`, `shouldNotFilterErrorDispatch()` 메서드를 재정의하면 됨
 

@@ -478,7 +478,7 @@ const flyOrSwim = (o: Bird | Fish): void => {
 ```
 
 타입 단언으로 타입 전환을 하지 않았음에도 정상 동작하는 것을 확인할 수 있다.<br />
-타입스트립트는 `instanceof` 연산자 행이 true 로 확인되면 변수 o 를 자동으로 Bird 혹은 Fish 타입 객체로 전환한다.
+타입스크립트는 `instanceof` 연산자 행이 true 로 확인되면 변수 o 를 자동으로 Bird 혹은 Fish 타입 객체로 전환한다.
 
 ---
 
@@ -863,7 +863,7 @@ console.log(n??0)   // null 이 아니라 0
 
 ### 6.5. nullable 타입의 함수형 방식 구현
 
-하스켈에는 `Maybe` 라는 타입이 있고, 스칼라는 `Mqybe` 타입의 이름을 `Option` 으로 바꿔서 제공한다.
+하스켈에는 `Maybe` 라는 타입이 있고, 스칼라는 `Maybe` 타입의 이름을 `Option` 으로 바꿔서 제공한다.
 스위프트나 코틀린, 러스트와 같은 언어들도 `Option` 혹은 `Optional` 이란 이름으로 이 타입을 제공한다.
 
 타입스크립트 언어로 `Option` 타입을 구현해보도록 하자.

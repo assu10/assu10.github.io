@@ -55,7 +55,7 @@ NestJS 는 라우트 핸들러의 매개변수에 적용할 수 있는 매개변
 로그인할 때 발급받은 JWT 를 요청마다 헤더에 포함하고 Guard 에서 이 JWT 를 검증(인증) 해서 얻은 유저 정보를 가지고 지금 수행하려는 요청을 이 유저가 실행할 수 있는지
 검사(인가) 하는 과정을 거친다.
 
-이 과정에서 라우터 핸들러에 전달된 요청 객에체 유저 정보를 추가로 실어서 이후에 이용하는 방법을 많이 이용하는데 이 때 `@User()` 라는 Custom Parameter Decorator 를 만들어서
+이 과정에서 라우터 핸들러에 전달된 요청 객체에 유저 정보를 추가로 실어서 이후에 이용하는 방법을 많이 이용하는데 이 때 `@User()` 라는 Custom Parameter Decorator 를 만들어서
 유저 정보를 추출해보도록 하자.
 
 [NestJS - Guard, JWT](https://assu10.github.io/dev/2023/03/19/nest-auth/) 의 *3.4. `Guard` 로 인가 처리* 에서 생성했던 AuthGuard 를 다시 구현해보자.
@@ -151,7 +151,7 @@ $ curl --location 'http://localhost:3000' | jq
 
 이제 `createParamDecorator()` 의 첫 번째 인수인 `data` 를 사용해보자.
 
-`data` 는 데커레이터 선언 시 인수로 넘기는 값인데 `@UserData('name`) 과 같이 이름만 가져와서 매개변수로 받고 싶거나 `@UserData()` 처럼 인수로 아무것도 넘기지 않으면
+`data` 는 데커레이터 선언 시 인수로 넘기는 값인데 `@UserData('name')` 과 같이 이름만 가져와서 매개변수로 받고 싶거나 `@UserData()` 처럼 인수로 아무것도 넘기지 않으면
 유저 객체 모두를 넘겨받고 싶을 때 활용할 수 있다.
 
 /src/user-data.decorator.ts

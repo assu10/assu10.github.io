@@ -506,7 +506,7 @@ Spring Boot 프로젝트는 기능별로 라이브러리 의존성을 포함한 
 
 Spring Boot 의 모듈인 `spring-boot-autoconfigure` 은 Spring 에서 사용하는 수많은 기능을 자동 설정으로 제공한다.
 
-예를 들면 애플리케이션에 특정 Spring bean 이 있거나 클래스 패스에 특정 라이브러리가 포함괴더나 환경 설정값이 있으면 실행되는 방식이다.
+예를 들면 애플리케이션에 특정 Spring bean 이 있거나 클래스 패스에 특정 라이브러리가 포함되거나 환경 설정값이 있으면 실행되는 방식이다.
 
 ---
 
@@ -714,7 +714,7 @@ chap02/pom.xml 전체 코드
 
 ## 6.3. `@SpringBootApplication`
 
-JVM 이 시작하며 메일 클래스의 main() 메서드를 실행하여, 이 main() 메서드를 entry point 라고 한다.  
+JVM 이 시작하며 메인 클래스의 main() 메서드를 실행하여, 이 main() 메서드를 entry point 라고 한다.  
 이제 메인 클래스인 Chap02Application.java 를 보자.
 
 Chap02Application.java
@@ -785,7 +785,7 @@ SpringApplication.run() 에서 ApplicationContext 객체를 생성하는데 Appl
 
 SpringApplication 클래스는 지연 초기화 기능을 제공하는데 이 기능을 활성화하면 애플리케이션이 실행될 때 모든 Spring bean 객체를 한 번에 생성하지 않으므로 애플리케이션 시작 시간이 단축된다.
 하지만 요청이 빈번한 시간에 배포하거나 scale-out 한다면 첫 번째 요청을 느려질 수 있기 때문에 default 는 지연 초기화 기능이 비활성화되어 있다.
-활성하하고 싶다면 SpringApplication 클래스의 setLazyInitialization() 메서드로 활성화한다.
+활성화하고 싶다면 SpringApplication 클래스의 setLazyInitialization() 메서드로 활성화한다.
 
 ---
 
