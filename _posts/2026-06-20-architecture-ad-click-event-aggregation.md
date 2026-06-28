@@ -254,7 +254,7 @@ API 설계를 위해 기능 요구사항을 검토해보자.
 - **Query String:**
   - from: 집계 시작 시간(Long, 기본값: 현재 시각 기준 1분 전)
   - to: 집계 종료 시간(Long, 기본값: 현재 시각)
-  - filer: 필터링 전략 식별자(예: filter=001)
+  - filter: 필터링 전략 식별자(예: filter=001)
 - **Response:**
   - ad_id: 광고 식별자(String)
   - count: 집계된 클릭 횟수(Long)
