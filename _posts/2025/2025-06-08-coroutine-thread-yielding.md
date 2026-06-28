@@ -272,7 +272,7 @@ fun main() = runBlocking<Unit> {
 runBlocking 코루틴은 내부에서 launch 함수를 호출해 launch 코루틴을 생성하는데 1,2번은 launch 코루틴에서 출력되고, 3,4 번은 runBlocking 코루틴에서 출력한다.
 
 - **runBlocking 코루틴이 `launch()` 를 호출**하여 launch 코루틴을 실행함
-- 하지만 launch 코루틴은 **스케쥴만 되고 실행되지 않음**(스레드 점유 중인 runBlocking 이 계속 실행 중이므로)
+- 하지만 launch 코루틴은 **스케줄만 되고 실행되지 않음**(스레드 점유 중인 runBlocking 이 계속 실행 중이므로)
 - runBlocking 코루틴이 3번 로그를 출력한 뒤, `job.join()` 을 호출하면 **스레드를 양보하며 일시 중단됨**
 - 양보된 메인 스레드는 이제 **launch 코루틴에게 분배**되어 실행됨
 - launch 코루틴이 `delay()`일시 중단 함수를 만나 메인 스레드를 양보하고 일시 중단됨
@@ -351,7 +351,7 @@ fun main() = runBlocking<Unit> {
 
 문제의 원인은
 - launch 코루틴은 while 루프에서 계속 실행되며 **한 번도 스레드를 양보하지 않음**
-- runBlocking 코루틴은 `delay()` 후 다시 스케쥴되기를 기다리지만, **launch 코루틴이 스레드를 계속 점유하고 있어 재개되지 못함**
+- runBlocking 코루틴은 `delay()` 후 다시 스케줄되기를 기다리지만, **launch 코루틴이 스레드를 계속 점유하고 있어 재개되지 못함**
 - 결국 runBlocking 의 나머지 코드인 `job.cancel()` 이 호출되지 않아 코루틴이 무한 실행됨
 
 

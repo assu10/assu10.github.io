@@ -7,7 +7,6 @@ tags: kubernetes k8s docker-networking django postgresql host-access pod-communi
 ---
 
 [2.2. Django 이미지 빌드(Host IP 연결)](https://assu10.github.io/dev/2025/11/28/docker-compose-nginx-django-postgresql-integration/#22-django-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B9%8C%EB%93%9Chost-ip-%EC%97%B0%EA%B2%B0) 와 
-여기 주소 수정
 [2.2. Django 이미지 빌드](https://assu10.github.io/dev/2025/12/28/kubernetes-aa/#22-django-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B9%8C%EB%93%9C) 를 보면 
 Docker 환경과 k8s 환경에서의 로컬의 차이가 나온다.
 

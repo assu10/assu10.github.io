@@ -302,7 +302,7 @@ fun main() = runBlocking<Unit> {
 }
 ```
 
-![SupervisorJob 을 사용한 취소 전파 제한](/assets/img/dev/2025/0530/supersivor1.webp)
+![SupervisorJob 을 사용한 취소 전파 제한](/assets/img/dev/2025/0530/supervisor1.webp)
 
 ```shell
 Exception in thread "main @Coroutine1#2" java.lang.Exception: 예외 발생

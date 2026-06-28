@@ -977,7 +977,7 @@ pod/hello-world created
   - Pod를 생성하는 명령어
 - **`--image=hello-world`**
   - 사용할 컨테이너 이미지 지정
-- **`--restart-Never`**
+- **`--restart=Never`**
   - hello-world 이미지는 메시지를 출력하고 바로 종료되는 프로그램임
   - 쿠버네티스는 기본적으로 종료된 pod를 다시 살리려고 시도하기 때문에, 이를 방지하기 위해 재시작 옵션을 끔
 

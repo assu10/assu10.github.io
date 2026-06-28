@@ -264,7 +264,7 @@ statefulset.apps/sfs-test01   2/2     4m23s   nginx        nginx:latest
 
 ## 3.1. 데이터베이스의 리플리케이션과 스테이트풀셋
 
-데이터베이스 리플레케이션이란, 데이터의 안정성과 가용성을 높이기 위해 원본 데이터베이스의 데이터를 복제하여 하나 이상의 복제본 서버에 실시간 혹은 비동기로 동기화하는 기술을 말한다.
+데이터베이스 리플리케이션이란, 데이터의 안정성과 가용성을 높이기 위해 원본 데이터베이스의 데이터를 복제하여 하나 이상의 복제본 서버에 실시간 혹은 비동기로 동기화하는 기술을 말한다.
 
 대부분의 스테이트풀(Stateful) 애플리케이션, 특히 데이터베이스는 Primary(Master)-Replica(Slave) 구조를 가진다.
 
@@ -515,7 +515,7 @@ persistentvolumeclaim/sfs-vol01-sfs-test01-0   Bound    pv-sfs01   100Mi      RW
 ## 5.1. 스케일링 이슈: 정적 프로비저닝의 한계
 
 만약 파드 개수(`replicas`)를 1개에서 2개로 늘리면 어떻게 될까?  
-기존의 stateful-vol02.yml 에서 파드 개수만 2개로 늘려서 적용해보자.
+기존의 statefulset-vol02.yml 에서 파드 개수만 2개로 늘려서 적용해보자.
 
 ```shell
 assu@myserver01:~/work/ch09/ex12$ vim statefulset-vol03.yml

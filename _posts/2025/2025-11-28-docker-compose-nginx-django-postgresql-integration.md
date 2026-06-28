@@ -169,14 +169,14 @@ ex01  ex02  ex03  ex04  ex05  ex06  ex07
 
 assu@myserver01:~/work/ch05$ cd ex07
 assu@myserver01:~/work/ch05/ex07$ ls
-ex06  myDajngo02  myNginx02
+ex06  myDjango02  myNginx02
 
-assu@myserver01:~/work/ch05/ex07$ mv myDajngo02 myDajngo03
+assu@myserver01:~/work/ch05/ex07$ mv myDjango02 myDjango03
 assu@myserver01:~/work/ch05/ex07$ mv myNginx02 myNginx03
 assu@myserver01:~/work/ch05/ex07$ mv ex06 myPostgres03
 
 assu@myserver01:~/work/ch05/ex07$ ls
-myDajngo03  myNginx03  myPostgres03
+myDjango03  myNginx03  myPostgres03
 ```
 
 ---
@@ -186,7 +186,7 @@ myDajngo03  myNginx03  myPostgres03
 ```shell
 assu@myserver01:~/work/ch05$ tree -L 3
 └── ex07
-    ├── myDajngo03
+    ├── myDjango03
     │   ├── Dockerfile
     │   ├── myapp
     │   └── requirements.txt
@@ -235,7 +235,7 @@ DATABASES = {
 PostgreSQL 연결을 위해 `psycopg2-binary` 라이브러리를 추가한다.
 
 ```shell
-assu@myserver01:~/work/ch05/ex07/myDajngo03$ vim requirements.txt
+assu@myserver01:~/work/ch05/ex07/myDjango03$ vim requirements.txt
 
 django==5.1.3
 gunicorn==23.0.0
@@ -270,12 +270,12 @@ EXPOSE 8000
 `docker image build` 명령어로 도커 이미지를 빌드한다.
 
 ```shell
-assu@myserver01:~/work/ch05/ex07/myDajngo03$ docker image build . -t myweb03
+assu@myserver01:~/work/ch05/ex07/myDjango03$ docker image build . -t myweb03
 [+] Building 10.0s (8/10)                                                                                              docker:default
  => [internal] load build definition from Dockerfile
 ...
 
-assu@myserver01:~/work/ch05/ex07/myDajngo03$ docker image ls
+assu@myserver01:~/work/ch05/ex07/myDjango03$ docker image ls
 REPOSITORY     TAG       IMAGE ID       CREATED          SIZE
 myweb03        latest    0f7939733bf1   16 seconds ago   1.19GB
 mypostgres03   latest    b54b1d0939f2   2 years ago      432MB
@@ -290,7 +290,7 @@ Nginx는 요청을 Django 컨테이너(djangotest)로 전달하는 역할을 한
 ```shell
 assu@myserver01:~/work/ch05$ tree -L 3
 └── ex07
-    ├── myDajngo03
+    ├── myDjango03
     │   ├── Dockerfile
     │   ├── myapp
     │   └── requirements.txt
@@ -525,7 +525,7 @@ postgretest
 
 핵심 개념은 [**Host Gateway(docker0)**](https://assu10.github.io/dev/2025/11/16/docker-basics-and-commands-guide-2/#112-%EB%8F%84%EC%BB%A4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-docker0-veth)이다.  
 컨테이너 내부에서 호스트 머신을 바라볼 때, localhost는 컨테이너 자신을 의미한다.  
-따라서 호스트에 설치된 DB에 접근하기 위해서는 도커 브리지 네크워크의 게이트웨이인 `docker0` 인터페이스의 IP를 사용해야 한다.
+따라서 호스트에 설치된 DB에 접근하기 위해서는 도커 브리지 네트워크의 게이트웨이인 `docker0` 인터페이스의 IP를 사용해야 한다.
 
 
 ---
@@ -684,16 +684,16 @@ ex01  ex02  ex03  ex04  ex05  ex06  ex07  ex08
 
 assu@myserver01:~/work/ch05$ cd ex08
 assu@myserver01:~/work/ch05/ex08$ ls
-myDajngo03  myNginx03  myPostgres03
+myDjango03  myNginx03  myPostgres03
 
 # PostgreSQL 을 컨테이너로 실행하지 않을 것이므로 myPostgres03 삭제
 assu@myserver01:~/work/ch05/ex08$ rm -r myPostgres03/
 
-assu@myserver01:~/work/ch05/ex08$ mv myDajngo03 myDajngo04
+assu@myserver01:~/work/ch05/ex08$ mv myDjango03 myDjango04
 assu@myserver01:~/work/ch05/ex08$ mv myNginx03 myNginx04
 
 assu@myserver01:~/work/ch05/ex08$ ls
-myDajngo04  myNginx04
+myDjango04  myNginx04
 ```
 
 여기서는 Django 와 관련된 디렉터리만 다룬다.
@@ -701,7 +701,7 @@ myDajngo04  myNginx04
 assu@myserver01:~/work/ch05$ tree -L 3
 .
 └── ex08
-    ├── myDajngo04
+    ├── myDjango04
     │   ├── Dockerfile
     │   ├── myapp
     │   └── requirements.txt
@@ -781,14 +781,14 @@ PASSWORD는 [2.1. PostgreSQL 로컬 설치 및 설정](#21-postgresql-로컬-설
 이제 requirements.txt 파일과 Dockerfile 을 확인해보자. 여기서는 해당 파일을 수정할 필요는 없다.
 
 ```shell
-assu@myserver01:~/work/ch05/ex08/myDajngo04$ cat requirements.txt
+assu@myserver01:~/work/ch05/ex08/myDjango04$ cat requirements.txt
 django==5.1.3
 gunicorn==23.0.0
 psycopg2-binary==2.9.10
 ```
 
 ```shell
-assu@myserver01:~/work/ch05/ex08/myDajngo04$ cat Dockerfile
+assu@myserver01:~/work/ch05/ex08/myDjango04$ cat Dockerfile
 FROM python:3.13.9
 
 WORKDIR /usr/src/app
@@ -809,12 +809,12 @@ EXPOSE 8000
 **3) 이미지 빌드**
 
 ```shell
-assu@myserver01:~/work/ch05/ex08/myDajngo04$ docker image build . -t myweb04
+assu@myserver01:~/work/ch05/ex08/myDjango04$ docker image build . -t myweb04
 [+] Building 2.0s (1/2)                                                                                                                         docker:default
  => [internal] load build definition from Dockerfile
 ...
 
-assu@myserver01:~/work/ch05/ex08/myDajngo04$ docker image ls
+assu@myserver01:~/work/ch05/ex08/myDjango04$ docker image ls
 REPOSITORY     TAG       IMAGE ID       CREATED          SIZE
 myweb04        latest    f0323564905d   16 seconds ago   1.19GB
 ```
@@ -829,7 +829,7 @@ myweb04        latest    f0323564905d   16 seconds ago   1.19GB
 assu@myserver01:~/work/ch05$ tree -L 3
 .
 └── ex08
-    ├── myDajngo04
+    ├── myDjango04
     │   ├── Dockerfile
     │   ├── myapp
     │   └── requirements.txt
@@ -1039,7 +1039,7 @@ ex01  ex02  ex03  ex04  ex05  ex06  ex07  ex08  ex09
 assu@myserver01:~/work/ch05$ cd ex09
 
 assu@myserver01:~/work/ch05/ex09$ ls
-myDajngo03  myNginx03  myPostgres03
+myDjango03  myNginx03  myPostgres03
 ```
 
 ---
@@ -1060,7 +1060,7 @@ version: "3"
 services:
   # Django를 활용한 서비스 이름을 djangotest라고 지음
   djangotest:
-    build: ./myDajngo03 # 이미지를 빌드할 디렉터리 경로 (Dockerfile이 위치한 경로)
+    build: ./myDjango03 # 이미지를 빌드할 디렉터리 경로 (Dockerfile이 위치한 경로)
     networks:
       - composenet01  # 해당 서비스가 사용할 도커 네트워크 정보
     # depends_on 은 컨테이너 실행 순서를 정할 때 사용함
@@ -1207,10 +1207,10 @@ ex01  ex02  ex03  ex04  ex05  ex06  ex07  ex08  ex09  ex10
 
 assu@myserver01:~/work/ch05$ cd ex10
 assu@myserver01:~/work/ch05/ex10$ ls
-myDajngo04  myNginx04
+myDjango04  myNginx04
 ```
 
-myDajngo04 내부의 `settings.py` 는 이미 호스트의 `docker0` IP(172.17.0.1)을 바라보도록 설정되어 있다.
+myDjango04 내부의 `settings.py` 는 이미 호스트의 `docker0` IP(172.17.0.1)을 바라보도록 설정되어 있다.
 
 ---
 
@@ -1225,7 +1225,7 @@ version: "3"
 
 services:
   djangotest:
-    build: ./myDajngo04
+    build: ./myDjango04
     networks:
       - composenet01
     restart: always

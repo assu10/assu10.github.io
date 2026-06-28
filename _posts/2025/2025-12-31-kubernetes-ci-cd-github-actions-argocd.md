@@ -597,7 +597,7 @@ Chart.lock  charts  Chart.yaml  my-values.yaml  README.md  templates  values.yam
 
 **ArgoCD 설치 및 서비스 노출**
 
-ArcoCD 전용 네임스페이스를 생성하고 설치를 진행한다.
+ArgoCD 전용 네임스페이스를 생성하고 설치를 진행한다.
 
 ```shell
 assu@myserver01:~/work/app/argocd/argo-cd-9.2.4$ kubectl create namespace myargocd

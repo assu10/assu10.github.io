@@ -55,7 +55,7 @@ tags: google-engineer developer-culture knowledge-sharing psychological-safety e
   - 특정 전문가 한 명이 모든 걸 책임지는 구조
   - 해당 인물이 휴가를 가거나 이직하면 **팀 전체가 마비**됨
   - 좋은 의도로 '다른 사람들을 위해 내가 처리하지' 는 결국 단기 효율을 높일 수 있으나, 팀의 **자립성과 확장성**은 크게 떨어짐
-    - 그 팀은 팀으로서 필요한 일들을 어떻게 해야할 지 전혀 배우지 못함
+    - 그 팀은 팀으로서 필요한 일들을 어떻게 해야 할지 전혀 배우지 못함
   - [버스 지수](https://assu10.github.io/book/2025/07/13/google-teamwork/#2-%EC%88%A8%EA%B8%B0%EB%8A%94-%EA%B1%B4-%ED%95%B4%EB%A1%AD%EB%8B%A4)와 직접적으로 연결되는 리스크
 - **전부 아니면 전무 전문성(All-or-Nothing Expertise)**
   - 조직 내에서 중간층 없이 '전문가'와 '초심자'로만 이분화됨

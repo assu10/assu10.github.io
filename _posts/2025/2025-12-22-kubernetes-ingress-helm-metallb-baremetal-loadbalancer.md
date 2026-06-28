@@ -59,7 +59,7 @@ AWS나 GCP 같은 퍼블릭 클라우드 환경에서는 LoadBalancer 타입의 
 단순히 IP와 포트만 보고 연결해주는 L4 로드밸런서(예: MetalLB 자체)와 달리, 인그레스는 **URL 경로(Path)**나 **도메인(Host)**을 이해한다.
 
 - **단일 진입점**
-  - 클라이언트는 하나의 IP(인그레스 컨트롤)로만 접근함
+  - 클라이언트는 하나의 IP(인그레스 컨트롤러)로만 접근함
 - **라우팅 규칙**
   - http://my-ip/test01 → **Service A**로 전달
   - http://my-ip/test02 → **Service B**로 전달
@@ -487,7 +487,7 @@ assu@myserver01:~/work/app/metallb/metallb-0.15.3$ vim my-config.yaml
 
 ```yaml
 ---
-# metalLB가 로드밴런서 서비스에 할당할 IP 주소의 범위를 정의하는 리소스
+# metalLB가 로드밸런서 서비스에 할당할 IP 주소의 범위를 정의하는 리소스
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:

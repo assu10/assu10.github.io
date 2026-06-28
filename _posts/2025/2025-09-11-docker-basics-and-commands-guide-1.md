@@ -56,7 +56,7 @@ tags: devops docker 도커 도커-기초 도커-입문 도커-명령어 docker-c
 ## 1.1. 도커 동작 방식
 
 이전 포스트인 [3. hello-world: 첫 컨테이너 실행](https://assu10.github.io/dev/2025/09/10/docker-install-guide-on-ubuntu-vm/#3-hello-world-%EC%B2%AB-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%8B%A4%ED%96%89) 에서 
-도커 설치 후 `docker run hello world` 명령으로 첫 컨테이너를 실행했었다.  
+도커 설치 후 `docker run hello-world` 명령으로 첫 컨테이너를 실행했었다.  
 이 간단한 명령어 뒤에서는 어떤 일들이 벌어지고 있었을까?  
 도커의 전체적인 아키텍처를 통해 그 작동 원리에 대해 알아보자.
 
@@ -303,7 +303,7 @@ hello-world   latest    ca9905c726f0   3 months ago   5.2kB
 - **SIZE**
   - 이미지의 용량이다.
 
-여기서 IMAGE ID(f4158f3f9981) 과 [2.1. 도커 이미지 다운로드(Pull)](#21-도커-이미지-다운로드pull)에서 이미지를 다운로드할 때 본 DIGEST(sha256:353675e2...) 값은 서로 다른다.  
+여기서 IMAGE ID(f4158f3f9981) 과 [2.1. 도커 이미지 다운로드(Pull)](#21-도커-이미지-다운로드pull)에서 이미지를 다운로드할 때 본 DIGEST(sha256:353675e2...) 값은 서로 다르다.  
 DIGEST 는 도커 레지스트리(허브)에서 이미지를 식별하는 전역 고유값으로 이미지 콘텐츠 자체의 해시값이라 불변성을 보장한다.  
 IMAGE ID는 로컬 도커 호스트(내 PC)에 다운로드된 이미지를 관리하기 위해 할당된 로컬 식별자이다.
 

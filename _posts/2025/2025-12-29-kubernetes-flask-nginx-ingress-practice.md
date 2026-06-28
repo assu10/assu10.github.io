@@ -540,7 +540,7 @@ flask-ingress   nginx   *       10.0.2.20   80      4m47s
 
 지금까지 구성한 전체 네트워크 흐름을 시각화하면 아래와 같다.
 
-![전체적인 네크워크 흐름](/assets/img/dev/2025/1229/flow.png)
+![전체적인 네트워크 흐름](/assets/img/dev/2025/1229/flow.png)
 
 - **User**: 브라우저에서 */test02* 로 요청
 - **Ingress**: */test02* 경로를 확인하고, Rewrite 규칙에 따라 경로를 `/`로 변경하여 flask-service로 전달

@@ -1039,7 +1039,7 @@ drwxrwxr-x 7 assu assu 4096 Nov 29 05:30 ../
 drwxrwxr-x 3 assu assu 4096 Nov 29 05:31 ex03/
 drwxrwxr-x 2 assu assu 4096 Nov 29 05:31 ex04/
 
-assu@myserver01:~/work/ch05/ex05$ mv ex03 myDajngo02
+assu@myserver01:~/work/ch05/ex05$ mv ex03 myDjango02
 assu@myserver01:~/work/ch05/ex05$ mv ex04 myNginx02
 
 drwxrwxr-x 4 assu assu 4096 Nov 29 05:31 ../
@@ -1051,17 +1051,17 @@ drwxrwxr-x 4 assu assu 4096 Nov 29 05:31 ../
 
 `requirements.txt`: gunicorn 라이브러리 추가
 ```shell
-assu@myserver01:~/work/ch05/ex05/myDajngo02$ ls
+assu@myserver01:~/work/ch05/ex05/myDjango02$ ls
 Dockerfile  myapp  requirements.txt
 
-assu@myserver01:~/work/ch05/ex05/myDajngo02$ cat requirements.txt
+assu@myserver01:~/work/ch05/ex05/myDjango02$ cat requirements.txt
 django==4.2.7
 gunicorn==20.1.0
 ```
 
 `Dockerfile`: 실행 명령어(`CMD`)를 runserver 에서 gunicorn 으로 변경
 ```shell
-assu@myserver01:~/work/ch05/ex05/myDajngo02$ cat Dockerfile
+assu@myserver01:~/work/ch05/ex05/myDjango02$ cat Dockerfile
 FROM python:3.13.9
 
 WORKDIR /usr/src/app
@@ -1090,13 +1090,13 @@ EXPOSE 8000
 
 ```shell
 # 이미지 빌드
-assu@myserver01:~/work/ch05/ex05/myDajngo02$ docker image build . -t myweb02
+assu@myserver01:~/work/ch05/ex05/myDjango02$ docker image build . -t myweb02
 [+] Building 9.0s (11/11) FINISHED      docker:default
  => [internal] load build definition from Dockerfile       0.0s
 ...
 
 # 생성 확인
-assu@myserver01:~/work/ch05/ex05/myDajngo02$ docker image ls
+assu@myserver01:~/work/ch05/ex05/myDjango02$ docker image ls
 REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
 myweb02      latest    304ff34def4f   2 minutes ago   1.19GB
 ```

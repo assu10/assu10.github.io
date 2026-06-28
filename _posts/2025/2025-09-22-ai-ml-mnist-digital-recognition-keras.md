@@ -60,7 +60,7 @@ import matplotlib.pyplot as plt
 
 **`from tensorflow.keras.layers import Dense, Activation`**  
 - **Dense**
-  - 뉴런들이 모여 구성하는 하나의 레이어를 의미한다. `Dense` 레이어는 이전 충의 모든 뉴런과 다음 층의 모든 뉴런이 서로 연결되어 있어 **전결합층(fully-connected layer)**이라고도 불린다.
+  - 뉴런들이 모여 구성하는 하나의 레이어를 의미한다. `Dense` 레이어는 이전 층의 모든 뉴런과 다음 층의 모든 뉴런이 서로 연결되어 있어 **전결합층(fully-connected layer)**이라고도 불린다.
   - `Dense` 를 사용하여 신경망의 각 층을 구성하고, 뉴런의 개수를 지정한다.
 - **Activation**
   - [활성화 함수](https://assu10.github.io/dev/2025/08/31/ai-ml-neural-network-weights-and-activation-functions/#2-%EB%93%A4%EC%96%B4%EC%98%A4%EB%8A%94-%EC%8B%A0%ED%98%B8-%EC%84%B8%EA%B8%B0%EB%A5%BC-%EC%A1%B0%EC%A0%88%ED%95%98%EB%8A%94-%ED%99%9C%EC%84%B1%ED%99%94-%ED%95%A8%EC%88%98-activation-function)는 뉴런에 들어온 신호를 처리하여 다음 뉴런으로 보낼지 말지를 결정하는 역할을 한다.
@@ -195,7 +195,7 @@ print("Y_train matrix shape:", Y_train.shape)
 print("Y_test matrix shape:", Y_test.shape)
 ```
 
-`to_categorical()` 에서 두 번째 인자인 10은 원-핫 인코딩할 숫자, 즉 몇 개로 구분하는고자 하는지에 대한 수치이다.  
+`to_categorical()` 에서 두 번째 인자인 10은 원-핫 인코딩할 숫자, 즉 몇 개로 구분하고자 하는지에 대한 수치이다.  
 여기서는 0~9이므로 10으로 설정한다.
 
 ```shell
@@ -419,7 +419,7 @@ print('Test accuracy:', score[1])
 첫 번째 결과값은 오차값(loss)이며 오차값은 0~1 사이의 값이다.  
 0이면 오차가 없는 것이고, 1이면 오차가 아주 크다는 것이다.
 
-두 번째 결과값는 정확도이다.  
+두 번째 결과값은 정확도이다.  
 모델이 예측한 값과 정답이 얼마나 정확한 지 0~1 사이의 값으로 보여지며, 1에 가까울수록 정답을 많이 맞춘 것이다.
 
 ```shell

@@ -3,7 +3,7 @@ layout: post
 title:  "Coroutine - 예외 처리(2): 예외 처리 방법"
 date: 2025-06-03
 categories: dev
-tags: kotlin coroutine coroutine-exception-handler async cancellation-exception withtimeout job-cancellation-exception withtieoutornull
+tags: kotlin coroutine coroutine-exception-handler async cancellation-exception withtimeout job-cancellation-exception withtimeoutornull
 ---
 
 구조화된 동시성이라는 코루틴의 핵심 개념은 예외 전파 방식에 깊이 관여한다.  

@@ -269,7 +269,7 @@ Causal LM 은 GPT처럼 이전 단어들을 기반으로 다음 단어를 순차
 lora_config = LoraConfig(
     r=16,
     lora_alpha=32,
-    target_modules=["q_prog", "k_proj", "v_proj", "o_prog"],
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
     lora_dropout=0.05,
     task_type="CAUSAL_LM",
 )
@@ -291,7 +291,7 @@ lora_config = LoraConfig(
     - 너무 작으면: 파인튜닝 효과가 미미하다.
     - 너무 크면: 원본 모델의 지식을 덮어써 과적합(overfitting)이 발생할 수 있다.
   - 일반적으로 `lora_alpha`는 `r`값의 2배를 설정하는 것이 일반적이다.
-- `target_modules=["q_prog", "k_proj", "v_proj", "o_prog"]`
+- `target_modules=["q_proj", "k_proj", "v_proj", "o_proj"]`
   - **LoRA를 적용할 대상 레이어**를 지정한다. 이는 모델의 어느 부분을 집중적으로 튜닝할지 결정하는 설정이다.
     - 트랜스포머 모델의 [셀프 어텐션(Self-Attention)의 Q, K, V, O 프로젝션](https://assu10.github.io/dev/2025/10/10/ai-ml-llm-transformer-evolution/#32-%EC%85%80%ED%94%84-%EC%96%B4%ED%85%90%EC%85%98self-attention-%ED%8A%B8%EB%9E%9C%EC%8A%A4%ED%8F%AC%EB%A8%B8%EC%9D%98-%ED%95%B5%EC%8B%AC) 레이어들을 지정한다.
     - 이 핵심 모듈들만 튜닝해도 문맥을 이해하고 생성하는 방식을 효과적으로 변경할 수 있어, 메모리를 아끼면서도 높은 성능 향상을 기대할 수 있다.
@@ -371,7 +371,7 @@ training_args = TrainingArguments(
 )
 ```
 
-**output_dir="./Gemma-sft-outout"**  
+**output_dir="./Gemma-sft-output"**  
 학습된 모델 가중치, 로그, 체크포인트 등이 저장될 디렉터리를 지정한다.
 
 > **LoRA 학습 후 어떤 파일이 남나요?**
@@ -796,7 +796,7 @@ model = AutoModelForCausalLM.from_pretrained(
 lora_config = LoraConfig(
     r=16,
     lora_alpha=32,
-    target_modules=["q_prog", "k_proj", "v_proj", "o_prog"],
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
     lora_dropout=0.05,
     task_type="CAUSAL_LM",
 )

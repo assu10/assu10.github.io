@@ -75,7 +75,7 @@ assu@myserver01:~/work/ch10$ ls
 ex01  ex02  ex03
 assu@myserver01:~/work/ch10$ cd ex01
 assu@myserver01:~/work/ch10/ex01$ ls
-django-deploy.yml  django-ingress.yml  django-service.yml  myDajngo04  myNginx04
+django-deploy.yml  django-ingress.yml  django-service.yml  myDjango04  myNginx04
 assu@myserver01:~/work/ch10/ex01$ cp django-deploy.yml django-service.yml  ../ex03
 assu@myserver01:~/work/ch10/ex01$ cd ../ex03
 assu@myserver01:~/work/ch10/ex03$ ls
@@ -267,7 +267,7 @@ django-flask-ingress   nginx   *                 80      25s
 
 지금까지 진행한 내용의 전체 네트워크 흐름은 아래와 같다.
 
-![전체적인 네크워크 흐름](/assets/img/dev/2025/1230/flow.png)
+![전체적인 네트워크 흐름](/assets/img/dev/2025/1230/flow.png)
 
 - **Client Request**: 사용자가 */test01* 또는 */test02* 경로로 요청을 보낸다.
 - **Ingress Controller**: 요청 URL을 분석하여 규칙(Rule)에 정의된 서비스로 라우팅을 결정한다. 이 때 `Rewrite` 규칙이 적용되어 URL 접두사가 제거된다.
